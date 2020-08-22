@@ -1,5 +1,6 @@
 *.d.ts
 *.js
+!.eslintrc.js
 node_modules
 cdktf.out
 terraform.tfstate*
