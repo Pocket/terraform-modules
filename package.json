@@ -1,0 +1,39 @@
+{
+  "name": "terraform-modules",
+  "version": "1.0.0",
+  "main": "dist/src/main.js",
+  "types": "src/main.ts",
+  "license": "MPL-2.0",
+  "private": true,
+  "scripts": {
+    "get": "cdktf get",
+    "build": "npm run get && tsc",
+    "synth": "cdktf synth",
+    "compile": "tsc --pretty",
+    "watch": "tsc -w",
+    "test": "echo ok",
+    "upgrade": "npm i cdktf@latest cdktf-cli@latest",
+    "upgrade:next": "npm i cdktf@next cdktf-cli@next",
+    "lint-check": "eslint --fix-dry-run \"src/**/*.ts\"",
+    "lint-fix": "eslint --fix \"src/**/*.ts\""
+  },
+  "engines": {
+    "node": ">=10.12"
+  },
+  "dependencies": {
+    "cdktf": "0.0.16",
+    "constructs": "^3.0.4"
+  },
+  "devDependencies": {
+    "@types/node": "^14.6.0",
+    "cdktf-cli": "0.0.16",
+    "@typescript-eslint/eslint-plugin": "^2.34.0",
+    "@typescript-eslint/parser": "^2.34.0",
+    "typescript": "^3.9.6",
+    "eslint": "^7.6.0",
+    "prettier": "^2.0.5",
+    "typescript-eslint": "0.0.1-alpha.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-prettier": "^3.1.4"
+  }
+}

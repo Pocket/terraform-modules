@@ -1,0 +1,21 @@
+{
+  "title": [
+    {
+      "pattern": "^\\[(BACK|BACKEND|DEVOPS|SHIPIT|DEPBOT)-\\d{1,4}\\]:?\\s",
+      "flags": ["i"],
+      "message": "Your title needs to be prefixed with a JIRA ticket BACK|DEVOPS [BACK-1234]"
+    }
+  ],
+  "body": [
+    {
+      "pattern": ".+",
+      "message": "You need literally anything in your description"
+    }
+  ],
+  "assignee.login": [
+    {
+      "pattern": ".+",
+      "message": "You need to assign someone"
+    }
+  ]
+}
