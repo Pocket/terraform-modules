@@ -10,6 +10,7 @@ jobs:
       - uses: hashicorp/setup-terraform@v1
         with:
           terraform_version: 0.13.0
+          terraform_wrapper: false
       - uses: actions/setup-node@v1
         with:
           node-version: '14.x'
