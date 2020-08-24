@@ -1,4 +1,4 @@
-name: Node.js Package
+name: Build NPM Package
 
 #############################
 # Start the job on all push #
