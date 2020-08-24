@@ -1,9 +1,8 @@
 {
   "name": "terraform-modules",
-  "repository": "github:Pocket/terraform-modules",
   "version": "0.0.2",
   "main": "dist/src/main.js",
-  "types": "src/main.ts",
+  "types": "dist/src/main.ts",
   "license": "MPL-2.0",
   "scripts": {
     "get": "cdktf get",
