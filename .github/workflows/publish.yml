@@ -22,6 +22,7 @@ jobs:
           node-version: '14.x'
           registry-url: 'https://npm.pkg.github.com'
           scope: '@pocket'
+          GITHUB_TOKEN: ${{ secrets.CI_GITHUB_TOKEN }}
       - run: npm install
       - run: npm run get
       - run: npm run build
@@ -31,3 +32,4 @@ jobs:
           # We use a personal access token from pocket-ci because GITHUB_TOKEN does not have necessary permissions
           GITHUB_TOKEN: ${{ secrets.CI_GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.CI_GITHUB_TOKEN }}
+          NODE_AUTH_TOKEN: ${{secrets.CI_GITHUB_TOKEN}}
