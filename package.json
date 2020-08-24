@@ -1,8 +1,8 @@
 {
   "name": "@pocket/terraform-modules",
-  "version": "0.0.2",
+  "version": "0.0.0-development",
   "publishConfig": {
-    "registry":"https://npm.pkg.github.com/"
+    "registry": "https://npm.pkg.github.com/"
   },
   "main": "dist/src/main.js",
   "types": "dist/src/main.ts",
@@ -17,7 +17,19 @@
     "upgrade": "npm i cdktf@latest cdktf-cli@latest",
     "upgrade:next": "npm i cdktf@next cdktf-cli@next",
     "lint-check": "eslint --fix-dry-run \"src/**/*.ts\"",
-    "lint-fix": "eslint --fix \"src/**/*.ts\""
+    "lint-fix": "eslint --fix \"src/**/*.ts\"",
+    "semantic-release": "semantic-release"
+  },
+  "release": {
+    "branches": [
+      "main"
+    ],
+    "plugins": [
+      "@semantic-release/commit-analyzer",
+      "@semantic-release/release-notes-generator",
+      "@semantic-release/npm",
+      "@semantic-release/github"
+    ]
   },
   "engines": {
     "node": ">=10.12"
@@ -28,14 +40,19 @@
   },
   "devDependencies": {
     "@types/node": "^14.6.0",
-    "cdktf-cli": "0.0.16",
     "@typescript-eslint/eslint-plugin": "^2.34.0",
     "@typescript-eslint/parser": "^2.34.0",
-    "typescript": "^4.0.2",
+    "cdktf-cli": "0.0.16",
     "eslint": "^7.6.0",
-    "prettier": "^2.0.5",
-    "typescript-eslint": "0.0.1-alpha.0",
     "eslint-config-prettier": "^6.11.0",
-    "eslint-plugin-prettier": "^3.1.4"
+    "eslint-plugin-prettier": "^3.1.4",
+    "prettier": "^2.0.5",
+    "semantic-release": "^17.1.1",
+    "typescript": "^4.0.2",
+    "typescript-eslint": "0.0.1-alpha.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Pocket/terraform-modules.git"
   }
 }

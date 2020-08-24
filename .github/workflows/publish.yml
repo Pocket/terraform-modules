@@ -19,6 +19,9 @@ jobs:
       - run: npm install
       - run: npm run get
       - run: npm run build
-      - run: npm publish
+      - name: Semantic Release
+        uses: cycjimmy/semantic-release-action@v2
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # We use a personal access token from pocket-ci because GITHUB_TOKEN does not have necessary permissions
+          GITHUB_TOKEN: ${{ secrets.CI_GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.CI_GITHUB_TOKEN }}
