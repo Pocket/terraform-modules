@@ -1,5 +1,5 @@
 {
-  "name": "terraform-modules",
+  "name": "@Pocket/terraform-modules",
   "version": "0.0.2",
   "main": "dist/src/main.js",
   "types": "dist/src/main.ts",
