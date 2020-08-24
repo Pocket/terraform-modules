@@ -19,7 +19,7 @@ jobs:
         with:
           node-version: '14.x'
       - run: npm install
-      - run: npm run get
+#      - run: npm run get
       - run: npm run build
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
