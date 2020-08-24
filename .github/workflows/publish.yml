@@ -15,7 +15,7 @@ jobs:
         with:
           node-version: '14.x'
           registry-url: 'https://npm.pkg.github.com'
-          scope: '@Pocket'
+          scope: '@pocket'
       - run: npm install
       - run: npm run get
       - run: npm run build
