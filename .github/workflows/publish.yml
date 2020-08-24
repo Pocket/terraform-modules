@@ -12,10 +12,6 @@ jobs:
           node-version: '14.x'
           registry-url: 'https://npm.pkg.github.com'
           scope: '@Pocket'
-      - name: Authenticate with GitHub package registry
-        run:
-          echo "//npm.pkg.github.com:_authToken=${{ secrets.GITHUB_TOKEN }}" >
-          ~/.npmrc
       - run: npm install
       - run: npm build
       - run: npm publish

@@ -1,6 +1,9 @@
 {
-  "name": "@Pocket/terraform-modules",
+  "name": "@pocket/terraform-modules",
   "version": "0.0.2",
+  "publishConfig": {
+    "registry":"https://npm.pkg.github.com/"
+  },
   "main": "dist/src/main.js",
   "types": "dist/src/main.ts",
   "license": "MPL-2.0",
