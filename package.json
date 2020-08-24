@@ -1,5 +1,6 @@
 {
   "name": "terraform-modules",
+  "repository": "github:Pocket/terraform-modules",
   "version": "1.0.0",
   "main": "dist/src/main.js",
   "types": "src/main.ts",

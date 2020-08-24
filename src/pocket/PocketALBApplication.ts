@@ -13,7 +13,7 @@ export interface PocketALBApplicationProps {
   prefix: string;
   alb6CharacterPrefix: string;
   internal?: boolean;
-  rootDomain: string;
+  rootDomain: string; //TODO: Parse out the root domain.
   domain: string;
   cdn?: boolean;
   tags?: { [key: string]: string };
