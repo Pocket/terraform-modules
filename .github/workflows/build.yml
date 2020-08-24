@@ -1,7 +1,12 @@
 name: Node.js Package
+
+#############################
+# Start the job on all push #
+#############################
 on:
-  release:
-    types: [created]
+  push:
+    branches-ignore:
+      - 'main'
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -13,11 +18,8 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: '14.x'
-          registry-url: 'https://npm.pkg.github.com'
-          scope: '@Pocket'
       - run: npm install
       - run: npm run get
       - run: npm run build
-      - run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
