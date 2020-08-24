@@ -21,5 +21,6 @@
     {
       "pattern": "^(project|build|docs|feat|fix|refactor|test|chore)/",
       "message": "Your branch name must be formated as `<type>/` where type is: project|build|docs|feat|fix|refactor|test|chore"
-    },
+    }
+  ]
 }
