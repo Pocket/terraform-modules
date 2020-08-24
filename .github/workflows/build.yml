@@ -16,7 +16,7 @@ jobs:
         with:
           terraform_version: 0.13.0
           terraform_wrapper: false
-      - uses: actions/setup-node@v1
+      - uses: actions/setup-node@v2.1.1
         with:
           node-version: '14.x'
       - run: npm install
