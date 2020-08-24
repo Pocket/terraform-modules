@@ -1,9 +1,8 @@
 {
   "title": [
     {
-      "pattern": "^\\[(BACK|BACKEND|DEVOPS|SHIPIT|DEPBOT)-\\d{1,4}\\]:?\\s",
-      "flags": ["i"],
-      "message": "Your title needs to be prefixed with a JIRA ticket BACK|DEVOPS [BACK-1234]"
+      "pattern": "^(build|docs|feat|fix|refactor|test|chore).{1,}",
+      "message": "Your title needs to be prefixed with on of the following types: build|docs|feat|fix|refactor|test|chore this is for semantic release bot"
     }
   ],
   "body": [
@@ -17,5 +16,10 @@
       "pattern": ".+",
       "message": "You need to assign someone"
     }
-  ]
+  ],
+  "head.ref": [
+    {
+      "pattern": "^(project|build|docs|feat|fix|refactor|test|chore)/",
+      "message": "Your branch name must be formated as `<type>/` where type is: project|build|docs|feat|fix|refactor|test|chore"
+    },
 }
