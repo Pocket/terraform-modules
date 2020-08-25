@@ -5,10 +5,10 @@ import {
   Route53Zone,
 } from '../../.gen/providers/aws';
 import { Construct } from 'constructs';
+import { getRootDomain } from '../utilities';
 
 export interface RootDNSProps {
   domain: string;
-  rootDomain: string;
   tags?: { [key: string]: string };
 }
 
@@ -22,7 +22,7 @@ export class ApplicationBaseDNS extends Resource {
       scope,
       `${name}_main_hosted_zone`,
       {
-        name: config.rootDomain,
+        name: getRootDomain(config.domain),
         tags: config.tags,
       }
     );

@@ -26,7 +26,6 @@ class Example extends TerraformStack {
       alb6CharacterPrefix: 'CORP',
       internal: false,
       domain: 'test.acme.com',
-      rootDomain: 'acme.com',
       prefix: 'Example-',
     });
   }

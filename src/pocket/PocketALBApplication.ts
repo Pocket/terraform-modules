@@ -13,7 +13,6 @@ export interface PocketALBApplicationProps {
   prefix: string;
   alb6CharacterPrefix: string;
   internal?: boolean;
-  rootDomain: string; //TODO: Parse out the root domain.
   domain: string;
   cdn?: boolean;
   tags?: { [key: string]: string };
@@ -36,7 +35,6 @@ export class PocketALBApplication extends Resource {
 
     //Setup the Base DNS stack for our application which includes a hosted SubZone
     this.baseDNS = new ApplicationBaseDNS(this, `${name}_base_dns`, {
-      rootDomain: config.rootDomain,
       domain: config.domain,
       tags: config.tags,
     });
