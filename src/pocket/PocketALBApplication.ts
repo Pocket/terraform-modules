@@ -30,19 +30,7 @@ export class PocketALBApplication extends Resource {
   ) {
     super(scope, name);
 
-    if (config.cdn === undefined) {
-      //Set a default of cached to false
-      config.cdn = false;
-    }
-
-    if (config.internal === undefined) {
-      //Set a default of internal to false
-      config.internal = false;
-    }
-
-    if (config.internal && config.cdn) {
-      throw Error('You can not have a cached ALB and have it be internal.');
-    }
+    config = PocketALBApplication.validateConfig(config);
 
     const pocketVPC = new PocketVPC(this, `${name}_pocket_vpc`);
 
@@ -211,5 +199,25 @@ export class PocketALBApplication extends Resource {
         },
       });
     }
+  }
+
+  private static validateConfig(
+    config: PocketALBApplicationProps
+  ): PocketALBApplicationProps {
+    if (config.cdn === undefined) {
+      //Set a default of cached to false
+      config.cdn = false;
+    }
+
+    if (config.internal === undefined) {
+      //Set a default of internal to false
+      config.internal = false;
+    }
+
+    if (config.internal && config.cdn) {
+      throw Error('You can not have a cached ALB and have it be internal.');
+    }
+
+    return config;
   }
 }
