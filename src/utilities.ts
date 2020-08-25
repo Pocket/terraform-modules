@@ -1,5 +1,9 @@
 import { parseDomain, ParseResultListed, ParseResultType } from 'parse-domain';
 
+/**
+ * Takes a domain like test.getpocket.com and returns the root level domain (getpocket.com)
+ * @param inputDomain
+ */
 export const getRootDomain = (inputDomain: string): string => {
   const parseResult = parseDomain(inputDomain);
 
