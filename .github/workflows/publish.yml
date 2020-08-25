@@ -26,6 +26,7 @@ jobs:
       - run: npm install
       - run: npm run get
       - run: npm run build
+      - run: npm run test
       - name: Semantic Release
         uses: cycjimmy/semantic-release-action@v2
         env:
