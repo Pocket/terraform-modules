@@ -5,3 +5,6 @@ src
 .idea
 .editorconfig
 .eslintrc.js
+.prettier*
+cdktf.json
+tsconfig.json
