@@ -39,8 +39,54 @@ export class PocketALBApplication extends Resource {
       tags: config.tags,
     });
 
+    const { alb, albRecord } = this.createALB(name, config, pocketVPC);
+    this.alb = alb;
+
+    if (config.cdn) {
+      this.createCDN(name, config, albRecord);
+    }
+  }
+
+  /**
+   * Validate the Configuration
+   *
+   * @param config
+   * @private
+   */
+  private static validateConfig(
+    config: PocketALBApplicationProps
+  ): PocketALBApplicationProps {
+    if (config.cdn === undefined) {
+      //Set a default of cached to false
+      config.cdn = false;
+    }
+
+    if (config.internal === undefined) {
+      //Set a default of internal to false
+      config.internal = false;
+    }
+
+    if (config.internal && config.cdn) {
+      throw Error('You can not have a cached ALB and have it be internal.');
+    }
+
+    return config;
+  }
+
+  /**
+   * Creates the ALB stack and certificates
+   * @param name
+   * @param config
+   * @param pocketVPC
+   * @private
+   */
+  private createALB(
+    name: string,
+    config: PocketALBApplicationProps,
+    pocketVPC: PocketVPC
+  ): { alb: ApplicationLoadBalancer; albRecord: Route53Record } {
     //Create our application Load Balancer
-    this.alb = new ApplicationLoadBalancer(
+    const alb = new ApplicationLoadBalancer(
       this,
       `${name}_application_load_balancer`,
       {
@@ -55,12 +101,11 @@ export class PocketALBApplication extends Resource {
       }
     );
 
-    const mainAppDomain = config.domain;
-    let albDomainName = mainAppDomain;
+    let albDomainName = config.domain;
     if (config.cdn) {
       //When the app uses a CDN we set the ALB to be direct.app-domain
       //Then the CDN is our main app.
-      albDomainName = `direct.${mainAppDomain}`;
+      albDomainName = `direct.${albDomainName}`;
     }
 
     //Sets up the record for the ALB.
@@ -92,130 +137,124 @@ export class PocketALBApplication extends Resource {
       tags: config.tags,
     });
 
-    if (config.cdn) {
-      //Create the certificate for the CDN
-      const cdnCertificate = new ApplicationCertificate(
-        this,
-        `${name}_cdn_certificate`,
-        {
-          zoneId: this.baseDNS.zoneId,
-          domain: mainAppDomain,
-          tags: config.tags,
-        }
-      );
-
-      //Create the CDN
-      const cdn = new CloudfrontDistribution(
-        this,
-        `${name}_cloudfront_distribution`,
-        {
-          comment: `CDN for direct.${config.domain}`,
-          enabled: true,
-          aliases: [mainAppDomain],
-          priceClass: 'PriceClass_200',
-          tags: config.tags,
-          origin: [
-            {
-              domainName: albRecord.fqdn,
-              originId: 'Alb',
-              customOriginConfig: [
-                {
-                  httpPort: 80,
-                  httpsPort: 443,
-                  originProtocolPolicy: 'https-only',
-                  originSslProtocols: ['TLSv1.1', 'TLSv1.2'],
-                },
-              ],
-            },
-          ],
-          defaultCacheBehavior: [
-            {
-              targetOriginId: 'Alb',
-              viewerProtocolPolicy: 'redirect-to-https',
-              compress: true,
-              allowedMethods: [
-                'GET',
-                'HEAD',
-                'OPTIONS',
-                'PUT',
-                'POST',
-                'PATCH',
-                'DELETE',
-              ],
-              cachedMethods: ['GET', 'HEAD', 'OPTIONS'],
-              forwardedValues: [
-                {
-                  queryString: true,
-                  headers: ['Accept', 'Origin', 'Authorization'], //This is important for apollo because it serves different responses based on this
-                  cookies: [
-                    {
-                      forward: 'none',
-                    },
-                  ],
-                },
-              ],
-            },
-          ],
-          viewerCertificate: [
-            {
-              acmCertificateArn: cdnCertificate.arn,
-              sslSupportMethod: 'sni-only',
-              minimumProtocolVersion: 'TLSv1.1_2016',
-            },
-          ],
-          restrictions: [
-            {
-              geoRestriction: [
-                {
-                  restrictionType: 'none',
-                },
-              ],
-            },
-          ],
-        }
-      );
-
-      //When cached the CDN must point to the Load Balancer
-      new Route53Record(this, `${name}_cdn_record`, {
-        name: mainAppDomain,
-        type: 'A',
-        zoneId: this.baseDNS.zoneId,
-        weightedRoutingPolicy: [
-          {
-            weight: 1,
-          },
-        ],
-        alias: [
-          {
-            name: cdn.domainName,
-            zoneId: cdn.hostedZoneId,
-            evaluateTargetHealth: true,
-          },
-        ],
-        lifecycle: {
-          ignoreChanges: ['weighted_routing_policy[0].weight'],
-        },
-      });
-    }
+    return { alb, albRecord };
   }
 
-  private static validateConfig(
-    config: PocketALBApplicationProps
-  ): PocketALBApplicationProps {
-    if (config.cdn === undefined) {
-      //Set a default of cached to false
-      config.cdn = false;
-    }
+  /**
+   * Create the CDN if the ALB is backed by one.
+   *
+   * @param name
+   * @param config
+   * @param albRecord
+   * @private
+   */
+  private createCDN(
+    name: string,
+    config: PocketALBApplicationProps,
+    albRecord: Route53Record
+  ): void {
+    //Create the certificate for the CDN
+    const cdnCertificate = new ApplicationCertificate(
+      this,
+      `${name}_cdn_certificate`,
+      {
+        zoneId: this.baseDNS.zoneId,
+        domain: config.domain,
+        tags: config.tags,
+      }
+    );
 
-    if (config.internal === undefined) {
-      //Set a default of internal to false
-      config.internal = false;
-    }
+    //Create the CDN
+    const cdn = new CloudfrontDistribution(
+      this,
+      `${name}_cloudfront_distribution`,
+      {
+        comment: `CDN for direct.${config.domain}`,
+        enabled: true,
+        aliases: [config.domain],
+        priceClass: 'PriceClass_200',
+        tags: config.tags,
+        origin: [
+          {
+            domainName: albRecord.fqdn,
+            originId: 'Alb',
+            customOriginConfig: [
+              {
+                httpPort: 80,
+                httpsPort: 443,
+                originProtocolPolicy: 'https-only',
+                originSslProtocols: ['TLSv1.1', 'TLSv1.2'],
+              },
+            ],
+          },
+        ],
+        defaultCacheBehavior: [
+          {
+            targetOriginId: 'Alb',
+            viewerProtocolPolicy: 'redirect-to-https',
+            compress: true,
+            allowedMethods: [
+              'GET',
+              'HEAD',
+              'OPTIONS',
+              'PUT',
+              'POST',
+              'PATCH',
+              'DELETE',
+            ],
+            cachedMethods: ['GET', 'HEAD', 'OPTIONS'],
+            forwardedValues: [
+              {
+                queryString: true,
+                headers: ['Accept', 'Origin', 'Authorization'], //This is important for apollo because it serves different responses based on this
+                cookies: [
+                  {
+                    forward: 'none',
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+        viewerCertificate: [
+          {
+            acmCertificateArn: cdnCertificate.arn,
+            sslSupportMethod: 'sni-only',
+            minimumProtocolVersion: 'TLSv1.1_2016',
+          },
+        ],
+        restrictions: [
+          {
+            geoRestriction: [
+              {
+                restrictionType: 'none',
+              },
+            ],
+          },
+        ],
+      }
+    );
 
-    if (config.internal && config.cdn) {
-      throw Error('You can not have a cached ALB and have it be internal.');
-    }
-
-    return config;
+    //When cached the CDN must point to the Load Balancer
+    new Route53Record(this, `${name}_cdn_record`, {
+      name: config.domain,
+      type: 'A',
+      zoneId: this.baseDNS.zoneId,
+      weightedRoutingPolicy: [
+        {
+          weight: 1,
+        },
+      ],
+      alias: [
+        {
+          name: cdn.domainName,
+          zoneId: cdn.hostedZoneId,
+          evaluateTargetHealth: true,
+        },
+      ],
+      lifecycle: {
+        ignoreChanges: ['weighted_routing_policy[0].weight'],
+      },
+    });
   }
 }
