@@ -120,8 +120,8 @@ export class PocketALBApplication extends Resource {
       ],
       alias: [
         {
-          name: this.alb.alb.dnsName,
-          zoneId: this.alb.alb.zoneId,
+          name: alb.alb.dnsName,
+          zoneId: alb.alb.zoneId,
           evaluateTargetHealth: true,
         },
       ],
