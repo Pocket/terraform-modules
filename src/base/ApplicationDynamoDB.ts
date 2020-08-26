@@ -11,12 +11,16 @@ import {
 } from '../../.gen/providers/aws';
 import { Construct } from 'constructs';
 
+/**
+ * Enum to determine the capacity type for autoscaling
+ */
 export enum ApplicationDynamoDBCapacityType {
   Read = 'ReadCapacity',
   Write = 'WriteCapacity',
 }
 
 export interface ApplicationDynamoDBAutoScaleProps {
+  /** what */
   tracking: number;
   max: number;
   min: number;
