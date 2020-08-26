@@ -103,7 +103,7 @@ export class ApplicationRDSCluster extends Resource {
       config.rdsConfig.engine == 'mysql'
     ) {
       //If the engine is mysql or aurora (mysql compatible) then create a secret rotator that we can manually run after terraform creation
-      const { secretARN } = this.createMySqlSecretRotator(
+      const { secretARN } = ApplicationRDSCluster.createMySqlSecretRotator(
         scope,
         name,
         this.rds,
@@ -128,7 +128,7 @@ export class ApplicationRDSCluster extends Resource {
    * @param tags
    * @private
    */
-  private createMySqlSecretRotator(
+  private static createMySqlSecretRotator(
     scope: Construct,
     name: string,
     rds: RdsCluster,
