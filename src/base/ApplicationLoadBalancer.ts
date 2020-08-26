@@ -37,12 +37,24 @@ export class ApplicationLoadBalancer extends Resource {
             toPort: 443,
             protocol: 'TCP',
             cidrBlocks: ['0.0.0.0/0'],
+            // the following are included due to a bug
+            // https://github.com/hashicorp/terraform-cdk/issues/223
+            description: null,
+            ipv6CidrBlocks: null,
+            prefixListIds: null,
+            securityGroups: null,
           },
           {
             fromPort: 80,
             toPort: 80,
             protocol: 'TCP',
             cidrBlocks: ['0.0.0.0/0'],
+            // the following are included due to a bug
+            // https://github.com/hashicorp/terraform-cdk/issues/223
+            description: null,
+            ipv6CidrBlocks: null,
+            prefixListIds: null,
+            securityGroups: null,
           },
         ],
         egress: [
@@ -50,6 +62,13 @@ export class ApplicationLoadBalancer extends Resource {
             fromPort: 80,
             toPort: 80,
             cidrBlocks: ['0.0.0.0/0'],
+            // the following are included due to a bug
+            // https://github.com/hashicorp/terraform-cdk/issues/223
+            description: null,
+            ipv6CidrBlocks: null,
+            prefixListIds: null,
+            protocol: null,
+            securityGroups: null,
           },
         ],
         tags: {
