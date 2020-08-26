@@ -39,7 +39,12 @@ export interface ApplicationRDSClusterConfig extends RdsClusterConfig {
 }
 
 /**
- * Generates a rds instance
+ * Generates a rds cluster
+ *
+ * The database will be intialized with a random password.
+ *
+ * If the database is aurua or mysql, a SecretsManager secret will be created with a rotation lambda
+ * that you can invoke in the AWS console after creation to rotate the password
  */
 export class ApplicationRDSCluster extends Resource {
   public readonly rds: RdsCluster;
@@ -112,6 +117,7 @@ export class ApplicationRDSCluster extends Resource {
   }
 
   /**
+   * Create a lambda that will rotate the master password of the database on demand
    *
    * @param scope
    * @param name
