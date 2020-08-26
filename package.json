@@ -39,6 +39,7 @@
   "dependencies": {
     "cdktf": "0.0.16",
     "constructs": "^3.0.4",
+    "crypto-random-string": "^3.2.0",
     "parse-domain": "^3.0.2"
   },
   "devDependencies": {
