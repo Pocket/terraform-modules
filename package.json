@@ -4,8 +4,8 @@
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/"
   },
-  "main": "dist/src/main.js",
-  "types": "dist/src/main.ts",
+  "main": "dist/src/index.js",
+  "types": "dist/src/index.d.ts",
   "license": "MPL-2.0",
   "scripts": {
     "get": "cdktf get",

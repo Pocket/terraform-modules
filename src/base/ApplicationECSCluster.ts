@@ -10,7 +10,7 @@ export interface ApplicationECSClusterProps {
 /**
  * Generates an Application Certificate given a domain name and zoneId
  */
-export class ApplicationLoadBalancer extends Resource {
+export class ApplicationECSCluster extends Resource {
   public readonly cluster: EcsCluster;
 
   constructor(

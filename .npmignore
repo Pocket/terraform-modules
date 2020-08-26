@@ -8,3 +8,4 @@ src
 .prettier*
 cdktf.json
 tsconfig.json
+example.ts
