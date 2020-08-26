@@ -76,6 +76,12 @@ export class ApplicationRDSCluster extends Resource {
           toPort: 3306,
           protocol: 'tcp',
           cidrBlocks: [vpc.cidrBlock],
+          // the following are included due to a bug
+          // https://github.com/hashicorp/terraform-cdk/issues/223
+          description: null,
+          ipv6CidrBlocks: null,
+          prefixListIds: null,
+          securityGroups: null,
         },
       ],
     });
