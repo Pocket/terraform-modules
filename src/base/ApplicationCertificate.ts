@@ -56,7 +56,7 @@ export class ApplicationCertificate extends Resource {
         name: certificate.domainValidationOptions('0').resourceRecordName,
         type: certificate.domainValidationOptions('0').resourceRecordType,
         zoneId: config.zoneId,
-        records: [certificate.domainValidationOptions('0').resourceRecordValue],
+        records: [],
         ttl: 60,
         dependsOn: [certificate],
       }
