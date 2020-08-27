@@ -37,24 +37,12 @@ export class ApplicationLoadBalancer extends Resource {
             toPort: 443,
             protocol: 'TCP',
             cidrBlocks: ['0.0.0.0/0'],
-            // the following are included due to a bug
-            // https://github.com/hashicorp/terraform-cdk/issues/223
-            description: null,
-            ipv6CidrBlocks: null,
-            prefixListIds: null,
-            securityGroups: null,
           },
           {
             fromPort: 80,
             toPort: 80,
             protocol: 'TCP',
             cidrBlocks: ['0.0.0.0/0'],
-            // the following are included due to a bug
-            // https://github.com/hashicorp/terraform-cdk/issues/223
-            description: null,
-            ipv6CidrBlocks: null,
-            prefixListIds: null,
-            securityGroups: null,
           },
         ],
         egress: [
@@ -62,13 +50,6 @@ export class ApplicationLoadBalancer extends Resource {
             fromPort: 80,
             toPort: 80,
             cidrBlocks: ['0.0.0.0/0'],
-            // the following are included due to a bug
-            // https://github.com/hashicorp/terraform-cdk/issues/223
-            description: null,
-            ipv6CidrBlocks: null,
-            prefixListIds: null,
-            protocol: null,
-            securityGroups: null,
           },
         ],
         tags: {
@@ -77,6 +58,24 @@ export class ApplicationLoadBalancer extends Resource {
         },
       }
     );
+
+    // the following are included due to a bug
+    // https://github.com/hashicorp/terraform-cdk/issues/223
+    ingressSecurityGroup.addOverride('ingress.0.description', null);
+    ingressSecurityGroup.addOverride('ingress.0.ipv6CidrBlocks', null);
+    ingressSecurityGroup.addOverride('ingress.0.prefixListIds', null);
+    ingressSecurityGroup.addOverride('ingress.0.securityGroups', null);
+
+    ingressSecurityGroup.addOverride('ingress.1.description', null);
+    ingressSecurityGroup.addOverride('ingress.1.ipv6CidrBlocks', null);
+    ingressSecurityGroup.addOverride('ingress.1.prefixListIds', null);
+    ingressSecurityGroup.addOverride('ingress.1.securityGroups', null);
+
+    ingressSecurityGroup.addOverride('egress.0.description', null);
+    ingressSecurityGroup.addOverride('egress.0.ipv6CidrBlocks', null);
+    ingressSecurityGroup.addOverride('egress.0.prefixListIds', null);
+    ingressSecurityGroup.addOverride('egress.0.protocol', null);
+    ingressSecurityGroup.addOverride('egress.0.securityGroups', null);
 
     this.alb = new Alb(scope, `${name}_alb`, {
       namePrefix: config.alb6CharacterPrefix,
