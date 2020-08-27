@@ -10,7 +10,6 @@ import { Construct } from 'constructs';
 
 export interface ApplicationCertificateProps {
   domain: string;
-  route53Provider: AwsProvider;
   /**
    * If zoneId is not passed then we use a data block and the zoneDomain to grab it.
    */
@@ -45,7 +44,6 @@ export class ApplicationCertificate extends Resource {
       domainName: config.domain,
       validationMethod: 'DNS',
       tags: config.tags,
-      provider: config.route53Provider,
       lifecycle: {
         createBeforeDestroy: true,
       },
@@ -64,11 +62,9 @@ export class ApplicationCertificate extends Resource {
       }
     );
 
-    console.log(certificate.id);
-    console.log(certificate.fqn);
-
-    // you so ugly!
-    // this appears to be an aws / cdk versioning mismatch
+    // there appears to be an aws / cdk versioning mismatch .the above references to
+    // certificate.domainValidationOptions fail due to aws using a set instead of a list
+    // (but cdk doesn't know this yet). so, we force it.
     certificateRecord.addOverride(
       'name',
       `tolist(aws_acm_certificate.${certificate.id}.domain_validation_options)[0].resource_record_name`
@@ -79,10 +75,9 @@ export class ApplicationCertificate extends Resource {
       `tolist(aws_acm_certificate.${certificate.id}.domain_validation_options)[0].resource_record_type`
     );
 
-    certificateRecord.addOverride(
-      'records',
-      `[tolist(aws_acm_certificate.${certificate.id}.domain_validation_options)[0].resource_record_value]`
-    );
+    certificateRecord.addOverride('records', [
+      `tolist(aws_acm_certificate.${certificate.id}.domain_validation_options)[0].resource_record_value`,
+    ]);
 
     new AcmCertificateValidation(scope, `${name}_certificate_validation`, {
       certificateArn: certificate.arn,

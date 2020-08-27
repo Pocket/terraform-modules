@@ -40,22 +40,11 @@ export class PocketALBApplication extends Resource {
       tags: config.tags,
     });
 
-    // set up a route53 provider
-    const route53Provider = new AwsProvider(this, 'aws.route53', {
-      region: 'us-east-1',
-      alias: 'route53',
-    });
-
-    const { alb, albRecord } = this.createALB(
-      name,
-      config,
-      pocketVPC,
-      route53Provider
-    );
+    const { alb, albRecord } = this.createALB(name, config, pocketVPC);
     this.alb = alb;
 
     if (config.cdn) {
-      this.createCDN(name, config, albRecord, route53Provider);
+      this.createCDN(name, config, albRecord);
     }
   }
 
@@ -95,8 +84,7 @@ export class PocketALBApplication extends Resource {
   private createALB(
     name: string,
     config: PocketALBApplicationProps,
-    pocketVPC: PocketVPC,
-    route53Provider: AwsProvider
+    pocketVPC: PocketVPC
   ): { alb: ApplicationLoadBalancer; albRecord: Route53Record } {
     //Create our application Load Balancer
     const alb = new ApplicationLoadBalancer(
@@ -149,7 +137,6 @@ export class PocketALBApplication extends Resource {
       zoneId: this.baseDNS.zoneId,
       domain: albDomainName,
       tags: config.tags,
-      route53Provider,
     });
 
     return { alb, albRecord };
@@ -166,8 +153,7 @@ export class PocketALBApplication extends Resource {
   private createCDN(
     name: string,
     config: PocketALBApplicationProps,
-    albRecord: Route53Record,
-    route53Provider: AwsProvider
+    albRecord: Route53Record
   ): void {
     //Create the certificate for the CDN
     const cdnCertificate = new ApplicationCertificate(
@@ -177,7 +163,6 @@ export class PocketALBApplication extends Resource {
         zoneId: this.baseDNS.zoneId,
         domain: config.domain,
         tags: config.tags,
-        route53Provider,
       }
     );
 
