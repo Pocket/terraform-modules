@@ -3,7 +3,6 @@ import {
   DataAwsIamPolicyDocument,
   DataAwsVpc,
   DbSubnetGroup,
-  DynamodbTableConfig,
   IamPolicy,
   IamRole,
   IamRolePolicyAttachment,

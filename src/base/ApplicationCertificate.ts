@@ -4,7 +4,6 @@ import {
   AcmCertificate,
   Route53Record,
   AcmCertificateValidation,
-  AwsProvider,
 } from '../../.gen/providers/aws';
 import { Construct } from 'constructs';
 

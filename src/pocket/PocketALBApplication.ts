@@ -2,12 +2,11 @@ import { Resource } from 'cdktf';
 import {
   CloudfrontDistribution,
   Route53Record,
-  AwsProvider,
 } from '../../.gen/providers/aws';
 import { Construct } from 'constructs';
-import { ApplicationBaseDNS } from '../base/ApplicationBaseDNS';
-import { ApplicationCertificate } from '../base/ApplicationCertificate';
-import { ApplicationLoadBalancer } from '../base/ApplicationLoadBalancer';
+import { ApplicationBaseDNS } from '..';
+import { ApplicationCertificate } from '..';
+import { ApplicationLoadBalancer } from '..';
 import { PocketVPC } from './PocketVPC';
 
 export interface PocketALBApplicationProps {

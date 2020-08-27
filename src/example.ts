@@ -11,11 +11,6 @@ class Example extends TerraformStack {
       region: 'us-east-1',
     });
 
-    const route53Provider = new AwsProvider(this, 'aws.route53', {
-      region: 'us-east-1',
-      alias: 'route53',
-    });
-
     new RemoteBackend(this, {
       hostname: 'app.terraform.io',
       organization: 'Acme',

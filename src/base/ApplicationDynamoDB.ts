@@ -97,7 +97,7 @@ export class ApplicationDynamoDB extends Resource {
     config: ApplicationDynamoDBAutoScaleProps,
     dynamoDB: DynamodbTable,
     capacityType: ApplicationDynamoDBCapacityType
-  ) {
+  ): void {
     const targetTracking = new AppautoscalingTarget(
       this,
       `${name}_${capacityType}_target`,
