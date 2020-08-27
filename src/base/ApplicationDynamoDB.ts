@@ -26,11 +26,10 @@ export interface ApplicationDynamoDBAutoScaleProps {
 }
 
 //Override the default dynamo config but remove the items that we set ourselves.
-export interface ApplicationDynamoDBConfig extends DynamodbTableConfig {
-  name: never;
-  tags: never;
-  lifecycle: never;
-}
+export type ApplicationDynamoDBConfig = Omit<
+  DynamodbTableConfig,
+  'name' | 'tags' | 'lifecycle'
+>;
 
 export interface ApplicationDynamoDBProps {
   tags?: { [key: string]: string };
@@ -63,8 +62,7 @@ export class ApplicationDynamoDB extends Resource {
     });
 
     if (config.readCapacity) {
-      ApplicationDynamoDB.setupAutoscaling(
-        scope,
+      this.setupAutoscaling(
         name,
         config.prefix,
         config.readCapacity,
@@ -74,8 +72,7 @@ export class ApplicationDynamoDB extends Resource {
     }
 
     if (config.writeCapacity) {
-      ApplicationDynamoDB.setupAutoscaling(
-        scope,
+      this.setupAutoscaling(
         name,
         config.prefix,
         config.writeCapacity,
@@ -87,7 +84,6 @@ export class ApplicationDynamoDB extends Resource {
 
   /**
    * Sets up autoscaling for dynamodb on a write or read target
-   * @param scope
    * @param name
    * @param prefix
    * @param config
@@ -95,8 +91,7 @@ export class ApplicationDynamoDB extends Resource {
    * @param capacityType
    * @private
    */
-  private static setupAutoscaling(
-    scope,
+  private setupAutoscaling(
     name,
     prefix,
     config: ApplicationDynamoDBAutoScaleProps,
@@ -104,7 +99,7 @@ export class ApplicationDynamoDB extends Resource {
     capacityType: ApplicationDynamoDBCapacityType
   ) {
     const targetTracking = new AppautoscalingTarget(
-      scope,
+      this,
       `${name}_${capacityType}_target`,
       {
         maxCapacity: config.max,
@@ -112,7 +107,6 @@ export class ApplicationDynamoDB extends Resource {
         resourceId: `table/${dynamoDB.name}`,
         scalableDimension: `dynamodb:table:${capacityType}Units`,
         roleArn: this.createAutoScalingRole(
-          scope,
           name,
           capacityType,
           prefix,
@@ -122,7 +116,7 @@ export class ApplicationDynamoDB extends Resource {
       }
     );
 
-    new AppautoscalingPolicy(scope, `${name}_${capacityType}_policy`, {
+    new AppautoscalingPolicy(this, `${name}_${capacityType}_policy`, {
       name: `DynamoDB${capacityType}Utilization:${targetTracking.resourceId}`,
       policyType: 'TargetTrackingScaling',
       resourceId: targetTracking.resourceId,
@@ -143,27 +137,25 @@ export class ApplicationDynamoDB extends Resource {
 
   /**
    * Creates the autoscaling role necessary for DynamoDB
-   * @param scope
    * @param name
    * @param capacityType
    * @param prefix
    * @param dynamoDBARN
    * @private
    */
-  private static createAutoScalingRole(
-    scope: Construct,
+  private createAutoScalingRole(
     name: string,
     capacityType: ApplicationDynamoDBCapacityType,
     prefix: string,
     dynamoDBARN: string
   ): string {
     const policy = new IamPolicy(
-      scope,
+      this,
       `${name}_${capacityType}_autoscaling_policy`,
       {
         name: `${prefix}-${capacityType}-AutoScalingPolicy`,
         policy: new DataAwsIamPolicyDocument(
-          scope,
+          this,
           `${name}_${capacityType}_policy_document`,
           {
             statement: [
@@ -187,10 +179,10 @@ export class ApplicationDynamoDB extends Resource {
       }
     );
 
-    const role = new IamRole(scope, `${name}_${capacityType}_role`, {
+    const role = new IamRole(this, `${name}_${capacityType}_role`, {
       name: `${prefix}-${capacityType}-AutoScalingRole`,
       assumeRolePolicy: new DataAwsIamPolicyDocument(
-        scope,
+        this,
         `${name}_${capacityType}_assume_role_policy_document`,
         {
           statement: [
@@ -211,7 +203,7 @@ export class ApplicationDynamoDB extends Resource {
     });
 
     new IamRolePolicyAttachment(
-      scope,
+      this,
       `${name}_${capacityType}_role_attachment`,
       {
         policyArn: policy.arn,

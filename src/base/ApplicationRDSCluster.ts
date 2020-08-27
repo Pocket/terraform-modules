@@ -3,6 +3,7 @@ import {
   DataAwsIamPolicyDocument,
   DataAwsVpc,
   DbSubnetGroup,
+  DynamodbTableConfig,
   IamPolicy,
   IamRole,
   IamRolePolicyAttachment,
@@ -28,15 +29,16 @@ export interface ApplicationRDSClusterProps {
 }
 
 //Override the default rds config but remove the items that we set ourselves.
-export interface ApplicationRDSClusterConfig extends RdsClusterConfig {
-  clusterIdentifierPrefix: never;
-  vpcSecurityGroupIds: never;
-  dbSubnetGroupName: never;
-  masterPassword: never;
-  copyTagsToSnapshot: never;
-  tags: never;
-  lifecycle: never;
-}
+export type ApplicationRDSClusterConfig = Omit<
+  RdsClusterConfig,
+  | 'clusterIdentifierPrefix'
+  | 'vpcSecurityGroupIds'
+  | 'dbSubnetGroupName'
+  | 'masterPassword'
+  | 'copyTagsToSnapshot'
+  | 'tags'
+  | 'lifecycle'
+>;
 
 /**
  * Generates a rds cluster

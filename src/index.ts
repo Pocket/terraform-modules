@@ -7,3 +7,5 @@ export * from './base/ApplicationCertificate';
 export * from './base/ApplicationECSCluster';
 export * from './base/ApplicationECSService';
 export * from './base/ApplicationLoadBalancer';
+export * from './base/ApplicationDynamoDB';
+export * from './base/ApplicationRDSCluster';
