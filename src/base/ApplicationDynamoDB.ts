@@ -20,7 +20,6 @@ export enum ApplicationDynamoDBCapacityType {
 }
 
 export interface ApplicationDynamoDBAutoScaleProps {
-  /** what */
   tracking: number;
   max: number;
   min: number;
