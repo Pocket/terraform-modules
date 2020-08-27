@@ -28,15 +28,16 @@ export interface ApplicationRDSClusterProps {
 }
 
 //Override the default rds config but remove the items that we set ourselves.
-export interface ApplicationRDSClusterConfig extends RdsClusterConfig {
-  clusterIdentifierPrefix: never;
-  vpcSecurityGroupIds: never;
-  dbSubnetGroupName: never;
-  masterPassword: never;
-  copyTagsToSnapshot: never;
-  tags: never;
-  lifecycle: never;
-}
+export type ApplicationRDSClusterConfig = Omit<
+  RdsClusterConfig,
+  | 'clusterIdentifierPrefix'
+  | 'vpcSecurityGroupIds'
+  | 'dbSubnetGroupName'
+  | 'masterPassword'
+  | 'copyTagsToSnapshot'
+  | 'tags'
+  | 'lifecycle'
+>;
 
 /**
  * Generates a rds cluster
@@ -57,7 +58,7 @@ export class ApplicationRDSCluster extends Resource {
   ) {
     super(scope, name);
 
-    const vpc = new DataAwsVpc(scope, `${name}_vpc`, {
+    const vpc = new DataAwsVpc(this, `${name}_vpc`, {
       filter: [
         {
           name: 'vpc-id',
@@ -66,7 +67,7 @@ export class ApplicationRDSCluster extends Resource {
       ],
     });
 
-    const securityGroup = new SecurityGroup(scope, name, {
+    const securityGroup = new SecurityGroup(this, name, {
       namePrefix: config.prefix,
       description: 'Managed by Terraform',
       vpcId: vpc.id,
@@ -86,12 +87,12 @@ export class ApplicationRDSCluster extends Resource {
       ],
     });
 
-    const subnetGroup = new DbSubnetGroup(scope, name, {
+    const subnetGroup = new DbSubnetGroup(this, name, {
       namePrefix: config.prefix.toLowerCase(),
       subnetIds: config.subnetIds,
     });
 
-    this.rds = new RdsCluster(scope, name, {
+    this.rds = new RdsCluster(this, name, {
       ...config.rdsConfig,
       clusterIdentifierPrefix: config.prefix.toLowerCase(),
       tags: config.tags,
@@ -110,7 +111,7 @@ export class ApplicationRDSCluster extends Resource {
     ) {
       //If the engine is mysql or aurora (mysql compatible) then create a secret rotator that we can manually run after terraform creation
       const { secretARN } = ApplicationRDSCluster.createMySqlSecretRotator(
-        scope,
+        this,
         name,
         this.rds,
         [securityGroup.id],

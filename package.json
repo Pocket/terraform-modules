@@ -9,7 +9,7 @@
   "license": "MPL-2.0",
   "scripts": {
     "get": "cdktf get",
-    "build": "npm run get && tsc",
+    "build": "rm -rf dist && npm run get && tsc",
     "synth": "cdktf synth",
     "compile": "tsc --pretty",
     "watch": "tsc -w",
@@ -36,9 +36,11 @@
   "engines": {
     "node": ">=10.12"
   },
+  "peerDependencies": {
+    "cdktf": "^0.0.16",
+    "constructs": "^3.0.0"
+  },
   "dependencies": {
-    "cdktf": "0.0.16",
-    "constructs": "^3.0.4",
     "crypto-random-string": "^3.2.0",
     "parse-domain": "^3.0.2"
   },
@@ -55,6 +57,8 @@
     "@typescript-eslint/eslint-plugin": "^2.34.0",
     "@typescript-eslint/parser": "^2.34.0",
     "cdktf-cli": "0.0.16",
+    "cdktf": "^0.0.16",
+    "constructs": "^3.0.0",
     "chai": "^4.2.0",
     "eslint": "^7.6.0",
     "eslint-config-prettier": "^6.11.0",

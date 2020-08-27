@@ -1,4 +1,4 @@
-import { Resource, TerraformOutput } from 'cdktf';
+import { Resource } from 'cdktf';
 import {
   DataAwsCallerIdentity,
   DataAwsRegion,
@@ -19,15 +19,11 @@ export class PocketVPC extends Resource {
   constructor(scope: Construct, name: string) {
     super(scope, name);
 
-    const vpcSSMParam = new DataAwsSsmParameter(
-      scope,
-      `${name}_vpc_ssm_param`,
-      {
-        name: '/Shared/Vpc',
-      }
-    );
+    const vpcSSMParam = new DataAwsSsmParameter(this, `${name}_vpc_ssm_param`, {
+      name: '/Shared/Vpc',
+    });
 
-    this.vpc = new DataAwsVpc(scope, `${name}_vpc`, {
+    this.vpc = new DataAwsVpc(this, `${name}_vpc`, {
       filter: [
         {
           name: 'vpc-id',
@@ -37,7 +33,7 @@ export class PocketVPC extends Resource {
     });
 
     const privateString = new DataAwsSsmParameter(
-      scope,
+      this,
       `${name}_private_subnets`,
       {
         name: '/Shared/PrivateSubnets',
@@ -45,7 +41,7 @@ export class PocketVPC extends Resource {
     );
 
     const privateSubnets = new DataAwsSubnetIds(
-      scope,
+      this,
       `${name}_private_subnet_ids`,
       {
         vpcId: this.vpc.id,
@@ -60,7 +56,7 @@ export class PocketVPC extends Resource {
     this.privateSubnetIds = privateSubnets.ids;
 
     const publicString = new DataAwsSsmParameter(
-      scope,
+      this,
       `${name}_public_subnets`,
       {
         name: '/Shared/PublicSubnets',
@@ -68,7 +64,7 @@ export class PocketVPC extends Resource {
     );
 
     const publicSubnets = new DataAwsSubnetIds(
-      scope,
+      this,
       `${name}_public_subnet_ids`,
       {
         vpcId: this.vpc.id,
@@ -83,31 +79,12 @@ export class PocketVPC extends Resource {
     this.publicSubnetIds = publicSubnets.ids;
 
     const identity = new DataAwsCallerIdentity(
-      scope,
+      this,
       `${name}_current_identity`
     );
     this.accountId = identity.accountId;
 
-    const region = new DataAwsRegion(scope, 'current_region');
+    const region = new DataAwsRegion(this, 'current_region');
     this.region = region.name;
-
-    /**
-     * Adding terraform outputs for native terraform modules
-     */
-    new TerraformOutput(this, `${name}_region`, {
-      value: this.region,
-    });
-
-    new TerraformOutput(this, `${name}_account_id`, {
-      value: this.accountId,
-    });
-
-    new TerraformOutput(this, `${name}_private_subnet_ids`, {
-      value: this.privateSubnetIds,
-    });
-
-    new TerraformOutput(this, `${name}_public_subnet_ids`, {
-      value: this.publicSubnetIds,
-    });
   }
 }
