@@ -16,7 +16,6 @@ export interface PocketALBApplicationProps {
   internal?: boolean;
   domain: string;
   cdn?: boolean;
-  route53Provider: AwsProvider;
   tags?: { [key: string]: string };
 }
 
@@ -41,11 +40,22 @@ export class PocketALBApplication extends Resource {
       tags: config.tags,
     });
 
-    const { alb, albRecord } = this.createALB(name, config, pocketVPC);
+    // set up a route53 provider
+    const route53Provider = new AwsProvider(this, 'aws.route53', {
+      region: 'us-east-1',
+      alias: 'route53',
+    });
+
+    const { alb, albRecord } = this.createALB(
+      name,
+      config,
+      pocketVPC,
+      route53Provider
+    );
     this.alb = alb;
 
     if (config.cdn) {
-      this.createCDN(name, config, albRecord);
+      this.createCDN(name, config, albRecord, route53Provider);
     }
   }
 
@@ -85,7 +95,8 @@ export class PocketALBApplication extends Resource {
   private createALB(
     name: string,
     config: PocketALBApplicationProps,
-    pocketVPC: PocketVPC
+    pocketVPC: PocketVPC,
+    route53Provider: AwsProvider
   ): { alb: ApplicationLoadBalancer; albRecord: Route53Record } {
     //Create our application Load Balancer
     const alb = new ApplicationLoadBalancer(
@@ -104,6 +115,7 @@ export class PocketALBApplication extends Resource {
     );
 
     let albDomainName = config.domain;
+
     if (config.cdn) {
       //When the app uses a CDN we set the ALB to be direct.app-domain
       //Then the CDN is our main app.
@@ -137,7 +149,7 @@ export class PocketALBApplication extends Resource {
       zoneId: this.baseDNS.zoneId,
       domain: albDomainName,
       tags: config.tags,
-      route53Provider: config.route53Provider,
+      route53Provider,
     });
 
     return { alb, albRecord };
@@ -154,7 +166,8 @@ export class PocketALBApplication extends Resource {
   private createCDN(
     name: string,
     config: PocketALBApplicationProps,
-    albRecord: Route53Record
+    albRecord: Route53Record,
+    route53Provider: AwsProvider
   ): void {
     //Create the certificate for the CDN
     const cdnCertificate = new ApplicationCertificate(
@@ -164,7 +177,7 @@ export class PocketALBApplication extends Resource {
         zoneId: this.baseDNS.zoneId,
         domain: config.domain,
         tags: config.tags,
-        route53Provider: config.route53Provider,
+        route53Provider,
       }
     );
 

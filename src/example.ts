@@ -32,7 +32,6 @@ class Example extends TerraformStack {
       internal: false,
       domain: 'test.acme.com',
       prefix: 'Example-',
-      route53Provider,
     });
   }
 }
