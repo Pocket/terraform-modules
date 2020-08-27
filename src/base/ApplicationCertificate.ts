@@ -64,6 +64,26 @@ export class ApplicationCertificate extends Resource {
       }
     );
 
+    console.log(certificate.id);
+    console.log(certificate.fqn);
+
+    // you so ugly!
+    // this appears to be an aws / cdk versioning mismatch
+    certificateRecord.addOverride(
+      'name',
+      `tolist(aws_acm_certificate.${certificate.id}.domain_validation_options)[0].resource_record_name`
+    );
+
+    certificateRecord.addOverride(
+      'type',
+      `tolist(aws_acm_certificate.${certificate.id}.domain_validation_options)[0].resource_record_type`
+    );
+
+    certificateRecord.addOverride(
+      'records',
+      `[tolist(aws_acm_certificate.${certificate.id}.domain_validation_options)[0].resource_record_value]`
+    );
+
     new AcmCertificateValidation(scope, `${name}_certificate_validation`, {
       certificateArn: certificate.arn,
       validationRecordFqdns: [certificateRecord.fqdn],
