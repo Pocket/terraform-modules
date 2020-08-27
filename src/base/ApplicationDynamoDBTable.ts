@@ -14,19 +14,19 @@ import { Construct } from 'constructs';
 /**
  * Enum to determine the capacity type for autoscaling
  */
-export enum ApplicationDynamoDBCapacityType {
+export enum ApplicationDynamoDBTableCapacityType {
   Read = 'ReadCapacity',
   Write = 'WriteCapacity',
 }
 
-export interface ApplicationDynamoDBAutoScaleProps {
+export interface ApplicationDynamoDBTableAutoScaleProps {
   tracking: number;
   max: number;
   min: number;
 }
 
 //Override the default dynamo config but remove the items that we set ourselves.
-export type ApplicationDynamoDBConfig = Omit<
+export type ApplicationDynamoDBTableConfig = Omit<
   DynamodbTableConfig,
   'name' | 'tags' | 'lifecycle'
 >;
@@ -34,15 +34,15 @@ export type ApplicationDynamoDBConfig = Omit<
 export interface ApplicationDynamoDBProps {
   tags?: { [key: string]: string };
   prefix: string;
-  tableConfig: ApplicationDynamoDBConfig;
-  readCapacity?: ApplicationDynamoDBAutoScaleProps;
-  writeCapacity?: ApplicationDynamoDBAutoScaleProps;
+  tableConfig: ApplicationDynamoDBTableConfig;
+  readCapacity?: ApplicationDynamoDBTableAutoScaleProps;
+  writeCapacity?: ApplicationDynamoDBTableAutoScaleProps;
 }
 
 /**
  * Generates a dynamodb
  */
-export class ApplicationDynamoDB extends Resource {
+export class ApplicationDynamoDBTable extends Resource {
   public readonly dynamodb: DynamodbTable;
 
   constructor(
@@ -52,7 +52,7 @@ export class ApplicationDynamoDB extends Resource {
   ) {
     super(scope, name);
 
-    this.dynamodb = new DynamodbTable(scope, `${name}_dynamodb_table`, {
+    this.dynamodb = new DynamodbTable(scope, `dynamodb_table`, {
       ...config.tableConfig,
       tags: config.tags,
       name: config.prefix,
@@ -62,53 +62,52 @@ export class ApplicationDynamoDB extends Resource {
     });
 
     if (config.readCapacity) {
-      this.setupAutoscaling(
-        name,
+      ApplicationDynamoDBTable.setupAutoscaling(
+        this,
         config.prefix,
         config.readCapacity,
         this.dynamodb,
-        ApplicationDynamoDBCapacityType.Read
+        ApplicationDynamoDBTableCapacityType.Read
       );
     }
 
     if (config.writeCapacity) {
-      this.setupAutoscaling(
-        name,
+      ApplicationDynamoDBTable.setupAutoscaling(
+        this,
         config.prefix,
         config.writeCapacity,
         this.dynamodb,
-        ApplicationDynamoDBCapacityType.Write
+        ApplicationDynamoDBTableCapacityType.Write
       );
     }
   }
 
   /**
    * Sets up autoscaling for dynamodb on a write or read target
-   * @param name
+   * @param scope
    * @param prefix
    * @param config
    * @param dynamoDB
    * @param capacityType
    * @private
    */
-  private setupAutoscaling(
-    name,
+  private static setupAutoscaling(
+    scope: Construct,
     prefix,
-    config: ApplicationDynamoDBAutoScaleProps,
+    config: ApplicationDynamoDBTableAutoScaleProps,
     dynamoDB: DynamodbTable,
-    capacityType: ApplicationDynamoDBCapacityType
+    capacityType: ApplicationDynamoDBTableCapacityType
   ): void {
     const targetTracking = new AppautoscalingTarget(
-      this,
-      `${name}_${capacityType}_target`,
+      scope,
+      `${capacityType}_target`,
       {
         maxCapacity: config.max,
         minCapacity: config.min,
         resourceId: `table/${dynamoDB.name}`,
         scalableDimension: `dynamodb:table:${capacityType}Units`,
-        roleArn: ApplicationDynamoDB.createAutoScalingRole(
-          this,
-          name,
+        roleArn: ApplicationDynamoDBTable.createAutoScalingRole(
+          scope,
           capacityType,
           prefix,
           dynamoDB.arn
@@ -117,7 +116,7 @@ export class ApplicationDynamoDB extends Resource {
       }
     );
 
-    new AppautoscalingPolicy(this, `${name}_${capacityType}_policy`, {
+    new AppautoscalingPolicy(scope, `${capacityType}_policy`, {
       name: `DynamoDB${capacityType}Utilization:${targetTracking.resourceId}`,
       policyType: 'TargetTrackingScaling',
       resourceId: targetTracking.resourceId,
@@ -139,7 +138,6 @@ export class ApplicationDynamoDB extends Resource {
   /**
    * Creates the autoscaling role necessary for DynamoDB
    * @param scope
-   * @param name
    * @param capacityType
    * @param prefix
    * @param dynamoDBARN
@@ -147,46 +145,41 @@ export class ApplicationDynamoDB extends Resource {
    */
   private static createAutoScalingRole(
     scope: Construct,
-    name: string,
-    capacityType: ApplicationDynamoDBCapacityType,
+    capacityType: ApplicationDynamoDBTableCapacityType,
     prefix: string,
     dynamoDBARN: string
   ): string {
-    const policy = new IamPolicy(
-      scope,
-      `${name}_${capacityType}_autoscaling_policy`,
-      {
-        name: `${prefix}-${capacityType}-AutoScalingPolicy`,
-        policy: new DataAwsIamPolicyDocument(
-          scope,
-          `${name}_${capacityType}_policy_document`,
-          {
-            statement: [
-              {
-                effect: 'Allow',
-                actions: [
-                  'application-autoscaling:*',
-                  'cloudwatch:DescribeAlarms',
-                  'cloudwatch:PutMetricAlarm',
-                ],
-                resources: ['*'],
-              },
-              {
-                effect: 'Allow',
-                actions: ['dynamodb:DescribeTable', 'dynamodb:UpdateTable'],
-                resources: [dynamoDBARN, `${dynamoDBARN}*`],
-              },
-            ],
-          }
-        ).json,
-      }
-    );
+    const policy = new IamPolicy(scope, `${capacityType}_autoscaling_policy`, {
+      name: `${prefix}-${capacityType}-AutoScalingPolicy`,
+      policy: new DataAwsIamPolicyDocument(
+        scope,
+        `${capacityType}_policy_document`,
+        {
+          statement: [
+            {
+              effect: 'Allow',
+              actions: [
+                'application-autoscaling:*',
+                'cloudwatch:DescribeAlarms',
+                'cloudwatch:PutMetricAlarm',
+              ],
+              resources: ['*'],
+            },
+            {
+              effect: 'Allow',
+              actions: ['dynamodb:DescribeTable', 'dynamodb:UpdateTable'],
+              resources: [dynamoDBARN, `${dynamoDBARN}*`],
+            },
+          ],
+        }
+      ).json,
+    });
 
-    const role = new IamRole(scope, `${name}_${capacityType}_role`, {
+    const role = new IamRole(scope, `${capacityType}_role`, {
       name: `${prefix}-${capacityType}-AutoScalingRole`,
       assumeRolePolicy: new DataAwsIamPolicyDocument(
         scope,
-        `${name}_${capacityType}_assume_role_policy_document`,
+        `${capacityType}_assume_role_policy_document`,
         {
           statement: [
             {
@@ -205,14 +198,10 @@ export class ApplicationDynamoDB extends Resource {
       ).json,
     });
 
-    new IamRolePolicyAttachment(
-      scope,
-      `${name}_${capacityType}_role_attachment`,
-      {
-        policyArn: policy.arn,
-        role: role.name,
-      }
-    );
+    new IamRolePolicyAttachment(scope, `${capacityType}_role_attachment`, {
+      policyArn: policy.arn,
+      role: role.name,
+    });
 
     return role.arn;
   }

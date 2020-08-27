@@ -31,7 +31,7 @@ export class ApplicationCertificate extends Resource {
     super(scope, name);
 
     if (!config.zoneId && config.zoneDomain) {
-      const route53Zone = new DataAwsRoute53Zone(this, `${name}_zone`, {
+      const route53Zone = new DataAwsRoute53Zone(this, `zone`, {
         name: config.zoneDomain,
       });
       config.zoneId = route53Zone.zoneId;
@@ -39,7 +39,7 @@ export class ApplicationCertificate extends Resource {
       throw new Error('You need to pass either a zone id or a zone domain');
     }
 
-    const certificate = new AcmCertificate(this, `${name}_certificate`, {
+    const certificate = new AcmCertificate(this, `certificate`, {
       domainName: config.domain,
       validationMethod: 'DNS',
       tags: config.tags,
@@ -48,18 +48,14 @@ export class ApplicationCertificate extends Resource {
       },
     });
 
-    const certificateRecord = new Route53Record(
-      this,
-      `${name}_certificate_record`,
-      {
-        name: certificate.domainValidationOptions('0').resourceRecordName,
-        type: certificate.domainValidationOptions('0').resourceRecordType,
-        zoneId: config.zoneId,
-        records: [],
-        ttl: 60,
-        dependsOn: [certificate],
-      }
-    );
+    const certificateRecord = new Route53Record(this, `certificate_record`, {
+      name: certificate.domainValidationOptions('0').resourceRecordName,
+      type: certificate.domainValidationOptions('0').resourceRecordType,
+      zoneId: config.zoneId,
+      records: [],
+      ttl: 60,
+      dependsOn: [certificate],
+    });
 
     // there appears to be an aws / cdk versioning mismatch .the above references to
     // certificate.domainValidationOptions fail due to aws using a set instead of a list
@@ -78,7 +74,7 @@ export class ApplicationCertificate extends Resource {
       `tolist(aws_acm_certificate.${certificate.id}.domain_validation_options)[0].resource_record_value`,
     ]);
 
-    new AcmCertificateValidation(this, `${name}_certificate_validation`, {
+    new AcmCertificateValidation(this, `certificate_validation`, {
       certificateArn: certificate.arn,
       validationRecordFqdns: [certificateRecord.fqdn],
       dependsOn: [certificateRecord, certificate],

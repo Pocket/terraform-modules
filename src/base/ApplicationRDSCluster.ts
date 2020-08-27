@@ -58,7 +58,7 @@ export class ApplicationRDSCluster extends Resource {
   ) {
     super(scope, name);
 
-    const vpc = new DataAwsVpc(this, `${name}_vpc`, {
+    const vpc = new DataAwsVpc(this, `vpc`, {
       filter: [
         {
           name: 'vpc-id',
@@ -67,7 +67,7 @@ export class ApplicationRDSCluster extends Resource {
       ],
     });
 
-    const securityGroup = new SecurityGroup(this, name, {
+    const securityGroup = new SecurityGroup(this, 'rds_security_group', {
       namePrefix: config.prefix,
       description: 'Managed by Terraform',
       vpcId: vpc.id,
@@ -87,12 +87,12 @@ export class ApplicationRDSCluster extends Resource {
       ],
     });
 
-    const subnetGroup = new DbSubnetGroup(this, name, {
+    const subnetGroup = new DbSubnetGroup(this, 'rds_subnet_group', {
       namePrefix: config.prefix.toLowerCase(),
       subnetIds: config.subnetIds,
     });
 
-    this.rds = new RdsCluster(this, name, {
+    this.rds = new RdsCluster(this, 'rds_cluster', {
       ...config.rdsConfig,
       clusterIdentifierPrefix: config.prefix.toLowerCase(),
       tags: config.tags,
@@ -112,7 +112,6 @@ export class ApplicationRDSCluster extends Resource {
       //If the engine is mysql or aurora (mysql compatible) then create a secret rotator that we can manually run after terraform creation
       const { secretARN } = ApplicationRDSCluster.createMySqlSecretRotator(
         this,
-        name,
         this.rds,
         [securityGroup.id],
         config.subnetIds,
@@ -127,7 +126,6 @@ export class ApplicationRDSCluster extends Resource {
    * Create a lambda that will rotate the master password of the database on demand
    *
    * @param scope
-   * @param name
    * @param rds
    * @param securityGroupIds
    * @param subnetIds
@@ -137,7 +135,6 @@ export class ApplicationRDSCluster extends Resource {
    */
   private static createMySqlSecretRotator(
     scope: Construct,
-    name: string,
     rds: RdsCluster,
     securityGroupIds: string[],
     subnetIds: string[],
@@ -149,27 +146,23 @@ export class ApplicationRDSCluster extends Resource {
       './lambda_functions/single_mysql_rotation.py',
       'utf8'
     );
-    const lambdaArchive = new DataArchiveFile(
-      scope,
-      `${name}_rotation_lambda_zip`,
-      {
-        type: 'zip',
-        outputPath: '/tmp/lambda_zip_inline.zip',
-        source: [
-          {
-            content: lambdaFile,
-            filename: 'index.py',
-          },
-        ],
-      }
-    );
+    const lambdaArchive = new DataArchiveFile(scope, `rotation_lambda_zip`, {
+      type: 'zip',
+      outputPath: '/tmp/lambda_zip_inline.zip',
+      source: [
+        {
+          content: lambdaFile,
+          filename: 'index.py',
+        },
+      ],
+    });
 
     //Create the role for the rotation lambda
-    const lambdaRole = new IamRole(scope, `${name}_rotation_lambda_role`, {
+    const lambdaRole = new IamRole(scope, `rotation_lambda_role`, {
       namePrefix: `${prefix}-LambdaRotationRole`,
       assumeRolePolicy: new DataAwsIamPolicyDocument(
         scope,
-        `${name}_lambda_rotation_assume_role_policy_document`,
+        `lambda_rotation_assume_role_policy_document`,
         {
           statement: [
             {
@@ -190,7 +183,7 @@ export class ApplicationRDSCluster extends Resource {
     });
 
     //Create the rotation lambda
-    const lambda = new LambdaFunction(scope, `${name}_rotation_lambda`, {
+    const lambda = new LambdaFunction(scope, `rotation_lambda`, {
       filename: lambdaArchive.outputPath,
       functionName: `${rds.clusterIdentifier}-MainPasswordRotation`,
       role: lambdaRole.arn,
@@ -206,7 +199,7 @@ export class ApplicationRDSCluster extends Resource {
     });
 
     //Give secrets manager the permission to run the function
-    new LambdaPermission(scope, `${name}_rotation_lambda`, {
+    new LambdaPermission(scope, `rotation_lambda`, {
       functionName: lambda.functionName,
       statementId: 'AllowExecutionSecretManager',
       action: 'lambda:InvokeFunction',
@@ -214,7 +207,7 @@ export class ApplicationRDSCluster extends Resource {
     });
 
     //Create the secret
-    const secret = new SecretsmanagerSecret(scope, `${name}_rds_secret`, {
+    const secret = new SecretsmanagerSecret(scope, `rds_secret`, {
       description: `Secret For ${rds.clusterIdentifier}`,
       name: `${prefix}/${rds.clusterIdentifier}`,
       rotationLambdaArn: lambda.arn,
@@ -223,7 +216,7 @@ export class ApplicationRDSCluster extends Resource {
     });
 
     //Create the initial secret version
-    new SecretsmanagerSecretVersion(scope, `${name}_rds_secret_version`, {
+    new SecretsmanagerSecretVersion(scope, `rds_secret_version`, {
       secretId: secret.id,
       secretString: JSON.stringify({
         engine: 'mysql',
@@ -238,7 +231,7 @@ export class ApplicationRDSCluster extends Resource {
     //Create our rotation policy
     const rdsLambdaRotationPolicyDocument = new DataAwsIamPolicyDocument(
       scope,
-      `${name}_rds_lambda_rotation_policy_document`,
+      `rds_lambda_rotation_policy_document`,
       {
         statement: [
           {
@@ -268,19 +261,15 @@ export class ApplicationRDSCluster extends Resource {
       }
     );
 
-    const lambdaPolicy = new IamPolicy(
-      scope,
-      `${name}_rds_lambda_rotation_policy`,
-      {
-        namePrefix: `${prefix}-LambdaRotation`,
-        policy: rdsLambdaRotationPolicyDocument.json,
-      }
-    );
+    const lambdaPolicy = new IamPolicy(scope, `rds_lambda_rotation_policy`, {
+      namePrefix: `${prefix}-LambdaRotation`,
+      policy: rdsLambdaRotationPolicyDocument.json,
+    });
 
     //Attach the rotation policy to the role
     new IamRolePolicyAttachment(
       scope,
-      `${name}_lambda_rotation_role_policy_attachment`,
+      `lambda_rotation_role_policy_attachment`,
       {
         role: lambdaRole.name,
         policyArn: lambdaPolicy.arn,
