@@ -106,7 +106,8 @@ export class ApplicationDynamoDB extends Resource {
         minCapacity: config.min,
         resourceId: `table/${dynamoDB.name}`,
         scalableDimension: `dynamodb:table:${capacityType}Units`,
-        roleArn: this.createAutoScalingRole(
+        roleArn: ApplicationDynamoDB.createAutoScalingRole(
+          this,
           name,
           capacityType,
           prefix,
@@ -137,25 +138,27 @@ export class ApplicationDynamoDB extends Resource {
 
   /**
    * Creates the autoscaling role necessary for DynamoDB
+   * @param scope
    * @param name
    * @param capacityType
    * @param prefix
    * @param dynamoDBARN
    * @private
    */
-  private createAutoScalingRole(
+  private static createAutoScalingRole(
+    scope: Construct,
     name: string,
     capacityType: ApplicationDynamoDBCapacityType,
     prefix: string,
     dynamoDBARN: string
   ): string {
     const policy = new IamPolicy(
-      this,
+      scope,
       `${name}_${capacityType}_autoscaling_policy`,
       {
         name: `${prefix}-${capacityType}-AutoScalingPolicy`,
         policy: new DataAwsIamPolicyDocument(
-          this,
+          scope,
           `${name}_${capacityType}_policy_document`,
           {
             statement: [
@@ -179,10 +182,10 @@ export class ApplicationDynamoDB extends Resource {
       }
     );
 
-    const role = new IamRole(this, `${name}_${capacityType}_role`, {
+    const role = new IamRole(scope, `${name}_${capacityType}_role`, {
       name: `${prefix}-${capacityType}-AutoScalingRole`,
       assumeRolePolicy: new DataAwsIamPolicyDocument(
-        this,
+        scope,
         `${name}_${capacityType}_assume_role_policy_document`,
         {
           statement: [
@@ -203,7 +206,7 @@ export class ApplicationDynamoDB extends Resource {
     });
 
     new IamRolePolicyAttachment(
-      this,
+      scope,
       `${name}_${capacityType}_role_attachment`,
       {
         policyArn: policy.arn,

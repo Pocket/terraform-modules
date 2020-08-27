@@ -25,7 +25,7 @@ export class ApplicationLoadBalancer extends Resource {
     super(scope, name);
 
     const ingressSecurityGroup = new SecurityGroup(
-      scope,
+      this,
       `${name}_alb_security_group`,
       {
         name: `${config.prefix}-HTTP/S Security Group`,
@@ -80,7 +80,7 @@ export class ApplicationLoadBalancer extends Resource {
     ingressSecurityGroup.addOverride('egress.0.security_groups', null);
     ingressSecurityGroup.addOverride('egress.0.self', null);
 
-    this.alb = new Alb(scope, `${name}_alb`, {
+    this.alb = new Alb(this, `${name}_alb`, {
       namePrefix: config.alb6CharacterPrefix,
       securityGroups: [ingressSecurityGroup.id],
       internal: config.internal !== undefined ? config.internal : false,

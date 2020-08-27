@@ -55,7 +55,7 @@ export class ApplicationECSService extends Resource {
     ];
 
     this.ecsSecurityGroup = new SecurityGroup(
-      scope,
+      this,
       `${name}_ecs_security_group`,
       {
         name: `${config.prefix}-${config.name}-ECSSecurityGroup`,

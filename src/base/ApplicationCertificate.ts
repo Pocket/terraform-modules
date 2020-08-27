@@ -31,7 +31,7 @@ export class ApplicationCertificate extends Resource {
     super(scope, name);
 
     if (!config.zoneId && config.zoneDomain) {
-      const route53Zone = new DataAwsRoute53Zone(scope, `${name}_zone`, {
+      const route53Zone = new DataAwsRoute53Zone(this, `${name}_zone`, {
         name: config.zoneDomain,
       });
       config.zoneId = route53Zone.zoneId;
@@ -39,7 +39,7 @@ export class ApplicationCertificate extends Resource {
       throw new Error('You need to pass either a zone id or a zone domain');
     }
 
-    const certificate = new AcmCertificate(scope, `${name}_certificate`, {
+    const certificate = new AcmCertificate(this, `${name}_certificate`, {
       domainName: config.domain,
       validationMethod: 'DNS',
       tags: config.tags,
@@ -49,7 +49,7 @@ export class ApplicationCertificate extends Resource {
     });
 
     const certificateRecord = new Route53Record(
-      scope,
+      this,
       `${name}_certificate_record`,
       {
         name: certificate.domainValidationOptions('0').resourceRecordName,
@@ -78,7 +78,7 @@ export class ApplicationCertificate extends Resource {
       `tolist(aws_acm_certificate.${certificate.id}.domain_validation_options)[0].resource_record_value`,
     ]);
 
-    new AcmCertificateValidation(scope, `${name}_certificate_validation`, {
+    new AcmCertificateValidation(this, `${name}_certificate_validation`, {
       certificateArn: certificate.arn,
       validationRecordFqdns: [certificateRecord.fqdn],
       dependsOn: [certificateRecord, certificate],
