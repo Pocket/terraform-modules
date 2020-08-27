@@ -42,7 +42,7 @@ export class ApplicationCertificate extends Resource {
 
     const provider = new AwsProvider(this, 'aws.route53', {
       region: 'us-east-1',
-      alias: 'route53',
+      //alias: 'route53',
     });
 
     const certificate = new AcmCertificate(scope, `${name}_certificate`, {
