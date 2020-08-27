@@ -10,6 +10,7 @@ import { Construct } from 'constructs';
 
 export interface ApplicationCertificateProps {
   domain: string;
+  route53Provider: AwsProvider;
   /**
    * If zoneId is not passed then we use a data block and the zoneDomain to grab it.
    */
@@ -40,16 +41,11 @@ export class ApplicationCertificate extends Resource {
       throw new Error('You need to pass either a zone id or a zone domain');
     }
 
-    const provider = new AwsProvider(this, 'aws.route53', {
-      region: 'us-east-1',
-      //alias: 'route53',
-    });
-
     const certificate = new AcmCertificate(scope, `${name}_certificate`, {
       domainName: config.domain,
       validationMethod: 'DNS',
       tags: config.tags,
-      provider,
+      provider: config.route53Provider,
       lifecycle: {
         createBeforeDestroy: true,
       },

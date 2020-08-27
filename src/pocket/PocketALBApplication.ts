@@ -2,6 +2,7 @@ import { Resource } from 'cdktf';
 import {
   CloudfrontDistribution,
   Route53Record,
+  AwsProvider,
 } from '../../.gen/providers/aws';
 import { Construct } from 'constructs';
 import { ApplicationBaseDNS } from '../base/ApplicationBaseDNS';
@@ -15,6 +16,7 @@ export interface PocketALBApplicationProps {
   internal?: boolean;
   domain: string;
   cdn?: boolean;
+  route53Provider: AwsProvider;
   tags?: { [key: string]: string };
 }
 
@@ -135,6 +137,7 @@ export class PocketALBApplication extends Resource {
       zoneId: this.baseDNS.zoneId,
       domain: albDomainName,
       tags: config.tags,
+      route53Provider: config.route53Provider,
     });
 
     return { alb, albRecord };
@@ -161,6 +164,7 @@ export class PocketALBApplication extends Resource {
         zoneId: this.baseDNS.zoneId,
         domain: config.domain,
         tags: config.tags,
+        route53Provider: config.route53Provider,
       }
     );
 
