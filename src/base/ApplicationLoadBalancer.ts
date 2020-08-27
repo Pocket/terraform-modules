@@ -49,6 +49,7 @@ export class ApplicationLoadBalancer extends Resource {
           {
             fromPort: 80,
             toPort: 80,
+            protocol: 'TCP',
             cidrBlocks: ['0.0.0.0/0'],
           },
         ],
@@ -76,7 +77,6 @@ export class ApplicationLoadBalancer extends Resource {
     ingressSecurityGroup.addOverride('egress.0.description', null);
     ingressSecurityGroup.addOverride('egress.0.ipv6_cidr_blocks', null);
     ingressSecurityGroup.addOverride('egress.0.prefix_list_ids', null);
-    ingressSecurityGroup.addOverride('egress.0.protocol', null);
     ingressSecurityGroup.addOverride('egress.0.security_groups', null);
     ingressSecurityGroup.addOverride('egress.0.self', null);
 

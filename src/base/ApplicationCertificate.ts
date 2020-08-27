@@ -4,6 +4,7 @@ import {
   AcmCertificate,
   Route53Record,
   AcmCertificateValidation,
+  AwsProvider,
 } from '../../.gen/providers/aws';
 import { Construct } from 'constructs';
 
@@ -39,10 +40,16 @@ export class ApplicationCertificate extends Resource {
       throw new Error('You need to pass either a zone id or a zone domain');
     }
 
+    const provider = new AwsProvider(this, 'aws.route53', {
+      region: 'us-east-1',
+      alias: 'route53',
+    });
+
     const certificate = new AcmCertificate(scope, `${name}_certificate`, {
       domainName: config.domain,
       validationMethod: 'DNS',
       tags: config.tags,
+      provider,
       lifecycle: {
         createBeforeDestroy: true,
       },
