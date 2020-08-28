@@ -1,6 +1,8 @@
 import { Resource } from 'cdktf';
 import {
+  AwsProvider,
   DataAwsCallerIdentity,
+  DataAwsKmsAlias,
   DataAwsRegion,
   DataAwsSsmParameter,
   DataAwsSubnetIds,
@@ -15,15 +17,18 @@ export class PocketVPC extends Resource {
   public readonly accountId: string;
   public readonly privateSubnetIds: string[];
   public readonly publicSubnetIds: string[];
+  public readonly secretsManagerSecretKey: DataAwsKmsAlias;
 
-  constructor(scope: Construct, name: string) {
+  constructor(scope: Construct, name: string, awsProvider?: AwsProvider) {
     super(scope, name);
 
     const vpcSSMParam = new DataAwsSsmParameter(this, `vpc_ssm_param`, {
+      provider: awsProvider,
       name: '/Shared/Vpc',
     });
 
     this.vpc = new DataAwsVpc(this, `vpc`, {
+      provider: awsProvider,
       filter: [
         {
           name: 'vpc-id',
@@ -33,10 +38,12 @@ export class PocketVPC extends Resource {
     });
 
     const privateString = new DataAwsSsmParameter(this, `private_subnets`, {
+      provider: awsProvider,
       name: '/Shared/PrivateSubnets',
     });
 
     const privateSubnets = new DataAwsSubnetIds(this, `private_subnet_ids`, {
+      provider: awsProvider,
       vpcId: this.vpc.id,
     });
 
@@ -68,10 +75,12 @@ export class PocketVPC extends Resource {
     this.privateSubnetIds = privateSubnets.ids;
 
     const publicString = new DataAwsSsmParameter(this, `public_subnets`, {
+      provider: awsProvider,
       name: '/Shared/PublicSubnets',
     });
 
     const publicSubnets = new DataAwsSubnetIds(this, `public_subnet_ids`, {
+      provider: awsProvider,
       vpcId: this.vpc.id,
     });
 
@@ -85,10 +94,23 @@ export class PocketVPC extends Resource {
 
     this.publicSubnetIds = publicSubnets.ids;
 
-    const identity = new DataAwsCallerIdentity(this, `current_identity`);
+    const identity = new DataAwsCallerIdentity(this, `current_identity`, {
+      provider: awsProvider,
+    });
     this.accountId = identity.accountId;
 
-    const region = new DataAwsRegion(this, 'current_region');
+    const region = new DataAwsRegion(this, 'current_region', {
+      provider: awsProvider,
+    });
     this.region = region.name;
+
+    this.secretsManagerSecretKey = new DataAwsKmsAlias(
+      this,
+      'secrets_manager_key',
+      {
+        provider: awsProvider,
+        name: 'alias/aws/secretsmanager',
+      }
+    );
   }
 }
