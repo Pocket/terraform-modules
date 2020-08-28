@@ -40,7 +40,7 @@ export class PocketVPC extends Resource {
       vpcId: this.vpc.id,
       filter: [
         {
-          name: 'subnetIds',
+          name: 'subnet-id',
           values: privateString.value.split(','),
         },
       ],
@@ -55,7 +55,7 @@ export class PocketVPC extends Resource {
       vpcId: this.vpc.id,
       filter: [
         {
-          name: 'subnetIds',
+          name: 'subnet-id',
           values: publicString.value.split(','),
         },
       ],
