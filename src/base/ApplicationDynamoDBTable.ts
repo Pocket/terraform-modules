@@ -67,7 +67,8 @@ export class ApplicationDynamoDBTable extends Resource {
         config.prefix,
         config.readCapacity,
         this.dynamodb,
-        ApplicationDynamoDBTableCapacityType.Read
+        ApplicationDynamoDBTableCapacityType.Read,
+        config.tags
       );
     }
 
@@ -77,7 +78,8 @@ export class ApplicationDynamoDBTable extends Resource {
         config.prefix,
         config.writeCapacity,
         this.dynamodb,
-        ApplicationDynamoDBTableCapacityType.Write
+        ApplicationDynamoDBTableCapacityType.Write,
+        config.tags
       );
     }
   }
@@ -89,6 +91,7 @@ export class ApplicationDynamoDBTable extends Resource {
    * @param config
    * @param dynamoDB
    * @param capacityType
+   * @param tags
    * @private
    */
   private static setupAutoscaling(
@@ -96,7 +99,8 @@ export class ApplicationDynamoDBTable extends Resource {
     prefix,
     config: ApplicationDynamoDBTableAutoScaleProps,
     dynamoDB: DynamodbTable,
-    capacityType: ApplicationDynamoDBTableCapacityType
+    capacityType: ApplicationDynamoDBTableCapacityType,
+    tags?: { [key: string]: string }
   ): void {
     const targetTracking = new AppautoscalingTarget(
       scope,
@@ -110,7 +114,8 @@ export class ApplicationDynamoDBTable extends Resource {
           scope,
           capacityType,
           prefix,
-          dynamoDB.arn
+          dynamoDB.arn,
+          tags
         ),
         serviceNamespace: 'dynamodb',
       }
@@ -141,13 +146,15 @@ export class ApplicationDynamoDBTable extends Resource {
    * @param capacityType
    * @param prefix
    * @param dynamoDBARN
+   * @param tags
    * @private
    */
   private static createAutoScalingRole(
     scope: Construct,
     capacityType: ApplicationDynamoDBTableCapacityType,
     prefix: string,
-    dynamoDBARN: string
+    dynamoDBARN: string,
+    tags?: { [key: string]: string }
   ): string {
     const policy = new IamPolicy(scope, `${capacityType}_autoscaling_policy`, {
       name: `${prefix}-${capacityType}-AutoScalingPolicy`,
@@ -175,8 +182,20 @@ export class ApplicationDynamoDBTable extends Resource {
       ).json,
     });
 
+    // In a perfect world we would be using a IamServiceLinkedRole, but Amazon is very amazon.
+    // Amazon doesn't allow a custom suffix for dynamodb application autoscaling, so we need to use an IAM Role.
+    // The unfortunate piece is that Amazon will overwrite the role we set below with an account wide DynamoDB autoscale role.
+    // Hopefully one day we can fix this and limit the application autoscale role. But today is not that day
+
+    // const role = new IamServiceLinkedRole(scope, `${capacityType}_role`, {
+    //   awsServiceName: 'dynamodb.application-autoscaling.amazonaws.com',
+    //   customSuffix: `${prefix}-${capacityType}`,
+    //   description: `Autoscaling Service Role for ${prefix}-${capacityType}`,
+    // });
+
     const role = new IamRole(scope, `${capacityType}_role`, {
       name: `${prefix}-${capacityType}-AutoScalingRole`,
+      tags: tags,
       assumeRolePolicy: new DataAwsIamPolicyDocument(
         scope,
         `${capacityType}_assume_role_policy_document`,
@@ -191,7 +210,6 @@ export class ApplicationDynamoDBTable extends Resource {
                   identifiers: ['application-autoscaling.amazonaws.com'],
                 },
               ],
-              resources: ['*'],
             },
           ],
         }
@@ -201,6 +219,7 @@ export class ApplicationDynamoDBTable extends Resource {
     new IamRolePolicyAttachment(scope, `${capacityType}_role_attachment`, {
       policyArn: policy.arn,
       role: role.name,
+      dependsOn: [role, policy],
     });
 
     return role.arn;
