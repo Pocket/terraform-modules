@@ -52,7 +52,7 @@ export class ApplicationDynamoDBTable extends Resource {
   ) {
     super(scope, name);
 
-    this.dynamodb = new DynamodbTable(scope, `dynamodb_table`, {
+    this.dynamodb = new DynamodbTable(this, `dynamodb_table`, {
       ...config.tableConfig,
       tags: config.tags,
       name: config.prefix,
