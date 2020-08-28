@@ -54,17 +54,13 @@ export class ApplicationECSService extends Resource {
       },
     ];
 
-    this.ecsSecurityGroup = new SecurityGroup(
-      this,
-      `${name}_ecs_security_group`,
-      {
-        name: `${config.prefix}-${config.name}-ECSSecurityGroup`,
-        description: 'Internal ECS Security Group',
-        vpcId: config.vpcId,
-        ingress,
-        egress,
-      }
-    );
+    this.ecsSecurityGroup = new SecurityGroup(this, `ecs_security_group`, {
+      name: `${config.prefix}-${config.name}-ECSSecurityGroup`,
+      description: 'Internal ECS Security Group',
+      vpcId: config.vpcId,
+      ingress,
+      egress,
+    });
 
     //ENV variables??
 

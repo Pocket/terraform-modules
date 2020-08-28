@@ -27,14 +27,14 @@ export class ApplicationBaseDNS extends Resource {
       }
     );
 
-    const route53SubZone = new Route53Zone(this, `${name}_subhosted_zone`, {
+    const route53SubZone = new Route53Zone(this, `subhosted_zone`, {
       name: config.domain,
       tags: config.tags,
     });
 
     this.zoneId = route53SubZone.zoneId;
 
-    new Route53Record(this, `${name}_subhosted_zone_ns`, {
+    new Route53Record(this, `subhosted_zone_ns`, {
       name: config.domain,
       type: 'NS',
       ttl: 86400,

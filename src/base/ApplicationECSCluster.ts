@@ -20,7 +20,7 @@ export class ApplicationECSCluster extends Resource {
   ) {
     super(scope, name);
 
-    this.cluster = new EcsCluster(this, `${name}_ecs_cluster`, {
+    this.cluster = new EcsCluster(this, `ecs_cluster`, {
       tags: config.tags,
       name: config.prefix,
       setting: [

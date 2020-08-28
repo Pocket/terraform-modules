@@ -19,11 +19,11 @@ export class PocketVPC extends Resource {
   constructor(scope: Construct, name: string) {
     super(scope, name);
 
-    const vpcSSMParam = new DataAwsSsmParameter(this, `${name}_vpc_ssm_param`, {
+    const vpcSSMParam = new DataAwsSsmParameter(this, `vpc_ssm_param`, {
       name: '/Shared/Vpc',
     });
 
-    this.vpc = new DataAwsVpc(this, `${name}_vpc`, {
+    this.vpc = new DataAwsVpc(this, `vpc`, {
       filter: [
         {
           name: 'vpc-id',
@@ -32,56 +32,37 @@ export class PocketVPC extends Resource {
       ],
     });
 
-    const privateString = new DataAwsSsmParameter(
-      this,
-      `${name}_private_subnets`,
-      {
-        name: '/Shared/PrivateSubnets',
-      }
-    );
+    const privateString = new DataAwsSsmParameter(this, `private_subnets`, {
+      name: '/Shared/PrivateSubnets',
+    });
 
-    const privateSubnets = new DataAwsSubnetIds(
-      this,
-      `${name}_private_subnet_ids`,
-      {
-        vpcId: this.vpc.id,
-        filter: [
-          {
-            name: 'subnet-id',
-            values: privateString.value.split(','),
-          },
-        ],
-      }
-    );
+    const privateSubnets = new DataAwsSubnetIds(this, `private_subnet_ids`, {
+      vpcId: this.vpc.id,
+      filter: [
+        {
+          name: 'subnet-id',
+          values: privateString.value.split(','),
+        },
+      ],
+    });
     this.privateSubnetIds = privateSubnets.ids;
 
-    const publicString = new DataAwsSsmParameter(
-      this,
-      `${name}_public_subnets`,
-      {
-        name: '/Shared/PublicSubnets',
-      }
-    );
+    const publicString = new DataAwsSsmParameter(this, `public_subnets`, {
+      name: '/Shared/PublicSubnets',
+    });
 
-    const publicSubnets = new DataAwsSubnetIds(
-      this,
-      `${name}_public_subnet_ids`,
-      {
-        vpcId: this.vpc.id,
-        filter: [
-          {
-            name: 'subnet-id',
-            values: publicString.value.split(','),
-          },
-        ],
-      }
-    );
+    const publicSubnets = new DataAwsSubnetIds(this, `public_subnet_ids`, {
+      vpcId: this.vpc.id,
+      filter: [
+        {
+          name: 'subnet-id',
+          values: publicString.value.split(','),
+        },
+      ],
+    });
     this.publicSubnetIds = publicSubnets.ids;
 
-    const identity = new DataAwsCallerIdentity(
-      this,
-      `${name}_current_identity`
-    );
+    const identity = new DataAwsCallerIdentity(this, `current_identity`);
     this.accountId = identity.accountId;
 
     const region = new DataAwsRegion(this, 'current_region');

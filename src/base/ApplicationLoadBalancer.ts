@@ -24,41 +24,37 @@ export class ApplicationLoadBalancer extends Resource {
   ) {
     super(scope, name);
 
-    const ingressSecurityGroup = new SecurityGroup(
-      this,
-      `${name}_alb_security_group`,
-      {
-        name: `${config.prefix}-HTTP/S Security Group`,
-        description: 'External security group',
-        vpcId: config.vpcId,
-        ingress: [
-          {
-            fromPort: 443,
-            toPort: 443,
-            protocol: 'TCP',
-            cidrBlocks: ['0.0.0.0/0'],
-          },
-          {
-            fromPort: 80,
-            toPort: 80,
-            protocol: 'TCP',
-            cidrBlocks: ['0.0.0.0/0'],
-          },
-        ],
-        egress: [
-          {
-            fromPort: 80,
-            toPort: 80,
-            protocol: 'TCP',
-            cidrBlocks: ['0.0.0.0/0'],
-          },
-        ],
-        tags: {
-          ...config.tags,
-          Name: `${config.prefix}-HTTP/S Security Group`,
+    const ingressSecurityGroup = new SecurityGroup(this, `alb_security_group`, {
+      name: `${config.prefix}-HTTP/S Security Group`,
+      description: 'External security group',
+      vpcId: config.vpcId,
+      ingress: [
+        {
+          fromPort: 443,
+          toPort: 443,
+          protocol: 'TCP',
+          cidrBlocks: ['0.0.0.0/0'],
         },
-      }
-    );
+        {
+          fromPort: 80,
+          toPort: 80,
+          protocol: 'TCP',
+          cidrBlocks: ['0.0.0.0/0'],
+        },
+      ],
+      egress: [
+        {
+          fromPort: 80,
+          toPort: 80,
+          protocol: 'TCP',
+          cidrBlocks: ['0.0.0.0/0'],
+        },
+      ],
+      tags: {
+        ...config.tags,
+        Name: `${config.prefix}-HTTP/S Security Group`,
+      },
+    });
 
     // the following are included due to a bug
     // https://github.com/hashicorp/terraform-cdk/issues/223
@@ -80,7 +76,7 @@ export class ApplicationLoadBalancer extends Resource {
     ingressSecurityGroup.addOverride('egress.0.security_groups', null);
     ingressSecurityGroup.addOverride('egress.0.self', null);
 
-    this.alb = new Alb(this, `${name}_alb`, {
+    this.alb = new Alb(this, `alb`, {
       namePrefix: config.alb6CharacterPrefix,
       securityGroups: [ingressSecurityGroup.id],
       internal: config.internal !== undefined ? config.internal : false,
