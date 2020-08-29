@@ -62,16 +62,16 @@ export class ApplicationCertificate extends Resource {
     // (but cdk doesn't know this yet). so, we force it.
     certificateRecord.addOverride(
       'name',
-      `tolist(aws_acm_certificate.${certificate.id}.domain_validation_options)[0].resource_record_name`
+      `\${tolist(${certificate.fqn}.domain_validation_options)[0].resource_record_name}`
     );
 
     certificateRecord.addOverride(
       'type',
-      `tolist(aws_acm_certificate.${certificate.id}.domain_validation_options)[0].resource_record_type`
+      `\${tolist(${certificate.fqn}.domain_validation_options)[0].resource_record_type}`
     );
 
     certificateRecord.addOverride('records', [
-      `tolist(aws_acm_certificate.${certificate.id}.domain_validation_options)[0].resource_record_value`,
+      `\${tolist(${certificate.fqn}.domain_validation_options)[0].resource_record_value}`,
     ]);
 
     new AcmCertificateValidation(this, `certificate_validation`, {

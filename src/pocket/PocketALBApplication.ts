@@ -107,6 +107,7 @@ export class PocketALBApplication extends Resource {
     //Sets up the record for the ALB.
     const albRecord = new Route53Record(this, `alb_record`, {
       name: albDomainName,
+      setIdentifier: alb.alb.name,
       type: 'A',
       zoneId: this.baseDNS.zoneId,
       weightedRoutingPolicy: [
@@ -224,6 +225,7 @@ export class PocketALBApplication extends Resource {
     //When cached the CDN must point to the Load Balancer
     new Route53Record(this, `cdn_record`, {
       name: config.domain,
+      setIdentifier: albRecord.setIdentifier,
       type: 'A',
       zoneId: this.baseDNS.zoneId,
       weightedRoutingPolicy: [
