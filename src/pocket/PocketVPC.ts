@@ -4,6 +4,7 @@ import {
   DataAwsCallerIdentity,
   DataAwsKmsAlias,
   DataAwsRegion,
+  DataAwsSecurityGroups,
   DataAwsSsmParameter,
   DataAwsSubnetIds,
   DataAwsVpc,
@@ -18,6 +19,7 @@ export class PocketVPC extends Resource {
   public readonly privateSubnetIds: string[];
   public readonly publicSubnetIds: string[];
   public readonly secretsManagerSecretKey: DataAwsKmsAlias;
+  public readonly defaultSecurityGroups: DataAwsSecurityGroups;
 
   constructor(scope: Construct, name: string, awsProvider?: AwsProvider) {
     super(scope, name);
@@ -110,6 +112,24 @@ export class PocketVPC extends Resource {
       {
         provider: awsProvider,
         name: 'alias/aws/secretsmanager',
+      }
+    );
+
+    this.defaultSecurityGroups = new DataAwsSecurityGroups(
+      this,
+      'default_security_groups',
+      {
+        provider: awsProvider,
+        filter: [
+          {
+            name: 'group-name',
+            values: ['default'],
+          },
+          {
+            name: 'vpc-id',
+            values: [this.vpc.id],
+          },
+        ],
       }
     );
   }
