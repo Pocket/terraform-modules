@@ -60,7 +60,7 @@
     "cdktf": "^0.0.16",
     "constructs": "^3.0.0",
     "chai": "^4.2.0",
-    "eslint": "^7.6.0",
+    "eslint": "^7.8.0",
     "eslint-config-prettier": "^6.11.0",
     "eslint-plugin-prettier": "^3.1.4",
     "mocha": "^8.1.1",
