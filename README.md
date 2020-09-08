@@ -46,6 +46,7 @@ To test against our infrastructure (debugging level 2):
 2. Run `terraform plan`
 3. Check one more time that you are in the dev account
 4. Check with your teammates that it's okay to blow up the dev infra, then run `terraform apply`
+5. Clean up your mess by running `terraform destroy` when you're all done
 
 Note that this isn't a full end-to-end verification, and will hang on domain certificate steps, but the above should surface most generated terraform issues.
 

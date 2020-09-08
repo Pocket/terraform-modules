@@ -26,7 +26,7 @@ class Example extends TerraformStack {
       cdn: true,
       alb6CharacterPrefix: 'CORP',
       internal: false,
-      domain: 'auth.getpocket.dev', // is this okay to leave?
+      domain: 'acme.getpocket.dev',
       prefix: 'Example-',
     });
   }
