@@ -23,7 +23,7 @@ class Example extends TerraformStack {
     });
 
     new PocketALBApplication(this, 'example', {
-      cdn: true,
+      cdn: true, // maybe make this false if you're testing an actual terraform apply - cdn's take a loooong time to spin up
       alb6CharacterPrefix: 'CORP',
       internal: false,
       domain: 'acme.getpocket.dev',

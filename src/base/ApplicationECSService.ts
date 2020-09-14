@@ -6,6 +6,20 @@ import {
   SecurityGroupIngress,
 } from '../../.gen/providers/aws';
 import { Construct } from 'constructs';
+import { ApplicationECR, ECRProps } from './ApplicationECR';
+
+export interface ApplicationContainerDefinitionProps {
+  containerName: string;
+  envVars?: { [key: string]: string };
+  secretEnvVars?: { [key: string]: string };
+  containerImage?: string;
+}
+
+export interface ApplicationECSConfigProps {
+  port: number;
+  containerName: string;
+  containerDefinitions: ApplicationContainerDefinitionProps[];
+}
 
 export interface ApplicationECSServiceProps {
   prefix: string;
@@ -17,6 +31,7 @@ export interface ApplicationECSServiceProps {
     containerPort: number;
     albSecurityGroupId: string;
   };
+  taskDefinition: ApplicationECSConfigProps;
 }
 
 /**
@@ -60,6 +75,19 @@ export class ApplicationECSService extends Resource {
       vpcId: config.vpcId,
       ingress,
       egress,
+    });
+
+    // figure out if we need to create an ECR for each container definition
+    config.taskDefinition.containerDefinitions.forEach((def) => {
+      // if an image has been given, it must already live somewhere, so an ECR isn't needed
+      if (!def.containerImage) {
+        const ecrConfig: ECRProps = {
+          name: `${config.prefix}-${config.name}-${def.containerName}`.toLowerCase(),
+          tags: config.tags,
+        };
+
+        new ApplicationECR(this, `ecr-${def.containerName}`, ecrConfig);
+      }
     });
 
     //ENV variables??
