@@ -96,13 +96,11 @@ export class PocketALBApplication extends Resource {
       tags: config.tags,
     });
 
-    let albDomainName = config.domain;
-
-    if (config.cdn) {
-      //When the app uses a CDN we set the ALB to be direct.app-domain
-      //Then the CDN is our main app.
-      albDomainName = `direct.${albDomainName}`;
-    }
+    //When the app uses a CDN we set the ALB to be direct.app-domain
+    //Then the CDN is our main app.
+    const albDomainName = config.cdn
+      ? `direct.${config.domain}`
+      : config.domain;
 
     //Sets up the record for the ALB.
     const albRecord = new Route53Record(this, `alb_record`, {
@@ -124,6 +122,7 @@ export class PocketALBApplication extends Resource {
       lifecycle: {
         ignoreChanges: ['weighted_routing_policy[0].weight'],
       },
+      setIdentifier: '1',
     });
 
     //Creates the Certificate for the ALB
@@ -133,7 +132,10 @@ export class PocketALBApplication extends Resource {
       tags: config.tags,
     });
 
-    return { alb, albRecord };
+    return {
+      alb,
+      albRecord,
+    };
   }
 
   /**
@@ -241,6 +243,7 @@ export class PocketALBApplication extends Resource {
       lifecycle: {
         ignoreChanges: ['weighted_routing_policy[0].weight'],
       },
+      setIdentifier: '2',
     });
   }
 }

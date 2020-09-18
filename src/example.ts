@@ -11,6 +11,7 @@ class Example extends TerraformStack {
       region: 'us-east-1',
     });
 
+    // for local testing, comment out this RemoteBackend block
     new RemoteBackend(this, {
       hostname: 'app.terraform.io',
       organization: 'Acme',
@@ -22,10 +23,10 @@ class Example extends TerraformStack {
     });
 
     new PocketALBApplication(this, 'example', {
-      cdn: true,
+      cdn: true, // maybe make this false if you're testing an actual terraform apply - cdn's take a loooong time to spin up
       alb6CharacterPrefix: 'CORP',
       internal: false,
-      domain: 'test.acme.com',
+      domain: 'acme.getpocket.dev',
       prefix: 'Example-',
     });
   }
