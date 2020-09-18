@@ -1,0 +1,189 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders an ALB with tags 1`] = `
+"{
+  \\"//\\": {
+    \\"metadata\\": {
+      \\"version\\": \\"stubbed\\",
+      \\"stackName\\": \\"test\\"
+    }
+  },
+  \\"resource\\": {
+    \\"aws_security_group\\": {
+      \\"test_testALB_albsecuritygroup_4D3A87C7\\": {
+        \\"description\\": \\"External security group\\",
+        \\"egress\\": [
+          {
+            \\"from_port\\": 80,
+            \\"to_port\\": 80,
+            \\"protocol\\": \\"TCP\\",
+            \\"cidr_blocks\\": [
+              \\"0.0.0.0/0\\"
+            ],
+            \\"description\\": null,
+            \\"ipv6_cidr_blocks\\": null,
+            \\"prefix_list_ids\\": null,
+            \\"security_groups\\": null,
+            \\"self\\": null
+          }
+        ],
+        \\"ingress\\": [
+          {
+            \\"from_port\\": 443,
+            \\"to_port\\": 443,
+            \\"protocol\\": \\"TCP\\",
+            \\"cidr_blocks\\": [
+              \\"0.0.0.0/0\\"
+            ],
+            \\"description\\": null,
+            \\"ipv6_cidr_blocks\\": null,
+            \\"prefix_list_ids\\": null,
+            \\"security_groups\\": null,
+            \\"self\\": null
+          },
+          {
+            \\"from_port\\": 80,
+            \\"to_port\\": 80,
+            \\"protocol\\": \\"TCP\\",
+            \\"cidr_blocks\\": [
+              \\"0.0.0.0/0\\"
+            ],
+            \\"description\\": null,
+            \\"ipv6_cidr_blocks\\": null,
+            \\"prefix_list_ids\\": null,
+            \\"security_groups\\": null,
+            \\"self\\": null
+          }
+        ],
+        \\"name\\": \\"test--HTTP/S Security Group\\",
+        \\"tags\\": {
+          \\"name\\": \\"thedude\\",
+          \\"hobby\\": \\"bowling\\",
+          \\"Name\\": \\"test--HTTP/S Security Group\\"
+        },
+        \\"vpc_id\\": \\"123\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testALB/alb_security_group\\",
+            \\"uniqueId\\": \\"test_testALB_albsecuritygroup_4D3A87C7\\"
+          }
+        }
+      }
+    },
+    \\"aws_alb\\": {
+      \\"test_testALB_alb_99CD74CC\\": {
+        \\"internal\\": false,
+        \\"name_prefix\\": \\"TEST\\",
+        \\"security_groups\\": [
+          \\"\${aws_security_group.test_testALB_albsecuritygroup_4D3A87C7.id}\\"
+        ],
+        \\"subnets\\": [
+          \\"a\\",
+          \\"b\\"
+        ],
+        \\"tags\\": {
+          \\"name\\": \\"thedude\\",
+          \\"hobby\\": \\"bowling\\"
+        },
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testALB/alb\\",
+            \\"uniqueId\\": \\"test_testALB_alb_99CD74CC\\"
+          }
+        }
+      }
+    }
+  }
+}"
+`;
+
+exports[`renders an ALB without tags 1`] = `
+"{
+  \\"//\\": {
+    \\"metadata\\": {
+      \\"version\\": \\"stubbed\\",
+      \\"stackName\\": \\"test\\"
+    }
+  },
+  \\"resource\\": {
+    \\"aws_security_group\\": {
+      \\"test_testALB_albsecuritygroup_4D3A87C7\\": {
+        \\"description\\": \\"External security group\\",
+        \\"egress\\": [
+          {
+            \\"from_port\\": 80,
+            \\"to_port\\": 80,
+            \\"protocol\\": \\"TCP\\",
+            \\"cidr_blocks\\": [
+              \\"0.0.0.0/0\\"
+            ],
+            \\"description\\": null,
+            \\"ipv6_cidr_blocks\\": null,
+            \\"prefix_list_ids\\": null,
+            \\"security_groups\\": null,
+            \\"self\\": null
+          }
+        ],
+        \\"ingress\\": [
+          {
+            \\"from_port\\": 443,
+            \\"to_port\\": 443,
+            \\"protocol\\": \\"TCP\\",
+            \\"cidr_blocks\\": [
+              \\"0.0.0.0/0\\"
+            ],
+            \\"description\\": null,
+            \\"ipv6_cidr_blocks\\": null,
+            \\"prefix_list_ids\\": null,
+            \\"security_groups\\": null,
+            \\"self\\": null
+          },
+          {
+            \\"from_port\\": 80,
+            \\"to_port\\": 80,
+            \\"protocol\\": \\"TCP\\",
+            \\"cidr_blocks\\": [
+              \\"0.0.0.0/0\\"
+            ],
+            \\"description\\": null,
+            \\"ipv6_cidr_blocks\\": null,
+            \\"prefix_list_ids\\": null,
+            \\"security_groups\\": null,
+            \\"self\\": null
+          }
+        ],
+        \\"name\\": \\"test--HTTP/S Security Group\\",
+        \\"tags\\": {
+          \\"Name\\": \\"test--HTTP/S Security Group\\"
+        },
+        \\"vpc_id\\": \\"123\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testALB/alb_security_group\\",
+            \\"uniqueId\\": \\"test_testALB_albsecuritygroup_4D3A87C7\\"
+          }
+        }
+      }
+    },
+    \\"aws_alb\\": {
+      \\"test_testALB_alb_99CD74CC\\": {
+        \\"internal\\": false,
+        \\"name_prefix\\": \\"TEST\\",
+        \\"security_groups\\": [
+          \\"\${aws_security_group.test_testALB_albsecuritygroup_4D3A87C7.id}\\"
+        ],
+        \\"subnets\\": [
+          \\"a\\",
+          \\"b\\"
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testALB/alb\\",
+            \\"uniqueId\\": \\"test_testALB_alb_99CD74CC\\"
+          }
+        }
+      }
+    }
+  }
+}"
+`;
