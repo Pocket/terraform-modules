@@ -1,0 +1,149 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders an ECS service with full container definition props 1`] = `
+"{
+  \\"//\\": {
+    \\"metadata\\": {
+      \\"version\\": \\"stubbed\\",
+      \\"stackName\\": \\"test\\"
+    }
+  },
+  \\"resource\\": {
+    \\"aws_security_group\\": {
+      \\"test_testECSService_ecssecuritygroup_AF33BCF2\\": {
+        \\"description\\": \\"Internal ECS Security Group\\",
+        \\"egress\\": [
+          {
+            \\"from_port\\": 0,
+            \\"protocol\\": \\"-1\\",
+            \\"to_port\\": 0,
+            \\"cidr_blocks\\": [
+              \\"0.0.0.0/0\\"
+            ]
+          }
+        ],
+        \\"ingress\\": [],
+        \\"name\\": \\"abides--ecsiguess-ECSSecurityGroup\\",
+        \\"vpc_id\\": \\"myhouse\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testECSService/ecs_security_group\\",
+            \\"uniqueId\\": \\"test_testECSService_ecssecuritygroup_AF33BCF2\\"
+          }
+        }
+      }
+    }
+  }
+}"
+`;
+
+exports[`renders an ECS service with full container definition props and ALB security group config 1`] = `
+"{
+  \\"//\\": {
+    \\"metadata\\": {
+      \\"version\\": \\"stubbed\\",
+      \\"stackName\\": \\"test\\"
+    }
+  },
+  \\"resource\\": {
+    \\"aws_security_group\\": {
+      \\"test_testECSService_ecssecuritygroup_AF33BCF2\\": {
+        \\"description\\": \\"Internal ECS Security Group\\",
+        \\"egress\\": [
+          {
+            \\"from_port\\": 0,
+            \\"protocol\\": \\"-1\\",
+            \\"to_port\\": 0,
+            \\"cidr_blocks\\": [
+              \\"0.0.0.0/0\\"
+            ]
+          }
+        ],
+        \\"ingress\\": [
+          {
+            \\"from_port\\": 80,
+            \\"protocol\\": \\"TCP\\",
+            \\"to_port\\": 3000,
+            \\"security_groups\\": [
+              \\"strike\\"
+            ]
+          }
+        ],
+        \\"name\\": \\"abides--ecsiguess-ECSSecurityGroup\\",
+        \\"vpc_id\\": \\"myhouse\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testECSService/ecs_security_group\\",
+            \\"uniqueId\\": \\"test_testECSService_ecssecuritygroup_AF33BCF2\\"
+          }
+        }
+      }
+    }
+  }
+}"
+`;
+
+exports[`renders an ECS service with minimal config 1`] = `
+"{
+  \\"//\\": {
+    \\"metadata\\": {
+      \\"version\\": \\"stubbed\\",
+      \\"stackName\\": \\"test\\"
+    }
+  },
+  \\"resource\\": {
+    \\"aws_security_group\\": {
+      \\"test_testECSService_ecssecuritygroup_AF33BCF2\\": {
+        \\"description\\": \\"Internal ECS Security Group\\",
+        \\"egress\\": [
+          {
+            \\"from_port\\": 0,
+            \\"protocol\\": \\"-1\\",
+            \\"to_port\\": 0,
+            \\"cidr_blocks\\": [
+              \\"0.0.0.0/0\\"
+            ]
+          }
+        ],
+        \\"ingress\\": [],
+        \\"name\\": \\"abides--ecsiguess-ECSSecurityGroup\\",
+        \\"vpc_id\\": \\"myhouse\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testECSService/ecs_security_group\\",
+            \\"uniqueId\\": \\"test_testECSService_ecssecuritygroup_AF33BCF2\\"
+          }
+        }
+      }
+    },
+    \\"aws_ecr_repository\\": {
+      \\"test_testECSService_ecrdudescar_ecrrepo_51BB4E65\\": {
+        \\"name\\": \\"abides--ecsiguess-dudescar\\",
+        \\"image_scanning_configuration\\": [
+          {
+            \\"scan_on_push\\": true
+          }
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testECSService/ecr-dudescar/ecr-repo\\",
+            \\"uniqueId\\": \\"test_testECSService_ecrdudescar_ecrrepo_51BB4E65\\"
+          }
+        }
+      }
+    },
+    \\"aws_ecr_lifecycle_policy\\": {
+      \\"test_testECSService_ecrdudescar_ecrrepolifecyclepolicy_0ECE8060\\": {
+        \\"policy\\": \\"{\\\\\\"rules\\\\\\":[{\\\\\\"rulePriority\\\\\\":1,\\\\\\"description\\\\\\":\\\\\\"expire old images\\\\\\",\\\\\\"selection\\\\\\":{\\\\\\"tagStatus\\\\\\":\\\\\\"any\\\\\\",\\\\\\"countType\\\\\\":\\\\\\"imageCountMoreThan\\\\\\",\\\\\\"countNumber\\\\\\":800},\\\\\\"action\\\\\\":{\\\\\\"type\\\\\\":\\\\\\"expire\\\\\\"}}]}\\",
+        \\"repository\\": \\"abides--ecsiguess-dudescar\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testECSService/ecr-dudescar/ecr-repo-lifecyclepolicy\\",
+            \\"uniqueId\\": \\"test_testECSService_ecrdudescar_ecrrepolifecyclepolicy_0ECE8060\\"
+          }
+        }
+      }
+    }
+  }
+}"
+`;

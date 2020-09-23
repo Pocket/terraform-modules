@@ -15,5 +15,5 @@
     "declaration": true
   },
   "include": ["**/*.ts"],
-  "exclude": ["node_modules", "dist", "**/*.jest.ts"]
+  "exclude": ["node_modules", "dist", "**/*.spec.ts"]
 }

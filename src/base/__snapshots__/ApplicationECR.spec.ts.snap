@@ -1,0 +1,87 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders an ECR with tags 1`] = `
+"{
+  \\"//\\": {
+    \\"metadata\\": {
+      \\"version\\": \\"stubbed\\",
+      \\"stackName\\": \\"test\\"
+    }
+  },
+  \\"resource\\": {
+    \\"aws_ecr_repository\\": {
+      \\"test_testECR_ecrrepo_CC5FEBA3\\": {
+        \\"name\\": \\"bowling\\",
+        \\"tags\\": {
+          \\"name\\": \\"rug\\",
+          \\"description\\": \\"tiedtheroomtogether\\"
+        },
+        \\"image_scanning_configuration\\": [
+          {
+            \\"scan_on_push\\": true
+          }
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testECR/ecr-repo\\",
+            \\"uniqueId\\": \\"test_testECR_ecrrepo_CC5FEBA3\\"
+          }
+        }
+      }
+    },
+    \\"aws_ecr_lifecycle_policy\\": {
+      \\"test_testECR_ecrrepolifecyclepolicy_03E252E4\\": {
+        \\"policy\\": \\"{\\\\\\"rules\\\\\\":[{\\\\\\"rulePriority\\\\\\":1,\\\\\\"description\\\\\\":\\\\\\"expire old images\\\\\\",\\\\\\"selection\\\\\\":{\\\\\\"tagStatus\\\\\\":\\\\\\"any\\\\\\",\\\\\\"countType\\\\\\":\\\\\\"imageCountMoreThan\\\\\\",\\\\\\"countNumber\\\\\\":800},\\\\\\"action\\\\\\":{\\\\\\"type\\\\\\":\\\\\\"expire\\\\\\"}}]}\\",
+        \\"repository\\": \\"bowling\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testECR/ecr-repo-lifecyclepolicy\\",
+            \\"uniqueId\\": \\"test_testECR_ecrrepolifecyclepolicy_03E252E4\\"
+          }
+        }
+      }
+    }
+  }
+}"
+`;
+
+exports[`renders an ECR without tags 1`] = `
+"{
+  \\"//\\": {
+    \\"metadata\\": {
+      \\"version\\": \\"stubbed\\",
+      \\"stackName\\": \\"test\\"
+    }
+  },
+  \\"resource\\": {
+    \\"aws_ecr_repository\\": {
+      \\"test_testECR_ecrrepo_CC5FEBA3\\": {
+        \\"name\\": \\"bowling\\",
+        \\"image_scanning_configuration\\": [
+          {
+            \\"scan_on_push\\": true
+          }
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testECR/ecr-repo\\",
+            \\"uniqueId\\": \\"test_testECR_ecrrepo_CC5FEBA3\\"
+          }
+        }
+      }
+    },
+    \\"aws_ecr_lifecycle_policy\\": {
+      \\"test_testECR_ecrrepolifecyclepolicy_03E252E4\\": {
+        \\"policy\\": \\"{\\\\\\"rules\\\\\\":[{\\\\\\"rulePriority\\\\\\":1,\\\\\\"description\\\\\\":\\\\\\"expire old images\\\\\\",\\\\\\"selection\\\\\\":{\\\\\\"tagStatus\\\\\\":\\\\\\"any\\\\\\",\\\\\\"countType\\\\\\":\\\\\\"imageCountMoreThan\\\\\\",\\\\\\"countNumber\\\\\\":800},\\\\\\"action\\\\\\":{\\\\\\"type\\\\\\":\\\\\\"expire\\\\\\"}}]}\\",
+        \\"repository\\": \\"bowling\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testECR/ecr-repo-lifecyclepolicy\\",
+            \\"uniqueId\\": \\"test_testECR_ecrrepolifecyclepolicy_03E252E4\\"
+          }
+        }
+      }
+    }
+  }
+}"
+`;
