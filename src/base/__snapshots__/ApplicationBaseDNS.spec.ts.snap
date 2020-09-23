@@ -1,0 +1,113 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders base DNS with tags 1`] = `
+"{
+  \\"//\\": {
+    \\"metadata\\": {
+      \\"version\\": \\"stubbed\\",
+      \\"stackName\\": \\"test\\"
+    }
+  },
+  \\"resource\\": {
+    \\"aws_route53_zone\\": {
+      \\"test_testDNS_subhostedzone_26FA9DF6\\": {
+        \\"name\\": \\"dev.gobowling.info\\",
+        \\"tags\\": {
+          \\"name\\": \\"thedude\\",
+          \\"hobby\\": \\"bowling\\"
+        },
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testDNS/subhosted_zone\\",
+            \\"uniqueId\\": \\"test_testDNS_subhostedzone_26FA9DF6\\"
+          }
+        }
+      }
+    },
+    \\"aws_route53_record\\": {
+      \\"test_testDNS_subhostedzonens_99962D0F\\": {
+        \\"name\\": \\"dev.gobowling.info\\",
+        \\"records\\": \\"\${aws_route53_zone.test_testDNS_subhostedzone_26FA9DF6.name_servers}\\",
+        \\"ttl\\": 86400,
+        \\"type\\": \\"NS\\",
+        \\"zone_id\\": \\"\${data.aws_route53_zone.test_testDNSmainhostedzone_B9A30055.zone_id}\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testDNS/subhosted_zone_ns\\",
+            \\"uniqueId\\": \\"test_testDNS_subhostedzonens_99962D0F\\"
+          }
+        }
+      }
+    }
+  },
+  \\"data\\": {
+    \\"aws_route53_zone\\": {
+      \\"test_testDNSmainhostedzone_B9A30055\\": {
+        \\"name\\": \\"gobowling.info\\",
+        \\"tags\\": {
+          \\"name\\": \\"thedude\\",
+          \\"hobby\\": \\"bowling\\"
+        },
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testDNS_main_hosted_zone\\",
+            \\"uniqueId\\": \\"test_testDNSmainhostedzone_B9A30055\\"
+          }
+        }
+      }
+    }
+  }
+}"
+`;
+
+exports[`renders base DNS without tags 1`] = `
+"{
+  \\"//\\": {
+    \\"metadata\\": {
+      \\"version\\": \\"stubbed\\",
+      \\"stackName\\": \\"test\\"
+    }
+  },
+  \\"resource\\": {
+    \\"aws_route53_zone\\": {
+      \\"test_testDNS_subhostedzone_26FA9DF6\\": {
+        \\"name\\": \\"dev.gobowling.info\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testDNS/subhosted_zone\\",
+            \\"uniqueId\\": \\"test_testDNS_subhostedzone_26FA9DF6\\"
+          }
+        }
+      }
+    },
+    \\"aws_route53_record\\": {
+      \\"test_testDNS_subhostedzonens_99962D0F\\": {
+        \\"name\\": \\"dev.gobowling.info\\",
+        \\"records\\": \\"\${aws_route53_zone.test_testDNS_subhostedzone_26FA9DF6.name_servers}\\",
+        \\"ttl\\": 86400,
+        \\"type\\": \\"NS\\",
+        \\"zone_id\\": \\"\${data.aws_route53_zone.test_testDNSmainhostedzone_B9A30055.zone_id}\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testDNS/subhosted_zone_ns\\",
+            \\"uniqueId\\": \\"test_testDNS_subhostedzonens_99962D0F\\"
+          }
+        }
+      }
+    }
+  },
+  \\"data\\": {
+    \\"aws_route53_zone\\": {
+      \\"test_testDNSmainhostedzone_B9A30055\\": {
+        \\"name\\": \\"gobowling.info\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testDNS_main_hosted_zone\\",
+            \\"uniqueId\\": \\"test_testDNSmainhostedzone_B9A30055\\"
+          }
+        }
+      }
+    }
+  }
+}"
+`;
