@@ -4,7 +4,7 @@ Thank you for checking out our Terraform Modules work. We welcome contributions 
 
 ### Asking questions / receiving updates
 
-* Slack channel (Mozilla staff only): #team-backend
+* Slack channel (Mozilla staff only): #team-pocket-backend
 
 * File issues/questions on Github: [https://github.com/Pocket/terraform-modules/issues](https://github.com/Pocket/terraform-modules/issues). We typically triage new issues every Monday.
 
