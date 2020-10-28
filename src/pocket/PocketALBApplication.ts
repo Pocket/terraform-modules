@@ -4,9 +4,14 @@ import {
   Route53Record,
 } from '../../.gen/providers/aws';
 import { Construct } from 'constructs';
-import { ApplicationBaseDNS } from '..';
-import { ApplicationCertificate } from '..';
-import { ApplicationLoadBalancer } from '..';
+import {
+  ApplicationBaseDNS,
+  ApplicationCertificate,
+  ApplicationLoadBalancer,
+  ApplicationECSService,
+  ApplicationECSContainerDefinitionProps,
+  ApplicationECSIAMProps,
+} from '..';
 import { PocketVPC } from './PocketVPC';
 
 export interface PocketALBApplicationProps {
@@ -16,6 +21,8 @@ export interface PocketALBApplicationProps {
   domain: string;
   cdn?: boolean;
   tags?: { [key: string]: string };
+  containerConfigs: ApplicationECSContainerDefinitionProps[];
+  ecsIamConfig: ApplicationECSIAMProps;
 }
 
 export class PocketALBApplication extends Resource {
@@ -45,6 +52,16 @@ export class PocketALBApplication extends Resource {
     if (config.cdn) {
       this.createCDN(config, albRecord);
     }
+
+    new ApplicationECSService(this, 'ecs_service', {
+      prefix: config.prefix,
+      name: config.alb6CharacterPrefix,
+      ecsCluster: '',
+      vpcId: pocketVPC.vpc.id,
+      containerConfigs: config.containerConfigs,
+      privateSubnetIds: pocketVPC.privateSubnetIds,
+      ecsIamConfig: config.ecsIamConfig,
+    });
   }
 
   /**

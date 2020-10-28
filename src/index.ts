@@ -9,3 +9,5 @@ export * from './base/ApplicationECSService';
 export * from './base/ApplicationLoadBalancer';
 export * from './base/ApplicationDynamoDBTable';
 export * from './base/ApplicationRDSCluster';
+export * from './base/ApplicationECSContainerDefinition';
+export * from './base/ApplicationECSIAM';

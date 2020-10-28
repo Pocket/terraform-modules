@@ -1,81 +1,88 @@
 import { Testing, TerraformStack } from 'cdktf';
-import { PocketALBApplication } from './PocketALBApplication';
+import {
+  PocketALBApplication,
+  PocketALBApplicationProps,
+} from './PocketALBApplication';
 
-test('renders an application with minimal config', () => {
-  const app = Testing.app();
-  const stack = new TerraformStack(app, 'test');
+describe('PocketALBApplication', () => {
+  let BASE_CONFIG: PocketALBApplicationProps;
 
-  new PocketALBApplication(stack, 'testPocketApp', {
-    prefix: 'testapp-',
-    alb6CharacterPrefix: 'TSTAPP',
-    domain: 'testing.bowling.gov',
-  });
-
-  expect(Testing.synth(stack)).toMatchSnapshot();
-});
-
-test('renders an external application', () => {
-  const app = Testing.app();
-  const stack = new TerraformStack(app, 'test');
-
-  new PocketALBApplication(stack, 'testPocketApp', {
-    prefix: 'testapp-',
-    alb6CharacterPrefix: 'TSTAPP',
-    domain: 'testing.bowling.gov',
-    internal: false,
-    cdn: true,
-  });
-
-  expect(Testing.synth(stack)).toMatchSnapshot();
-});
-
-test('renders an internal application', () => {
-  const app = Testing.app();
-  const stack = new TerraformStack(app, 'test');
-
-  new PocketALBApplication(stack, 'testPocketApp', {
-    prefix: 'testapp-',
-    alb6CharacterPrefix: 'TSTAPP',
-    domain: 'testing.bowling.gov',
-    internal: true,
-    cdn: false,
-  });
-
-  expect(Testing.synth(stack)).toMatchSnapshot();
-});
-
-test('throws an error trying for an internal app with a cdn', () => {
-  const app = Testing.app();
-  const stack = new TerraformStack(app, 'test');
-
-  expect(() => {
-    new PocketALBApplication(stack, 'testPocketApp', {
+  beforeEach(() => {
+    BASE_CONFIG = {
       prefix: 'testapp-',
       alb6CharacterPrefix: 'TSTAPP',
       domain: 'testing.bowling.gov',
-      internal: true,
-      cdn: true,
-    });
-  }).toThrow('You can not have a cached ALB and have it be internal.');
-
-  expect(Testing.synth(stack)).toMatchSnapshot();
-});
-
-test('renders an internal application with tags', () => {
-  const app = Testing.app();
-  const stack = new TerraformStack(app, 'test');
-
-  new PocketALBApplication(stack, 'testPocketApp', {
-    prefix: 'testapp-',
-    alb6CharacterPrefix: 'TSTAPP',
-    domain: 'testing.bowling.gov',
-    internal: true,
-    cdn: false,
-    tags: {
-      name: 'thedude',
-      hobby: 'bowling',
-    },
+      containerConfigs: [],
+      ecsIamConfig: {
+        prefix: 'testapp-',
+        name: 'iamname',
+        taskExecutionDefaultAttachmentArn: '',
+        taskExecutionRolePolicyStatements: [],
+        taskRolePolicyStatements: [],
+      },
+    };
   });
 
-  expect(Testing.synth(stack)).toMatchSnapshot();
+  it('renders an application with minimal config', () => {
+    const app = Testing.app();
+    const stack = new TerraformStack(app, 'test');
+
+    new PocketALBApplication(stack, 'testPocketApp', BASE_CONFIG);
+
+    expect(Testing.synth(stack)).toMatchSnapshot();
+  });
+
+  it('renders an external application', () => {
+    const app = Testing.app();
+    const stack = new TerraformStack(app, 'test');
+
+    BASE_CONFIG.internal = false;
+    BASE_CONFIG.cdn = true;
+
+    new PocketALBApplication(stack, 'testPocketApp', BASE_CONFIG);
+
+    expect(Testing.synth(stack)).toMatchSnapshot();
+  });
+
+  it('renders an internal application', () => {
+    const app = Testing.app();
+    const stack = new TerraformStack(app, 'test');
+
+    BASE_CONFIG.internal = true;
+    BASE_CONFIG.cdn = false;
+
+    new PocketALBApplication(stack, 'testPocketApp', BASE_CONFIG);
+
+    expect(Testing.synth(stack)).toMatchSnapshot();
+  });
+
+  it('throws an error trying for an internal app with a cdn', () => {
+    const app = Testing.app();
+    const stack = new TerraformStack(app, 'test');
+
+    BASE_CONFIG.internal = true;
+    BASE_CONFIG.cdn = true;
+
+    expect(() => {
+      new PocketALBApplication(stack, 'testPocketApp', BASE_CONFIG);
+    }).toThrow('You can not have a cached ALB and have it be internal.');
+
+    expect(Testing.synth(stack)).toMatchSnapshot();
+  });
+
+  it('renders an internal application with tags', () => {
+    const app = Testing.app();
+    const stack = new TerraformStack(app, 'test');
+
+    BASE_CONFIG.internal = true;
+    BASE_CONFIG.cdn = false;
+    BASE_CONFIG.tags = {
+      name: 'thedude',
+      hobby: 'bowling',
+    };
+
+    new PocketALBApplication(stack, 'testPocketApp', BASE_CONFIG);
+
+    expect(Testing.synth(stack)).toMatchSnapshot();
+  });
 });

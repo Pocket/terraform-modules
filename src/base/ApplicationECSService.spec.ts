@@ -4,76 +4,107 @@ import {
   ApplicationECSServiceProps,
 } from './ApplicationECSService';
 
-const BASE_CONFIG: ApplicationECSServiceProps = {
-  prefix: 'abides-',
-  name: 'ecsiguess',
-  ecsCluster: 'gorp',
-  vpcId: 'myhouse',
-  taskDefinition: {
-    port: 8080,
-    containerName: 'dudescar',
-    containerDefinitions: [
+let BASE_CONFIG: ApplicationECSServiceProps;
+
+describe('AppliationECSService', () => {
+  beforeEach(() => {
+    BASE_CONFIG = {
+      prefix: 'abides-',
+      name: 'ecsiguess',
+      ecsCluster: 'gorp',
+      vpcId: 'myhouse',
+      containerConfigs: [],
+      privateSubnetIds: ['1.1.1.1', '2.2.2.2'],
+      ecsIamConfig: {
+        prefix: 'abides-',
+        name: 'ecsiam?',
+        taskExecutionDefaultAttachmentArn: 'someArn',
+        taskExecutionRolePolicyStatements: [],
+        taskRolePolicyStatements: [],
+      },
+    };
+  });
+
+  it('renders an ECS service with minimal config', () => {
+    const app = Testing.app();
+    const stack = new TerraformStack(app, 'test');
+
+    new ApplicationECSService(stack, 'testECSService', BASE_CONFIG);
+
+    expect(Testing.synth(stack)).toMatchSnapshot();
+  });
+
+  it('renders an ECS service with full container definition props', () => {
+    const app = Testing.app();
+    const stack = new TerraformStack(app, 'test');
+
+    BASE_CONFIG.launchType = 'ROCKET';
+    BASE_CONFIG.deploymentMaximumPercent = 400;
+    BASE_CONFIG.deploymentMinimumHealthyPercent = 80;
+    BASE_CONFIG.desiredCount = 4;
+    BASE_CONFIG.lifecycleIgnoreChanges = ['bowling', 'donnie', 'autobahn'];
+    BASE_CONFIG.containerConfigs = [
       {
-        containerName: 'dudescar',
+        containerPort: 3002,
+        hostPort: 3001,
+        logGroup: 'test/log/group',
+        containerImage: 'beverage-here/0.1',
+        name: 'lebowski',
+        repositoryCredentialsParam: 'someArn',
+        envVars: [
+          {
+            name: 'rug',
+            value: 'tiedtheroomtogether',
+          },
+        ],
+        secretEnvVars: [
+          {
+            name: 'donnie',
+            valueFrom: 'throwinrockstonight',
+          },
+        ],
       },
-    ],
-  },
-};
+    ];
 
-test('renders an ECS service with minimal config', () => {
-  const app = Testing.app();
-  const stack = new TerraformStack(app, 'test');
+    new ApplicationECSService(stack, 'testECSService', BASE_CONFIG);
 
-  new ApplicationECSService(stack, 'testECSService', BASE_CONFIG);
+    expect(Testing.synth(stack)).toMatchSnapshot();
+  });
 
-  expect(Testing.synth(stack)).toMatchSnapshot();
-});
+  it('renders an ECS service with full container definition props and ALB security group config', () => {
+    const app = Testing.app();
+    const stack = new TerraformStack(app, 'test');
 
-test('renders an ECS service with full container definition props', () => {
-  const app = Testing.app();
-  const stack = new TerraformStack(app, 'test');
-
-  BASE_CONFIG.taskDefinition.containerDefinitions = [
-    {
-      containerName: 'dudescar',
-      containerImage: 'beverage-here/0.1',
-      envVars: {
-        rug: 'tiedtheroomtogether',
+    BASE_CONFIG.containerConfigs = [
+      {
+        containerPort: 3002,
+        hostPort: 3001,
+        logGroup: 'test/log/group',
+        containerImage: 'beverage-here/0.1',
+        name: 'lebowski',
+        repositoryCredentialsParam: 'someArn',
+        envVars: [
+          {
+            name: 'rug',
+            value: 'tiedtheroomtogether',
+          },
+        ],
+        secretEnvVars: [
+          {
+            name: 'donnie',
+            valueFrom: 'throwinrockstonight',
+          },
+        ],
       },
-      secretEnvVars: {
-        donnie: 'throwinrockstonight',
-      },
-    },
-  ];
+    ];
 
-  new ApplicationECSService(stack, 'testECSService', BASE_CONFIG);
+    BASE_CONFIG.albSecurityGroupConfig = {
+      containerPort: 3000,
+      albSecurityGroupId: 'strike',
+    };
 
-  expect(Testing.synth(stack)).toMatchSnapshot();
-});
+    new ApplicationECSService(stack, 'testECSService', BASE_CONFIG);
 
-test('renders an ECS service with full container definition props and ALB security group config', () => {
-  const app = Testing.app();
-  const stack = new TerraformStack(app, 'test');
-
-  BASE_CONFIG.taskDefinition.containerDefinitions = [
-    {
-      containerName: 'dudescar',
-      containerImage: 'beverage-here/0.1',
-      envVars: {
-        rug: 'tiedtheroomtogether',
-      },
-      secretEnvVars: {
-        donnie: 'throwinrockstonight',
-      },
-    },
-  ];
-
-  BASE_CONFIG.albSecurityGroupConfig = {
-    containerPort: 3000,
-    albSecurityGroupId: 'strike',
-  };
-
-  new ApplicationECSService(stack, 'testECSService', BASE_CONFIG);
-
-  expect(Testing.synth(stack)).toMatchSnapshot();
+    expect(Testing.synth(stack)).toMatchSnapshot();
+  });
 });

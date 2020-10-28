@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`renders an application with minimal config 1`] = `
+exports[`PocketALBApplication renders an application with minimal config 1`] = `
 "{
   \\"//\\": {
     \\"metadata\\": {
@@ -150,6 +150,53 @@ exports[`renders an application with minimal config 1`] = `
           \\"metadata\\": {
             \\"path\\": \\"test/testPocketApp/base_dns_main_hosted_zone\\",
             \\"uniqueId\\": \\"test_testPocketApp_basednsmainhostedzone_F3E3F27E\\"
+          }
+        }
+      }
+    },
+    \\"aws_iam_policy_document\\": {
+      \\"test_testPocketApp_ecsservice_ecsiam_ecstaskassume_A392A140\\": {
+        \\"version\\": \\"2012-10-17\\",
+        \\"statement\\": [
+          {
+            \\"effect\\": \\"Allow\\",
+            \\"actions\\": [
+              \\"sts:AssumeRole\\"
+            ],
+            \\"principals\\": [
+              {
+                \\"identifiers\\": [
+                  \\"ecs-tasks.amazonaws.com\\"
+                ],
+                \\"type\\": \\"Service\\"
+              }
+            ]
+          }
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/ecs_service/ecs-iam/ecs-task-assume\\",
+            \\"uniqueId\\": \\"test_testPocketApp_ecsservice_ecsiam_ecstaskassume_A392A140\\"
+          }
+        }
+      },
+      \\"test_testPocketApp_ecsservice_ecsiam_dataecstaskexecutionrolepolicy_A05E196C\\": {
+        \\"version\\": \\"2012-10-17\\",
+        \\"statement\\": [],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/ecs_service/ecs-iam/data-ecs-task-execution-role-policy\\",
+            \\"uniqueId\\": \\"test_testPocketApp_ecsservice_ecsiam_dataecstaskexecutionrolepolicy_A05E196C\\"
+          }
+        }
+      },
+      \\"test_testPocketApp_ecsservice_ecsiam_dataecstaskrolepolicy_DB6A3E60\\": {
+        \\"version\\": \\"2012-10-17\\",
+        \\"statement\\": [],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/ecs_service/ecs-iam/data-ecs-task-role-policy\\",
+            \\"uniqueId\\": \\"test_testPocketApp_ecsservice_ecsiam_dataecstaskrolepolicy_DB6A3E60\\"
           }
         }
       }
@@ -286,6 +333,33 @@ exports[`renders an application with minimal config 1`] = `
             \\"uniqueId\\": \\"test_testPocketApp_applicationloadbalancer_albsecuritygroup_C4F681E3\\"
           }
         }
+      },
+      \\"test_testPocketApp_ecsservice_ecssecuritygroup_326B534A\\": {
+        \\"description\\": \\"Internal ECS Security Group\\",
+        \\"egress\\": [
+          {
+            \\"from_port\\": 0,
+            \\"protocol\\": \\"-1\\",
+            \\"to_port\\": 0,
+            \\"cidr_blocks\\": [
+              \\"0.0.0.0/0\\"
+            ],
+            \\"description\\": \\"required\\",
+            \\"ipv6_cidr_blocks\\": [],
+            \\"prefix_list_ids\\": [],
+            \\"security_groups\\": [],
+            \\"self\\": false
+          }
+        ],
+        \\"ingress\\": [],
+        \\"name\\": \\"testapp--TSTAPP-ECSSecurityGroup\\",
+        \\"vpc_id\\": \\"\${data.aws_vpc.test_testPocketApp_pocketvpc_40AC0971.id}\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/ecs_service/ecs_security_group\\",
+            \\"uniqueId\\": \\"test_testPocketApp_ecsservice_ecssecuritygroup_326B534A\\"
+          }
+        }
       }
     },
     \\"aws_alb\\": {
@@ -336,12 +410,135 @@ exports[`renders an application with minimal config 1`] = `
           }
         }
       }
+    },
+    \\"aws_iam_role\\": {
+      \\"test_testPocketApp_ecsservice_ecsiam_ecsexecutionrole_670A7AD5\\": {
+        \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.test_testPocketApp_ecsservice_ecsiam_ecstaskassume_A392A140.json}\\",
+        \\"name\\": \\"testapp--TaskExecutionRole\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/ecs_service/ecs-iam/ecs-execution-role\\",
+            \\"uniqueId\\": \\"test_testPocketApp_ecsservice_ecsiam_ecsexecutionrole_670A7AD5\\"
+          }
+        }
+      },
+      \\"test_testPocketApp_ecsservice_ecsiam_ecstaskrole_E41363D4\\": {
+        \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.test_testPocketApp_ecsservice_ecsiam_ecstaskassume_A392A140.json}\\",
+        \\"name\\": \\"testapp--TaskRole\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/ecs_service/ecs-iam/ecs-task-role\\",
+            \\"uniqueId\\": \\"test_testPocketApp_ecsservice_ecsiam_ecstaskrole_E41363D4\\"
+          }
+        }
+      }
+    },
+    \\"aws_iam_role_policy_attachment\\": {
+      \\"test_testPocketApp_ecsservice_ecsiam_ecstaskexecutiondefaultattachment_48A8A818\\": {
+        \\"policy_arn\\": \\"\\",
+        \\"role\\": \\"\${aws_iam_role.test_testPocketApp_ecsservice_ecsiam_ecsexecutionrole_670A7AD5.id}\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/ecs_service/ecs-iam/ecs-task-execution-default-attachment\\",
+            \\"uniqueId\\": \\"test_testPocketApp_ecsservice_ecsiam_ecstaskexecutiondefaultattachment_48A8A818\\"
+          }
+        }
+      },
+      \\"test_testPocketApp_ecsservice_ecsiam_ecstaskexecutioncustomattachment_E1366D85\\": {
+        \\"policy_arn\\": \\"\${aws_iam_policy.test_testPocketApp_ecsservice_ecsiam_ecstaskexecutionrolepolicy_03341FE5.arn}\\",
+        \\"role\\": \\"\${aws_iam_role.test_testPocketApp_ecsservice_ecsiam_ecsexecutionrole_670A7AD5.id}\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/ecs_service/ecs-iam/ecs-task-execution-custom-attachment\\",
+            \\"uniqueId\\": \\"test_testPocketApp_ecsservice_ecsiam_ecstaskexecutioncustomattachment_E1366D85\\"
+          }
+        }
+      },
+      \\"test_testPocketApp_ecsservice_ecsiam_ecstaskcustomattachment_755A7300\\": {
+        \\"policy_arn\\": \\"\${aws_iam_policy.test_testPocketApp_ecsservice_ecsiam_ecstaskrolepolicy_05732685.arn}\\",
+        \\"role\\": \\"\${aws_iam_role.test_testPocketApp_ecsservice_ecsiam_ecstaskrole_E41363D4.id}\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/ecs_service/ecs-iam/ecs-task-custom-attachment\\",
+            \\"uniqueId\\": \\"test_testPocketApp_ecsservice_ecsiam_ecstaskcustomattachment_755A7300\\"
+          }
+        }
+      }
+    },
+    \\"aws_iam_policy\\": {
+      \\"test_testPocketApp_ecsservice_ecsiam_ecstaskexecutionrolepolicy_03341FE5\\": {
+        \\"name\\": \\"testapp--TaskExecutionRolePolicy\\",
+        \\"policy\\": \\"\${data.aws_iam_policy_document.test_testPocketApp_ecsservice_ecsiam_dataecstaskexecutionrolepolicy_A05E196C.json}\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/ecs_service/ecs-iam/ecs-task-execution-role-policy\\",
+            \\"uniqueId\\": \\"test_testPocketApp_ecsservice_ecsiam_ecstaskexecutionrolepolicy_03341FE5\\"
+          }
+        }
+      },
+      \\"test_testPocketApp_ecsservice_ecsiam_ecstaskrolepolicy_05732685\\": {
+        \\"name\\": \\"testapp--TaskRolePolicy\\",
+        \\"policy\\": \\"\${data.aws_iam_policy_document.test_testPocketApp_ecsservice_ecsiam_dataecstaskrolepolicy_DB6A3E60.json}\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/ecs_service/ecs-iam/ecs-task-role-policy\\",
+            \\"uniqueId\\": \\"test_testPocketApp_ecsservice_ecsiam_ecstaskrolepolicy_05732685\\"
+          }
+        }
+      }
+    },
+    \\"aws_ecs_task_definition\\": {
+      \\"test_testPocketApp_ecsservice_ecstask_A752DB7C\\": {
+        \\"container_definitions\\": \\"[]\\",
+        \\"execution_role_arn\\": \\"\${aws_iam_role.test_testPocketApp_ecsservice_ecsiam_ecsexecutionrole_670A7AD5.arn}\\",
+        \\"family\\": \\"testapp--TSTAPP\\",
+        \\"task_role_arn\\": \\"\${aws_iam_role.test_testPocketApp_ecsservice_ecsiam_ecstaskrole_E41363D4.arn}\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/ecs_service/ecs-task\\",
+            \\"uniqueId\\": \\"test_testPocketApp_ecsservice_ecstask_A752DB7C\\"
+          }
+        }
+      }
+    },
+    \\"aws_ecs_service\\": {
+      \\"test_testPocketApp_ecsservice_ecsservice_B23795BD\\": {
+        \\"deployment_maximum_percent\\": 200,
+        \\"deployment_minimum_healthy_percent\\": 100,
+        \\"desired_count\\": 2,
+        \\"launch_type\\": \\"FARGATE\\",
+        \\"name\\": \\"testapp--TSTAPP\\",
+        \\"propagate_tags\\": \\"SERVICE\\",
+        \\"task_definition\\": \\"\${aws_ecs_task_definition.test_testPocketApp_ecsservice_ecstask_A752DB7C.arn}\\",
+        \\"network_configuration\\": [
+          {
+            \\"security_groups\\": [
+              \\"\${aws_security_group.test_testPocketApp_ecsservice_ecssecuritygroup_326B534A.id}\\"
+            ],
+            \\"subnets\\": \\"\${data.aws_subnet_ids.test_testPocketApp_pocketvpc_privatesubnetids_A272E250.ids}\\"
+          }
+        ],
+        \\"lifecycle\\": {
+          \\"ignore_changes\\": [
+            \\"task_definition\\",
+            \\"desired_count\\",
+            \\"load_balancer\\"
+          ],
+          \\"create_before_destroy\\": true
+        },
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/ecs_service/ecs-service\\",
+            \\"uniqueId\\": \\"test_testPocketApp_ecsservice_ecsservice_B23795BD\\"
+          }
+        }
+      }
     }
   }
 }"
 `;
 
-exports[`renders an external application 1`] = `
+exports[`PocketALBApplication renders an external application 1`] = `
 "{
   \\"//\\": {
     \\"metadata\\": {
@@ -491,6 +688,53 @@ exports[`renders an external application 1`] = `
           \\"metadata\\": {
             \\"path\\": \\"test/testPocketApp/base_dns_main_hosted_zone\\",
             \\"uniqueId\\": \\"test_testPocketApp_basednsmainhostedzone_F3E3F27E\\"
+          }
+        }
+      }
+    },
+    \\"aws_iam_policy_document\\": {
+      \\"test_testPocketApp_ecsservice_ecsiam_ecstaskassume_A392A140\\": {
+        \\"version\\": \\"2012-10-17\\",
+        \\"statement\\": [
+          {
+            \\"effect\\": \\"Allow\\",
+            \\"actions\\": [
+              \\"sts:AssumeRole\\"
+            ],
+            \\"principals\\": [
+              {
+                \\"identifiers\\": [
+                  \\"ecs-tasks.amazonaws.com\\"
+                ],
+                \\"type\\": \\"Service\\"
+              }
+            ]
+          }
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/ecs_service/ecs-iam/ecs-task-assume\\",
+            \\"uniqueId\\": \\"test_testPocketApp_ecsservice_ecsiam_ecstaskassume_A392A140\\"
+          }
+        }
+      },
+      \\"test_testPocketApp_ecsservice_ecsiam_dataecstaskexecutionrolepolicy_A05E196C\\": {
+        \\"version\\": \\"2012-10-17\\",
+        \\"statement\\": [],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/ecs_service/ecs-iam/data-ecs-task-execution-role-policy\\",
+            \\"uniqueId\\": \\"test_testPocketApp_ecsservice_ecsiam_dataecstaskexecutionrolepolicy_A05E196C\\"
+          }
+        }
+      },
+      \\"test_testPocketApp_ecsservice_ecsiam_dataecstaskrolepolicy_DB6A3E60\\": {
+        \\"version\\": \\"2012-10-17\\",
+        \\"statement\\": [],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/ecs_service/ecs-iam/data-ecs-task-role-policy\\",
+            \\"uniqueId\\": \\"test_testPocketApp_ecsservice_ecsiam_dataecstaskrolepolicy_DB6A3E60\\"
           }
         }
       }
@@ -674,6 +918,33 @@ exports[`renders an external application 1`] = `
             \\"uniqueId\\": \\"test_testPocketApp_applicationloadbalancer_albsecuritygroup_C4F681E3\\"
           }
         }
+      },
+      \\"test_testPocketApp_ecsservice_ecssecuritygroup_326B534A\\": {
+        \\"description\\": \\"Internal ECS Security Group\\",
+        \\"egress\\": [
+          {
+            \\"from_port\\": 0,
+            \\"protocol\\": \\"-1\\",
+            \\"to_port\\": 0,
+            \\"cidr_blocks\\": [
+              \\"0.0.0.0/0\\"
+            ],
+            \\"description\\": \\"required\\",
+            \\"ipv6_cidr_blocks\\": [],
+            \\"prefix_list_ids\\": [],
+            \\"security_groups\\": [],
+            \\"self\\": false
+          }
+        ],
+        \\"ingress\\": [],
+        \\"name\\": \\"testapp--TSTAPP-ECSSecurityGroup\\",
+        \\"vpc_id\\": \\"\${data.aws_vpc.test_testPocketApp_pocketvpc_40AC0971.id}\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/ecs_service/ecs_security_group\\",
+            \\"uniqueId\\": \\"test_testPocketApp_ecsservice_ecssecuritygroup_326B534A\\"
+          }
+        }
       }
     },
     \\"aws_alb\\": {
@@ -838,12 +1109,135 @@ exports[`renders an external application 1`] = `
           }
         }
       }
+    },
+    \\"aws_iam_role\\": {
+      \\"test_testPocketApp_ecsservice_ecsiam_ecsexecutionrole_670A7AD5\\": {
+        \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.test_testPocketApp_ecsservice_ecsiam_ecstaskassume_A392A140.json}\\",
+        \\"name\\": \\"testapp--TaskExecutionRole\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/ecs_service/ecs-iam/ecs-execution-role\\",
+            \\"uniqueId\\": \\"test_testPocketApp_ecsservice_ecsiam_ecsexecutionrole_670A7AD5\\"
+          }
+        }
+      },
+      \\"test_testPocketApp_ecsservice_ecsiam_ecstaskrole_E41363D4\\": {
+        \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.test_testPocketApp_ecsservice_ecsiam_ecstaskassume_A392A140.json}\\",
+        \\"name\\": \\"testapp--TaskRole\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/ecs_service/ecs-iam/ecs-task-role\\",
+            \\"uniqueId\\": \\"test_testPocketApp_ecsservice_ecsiam_ecstaskrole_E41363D4\\"
+          }
+        }
+      }
+    },
+    \\"aws_iam_role_policy_attachment\\": {
+      \\"test_testPocketApp_ecsservice_ecsiam_ecstaskexecutiondefaultattachment_48A8A818\\": {
+        \\"policy_arn\\": \\"\\",
+        \\"role\\": \\"\${aws_iam_role.test_testPocketApp_ecsservice_ecsiam_ecsexecutionrole_670A7AD5.id}\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/ecs_service/ecs-iam/ecs-task-execution-default-attachment\\",
+            \\"uniqueId\\": \\"test_testPocketApp_ecsservice_ecsiam_ecstaskexecutiondefaultattachment_48A8A818\\"
+          }
+        }
+      },
+      \\"test_testPocketApp_ecsservice_ecsiam_ecstaskexecutioncustomattachment_E1366D85\\": {
+        \\"policy_arn\\": \\"\${aws_iam_policy.test_testPocketApp_ecsservice_ecsiam_ecstaskexecutionrolepolicy_03341FE5.arn}\\",
+        \\"role\\": \\"\${aws_iam_role.test_testPocketApp_ecsservice_ecsiam_ecsexecutionrole_670A7AD5.id}\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/ecs_service/ecs-iam/ecs-task-execution-custom-attachment\\",
+            \\"uniqueId\\": \\"test_testPocketApp_ecsservice_ecsiam_ecstaskexecutioncustomattachment_E1366D85\\"
+          }
+        }
+      },
+      \\"test_testPocketApp_ecsservice_ecsiam_ecstaskcustomattachment_755A7300\\": {
+        \\"policy_arn\\": \\"\${aws_iam_policy.test_testPocketApp_ecsservice_ecsiam_ecstaskrolepolicy_05732685.arn}\\",
+        \\"role\\": \\"\${aws_iam_role.test_testPocketApp_ecsservice_ecsiam_ecstaskrole_E41363D4.id}\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/ecs_service/ecs-iam/ecs-task-custom-attachment\\",
+            \\"uniqueId\\": \\"test_testPocketApp_ecsservice_ecsiam_ecstaskcustomattachment_755A7300\\"
+          }
+        }
+      }
+    },
+    \\"aws_iam_policy\\": {
+      \\"test_testPocketApp_ecsservice_ecsiam_ecstaskexecutionrolepolicy_03341FE5\\": {
+        \\"name\\": \\"testapp--TaskExecutionRolePolicy\\",
+        \\"policy\\": \\"\${data.aws_iam_policy_document.test_testPocketApp_ecsservice_ecsiam_dataecstaskexecutionrolepolicy_A05E196C.json}\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/ecs_service/ecs-iam/ecs-task-execution-role-policy\\",
+            \\"uniqueId\\": \\"test_testPocketApp_ecsservice_ecsiam_ecstaskexecutionrolepolicy_03341FE5\\"
+          }
+        }
+      },
+      \\"test_testPocketApp_ecsservice_ecsiam_ecstaskrolepolicy_05732685\\": {
+        \\"name\\": \\"testapp--TaskRolePolicy\\",
+        \\"policy\\": \\"\${data.aws_iam_policy_document.test_testPocketApp_ecsservice_ecsiam_dataecstaskrolepolicy_DB6A3E60.json}\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/ecs_service/ecs-iam/ecs-task-role-policy\\",
+            \\"uniqueId\\": \\"test_testPocketApp_ecsservice_ecsiam_ecstaskrolepolicy_05732685\\"
+          }
+        }
+      }
+    },
+    \\"aws_ecs_task_definition\\": {
+      \\"test_testPocketApp_ecsservice_ecstask_A752DB7C\\": {
+        \\"container_definitions\\": \\"[]\\",
+        \\"execution_role_arn\\": \\"\${aws_iam_role.test_testPocketApp_ecsservice_ecsiam_ecsexecutionrole_670A7AD5.arn}\\",
+        \\"family\\": \\"testapp--TSTAPP\\",
+        \\"task_role_arn\\": \\"\${aws_iam_role.test_testPocketApp_ecsservice_ecsiam_ecstaskrole_E41363D4.arn}\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/ecs_service/ecs-task\\",
+            \\"uniqueId\\": \\"test_testPocketApp_ecsservice_ecstask_A752DB7C\\"
+          }
+        }
+      }
+    },
+    \\"aws_ecs_service\\": {
+      \\"test_testPocketApp_ecsservice_ecsservice_B23795BD\\": {
+        \\"deployment_maximum_percent\\": 200,
+        \\"deployment_minimum_healthy_percent\\": 100,
+        \\"desired_count\\": 2,
+        \\"launch_type\\": \\"FARGATE\\",
+        \\"name\\": \\"testapp--TSTAPP\\",
+        \\"propagate_tags\\": \\"SERVICE\\",
+        \\"task_definition\\": \\"\${aws_ecs_task_definition.test_testPocketApp_ecsservice_ecstask_A752DB7C.arn}\\",
+        \\"network_configuration\\": [
+          {
+            \\"security_groups\\": [
+              \\"\${aws_security_group.test_testPocketApp_ecsservice_ecssecuritygroup_326B534A.id}\\"
+            ],
+            \\"subnets\\": \\"\${data.aws_subnet_ids.test_testPocketApp_pocketvpc_privatesubnetids_A272E250.ids}\\"
+          }
+        ],
+        \\"lifecycle\\": {
+          \\"ignore_changes\\": [
+            \\"task_definition\\",
+            \\"desired_count\\",
+            \\"load_balancer\\"
+          ],
+          \\"create_before_destroy\\": true
+        },
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/ecs_service/ecs-service\\",
+            \\"uniqueId\\": \\"test_testPocketApp_ecsservice_ecsservice_B23795BD\\"
+          }
+        }
+      }
     }
   }
 }"
 `;
 
-exports[`renders an internal application 1`] = `
+exports[`PocketALBApplication renders an internal application 1`] = `
 "{
   \\"//\\": {
     \\"metadata\\": {
@@ -996,6 +1390,53 @@ exports[`renders an internal application 1`] = `
           }
         }
       }
+    },
+    \\"aws_iam_policy_document\\": {
+      \\"test_testPocketApp_ecsservice_ecsiam_ecstaskassume_A392A140\\": {
+        \\"version\\": \\"2012-10-17\\",
+        \\"statement\\": [
+          {
+            \\"effect\\": \\"Allow\\",
+            \\"actions\\": [
+              \\"sts:AssumeRole\\"
+            ],
+            \\"principals\\": [
+              {
+                \\"identifiers\\": [
+                  \\"ecs-tasks.amazonaws.com\\"
+                ],
+                \\"type\\": \\"Service\\"
+              }
+            ]
+          }
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/ecs_service/ecs-iam/ecs-task-assume\\",
+            \\"uniqueId\\": \\"test_testPocketApp_ecsservice_ecsiam_ecstaskassume_A392A140\\"
+          }
+        }
+      },
+      \\"test_testPocketApp_ecsservice_ecsiam_dataecstaskexecutionrolepolicy_A05E196C\\": {
+        \\"version\\": \\"2012-10-17\\",
+        \\"statement\\": [],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/ecs_service/ecs-iam/data-ecs-task-execution-role-policy\\",
+            \\"uniqueId\\": \\"test_testPocketApp_ecsservice_ecsiam_dataecstaskexecutionrolepolicy_A05E196C\\"
+          }
+        }
+      },
+      \\"test_testPocketApp_ecsservice_ecsiam_dataecstaskrolepolicy_DB6A3E60\\": {
+        \\"version\\": \\"2012-10-17\\",
+        \\"statement\\": [],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/ecs_service/ecs-iam/data-ecs-task-role-policy\\",
+            \\"uniqueId\\": \\"test_testPocketApp_ecsservice_ecsiam_dataecstaskrolepolicy_DB6A3E60\\"
+          }
+        }
+      }
     }
   },
   \\"resource\\": {
@@ -1129,6 +1570,33 @@ exports[`renders an internal application 1`] = `
             \\"uniqueId\\": \\"test_testPocketApp_applicationloadbalancer_albsecuritygroup_C4F681E3\\"
           }
         }
+      },
+      \\"test_testPocketApp_ecsservice_ecssecuritygroup_326B534A\\": {
+        \\"description\\": \\"Internal ECS Security Group\\",
+        \\"egress\\": [
+          {
+            \\"from_port\\": 0,
+            \\"protocol\\": \\"-1\\",
+            \\"to_port\\": 0,
+            \\"cidr_blocks\\": [
+              \\"0.0.0.0/0\\"
+            ],
+            \\"description\\": \\"required\\",
+            \\"ipv6_cidr_blocks\\": [],
+            \\"prefix_list_ids\\": [],
+            \\"security_groups\\": [],
+            \\"self\\": false
+          }
+        ],
+        \\"ingress\\": [],
+        \\"name\\": \\"testapp--TSTAPP-ECSSecurityGroup\\",
+        \\"vpc_id\\": \\"\${data.aws_vpc.test_testPocketApp_pocketvpc_40AC0971.id}\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/ecs_service/ecs_security_group\\",
+            \\"uniqueId\\": \\"test_testPocketApp_ecsservice_ecssecuritygroup_326B534A\\"
+          }
+        }
       }
     },
     \\"aws_alb\\": {
@@ -1179,12 +1647,135 @@ exports[`renders an internal application 1`] = `
           }
         }
       }
+    },
+    \\"aws_iam_role\\": {
+      \\"test_testPocketApp_ecsservice_ecsiam_ecsexecutionrole_670A7AD5\\": {
+        \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.test_testPocketApp_ecsservice_ecsiam_ecstaskassume_A392A140.json}\\",
+        \\"name\\": \\"testapp--TaskExecutionRole\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/ecs_service/ecs-iam/ecs-execution-role\\",
+            \\"uniqueId\\": \\"test_testPocketApp_ecsservice_ecsiam_ecsexecutionrole_670A7AD5\\"
+          }
+        }
+      },
+      \\"test_testPocketApp_ecsservice_ecsiam_ecstaskrole_E41363D4\\": {
+        \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.test_testPocketApp_ecsservice_ecsiam_ecstaskassume_A392A140.json}\\",
+        \\"name\\": \\"testapp--TaskRole\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/ecs_service/ecs-iam/ecs-task-role\\",
+            \\"uniqueId\\": \\"test_testPocketApp_ecsservice_ecsiam_ecstaskrole_E41363D4\\"
+          }
+        }
+      }
+    },
+    \\"aws_iam_role_policy_attachment\\": {
+      \\"test_testPocketApp_ecsservice_ecsiam_ecstaskexecutiondefaultattachment_48A8A818\\": {
+        \\"policy_arn\\": \\"\\",
+        \\"role\\": \\"\${aws_iam_role.test_testPocketApp_ecsservice_ecsiam_ecsexecutionrole_670A7AD5.id}\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/ecs_service/ecs-iam/ecs-task-execution-default-attachment\\",
+            \\"uniqueId\\": \\"test_testPocketApp_ecsservice_ecsiam_ecstaskexecutiondefaultattachment_48A8A818\\"
+          }
+        }
+      },
+      \\"test_testPocketApp_ecsservice_ecsiam_ecstaskexecutioncustomattachment_E1366D85\\": {
+        \\"policy_arn\\": \\"\${aws_iam_policy.test_testPocketApp_ecsservice_ecsiam_ecstaskexecutionrolepolicy_03341FE5.arn}\\",
+        \\"role\\": \\"\${aws_iam_role.test_testPocketApp_ecsservice_ecsiam_ecsexecutionrole_670A7AD5.id}\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/ecs_service/ecs-iam/ecs-task-execution-custom-attachment\\",
+            \\"uniqueId\\": \\"test_testPocketApp_ecsservice_ecsiam_ecstaskexecutioncustomattachment_E1366D85\\"
+          }
+        }
+      },
+      \\"test_testPocketApp_ecsservice_ecsiam_ecstaskcustomattachment_755A7300\\": {
+        \\"policy_arn\\": \\"\${aws_iam_policy.test_testPocketApp_ecsservice_ecsiam_ecstaskrolepolicy_05732685.arn}\\",
+        \\"role\\": \\"\${aws_iam_role.test_testPocketApp_ecsservice_ecsiam_ecstaskrole_E41363D4.id}\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/ecs_service/ecs-iam/ecs-task-custom-attachment\\",
+            \\"uniqueId\\": \\"test_testPocketApp_ecsservice_ecsiam_ecstaskcustomattachment_755A7300\\"
+          }
+        }
+      }
+    },
+    \\"aws_iam_policy\\": {
+      \\"test_testPocketApp_ecsservice_ecsiam_ecstaskexecutionrolepolicy_03341FE5\\": {
+        \\"name\\": \\"testapp--TaskExecutionRolePolicy\\",
+        \\"policy\\": \\"\${data.aws_iam_policy_document.test_testPocketApp_ecsservice_ecsiam_dataecstaskexecutionrolepolicy_A05E196C.json}\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/ecs_service/ecs-iam/ecs-task-execution-role-policy\\",
+            \\"uniqueId\\": \\"test_testPocketApp_ecsservice_ecsiam_ecstaskexecutionrolepolicy_03341FE5\\"
+          }
+        }
+      },
+      \\"test_testPocketApp_ecsservice_ecsiam_ecstaskrolepolicy_05732685\\": {
+        \\"name\\": \\"testapp--TaskRolePolicy\\",
+        \\"policy\\": \\"\${data.aws_iam_policy_document.test_testPocketApp_ecsservice_ecsiam_dataecstaskrolepolicy_DB6A3E60.json}\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/ecs_service/ecs-iam/ecs-task-role-policy\\",
+            \\"uniqueId\\": \\"test_testPocketApp_ecsservice_ecsiam_ecstaskrolepolicy_05732685\\"
+          }
+        }
+      }
+    },
+    \\"aws_ecs_task_definition\\": {
+      \\"test_testPocketApp_ecsservice_ecstask_A752DB7C\\": {
+        \\"container_definitions\\": \\"[]\\",
+        \\"execution_role_arn\\": \\"\${aws_iam_role.test_testPocketApp_ecsservice_ecsiam_ecsexecutionrole_670A7AD5.arn}\\",
+        \\"family\\": \\"testapp--TSTAPP\\",
+        \\"task_role_arn\\": \\"\${aws_iam_role.test_testPocketApp_ecsservice_ecsiam_ecstaskrole_E41363D4.arn}\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/ecs_service/ecs-task\\",
+            \\"uniqueId\\": \\"test_testPocketApp_ecsservice_ecstask_A752DB7C\\"
+          }
+        }
+      }
+    },
+    \\"aws_ecs_service\\": {
+      \\"test_testPocketApp_ecsservice_ecsservice_B23795BD\\": {
+        \\"deployment_maximum_percent\\": 200,
+        \\"deployment_minimum_healthy_percent\\": 100,
+        \\"desired_count\\": 2,
+        \\"launch_type\\": \\"FARGATE\\",
+        \\"name\\": \\"testapp--TSTAPP\\",
+        \\"propagate_tags\\": \\"SERVICE\\",
+        \\"task_definition\\": \\"\${aws_ecs_task_definition.test_testPocketApp_ecsservice_ecstask_A752DB7C.arn}\\",
+        \\"network_configuration\\": [
+          {
+            \\"security_groups\\": [
+              \\"\${aws_security_group.test_testPocketApp_ecsservice_ecssecuritygroup_326B534A.id}\\"
+            ],
+            \\"subnets\\": \\"\${data.aws_subnet_ids.test_testPocketApp_pocketvpc_privatesubnetids_A272E250.ids}\\"
+          }
+        ],
+        \\"lifecycle\\": {
+          \\"ignore_changes\\": [
+            \\"task_definition\\",
+            \\"desired_count\\",
+            \\"load_balancer\\"
+          ],
+          \\"create_before_destroy\\": true
+        },
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/ecs_service/ecs-service\\",
+            \\"uniqueId\\": \\"test_testPocketApp_ecsservice_ecsservice_B23795BD\\"
+          }
+        }
+      }
     }
   }
 }"
 `;
 
-exports[`renders an internal application with tags 1`] = `
+exports[`PocketALBApplication renders an internal application with tags 1`] = `
 "{
   \\"//\\": {
     \\"metadata\\": {
@@ -1338,6 +1929,53 @@ exports[`renders an internal application with tags 1`] = `
           \\"metadata\\": {
             \\"path\\": \\"test/testPocketApp/base_dns_main_hosted_zone\\",
             \\"uniqueId\\": \\"test_testPocketApp_basednsmainhostedzone_F3E3F27E\\"
+          }
+        }
+      }
+    },
+    \\"aws_iam_policy_document\\": {
+      \\"test_testPocketApp_ecsservice_ecsiam_ecstaskassume_A392A140\\": {
+        \\"version\\": \\"2012-10-17\\",
+        \\"statement\\": [
+          {
+            \\"effect\\": \\"Allow\\",
+            \\"actions\\": [
+              \\"sts:AssumeRole\\"
+            ],
+            \\"principals\\": [
+              {
+                \\"identifiers\\": [
+                  \\"ecs-tasks.amazonaws.com\\"
+                ],
+                \\"type\\": \\"Service\\"
+              }
+            ]
+          }
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/ecs_service/ecs-iam/ecs-task-assume\\",
+            \\"uniqueId\\": \\"test_testPocketApp_ecsservice_ecsiam_ecstaskassume_A392A140\\"
+          }
+        }
+      },
+      \\"test_testPocketApp_ecsservice_ecsiam_dataecstaskexecutionrolepolicy_A05E196C\\": {
+        \\"version\\": \\"2012-10-17\\",
+        \\"statement\\": [],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/ecs_service/ecs-iam/data-ecs-task-execution-role-policy\\",
+            \\"uniqueId\\": \\"test_testPocketApp_ecsservice_ecsiam_dataecstaskexecutionrolepolicy_A05E196C\\"
+          }
+        }
+      },
+      \\"test_testPocketApp_ecsservice_ecsiam_dataecstaskrolepolicy_DB6A3E60\\": {
+        \\"version\\": \\"2012-10-17\\",
+        \\"statement\\": [],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/ecs_service/ecs-iam/data-ecs-task-role-policy\\",
+            \\"uniqueId\\": \\"test_testPocketApp_ecsservice_ecsiam_dataecstaskrolepolicy_DB6A3E60\\"
           }
         }
       }
@@ -1480,6 +2118,33 @@ exports[`renders an internal application with tags 1`] = `
             \\"uniqueId\\": \\"test_testPocketApp_applicationloadbalancer_albsecuritygroup_C4F681E3\\"
           }
         }
+      },
+      \\"test_testPocketApp_ecsservice_ecssecuritygroup_326B534A\\": {
+        \\"description\\": \\"Internal ECS Security Group\\",
+        \\"egress\\": [
+          {
+            \\"from_port\\": 0,
+            \\"protocol\\": \\"-1\\",
+            \\"to_port\\": 0,
+            \\"cidr_blocks\\": [
+              \\"0.0.0.0/0\\"
+            ],
+            \\"description\\": \\"required\\",
+            \\"ipv6_cidr_blocks\\": [],
+            \\"prefix_list_ids\\": [],
+            \\"security_groups\\": [],
+            \\"self\\": false
+          }
+        ],
+        \\"ingress\\": [],
+        \\"name\\": \\"testapp--TSTAPP-ECSSecurityGroup\\",
+        \\"vpc_id\\": \\"\${data.aws_vpc.test_testPocketApp_pocketvpc_40AC0971.id}\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/ecs_service/ecs_security_group\\",
+            \\"uniqueId\\": \\"test_testPocketApp_ecsservice_ecssecuritygroup_326B534A\\"
+          }
+        }
       }
     },
     \\"aws_alb\\": {
@@ -1538,12 +2203,135 @@ exports[`renders an internal application with tags 1`] = `
           }
         }
       }
+    },
+    \\"aws_iam_role\\": {
+      \\"test_testPocketApp_ecsservice_ecsiam_ecsexecutionrole_670A7AD5\\": {
+        \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.test_testPocketApp_ecsservice_ecsiam_ecstaskassume_A392A140.json}\\",
+        \\"name\\": \\"testapp--TaskExecutionRole\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/ecs_service/ecs-iam/ecs-execution-role\\",
+            \\"uniqueId\\": \\"test_testPocketApp_ecsservice_ecsiam_ecsexecutionrole_670A7AD5\\"
+          }
+        }
+      },
+      \\"test_testPocketApp_ecsservice_ecsiam_ecstaskrole_E41363D4\\": {
+        \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.test_testPocketApp_ecsservice_ecsiam_ecstaskassume_A392A140.json}\\",
+        \\"name\\": \\"testapp--TaskRole\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/ecs_service/ecs-iam/ecs-task-role\\",
+            \\"uniqueId\\": \\"test_testPocketApp_ecsservice_ecsiam_ecstaskrole_E41363D4\\"
+          }
+        }
+      }
+    },
+    \\"aws_iam_role_policy_attachment\\": {
+      \\"test_testPocketApp_ecsservice_ecsiam_ecstaskexecutiondefaultattachment_48A8A818\\": {
+        \\"policy_arn\\": \\"\\",
+        \\"role\\": \\"\${aws_iam_role.test_testPocketApp_ecsservice_ecsiam_ecsexecutionrole_670A7AD5.id}\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/ecs_service/ecs-iam/ecs-task-execution-default-attachment\\",
+            \\"uniqueId\\": \\"test_testPocketApp_ecsservice_ecsiam_ecstaskexecutiondefaultattachment_48A8A818\\"
+          }
+        }
+      },
+      \\"test_testPocketApp_ecsservice_ecsiam_ecstaskexecutioncustomattachment_E1366D85\\": {
+        \\"policy_arn\\": \\"\${aws_iam_policy.test_testPocketApp_ecsservice_ecsiam_ecstaskexecutionrolepolicy_03341FE5.arn}\\",
+        \\"role\\": \\"\${aws_iam_role.test_testPocketApp_ecsservice_ecsiam_ecsexecutionrole_670A7AD5.id}\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/ecs_service/ecs-iam/ecs-task-execution-custom-attachment\\",
+            \\"uniqueId\\": \\"test_testPocketApp_ecsservice_ecsiam_ecstaskexecutioncustomattachment_E1366D85\\"
+          }
+        }
+      },
+      \\"test_testPocketApp_ecsservice_ecsiam_ecstaskcustomattachment_755A7300\\": {
+        \\"policy_arn\\": \\"\${aws_iam_policy.test_testPocketApp_ecsservice_ecsiam_ecstaskrolepolicy_05732685.arn}\\",
+        \\"role\\": \\"\${aws_iam_role.test_testPocketApp_ecsservice_ecsiam_ecstaskrole_E41363D4.id}\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/ecs_service/ecs-iam/ecs-task-custom-attachment\\",
+            \\"uniqueId\\": \\"test_testPocketApp_ecsservice_ecsiam_ecstaskcustomattachment_755A7300\\"
+          }
+        }
+      }
+    },
+    \\"aws_iam_policy\\": {
+      \\"test_testPocketApp_ecsservice_ecsiam_ecstaskexecutionrolepolicy_03341FE5\\": {
+        \\"name\\": \\"testapp--TaskExecutionRolePolicy\\",
+        \\"policy\\": \\"\${data.aws_iam_policy_document.test_testPocketApp_ecsservice_ecsiam_dataecstaskexecutionrolepolicy_A05E196C.json}\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/ecs_service/ecs-iam/ecs-task-execution-role-policy\\",
+            \\"uniqueId\\": \\"test_testPocketApp_ecsservice_ecsiam_ecstaskexecutionrolepolicy_03341FE5\\"
+          }
+        }
+      },
+      \\"test_testPocketApp_ecsservice_ecsiam_ecstaskrolepolicy_05732685\\": {
+        \\"name\\": \\"testapp--TaskRolePolicy\\",
+        \\"policy\\": \\"\${data.aws_iam_policy_document.test_testPocketApp_ecsservice_ecsiam_dataecstaskrolepolicy_DB6A3E60.json}\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/ecs_service/ecs-iam/ecs-task-role-policy\\",
+            \\"uniqueId\\": \\"test_testPocketApp_ecsservice_ecsiam_ecstaskrolepolicy_05732685\\"
+          }
+        }
+      }
+    },
+    \\"aws_ecs_task_definition\\": {
+      \\"test_testPocketApp_ecsservice_ecstask_A752DB7C\\": {
+        \\"container_definitions\\": \\"[]\\",
+        \\"execution_role_arn\\": \\"\${aws_iam_role.test_testPocketApp_ecsservice_ecsiam_ecsexecutionrole_670A7AD5.arn}\\",
+        \\"family\\": \\"testapp--TSTAPP\\",
+        \\"task_role_arn\\": \\"\${aws_iam_role.test_testPocketApp_ecsservice_ecsiam_ecstaskrole_E41363D4.arn}\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/ecs_service/ecs-task\\",
+            \\"uniqueId\\": \\"test_testPocketApp_ecsservice_ecstask_A752DB7C\\"
+          }
+        }
+      }
+    },
+    \\"aws_ecs_service\\": {
+      \\"test_testPocketApp_ecsservice_ecsservice_B23795BD\\": {
+        \\"deployment_maximum_percent\\": 200,
+        \\"deployment_minimum_healthy_percent\\": 100,
+        \\"desired_count\\": 2,
+        \\"launch_type\\": \\"FARGATE\\",
+        \\"name\\": \\"testapp--TSTAPP\\",
+        \\"propagate_tags\\": \\"SERVICE\\",
+        \\"task_definition\\": \\"\${aws_ecs_task_definition.test_testPocketApp_ecsservice_ecstask_A752DB7C.arn}\\",
+        \\"network_configuration\\": [
+          {
+            \\"security_groups\\": [
+              \\"\${aws_security_group.test_testPocketApp_ecsservice_ecssecuritygroup_326B534A.id}\\"
+            ],
+            \\"subnets\\": \\"\${data.aws_subnet_ids.test_testPocketApp_pocketvpc_privatesubnetids_A272E250.ids}\\"
+          }
+        ],
+        \\"lifecycle\\": {
+          \\"ignore_changes\\": [
+            \\"task_definition\\",
+            \\"desired_count\\",
+            \\"load_balancer\\"
+          ],
+          \\"create_before_destroy\\": true
+        },
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/ecs_service/ecs-service\\",
+            \\"uniqueId\\": \\"test_testPocketApp_ecsservice_ecsservice_B23795BD\\"
+          }
+        }
+      }
     }
   }
 }"
 `;
 
-exports[`throws an error trying for an internal app with a cdn 1`] = `
+exports[`PocketALBApplication throws an error trying for an internal app with a cdn 1`] = `
 "{
   \\"//\\": {
     \\"metadata\\": {
