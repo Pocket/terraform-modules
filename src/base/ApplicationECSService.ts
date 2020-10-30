@@ -150,7 +150,7 @@ export class ApplicationECSService extends Resource {
     };
 
     //create ecs service
-    new EcsService(this, 'ecs-service', {
+    this.service = new EcsService(this, 'ecs-service', {
       name: `${config.prefix}-${config.name}`,
       taskDefinition: taskDef.arn,
       //deploymentController: ['CODE_DEPLOY'], // TODO: enable when code deploy is baked into these modules

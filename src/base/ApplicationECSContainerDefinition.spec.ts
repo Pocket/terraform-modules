@@ -30,6 +30,7 @@ describe('ApplicationECSContainerDefinition', () => {
       expect(result).to.contain('"credentialsParameter": "someArn"');
       expect(result).to.contain('"environment": []');
       expect(result).to.contain('"secrets": null');
+      expect(result).not.to.contain('"command":');
     });
 
     it('builds JSON with env vars', () => {

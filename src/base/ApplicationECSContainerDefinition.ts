@@ -89,9 +89,15 @@ export function buildDefinitionJSON(
   const secretEnvVarsValue = config.secretEnvVars
     ? JSON.stringify(config.secretEnvVars)
     : 'null';
-  const commandValue = config.command
-    ? config.command.map((c) => `"${c}"`).join(',') // quote each element and join together
-    : '';
+
+  if (config.command) {
+    templateInstance = templateInstance.replace(
+      '[[COMMAND]]',
+      '[' + config.command.map((c) => `"${c}"`).join(',') + ']'
+    );
+  } else {
+    templateInstance = templateInstance.replace('"command": [[COMMAND]],', '');
+  }
 
   templateInstance = templateInstance.replace('[[LOG_GROUP]]', config.logGroup);
   templateInstance = templateInstance.replace(
@@ -105,10 +111,6 @@ export function buildDefinitionJSON(
   templateInstance = templateInstance.replace(
     '[[CONTAINER_IMAGE]]',
     config.containerImage
-  );
-  templateInstance = templateInstance.replace(
-    '[[COMMAND]]',
-    `[${commandValue}]`
   );
   templateInstance = templateInstance.replace('[[NAME]]', config.name);
   templateInstance = templateInstance.replace(
