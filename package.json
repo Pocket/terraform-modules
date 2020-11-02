@@ -53,7 +53,7 @@
     "@semantic-release/release-notes-generator": "^9.0.1",
     "@types/chai": "^4.2.12",
     "@types/jest": "^26.0.15",
-    "@types/node": "^14.11.2",
+    "@types/node": "^14.14.6",
     "@typescript-eslint/eslint-plugin": "^4.3.0",
     "@typescript-eslint/parser": "^4.3.0",
     "cdktf": "^0.0.17",
