@@ -285,7 +285,6 @@ export class PocketALBApplication extends Resource {
 
     let ecsConfig: ApplicationECSServiceProps = {
       prefix: config.prefix,
-      name: config.alb6CharacterPrefix,
       ecsCluster: ecsCluster.cluster.arn,
       // albConfig: {
       //   containerPort: config.exposedContainer.port,
@@ -298,6 +297,7 @@ export class PocketALBApplication extends Resource {
       containerConfigs: config.containerConfigs,
       privateSubnetIds: pocketVPC.privateSubnetIds,
       ecsIamConfig: config.ecsIamConfig,
+      tags: config.tags,
     };
 
     if (config.taskSize) {

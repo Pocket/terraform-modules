@@ -53,11 +53,10 @@ class Example extends TerraformStack {
       alb6CharacterPrefix: 'ACMECO',
       internal: false,
       domain: 'acme.getpocket.dev',
-      prefix: 'ACME-',
+      prefix: 'ACME-Dev', // Prefix is a combo of the `Name-Environment`
       containerConfigs: [containerConfigBlue],
       ecsIamConfig: {
-        name: 'ACME',
-        prefix: 'ACME-',
+        prefix: 'ACME-Dev',
         taskExecutionRolePolicyStatements: [],
         taskRolePolicyStatements: [],
         taskExecutionDefaultAttachmentArn: '',

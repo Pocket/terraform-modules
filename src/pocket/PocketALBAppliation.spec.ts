@@ -15,7 +15,6 @@ describe('PocketALBApplication', () => {
       containerConfigs: [],
       ecsIamConfig: {
         prefix: 'testapp-',
-        name: 'iamname',
         taskExecutionDefaultAttachmentArn: '',
         taskExecutionRolePolicyStatements: [],
         taskRolePolicyStatements: [],
