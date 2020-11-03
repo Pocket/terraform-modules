@@ -31,6 +31,8 @@ export interface ApplicationECSServiceProps {
   };
   containerConfigs: ApplicationECSContainerDefinitionProps[];
   privateSubnetIds: string[];
+  cpu?: number; // defaults to 512
+  memory?: number; // defaults to   2048
   launchType?: string; // defaults to 'FARGATE'
   deploymentMinimumHealthyPercent?: number; // defaults to 100
   deploymentMaximumPercent?: number; // defaults to 200
@@ -60,6 +62,8 @@ export class ApplicationECSService extends Resource {
       'desired_count',
       'load_balancer',
     ];
+    config.cpu = config.cpu || 512;
+    config.memory = config.memory || 2048;
 
     return config;
   }
@@ -156,6 +160,8 @@ export class ApplicationECSService extends Resource {
       family: `${config.prefix}-${config.name}`,
       executionRoleArn: ecsIam.taskExecutionRoleArn,
       taskRoleArn: ecsIam.taskRoleArn,
+      cpu: config.cpu.toString(),
+      memory: config.memory.toString(),
     });
 
     const ecsNetworkConfig: EcsServiceNetworkConfiguration = {

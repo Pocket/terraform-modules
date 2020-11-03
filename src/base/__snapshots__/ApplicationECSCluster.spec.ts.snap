@@ -19,7 +19,7 @@ exports[`renders an ECS cluster with tags 1`] = `
         \\"setting\\": [
           {
             \\"name\\": \\"containerInsights\\",
-            \\"value\\": \\"ENABLED\\"
+            \\"value\\": \\"enabled\\"
           }
         ],
         \\"//\\": {
@@ -49,7 +49,7 @@ exports[`renders an ECS cluster without tags 1`] = `
         \\"setting\\": [
           {
             \\"name\\": \\"containerInsights\\",
-            \\"value\\": \\"ENABLED\\"
+            \\"value\\": \\"enabled\\"
           }
         ],
         \\"//\\": {

@@ -26,7 +26,7 @@ export class ApplicationECSCluster extends Resource {
       setting: [
         {
           name: 'containerInsights',
-          value: 'ENABLED',
+          value: 'enabled',
         },
       ],
     });

@@ -417,7 +417,7 @@ exports[`PocketALBApplication renders an application with minimal config 1`] = `
         \\"setting\\": [
           {
             \\"name\\": \\"containerInsights\\",
-            \\"value\\": \\"ENABLED\\"
+            \\"value\\": \\"enabled\\"
           }
         ],
         \\"//\\": {
@@ -507,8 +507,10 @@ exports[`PocketALBApplication renders an application with minimal config 1`] = `
     \\"aws_ecs_task_definition\\": {
       \\"test_testPocketApp_ecsservice_ecstask_A752DB7C\\": {
         \\"container_definitions\\": \\"[]\\",
+        \\"cpu\\": \\"512\\",
         \\"execution_role_arn\\": \\"\${aws_iam_role.test_testPocketApp_ecsservice_ecsiam_ecsexecutionrole_670A7AD5.arn}\\",
         \\"family\\": \\"testapp--TSTAPP\\",
+        \\"memory\\": \\"2048\\",
         \\"task_role_arn\\": \\"\${aws_iam_role.test_testPocketApp_ecsservice_ecsiam_ecstaskrole_E41363D4.arn}\\",
         \\"//\\": {
           \\"metadata\\": {
@@ -1135,7 +1137,7 @@ exports[`PocketALBApplication renders an external application 1`] = `
         \\"setting\\": [
           {
             \\"name\\": \\"containerInsights\\",
-            \\"value\\": \\"ENABLED\\"
+            \\"value\\": \\"enabled\\"
           }
         ],
         \\"//\\": {
@@ -1225,8 +1227,10 @@ exports[`PocketALBApplication renders an external application 1`] = `
     \\"aws_ecs_task_definition\\": {
       \\"test_testPocketApp_ecsservice_ecstask_A752DB7C\\": {
         \\"container_definitions\\": \\"[]\\",
+        \\"cpu\\": \\"512\\",
         \\"execution_role_arn\\": \\"\${aws_iam_role.test_testPocketApp_ecsservice_ecsiam_ecsexecutionrole_670A7AD5.arn}\\",
         \\"family\\": \\"testapp--TSTAPP\\",
+        \\"memory\\": \\"2048\\",
         \\"task_role_arn\\": \\"\${aws_iam_role.test_testPocketApp_ecsservice_ecsiam_ecstaskrole_E41363D4.arn}\\",
         \\"//\\": {
           \\"metadata\\": {
@@ -1692,7 +1696,7 @@ exports[`PocketALBApplication renders an internal application 1`] = `
         \\"setting\\": [
           {
             \\"name\\": \\"containerInsights\\",
-            \\"value\\": \\"ENABLED\\"
+            \\"value\\": \\"enabled\\"
           }
         ],
         \\"//\\": {
@@ -1782,8 +1786,10 @@ exports[`PocketALBApplication renders an internal application 1`] = `
     \\"aws_ecs_task_definition\\": {
       \\"test_testPocketApp_ecsservice_ecstask_A752DB7C\\": {
         \\"container_definitions\\": \\"[]\\",
+        \\"cpu\\": \\"512\\",
         \\"execution_role_arn\\": \\"\${aws_iam_role.test_testPocketApp_ecsservice_ecsiam_ecsexecutionrole_670A7AD5.arn}\\",
         \\"family\\": \\"testapp--TSTAPP\\",
+        \\"memory\\": \\"2048\\",
         \\"task_role_arn\\": \\"\${aws_iam_role.test_testPocketApp_ecsservice_ecsiam_ecstaskrole_E41363D4.arn}\\",
         \\"//\\": {
           \\"metadata\\": {
@@ -2267,7 +2273,7 @@ exports[`PocketALBApplication renders an internal application with tags 1`] = `
         \\"setting\\": [
           {
             \\"name\\": \\"containerInsights\\",
-            \\"value\\": \\"ENABLED\\"
+            \\"value\\": \\"enabled\\"
           }
         ],
         \\"//\\": {
@@ -2357,8 +2363,10 @@ exports[`PocketALBApplication renders an internal application with tags 1`] = `
     \\"aws_ecs_task_definition\\": {
       \\"test_testPocketApp_ecsservice_ecstask_A752DB7C\\": {
         \\"container_definitions\\": \\"[]\\",
+        \\"cpu\\": \\"512\\",
         \\"execution_role_arn\\": \\"\${aws_iam_role.test_testPocketApp_ecsservice_ecsiam_ecsexecutionrole_670A7AD5.arn}\\",
         \\"family\\": \\"testapp--TSTAPP\\",
+        \\"memory\\": \\"2048\\",
         \\"task_role_arn\\": \\"\${aws_iam_role.test_testPocketApp_ecsservice_ecsiam_ecstaskrole_E41363D4.arn}\\",
         \\"//\\": {
           \\"metadata\\": {
