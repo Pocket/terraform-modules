@@ -1,5 +1,6 @@
 import { Resource } from 'cdktf';
 import {
+  CloudwatchLogGroup,
   EcsService,
   EcsServiceLoadBalancer,
   EcsServiceNetworkConfiguration,
@@ -120,7 +121,18 @@ export class ApplicationECSService extends Resource {
           tags: config.tags,
         };
 
-        new ApplicationECR(this, `ecr-${def.name}`, ecrConfig);
+        const ecr = new ApplicationECR(this, `ecr-${def.name}`, ecrConfig);
+        //Set the image to the latest one for now
+        def.containerImage = `${ecr.repo.repositoryUrl}:latest`;
+      }
+
+      // if a log group was given, it must already exist so we don't need to create it
+      if (!def.logGroup) {
+        const cloudwatch = new CloudwatchLogGroup(this, `ecs-${def.name}`, {
+          namePrefix: `/ecs/${config.prefix}/${config.name}/${def.name}`,
+          retentionInDays: 30,
+        });
+        def.logGroup = cloudwatch.name;
       }
 
       containerDefs.push(buildDefinitionJSON(def));

@@ -68,8 +68,8 @@ interface SecretEnvironmentVariable {
 }
 
 export interface ApplicationECSContainerDefinitionProps {
-  containerImage: string;
-  logGroup: string;
+  containerImage?: string;
+  logGroup?: string;
   hostPort: number;
   containerPort: number;
   envVars?: EnvironmentVariable[];

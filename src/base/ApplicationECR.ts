@@ -1,10 +1,10 @@
 import { Resource } from 'cdktf';
 import { Construct } from 'constructs';
 import {
-  EcrRepository,
-  EcrRepositoryConfig,
   EcrLifecyclePolicy,
   EcrLifecyclePolicyConfig,
+  EcrRepository,
+  EcrRepositoryConfig,
 } from '../../.gen/providers/aws';
 
 export interface ECRProps {
@@ -13,7 +13,7 @@ export interface ECRProps {
 }
 
 export class ApplicationECR extends Resource {
-  public readonly repo;
+  public readonly repo: EcrRepository;
 
   constructor(scope: Construct, name: string, config: ECRProps) {
     super(scope, name);
