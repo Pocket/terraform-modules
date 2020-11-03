@@ -1978,10 +1978,6 @@ exports[`PocketALBApplication renders an internal application with tags 1`] = `
     \\"aws_route53_zone\\": {
       \\"test_testPocketApp_basednsmainhostedzone_F3E3F27E\\": {
         \\"name\\": \\"bowling.gov\\",
-        \\"tags\\": {
-          \\"name\\": \\"thedude\\",
-          \\"hobby\\": \\"bowling\\"
-        },
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/testPocketApp/base_dns_main_hosted_zone\\",
