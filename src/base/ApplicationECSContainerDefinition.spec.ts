@@ -78,5 +78,13 @@ describe('ApplicationECSContainerDefinition', () => {
 
       expect(result).to.contain(`"command": ["go to in-n-out","go bowling"]`);
     });
+
+    it('builds JSON without repository credentials', () => {
+      config.repositoryCredentialsParam = undefined;
+
+      const result = buildDefinitionJSON(config);
+
+      expect(result).to.contain(`"repositoryCredentials": null,`);
+    });
   });
 });

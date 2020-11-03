@@ -25,9 +25,7 @@ export const JSON_TEMPLATE = `
   "environment": [[ENV_VARS]],
   "resourceRequirements": null,
   "ulimits": null,
-  "repositoryCredentials": {
-    "credentialsParameter": "[[REPOSITORY_CREDENTIALS_PARAMETER]]"
-  },
+  "repositoryCredentials": [[REPOSITORY_CREDENTIALS_PARAMETER]],
   "dnsServers": null,
   "mountPoints": [],
   "workingDirectory": null,
@@ -76,7 +74,7 @@ export interface ApplicationECSContainerDefinitionProps {
   secretEnvVars?: SecretEnvironmentVariable[];
   command?: string[];
   name: string;
-  repositoryCredentialsParam: string;
+  repositoryCredentialsParam?: string;
 }
 
 export function buildDefinitionJSON(
@@ -116,7 +114,10 @@ export function buildDefinitionJSON(
   templateInstance = templateInstance.replace(
     '[[REPOSITORY_CREDENTIALS_PARAMETER]]',
     config.repositoryCredentialsParam
+      ? `{"credentialsParameter": "${config.repositoryCredentialsParam}"}`
+      : 'null'
   );
+
   templateInstance = templateInstance.replace('[[ENV_VARS]]', envVarsValue);
   templateInstance = templateInstance.replace(
     '[[SECRET_ENV_VARS]]',
