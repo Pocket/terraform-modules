@@ -27,7 +27,7 @@ class Example extends TerraformStack {
       name: 'blueContainer',
       containerImage: 'fake',
       logGroup: 'no',
-      hostPort: 3001,
+      hostPort: 3002,
       containerPort: 3002,
       envVars: [
         {
@@ -45,7 +45,11 @@ class Example extends TerraformStack {
     };
 
     new PocketALBApplication(this, 'example', {
-      cdn: true, // maybe make this false if you're testing an actual terraform apply - cdn's take a loooong time to spin up
+      exposedContainer: {
+        name: 'blueContainer',
+        port: 3002,
+      },
+      cdn: false, // maybe make this false if you're testing an actual terraform apply - cdn's take a loooong time to spin up
       alb6CharacterPrefix: 'ACMECO',
       internal: false,
       domain: 'acme.getpocket.dev',

@@ -1,4 +1,4 @@
-import { Testing, TerraformStack } from 'cdktf';
+import { TerraformStack, Testing } from 'cdktf';
 import {
   PocketALBApplication,
   PocketALBApplicationProps,
@@ -19,6 +19,10 @@ describe('PocketALBApplication', () => {
         taskExecutionDefaultAttachmentArn: '',
         taskExecutionRolePolicyStatements: [],
         taskRolePolicyStatements: [],
+      },
+      exposedContainer: {
+        name: 'main_container',
+        port: 8675309,
       },
     };
   });

@@ -411,6 +411,23 @@ exports[`PocketALBApplication renders an application with minimal config 1`] = `
         }
       }
     },
+    \\"aws_ecs_cluster\\": {
+      \\"test_testPocketApp_ecscluster_CE90B54F\\": {
+        \\"name\\": \\"testapp-\\",
+        \\"setting\\": [
+          {
+            \\"name\\": \\"containerInsights\\",
+            \\"value\\": \\"ENABLED\\"
+          }
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/ecs_cluster/ecs_cluster\\",
+            \\"uniqueId\\": \\"test_testPocketApp_ecscluster_CE90B54F\\"
+          }
+        }
+      }
+    },
     \\"aws_iam_role\\": {
       \\"test_testPocketApp_ecsservice_ecsiam_ecsexecutionrole_670A7AD5\\": {
         \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.test_testPocketApp_ecsservice_ecsiam_ecstaskassume_A392A140.json}\\",
@@ -503,6 +520,7 @@ exports[`PocketALBApplication renders an application with minimal config 1`] = `
     },
     \\"aws_ecs_service\\": {
       \\"test_testPocketApp_ecsservice_ecsservice_B23795BD\\": {
+        \\"cluster\\": \\"\${aws_ecs_cluster.test_testPocketApp_ecscluster_CE90B54F.arn}\\",
         \\"deployment_maximum_percent\\": 200,
         \\"deployment_minimum_healthy_percent\\": 100,
         \\"desired_count\\": 2,
@@ -510,6 +528,7 @@ exports[`PocketALBApplication renders an application with minimal config 1`] = `
         \\"name\\": \\"testapp--TSTAPP\\",
         \\"propagate_tags\\": \\"SERVICE\\",
         \\"task_definition\\": \\"\${aws_ecs_task_definition.test_testPocketApp_ecsservice_ecstask_A752DB7C.arn}\\",
+        \\"load_balancer\\": [],
         \\"network_configuration\\": [
           {
             \\"security_groups\\": [
@@ -1110,6 +1129,23 @@ exports[`PocketALBApplication renders an external application 1`] = `
         }
       }
     },
+    \\"aws_ecs_cluster\\": {
+      \\"test_testPocketApp_ecscluster_CE90B54F\\": {
+        \\"name\\": \\"testapp-\\",
+        \\"setting\\": [
+          {
+            \\"name\\": \\"containerInsights\\",
+            \\"value\\": \\"ENABLED\\"
+          }
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/ecs_cluster/ecs_cluster\\",
+            \\"uniqueId\\": \\"test_testPocketApp_ecscluster_CE90B54F\\"
+          }
+        }
+      }
+    },
     \\"aws_iam_role\\": {
       \\"test_testPocketApp_ecsservice_ecsiam_ecsexecutionrole_670A7AD5\\": {
         \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.test_testPocketApp_ecsservice_ecsiam_ecstaskassume_A392A140.json}\\",
@@ -1202,6 +1238,7 @@ exports[`PocketALBApplication renders an external application 1`] = `
     },
     \\"aws_ecs_service\\": {
       \\"test_testPocketApp_ecsservice_ecsservice_B23795BD\\": {
+        \\"cluster\\": \\"\${aws_ecs_cluster.test_testPocketApp_ecscluster_CE90B54F.arn}\\",
         \\"deployment_maximum_percent\\": 200,
         \\"deployment_minimum_healthy_percent\\": 100,
         \\"desired_count\\": 2,
@@ -1209,6 +1246,7 @@ exports[`PocketALBApplication renders an external application 1`] = `
         \\"name\\": \\"testapp--TSTAPP\\",
         \\"propagate_tags\\": \\"SERVICE\\",
         \\"task_definition\\": \\"\${aws_ecs_task_definition.test_testPocketApp_ecsservice_ecstask_A752DB7C.arn}\\",
+        \\"load_balancer\\": [],
         \\"network_configuration\\": [
           {
             \\"security_groups\\": [
@@ -1648,6 +1686,23 @@ exports[`PocketALBApplication renders an internal application 1`] = `
         }
       }
     },
+    \\"aws_ecs_cluster\\": {
+      \\"test_testPocketApp_ecscluster_CE90B54F\\": {
+        \\"name\\": \\"testapp-\\",
+        \\"setting\\": [
+          {
+            \\"name\\": \\"containerInsights\\",
+            \\"value\\": \\"ENABLED\\"
+          }
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/ecs_cluster/ecs_cluster\\",
+            \\"uniqueId\\": \\"test_testPocketApp_ecscluster_CE90B54F\\"
+          }
+        }
+      }
+    },
     \\"aws_iam_role\\": {
       \\"test_testPocketApp_ecsservice_ecsiam_ecsexecutionrole_670A7AD5\\": {
         \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.test_testPocketApp_ecsservice_ecsiam_ecstaskassume_A392A140.json}\\",
@@ -1740,6 +1795,7 @@ exports[`PocketALBApplication renders an internal application 1`] = `
     },
     \\"aws_ecs_service\\": {
       \\"test_testPocketApp_ecsservice_ecsservice_B23795BD\\": {
+        \\"cluster\\": \\"\${aws_ecs_cluster.test_testPocketApp_ecscluster_CE90B54F.arn}\\",
         \\"deployment_maximum_percent\\": 200,
         \\"deployment_minimum_healthy_percent\\": 100,
         \\"desired_count\\": 2,
@@ -1747,6 +1803,7 @@ exports[`PocketALBApplication renders an internal application 1`] = `
         \\"name\\": \\"testapp--TSTAPP\\",
         \\"propagate_tags\\": \\"SERVICE\\",
         \\"task_definition\\": \\"\${aws_ecs_task_definition.test_testPocketApp_ecsservice_ecstask_A752DB7C.arn}\\",
+        \\"load_balancer\\": [],
         \\"network_configuration\\": [
           {
             \\"security_groups\\": [
@@ -2204,6 +2261,27 @@ exports[`PocketALBApplication renders an internal application with tags 1`] = `
         }
       }
     },
+    \\"aws_ecs_cluster\\": {
+      \\"test_testPocketApp_ecscluster_CE90B54F\\": {
+        \\"name\\": \\"testapp-\\",
+        \\"tags\\": {
+          \\"name\\": \\"thedude\\",
+          \\"hobby\\": \\"bowling\\"
+        },
+        \\"setting\\": [
+          {
+            \\"name\\": \\"containerInsights\\",
+            \\"value\\": \\"ENABLED\\"
+          }
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/ecs_cluster/ecs_cluster\\",
+            \\"uniqueId\\": \\"test_testPocketApp_ecscluster_CE90B54F\\"
+          }
+        }
+      }
+    },
     \\"aws_iam_role\\": {
       \\"test_testPocketApp_ecsservice_ecsiam_ecsexecutionrole_670A7AD5\\": {
         \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.test_testPocketApp_ecsservice_ecsiam_ecstaskassume_A392A140.json}\\",
@@ -2296,6 +2374,7 @@ exports[`PocketALBApplication renders an internal application with tags 1`] = `
     },
     \\"aws_ecs_service\\": {
       \\"test_testPocketApp_ecsservice_ecsservice_B23795BD\\": {
+        \\"cluster\\": \\"\${aws_ecs_cluster.test_testPocketApp_ecscluster_CE90B54F.arn}\\",
         \\"deployment_maximum_percent\\": 200,
         \\"deployment_minimum_healthy_percent\\": 100,
         \\"desired_count\\": 2,
@@ -2303,6 +2382,7 @@ exports[`PocketALBApplication renders an internal application with tags 1`] = `
         \\"name\\": \\"testapp--TSTAPP\\",
         \\"propagate_tags\\": \\"SERVICE\\",
         \\"task_definition\\": \\"\${aws_ecs_task_definition.test_testPocketApp_ecsservice_ecstask_A752DB7C.arn}\\",
+        \\"load_balancer\\": [],
         \\"network_configuration\\": [
           {
             \\"security_groups\\": [

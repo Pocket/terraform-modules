@@ -1,4 +1,4 @@
-import { Testing, TerraformStack } from 'cdktf';
+import { TerraformStack, Testing } from 'cdktf';
 import {
   ApplicationECSService,
   ApplicationECSServiceProps,
@@ -98,8 +98,10 @@ describe('AppliationECSService', () => {
       },
     ];
 
-    BASE_CONFIG.albSecurityGroupConfig = {
+    BASE_CONFIG.albConfig = {
       containerPort: 3000,
+      containerName: 'runme',
+      targetGroupArn: 'targetonmyback',
       albSecurityGroupId: 'strike',
     };
 

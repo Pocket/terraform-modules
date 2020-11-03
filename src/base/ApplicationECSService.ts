@@ -1,12 +1,12 @@
 import { Resource } from 'cdktf';
 import {
   EcsService,
+  EcsServiceLoadBalancer,
+  EcsServiceNetworkConfiguration,
+  EcsTaskDefinition,
   SecurityGroup,
   SecurityGroupEgress,
   SecurityGroupIngress,
-  EcsTaskDefinition,
-  EcsServiceNetworkConfiguration,
-  DataAwsIamPolicyDocumentStatement,
 } from '../../.gen/providers/aws';
 import { Construct } from 'constructs';
 import { ApplicationECR, ECRProps } from './ApplicationECR';
@@ -22,8 +22,10 @@ export interface ApplicationECSServiceProps {
   tags?: { [key: string]: string };
   ecsCluster: string;
   vpcId: string;
-  albSecurityGroupConfig?: {
+  albConfig?: {
     containerPort: number;
+    containerName: string;
+    targetGroupArn: string;
     albSecurityGroupId: string;
   };
   containerConfigs: ApplicationECSContainerDefinitionProps[];
@@ -72,13 +74,13 @@ export class ApplicationECSService extends Resource {
     config = ApplicationECSService.hydrateConfig(config);
 
     let ingress: SecurityGroupIngress[] = [];
-    if (config.albSecurityGroupConfig) {
+    if (config.albConfig) {
       ingress = [
         {
           fromPort: 80,
           protocol: 'TCP',
-          toPort: config.albSecurityGroupConfig.containerPort,
-          securityGroups: [config.albSecurityGroupConfig.albSecurityGroupId],
+          toPort: config.albConfig.containerPort,
+          securityGroups: [config.albConfig.albSecurityGroupId],
         },
       ];
     }
@@ -149,6 +151,17 @@ export class ApplicationECSService extends Resource {
       subnets: config.privateSubnetIds,
     };
 
+    const ecsLoadBalancerConfig: EcsServiceLoadBalancer[] = [];
+
+    // If we have a alb configuration lets add it.
+    if (config.albConfig) {
+      ecsLoadBalancerConfig.push({
+        containerName: config.albConfig.containerName,
+        containerPort: config.albConfig.containerPort,
+        targetGroupArn: config.albConfig.targetGroupArn,
+      });
+    }
+
     //create ecs service
     this.service = new EcsService(this, 'ecs-service', {
       name: `${config.prefix}-${config.name}`,
@@ -158,8 +171,8 @@ export class ApplicationECSService extends Resource {
       deploymentMinimumHealthyPercent: config.deploymentMinimumHealthyPercent,
       deploymentMaximumPercent: config.deploymentMaximumPercent,
       desiredCount: config.desiredCount,
-      //cluster: cluster.arn, // where's this going to come from? pass in from elsewhere
-      //loadBalancer: loadBalancer, // where's this coming from? pass in from elsewhere
+      cluster: config.ecsCluster,
+      loadBalancer: ecsLoadBalancerConfig,
       networkConfiguration: [ecsNetworkConfig],
       propagateTags: 'SERVICE',
       lifecycle: {
@@ -169,6 +182,7 @@ export class ApplicationECSService extends Resource {
     });
 
     // NEXT STEPS:
+    // These should be done in individual Application Modules and setup in PocketALBApplication
 
     // https://getpocket.atlassian.net/browse/BACK-410
     // create alb target groups (one for each deployment - blue/green)
