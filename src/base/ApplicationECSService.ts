@@ -105,12 +105,15 @@ export class ApplicationECSService extends Resource {
     ];
 
     this.ecsSecurityGroup = new SecurityGroup(this, `ecs_security_group`, {
-      name: `${config.prefix}-ECSSecurityGroup`,
-      description: 'Internal ECS Security Group',
+      namePrefix: `${config.prefix}-ECSSecurityGroup`,
+      description: 'Internal ECS Security Group (Managed by Terraform)',
       vpcId: config.vpcId,
       ingress,
       egress,
       tags: config.tags,
+      lifecycle: {
+        createBeforeDestroy: true,
+      },
     });
 
     const containerDefs = [];

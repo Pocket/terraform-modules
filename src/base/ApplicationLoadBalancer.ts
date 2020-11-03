@@ -26,8 +26,8 @@ export class ApplicationLoadBalancer extends Resource {
     super(scope, name);
 
     this.securityGroup = new SecurityGroup(this, `alb_security_group`, {
-      name: `${config.prefix}-HTTP/S Security Group`,
-      description: 'External security group',
+      namePrefix: `${config.prefix}-HTTP/S Security Group`,
+      description: 'External security group  (Managed by Terraform)',
       vpcId: config.vpcId,
       ingress: [
         {
@@ -54,6 +54,9 @@ export class ApplicationLoadBalancer extends Resource {
       tags: {
         ...config.tags,
         Name: `${config.prefix}-HTTP/S Security Group`,
+      },
+      lifecycle: {
+        createBeforeDestroy: true,
       },
     });
 

@@ -11,7 +11,7 @@ exports[`renders an ALB with tags 1`] = `
   \\"resource\\": {
     \\"aws_security_group\\": {
       \\"test_testALB_albsecuritygroup_4D3A87C7\\": {
-        \\"description\\": \\"External security group\\",
+        \\"description\\": \\"External security group  (Managed by Terraform)\\",
         \\"egress\\": [
           {
             \\"from_port\\": 80,
@@ -55,13 +55,16 @@ exports[`renders an ALB with tags 1`] = `
             \\"self\\": null
           }
         ],
-        \\"name\\": \\"test--HTTP/S Security Group\\",
+        \\"name_prefix\\": \\"test--HTTP/S Security Group\\",
         \\"tags\\": {
           \\"name\\": \\"thedude\\",
           \\"hobby\\": \\"bowling\\",
           \\"Name\\": \\"test--HTTP/S Security Group\\"
         },
         \\"vpc_id\\": \\"123\\",
+        \\"lifecycle\\": {
+          \\"create_before_destroy\\": true
+        },
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/testALB/alb_security_group\\",
@@ -108,7 +111,7 @@ exports[`renders an ALB without tags 1`] = `
   \\"resource\\": {
     \\"aws_security_group\\": {
       \\"test_testALB_albsecuritygroup_4D3A87C7\\": {
-        \\"description\\": \\"External security group\\",
+        \\"description\\": \\"External security group  (Managed by Terraform)\\",
         \\"egress\\": [
           {
             \\"from_port\\": 80,
@@ -152,11 +155,14 @@ exports[`renders an ALB without tags 1`] = `
             \\"self\\": null
           }
         ],
-        \\"name\\": \\"test--HTTP/S Security Group\\",
+        \\"name_prefix\\": \\"test--HTTP/S Security Group\\",
         \\"tags\\": {
           \\"Name\\": \\"test--HTTP/S Security Group\\"
         },
         \\"vpc_id\\": \\"123\\",
+        \\"lifecycle\\": {
+          \\"create_before_destroy\\": true
+        },
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/testALB/alb_security_group\\",

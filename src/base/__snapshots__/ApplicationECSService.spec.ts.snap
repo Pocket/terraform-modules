@@ -11,7 +11,7 @@ exports[`AppliationECSService renders an ECS service with full container definit
   \\"resource\\": {
     \\"aws_security_group\\": {
       \\"test_testECSService_ecssecuritygroup_AF33BCF2\\": {
-        \\"description\\": \\"Internal ECS Security Group\\",
+        \\"description\\": \\"Internal ECS Security Group (Managed by Terraform)\\",
         \\"egress\\": [
           {
             \\"from_port\\": 0,
@@ -28,8 +28,11 @@ exports[`AppliationECSService renders an ECS service with full container definit
           }
         ],
         \\"ingress\\": [],
-        \\"name\\": \\"abides-dev-ECSSecurityGroup\\",
+        \\"name_prefix\\": \\"abides-dev-ECSSecurityGroup\\",
         \\"vpc_id\\": \\"myhouse\\",
+        \\"lifecycle\\": {
+          \\"create_before_destroy\\": true
+        },
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/testECSService/ecs_security_group\\",
@@ -206,7 +209,7 @@ exports[`AppliationECSService renders an ECS service with full container definit
   \\"resource\\": {
     \\"aws_security_group\\": {
       \\"test_testECSService_ecssecuritygroup_AF33BCF2\\": {
-        \\"description\\": \\"Internal ECS Security Group\\",
+        \\"description\\": \\"Internal ECS Security Group (Managed by Terraform)\\",
         \\"egress\\": [
           {
             \\"from_port\\": 0,
@@ -232,8 +235,11 @@ exports[`AppliationECSService renders an ECS service with full container definit
             ]
           }
         ],
-        \\"name\\": \\"abides-dev-ECSSecurityGroup\\",
+        \\"name_prefix\\": \\"abides-dev-ECSSecurityGroup\\",
         \\"vpc_id\\": \\"myhouse\\",
+        \\"lifecycle\\": {
+          \\"create_before_destroy\\": true
+        },
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/testECSService/ecs_security_group\\",
@@ -416,7 +422,7 @@ exports[`AppliationECSService renders an ECS service with minimal config 1`] = `
   \\"resource\\": {
     \\"aws_security_group\\": {
       \\"test_testECSService_ecssecuritygroup_AF33BCF2\\": {
-        \\"description\\": \\"Internal ECS Security Group\\",
+        \\"description\\": \\"Internal ECS Security Group (Managed by Terraform)\\",
         \\"egress\\": [
           {
             \\"from_port\\": 0,
@@ -433,8 +439,11 @@ exports[`AppliationECSService renders an ECS service with minimal config 1`] = `
           }
         ],
         \\"ingress\\": [],
-        \\"name\\": \\"abides-dev-ECSSecurityGroup\\",
+        \\"name_prefix\\": \\"abides-dev-ECSSecurityGroup\\",
         \\"vpc_id\\": \\"myhouse\\",
+        \\"lifecycle\\": {
+          \\"create_before_destroy\\": true
+        },
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/testECSService/ecs_security_group\\",
@@ -611,7 +620,7 @@ exports[`AppliationECSService renders an ECS service without a log group contain
   \\"resource\\": {
     \\"aws_security_group\\": {
       \\"test_testECSService_ecssecuritygroup_AF33BCF2\\": {
-        \\"description\\": \\"Internal ECS Security Group\\",
+        \\"description\\": \\"Internal ECS Security Group (Managed by Terraform)\\",
         \\"egress\\": [
           {
             \\"from_port\\": 0,
@@ -628,8 +637,11 @@ exports[`AppliationECSService renders an ECS service without a log group contain
           }
         ],
         \\"ingress\\": [],
-        \\"name\\": \\"abides-dev-ECSSecurityGroup\\",
+        \\"name_prefix\\": \\"abides-dev-ECSSecurityGroup\\",
         \\"vpc_id\\": \\"myhouse\\",
+        \\"lifecycle\\": {
+          \\"create_before_destroy\\": true
+        },
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/testECSService/ecs_security_group\\",
@@ -818,7 +830,7 @@ exports[`AppliationECSService renders an ECS service without an image container 
   \\"resource\\": {
     \\"aws_security_group\\": {
       \\"test_testECSService_ecssecuritygroup_AF33BCF2\\": {
-        \\"description\\": \\"Internal ECS Security Group\\",
+        \\"description\\": \\"Internal ECS Security Group (Managed by Terraform)\\",
         \\"egress\\": [
           {
             \\"from_port\\": 0,
@@ -835,8 +847,11 @@ exports[`AppliationECSService renders an ECS service without an image container 
           }
         ],
         \\"ingress\\": [],
-        \\"name\\": \\"abides-dev-ECSSecurityGroup\\",
+        \\"name_prefix\\": \\"abides-dev-ECSSecurityGroup\\",
         \\"vpc_id\\": \\"myhouse\\",
+        \\"lifecycle\\": {
+          \\"create_before_destroy\\": true
+        },
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/testECSService/ecs_security_group\\",

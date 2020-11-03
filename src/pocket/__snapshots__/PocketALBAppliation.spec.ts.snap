@@ -268,7 +268,7 @@ exports[`PocketALBApplication renders an application with custom task sizes 1`] 
     },
     \\"aws_security_group\\": {
       \\"test_testPocketApp_applicationloadbalancer_albsecuritygroup_C4F681E3\\": {
-        \\"description\\": \\"External security group\\",
+        \\"description\\": \\"External security group  (Managed by Terraform)\\",
         \\"egress\\": [
           {
             \\"from_port\\": 80,
@@ -312,11 +312,14 @@ exports[`PocketALBApplication renders an application with custom task sizes 1`] 
             \\"self\\": null
           }
         ],
-        \\"name\\": \\"testapp--HTTP/S Security Group\\",
+        \\"name_prefix\\": \\"testapp--HTTP/S Security Group\\",
         \\"tags\\": {
           \\"Name\\": \\"testapp--HTTP/S Security Group\\"
         },
         \\"vpc_id\\": \\"\${data.aws_vpc.test_testPocketApp_pocketvpc_40AC0971.id}\\",
+        \\"lifecycle\\": {
+          \\"create_before_destroy\\": true
+        },
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/testPocketApp/application_load_balancer/alb_security_group\\",
@@ -325,7 +328,7 @@ exports[`PocketALBApplication renders an application with custom task sizes 1`] 
         }
       },
       \\"test_testPocketApp_ecsservice_ecssecuritygroup_326B534A\\": {
-        \\"description\\": \\"Internal ECS Security Group\\",
+        \\"description\\": \\"Internal ECS Security Group (Managed by Terraform)\\",
         \\"egress\\": [
           {
             \\"from_port\\": 0,
@@ -342,8 +345,11 @@ exports[`PocketALBApplication renders an application with custom task sizes 1`] 
           }
         ],
         \\"ingress\\": [],
-        \\"name\\": \\"testapp--ECSSecurityGroup\\",
+        \\"name_prefix\\": \\"testapp--ECSSecurityGroup\\",
         \\"vpc_id\\": \\"\${data.aws_vpc.test_testPocketApp_pocketvpc_40AC0971.id}\\",
+        \\"lifecycle\\": {
+          \\"create_before_destroy\\": true
+        },
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/testPocketApp/ecs_service/ecs_security_group\\",
@@ -801,7 +807,7 @@ exports[`PocketALBApplication renders an application with minimal config 1`] = `
     },
     \\"aws_security_group\\": {
       \\"test_testPocketApp_applicationloadbalancer_albsecuritygroup_C4F681E3\\": {
-        \\"description\\": \\"External security group\\",
+        \\"description\\": \\"External security group  (Managed by Terraform)\\",
         \\"egress\\": [
           {
             \\"from_port\\": 80,
@@ -845,11 +851,14 @@ exports[`PocketALBApplication renders an application with minimal config 1`] = `
             \\"self\\": null
           }
         ],
-        \\"name\\": \\"testapp--HTTP/S Security Group\\",
+        \\"name_prefix\\": \\"testapp--HTTP/S Security Group\\",
         \\"tags\\": {
           \\"Name\\": \\"testapp--HTTP/S Security Group\\"
         },
         \\"vpc_id\\": \\"\${data.aws_vpc.test_testPocketApp_pocketvpc_40AC0971.id}\\",
+        \\"lifecycle\\": {
+          \\"create_before_destroy\\": true
+        },
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/testPocketApp/application_load_balancer/alb_security_group\\",
@@ -858,7 +867,7 @@ exports[`PocketALBApplication renders an application with minimal config 1`] = `
         }
       },
       \\"test_testPocketApp_ecsservice_ecssecuritygroup_326B534A\\": {
-        \\"description\\": \\"Internal ECS Security Group\\",
+        \\"description\\": \\"Internal ECS Security Group (Managed by Terraform)\\",
         \\"egress\\": [
           {
             \\"from_port\\": 0,
@@ -875,8 +884,11 @@ exports[`PocketALBApplication renders an application with minimal config 1`] = `
           }
         ],
         \\"ingress\\": [],
-        \\"name\\": \\"testapp--ECSSecurityGroup\\",
+        \\"name_prefix\\": \\"testapp--ECSSecurityGroup\\",
         \\"vpc_id\\": \\"\${data.aws_vpc.test_testPocketApp_pocketvpc_40AC0971.id}\\",
+        \\"lifecycle\\": {
+          \\"create_before_destroy\\": true
+        },
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/testPocketApp/ecs_service/ecs_security_group\\",
@@ -1381,7 +1393,7 @@ exports[`PocketALBApplication renders an external application 1`] = `
     },
     \\"aws_security_group\\": {
       \\"test_testPocketApp_applicationloadbalancer_albsecuritygroup_C4F681E3\\": {
-        \\"description\\": \\"External security group\\",
+        \\"description\\": \\"External security group  (Managed by Terraform)\\",
         \\"egress\\": [
           {
             \\"from_port\\": 80,
@@ -1425,11 +1437,14 @@ exports[`PocketALBApplication renders an external application 1`] = `
             \\"self\\": null
           }
         ],
-        \\"name\\": \\"testapp--HTTP/S Security Group\\",
+        \\"name_prefix\\": \\"testapp--HTTP/S Security Group\\",
         \\"tags\\": {
           \\"Name\\": \\"testapp--HTTP/S Security Group\\"
         },
         \\"vpc_id\\": \\"\${data.aws_vpc.test_testPocketApp_pocketvpc_40AC0971.id}\\",
+        \\"lifecycle\\": {
+          \\"create_before_destroy\\": true
+        },
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/testPocketApp/application_load_balancer/alb_security_group\\",
@@ -1438,7 +1453,7 @@ exports[`PocketALBApplication renders an external application 1`] = `
         }
       },
       \\"test_testPocketApp_ecsservice_ecssecuritygroup_326B534A\\": {
-        \\"description\\": \\"Internal ECS Security Group\\",
+        \\"description\\": \\"Internal ECS Security Group (Managed by Terraform)\\",
         \\"egress\\": [
           {
             \\"from_port\\": 0,
@@ -1455,8 +1470,11 @@ exports[`PocketALBApplication renders an external application 1`] = `
           }
         ],
         \\"ingress\\": [],
-        \\"name\\": \\"testapp--ECSSecurityGroup\\",
+        \\"name_prefix\\": \\"testapp--ECSSecurityGroup\\",
         \\"vpc_id\\": \\"\${data.aws_vpc.test_testPocketApp_pocketvpc_40AC0971.id}\\",
+        \\"lifecycle\\": {
+          \\"create_before_destroy\\": true
+        },
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/testPocketApp/ecs_service/ecs_security_group\\",
@@ -2028,7 +2046,7 @@ exports[`PocketALBApplication renders an internal application 1`] = `
     },
     \\"aws_security_group\\": {
       \\"test_testPocketApp_applicationloadbalancer_albsecuritygroup_C4F681E3\\": {
-        \\"description\\": \\"External security group\\",
+        \\"description\\": \\"External security group  (Managed by Terraform)\\",
         \\"egress\\": [
           {
             \\"from_port\\": 80,
@@ -2072,11 +2090,14 @@ exports[`PocketALBApplication renders an internal application 1`] = `
             \\"self\\": null
           }
         ],
-        \\"name\\": \\"testapp--HTTP/S Security Group\\",
+        \\"name_prefix\\": \\"testapp--HTTP/S Security Group\\",
         \\"tags\\": {
           \\"Name\\": \\"testapp--HTTP/S Security Group\\"
         },
         \\"vpc_id\\": \\"\${data.aws_vpc.test_testPocketApp_pocketvpc_40AC0971.id}\\",
+        \\"lifecycle\\": {
+          \\"create_before_destroy\\": true
+        },
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/testPocketApp/application_load_balancer/alb_security_group\\",
@@ -2085,7 +2106,7 @@ exports[`PocketALBApplication renders an internal application 1`] = `
         }
       },
       \\"test_testPocketApp_ecsservice_ecssecuritygroup_326B534A\\": {
-        \\"description\\": \\"Internal ECS Security Group\\",
+        \\"description\\": \\"Internal ECS Security Group (Managed by Terraform)\\",
         \\"egress\\": [
           {
             \\"from_port\\": 0,
@@ -2102,8 +2123,11 @@ exports[`PocketALBApplication renders an internal application 1`] = `
           }
         ],
         \\"ingress\\": [],
-        \\"name\\": \\"testapp--ECSSecurityGroup\\",
+        \\"name_prefix\\": \\"testapp--ECSSecurityGroup\\",
         \\"vpc_id\\": \\"\${data.aws_vpc.test_testPocketApp_pocketvpc_40AC0971.id}\\",
+        \\"lifecycle\\": {
+          \\"create_before_destroy\\": true
+        },
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/testPocketApp/ecs_service/ecs_security_group\\",
@@ -2565,7 +2589,7 @@ exports[`PocketALBApplication renders an internal application with tags 1`] = `
     },
     \\"aws_security_group\\": {
       \\"test_testPocketApp_applicationloadbalancer_albsecuritygroup_C4F681E3\\": {
-        \\"description\\": \\"External security group\\",
+        \\"description\\": \\"External security group  (Managed by Terraform)\\",
         \\"egress\\": [
           {
             \\"from_port\\": 80,
@@ -2609,13 +2633,16 @@ exports[`PocketALBApplication renders an internal application with tags 1`] = `
             \\"self\\": null
           }
         ],
-        \\"name\\": \\"testapp--HTTP/S Security Group\\",
+        \\"name_prefix\\": \\"testapp--HTTP/S Security Group\\",
         \\"tags\\": {
           \\"name\\": \\"thedude\\",
           \\"hobby\\": \\"bowling\\",
           \\"Name\\": \\"testapp--HTTP/S Security Group\\"
         },
         \\"vpc_id\\": \\"\${data.aws_vpc.test_testPocketApp_pocketvpc_40AC0971.id}\\",
+        \\"lifecycle\\": {
+          \\"create_before_destroy\\": true
+        },
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/testPocketApp/application_load_balancer/alb_security_group\\",
@@ -2624,7 +2651,7 @@ exports[`PocketALBApplication renders an internal application with tags 1`] = `
         }
       },
       \\"test_testPocketApp_ecsservice_ecssecuritygroup_326B534A\\": {
-        \\"description\\": \\"Internal ECS Security Group\\",
+        \\"description\\": \\"Internal ECS Security Group (Managed by Terraform)\\",
         \\"egress\\": [
           {
             \\"from_port\\": 0,
@@ -2641,12 +2668,15 @@ exports[`PocketALBApplication renders an internal application with tags 1`] = `
           }
         ],
         \\"ingress\\": [],
-        \\"name\\": \\"testapp--ECSSecurityGroup\\",
+        \\"name_prefix\\": \\"testapp--ECSSecurityGroup\\",
         \\"tags\\": {
           \\"name\\": \\"thedude\\",
           \\"hobby\\": \\"bowling\\"
         },
         \\"vpc_id\\": \\"\${data.aws_vpc.test_testPocketApp_pocketvpc_40AC0971.id}\\",
+        \\"lifecycle\\": {
+          \\"create_before_destroy\\": true
+        },
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/testPocketApp/ecs_service/ecs_security_group\\",
