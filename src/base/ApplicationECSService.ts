@@ -19,7 +19,6 @@ import {
 
 export interface ApplicationECSServiceProps {
   prefix: string;
-  name: string;
   tags?: { [key: string]: string };
   ecsCluster: string;
   vpcId: string;
@@ -31,6 +30,8 @@ export interface ApplicationECSServiceProps {
   };
   containerConfigs: ApplicationECSContainerDefinitionProps[];
   privateSubnetIds: string[];
+  cpu?: number; // defaults to 512
+  memory?: number; // defaults to   2048
   launchType?: string; // defaults to 'FARGATE'
   deploymentMinimumHealthyPercent?: number; // defaults to 100
   deploymentMaximumPercent?: number; // defaults to 200
@@ -60,6 +61,8 @@ export class ApplicationECSService extends Resource {
       'desired_count',
       'load_balancer',
     ];
+    config.cpu = config.cpu || 512;
+    config.memory = config.memory || 2048;
 
     return config;
   }
@@ -102,11 +105,15 @@ export class ApplicationECSService extends Resource {
     ];
 
     this.ecsSecurityGroup = new SecurityGroup(this, `ecs_security_group`, {
-      name: `${config.prefix}-${config.name}-ECSSecurityGroup`,
-      description: 'Internal ECS Security Group',
+      namePrefix: `${config.prefix}-ECSSecurityGroup`,
+      description: 'Internal ECS Security Group (Managed by Terraform)',
       vpcId: config.vpcId,
       ingress,
       egress,
+      tags: config.tags,
+      lifecycle: {
+        createBeforeDestroy: true,
+      },
     });
 
     const containerDefs = [];
@@ -117,7 +124,7 @@ export class ApplicationECSService extends Resource {
       // if an image has been given, it must already live somewhere, so an ECR isn't needed
       if (!def.containerImage) {
         const ecrConfig: ECRProps = {
-          name: `${config.prefix}-${config.name}-${def.name}`.toLowerCase(),
+          name: `${config.prefix}-${def.name}`.toLowerCase(),
           tags: config.tags,
         };
 
@@ -129,8 +136,9 @@ export class ApplicationECSService extends Resource {
       // if a log group was given, it must already exist so we don't need to create it
       if (!def.logGroup) {
         const cloudwatch = new CloudwatchLogGroup(this, `ecs-${def.name}`, {
-          namePrefix: `/ecs/${config.prefix}/${config.name}/${def.name}`,
+          namePrefix: `/ecs/${config.prefix}/${def.name}`,
           retentionInDays: 30,
+          tags: config.tags,
         });
         def.logGroup = cloudwatch.name;
       }
@@ -139,7 +147,6 @@ export class ApplicationECSService extends Resource {
     });
 
     const ecsIam = new ApplicationECSIAM(this, 'ecs-iam', {
-      name: config.name,
       prefix: config.prefix,
       tags: config.tags,
       taskExecutionDefaultAttachmentArn:
@@ -153,9 +160,14 @@ export class ApplicationECSService extends Resource {
     const taskDef = new EcsTaskDefinition(this, 'ecs-task', {
       // why are container definitions just JSON? can we get a real construct? sheesh.
       containerDefinitions: `[${containerDefs}]`,
-      family: `${config.prefix}-${config.name}`,
+      family: `${config.prefix}`,
       executionRoleArn: ecsIam.taskExecutionRoleArn,
       taskRoleArn: ecsIam.taskRoleArn,
+      cpu: config.cpu.toString(),
+      memory: config.memory.toString(),
+      requiresCompatibilities: ['FARGATE'],
+      networkMode: 'awsvpc',
+      tags: config.tags,
     });
 
     const ecsNetworkConfig: EcsServiceNetworkConfiguration = {
@@ -176,7 +188,7 @@ export class ApplicationECSService extends Resource {
 
     //create ecs service
     this.service = new EcsService(this, 'ecs-service', {
-      name: `${config.prefix}-${config.name}`,
+      name: `${config.prefix}`,
       taskDefinition: taskDef.arn,
       //deploymentController: ['CODE_DEPLOY'], // TODO: enable when code deploy is baked into these modules
       launchType: config.launchType,
@@ -191,6 +203,7 @@ export class ApplicationECSService extends Resource {
         ignoreChanges: config.lifecycleIgnoreChanges,
         createBeforeDestroy: true, // TODO: should this be in config?
       },
+      tags: config.tags,
     });
 
     // NEXT STEPS:

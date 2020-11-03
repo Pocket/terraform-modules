@@ -9,15 +9,13 @@ let BASE_CONFIG: ApplicationECSServiceProps;
 describe('AppliationECSService', () => {
   beforeEach(() => {
     BASE_CONFIG = {
-      prefix: 'abides-',
-      name: 'ecsiguess',
+      prefix: 'abides-dev',
       ecsCluster: 'gorp',
       vpcId: 'myhouse',
       containerConfigs: [],
       privateSubnetIds: ['1.1.1.1', '2.2.2.2'],
       ecsIamConfig: {
         prefix: 'abides-',
-        name: 'ecsiam?',
         taskExecutionDefaultAttachmentArn: 'someArn',
         taskExecutionRolePolicyStatements: [],
         taskRolePolicyStatements: [],

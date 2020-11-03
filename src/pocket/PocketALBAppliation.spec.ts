@@ -15,7 +15,6 @@ describe('PocketALBApplication', () => {
       containerConfigs: [],
       ecsIamConfig: {
         prefix: 'testapp-',
-        name: 'iamname',
         taskExecutionDefaultAttachmentArn: '',
         taskExecutionRolePolicyStatements: [],
         taskRolePolicyStatements: [],
@@ -54,6 +53,20 @@ describe('PocketALBApplication', () => {
 
     BASE_CONFIG.internal = true;
     BASE_CONFIG.cdn = false;
+
+    new PocketALBApplication(stack, 'testPocketApp', BASE_CONFIG);
+
+    expect(Testing.synth(stack)).toMatchSnapshot();
+  });
+
+  it('renders an application with custom task sizes', () => {
+    const app = Testing.app();
+    const stack = new TerraformStack(app, 'test');
+
+    BASE_CONFIG.taskSize = {
+      cpu: 8675,
+      memory: 309,
+    };
 
     new PocketALBApplication(stack, 'testPocketApp', BASE_CONFIG);
 

@@ -11,6 +11,7 @@ import {
   ApplicationECSContainerDefinitionProps,
   ApplicationECSIAMProps,
   ApplicationECSService,
+  ApplicationECSServiceProps,
   ApplicationLoadBalancer,
 } from '..';
 import { PocketVPC } from './PocketVPC';
@@ -26,6 +27,10 @@ export interface PocketALBApplicationProps {
   exposedContainer: {
     port: number;
     name: string;
+  };
+  taskSize?: {
+    cpu: number;
+    memory: number;
   };
   ecsIamConfig: ApplicationECSIAMProps;
 }
@@ -278,9 +283,8 @@ export class PocketALBApplication extends Resource {
       tags: config.tags,
     });
 
-    const ecsService = new ApplicationECSService(this, 'ecs_service', {
+    let ecsConfig: ApplicationECSServiceProps = {
       prefix: config.prefix,
-      name: config.alb6CharacterPrefix,
       ecsCluster: ecsCluster.cluster.arn,
       // albConfig: {
       //   containerPort: config.exposedContainer.port,
@@ -293,7 +297,21 @@ export class PocketALBApplication extends Resource {
       containerConfigs: config.containerConfigs,
       privateSubnetIds: pocketVPC.privateSubnetIds,
       ecsIamConfig: config.ecsIamConfig,
-    });
+      tags: config.tags,
+    };
+
+    if (config.taskSize) {
+      ecsConfig = {
+        ...config.taskSize,
+        ...ecsConfig,
+      };
+    }
+
+    const ecsService = new ApplicationECSService(
+      this,
+      'ecs_service',
+      ecsConfig
+    );
 
     return {
       ecs: ecsService,

@@ -1,9 +1,8 @@
-import { Testing, TerraformStack } from 'cdktf';
+import { TerraformStack, Testing } from 'cdktf';
 import { ApplicationECSIAM, ApplicationECSIAMProps } from './ApplicationECSIAM';
 
 const BASE_CONFIG: ApplicationECSIAMProps = {
-  prefix: 'abides-',
-  name: 'ecsiguess',
+  prefix: 'abides-dev',
   taskExecutionDefaultAttachmentArn: 'someArn',
   taskExecutionRolePolicyStatements: [],
   taskRolePolicyStatements: [],
