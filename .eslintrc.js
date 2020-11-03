@@ -28,7 +28,9 @@ module.exports = {
     '@typescript-eslint/camelcase': 0,
     // allows 'any' typehint
     '@typescript-eslint/no-explicit-any': 0,
-    // enforces 2 spaces indent
+    // allows @ts-ignore
+    '@typescript-eslint/ban-ts-comment': 0,
+    // enforces 2 spaces indent,
     indent: [
       'error',
       2,

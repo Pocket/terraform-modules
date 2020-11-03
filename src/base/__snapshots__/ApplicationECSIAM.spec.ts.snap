@@ -1,0 +1,285 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders ECS IAM with minimal config 1`] = `
+"{
+  \\"//\\": {
+    \\"metadata\\": {
+      \\"version\\": \\"stubbed\\",
+      \\"stackName\\": \\"test\\"
+    }
+  },
+  \\"data\\": {
+    \\"aws_iam_policy_document\\": {
+      \\"test_testECSService_ecstaskassume_84EDDA06\\": {
+        \\"version\\": \\"2012-10-17\\",
+        \\"statement\\": [
+          {
+            \\"effect\\": \\"Allow\\",
+            \\"actions\\": [
+              \\"sts:AssumeRole\\"
+            ],
+            \\"principals\\": [
+              {
+                \\"identifiers\\": [
+                  \\"ecs-tasks.amazonaws.com\\"
+                ],
+                \\"type\\": \\"Service\\"
+              }
+            ]
+          }
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testECSService/ecs-task-assume\\",
+            \\"uniqueId\\": \\"test_testECSService_ecstaskassume_84EDDA06\\"
+          }
+        }
+      },
+      \\"test_testECSService_dataecstaskexecutionrolepolicy_B23D6F8E\\": {
+        \\"version\\": \\"2012-10-17\\",
+        \\"statement\\": [],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testECSService/data-ecs-task-execution-role-policy\\",
+            \\"uniqueId\\": \\"test_testECSService_dataecstaskexecutionrolepolicy_B23D6F8E\\"
+          }
+        }
+      },
+      \\"test_testECSService_dataecstaskrolepolicy_A8815602\\": {
+        \\"version\\": \\"2012-10-17\\",
+        \\"statement\\": [],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testECSService/data-ecs-task-role-policy\\",
+            \\"uniqueId\\": \\"test_testECSService_dataecstaskrolepolicy_A8815602\\"
+          }
+        }
+      }
+    }
+  },
+  \\"resource\\": {
+    \\"aws_iam_role\\": {
+      \\"test_testECSService_ecsexecutionrole_75EC72C7\\": {
+        \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.test_testECSService_ecstaskassume_84EDDA06.json}\\",
+        \\"name\\": \\"abides--TaskExecutionRole\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testECSService/ecs-execution-role\\",
+            \\"uniqueId\\": \\"test_testECSService_ecsexecutionrole_75EC72C7\\"
+          }
+        }
+      },
+      \\"test_testECSService_ecstaskrole_BED63A51\\": {
+        \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.test_testECSService_ecstaskassume_84EDDA06.json}\\",
+        \\"name\\": \\"abides--TaskRole\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testECSService/ecs-task-role\\",
+            \\"uniqueId\\": \\"test_testECSService_ecstaskrole_BED63A51\\"
+          }
+        }
+      }
+    },
+    \\"aws_iam_role_policy_attachment\\": {
+      \\"test_testECSService_ecstaskexecutiondefaultattachment_4EA8C5C9\\": {
+        \\"policy_arn\\": \\"someArn\\",
+        \\"role\\": \\"\${aws_iam_role.test_testECSService_ecsexecutionrole_75EC72C7.id}\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testECSService/ecs-task-execution-default-attachment\\",
+            \\"uniqueId\\": \\"test_testECSService_ecstaskexecutiondefaultattachment_4EA8C5C9\\"
+          }
+        }
+      },
+      \\"test_testECSService_ecstaskexecutioncustomattachment_154A6C8A\\": {
+        \\"policy_arn\\": \\"\${aws_iam_policy.test_testECSService_ecstaskexecutionrolepolicy_CAC933F9.arn}\\",
+        \\"role\\": \\"\${aws_iam_role.test_testECSService_ecsexecutionrole_75EC72C7.id}\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testECSService/ecs-task-execution-custom-attachment\\",
+            \\"uniqueId\\": \\"test_testECSService_ecstaskexecutioncustomattachment_154A6C8A\\"
+          }
+        }
+      },
+      \\"test_testECSService_ecstaskcustomattachment_2E322BCE\\": {
+        \\"policy_arn\\": \\"\${aws_iam_policy.test_testECSService_ecstaskrolepolicy_671D7EAF.arn}\\",
+        \\"role\\": \\"\${aws_iam_role.test_testECSService_ecstaskrole_BED63A51.id}\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testECSService/ecs-task-custom-attachment\\",
+            \\"uniqueId\\": \\"test_testECSService_ecstaskcustomattachment_2E322BCE\\"
+          }
+        }
+      }
+    },
+    \\"aws_iam_policy\\": {
+      \\"test_testECSService_ecstaskexecutionrolepolicy_CAC933F9\\": {
+        \\"name\\": \\"abides--TaskExecutionRolePolicy\\",
+        \\"policy\\": \\"\${data.aws_iam_policy_document.test_testECSService_dataecstaskexecutionrolepolicy_B23D6F8E.json}\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testECSService/ecs-task-execution-role-policy\\",
+            \\"uniqueId\\": \\"test_testECSService_ecstaskexecutionrolepolicy_CAC933F9\\"
+          }
+        }
+      },
+      \\"test_testECSService_ecstaskrolepolicy_671D7EAF\\": {
+        \\"name\\": \\"abides--TaskRolePolicy\\",
+        \\"policy\\": \\"\${data.aws_iam_policy_document.test_testECSService_dataecstaskrolepolicy_A8815602.json}\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testECSService/ecs-task-role-policy\\",
+            \\"uniqueId\\": \\"test_testECSService_ecstaskrolepolicy_671D7EAF\\"
+          }
+        }
+      }
+    }
+  }
+}"
+`;
+
+exports[`renders ECS IAM with tags 1`] = `
+"{
+  \\"//\\": {
+    \\"metadata\\": {
+      \\"version\\": \\"stubbed\\",
+      \\"stackName\\": \\"test\\"
+    }
+  },
+  \\"data\\": {
+    \\"aws_iam_policy_document\\": {
+      \\"test_testECSService_ecstaskassume_84EDDA06\\": {
+        \\"version\\": \\"2012-10-17\\",
+        \\"statement\\": [
+          {
+            \\"effect\\": \\"Allow\\",
+            \\"actions\\": [
+              \\"sts:AssumeRole\\"
+            ],
+            \\"principals\\": [
+              {
+                \\"identifiers\\": [
+                  \\"ecs-tasks.amazonaws.com\\"
+                ],
+                \\"type\\": \\"Service\\"
+              }
+            ]
+          }
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testECSService/ecs-task-assume\\",
+            \\"uniqueId\\": \\"test_testECSService_ecstaskassume_84EDDA06\\"
+          }
+        }
+      },
+      \\"test_testECSService_dataecstaskexecutionrolepolicy_B23D6F8E\\": {
+        \\"version\\": \\"2012-10-17\\",
+        \\"statement\\": [],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testECSService/data-ecs-task-execution-role-policy\\",
+            \\"uniqueId\\": \\"test_testECSService_dataecstaskexecutionrolepolicy_B23D6F8E\\"
+          }
+        }
+      },
+      \\"test_testECSService_dataecstaskrolepolicy_A8815602\\": {
+        \\"version\\": \\"2012-10-17\\",
+        \\"statement\\": [],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testECSService/data-ecs-task-role-policy\\",
+            \\"uniqueId\\": \\"test_testECSService_dataecstaskrolepolicy_A8815602\\"
+          }
+        }
+      }
+    }
+  },
+  \\"resource\\": {
+    \\"aws_iam_role\\": {
+      \\"test_testECSService_ecsexecutionrole_75EC72C7\\": {
+        \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.test_testECSService_ecstaskassume_84EDDA06.json}\\",
+        \\"name\\": \\"abides--TaskExecutionRole\\",
+        \\"tags\\": {
+          \\"letsgo\\": \\"bowling\\",
+          \\"donnie\\": \\"throwinrockstonight\\"
+        },
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testECSService/ecs-execution-role\\",
+            \\"uniqueId\\": \\"test_testECSService_ecsexecutionrole_75EC72C7\\"
+          }
+        }
+      },
+      \\"test_testECSService_ecstaskrole_BED63A51\\": {
+        \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.test_testECSService_ecstaskassume_84EDDA06.json}\\",
+        \\"name\\": \\"abides--TaskRole\\",
+        \\"tags\\": {
+          \\"letsgo\\": \\"bowling\\",
+          \\"donnie\\": \\"throwinrockstonight\\"
+        },
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testECSService/ecs-task-role\\",
+            \\"uniqueId\\": \\"test_testECSService_ecstaskrole_BED63A51\\"
+          }
+        }
+      }
+    },
+    \\"aws_iam_role_policy_attachment\\": {
+      \\"test_testECSService_ecstaskexecutiondefaultattachment_4EA8C5C9\\": {
+        \\"policy_arn\\": \\"someArn\\",
+        \\"role\\": \\"\${aws_iam_role.test_testECSService_ecsexecutionrole_75EC72C7.id}\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testECSService/ecs-task-execution-default-attachment\\",
+            \\"uniqueId\\": \\"test_testECSService_ecstaskexecutiondefaultattachment_4EA8C5C9\\"
+          }
+        }
+      },
+      \\"test_testECSService_ecstaskexecutioncustomattachment_154A6C8A\\": {
+        \\"policy_arn\\": \\"\${aws_iam_policy.test_testECSService_ecstaskexecutionrolepolicy_CAC933F9.arn}\\",
+        \\"role\\": \\"\${aws_iam_role.test_testECSService_ecsexecutionrole_75EC72C7.id}\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testECSService/ecs-task-execution-custom-attachment\\",
+            \\"uniqueId\\": \\"test_testECSService_ecstaskexecutioncustomattachment_154A6C8A\\"
+          }
+        }
+      },
+      \\"test_testECSService_ecstaskcustomattachment_2E322BCE\\": {
+        \\"policy_arn\\": \\"\${aws_iam_policy.test_testECSService_ecstaskrolepolicy_671D7EAF.arn}\\",
+        \\"role\\": \\"\${aws_iam_role.test_testECSService_ecstaskrole_BED63A51.id}\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testECSService/ecs-task-custom-attachment\\",
+            \\"uniqueId\\": \\"test_testECSService_ecstaskcustomattachment_2E322BCE\\"
+          }
+        }
+      }
+    },
+    \\"aws_iam_policy\\": {
+      \\"test_testECSService_ecstaskexecutionrolepolicy_CAC933F9\\": {
+        \\"name\\": \\"abides--TaskExecutionRolePolicy\\",
+        \\"policy\\": \\"\${data.aws_iam_policy_document.test_testECSService_dataecstaskexecutionrolepolicy_B23D6F8E.json}\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testECSService/ecs-task-execution-role-policy\\",
+            \\"uniqueId\\": \\"test_testECSService_ecstaskexecutionrolepolicy_CAC933F9\\"
+          }
+        }
+      },
+      \\"test_testECSService_ecstaskrolepolicy_671D7EAF\\": {
+        \\"name\\": \\"abides--TaskRolePolicy\\",
+        \\"policy\\": \\"\${data.aws_iam_policy_document.test_testECSService_dataecstaskrolepolicy_A8815602.json}\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testECSService/ecs-task-role-policy\\",
+            \\"uniqueId\\": \\"test_testECSService_ecstaskrolepolicy_671D7EAF\\"
+          }
+        }
+      }
+    }
+  }
+}"
+`;

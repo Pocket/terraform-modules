@@ -25,7 +25,7 @@ export class ApplicationECSCluster extends Resource {
       name: config.prefix,
       setting: [
         {
-          name: 'ContainerInsights',
+          name: 'containerInsights',
           value: 'ENABLED',
         },
       ],

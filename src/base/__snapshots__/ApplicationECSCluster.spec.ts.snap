@@ -18,7 +18,7 @@ exports[`renders an ECS cluster with tags 1`] = `
         },
         \\"setting\\": [
           {
-            \\"name\\": \\"ContainerInsights\\",
+            \\"name\\": \\"containerInsights\\",
             \\"value\\": \\"ENABLED\\"
           }
         ],
@@ -48,7 +48,7 @@ exports[`renders an ECS cluster without tags 1`] = `
         \\"name\\": \\"bowling-\\",
         \\"setting\\": [
           {
-            \\"name\\": \\"ContainerInsights\\",
+            \\"name\\": \\"containerInsights\\",
             \\"value\\": \\"ENABLED\\"
           }
         ],

@@ -4,9 +4,15 @@ import {
   Route53Record,
 } from '../../.gen/providers/aws';
 import { Construct } from 'constructs';
-import { ApplicationBaseDNS } from '..';
-import { ApplicationCertificate } from '..';
-import { ApplicationLoadBalancer } from '..';
+import {
+  ApplicationBaseDNS,
+  ApplicationCertificate,
+  ApplicationECSCluster,
+  ApplicationECSContainerDefinitionProps,
+  ApplicationECSIAMProps,
+  ApplicationECSService,
+  ApplicationLoadBalancer,
+} from '..';
 import { PocketVPC } from './PocketVPC';
 
 export interface PocketALBApplicationProps {
@@ -16,6 +22,12 @@ export interface PocketALBApplicationProps {
   domain: string;
   cdn?: boolean;
   tags?: { [key: string]: string };
+  containerConfigs: ApplicationECSContainerDefinitionProps[];
+  exposedContainer: {
+    port: number;
+    name: string;
+  };
+  ecsIamConfig: ApplicationECSIAMProps;
 }
 
 export class PocketALBApplication extends Resource {
@@ -45,6 +57,8 @@ export class PocketALBApplication extends Resource {
     if (config.cdn) {
       this.createCDN(config, albRecord);
     }
+
+    this.createECSService(config, pocketVPC, alb);
   }
 
   /**
@@ -245,5 +259,44 @@ export class PocketALBApplication extends Resource {
       },
       setIdentifier: '2',
     });
+  }
+
+  /**
+   * Create the ECS service and attach it to the ALB
+   * @param config
+   * @param pocketVPC
+   * @param alb
+   * @private
+   */
+  private createECSService(
+    config: PocketALBApplicationProps,
+    pocketVPC: PocketVPC,
+    alb: ApplicationLoadBalancer
+  ): { ecs: ApplicationECSService } {
+    const ecsCluster = new ApplicationECSCluster(this, 'ecs_cluster', {
+      prefix: config.prefix,
+      tags: config.tags,
+    });
+
+    const ecsService = new ApplicationECSService(this, 'ecs_service', {
+      prefix: config.prefix,
+      name: config.alb6CharacterPrefix,
+      ecsCluster: ecsCluster.cluster.arn,
+      // albConfig: {
+      //   containerPort: config.exposedContainer.port,
+      //   containerName: config.exposedContainer.name,
+      //   albSecurityGroupId: alb.securityGroup.id,
+      //   TODO: add a target group
+      //   targetGroupArn: '',
+      // },
+      vpcId: pocketVPC.vpc.id,
+      containerConfigs: config.containerConfigs,
+      privateSubnetIds: pocketVPC.privateSubnetIds,
+      ecsIamConfig: config.ecsIamConfig,
+    });
+
+    return {
+      ecs: ecsService,
+    };
   }
 }

@@ -23,7 +23,6 @@ export class ApplicationBaseDNS extends Resource {
       `${name}_main_hosted_zone`,
       {
         name: getRootDomain(config.domain),
-        tags: config.tags,
       }
     );
 

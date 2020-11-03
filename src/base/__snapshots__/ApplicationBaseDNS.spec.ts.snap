@@ -44,10 +44,6 @@ exports[`renders base DNS with tags 1`] = `
     \\"aws_route53_zone\\": {
       \\"test_testDNSmainhostedzone_B9A30055\\": {
         \\"name\\": \\"gobowling.info\\",
-        \\"tags\\": {
-          \\"name\\": \\"thedude\\",
-          \\"hobby\\": \\"bowling\\"
-        },
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/testDNS_main_hosted_zone\\",

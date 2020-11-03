@@ -2,6 +2,7 @@ import { Construct } from 'constructs';
 import { App, RemoteBackend, TerraformStack } from 'cdktf';
 import { AwsProvider } from '../.gen/providers/aws';
 import { PocketALBApplication } from './pocket/PocketALBApplication';
+import { ApplicationECSContainerDefinitionProps } from './base/ApplicationECSContainerDefinition';
 
 class Example extends TerraformStack {
   constructor(scope: Construct, name: string) {
@@ -22,12 +23,45 @@ class Example extends TerraformStack {
       ],
     });
 
+    const containerConfigBlue: ApplicationECSContainerDefinitionProps = {
+      name: 'blueContainer',
+      containerImage: 'fake',
+      logGroup: 'no',
+      hostPort: 3002,
+      containerPort: 3002,
+      envVars: [
+        {
+          name: 'foo',
+          value: 'bar',
+        },
+      ],
+      secretEnvVars: [
+        {
+          name: 'somesecret',
+          valueFrom: 'someArn',
+        },
+      ],
+      repositoryCredentialsParam: '',
+    };
+
     new PocketALBApplication(this, 'example', {
-      cdn: true, // maybe make this false if you're testing an actual terraform apply - cdn's take a loooong time to spin up
-      alb6CharacterPrefix: 'CORP',
+      exposedContainer: {
+        name: 'blueContainer',
+        port: 3002,
+      },
+      cdn: false, // maybe make this false if you're testing an actual terraform apply - cdn's take a loooong time to spin up
+      alb6CharacterPrefix: 'ACMECO',
       internal: false,
       domain: 'acme.getpocket.dev',
-      prefix: 'Example-',
+      prefix: 'ACME-',
+      containerConfigs: [containerConfigBlue],
+      ecsIamConfig: {
+        name: 'ACME',
+        prefix: 'ACME-',
+        taskExecutionRolePolicyStatements: [],
+        taskRolePolicyStatements: [],
+        taskExecutionDefaultAttachmentArn: '',
+      },
     });
   }
 }
