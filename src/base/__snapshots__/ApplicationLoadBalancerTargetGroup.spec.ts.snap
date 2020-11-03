@@ -1,0 +1,40 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders target group without tags 1`] = `
+"{
+  \\"//\\": {
+    \\"metadata\\": {
+      \\"version\\": \\"stubbed\\",
+      \\"stackName\\": \\"test\\"
+    }
+  },
+  \\"resource\\": {
+    \\"aws_alb_target_group\\": {
+      \\"test_testTargetGroup_albtargetgroup_E58AF39E\\": {
+        \\"deregistration_delay\\": 5,
+        \\"name\\": \\"test\\",
+        \\"port\\": 81,
+        \\"protocol\\": \\"HTTP\\",
+        \\"target_type\\": \\"ip\\",
+        \\"vpc_id\\": \\"123\\",
+        \\"health_check\\": [
+          {
+            \\"interval\\": 5,
+            \\"path\\": \\"/\\",
+            \\"protocol\\": \\"HTTP\\",
+            \\"healthy_threshold\\": 2,
+            \\"unhealthy_threshold\\": 3,
+            \\"timeout\\": 5
+          }
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testTargetGroup/alb_target_group\\",
+            \\"uniqueId\\": \\"test_testTargetGroup_albtargetgroup_E58AF39E\\"
+          }
+        }
+      }
+    }
+  }
+}"
+`;
