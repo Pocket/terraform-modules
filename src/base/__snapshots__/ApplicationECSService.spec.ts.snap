@@ -888,6 +888,9 @@ exports[`AppliationECSService renders an ECS service without an image container 
       \\"test_testECSService_ecrlebowski_ecrrepolifecyclepolicy_CF0E5D30\\": {
         \\"policy\\": \\"{\\\\\\"rules\\\\\\":[{\\\\\\"rulePriority\\\\\\":1,\\\\\\"description\\\\\\":\\\\\\"expire old images\\\\\\",\\\\\\"selection\\\\\\":{\\\\\\"tagStatus\\\\\\":\\\\\\"any\\\\\\",\\\\\\"countType\\\\\\":\\\\\\"imageCountMoreThan\\\\\\",\\\\\\"countNumber\\\\\\":800},\\\\\\"action\\\\\\":{\\\\\\"type\\\\\\":\\\\\\"expire\\\\\\"}}]}\\",
         \\"repository\\": \\"abides-dev-lebowski\\",
+        \\"depends_on\\": [
+          \\"aws_ecr_repository.test_testECSService_ecrlebowski_ecrrepo_AB712F26\\"
+        ],
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/testECSService/ecr-lebowski/ecr-repo-lifecyclepolicy\\",
