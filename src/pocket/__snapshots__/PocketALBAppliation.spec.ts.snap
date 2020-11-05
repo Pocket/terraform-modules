@@ -444,6 +444,7 @@ exports[`PocketALBApplication renders an application with custom task sizes 1`] 
         \\"health_check\\": [
           {
             \\"interval\\": 15,
+            \\"path\\": \\"/test\\",
             \\"protocol\\": \\"HTTP\\",
             \\"healthy_threshold\\": 5,
             \\"unhealthy_threshold\\": 3
@@ -1071,6 +1072,7 @@ exports[`PocketALBApplication renders an application with minimal config 1`] = `
         \\"health_check\\": [
           {
             \\"interval\\": 15,
+            \\"path\\": \\"/test\\",
             \\"protocol\\": \\"HTTP\\",
             \\"healthy_threshold\\": 5,
             \\"unhealthy_threshold\\": 3
@@ -1859,6 +1861,7 @@ exports[`PocketALBApplication renders an external application 1`] = `
         \\"health_check\\": [
           {
             \\"interval\\": 15,
+            \\"path\\": \\"/test\\",
             \\"protocol\\": \\"HTTP\\",
             \\"healthy_threshold\\": 5,
             \\"unhealthy_threshold\\": 3
@@ -2486,6 +2489,7 @@ exports[`PocketALBApplication renders an internal application 1`] = `
         \\"health_check\\": [
           {
             \\"interval\\": 15,
+            \\"path\\": \\"/test\\",
             \\"protocol\\": \\"HTTP\\",
             \\"healthy_threshold\\": 5,
             \\"unhealthy_threshold\\": 3
@@ -3139,6 +3143,7 @@ exports[`PocketALBApplication renders an internal application with tags 1`] = `
         \\"health_check\\": [
           {
             \\"interval\\": 15,
+            \\"path\\": \\"/test\\",
             \\"protocol\\": \\"HTTP\\",
             \\"healthy_threshold\\": 5,
             \\"unhealthy_threshold\\": 3

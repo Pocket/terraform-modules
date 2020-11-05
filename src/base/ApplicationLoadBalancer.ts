@@ -18,8 +18,6 @@ export class ApplicationLoadBalancer extends Resource {
   public readonly alb: Alb;
   public readonly securityGroup: SecurityGroup;
 
-  //public readonly albTargetGroup: AlbTargetGroup;
-
   constructor(
     scope: Construct,
     name: string,
