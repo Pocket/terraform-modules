@@ -344,7 +344,16 @@ exports[`PocketALBApplication renders an application with custom task sizes 1`] 
             \\"self\\": false
           }
         ],
-        \\"ingress\\": [],
+        \\"ingress\\": [
+          {
+            \\"from_port\\": 80,
+            \\"protocol\\": \\"TCP\\",
+            \\"to_port\\": 8675309,
+            \\"security_groups\\": [
+              \\"\${aws_security_group.test_testPocketApp_applicationloadbalancer_albsecuritygroup_C4F681E3.id}\\"
+            ]
+          }
+        ],
         \\"name_prefix\\": \\"testapp--ECSSecurityGroup\\",
         \\"vpc_id\\": \\"\${data.aws_vpc.test_testPocketApp_pocketvpc_40AC0971.id}\\",
         \\"lifecycle\\": {
@@ -420,6 +429,77 @@ exports[`PocketALBApplication renders an application with custom task sizes 1`] 
           \\"metadata\\": {
             \\"path\\": \\"test/testPocketApp/ecs_cluster/ecs_cluster\\",
             \\"uniqueId\\": \\"test_testPocketApp_ecscluster_CE90B54F\\"
+          }
+        }
+      }
+    },
+    \\"aws_alb_target_group\\": {
+      \\"test_testPocketApp_ecstargetgroup_9480469C\\": {
+        \\"deregistration_delay\\": 120,
+        \\"name_prefix\\": \\"TSTAPP\\",
+        \\"port\\": 80,
+        \\"protocol\\": \\"HTTP\\",
+        \\"target_type\\": \\"ip\\",
+        \\"vpc_id\\": \\"\${data.aws_vpc.test_testPocketApp_pocketvpc_40AC0971.id}\\",
+        \\"health_check\\": [
+          {
+            \\"interval\\": 15,
+            \\"protocol\\": \\"HTTP\\",
+            \\"healthy_threshold\\": 5,
+            \\"unhealthy_threshold\\": 3
+          }
+        ],
+        \\"depends_on\\": [
+          \\"aws_alb.test_testPocketApp_applicationloadbalancer_alb_6EA5BF17\\"
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/ecs_target_group\\",
+            \\"uniqueId\\": \\"test_testPocketApp_ecstargetgroup_9480469C\\"
+          }
+        }
+      }
+    },
+    \\"aws_alb_listener\\": {
+      \\"test_testPocketApp_listenerhttp_9C0A7034\\": {
+        \\"load_balancer_arn\\": \\"\${aws_alb.test_testPocketApp_applicationloadbalancer_alb_6EA5BF17.arn}\\",
+        \\"port\\": 80,
+        \\"protocol\\": \\"HTTP\\",
+        \\"default_action\\": [
+          {
+            \\"type\\": \\"redirect\\",
+            \\"redirect\\": [
+              {
+                \\"port\\": \\"443\\",
+                \\"protocol\\": \\"HTTPS\\",
+                \\"status_code\\": \\"HTTP_301\\"
+              }
+            ]
+          }
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/listener_http\\",
+            \\"uniqueId\\": \\"test_testPocketApp_listenerhttp_9C0A7034\\"
+          }
+        }
+      },
+      \\"test_testPocketApp_listenerhttps_7078E225\\": {
+        \\"certificate_arn\\": \\"\${aws_acm_certificate.test_testPocketApp_albcertificate_5D7B27A9.arn}\\",
+        \\"load_balancer_arn\\": \\"\${aws_alb.test_testPocketApp_applicationloadbalancer_alb_6EA5BF17.arn}\\",
+        \\"port\\": 443,
+        \\"protocol\\": \\"HTTPS\\",
+        \\"ssl_policy\\": \\"ELBSecurityPolicy-TLS-1-1-2017-01\\",
+        \\"default_action\\": [
+          {
+            \\"type\\": \\"forward\\",
+            \\"target_group_arn\\": \\"\${aws_alb_target_group.test_testPocketApp_ecstargetgroup_9480469C.arn}\\"
+          }
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/listener_https\\",
+            \\"uniqueId\\": \\"test_testPocketApp_listenerhttps_7078E225\\"
           }
         }
       }
@@ -510,7 +590,13 @@ exports[`PocketALBApplication renders an application with custom task sizes 1`] 
         \\"name\\": \\"testapp-\\",
         \\"propagate_tags\\": \\"SERVICE\\",
         \\"task_definition\\": \\"\${aws_ecs_task_definition.test_testPocketApp_ecsservice_ecstask_A752DB7C.arn}\\",
-        \\"load_balancer\\": [],
+        \\"load_balancer\\": [
+          {
+            \\"container_name\\": \\"main_container\\",
+            \\"container_port\\": 8675309,
+            \\"target_group_arn\\": \\"\${aws_alb_target_group.test_testPocketApp_ecstargetgroup_9480469C.arn}\\"
+          }
+        ],
         \\"network_configuration\\": [
           {
             \\"security_groups\\": [
@@ -922,35 +1008,6 @@ exports[`PocketALBApplication renders an application with minimal config 1`] = `
         }
       }
     },
-    \\"aws_alb_target_group\\": {
-      \\"test_testPocketApp_applicationloadbalancer_albtargetgroup_96F56EB3\\": {
-        \\"deregistration_delay\\": 30,
-        \\"name\\": \\"target-test\\",
-        \\"port\\": 80,
-        \\"protocol\\": \\"HTTP\\",
-        \\"target_type\\": \\"ip\\",
-        \\"vpc_id\\": \\"vpc-test\\",
-        \\"health_check\\": [
-          {
-            \\"interval\\": 5,
-            \\"path\\": \\"/\\",
-            \\"protocol\\": \\"HTTP\\",
-            \\"healthy_threshold\\": 3,
-            \\"unhealthy_threshold\\": 3,
-            \\"timeout\\": 4
-          }
-        ],
-        \\"depends_on\\": [
-          \\"aws_alb.test_testPocketApp_applicationloadbalancer_alb_6EA5BF17\\"
-        ],
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/testPocketApp/application_load_balancer/alb_target_group\\",
-            \\"uniqueId\\": \\"test_testPocketApp_applicationloadbalancer_albtargetgroup_96F56EB3\\"
-          }
-        }
-      }
-    },
     \\"aws_acm_certificate\\": {
       \\"test_testPocketApp_albcertificate_5D7B27A9\\": {
         \\"domain_name\\": \\"testing.bowling.gov\\",
@@ -997,6 +1054,77 @@ exports[`PocketALBApplication renders an application with minimal config 1`] = `
           \\"metadata\\": {
             \\"path\\": \\"test/testPocketApp/ecs_cluster/ecs_cluster\\",
             \\"uniqueId\\": \\"test_testPocketApp_ecscluster_CE90B54F\\"
+          }
+        }
+      }
+    },
+    \\"aws_alb_target_group\\": {
+      \\"test_testPocketApp_ecstargetgroup_9480469C\\": {
+        \\"deregistration_delay\\": 120,
+        \\"name_prefix\\": \\"TSTAPP\\",
+        \\"port\\": 80,
+        \\"protocol\\": \\"HTTP\\",
+        \\"target_type\\": \\"ip\\",
+        \\"vpc_id\\": \\"\${data.aws_vpc.test_testPocketApp_pocketvpc_40AC0971.id}\\",
+        \\"health_check\\": [
+          {
+            \\"interval\\": 15,
+            \\"protocol\\": \\"HTTP\\",
+            \\"healthy_threshold\\": 5,
+            \\"unhealthy_threshold\\": 3
+          }
+        ],
+        \\"depends_on\\": [
+          \\"aws_alb.test_testPocketApp_applicationloadbalancer_alb_6EA5BF17\\"
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/ecs_target_group\\",
+            \\"uniqueId\\": \\"test_testPocketApp_ecstargetgroup_9480469C\\"
+          }
+        }
+      }
+    },
+    \\"aws_alb_listener\\": {
+      \\"test_testPocketApp_listenerhttp_9C0A7034\\": {
+        \\"load_balancer_arn\\": \\"\${aws_alb.test_testPocketApp_applicationloadbalancer_alb_6EA5BF17.arn}\\",
+        \\"port\\": 80,
+        \\"protocol\\": \\"HTTP\\",
+        \\"default_action\\": [
+          {
+            \\"type\\": \\"redirect\\",
+            \\"redirect\\": [
+              {
+                \\"port\\": \\"443\\",
+                \\"protocol\\": \\"HTTPS\\",
+                \\"status_code\\": \\"HTTP_301\\"
+              }
+            ]
+          }
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/listener_http\\",
+            \\"uniqueId\\": \\"test_testPocketApp_listenerhttp_9C0A7034\\"
+          }
+        }
+      },
+      \\"test_testPocketApp_listenerhttps_7078E225\\": {
+        \\"certificate_arn\\": \\"\${aws_acm_certificate.test_testPocketApp_albcertificate_5D7B27A9.arn}\\",
+        \\"load_balancer_arn\\": \\"\${aws_alb.test_testPocketApp_applicationloadbalancer_alb_6EA5BF17.arn}\\",
+        \\"port\\": 443,
+        \\"protocol\\": \\"HTTPS\\",
+        \\"ssl_policy\\": \\"ELBSecurityPolicy-TLS-1-1-2017-01\\",
+        \\"default_action\\": [
+          {
+            \\"type\\": \\"forward\\",
+            \\"target_group_arn\\": \\"\${aws_alb_target_group.test_testPocketApp_ecstargetgroup_9480469C.arn}\\"
+          }
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/listener_https\\",
+            \\"uniqueId\\": \\"test_testPocketApp_listenerhttps_7078E225\\"
           }
         }
       }
@@ -1091,7 +1219,7 @@ exports[`PocketALBApplication renders an application with minimal config 1`] = `
           {
             \\"container_name\\": \\"main_container\\",
             \\"container_port\\": 8675309,
-            \\"target_group_arn\\": \\"\${aws_alb_target_group.test_testPocketApp_applicationloadbalancer_albtargetgroup_96F56EB3.arn}\\"
+            \\"target_group_arn\\": \\"\${aws_alb_target_group.test_testPocketApp_ecstargetgroup_9480469C.arn}\\"
           }
         ],
         \\"network_configuration\\": [
@@ -1513,7 +1641,16 @@ exports[`PocketALBApplication renders an external application 1`] = `
             \\"self\\": false
           }
         ],
-        \\"ingress\\": [],
+        \\"ingress\\": [
+          {
+            \\"from_port\\": 80,
+            \\"protocol\\": \\"TCP\\",
+            \\"to_port\\": 8675309,
+            \\"security_groups\\": [
+              \\"\${aws_security_group.test_testPocketApp_applicationloadbalancer_albsecuritygroup_C4F681E3.id}\\"
+            ]
+          }
+        ],
         \\"name_prefix\\": \\"testapp--ECSSecurityGroup\\",
         \\"vpc_id\\": \\"\${data.aws_vpc.test_testPocketApp_pocketvpc_40AC0971.id}\\",
         \\"lifecycle\\": {
@@ -1707,6 +1844,77 @@ exports[`PocketALBApplication renders an external application 1`] = `
         }
       }
     },
+    \\"aws_alb_target_group\\": {
+      \\"test_testPocketApp_ecstargetgroup_9480469C\\": {
+        \\"deregistration_delay\\": 120,
+        \\"name_prefix\\": \\"TSTAPP\\",
+        \\"port\\": 80,
+        \\"protocol\\": \\"HTTP\\",
+        \\"target_type\\": \\"ip\\",
+        \\"vpc_id\\": \\"\${data.aws_vpc.test_testPocketApp_pocketvpc_40AC0971.id}\\",
+        \\"health_check\\": [
+          {
+            \\"interval\\": 15,
+            \\"protocol\\": \\"HTTP\\",
+            \\"healthy_threshold\\": 5,
+            \\"unhealthy_threshold\\": 3
+          }
+        ],
+        \\"depends_on\\": [
+          \\"aws_alb.test_testPocketApp_applicationloadbalancer_alb_6EA5BF17\\"
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/ecs_target_group\\",
+            \\"uniqueId\\": \\"test_testPocketApp_ecstargetgroup_9480469C\\"
+          }
+        }
+      }
+    },
+    \\"aws_alb_listener\\": {
+      \\"test_testPocketApp_listenerhttp_9C0A7034\\": {
+        \\"load_balancer_arn\\": \\"\${aws_alb.test_testPocketApp_applicationloadbalancer_alb_6EA5BF17.arn}\\",
+        \\"port\\": 80,
+        \\"protocol\\": \\"HTTP\\",
+        \\"default_action\\": [
+          {
+            \\"type\\": \\"redirect\\",
+            \\"redirect\\": [
+              {
+                \\"port\\": \\"443\\",
+                \\"protocol\\": \\"HTTPS\\",
+                \\"status_code\\": \\"HTTP_301\\"
+              }
+            ]
+          }
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/listener_http\\",
+            \\"uniqueId\\": \\"test_testPocketApp_listenerhttp_9C0A7034\\"
+          }
+        }
+      },
+      \\"test_testPocketApp_listenerhttps_7078E225\\": {
+        \\"certificate_arn\\": \\"\${aws_acm_certificate.test_testPocketApp_albcertificate_5D7B27A9.arn}\\",
+        \\"load_balancer_arn\\": \\"\${aws_alb.test_testPocketApp_applicationloadbalancer_alb_6EA5BF17.arn}\\",
+        \\"port\\": 443,
+        \\"protocol\\": \\"HTTPS\\",
+        \\"ssl_policy\\": \\"ELBSecurityPolicy-TLS-1-1-2017-01\\",
+        \\"default_action\\": [
+          {
+            \\"type\\": \\"forward\\",
+            \\"target_group_arn\\": \\"\${aws_alb_target_group.test_testPocketApp_ecstargetgroup_9480469C.arn}\\"
+          }
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/listener_https\\",
+            \\"uniqueId\\": \\"test_testPocketApp_listenerhttps_7078E225\\"
+          }
+        }
+      }
+    },
     \\"aws_iam_role\\": {
       \\"test_testPocketApp_ecsservice_ecsiam_ecsexecutionrole_670A7AD5\\": {
         \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.test_testPocketApp_ecsservice_ecsiam_ecstaskassume_A392A140.json}\\",
@@ -1793,7 +2001,13 @@ exports[`PocketALBApplication renders an external application 1`] = `
         \\"name\\": \\"testapp-\\",
         \\"propagate_tags\\": \\"SERVICE\\",
         \\"task_definition\\": \\"\${aws_ecs_task_definition.test_testPocketApp_ecsservice_ecstask_A752DB7C.arn}\\",
-        \\"load_balancer\\": [],
+        \\"load_balancer\\": [
+          {
+            \\"container_name\\": \\"main_container\\",
+            \\"container_port\\": 8675309,
+            \\"target_group_arn\\": \\"\${aws_alb_target_group.test_testPocketApp_ecstargetgroup_9480469C.arn}\\"
+          }
+        ],
         \\"network_configuration\\": [
           {
             \\"security_groups\\": [
@@ -2166,7 +2380,16 @@ exports[`PocketALBApplication renders an internal application 1`] = `
             \\"self\\": false
           }
         ],
-        \\"ingress\\": [],
+        \\"ingress\\": [
+          {
+            \\"from_port\\": 80,
+            \\"protocol\\": \\"TCP\\",
+            \\"to_port\\": 8675309,
+            \\"security_groups\\": [
+              \\"\${aws_security_group.test_testPocketApp_applicationloadbalancer_albsecuritygroup_C4F681E3.id}\\"
+            ]
+          }
+        ],
         \\"name_prefix\\": \\"testapp--ECSSecurityGroup\\",
         \\"vpc_id\\": \\"\${data.aws_vpc.test_testPocketApp_pocketvpc_40AC0971.id}\\",
         \\"lifecycle\\": {
@@ -2242,6 +2465,77 @@ exports[`PocketALBApplication renders an internal application 1`] = `
           \\"metadata\\": {
             \\"path\\": \\"test/testPocketApp/ecs_cluster/ecs_cluster\\",
             \\"uniqueId\\": \\"test_testPocketApp_ecscluster_CE90B54F\\"
+          }
+        }
+      }
+    },
+    \\"aws_alb_target_group\\": {
+      \\"test_testPocketApp_ecstargetgroup_9480469C\\": {
+        \\"deregistration_delay\\": 120,
+        \\"name_prefix\\": \\"TSTAPP\\",
+        \\"port\\": 80,
+        \\"protocol\\": \\"HTTP\\",
+        \\"target_type\\": \\"ip\\",
+        \\"vpc_id\\": \\"\${data.aws_vpc.test_testPocketApp_pocketvpc_40AC0971.id}\\",
+        \\"health_check\\": [
+          {
+            \\"interval\\": 15,
+            \\"protocol\\": \\"HTTP\\",
+            \\"healthy_threshold\\": 5,
+            \\"unhealthy_threshold\\": 3
+          }
+        ],
+        \\"depends_on\\": [
+          \\"aws_alb.test_testPocketApp_applicationloadbalancer_alb_6EA5BF17\\"
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/ecs_target_group\\",
+            \\"uniqueId\\": \\"test_testPocketApp_ecstargetgroup_9480469C\\"
+          }
+        }
+      }
+    },
+    \\"aws_alb_listener\\": {
+      \\"test_testPocketApp_listenerhttp_9C0A7034\\": {
+        \\"load_balancer_arn\\": \\"\${aws_alb.test_testPocketApp_applicationloadbalancer_alb_6EA5BF17.arn}\\",
+        \\"port\\": 80,
+        \\"protocol\\": \\"HTTP\\",
+        \\"default_action\\": [
+          {
+            \\"type\\": \\"redirect\\",
+            \\"redirect\\": [
+              {
+                \\"port\\": \\"443\\",
+                \\"protocol\\": \\"HTTPS\\",
+                \\"status_code\\": \\"HTTP_301\\"
+              }
+            ]
+          }
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/listener_http\\",
+            \\"uniqueId\\": \\"test_testPocketApp_listenerhttp_9C0A7034\\"
+          }
+        }
+      },
+      \\"test_testPocketApp_listenerhttps_7078E225\\": {
+        \\"certificate_arn\\": \\"\${aws_acm_certificate.test_testPocketApp_albcertificate_5D7B27A9.arn}\\",
+        \\"load_balancer_arn\\": \\"\${aws_alb.test_testPocketApp_applicationloadbalancer_alb_6EA5BF17.arn}\\",
+        \\"port\\": 443,
+        \\"protocol\\": \\"HTTPS\\",
+        \\"ssl_policy\\": \\"ELBSecurityPolicy-TLS-1-1-2017-01\\",
+        \\"default_action\\": [
+          {
+            \\"type\\": \\"forward\\",
+            \\"target_group_arn\\": \\"\${aws_alb_target_group.test_testPocketApp_ecstargetgroup_9480469C.arn}\\"
+          }
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/listener_https\\",
+            \\"uniqueId\\": \\"test_testPocketApp_listenerhttps_7078E225\\"
           }
         }
       }
@@ -2332,7 +2626,13 @@ exports[`PocketALBApplication renders an internal application 1`] = `
         \\"name\\": \\"testapp-\\",
         \\"propagate_tags\\": \\"SERVICE\\",
         \\"task_definition\\": \\"\${aws_ecs_task_definition.test_testPocketApp_ecsservice_ecstask_A752DB7C.arn}\\",
-        \\"load_balancer\\": [],
+        \\"load_balancer\\": [
+          {
+            \\"container_name\\": \\"main_container\\",
+            \\"container_port\\": 8675309,
+            \\"target_group_arn\\": \\"\${aws_alb_target_group.test_testPocketApp_ecstargetgroup_9480469C.arn}\\"
+          }
+        ],
         \\"network_configuration\\": [
           {
             \\"security_groups\\": [
@@ -2711,7 +3011,16 @@ exports[`PocketALBApplication renders an internal application with tags 1`] = `
             \\"self\\": false
           }
         ],
-        \\"ingress\\": [],
+        \\"ingress\\": [
+          {
+            \\"from_port\\": 80,
+            \\"protocol\\": \\"TCP\\",
+            \\"to_port\\": 8675309,
+            \\"security_groups\\": [
+              \\"\${aws_security_group.test_testPocketApp_applicationloadbalancer_albsecuritygroup_C4F681E3.id}\\"
+            ]
+          }
+        ],
         \\"name_prefix\\": \\"testapp--ECSSecurityGroup\\",
         \\"tags\\": {
           \\"name\\": \\"thedude\\",
@@ -2803,6 +3112,81 @@ exports[`PocketALBApplication renders an internal application with tags 1`] = `
           \\"metadata\\": {
             \\"path\\": \\"test/testPocketApp/ecs_cluster/ecs_cluster\\",
             \\"uniqueId\\": \\"test_testPocketApp_ecscluster_CE90B54F\\"
+          }
+        }
+      }
+    },
+    \\"aws_alb_target_group\\": {
+      \\"test_testPocketApp_ecstargetgroup_9480469C\\": {
+        \\"deregistration_delay\\": 120,
+        \\"name_prefix\\": \\"TSTAPP\\",
+        \\"port\\": 80,
+        \\"protocol\\": \\"HTTP\\",
+        \\"tags\\": {
+          \\"name\\": \\"thedude\\",
+          \\"hobby\\": \\"bowling\\"
+        },
+        \\"target_type\\": \\"ip\\",
+        \\"vpc_id\\": \\"\${data.aws_vpc.test_testPocketApp_pocketvpc_40AC0971.id}\\",
+        \\"health_check\\": [
+          {
+            \\"interval\\": 15,
+            \\"protocol\\": \\"HTTP\\",
+            \\"healthy_threshold\\": 5,
+            \\"unhealthy_threshold\\": 3
+          }
+        ],
+        \\"depends_on\\": [
+          \\"aws_alb.test_testPocketApp_applicationloadbalancer_alb_6EA5BF17\\"
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/ecs_target_group\\",
+            \\"uniqueId\\": \\"test_testPocketApp_ecstargetgroup_9480469C\\"
+          }
+        }
+      }
+    },
+    \\"aws_alb_listener\\": {
+      \\"test_testPocketApp_listenerhttp_9C0A7034\\": {
+        \\"load_balancer_arn\\": \\"\${aws_alb.test_testPocketApp_applicationloadbalancer_alb_6EA5BF17.arn}\\",
+        \\"port\\": 80,
+        \\"protocol\\": \\"HTTP\\",
+        \\"default_action\\": [
+          {
+            \\"type\\": \\"redirect\\",
+            \\"redirect\\": [
+              {
+                \\"port\\": \\"443\\",
+                \\"protocol\\": \\"HTTPS\\",
+                \\"status_code\\": \\"HTTP_301\\"
+              }
+            ]
+          }
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/listener_http\\",
+            \\"uniqueId\\": \\"test_testPocketApp_listenerhttp_9C0A7034\\"
+          }
+        }
+      },
+      \\"test_testPocketApp_listenerhttps_7078E225\\": {
+        \\"certificate_arn\\": \\"\${aws_acm_certificate.test_testPocketApp_albcertificate_5D7B27A9.arn}\\",
+        \\"load_balancer_arn\\": \\"\${aws_alb.test_testPocketApp_applicationloadbalancer_alb_6EA5BF17.arn}\\",
+        \\"port\\": 443,
+        \\"protocol\\": \\"HTTPS\\",
+        \\"ssl_policy\\": \\"ELBSecurityPolicy-TLS-1-1-2017-01\\",
+        \\"default_action\\": [
+          {
+            \\"type\\": \\"forward\\",
+            \\"target_group_arn\\": \\"\${aws_alb_target_group.test_testPocketApp_ecstargetgroup_9480469C.arn}\\"
+          }
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/listener_https\\",
+            \\"uniqueId\\": \\"test_testPocketApp_listenerhttps_7078E225\\"
           }
         }
       }
@@ -2909,7 +3293,13 @@ exports[`PocketALBApplication renders an internal application with tags 1`] = `
           \\"hobby\\": \\"bowling\\"
         },
         \\"task_definition\\": \\"\${aws_ecs_task_definition.test_testPocketApp_ecsservice_ecstask_A752DB7C.arn}\\",
-        \\"load_balancer\\": [],
+        \\"load_balancer\\": [
+          {
+            \\"container_name\\": \\"main_container\\",
+            \\"container_port\\": 8675309,
+            \\"target_group_arn\\": \\"\${aws_alb_target_group.test_testPocketApp_ecstargetgroup_9480469C.arn}\\"
+          }
+        ],
         \\"network_configuration\\": [
           {
             \\"security_groups\\": [

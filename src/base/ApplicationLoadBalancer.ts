@@ -13,7 +13,7 @@ export interface ApplicationLoadBalancerProps {
   vpcId: string;
   subnetIds: string[];
   internal?: boolean;
-  targetGroup: AlbTargetGroupConfig;
+  // targetGroup: AlbTargetGroupConfig;
   tags?: { [key: string]: string };
 }
 
@@ -23,7 +23,8 @@ export interface ApplicationLoadBalancerProps {
 export class ApplicationLoadBalancer extends Resource {
   public readonly alb: Alb;
   public readonly securityGroup: SecurityGroup;
-  public readonly albTargetGroup: AlbTargetGroup;
+
+  //public readonly albTargetGroup: AlbTargetGroup;
 
   constructor(
     scope: Construct,
@@ -95,9 +96,9 @@ export class ApplicationLoadBalancer extends Resource {
       tags: config.tags,
     });
 
-    this.albTargetGroup = new AlbTargetGroup(this, `alb_target_group`, {
-      ...config.targetGroup,
-      dependsOn: [this.alb],
-    });
+    // this.albTargetGroup = new AlbTargetGroup(this, `alb_target_group`, {
+    //   ...config.targetGroup,
+    //   dependsOn: [this.alb],
+    // });
   }
 }
