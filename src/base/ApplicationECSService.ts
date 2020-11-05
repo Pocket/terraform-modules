@@ -86,6 +86,12 @@ export class ApplicationECSService extends Resource {
           protocol: 'TCP',
           toPort: config.albConfig.containerPort,
           securityGroups: [config.albConfig.albSecurityGroupId],
+          description: 'required',
+          cidrBlocks: [],
+          ipv6CidrBlocks: [],
+          prefixListIds: [],
+          // @ts-ignore: https://github.com/hashicorp/terraform-cdk/issues/282
+          self: false,
         },
       ];
     }
@@ -116,6 +122,12 @@ export class ApplicationECSService extends Resource {
         createBeforeDestroy: true,
       },
     });
+
+    this.ecsSecurityGroup.addOverride('ingress.0.description', null);
+    this.ecsSecurityGroup.addOverride('ingress.0.ipv6_cidr_blocks', null);
+    this.ecsSecurityGroup.addOverride('ingress.0.prefix_list_ids', null);
+    this.ecsSecurityGroup.addOverride('ingress.0.security_groups', null);
+    this.ecsSecurityGroup.addOverride('ingress.0.self', null);
 
     const ecrRepos: EcrRepository[] = [];
 
