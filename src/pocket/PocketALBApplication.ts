@@ -314,7 +314,7 @@ export class PocketALBApplication extends Resource {
       ],
     });
 
-    const albListenerHTTP = new AlbListener(this, 'listener_http', {
+    new AlbListener(this, 'listener_http', {
       loadBalancerArn: alb.alb.arn,
       port: 80,
       protocol: 'HTTP',
@@ -328,7 +328,7 @@ export class PocketALBApplication extends Resource {
       ],
     });
 
-    const albListenerHTTPS = new AlbListener(this, 'listener_https', {
+    new AlbListener(this, 'listener_https', {
       loadBalancerArn: alb.alb.arn,
       port: 443,
       protocol: 'HTTPS',
