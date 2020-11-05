@@ -234,7 +234,12 @@ exports[`AppliationECSService renders an ECS service with full container definit
             \\"to_port\\": 3000,
             \\"security_groups\\": [
               \\"strike\\"
-            ]
+            ],
+            \\"description\\": \\"required\\",
+            \\"cidr_blocks\\": [],
+            \\"ipv6_cidr_blocks\\": [],
+            \\"prefix_list_ids\\": [],
+            \\"self\\": false
           }
         ],
         \\"name_prefix\\": \\"abides-dev-ECSSecurityGroup\\",

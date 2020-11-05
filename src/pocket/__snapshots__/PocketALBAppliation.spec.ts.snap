@@ -351,7 +351,12 @@ exports[`PocketALBApplication renders an application with custom task sizes 1`] 
             \\"to_port\\": 8675309,
             \\"security_groups\\": [
               \\"\${aws_security_group.test_testPocketApp_applicationloadbalancer_albsecuritygroup_C4F681E3.id}\\"
-            ]
+            ],
+            \\"description\\": \\"required\\",
+            \\"cidr_blocks\\": [],
+            \\"ipv6_cidr_blocks\\": [],
+            \\"prefix_list_ids\\": [],
+            \\"self\\": false
           }
         ],
         \\"name_prefix\\": \\"testapp--ECSSecurityGroup\\",
@@ -979,7 +984,12 @@ exports[`PocketALBApplication renders an application with minimal config 1`] = `
             \\"to_port\\": 8675309,
             \\"security_groups\\": [
               \\"\${aws_security_group.test_testPocketApp_applicationloadbalancer_albsecuritygroup_C4F681E3.id}\\"
-            ]
+            ],
+            \\"description\\": \\"required\\",
+            \\"cidr_blocks\\": [],
+            \\"ipv6_cidr_blocks\\": [],
+            \\"prefix_list_ids\\": [],
+            \\"self\\": false
           }
         ],
         \\"name_prefix\\": \\"testapp--ECSSecurityGroup\\",
@@ -1654,7 +1664,12 @@ exports[`PocketALBApplication renders an external application 1`] = `
             \\"to_port\\": 8675309,
             \\"security_groups\\": [
               \\"\${aws_security_group.test_testPocketApp_applicationloadbalancer_albsecuritygroup_C4F681E3.id}\\"
-            ]
+            ],
+            \\"description\\": \\"required\\",
+            \\"cidr_blocks\\": [],
+            \\"ipv6_cidr_blocks\\": [],
+            \\"prefix_list_ids\\": [],
+            \\"self\\": false
           }
         ],
         \\"name_prefix\\": \\"testapp--ECSSecurityGroup\\",
@@ -2396,7 +2411,12 @@ exports[`PocketALBApplication renders an internal application 1`] = `
             \\"to_port\\": 8675309,
             \\"security_groups\\": [
               \\"\${aws_security_group.test_testPocketApp_applicationloadbalancer_albsecuritygroup_C4F681E3.id}\\"
-            ]
+            ],
+            \\"description\\": \\"required\\",
+            \\"cidr_blocks\\": [],
+            \\"ipv6_cidr_blocks\\": [],
+            \\"prefix_list_ids\\": [],
+            \\"self\\": false
           }
         ],
         \\"name_prefix\\": \\"testapp--ECSSecurityGroup\\",
@@ -3030,7 +3050,12 @@ exports[`PocketALBApplication renders an internal application with tags 1`] = `
             \\"to_port\\": 8675309,
             \\"security_groups\\": [
               \\"\${aws_security_group.test_testPocketApp_applicationloadbalancer_albsecuritygroup_C4F681E3.id}\\"
-            ]
+            ],
+            \\"description\\": \\"required\\",
+            \\"cidr_blocks\\": [],
+            \\"ipv6_cidr_blocks\\": [],
+            \\"prefix_list_ids\\": [],
+            \\"self\\": false
           }
         ],
         \\"name_prefix\\": \\"testapp--ECSSecurityGroup\\",

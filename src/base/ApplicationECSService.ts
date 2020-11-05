@@ -86,6 +86,12 @@ export class ApplicationECSService extends Resource {
           protocol: 'TCP',
           toPort: config.albConfig.containerPort,
           securityGroups: [config.albConfig.albSecurityGroupId],
+          description: 'required',
+          cidrBlocks: [],
+          ipv6CidrBlocks: [],
+          prefixListIds: [],
+          // @ts-ignore: https://github.com/hashicorp/terraform-cdk/issues/282
+          self: false,
         },
       ];
     }
