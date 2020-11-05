@@ -3,6 +3,7 @@ import {
   PocketALBApplication,
   PocketALBApplicationProps,
 } from './PocketALBApplication';
+//import { AlbTargetGroupConfig } from '../../.gen/providers/aws';
 
 describe('PocketALBApplication', () => {
   let BASE_CONFIG: PocketALBApplicationProps;
@@ -22,6 +23,25 @@ describe('PocketALBApplication', () => {
       exposedContainer: {
         name: 'main_container',
         port: 8675309,
+      },
+
+      targetGroup: {
+        healthCheck: [
+          {
+            interval: 5,
+            path: '/',
+            protocol: 'HTTP',
+            healthyThreshold: 3,
+            unhealthyThreshold: 3,
+            timeout: 4,
+          },
+        ],
+        vpcId: 'vpc-test',
+        protocol: 'HTTP',
+        port: 80,
+        name: 'target-test',
+        targetType: 'ip',
+        deregistrationDelay: 30,
       },
     };
   });

@@ -1,5 +1,6 @@
 import { Resource } from 'cdktf';
 import {
+  AlbTargetGroupConfig,
   CloudfrontDistribution,
   Route53Record,
 } from '../../.gen/providers/aws';
@@ -33,6 +34,7 @@ export interface PocketALBApplicationProps {
     memory: number;
   };
   ecsIamConfig: ApplicationECSIAMProps;
+  targetGroup: AlbTargetGroupConfig;
 }
 
 export class PocketALBApplication extends Resource {
@@ -113,6 +115,7 @@ export class PocketALBApplication extends Resource {
         : pocketVPC.publicSubnetIds,
       internal: config.internal,
       tags: config.tags,
+      targetGroup: config.targetGroup,
     });
 
     //When the app uses a CDN we set the ALB to be direct.app-domain
@@ -286,13 +289,12 @@ export class PocketALBApplication extends Resource {
     let ecsConfig: ApplicationECSServiceProps = {
       prefix: config.prefix,
       ecsCluster: ecsCluster.cluster.arn,
-      // albConfig: {
-      //   containerPort: config.exposedContainer.port,
-      //   containerName: config.exposedContainer.name,
-      //   albSecurityGroupId: alb.securityGroup.id,
-      //   TODO: add a target group
-      //   targetGroupArn: '',
-      // },
+      albConfig: {
+        containerPort: config.exposedContainer.port,
+        containerName: config.exposedContainer.name,
+        albSecurityGroupId: alb.securityGroup.id,
+        targetGroupArn: alb.albTargetGroup.arn,
+      },
       vpcId: pocketVPC.vpc.id,
       containerConfigs: config.containerConfigs,
       privateSubnetIds: pocketVPC.privateSubnetIds,
