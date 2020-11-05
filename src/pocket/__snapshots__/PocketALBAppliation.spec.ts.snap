@@ -883,7 +883,16 @@ exports[`PocketALBApplication renders an application with minimal config 1`] = `
             \\"self\\": false
           }
         ],
-        \\"ingress\\": [],
+        \\"ingress\\": [
+          {
+            \\"from_port\\": 80,
+            \\"protocol\\": \\"TCP\\",
+            \\"to_port\\": 8675309,
+            \\"security_groups\\": [
+              \\"\${aws_security_group.test_testPocketApp_applicationloadbalancer_albsecuritygroup_C4F681E3.id}\\"
+            ]
+          }
+        ],
         \\"name_prefix\\": \\"testapp--ECSSecurityGroup\\",
         \\"vpc_id\\": \\"\${data.aws_vpc.test_testPocketApp_pocketvpc_40AC0971.id}\\",
         \\"lifecycle\\": {
@@ -909,6 +918,35 @@ exports[`PocketALBApplication renders an application with minimal config 1`] = `
           \\"metadata\\": {
             \\"path\\": \\"test/testPocketApp/application_load_balancer/alb\\",
             \\"uniqueId\\": \\"test_testPocketApp_applicationloadbalancer_alb_6EA5BF17\\"
+          }
+        }
+      }
+    },
+    \\"aws_alb_target_group\\": {
+      \\"test_testPocketApp_applicationloadbalancer_albtargetgroup_96F56EB3\\": {
+        \\"deregistration_delay\\": 30,
+        \\"name\\": \\"target-test\\",
+        \\"port\\": 80,
+        \\"protocol\\": \\"HTTP\\",
+        \\"target_type\\": \\"ip\\",
+        \\"vpc_id\\": \\"vpc-test\\",
+        \\"health_check\\": [
+          {
+            \\"interval\\": 5,
+            \\"path\\": \\"/\\",
+            \\"protocol\\": \\"HTTP\\",
+            \\"healthy_threshold\\": 3,
+            \\"unhealthy_threshold\\": 3,
+            \\"timeout\\": 4
+          }
+        ],
+        \\"depends_on\\": [
+          \\"aws_alb.test_testPocketApp_applicationloadbalancer_alb_6EA5BF17\\"
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/application_load_balancer/alb_target_group\\",
+            \\"uniqueId\\": \\"test_testPocketApp_applicationloadbalancer_albtargetgroup_96F56EB3\\"
           }
         }
       }
@@ -1049,7 +1087,13 @@ exports[`PocketALBApplication renders an application with minimal config 1`] = `
         \\"name\\": \\"testapp-\\",
         \\"propagate_tags\\": \\"SERVICE\\",
         \\"task_definition\\": \\"\${aws_ecs_task_definition.test_testPocketApp_ecsservice_ecstask_A752DB7C.arn}\\",
-        \\"load_balancer\\": [],
+        \\"load_balancer\\": [
+          {
+            \\"container_name\\": \\"main_container\\",
+            \\"container_port\\": 8675309,
+            \\"target_group_arn\\": \\"\${aws_alb_target_group.test_testPocketApp_applicationloadbalancer_albtargetgroup_96F56EB3.arn}\\"
+          }
+        ],
         \\"network_configuration\\": [
           {
             \\"security_groups\\": [
