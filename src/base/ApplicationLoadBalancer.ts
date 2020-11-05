@@ -1,10 +1,5 @@
 import { Resource } from 'cdktf';
-import {
-  Alb,
-  AlbTargetGroup,
-  AlbTargetGroupConfig,
-  SecurityGroup,
-} from '../../.gen/providers/aws';
+import { Alb, SecurityGroup } from '../../.gen/providers/aws';
 import { Construct } from 'constructs';
 
 export interface ApplicationLoadBalancerProps {
@@ -13,7 +8,6 @@ export interface ApplicationLoadBalancerProps {
   vpcId: string;
   subnetIds: string[];
   internal?: boolean;
-  // targetGroup: AlbTargetGroupConfig;
   tags?: { [key: string]: string };
 }
 
@@ -95,10 +89,5 @@ export class ApplicationLoadBalancer extends Resource {
       subnets: config.subnetIds,
       tags: config.tags,
     });
-
-    // this.albTargetGroup = new AlbTargetGroup(this, `alb_target_group`, {
-    //   ...config.targetGroup,
-    //   dependsOn: [this.alb],
-    // });
   }
 }

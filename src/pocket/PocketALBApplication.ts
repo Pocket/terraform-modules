@@ -2,8 +2,6 @@ import { Resource } from 'cdktf';
 import {
   AlbListener,
   AlbTargetGroup,
-  //AlbTargetGroupConfig,
-  //AlbTargetGroup,
   CloudfrontDistribution,
   Route53Record,
 } from '../../.gen/providers/aws';
@@ -38,7 +36,6 @@ export interface PocketALBApplicationProps {
     memory: number;
   };
   ecsIamConfig: ApplicationECSIAMProps;
-  // targetGroup: AlbTargetGroupConfig;
 }
 
 export class PocketALBApplication extends Resource {
@@ -126,7 +123,6 @@ export class PocketALBApplication extends Resource {
         : pocketVPC.publicSubnetIds,
       internal: config.internal,
       tags: config.tags,
-      // targetGroup: config.targetGroup,
     });
 
     //When the app uses a CDN we set the ALB to be direct.app-domain
