@@ -1,6 +1,7 @@
 import { Resource } from 'cdktf';
 import {
   CloudwatchLogGroup,
+  EcrRepository,
   EcsService,
   EcsServiceLoadBalancer,
   EcsServiceNetworkConfiguration,
@@ -116,6 +117,8 @@ export class ApplicationECSService extends Resource {
       },
     });
 
+    const ecrRepos: EcrRepository[] = [];
+
     const containerDefs = [];
 
     // figure out if we need to create an ECR for each container definition
@@ -131,6 +134,8 @@ export class ApplicationECSService extends Resource {
         const ecr = new ApplicationECR(this, `ecr-${def.name}`, ecrConfig);
         //Set the image to the latest one for now
         def.containerImage = `${ecr.repo.repositoryUrl}:latest`;
+        //The task and service need to depend on the repository existing.
+        ecrRepos.push(ecr.repo);
       }
 
       // if a log group was given, it must already exist so we don't need to create it
@@ -168,6 +173,7 @@ export class ApplicationECSService extends Resource {
       requiresCompatibilities: ['FARGATE'],
       networkMode: 'awsvpc',
       tags: config.tags,
+      dependsOn: ecrRepos,
     });
 
     const ecsNetworkConfig: EcsServiceNetworkConfiguration = {
@@ -204,6 +210,7 @@ export class ApplicationECSService extends Resource {
         createBeforeDestroy: true, // TODO: should this be in config?
       },
       tags: config.tags,
+      dependsOn: ecrRepos,
     });
 
     // NEXT STEPS:

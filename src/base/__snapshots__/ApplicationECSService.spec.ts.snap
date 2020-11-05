@@ -109,6 +109,7 @@ exports[`AppliationECSService renders an ECS service with full container definit
           \\"FARGATE\\"
         ],
         \\"task_role_arn\\": \\"\${aws_iam_role.test_testECSService_ecsiam_ecstaskrole_C95D2F7D.arn}\\",
+        \\"depends_on\\": [],
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/testECSService/ecs-task\\",
@@ -139,6 +140,7 @@ exports[`AppliationECSService renders an ECS service with full container definit
             ]
           }
         ],
+        \\"depends_on\\": [],
         \\"lifecycle\\": {
           \\"ignore_changes\\": [
             \\"bowling\\",
@@ -316,6 +318,7 @@ exports[`AppliationECSService renders an ECS service with full container definit
           \\"FARGATE\\"
         ],
         \\"task_role_arn\\": \\"\${aws_iam_role.test_testECSService_ecsiam_ecstaskrole_C95D2F7D.arn}\\",
+        \\"depends_on\\": [],
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/testECSService/ecs-task\\",
@@ -352,6 +355,7 @@ exports[`AppliationECSService renders an ECS service with full container definit
             ]
           }
         ],
+        \\"depends_on\\": [],
         \\"lifecycle\\": {
           \\"ignore_changes\\": [
             \\"task_definition\\",
@@ -520,6 +524,7 @@ exports[`AppliationECSService renders an ECS service with minimal config 1`] = `
           \\"FARGATE\\"
         ],
         \\"task_role_arn\\": \\"\${aws_iam_role.test_testECSService_ecsiam_ecstaskrole_C95D2F7D.arn}\\",
+        \\"depends_on\\": [],
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/testECSService/ecs-task\\",
@@ -550,6 +555,7 @@ exports[`AppliationECSService renders an ECS service with minimal config 1`] = `
             ]
           }
         ],
+        \\"depends_on\\": [],
         \\"lifecycle\\": {
           \\"ignore_changes\\": [
             \\"task_definition\\",
@@ -730,6 +736,7 @@ exports[`AppliationECSService renders an ECS service without a log group contain
           \\"FARGATE\\"
         ],
         \\"task_role_arn\\": \\"\${aws_iam_role.test_testECSService_ecsiam_ecstaskrole_C95D2F7D.arn}\\",
+        \\"depends_on\\": [],
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/testECSService/ecs-task\\",
@@ -760,6 +767,7 @@ exports[`AppliationECSService renders an ECS service without a log group contain
             ]
           }
         ],
+        \\"depends_on\\": [],
         \\"lifecycle\\": {
           \\"ignore_changes\\": [
             \\"bowling\\",
@@ -880,6 +888,9 @@ exports[`AppliationECSService renders an ECS service without an image container 
       \\"test_testECSService_ecrlebowski_ecrrepolifecyclepolicy_CF0E5D30\\": {
         \\"policy\\": \\"{\\\\\\"rules\\\\\\":[{\\\\\\"rulePriority\\\\\\":1,\\\\\\"description\\\\\\":\\\\\\"expire old images\\\\\\",\\\\\\"selection\\\\\\":{\\\\\\"tagStatus\\\\\\":\\\\\\"any\\\\\\",\\\\\\"countType\\\\\\":\\\\\\"imageCountMoreThan\\\\\\",\\\\\\"countNumber\\\\\\":800},\\\\\\"action\\\\\\":{\\\\\\"type\\\\\\":\\\\\\"expire\\\\\\"}}]}\\",
         \\"repository\\": \\"abides-dev-lebowski\\",
+        \\"depends_on\\": [
+          \\"aws_ecr_repository.test_testECSService_ecrlebowski_ecrrepo_AB712F26\\"
+        ],
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/testECSService/ecr-lebowski/ecr-repo-lifecyclepolicy\\",
@@ -956,6 +967,9 @@ exports[`AppliationECSService renders an ECS service without an image container 
           \\"FARGATE\\"
         ],
         \\"task_role_arn\\": \\"\${aws_iam_role.test_testECSService_ecsiam_ecstaskrole_C95D2F7D.arn}\\",
+        \\"depends_on\\": [
+          \\"aws_ecr_repository.test_testECSService_ecrlebowski_ecrrepo_AB712F26\\"
+        ],
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/testECSService/ecs-task\\",
@@ -985,6 +999,9 @@ exports[`AppliationECSService renders an ECS service without an image container 
               \\"2.2.2.2\\"
             ]
           }
+        ],
+        \\"depends_on\\": [
+          \\"aws_ecr_repository.test_testECSService_ecrlebowski_ecrrepo_AB712F26\\"
         ],
         \\"lifecycle\\": {
           \\"ignore_changes\\": [

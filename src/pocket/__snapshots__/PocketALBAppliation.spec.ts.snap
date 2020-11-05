@@ -572,6 +572,7 @@ exports[`PocketALBApplication renders an application with custom task sizes 1`] 
           \\"FARGATE\\"
         ],
         \\"task_role_arn\\": \\"\${aws_iam_role.test_testPocketApp_ecsservice_ecsiam_ecstaskrole_E41363D4.arn}\\",
+        \\"depends_on\\": [],
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/testPocketApp/ecs_service/ecs-task\\",
@@ -605,6 +606,7 @@ exports[`PocketALBApplication renders an application with custom task sizes 1`] 
             \\"subnets\\": \\"\${data.aws_subnet_ids.test_testPocketApp_pocketvpc_privatesubnetids_A272E250.ids}\\"
           }
         ],
+        \\"depends_on\\": [],
         \\"lifecycle\\": {
           \\"ignore_changes\\": [
             \\"task_definition\\",
@@ -1197,6 +1199,7 @@ exports[`PocketALBApplication renders an application with minimal config 1`] = `
           \\"FARGATE\\"
         ],
         \\"task_role_arn\\": \\"\${aws_iam_role.test_testPocketApp_ecsservice_ecsiam_ecstaskrole_E41363D4.arn}\\",
+        \\"depends_on\\": [],
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/testPocketApp/ecs_service/ecs-task\\",
@@ -1230,6 +1233,7 @@ exports[`PocketALBApplication renders an application with minimal config 1`] = `
             \\"subnets\\": \\"\${data.aws_subnet_ids.test_testPocketApp_pocketvpc_privatesubnetids_A272E250.ids}\\"
           }
         ],
+        \\"depends_on\\": [],
         \\"lifecycle\\": {
           \\"ignore_changes\\": [
             \\"task_definition\\",
@@ -1983,6 +1987,7 @@ exports[`PocketALBApplication renders an external application 1`] = `
           \\"FARGATE\\"
         ],
         \\"task_role_arn\\": \\"\${aws_iam_role.test_testPocketApp_ecsservice_ecsiam_ecstaskrole_E41363D4.arn}\\",
+        \\"depends_on\\": [],
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/testPocketApp/ecs_service/ecs-task\\",
@@ -2016,6 +2021,7 @@ exports[`PocketALBApplication renders an external application 1`] = `
             \\"subnets\\": \\"\${data.aws_subnet_ids.test_testPocketApp_pocketvpc_privatesubnetids_A272E250.ids}\\"
           }
         ],
+        \\"depends_on\\": [],
         \\"lifecycle\\": {
           \\"ignore_changes\\": [
             \\"task_definition\\",
@@ -2608,6 +2614,7 @@ exports[`PocketALBApplication renders an internal application 1`] = `
           \\"FARGATE\\"
         ],
         \\"task_role_arn\\": \\"\${aws_iam_role.test_testPocketApp_ecsservice_ecsiam_ecstaskrole_E41363D4.arn}\\",
+        \\"depends_on\\": [],
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/testPocketApp/ecs_service/ecs-task\\",
@@ -2641,6 +2648,7 @@ exports[`PocketALBApplication renders an internal application 1`] = `
             \\"subnets\\": \\"\${data.aws_subnet_ids.test_testPocketApp_pocketvpc_privatesubnetids_A272E250.ids}\\"
           }
         ],
+        \\"depends_on\\": [],
         \\"lifecycle\\": {
           \\"ignore_changes\\": [
             \\"task_definition\\",
@@ -3271,6 +3279,7 @@ exports[`PocketALBApplication renders an internal application with tags 1`] = `
           \\"hobby\\": \\"bowling\\"
         },
         \\"task_role_arn\\": \\"\${aws_iam_role.test_testPocketApp_ecsservice_ecsiam_ecstaskrole_E41363D4.arn}\\",
+        \\"depends_on\\": [],
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/testPocketApp/ecs_service/ecs-task\\",
@@ -3308,6 +3317,7 @@ exports[`PocketALBApplication renders an internal application with tags 1`] = `
             \\"subnets\\": \\"\${data.aws_subnet_ids.test_testPocketApp_pocketvpc_privatesubnetids_A272E250.ids}\\"
           }
         ],
+        \\"depends_on\\": [],
         \\"lifecycle\\": {
           \\"ignore_changes\\": [
             \\"task_definition\\",
