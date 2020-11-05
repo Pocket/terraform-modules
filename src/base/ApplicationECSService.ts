@@ -123,12 +123,6 @@ export class ApplicationECSService extends Resource {
       },
     });
 
-    this.ecsSecurityGroup.addOverride('ingress.0.description', null);
-    this.ecsSecurityGroup.addOverride('ingress.0.ipv6_cidr_blocks', null);
-    this.ecsSecurityGroup.addOverride('ingress.0.prefix_list_ids', null);
-    this.ecsSecurityGroup.addOverride('ingress.0.security_groups', null);
-    this.ecsSecurityGroup.addOverride('ingress.0.self', null);
-
     const ecrRepos: EcrRepository[] = [];
 
     const containerDefs = [];
