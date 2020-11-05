@@ -51,8 +51,9 @@ export class ApplicationECR extends Resource {
     };
 
     const ecrPolicyConfig: EcrLifecyclePolicyConfig = {
-      repository: config.name,
+      repository: this.repo.name,
       policy: JSON.stringify(policy),
+      dependsOn: [this.repo],
     };
 
     new EcrLifecyclePolicy(this, 'ecr-repo-lifecyclepolicy', ecrPolicyConfig);

@@ -118,6 +118,7 @@ export class ApplicationDynamoDBTable extends Resource {
           tags
         ),
         serviceNamespace: 'dynamodb',
+        dependsOn: [dynamoDB],
       }
     );
 
@@ -137,6 +138,7 @@ export class ApplicationDynamoDBTable extends Resource {
           targetValue: config.tracking,
         },
       ],
+      dependsOn: [targetTracking, dynamoDB],
     });
   }
 
