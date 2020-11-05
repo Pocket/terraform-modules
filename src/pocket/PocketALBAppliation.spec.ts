@@ -22,6 +22,7 @@ describe('PocketALBApplication', () => {
       exposedContainer: {
         name: 'main_container',
         port: 8675309,
+        healthCheckPath: '/test',
       },
     };
   });

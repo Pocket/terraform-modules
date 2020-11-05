@@ -48,6 +48,7 @@ class Example extends TerraformStack {
       exposedContainer: {
         name: 'blueContainer',
         port: 3002,
+        healthCheckPath: '/',
       },
       cdn: false, // maybe make this false if you're testing an actual terraform apply - cdn's take a loooong time to spin up
       alb6CharacterPrefix: 'ACMECO',

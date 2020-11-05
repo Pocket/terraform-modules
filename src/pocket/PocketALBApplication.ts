@@ -1,5 +1,7 @@
 import { Resource } from 'cdktf';
 import {
+  AlbListener,
+  AlbTargetGroup,
   CloudfrontDistribution,
   Route53Record,
 } from '../../.gen/providers/aws';
@@ -27,6 +29,7 @@ export interface PocketALBApplicationProps {
   exposedContainer: {
     port: number;
     name: string;
+    healthCheckPath: string;
   };
   taskSize?: {
     cpu: number;
@@ -56,14 +59,17 @@ export class PocketALBApplication extends Resource {
       tags: config.tags,
     });
 
-    const { alb, albRecord } = this.createALB(config, pocketVPC);
+    const { alb, albRecord, albCertificate } = this.createALB(
+      config,
+      pocketVPC
+    );
     this.alb = alb;
 
     if (config.cdn) {
       this.createCDN(config, albRecord);
     }
 
-    this.createECSService(config, pocketVPC, alb);
+    this.createECSService(config, pocketVPC, alb, albCertificate);
   }
 
   /**
@@ -102,7 +108,11 @@ export class PocketALBApplication extends Resource {
   private createALB(
     config: PocketALBApplicationProps,
     pocketVPC: PocketVPC
-  ): { alb: ApplicationLoadBalancer; albRecord: Route53Record } {
+  ): {
+    alb: ApplicationLoadBalancer;
+    albRecord: Route53Record;
+    albCertificate: ApplicationCertificate;
+  } {
     //Create our application Load Balancer
     const alb = new ApplicationLoadBalancer(this, `application_load_balancer`, {
       vpcId: pocketVPC.vpc.id,
@@ -145,7 +155,7 @@ export class PocketALBApplication extends Resource {
     });
 
     //Creates the Certificate for the ALB
-    new ApplicationCertificate(this, `alb_certificate`, {
+    const albCertificate = new ApplicationCertificate(this, `alb_certificate`, {
       zoneId: this.baseDNS.zoneId,
       domain: albDomainName,
       tags: config.tags,
@@ -154,6 +164,7 @@ export class PocketALBApplication extends Resource {
     return {
       alb,
       albRecord,
+      albCertificate,
     };
   }
 
@@ -276,23 +287,70 @@ export class PocketALBApplication extends Resource {
   private createECSService(
     config: PocketALBApplicationProps,
     pocketVPC: PocketVPC,
-    alb: ApplicationLoadBalancer
+    alb: ApplicationLoadBalancer,
+    albCertificate: ApplicationCertificate
   ): { ecs: ApplicationECSService } {
     const ecsCluster = new ApplicationECSCluster(this, 'ecs_cluster', {
       prefix: config.prefix,
       tags: config.tags,
     });
+    const albTargetGroup = new AlbTargetGroup(this, 'ecs_target_group', {
+      namePrefix: config.alb6CharacterPrefix,
+      protocol: 'HTTP',
+      vpcId: pocketVPC.vpc.id,
+      tags: config.tags,
+      targetType: 'ip',
+      port: 80,
+      deregistrationDelay: 120,
+      dependsOn: [alb.alb],
+      healthCheck: [
+        {
+          interval: 15,
+          path: config.exposedContainer.healthCheckPath,
+          protocol: 'HTTP',
+          healthyThreshold: 5,
+          unhealthyThreshold: 3,
+        },
+      ],
+    });
+
+    new AlbListener(this, 'listener_http', {
+      loadBalancerArn: alb.alb.arn,
+      port: 80,
+      protocol: 'HTTP',
+      defaultAction: [
+        {
+          type: 'redirect',
+          redirect: [
+            { port: '443', protocol: 'HTTPS', statusCode: 'HTTP_301' },
+          ],
+        },
+      ],
+    });
+
+    new AlbListener(this, 'listener_https', {
+      loadBalancerArn: alb.alb.arn,
+      port: 443,
+      protocol: 'HTTPS',
+      sslPolicy: 'ELBSecurityPolicy-TLS-1-1-2017-01',
+      defaultAction: [
+        {
+          type: 'forward',
+          targetGroupArn: albTargetGroup.arn,
+        },
+      ],
+      certificateArn: albCertificate.arn,
+    });
 
     let ecsConfig: ApplicationECSServiceProps = {
       prefix: config.prefix,
       ecsCluster: ecsCluster.cluster.arn,
-      // albConfig: {
-      //   containerPort: config.exposedContainer.port,
-      //   containerName: config.exposedContainer.name,
-      //   albSecurityGroupId: alb.securityGroup.id,
-      //   TODO: add a target group
-      //   targetGroupArn: '',
-      // },
+      albConfig: {
+        containerPort: config.exposedContainer.port,
+        containerName: config.exposedContainer.name,
+        albSecurityGroupId: alb.securityGroup.id,
+        targetGroupArn: albTargetGroup.arn,
+      },
       vpcId: pocketVPC.vpc.id,
       containerConfigs: config.containerConfigs,
       privateSubnetIds: pocketVPC.privateSubnetIds,
