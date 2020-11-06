@@ -305,7 +305,7 @@ exports[`AppliationECSService renders an ECS service with full container definit
     \\"aws_alb_target_group\\": {
       \\"test_testECSService_bluetargetgroup_ecstargetgroup_0E1C18C4\\": {
         \\"deregistration_delay\\": 120,
-        \\"name_prefix\\": \\"short-\\",
+        \\"name_prefix\\": \\"shortb\\",
         \\"port\\": 80,
         \\"protocol\\": \\"HTTP\\",
         \\"tags\\": {
