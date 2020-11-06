@@ -13,3 +13,13 @@ export const getRootDomain = (inputDomain: string): string => {
   const { domain, topLevelDomains } = parseResult as ParseResultListed;
   return `${domain}.${topLevelDomains.join('.')}`;
 };
+
+export const truncateString = (str: string, num: number) => {
+  // If the length of str is less than or equal to num
+  // just return str--don't truncate it.
+  if (str.length <= num) {
+    return str;
+  }
+  // Return str truncated
+  return str.slice(0, num);
+};

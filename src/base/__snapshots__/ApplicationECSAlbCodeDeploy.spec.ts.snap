@@ -87,7 +87,7 @@ exports[`renders a CodeDeploy with a sns 1`] = `
     \\"aws_codedeploy_app\\": {
       \\"test_testCodeDeploy_ecscodedeploy_A30BA24D\\": {
         \\"compute_platform\\": \\"ECS\\",
-        \\"name\\": \\"Test-Dev\\",
+        \\"name\\": \\"Test-Dev-ECS\\",
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/testCodeDeploy/ecs_code_deploy\\",
@@ -104,8 +104,8 @@ exports[`renders a CodeDeploy with a sns 1`] = `
           \\"codedeploy-application-deployment-succeeded\\",
           \\"codedeploy-application-deployment-started\\"
         ],
-        \\"name\\": \\"Test-Dev\\",
-        \\"resource\\": \\"arn:aws:codedeploy:\${data.aws_region.test_testCodeDeploy_currentregion_3129581C.name}:\${data.aws_caller_identity.test_testCodeDeploy_currentaccount_1E72CE97.account_id}:application:Test-Dev\\",
+        \\"name\\": \\"Test-Dev-ECS\\",
+        \\"resource\\": \\"arn:aws:codedeploy:\${data.aws_region.test_testCodeDeploy_currentregion_3129581C.name}:\${data.aws_caller_identity.test_testCodeDeploy_currentaccount_1E72CE97.account_id}:application:Test-Dev-ECS\\",
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/testCodeDeploy/ecs_codedeploy_notifications\\",
@@ -116,7 +116,7 @@ exports[`renders a CodeDeploy with a sns 1`] = `
     },
     \\"aws_codedeploy_deployment_group\\": {
       \\"test_testCodeDeploy_ecscodedeploydeploymentgroup_3BE18ACC\\": {
-        \\"app_name\\": \\"Test-Dev\\",
+        \\"app_name\\": \\"Test-Dev-ECS\\",
         \\"deployment_config_name\\": \\"CodeDeployDefault.ECSAllAtOnce\\",
         \\"deployment_group_name\\": \\"Test-Dev-ECS\\",
         \\"service_role_arn\\": \\"\${aws_iam_role.test_testCodeDeploy_ecscodedeployrole_2889DBEE.arn}\\",
@@ -277,7 +277,7 @@ exports[`renders a CodeDeploy with tags 1`] = `
     \\"aws_codedeploy_app\\": {
       \\"test_testCodeDeploy_ecscodedeploy_A30BA24D\\": {
         \\"compute_platform\\": \\"ECS\\",
-        \\"name\\": \\"Test-Dev\\",
+        \\"name\\": \\"Test-Dev-ECS\\",
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/testCodeDeploy/ecs_code_deploy\\",
@@ -294,8 +294,8 @@ exports[`renders a CodeDeploy with tags 1`] = `
           \\"codedeploy-application-deployment-succeeded\\",
           \\"codedeploy-application-deployment-started\\"
         ],
-        \\"name\\": \\"Test-Dev\\",
-        \\"resource\\": \\"arn:aws:codedeploy:\${data.aws_region.test_testCodeDeploy_currentregion_3129581C.name}:\${data.aws_caller_identity.test_testCodeDeploy_currentaccount_1E72CE97.account_id}:application:Test-Dev\\",
+        \\"name\\": \\"Test-Dev-ECS\\",
+        \\"resource\\": \\"arn:aws:codedeploy:\${data.aws_region.test_testCodeDeploy_currentregion_3129581C.name}:\${data.aws_caller_identity.test_testCodeDeploy_currentaccount_1E72CE97.account_id}:application:Test-Dev-ECS\\",
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/testCodeDeploy/ecs_codedeploy_notifications\\",
@@ -306,7 +306,7 @@ exports[`renders a CodeDeploy with tags 1`] = `
     },
     \\"aws_codedeploy_deployment_group\\": {
       \\"test_testCodeDeploy_ecscodedeploydeploymentgroup_3BE18ACC\\": {
-        \\"app_name\\": \\"Test-Dev\\",
+        \\"app_name\\": \\"Test-Dev-ECS\\",
         \\"deployment_config_name\\": \\"CodeDeployDefault.ECSAllAtOnce\\",
         \\"deployment_group_name\\": \\"Test-Dev-ECS\\",
         \\"service_role_arn\\": \\"\${aws_iam_role.test_testCodeDeploy_ecscodedeployrole_2889DBEE.arn}\\",
@@ -447,7 +447,7 @@ exports[`renders a CodeDeploy without a sns 1`] = `
     \\"aws_codedeploy_app\\": {
       \\"test_testCodeDeploy_ecscodedeploy_A30BA24D\\": {
         \\"compute_platform\\": \\"ECS\\",
-        \\"name\\": \\"Test-Dev\\",
+        \\"name\\": \\"Test-Dev-ECS\\",
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/testCodeDeploy/ecs_code_deploy\\",
@@ -458,7 +458,7 @@ exports[`renders a CodeDeploy without a sns 1`] = `
     },
     \\"aws_codedeploy_deployment_group\\": {
       \\"test_testCodeDeploy_ecscodedeploydeploymentgroup_3BE18ACC\\": {
-        \\"app_name\\": \\"Test-Dev\\",
+        \\"app_name\\": \\"Test-Dev-ECS\\",
         \\"deployment_config_name\\": \\"CodeDeployDefault.ECSAllAtOnce\\",
         \\"deployment_group_name\\": \\"Test-Dev-ECS\\",
         \\"service_role_arn\\": \\"\${aws_iam_role.test_testCodeDeploy_ecscodedeployrole_2889DBEE.arn}\\",
