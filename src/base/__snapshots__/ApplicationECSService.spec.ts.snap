@@ -351,6 +351,11 @@ exports[`AppliationECSService renders an ECS service with full container definit
             ]
           }
         ],
+        \\"lifecycle\\": {
+          \\"ignore_changes\\": [
+            \\"action\\"
+          ]
+        },
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/testECSService/listener_rule\\",
