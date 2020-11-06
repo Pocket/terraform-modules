@@ -65,7 +65,7 @@ exports[`renders a versioned lambda 1`] = `
     \\"aws_lambda_function\\": {
       \\"test_testversionedlambda_F521A265\\": {
         \\"filename\\": \\"index.py.zip\\",
-        \\"function_name\\": \\"Test-Lambda\\",
+        \\"function_name\\": \\"Test-Lambda-Function\\",
         \\"handler\\": \\"index.handler\\",
         \\"publish\\": true,
         \\"role\\": \\"\${aws_iam_role.test_testversionedlambda_executionrole_CA6543EB.arn}\\",
@@ -92,7 +92,7 @@ exports[`renders a versioned lambda 1`] = `
     },
     \\"aws_cloudwatch_log_group\\": {
       \\"test_testversionedlambda_loggroup_1EF2337F\\": {
-        \\"name\\": \\"/aws/lambda/Test-Lambda\\",
+        \\"name\\": \\"/aws/lambda/Test-Lambda-Function\\",
         \\"retention_in_days\\": 14,
         \\"depends_on\\": [
           \\"aws_lambda_function.test_testversionedlambda_F521A265\\"
@@ -107,7 +107,7 @@ exports[`renders a versioned lambda 1`] = `
     },
     \\"aws_lambda_alias\\": {
       \\"test_testversionedlambda_alias_2E9E2D0F\\": {
-        \\"function_name\\": \\"Test-Lambda\\",
+        \\"function_name\\": \\"Test-Lambda-Function\\",
         \\"function_version\\": \\"split(\\\\\\":\\\\\\", \${aws_lambda_function.test_testversionedlambda_F521A265.qualified_arn})[7]\\",
         \\"name\\": \\"DEPLOYED\\",
         \\"depends_on\\": [
@@ -184,7 +184,7 @@ exports[`renders a versioned lambda 1`] = `
         \\"type\\": \\"zip\\",
         \\"source\\": [
           {
-            \\"content\\": \\"handler(event, context):\\\\n\\\\tprint(event)\\",
+            \\"content\\": \\"handler(event, context):\\\\n\\\\t print(event)\\",
             \\"filename\\": \\"index.py\\"
           }
         ],
@@ -265,7 +265,7 @@ exports[`renders a versioned lambda with description 1`] = `
     \\"aws_lambda_function\\": {
       \\"test_testversionedlambda_F521A265\\": {
         \\"filename\\": \\"index.py.zip\\",
-        \\"function_name\\": \\"Test-Lambda\\",
+        \\"function_name\\": \\"Test-Lambda-Function\\",
         \\"handler\\": \\"index.handler\\",
         \\"publish\\": true,
         \\"role\\": \\"\${aws_iam_role.test_testversionedlambda_executionrole_CA6543EB.arn}\\",
@@ -292,7 +292,7 @@ exports[`renders a versioned lambda with description 1`] = `
     },
     \\"aws_cloudwatch_log_group\\": {
       \\"test_testversionedlambda_loggroup_1EF2337F\\": {
-        \\"name\\": \\"/aws/lambda/Test-Lambda\\",
+        \\"name\\": \\"/aws/lambda/Test-Lambda-Function\\",
         \\"retention_in_days\\": 14,
         \\"depends_on\\": [
           \\"aws_lambda_function.test_testversionedlambda_F521A265\\"
@@ -307,7 +307,7 @@ exports[`renders a versioned lambda with description 1`] = `
     },
     \\"aws_lambda_alias\\": {
       \\"test_testversionedlambda_alias_2E9E2D0F\\": {
-        \\"function_name\\": \\"Test-Lambda\\",
+        \\"function_name\\": \\"Test-Lambda-Function\\",
         \\"function_version\\": \\"split(\\\\\\":\\\\\\", \${aws_lambda_function.test_testversionedlambda_F521A265.qualified_arn})[7]\\",
         \\"name\\": \\"DEPLOYED\\",
         \\"depends_on\\": [
@@ -384,7 +384,7 @@ exports[`renders a versioned lambda with description 1`] = `
         \\"type\\": \\"zip\\",
         \\"source\\": [
           {
-            \\"content\\": \\"handler(event, context):\\\\n\\\\tprint(event)\\",
+            \\"content\\": \\"handler(event, context):\\\\n\\\\t print(event)\\",
             \\"filename\\": \\"index.py\\"
           }
         ],
@@ -465,7 +465,7 @@ exports[`renders a versioned lambda with environment variables 1`] = `
     \\"aws_lambda_function\\": {
       \\"test_testversionedlambda_F521A265\\": {
         \\"filename\\": \\"index.py.zip\\",
-        \\"function_name\\": \\"Test-Lambda\\",
+        \\"function_name\\": \\"Test-Lambda-Function\\",
         \\"handler\\": \\"index.handler\\",
         \\"publish\\": true,
         \\"role\\": \\"\${aws_iam_role.test_testversionedlambda_executionrole_CA6543EB.arn}\\",
@@ -497,7 +497,7 @@ exports[`renders a versioned lambda with environment variables 1`] = `
     },
     \\"aws_cloudwatch_log_group\\": {
       \\"test_testversionedlambda_loggroup_1EF2337F\\": {
-        \\"name\\": \\"/aws/lambda/Test-Lambda\\",
+        \\"name\\": \\"/aws/lambda/Test-Lambda-Function\\",
         \\"retention_in_days\\": 14,
         \\"depends_on\\": [
           \\"aws_lambda_function.test_testversionedlambda_F521A265\\"
@@ -512,7 +512,7 @@ exports[`renders a versioned lambda with environment variables 1`] = `
     },
     \\"aws_lambda_alias\\": {
       \\"test_testversionedlambda_alias_2E9E2D0F\\": {
-        \\"function_name\\": \\"Test-Lambda\\",
+        \\"function_name\\": \\"Test-Lambda-Function\\",
         \\"function_version\\": \\"split(\\\\\\":\\\\\\", \${aws_lambda_function.test_testversionedlambda_F521A265.qualified_arn})[7]\\",
         \\"name\\": \\"DEPLOYED\\",
         \\"depends_on\\": [
@@ -589,7 +589,7 @@ exports[`renders a versioned lambda with environment variables 1`] = `
         \\"type\\": \\"zip\\",
         \\"source\\": [
           {
-            \\"content\\": \\"handler(event, context):\\\\n\\\\tprint(event)\\",
+            \\"content\\": \\"handler(event, context):\\\\n\\\\t print(event)\\",
             \\"filename\\": \\"index.py\\"
           }
         ],
@@ -670,7 +670,7 @@ exports[`renders a versioned lambda with execution policy statements 1`] = `
     \\"aws_lambda_function\\": {
       \\"test_testversionedlambda_F521A265\\": {
         \\"filename\\": \\"index.py.zip\\",
-        \\"function_name\\": \\"Test-Lambda\\",
+        \\"function_name\\": \\"Test-Lambda-Function\\",
         \\"handler\\": \\"index.handler\\",
         \\"publish\\": true,
         \\"role\\": \\"\${aws_iam_role.test_testversionedlambda_executionrole_CA6543EB.arn}\\",
@@ -697,7 +697,7 @@ exports[`renders a versioned lambda with execution policy statements 1`] = `
     },
     \\"aws_cloudwatch_log_group\\": {
       \\"test_testversionedlambda_loggroup_1EF2337F\\": {
-        \\"name\\": \\"/aws/lambda/Test-Lambda\\",
+        \\"name\\": \\"/aws/lambda/Test-Lambda-Function\\",
         \\"retention_in_days\\": 14,
         \\"depends_on\\": [
           \\"aws_lambda_function.test_testversionedlambda_F521A265\\"
@@ -712,7 +712,7 @@ exports[`renders a versioned lambda with execution policy statements 1`] = `
     },
     \\"aws_lambda_alias\\": {
       \\"test_testversionedlambda_alias_2E9E2D0F\\": {
-        \\"function_name\\": \\"Test-Lambda\\",
+        \\"function_name\\": \\"Test-Lambda-Function\\",
         \\"function_version\\": \\"split(\\\\\\":\\\\\\", \${aws_lambda_function.test_testversionedlambda_F521A265.qualified_arn})[7]\\",
         \\"name\\": \\"DEPLOYED\\",
         \\"depends_on\\": [
@@ -798,7 +798,7 @@ exports[`renders a versioned lambda with execution policy statements 1`] = `
         \\"type\\": \\"zip\\",
         \\"source\\": [
           {
-            \\"content\\": \\"handler(event, context):\\\\n\\\\tprint(event)\\",
+            \\"content\\": \\"handler(event, context):\\\\n\\\\t print(event)\\",
             \\"filename\\": \\"index.py\\"
           }
         ],
@@ -879,7 +879,7 @@ exports[`renders a versioned lambda with log retention 1`] = `
     \\"aws_lambda_function\\": {
       \\"test_testversionedlambda_F521A265\\": {
         \\"filename\\": \\"index.py.zip\\",
-        \\"function_name\\": \\"Test-Lambda\\",
+        \\"function_name\\": \\"Test-Lambda-Function\\",
         \\"handler\\": \\"index.handler\\",
         \\"publish\\": true,
         \\"role\\": \\"\${aws_iam_role.test_testversionedlambda_executionrole_CA6543EB.arn}\\",
@@ -906,7 +906,7 @@ exports[`renders a versioned lambda with log retention 1`] = `
     },
     \\"aws_cloudwatch_log_group\\": {
       \\"test_testversionedlambda_loggroup_1EF2337F\\": {
-        \\"name\\": \\"/aws/lambda/Test-Lambda\\",
+        \\"name\\": \\"/aws/lambda/Test-Lambda-Function\\",
         \\"retention_in_days\\": 10,
         \\"depends_on\\": [
           \\"aws_lambda_function.test_testversionedlambda_F521A265\\"
@@ -921,7 +921,7 @@ exports[`renders a versioned lambda with log retention 1`] = `
     },
     \\"aws_lambda_alias\\": {
       \\"test_testversionedlambda_alias_2E9E2D0F\\": {
-        \\"function_name\\": \\"Test-Lambda\\",
+        \\"function_name\\": \\"Test-Lambda-Function\\",
         \\"function_version\\": \\"split(\\\\\\":\\\\\\", \${aws_lambda_function.test_testversionedlambda_F521A265.qualified_arn})[7]\\",
         \\"name\\": \\"DEPLOYED\\",
         \\"depends_on\\": [
@@ -998,7 +998,7 @@ exports[`renders a versioned lambda with log retention 1`] = `
         \\"type\\": \\"zip\\",
         \\"source\\": [
           {
-            \\"content\\": \\"handler(event, context):\\\\n\\\\tprint(event)\\",
+            \\"content\\": \\"handler(event, context):\\\\n\\\\t print(event)\\",
             \\"filename\\": \\"index.py\\"
           }
         ],
@@ -1079,7 +1079,7 @@ exports[`renders a versioned lambda with s3 bucket 1`] = `
     \\"aws_lambda_function\\": {
       \\"test_testversionedlambda_F521A265\\": {
         \\"filename\\": \\"index.py.zip\\",
-        \\"function_name\\": \\"Test-Lambda\\",
+        \\"function_name\\": \\"Test-Lambda-Function\\",
         \\"handler\\": \\"index.handler\\",
         \\"publish\\": true,
         \\"role\\": \\"\${aws_iam_role.test_testversionedlambda_executionrole_CA6543EB.arn}\\",
@@ -1106,7 +1106,7 @@ exports[`renders a versioned lambda with s3 bucket 1`] = `
     },
     \\"aws_cloudwatch_log_group\\": {
       \\"test_testversionedlambda_loggroup_1EF2337F\\": {
-        \\"name\\": \\"/aws/lambda/Test-Lambda\\",
+        \\"name\\": \\"/aws/lambda/Test-Lambda-Function\\",
         \\"retention_in_days\\": 14,
         \\"depends_on\\": [
           \\"aws_lambda_function.test_testversionedlambda_F521A265\\"
@@ -1121,7 +1121,7 @@ exports[`renders a versioned lambda with s3 bucket 1`] = `
     },
     \\"aws_lambda_alias\\": {
       \\"test_testversionedlambda_alias_2E9E2D0F\\": {
-        \\"function_name\\": \\"Test-Lambda\\",
+        \\"function_name\\": \\"Test-Lambda-Function\\",
         \\"function_version\\": \\"split(\\\\\\":\\\\\\", \${aws_lambda_function.test_testversionedlambda_F521A265.qualified_arn})[7]\\",
         \\"name\\": \\"DEPLOYED\\",
         \\"depends_on\\": [
@@ -1198,7 +1198,7 @@ exports[`renders a versioned lambda with s3 bucket 1`] = `
         \\"type\\": \\"zip\\",
         \\"source\\": [
           {
-            \\"content\\": \\"handler(event, context):\\\\n\\\\tprint(event)\\",
+            \\"content\\": \\"handler(event, context):\\\\n\\\\t print(event)\\",
             \\"filename\\": \\"index.py\\"
           }
         ],
@@ -1283,7 +1283,7 @@ exports[`renders a versioned lambda with tags 1`] = `
     \\"aws_lambda_function\\": {
       \\"test_testversionedlambda_F521A265\\": {
         \\"filename\\": \\"index.py.zip\\",
-        \\"function_name\\": \\"Test-Lambda\\",
+        \\"function_name\\": \\"Test-Lambda-Function\\",
         \\"handler\\": \\"index.handler\\",
         \\"publish\\": true,
         \\"role\\": \\"\${aws_iam_role.test_testversionedlambda_executionrole_CA6543EB.arn}\\",
@@ -1314,7 +1314,7 @@ exports[`renders a versioned lambda with tags 1`] = `
     },
     \\"aws_cloudwatch_log_group\\": {
       \\"test_testversionedlambda_loggroup_1EF2337F\\": {
-        \\"name\\": \\"/aws/lambda/Test-Lambda\\",
+        \\"name\\": \\"/aws/lambda/Test-Lambda-Function\\",
         \\"retention_in_days\\": 14,
         \\"depends_on\\": [
           \\"aws_lambda_function.test_testversionedlambda_F521A265\\"
@@ -1329,7 +1329,7 @@ exports[`renders a versioned lambda with tags 1`] = `
     },
     \\"aws_lambda_alias\\": {
       \\"test_testversionedlambda_alias_2E9E2D0F\\": {
-        \\"function_name\\": \\"Test-Lambda\\",
+        \\"function_name\\": \\"Test-Lambda-Function\\",
         \\"function_version\\": \\"split(\\\\\\":\\\\\\", \${aws_lambda_function.test_testversionedlambda_F521A265.qualified_arn})[7]\\",
         \\"name\\": \\"DEPLOYED\\",
         \\"depends_on\\": [
@@ -1406,7 +1406,7 @@ exports[`renders a versioned lambda with tags 1`] = `
         \\"type\\": \\"zip\\",
         \\"source\\": [
           {
-            \\"content\\": \\"handler(event, context):\\\\n\\\\tprint(event)\\",
+            \\"content\\": \\"handler(event, context):\\\\n\\\\t print(event)\\",
             \\"filename\\": \\"index.py\\"
           }
         ],
@@ -1487,7 +1487,7 @@ exports[`renders a versioned lambda with timeout 1`] = `
     \\"aws_lambda_function\\": {
       \\"test_testversionedlambda_F521A265\\": {
         \\"filename\\": \\"index.py.zip\\",
-        \\"function_name\\": \\"Test-Lambda\\",
+        \\"function_name\\": \\"Test-Lambda-Function\\",
         \\"handler\\": \\"index.handler\\",
         \\"publish\\": true,
         \\"role\\": \\"\${aws_iam_role.test_testversionedlambda_executionrole_CA6543EB.arn}\\",
@@ -1514,7 +1514,7 @@ exports[`renders a versioned lambda with timeout 1`] = `
     },
     \\"aws_cloudwatch_log_group\\": {
       \\"test_testversionedlambda_loggroup_1EF2337F\\": {
-        \\"name\\": \\"/aws/lambda/Test-Lambda\\",
+        \\"name\\": \\"/aws/lambda/Test-Lambda-Function\\",
         \\"retention_in_days\\": 14,
         \\"depends_on\\": [
           \\"aws_lambda_function.test_testversionedlambda_F521A265\\"
@@ -1529,7 +1529,7 @@ exports[`renders a versioned lambda with timeout 1`] = `
     },
     \\"aws_lambda_alias\\": {
       \\"test_testversionedlambda_alias_2E9E2D0F\\": {
-        \\"function_name\\": \\"Test-Lambda\\",
+        \\"function_name\\": \\"Test-Lambda-Function\\",
         \\"function_version\\": \\"split(\\\\\\":\\\\\\", \${aws_lambda_function.test_testversionedlambda_F521A265.qualified_arn})[7]\\",
         \\"name\\": \\"DEPLOYED\\",
         \\"depends_on\\": [
@@ -1606,7 +1606,7 @@ exports[`renders a versioned lambda with timeout 1`] = `
         \\"type\\": \\"zip\\",
         \\"source\\": [
           {
-            \\"content\\": \\"handler(event, context):\\\\n\\\\tprint(event)\\",
+            \\"content\\": \\"handler(event, context):\\\\n\\\\t print(event)\\",
             \\"filename\\": \\"index.py\\"
           }
         ],
@@ -1687,7 +1687,7 @@ exports[`renders a versioned lambda with vpc 1`] = `
     \\"aws_lambda_function\\": {
       \\"test_testversionedlambda_F521A265\\": {
         \\"filename\\": \\"index.py.zip\\",
-        \\"function_name\\": \\"Test-Lambda\\",
+        \\"function_name\\": \\"Test-Lambda-Function\\",
         \\"handler\\": \\"index.handler\\",
         \\"publish\\": true,
         \\"role\\": \\"\${aws_iam_role.test_testversionedlambda_executionrole_CA6543EB.arn}\\",
@@ -1725,7 +1725,7 @@ exports[`renders a versioned lambda with vpc 1`] = `
     },
     \\"aws_cloudwatch_log_group\\": {
       \\"test_testversionedlambda_loggroup_1EF2337F\\": {
-        \\"name\\": \\"/aws/lambda/Test-Lambda\\",
+        \\"name\\": \\"/aws/lambda/Test-Lambda-Function\\",
         \\"retention_in_days\\": 14,
         \\"depends_on\\": [
           \\"aws_lambda_function.test_testversionedlambda_F521A265\\"
@@ -1740,7 +1740,7 @@ exports[`renders a versioned lambda with vpc 1`] = `
     },
     \\"aws_lambda_alias\\": {
       \\"test_testversionedlambda_alias_2E9E2D0F\\": {
-        \\"function_name\\": \\"Test-Lambda\\",
+        \\"function_name\\": \\"Test-Lambda-Function\\",
         \\"function_version\\": \\"split(\\\\\\":\\\\\\", \${aws_lambda_function.test_testversionedlambda_F521A265.qualified_arn})[7]\\",
         \\"name\\": \\"DEPLOYED\\",
         \\"depends_on\\": [
@@ -1830,7 +1830,7 @@ exports[`renders a versioned lambda with vpc 1`] = `
         \\"type\\": \\"zip\\",
         \\"source\\": [
           {
-            \\"content\\": \\"handler(event, context):\\\\n\\\\tprint(event)\\",
+            \\"content\\": \\"handler(event, context):\\\\n\\\\t print(event)\\",
             \\"filename\\": \\"index.py\\"
           }
         ],

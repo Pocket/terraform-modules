@@ -33,7 +33,7 @@ export class ApplicationEventBridgeRule extends Resource {
 
   private createCloudwatchEventRule() {
     const rule = new CloudwatchEventRule(this, 'event-bridge-rule', {
-      name: this.config.name,
+      name: `${this.config.name}-Rule`,
       description: this.config.description,
       eventPattern: JSON.stringify(this.config.eventPattern),
       eventBusName: this.config.eventBusName ?? 'default',
