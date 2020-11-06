@@ -1,0 +1,321 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders a lambda code deploy app 1`] = `
+"{
+  \\"//\\": {
+    \\"metadata\\": {
+      \\"version\\": \\"stubbed\\",
+      \\"stackName\\": \\"test\\"
+    }
+  },
+  \\"data\\": {
+    \\"aws_region\\": {
+      \\"test_testlambdacodedeploy_region_9AA897FB\\": {
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-lambda-code-deploy/region\\",
+            \\"uniqueId\\": \\"test_testlambdacodedeploy_region_9AA897FB\\"
+          }
+        }
+      }
+    },
+    \\"aws_caller_identity\\": {
+      \\"test_testlambdacodedeploy_calleridentity_5899BD36\\": {
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-lambda-code-deploy/caller-identity\\",
+            \\"uniqueId\\": \\"test_testlambdacodedeploy_calleridentity_5899BD36\\"
+          }
+        }
+      }
+    },
+    \\"aws_iam_policy_document\\": {
+      \\"test_testlambdacodedeploy_codedeployassumerolepolicydocument_95061B46\\": {
+        \\"statement\\": [
+          {
+            \\"effect\\": \\"Allow\\",
+            \\"actions\\": [
+              \\"sts:AssumeRole\\"
+            ],
+            \\"principals\\": [
+              {
+                \\"identifiers\\": [
+                  \\"codedeploy.amazonaws.com\\"
+                ],
+                \\"type\\": \\"Service\\"
+              }
+            ]
+          }
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-lambda-code-deploy/code-deploy-assume-role-policy-document\\",
+            \\"uniqueId\\": \\"test_testlambdacodedeploy_codedeployassumerolepolicydocument_95061B46\\"
+          }
+        }
+      }
+    },
+    \\"aws_sns_topic\\": {
+      \\"test_testlambdacodedeploy_deploytopic_B555D337\\": {
+        \\"name\\": \\"Test-Deployment-Topic\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-lambda-code-deploy/deploy-topic\\",
+            \\"uniqueId\\": \\"test_testlambdacodedeploy_deploytopic_B555D337\\"
+          }
+        }
+      }
+    }
+  },
+  \\"resource\\": {
+    \\"aws_codedeploy_app\\": {
+      \\"test_testlambdacodedeploy_codedeployapp_8F9AF4BD\\": {
+        \\"compute_platform\\": \\"Lambda\\",
+        \\"name\\": \\"Test-Lambda-Code-Deploy\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-lambda-code-deploy/code-deploy-app\\",
+            \\"uniqueId\\": \\"test_testlambdacodedeploy_codedeployapp_8F9AF4BD\\"
+          }
+        }
+      }
+    },
+    \\"aws_iam_role\\": {
+      \\"test_testlambdacodedeploy_codedeployrole_755F51E7\\": {
+        \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.test_testlambdacodedeploy_codedeployassumerolepolicydocument_95061B46.json}\\",
+        \\"name\\": \\"Test-Lambda-Code-Deploy-CodeDeployRole\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-lambda-code-deploy/code-deploy-role\\",
+            \\"uniqueId\\": \\"test_testlambdacodedeploy_codedeployrole_755F51E7\\"
+          }
+        }
+      }
+    },
+    \\"aws_iam_role_policy_attachment\\": {
+      \\"test_testlambdacodedeploy_codedeploypolicyattachment_09FCA989\\": {
+        \\"policy_arn\\": \\"arn:aws:iam::aws:policy/service-role/AWSCodeDeployRoleForLambda\\",
+        \\"role\\": \\"Test-Lambda-Code-Deploy-CodeDeployRole\\",
+        \\"depends_on\\": [
+          \\"aws_iam_role.test_testlambdacodedeploy_codedeployrole_755F51E7\\"
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-lambda-code-deploy/code-deploy-policy-attachment\\",
+            \\"uniqueId\\": \\"test_testlambdacodedeploy_codedeploypolicyattachment_09FCA989\\"
+          }
+        }
+      }
+    },
+    \\"aws_codedeploy_deployment_group\\": {
+      \\"test_testlambdacodedeploy_codedeploymentgroup_A7E2E869\\": {
+        \\"app_name\\": \\"Test-Lambda-Code-Deploy\\",
+        \\"deployment_config_name\\": \\"CodeDeployDefault.LambdaAllAtOnce\\",
+        \\"deployment_group_name\\": \\"Test-Lambda-Code-Deploy\\",
+        \\"service_role_arn\\": \\"\${aws_iam_role.test_testlambdacodedeploy_codedeployrole_755F51E7.arn}\\",
+        \\"auto_rollback_configuration\\": [
+          {
+            \\"enabled\\": true,
+            \\"events\\": [
+              \\"DEPLOYMENT_FAILURE\\"
+            ]
+          }
+        ],
+        \\"deployment_style\\": [
+          {
+            \\"deployment_type\\": \\"BLUE_GREEN\\",
+            \\"deployment_option\\": \\"WITH_TRAFFIC_CONTROL\\"
+          }
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-lambda-code-deploy/code-deployment-group\\",
+            \\"uniqueId\\": \\"test_testlambdacodedeploy_codedeploymentgroup_A7E2E869\\"
+          }
+        }
+      }
+    },
+    \\"aws_codestarnotifications_notification_rule\\": {
+      \\"test_testlambdacodedeploy_notifications_81C5AFD8\\": {
+        \\"detail_type\\": \\"BASIC\\",
+        \\"event_type_ids\\": [
+          \\"codedeploy-application-deployment-failed\\"
+        ],
+        \\"name\\": \\"Test-Lambda-Code-Deploy\\",
+        \\"resource\\": \\"arn:aws:codedeploy:\${data.aws_region.test_testlambdacodedeploy_region_9AA897FB.name}:\${data.aws_caller_identity.test_testlambdacodedeploy_calleridentity_5899BD36.account_id}:application:Test-Lambda-Code-Deploy\\",
+        \\"target\\": [
+          {
+            \\"address\\": \\"\${data.aws_sns_topic.test_testlambdacodedeploy_deploytopic_B555D337.arn}\\"
+          }
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-lambda-code-deploy/notifications\\",
+            \\"uniqueId\\": \\"test_testlambdacodedeploy_notifications_81C5AFD8\\"
+          }
+        }
+      }
+    }
+  }
+}"
+`;
+
+exports[`renders a lambda code deploy app with detail type 1`] = `
+"{
+  \\"//\\": {
+    \\"metadata\\": {
+      \\"version\\": \\"stubbed\\",
+      \\"stackName\\": \\"test\\"
+    }
+  },
+  \\"data\\": {
+    \\"aws_region\\": {
+      \\"test_testlambdacodedeploy_region_9AA897FB\\": {
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-lambda-code-deploy/region\\",
+            \\"uniqueId\\": \\"test_testlambdacodedeploy_region_9AA897FB\\"
+          }
+        }
+      }
+    },
+    \\"aws_caller_identity\\": {
+      \\"test_testlambdacodedeploy_calleridentity_5899BD36\\": {
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-lambda-code-deploy/caller-identity\\",
+            \\"uniqueId\\": \\"test_testlambdacodedeploy_calleridentity_5899BD36\\"
+          }
+        }
+      }
+    },
+    \\"aws_iam_policy_document\\": {
+      \\"test_testlambdacodedeploy_codedeployassumerolepolicydocument_95061B46\\": {
+        \\"statement\\": [
+          {
+            \\"effect\\": \\"Allow\\",
+            \\"actions\\": [
+              \\"sts:AssumeRole\\"
+            ],
+            \\"principals\\": [
+              {
+                \\"identifiers\\": [
+                  \\"codedeploy.amazonaws.com\\"
+                ],
+                \\"type\\": \\"Service\\"
+              }
+            ]
+          }
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-lambda-code-deploy/code-deploy-assume-role-policy-document\\",
+            \\"uniqueId\\": \\"test_testlambdacodedeploy_codedeployassumerolepolicydocument_95061B46\\"
+          }
+        }
+      }
+    },
+    \\"aws_sns_topic\\": {
+      \\"test_testlambdacodedeploy_deploytopic_B555D337\\": {
+        \\"name\\": \\"Test-Deployment-Topic\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-lambda-code-deploy/deploy-topic\\",
+            \\"uniqueId\\": \\"test_testlambdacodedeploy_deploytopic_B555D337\\"
+          }
+        }
+      }
+    }
+  },
+  \\"resource\\": {
+    \\"aws_codedeploy_app\\": {
+      \\"test_testlambdacodedeploy_codedeployapp_8F9AF4BD\\": {
+        \\"compute_platform\\": \\"Lambda\\",
+        \\"name\\": \\"Test-Lambda-Code-Deploy\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-lambda-code-deploy/code-deploy-app\\",
+            \\"uniqueId\\": \\"test_testlambdacodedeploy_codedeployapp_8F9AF4BD\\"
+          }
+        }
+      }
+    },
+    \\"aws_iam_role\\": {
+      \\"test_testlambdacodedeploy_codedeployrole_755F51E7\\": {
+        \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.test_testlambdacodedeploy_codedeployassumerolepolicydocument_95061B46.json}\\",
+        \\"name\\": \\"Test-Lambda-Code-Deploy-CodeDeployRole\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-lambda-code-deploy/code-deploy-role\\",
+            \\"uniqueId\\": \\"test_testlambdacodedeploy_codedeployrole_755F51E7\\"
+          }
+        }
+      }
+    },
+    \\"aws_iam_role_policy_attachment\\": {
+      \\"test_testlambdacodedeploy_codedeploypolicyattachment_09FCA989\\": {
+        \\"policy_arn\\": \\"arn:aws:iam::aws:policy/service-role/AWSCodeDeployRoleForLambda\\",
+        \\"role\\": \\"Test-Lambda-Code-Deploy-CodeDeployRole\\",
+        \\"depends_on\\": [
+          \\"aws_iam_role.test_testlambdacodedeploy_codedeployrole_755F51E7\\"
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-lambda-code-deploy/code-deploy-policy-attachment\\",
+            \\"uniqueId\\": \\"test_testlambdacodedeploy_codedeploypolicyattachment_09FCA989\\"
+          }
+        }
+      }
+    },
+    \\"aws_codedeploy_deployment_group\\": {
+      \\"test_testlambdacodedeploy_codedeploymentgroup_A7E2E869\\": {
+        \\"app_name\\": \\"Test-Lambda-Code-Deploy\\",
+        \\"deployment_config_name\\": \\"CodeDeployDefault.LambdaAllAtOnce\\",
+        \\"deployment_group_name\\": \\"Test-Lambda-Code-Deploy\\",
+        \\"service_role_arn\\": \\"\${aws_iam_role.test_testlambdacodedeploy_codedeployrole_755F51E7.arn}\\",
+        \\"auto_rollback_configuration\\": [
+          {
+            \\"enabled\\": true,
+            \\"events\\": [
+              \\"DEPLOYMENT_FAILURE\\"
+            ]
+          }
+        ],
+        \\"deployment_style\\": [
+          {
+            \\"deployment_type\\": \\"BLUE_GREEN\\",
+            \\"deployment_option\\": \\"WITH_TRAFFIC_CONTROL\\"
+          }
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-lambda-code-deploy/code-deployment-group\\",
+            \\"uniqueId\\": \\"test_testlambdacodedeploy_codedeploymentgroup_A7E2E869\\"
+          }
+        }
+      }
+    },
+    \\"aws_codestarnotifications_notification_rule\\": {
+      \\"test_testlambdacodedeploy_notifications_81C5AFD8\\": {
+        \\"detail_type\\": \\"FULL\\",
+        \\"event_type_ids\\": [
+          \\"codedeploy-application-deployment-failed\\"
+        ],
+        \\"name\\": \\"Test-Lambda-Code-Deploy\\",
+        \\"resource\\": \\"arn:aws:codedeploy:\${data.aws_region.test_testlambdacodedeploy_region_9AA897FB.name}:\${data.aws_caller_identity.test_testlambdacodedeploy_calleridentity_5899BD36.account_id}:application:Test-Lambda-Code-Deploy\\",
+        \\"target\\": [
+          {
+            \\"address\\": \\"\${data.aws_sns_topic.test_testlambdacodedeploy_deploytopic_B555D337.arn}\\"
+          }
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-lambda-code-deploy/notifications\\",
+            \\"uniqueId\\": \\"test_testlambdacodedeploy_notifications_81C5AFD8\\"
+          }
+        }
+      }
+    }
+  }
+}"
+`;

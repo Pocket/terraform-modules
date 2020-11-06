@@ -1,0 +1,274 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders an event bridge with description 1`] = `
+"{
+  \\"//\\": {
+    \\"metadata\\": {
+      \\"version\\": \\"stubbed\\",
+      \\"stackName\\": \\"test\\"
+    }
+  },
+  \\"data\\": {
+    \\"aws_region\\": {
+      \\"test_testeventbridgerule_region_466ADDBF\\": {
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-rule/region\\",
+            \\"uniqueId\\": \\"test_testeventbridgerule_region_466ADDBF\\"
+          }
+        }
+      }
+    },
+    \\"aws_caller_identity\\": {
+      \\"test_testeventbridgerule_calleridentity_7F8C0786\\": {
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-rule/caller-identity\\",
+            \\"uniqueId\\": \\"test_testeventbridgerule_calleridentity_7F8C0786\\"
+          }
+        }
+      }
+    }
+  },
+  \\"resource\\": {
+    \\"aws_cloudwatch_event_rule\\": {
+      \\"test_testeventbridgerule_30AFD110\\": {
+        \\"description\\": \\"Test description\\",
+        \\"event_bus_name\\": \\"default\\",
+        \\"event_pattern\\": \\"{\\\\\\"source\\\\\\":[\\\\\\"aws.states\\\\\\"],\\\\\\"detail-type\\\\\\":[\\\\\\"Step Functions Execution Status Change\\\\\\"]}\\",
+        \\"name\\": \\"Test-EventBridge\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-rule/event-bridge-rule\\",
+            \\"uniqueId\\": \\"test_testeventbridgerule_30AFD110\\"
+          }
+        }
+      }
+    }
+  }
+}"
+`;
+
+exports[`renders an event bridge with event bus name 1`] = `
+"{
+  \\"//\\": {
+    \\"metadata\\": {
+      \\"version\\": \\"stubbed\\",
+      \\"stackName\\": \\"test\\"
+    }
+  },
+  \\"data\\": {
+    \\"aws_region\\": {
+      \\"test_testeventbridgerule_region_466ADDBF\\": {
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-rule/region\\",
+            \\"uniqueId\\": \\"test_testeventbridgerule_region_466ADDBF\\"
+          }
+        }
+      }
+    },
+    \\"aws_caller_identity\\": {
+      \\"test_testeventbridgerule_calleridentity_7F8C0786\\": {
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-rule/caller-identity\\",
+            \\"uniqueId\\": \\"test_testeventbridgerule_calleridentity_7F8C0786\\"
+          }
+        }
+      }
+    }
+  },
+  \\"resource\\": {
+    \\"aws_cloudwatch_event_rule\\": {
+      \\"test_testeventbridgerule_30AFD110\\": {
+        \\"event_bus_name\\": \\"test-bus\\",
+        \\"event_pattern\\": \\"{\\\\\\"source\\\\\\":[\\\\\\"aws.states\\\\\\"],\\\\\\"detail-type\\\\\\":[\\\\\\"Step Functions Execution Status Change\\\\\\"]}\\",
+        \\"name\\": \\"Test-EventBridge\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-rule/event-bridge-rule\\",
+            \\"uniqueId\\": \\"test_testeventbridgerule_30AFD110\\"
+          }
+        }
+      }
+    }
+  }
+}"
+`;
+
+exports[`renders an event bridge with sqs target 1`] = `
+"{
+  \\"//\\": {
+    \\"metadata\\": {
+      \\"version\\": \\"stubbed\\",
+      \\"stackName\\": \\"test\\"
+    }
+  },
+  \\"resource\\": {
+    \\"aws_sqs_queue\\": {
+      \\"test_testqueue_44D50ECB\\": {
+        \\"name\\": \\"Test-SQS-Queue\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-queue\\",
+            \\"uniqueId\\": \\"test_testqueue_44D50ECB\\"
+          }
+        }
+      }
+    },
+    \\"aws_cloudwatch_event_rule\\": {
+      \\"test_testeventbridgerule_30AFD110\\": {
+        \\"event_bus_name\\": \\"default\\",
+        \\"event_pattern\\": \\"{\\\\\\"source\\\\\\":[\\\\\\"aws.states\\\\\\"],\\\\\\"detail-type\\\\\\":[\\\\\\"Step Functions Execution Status Change\\\\\\"]}\\",
+        \\"name\\": \\"Test-EventBridge\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-rule/event-bridge-rule\\",
+            \\"uniqueId\\": \\"test_testeventbridgerule_30AFD110\\"
+          }
+        }
+      }
+    },
+    \\"aws_cloudwatch_event_target\\": {
+      \\"test_testeventbridgerule_eventbridgetarget_506969BD\\": {
+        \\"arn\\": \\"\${aws_sqs_queue.test_testqueue_44D50ECB.arn}\\",
+        \\"rule\\": \\"Test-EventBridge\\",
+        \\"target_id\\": \\"sqs\\",
+        \\"depends_on\\": [
+          \\"aws_sqs_queue.test_testqueue_44D50ECB\\",
+          \\"aws_cloudwatch_event_rule.test_testeventbridgerule_30AFD110\\"
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-rule/event-bridge-target\\",
+            \\"uniqueId\\": \\"test_testeventbridgerule_eventbridgetarget_506969BD\\"
+          }
+        }
+      }
+    }
+  },
+  \\"data\\": {
+    \\"aws_region\\": {
+      \\"test_testeventbridgerule_region_466ADDBF\\": {
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-rule/region\\",
+            \\"uniqueId\\": \\"test_testeventbridgerule_region_466ADDBF\\"
+          }
+        }
+      }
+    },
+    \\"aws_caller_identity\\": {
+      \\"test_testeventbridgerule_calleridentity_7F8C0786\\": {
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-rule/caller-identity\\",
+            \\"uniqueId\\": \\"test_testeventbridgerule_calleridentity_7F8C0786\\"
+          }
+        }
+      }
+    }
+  }
+}"
+`;
+
+exports[`renders an event bridge with tags 1`] = `
+"{
+  \\"//\\": {
+    \\"metadata\\": {
+      \\"version\\": \\"stubbed\\",
+      \\"stackName\\": \\"test\\"
+    }
+  },
+  \\"data\\": {
+    \\"aws_region\\": {
+      \\"test_testeventbridgerule_region_466ADDBF\\": {
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-rule/region\\",
+            \\"uniqueId\\": \\"test_testeventbridgerule_region_466ADDBF\\"
+          }
+        }
+      }
+    },
+    \\"aws_caller_identity\\": {
+      \\"test_testeventbridgerule_calleridentity_7F8C0786\\": {
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-rule/caller-identity\\",
+            \\"uniqueId\\": \\"test_testeventbridgerule_calleridentity_7F8C0786\\"
+          }
+        }
+      }
+    }
+  },
+  \\"resource\\": {
+    \\"aws_cloudwatch_event_rule\\": {
+      \\"test_testeventbridgerule_30AFD110\\": {
+        \\"event_bus_name\\": \\"default\\",
+        \\"event_pattern\\": \\"{\\\\\\"source\\\\\\":[\\\\\\"aws.states\\\\\\"],\\\\\\"detail-type\\\\\\":[\\\\\\"Step Functions Execution Status Change\\\\\\"]}\\",
+        \\"name\\": \\"Test-EventBridge\\",
+        \\"tags\\": {
+          \\"my\\": \\"tag\\",
+          \\"for\\": \\"test\\"
+        },
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-rule/event-bridge-rule\\",
+            \\"uniqueId\\": \\"test_testeventbridgerule_30AFD110\\"
+          }
+        }
+      }
+    }
+  }
+}"
+`;
+
+exports[`renders an event bridge without a target 1`] = `
+"{
+  \\"//\\": {
+    \\"metadata\\": {
+      \\"version\\": \\"stubbed\\",
+      \\"stackName\\": \\"test\\"
+    }
+  },
+  \\"data\\": {
+    \\"aws_region\\": {
+      \\"test_testeventbridgerule_region_466ADDBF\\": {
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-rule/region\\",
+            \\"uniqueId\\": \\"test_testeventbridgerule_region_466ADDBF\\"
+          }
+        }
+      }
+    },
+    \\"aws_caller_identity\\": {
+      \\"test_testeventbridgerule_calleridentity_7F8C0786\\": {
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-rule/caller-identity\\",
+            \\"uniqueId\\": \\"test_testeventbridgerule_calleridentity_7F8C0786\\"
+          }
+        }
+      }
+    }
+  },
+  \\"resource\\": {
+    \\"aws_cloudwatch_event_rule\\": {
+      \\"test_testeventbridgerule_30AFD110\\": {
+        \\"event_bus_name\\": \\"default\\",
+        \\"event_pattern\\": \\"{\\\\\\"source\\\\\\":[\\\\\\"aws.states\\\\\\"],\\\\\\"detail-type\\\\\\":[\\\\\\"Step Functions Execution Status Change\\\\\\"]}\\",
+        \\"name\\": \\"Test-EventBridge\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-rule/event-bridge-rule\\",
+            \\"uniqueId\\": \\"test_testeventbridgerule_30AFD110\\"
+          }
+        }
+      }
+    }
+  }
+}"
+`;
