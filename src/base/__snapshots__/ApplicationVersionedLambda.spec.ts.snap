@@ -304,7 +304,11 @@ exports[`renders a versioned lambda with description 1`] = `
     \\"aws_lambda_alias\\": {
       \\"test_testversionedlambda_alias_2E9E2D0F\\": {
         \\"function_name\\": \\"Test-Lambda-Function\\",
+<<<<<<< HEAD
         \\"function_version\\": \\"\${split(\\\\\\":\\\\\\", aws_lambda_function.test_testversionedlambda_F521A265.qualified_arn)[7]}\\",
+=======
+        \\"function_version\\": \\"\${split(\\\\\\",\\\\\\", \${aws_lambda_function.test_testversionedlambda_F521A265.qualified_arn})[7]}\\",
+>>>>>>> 81fc24772380c2656790b1cc1145585677b2301e
         \\"name\\": \\"DEPLOYED\\",
         \\"depends_on\\": [
           \\"aws_lambda_function.test_testversionedlambda_F521A265\\"
@@ -510,7 +514,11 @@ exports[`renders a versioned lambda with environment variables 1`] = `
     \\"aws_lambda_alias\\": {
       \\"test_testversionedlambda_alias_2E9E2D0F\\": {
         \\"function_name\\": \\"Test-Lambda-Function\\",
+<<<<<<< HEAD
         \\"function_version\\": \\"\${split(\\\\\\":\\\\\\", aws_lambda_function.test_testversionedlambda_F521A265.qualified_arn)[7]}\\",
+=======
+        \\"function_version\\": \\"\${split(\\\\\\",\\\\\\", \${aws_lambda_function.test_testversionedlambda_F521A265.qualified_arn})[7]}\\",
+>>>>>>> 81fc24772380c2656790b1cc1145585677b2301e
         \\"name\\": \\"DEPLOYED\\",
         \\"depends_on\\": [
           \\"aws_lambda_function.test_testversionedlambda_F521A265\\"
@@ -708,7 +716,11 @@ exports[`renders a versioned lambda with execution policy statements 1`] = `
     \\"aws_lambda_alias\\": {
       \\"test_testversionedlambda_alias_2E9E2D0F\\": {
         \\"function_name\\": \\"Test-Lambda-Function\\",
+<<<<<<< HEAD
         \\"function_version\\": \\"\${split(\\\\\\":\\\\\\", aws_lambda_function.test_testversionedlambda_F521A265.qualified_arn)[7]}\\",
+=======
+        \\"function_version\\": \\"\${split(\\\\\\",\\\\\\", \${aws_lambda_function.test_testversionedlambda_F521A265.qualified_arn})[7]}\\",
+>>>>>>> 81fc24772380c2656790b1cc1145585677b2301e
         \\"name\\": \\"DEPLOYED\\",
         \\"depends_on\\": [
           \\"aws_lambda_function.test_testversionedlambda_F521A265\\"
@@ -915,7 +927,11 @@ exports[`renders a versioned lambda with log retention 1`] = `
     \\"aws_lambda_alias\\": {
       \\"test_testversionedlambda_alias_2E9E2D0F\\": {
         \\"function_name\\": \\"Test-Lambda-Function\\",
+<<<<<<< HEAD
         \\"function_version\\": \\"\${split(\\\\\\":\\\\\\", aws_lambda_function.test_testversionedlambda_F521A265.qualified_arn)[7]}\\",
+=======
+        \\"function_version\\": \\"\${split(\\\\\\",\\\\\\", \${aws_lambda_function.test_testversionedlambda_F521A265.qualified_arn})[7]}\\",
+>>>>>>> 81fc24772380c2656790b1cc1145585677b2301e
         \\"name\\": \\"DEPLOYED\\",
         \\"depends_on\\": [
           \\"aws_lambda_function.test_testversionedlambda_F521A265\\"
@@ -1113,7 +1129,11 @@ exports[`renders a versioned lambda with s3 bucket 1`] = `
     \\"aws_lambda_alias\\": {
       \\"test_testversionedlambda_alias_2E9E2D0F\\": {
         \\"function_name\\": \\"Test-Lambda-Function\\",
+<<<<<<< HEAD
         \\"function_version\\": \\"\${split(\\\\\\":\\\\\\", aws_lambda_function.test_testversionedlambda_F521A265.qualified_arn)[7]}\\",
+=======
+        \\"function_version\\": \\"\${split(\\\\\\",\\\\\\", \${aws_lambda_function.test_testversionedlambda_F521A265.qualified_arn})[7]}\\",
+>>>>>>> 81fc24772380c2656790b1cc1145585677b2301e
         \\"name\\": \\"DEPLOYED\\",
         \\"depends_on\\": [
           \\"aws_lambda_function.test_testversionedlambda_F521A265\\"
@@ -1319,7 +1339,11 @@ exports[`renders a versioned lambda with tags 1`] = `
     \\"aws_lambda_alias\\": {
       \\"test_testversionedlambda_alias_2E9E2D0F\\": {
         \\"function_name\\": \\"Test-Lambda-Function\\",
+<<<<<<< HEAD
         \\"function_version\\": \\"\${split(\\\\\\":\\\\\\", aws_lambda_function.test_testversionedlambda_F521A265.qualified_arn)[7]}\\",
+=======
+        \\"function_version\\": \\"\${split(\\\\\\",\\\\\\", \${aws_lambda_function.test_testversionedlambda_F521A265.qualified_arn})[7]}\\",
+>>>>>>> 81fc24772380c2656790b1cc1145585677b2301e
         \\"name\\": \\"DEPLOYED\\",
         \\"depends_on\\": [
           \\"aws_lambda_function.test_testversionedlambda_F521A265\\"
@@ -1517,7 +1541,11 @@ exports[`renders a versioned lambda with timeout 1`] = `
     \\"aws_lambda_alias\\": {
       \\"test_testversionedlambda_alias_2E9E2D0F\\": {
         \\"function_name\\": \\"Test-Lambda-Function\\",
+<<<<<<< HEAD
         \\"function_version\\": \\"\${split(\\\\\\":\\\\\\", aws_lambda_function.test_testversionedlambda_F521A265.qualified_arn)[7]}\\",
+=======
+        \\"function_version\\": \\"\${split(\\\\\\",\\\\\\", \${aws_lambda_function.test_testversionedlambda_F521A265.qualified_arn})[7]}\\",
+>>>>>>> 81fc24772380c2656790b1cc1145585677b2301e
         \\"name\\": \\"DEPLOYED\\",
         \\"depends_on\\": [
           \\"aws_lambda_function.test_testversionedlambda_F521A265\\"
@@ -1726,7 +1754,11 @@ exports[`renders a versioned lambda with vpc 1`] = `
     \\"aws_lambda_alias\\": {
       \\"test_testversionedlambda_alias_2E9E2D0F\\": {
         \\"function_name\\": \\"Test-Lambda-Function\\",
+<<<<<<< HEAD
         \\"function_version\\": \\"\${split(\\\\\\":\\\\\\", aws_lambda_function.test_testversionedlambda_F521A265.qualified_arn)[7]}\\",
+=======
+        \\"function_version\\": \\"\${split(\\\\\\",\\\\\\", \${aws_lambda_function.test_testversionedlambda_F521A265.qualified_arn})[7]}\\",
+>>>>>>> 81fc24772380c2656790b1cc1145585677b2301e
         \\"name\\": \\"DEPLOYED\\",
         \\"depends_on\\": [
           \\"aws_lambda_function.test_testversionedlambda_F521A265\\"
