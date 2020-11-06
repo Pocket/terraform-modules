@@ -9,8 +9,11 @@ let BASE_CONFIG: ApplicationECSServiceProps;
 describe('AppliationECSService', () => {
   beforeEach(() => {
     BASE_CONFIG = {
+      ecsClusterName: 'cluster-name',
+      shortName: 'short',
+      useCodeDeploy: false,
       prefix: 'abides-dev',
-      ecsCluster: 'gorp',
+      ecsClusterArn: 'gorp',
       vpcId: 'myhouse',
       containerConfigs: [],
       privateSubnetIds: ['1.1.1.1', '2.2.2.2'],
@@ -169,9 +172,10 @@ describe('AppliationECSService', () => {
     ];
 
     BASE_CONFIG.albConfig = {
+      healthCheckPath: '/health',
+      listenerArn: 'listen-to-me',
       containerPort: 3000,
       containerName: 'runme',
-      targetGroupArn: 'targetonmyback',
       albSecurityGroupId: 'strike',
     };
 
