@@ -580,6 +580,11 @@ exports[`PocketALBApplication renders an application with custom task sizes 1`] 
             ]
           }
         ],
+        \\"lifecycle\\": {
+          \\"ignore_changes\\": [
+            \\"action\\"
+          ]
+        },
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/testPocketApp/ecs_service/listener_rule\\",
@@ -1220,6 +1225,11 @@ exports[`PocketALBApplication renders an application with minimal config 1`] = `
             ]
           }
         ],
+        \\"lifecycle\\": {
+          \\"ignore_changes\\": [
+            \\"action\\"
+          ]
+        },
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/testPocketApp/ecs_service/listener_rule\\",
@@ -2021,6 +2031,11 @@ exports[`PocketALBApplication renders an external application 1`] = `
             ]
           }
         ],
+        \\"lifecycle\\": {
+          \\"ignore_changes\\": [
+            \\"action\\"
+          ]
+        },
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/testPocketApp/ecs_service/listener_rule\\",
@@ -2661,6 +2676,11 @@ exports[`PocketALBApplication renders an internal application 1`] = `
             ]
           }
         ],
+        \\"lifecycle\\": {
+          \\"ignore_changes\\": [
+            \\"action\\"
+          ]
+        },
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/testPocketApp/ecs_service/listener_rule\\",
@@ -3337,6 +3357,11 @@ exports[`PocketALBApplication renders an internal application with tags 1`] = `
             ]
           }
         ],
+        \\"lifecycle\\": {
+          \\"ignore_changes\\": [
+            \\"action\\"
+          ]
+        },
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/testPocketApp/ecs_service/listener_rule\\",

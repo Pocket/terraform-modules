@@ -140,6 +140,9 @@ export class ApplicationECSService extends Resource {
             targetGroupArn: this.mainTargetGroup.targetGroup.arn,
           },
         ],
+        lifecycle: {
+          ignoreChanges: ['action'],
+        },
       });
       ecsServiceDependsOn.push(listenerRule);
       targetGroupNames.push(this.mainTargetGroup.targetGroup.name);
