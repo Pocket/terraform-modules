@@ -116,7 +116,7 @@ export class ApplicationVersionedLambda extends Resource {
 
     lambdaAlias.addOverride(
       'function_version',
-      `split(":", ${lambda.qualifiedArn})[7]`
+      `\${split(":", ${lambda.fqn}.qualified_arn)[7]}`
     );
 
     return lambdaAlias;
