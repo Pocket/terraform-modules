@@ -151,7 +151,7 @@ export class ApplicationECSAlbCodeDeploy extends Resource {
         this,
         `ecs_codedeploy_notifications`,
         {
-          detailType: 'basic',
+          detailType: 'BASIC',
           eventTypeIds: [
             'codedeploy-application-deployment-failed',
             'codedeploy-application-deployment-succeeded',

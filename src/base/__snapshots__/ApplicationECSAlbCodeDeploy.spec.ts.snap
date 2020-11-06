@@ -98,7 +98,7 @@ exports[`renders a CodeDeploy with a sns 1`] = `
     },
     \\"aws_codestarnotifications_notification_rule\\": {
       \\"test_testCodeDeploy_ecscodedeploynotifications_2E05454F\\": {
-        \\"detail_type\\": \\"basic\\",
+        \\"detail_type\\": \\"BASIC\\",
         \\"event_type_ids\\": [
           \\"codedeploy-application-deployment-failed\\",
           \\"codedeploy-application-deployment-succeeded\\",
@@ -288,7 +288,7 @@ exports[`renders a CodeDeploy with tags 1`] = `
     },
     \\"aws_codestarnotifications_notification_rule\\": {
       \\"test_testCodeDeploy_ecscodedeploynotifications_2E05454F\\": {
-        \\"detail_type\\": \\"basic\\",
+        \\"detail_type\\": \\"BASIC\\",
         \\"event_type_ids\\": [
           \\"codedeploy-application-deployment-failed\\",
           \\"codedeploy-application-deployment-succeeded\\",
