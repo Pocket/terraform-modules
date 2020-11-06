@@ -534,9 +534,12 @@ exports[`PocketALBApplication renders an application with custom task sizes 1`] 
     \\"aws_alb_target_group\\": {
       \\"test_testPocketApp_ecsservice_bluetargetgroup_ecstargetgroup_F811A231\\": {
         \\"deregistration_delay\\": 120,
-        \\"name_prefix\\": \\"TSTAPP-blue\\",
+        \\"name_prefix\\": \\"TSTAPP\\",
         \\"port\\": 80,
         \\"protocol\\": \\"HTTP\\",
+        \\"tags\\": {
+          \\"type\\": \\"blue\\"
+        },
         \\"target_type\\": \\"ip\\",
         \\"vpc_id\\": \\"\${data.aws_vpc.test_testPocketApp_pocketvpc_40AC0971.id}\\",
         \\"health_check\\": [
@@ -1171,9 +1174,12 @@ exports[`PocketALBApplication renders an application with minimal config 1`] = `
     \\"aws_alb_target_group\\": {
       \\"test_testPocketApp_ecsservice_bluetargetgroup_ecstargetgroup_F811A231\\": {
         \\"deregistration_delay\\": 120,
-        \\"name_prefix\\": \\"TSTAPP-blue\\",
+        \\"name_prefix\\": \\"TSTAPP\\",
         \\"port\\": 80,
         \\"protocol\\": \\"HTTP\\",
+        \\"tags\\": {
+          \\"type\\": \\"blue\\"
+        },
         \\"target_type\\": \\"ip\\",
         \\"vpc_id\\": \\"\${data.aws_vpc.test_testPocketApp_pocketvpc_40AC0971.id}\\",
         \\"health_check\\": [
@@ -1969,9 +1975,12 @@ exports[`PocketALBApplication renders an external application 1`] = `
     \\"aws_alb_target_group\\": {
       \\"test_testPocketApp_ecsservice_bluetargetgroup_ecstargetgroup_F811A231\\": {
         \\"deregistration_delay\\": 120,
-        \\"name_prefix\\": \\"TSTAPP-blue\\",
+        \\"name_prefix\\": \\"TSTAPP\\",
         \\"port\\": 80,
         \\"protocol\\": \\"HTTP\\",
+        \\"tags\\": {
+          \\"type\\": \\"blue\\"
+        },
         \\"target_type\\": \\"ip\\",
         \\"vpc_id\\": \\"\${data.aws_vpc.test_testPocketApp_pocketvpc_40AC0971.id}\\",
         \\"health_check\\": [
@@ -2606,9 +2615,12 @@ exports[`PocketALBApplication renders an internal application 1`] = `
     \\"aws_alb_target_group\\": {
       \\"test_testPocketApp_ecsservice_bluetargetgroup_ecstargetgroup_F811A231\\": {
         \\"deregistration_delay\\": 120,
-        \\"name_prefix\\": \\"TSTAPP-blue\\",
+        \\"name_prefix\\": \\"TSTAPP\\",
         \\"port\\": 80,
         \\"protocol\\": \\"HTTP\\",
+        \\"tags\\": {
+          \\"type\\": \\"blue\\"
+        },
         \\"target_type\\": \\"ip\\",
         \\"vpc_id\\": \\"\${data.aws_vpc.test_testPocketApp_pocketvpc_40AC0971.id}\\",
         \\"health_check\\": [
@@ -3277,12 +3289,13 @@ exports[`PocketALBApplication renders an internal application with tags 1`] = `
     \\"aws_alb_target_group\\": {
       \\"test_testPocketApp_ecsservice_bluetargetgroup_ecstargetgroup_F811A231\\": {
         \\"deregistration_delay\\": 120,
-        \\"name_prefix\\": \\"TSTAPP-blue\\",
+        \\"name_prefix\\": \\"TSTAPP\\",
         \\"port\\": 80,
         \\"protocol\\": \\"HTTP\\",
         \\"tags\\": {
           \\"name\\": \\"thedude\\",
-          \\"hobby\\": \\"bowling\\"
+          \\"hobby\\": \\"bowling\\",
+          \\"type\\": \\"blue\\"
         },
         \\"target_type\\": \\"ip\\",
         \\"vpc_id\\": \\"\${data.aws_vpc.test_testPocketApp_pocketvpc_40AC0971.id}\\",

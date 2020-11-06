@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { getRootDomain } from './utilities';
+import { getRootDomain, truncateString } from './utilities';
 
 describe('utlities', () => {
   describe('getRootDomain()', () => {
@@ -19,6 +19,16 @@ describe('utlities', () => {
 
     it('gets root domain when domain is www', () => {
       expect(getRootDomain('www.getpocket.com')).to.equal('getpocket.com');
+    });
+  });
+
+  describe('truncateString()', () => {
+    it('truncates more then 6', () => {
+      expect(truncateString('getpocket.com', 6)).to.equal('getpoc');
+    });
+
+    it('ignores less then 6', () => {
+      expect(truncateString('get', 6)).to.equal('get');
     });
   });
 });

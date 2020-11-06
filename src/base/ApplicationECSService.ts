@@ -21,6 +21,7 @@ import {
 import { ApplicationTargetGroup } from './ApplicationTargetGroup';
 import { ApplicationECSAlbCodeDeploy } from './ApplicationECSAlbCodeDeploy';
 import { TerraformResource } from 'cdktf';
+import { truncateString } from '../utilities';
 
 export interface ApplicationECSServiceProps {
   prefix: string;
@@ -348,10 +349,10 @@ export class ApplicationECSService extends Resource {
    */
   private createTargetGroup(name: string): ApplicationTargetGroup {
     return new ApplicationTargetGroup(this, `${name}_target_group`, {
-      shortName: `${this.config.shortName}-${name}`,
+      shortName: truncateString(`${this.config.shortName}-${name}`, 6),
       vpcId: this.config.vpcId,
       healthCheckPath: this.config.albConfig.healthCheckPath,
-      tags: this.config.tags,
+      tags: { ...this.config.tags, type: name },
     });
   }
 }
