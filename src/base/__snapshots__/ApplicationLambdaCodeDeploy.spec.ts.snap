@@ -52,7 +52,7 @@ exports[`renders a lambda code deploy app 1`] = `
       \\"test_testlambdacodedeploy_codedeploymentgroup_A7E2E869\\": {
         \\"app_name\\": \\"Test-Lambda-Code-Deploy-CodeDeploy\\",
         \\"deployment_config_name\\": \\"CodeDeployDefault.LambdaAllAtOnce\\",
-        \\"deployment_group_name\\": \\"Test-Lambda-Code-Deploy\\",
+        \\"deployment_group_name\\": \\"Test-Lambda-Code-Deploy-CodeDeployGroup\\",
         \\"service_role_arn\\": \\"\${aws_iam_role.test_testlambdacodedeploy_codedeployrole_755F51E7.arn}\\",
         \\"auto_rollback_configuration\\": [
           {
@@ -160,7 +160,7 @@ exports[`renders a lambda code deploy app with sns topic arn 1`] = `
       \\"test_testlambdacodedeploy_codedeploymentgroup_A7E2E869\\": {
         \\"app_name\\": \\"Test-Lambda-Code-Deploy-CodeDeploy\\",
         \\"deployment_config_name\\": \\"CodeDeployDefault.LambdaAllAtOnce\\",
-        \\"deployment_group_name\\": \\"Test-Lambda-Code-Deploy\\",
+        \\"deployment_group_name\\": \\"Test-Lambda-Code-Deploy-CodeDeployGroup\\",
         \\"service_role_arn\\": \\"\${aws_iam_role.test_testlambdacodedeploy_codedeployrole_755F51E7.arn}\\",
         \\"auto_rollback_configuration\\": [
           {
@@ -289,7 +289,7 @@ exports[`renders a lambda code deploy app with sns topic arn and detail type 1`]
       \\"test_testlambdacodedeploy_codedeploymentgroup_A7E2E869\\": {
         \\"app_name\\": \\"Test-Lambda-Code-Deploy-CodeDeploy\\",
         \\"deployment_config_name\\": \\"CodeDeployDefault.LambdaAllAtOnce\\",
-        \\"deployment_group_name\\": \\"Test-Lambda-Code-Deploy\\",
+        \\"deployment_group_name\\": \\"Test-Lambda-Code-Deploy-CodeDeployGroup\\",
         \\"service_role_arn\\": \\"\${aws_iam_role.test_testlambdacodedeploy_codedeployrole_755F51E7.arn}\\",
         \\"auto_rollback_configuration\\": [
           {

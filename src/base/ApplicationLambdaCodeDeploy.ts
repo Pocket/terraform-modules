@@ -49,7 +49,7 @@ export class ApplicationLambdaCodeDeploy extends Resource {
     new CodedeployDeploymentGroup(this, 'code-deployment-group', {
       appName: codeDeployApp.name,
       deploymentConfigName: 'CodeDeployDefault.LambdaAllAtOnce',
-      deploymentGroupName: this.config.name,
+      deploymentGroupName: `${this.config.name}-CodeDeployGroup`,
       serviceRoleArn: this.getCodeDeployRole().arn,
       deploymentStyle: [
         {
