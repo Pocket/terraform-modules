@@ -162,3 +162,20 @@ test('renders an event bridge and lambda target with execution policy', () => {
 
   expect(Testing.synth(stack)).toMatchSnapshot();
 });
+
+test('renders an event bridge and lambda target with code deploy', () => {
+  const app = Testing.app();
+  const stack = new TerraformStack(app, 'test');
+
+  new PocketEventBridgeWithLambdaTarget(stack, 'test-event-bridge-lambda', {
+    ...config,
+    codeDeploy: {
+      deploySnsTopicArn: 'arn:test',
+      detailType: 'FULL',
+      region: 'us-east-1',
+      accountId: 'test-account',
+    },
+  });
+
+  expect(Testing.synth(stack)).toMatchSnapshot();
+});
