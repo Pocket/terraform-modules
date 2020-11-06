@@ -204,6 +204,7 @@ export class ApplicationVersionedLambda extends Resource {
       bucket: this.config.s3Bucket,
       acl: 'private',
       tags: this.config.tags,
+      forceDestroy: true,
     });
 
     new S3BucketPublicAccessBlock(this, `code-bucket-public-access-block`, {

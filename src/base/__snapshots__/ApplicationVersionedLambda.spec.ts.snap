@@ -13,6 +13,7 @@ exports[`renders a versioned lambda 1`] = `
       \\"test_testversionedlambda_codebucket_BC2D4650\\": {
         \\"acl\\": \\"private\\",
         \\"bucket\\": \\"test-bucket\\",
+        \\"force_destroy\\": true,
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/test-versioned-lambda/code-bucket\\",
@@ -213,6 +214,7 @@ exports[`renders a versioned lambda with description 1`] = `
       \\"test_testversionedlambda_codebucket_BC2D4650\\": {
         \\"acl\\": \\"private\\",
         \\"bucket\\": \\"test-bucket\\",
+        \\"force_destroy\\": true,
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/test-versioned-lambda/code-bucket\\",
@@ -413,6 +415,7 @@ exports[`renders a versioned lambda with environment variables 1`] = `
       \\"test_testversionedlambda_codebucket_BC2D4650\\": {
         \\"acl\\": \\"private\\",
         \\"bucket\\": \\"test-bucket\\",
+        \\"force_destroy\\": true,
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/test-versioned-lambda/code-bucket\\",
@@ -618,6 +621,7 @@ exports[`renders a versioned lambda with execution policy statements 1`] = `
       \\"test_testversionedlambda_codebucket_BC2D4650\\": {
         \\"acl\\": \\"private\\",
         \\"bucket\\": \\"test-bucket\\",
+        \\"force_destroy\\": true,
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/test-versioned-lambda/code-bucket\\",
@@ -827,6 +831,7 @@ exports[`renders a versioned lambda with log retention 1`] = `
       \\"test_testversionedlambda_codebucket_BC2D4650\\": {
         \\"acl\\": \\"private\\",
         \\"bucket\\": \\"test-bucket\\",
+        \\"force_destroy\\": true,
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/test-versioned-lambda/code-bucket\\",
@@ -1027,6 +1032,7 @@ exports[`renders a versioned lambda with s3 bucket 1`] = `
       \\"test_testversionedlambda_codebucket_BC2D4650\\": {
         \\"acl\\": \\"private\\",
         \\"bucket\\": \\"test-bucket\\",
+        \\"force_destroy\\": true,
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/test-versioned-lambda/code-bucket\\",
@@ -1227,6 +1233,7 @@ exports[`renders a versioned lambda with tags 1`] = `
       \\"test_testversionedlambda_codebucket_BC2D4650\\": {
         \\"acl\\": \\"private\\",
         \\"bucket\\": \\"test-bucket\\",
+        \\"force_destroy\\": true,
         \\"tags\\": {
           \\"my\\": \\"tag\\",
           \\"for\\": \\"test\\"
@@ -1435,6 +1442,7 @@ exports[`renders a versioned lambda with timeout 1`] = `
       \\"test_testversionedlambda_codebucket_BC2D4650\\": {
         \\"acl\\": \\"private\\",
         \\"bucket\\": \\"test-bucket\\",
+        \\"force_destroy\\": true,
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/test-versioned-lambda/code-bucket\\",
@@ -1635,6 +1643,7 @@ exports[`renders a versioned lambda with vpc 1`] = `
       \\"test_testversionedlambda_codebucket_BC2D4650\\": {
         \\"acl\\": \\"private\\",
         \\"bucket\\": \\"test-bucket\\",
+        \\"force_destroy\\": true,
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/test-versioned-lambda/code-bucket\\",
