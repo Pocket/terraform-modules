@@ -12,7 +12,7 @@ exports[`renders a lambda code deploy app 1`] = `
     \\"aws_codedeploy_app\\": {
       \\"test_testlambdacodedeploy_codedeployapp_8F9AF4BD\\": {
         \\"compute_platform\\": \\"Lambda\\",
-        \\"name\\": \\"Test-Lambda-Code-Deploy\\",
+        \\"name\\": \\"Test-Lambda-Code-Deploy-CodeDeploy\\",
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/test-lambda-code-deploy/code-deploy-app\\",
@@ -50,7 +50,7 @@ exports[`renders a lambda code deploy app 1`] = `
     },
     \\"aws_codedeploy_deployment_group\\": {
       \\"test_testlambdacodedeploy_codedeploymentgroup_A7E2E869\\": {
-        \\"app_name\\": \\"Test-Lambda-Code-Deploy\\",
+        \\"app_name\\": \\"Test-Lambda-Code-Deploy-CodeDeploy\\",
         \\"deployment_config_name\\": \\"CodeDeployDefault.LambdaAllAtOnce\\",
         \\"deployment_group_name\\": \\"Test-Lambda-Code-Deploy\\",
         \\"service_role_arn\\": \\"\${aws_iam_role.test_testlambdacodedeploy_codedeployrole_755F51E7.arn}\\",
@@ -120,7 +120,7 @@ exports[`renders a lambda code deploy app with sns topic arn 1`] = `
     \\"aws_codedeploy_app\\": {
       \\"test_testlambdacodedeploy_codedeployapp_8F9AF4BD\\": {
         \\"compute_platform\\": \\"Lambda\\",
-        \\"name\\": \\"Test-Lambda-Code-Deploy\\",
+        \\"name\\": \\"Test-Lambda-Code-Deploy-CodeDeploy\\",
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/test-lambda-code-deploy/code-deploy-app\\",
@@ -158,7 +158,7 @@ exports[`renders a lambda code deploy app with sns topic arn 1`] = `
     },
     \\"aws_codedeploy_deployment_group\\": {
       \\"test_testlambdacodedeploy_codedeploymentgroup_A7E2E869\\": {
-        \\"app_name\\": \\"Test-Lambda-Code-Deploy\\",
+        \\"app_name\\": \\"Test-Lambda-Code-Deploy-CodeDeploy\\",
         \\"deployment_config_name\\": \\"CodeDeployDefault.LambdaAllAtOnce\\",
         \\"deployment_group_name\\": \\"Test-Lambda-Code-Deploy\\",
         \\"service_role_arn\\": \\"\${aws_iam_role.test_testlambdacodedeploy_codedeployrole_755F51E7.arn}\\",
@@ -190,8 +190,8 @@ exports[`renders a lambda code deploy app with sns topic arn 1`] = `
         \\"event_type_ids\\": [
           \\"codedeploy-application-deployment-failed\\"
         ],
-        \\"name\\": \\"Test-Lambda-Code-Deploy\\",
-        \\"resource\\": \\"arn:aws:codedeploy:us-east-1:123:application:Test-Lambda-Code-Deploy\\",
+        \\"name\\": \\"Test-Lambda-Code-Deploy-CodeDeploy\\",
+        \\"resource\\": \\"arn:aws:codedeploy:us-east-1:123:application:Test-Lambda-Code-Deploy-CodeDeploy\\",
         \\"target\\": [
           {
             \\"address\\": \\"test:deploy-topic:arn\\"
@@ -249,7 +249,7 @@ exports[`renders a lambda code deploy app with sns topic arn and detail type 1`]
     \\"aws_codedeploy_app\\": {
       \\"test_testlambdacodedeploy_codedeployapp_8F9AF4BD\\": {
         \\"compute_platform\\": \\"Lambda\\",
-        \\"name\\": \\"Test-Lambda-Code-Deploy\\",
+        \\"name\\": \\"Test-Lambda-Code-Deploy-CodeDeploy\\",
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/test-lambda-code-deploy/code-deploy-app\\",
@@ -287,7 +287,7 @@ exports[`renders a lambda code deploy app with sns topic arn and detail type 1`]
     },
     \\"aws_codedeploy_deployment_group\\": {
       \\"test_testlambdacodedeploy_codedeploymentgroup_A7E2E869\\": {
-        \\"app_name\\": \\"Test-Lambda-Code-Deploy\\",
+        \\"app_name\\": \\"Test-Lambda-Code-Deploy-CodeDeploy\\",
         \\"deployment_config_name\\": \\"CodeDeployDefault.LambdaAllAtOnce\\",
         \\"deployment_group_name\\": \\"Test-Lambda-Code-Deploy\\",
         \\"service_role_arn\\": \\"\${aws_iam_role.test_testlambdacodedeploy_codedeployrole_755F51E7.arn}\\",
@@ -319,8 +319,8 @@ exports[`renders a lambda code deploy app with sns topic arn and detail type 1`]
         \\"event_type_ids\\": [
           \\"codedeploy-application-deployment-failed\\"
         ],
-        \\"name\\": \\"Test-Lambda-Code-Deploy\\",
-        \\"resource\\": \\"arn:aws:codedeploy:us-east-1:123:application:Test-Lambda-Code-Deploy\\",
+        \\"name\\": \\"Test-Lambda-Code-Deploy-CodeDeploy\\",
+        \\"resource\\": \\"arn:aws:codedeploy:us-east-1:123:application:Test-Lambda-Code-Deploy-CodeDeploy\\",
         \\"target\\": [
           {
             \\"address\\": \\"test:deploy-topic:arn\\"

@@ -11,13 +11,14 @@ import {
   LambdaPermission,
 } from '../../.gen/providers/aws';
 
-interface PocketEventBridgeWithLambdaTargetProps {
+export interface PocketEventBridgeWithLambdaTargetProps {
   name: string;
   lambdaDescription?: string;
   ruleDescription?: string;
   eventBusName?: string;
   eventPattern: { [key: string]: any };
   runtime: LAMBDA_RUNTIMES;
+  handler: string;
   timeout?: number;
   environment?: { [key: string]: string };
   vpcConfig?: LambdaFunctionVpcConfig;
@@ -39,6 +40,7 @@ export class PocketEventBridgeWithLambdaTarget extends Resource {
       name: config.name,
       description: config.lambdaDescription,
       runtime: config.runtime,
+      handler: config.handler,
       timeout: config.timeout,
       environment: config.environment,
       vpcConfig: config.vpcConfig,

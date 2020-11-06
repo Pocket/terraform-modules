@@ -1,14 +1,18 @@
 import { Testing, TerraformStack } from 'cdktf';
-import { PocketEventBridgeWithLambdaTarget } from './PocketEventBridgeWithLambdaTarget';
+import {
+  PocketEventBridgeWithLambdaTarget,
+  PocketEventBridgeWithLambdaTargetProps,
+} from './PocketEventBridgeWithLambdaTarget';
 import { LAMBDA_RUNTIMES } from '../base/ApplicationVersionedLambda';
 
-const config = {
+const config: PocketEventBridgeWithLambdaTargetProps = {
   name: 'test-event-bridge-lambda',
   eventPattern: {
     source: ['aws.states'],
     'detail-type': ['Step Functions Execution Status Change'],
   },
-  runtime: LAMBDA_RUNTIMES.PYTHON,
+  runtime: LAMBDA_RUNTIMES.PYTHON38,
+  handler: 'index.handler',
 };
 
 test('renders an event bridge and lambda target', () => {

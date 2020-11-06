@@ -32,7 +32,7 @@ export class ApplicationLambdaCodeDeploy extends Resource {
 
   private setupCodeDeploy() {
     const codeDeployApp = new CodedeployApp(this, 'code-deploy-app', {
-      name: this.config.name,
+      name: `${this.config.name}-CodeDeploy`,
       computePlatform: 'Lambda',
     });
 

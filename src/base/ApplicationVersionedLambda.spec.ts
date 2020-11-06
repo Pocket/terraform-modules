@@ -7,7 +7,8 @@ import {
 
 const config: ApplicationVersionedLambdaProps = {
   name: 'Test-Lambda',
-  runtime: LAMBDA_RUNTIMES.PYTHON,
+  runtime: LAMBDA_RUNTIMES.PYTHON38,
+  handler: 'index.handler',
   s3Bucket: 'test-bucket',
 };
 

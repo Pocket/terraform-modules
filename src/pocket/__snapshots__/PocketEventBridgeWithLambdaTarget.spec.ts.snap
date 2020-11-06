@@ -65,7 +65,7 @@ exports[`renders an event bridge and lambda target 1`] = `
     \\"aws_lambda_function\\": {
       \\"test_testeventbridgelambda_FC596200\\": {
         \\"filename\\": \\"index.py.zip\\",
-        \\"function_name\\": \\"test-event-bridge-lambda\\",
+        \\"function_name\\": \\"test-event-bridge-lambda-Function\\",
         \\"handler\\": \\"index.handler\\",
         \\"publish\\": true,
         \\"role\\": \\"\${aws_iam_role.test_testeventbridgelambda_executionrole_A3207E70.arn}\\",
@@ -92,7 +92,7 @@ exports[`renders an event bridge and lambda target 1`] = `
     },
     \\"aws_cloudwatch_log_group\\": {
       \\"test_testeventbridgelambda_loggroup_709F3593\\": {
-        \\"name\\": \\"/aws/lambda/test-event-bridge-lambda\\",
+        \\"name\\": \\"/aws/lambda/test-event-bridge-lambda-Function\\",
         \\"retention_in_days\\": 14,
         \\"depends_on\\": [
           \\"aws_lambda_function.test_testeventbridgelambda_FC596200\\"
@@ -107,7 +107,7 @@ exports[`renders an event bridge and lambda target 1`] = `
     },
     \\"aws_lambda_alias\\": {
       \\"test_testeventbridgelambda_alias_265F8FC4\\": {
-        \\"function_name\\": \\"test-event-bridge-lambda\\",
+        \\"function_name\\": \\"test-event-bridge-lambda-Function\\",
         \\"function_version\\": \\"split(\\\\\\":\\\\\\", \${aws_lambda_function.test_testeventbridgelambda_FC596200.qualified_arn})[7]\\",
         \\"name\\": \\"DEPLOYED\\",
         \\"depends_on\\": [
@@ -130,7 +130,7 @@ exports[`renders an event bridge and lambda target 1`] = `
       \\"test_testeventbridgelambda_eventbridgerule_6105B57C\\": {
         \\"event_bus_name\\": \\"default\\",
         \\"event_pattern\\": \\"{\\\\\\"source\\\\\\":[\\\\\\"aws.states\\\\\\"],\\\\\\"detail-type\\\\\\":[\\\\\\"Step Functions Execution Status Change\\\\\\"]}\\",
-        \\"name\\": \\"test-event-bridge-lambda\\",
+        \\"name\\": \\"test-event-bridge-lambda-Rule\\",
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/test-event-bridge-lambda/event-bridge-rule/event-bridge-rule\\",
@@ -142,7 +142,7 @@ exports[`renders an event bridge and lambda target 1`] = `
     \\"aws_cloudwatch_event_target\\": {
       \\"test_testeventbridgelambda_eventbridgerule_eventbridgetarget_5C2BE9DA\\": {
         \\"arn\\": \\"\${aws_lambda_alias.test_testeventbridgelambda_alias_265F8FC4.arn}\\",
-        \\"rule\\": \\"test-event-bridge-lambda\\",
+        \\"rule\\": \\"test-event-bridge-lambda-Rule\\",
         \\"target_id\\": \\"lambda\\",
         \\"depends_on\\": [
           \\"aws_lambda_alias.test_testeventbridgelambda_alias_265F8FC4\\",
@@ -159,7 +159,7 @@ exports[`renders an event bridge and lambda target 1`] = `
     \\"aws_lambda_permission\\": {
       \\"test_testeventbridgelambda_lambdapermission_17031D34\\": {
         \\"action\\": \\"lambda:InvokeFunction\\",
-        \\"function_name\\": \\"test-event-bridge-lambda\\",
+        \\"function_name\\": \\"test-event-bridge-lambda-Function\\",
         \\"principal\\": \\"events.amazonaws.com\\",
         \\"source_arn\\": \\"\${aws_cloudwatch_event_rule.test_testeventbridgelambda_eventbridgerule_6105B57C.arn}\\",
         \\"depends_on\\": [
@@ -232,7 +232,7 @@ exports[`renders an event bridge and lambda target 1`] = `
         \\"type\\": \\"zip\\",
         \\"source\\": [
           {
-            \\"content\\": \\"handler(event, context):\\\\n\\\\tprint(event)\\",
+            \\"content\\": \\"handler(event, context):\\\\n\\\\t print(event)\\",
             \\"filename\\": \\"index.py\\"
           }
         ],
@@ -313,7 +313,7 @@ exports[`renders an event bridge and lambda target with environment variables 1`
     \\"aws_lambda_function\\": {
       \\"test_testeventbridgelambda_FC596200\\": {
         \\"filename\\": \\"index.py.zip\\",
-        \\"function_name\\": \\"test-event-bridge-lambda\\",
+        \\"function_name\\": \\"test-event-bridge-lambda-Function\\",
         \\"handler\\": \\"index.handler\\",
         \\"publish\\": true,
         \\"role\\": \\"\${aws_iam_role.test_testeventbridgelambda_executionrole_A3207E70.arn}\\",
@@ -345,7 +345,7 @@ exports[`renders an event bridge and lambda target with environment variables 1`
     },
     \\"aws_cloudwatch_log_group\\": {
       \\"test_testeventbridgelambda_loggroup_709F3593\\": {
-        \\"name\\": \\"/aws/lambda/test-event-bridge-lambda\\",
+        \\"name\\": \\"/aws/lambda/test-event-bridge-lambda-Function\\",
         \\"retention_in_days\\": 14,
         \\"depends_on\\": [
           \\"aws_lambda_function.test_testeventbridgelambda_FC596200\\"
@@ -360,7 +360,7 @@ exports[`renders an event bridge and lambda target with environment variables 1`
     },
     \\"aws_lambda_alias\\": {
       \\"test_testeventbridgelambda_alias_265F8FC4\\": {
-        \\"function_name\\": \\"test-event-bridge-lambda\\",
+        \\"function_name\\": \\"test-event-bridge-lambda-Function\\",
         \\"function_version\\": \\"split(\\\\\\":\\\\\\", \${aws_lambda_function.test_testeventbridgelambda_FC596200.qualified_arn})[7]\\",
         \\"name\\": \\"DEPLOYED\\",
         \\"depends_on\\": [
@@ -383,7 +383,7 @@ exports[`renders an event bridge and lambda target with environment variables 1`
       \\"test_testeventbridgelambda_eventbridgerule_6105B57C\\": {
         \\"event_bus_name\\": \\"default\\",
         \\"event_pattern\\": \\"{\\\\\\"source\\\\\\":[\\\\\\"aws.states\\\\\\"],\\\\\\"detail-type\\\\\\":[\\\\\\"Step Functions Execution Status Change\\\\\\"]}\\",
-        \\"name\\": \\"test-event-bridge-lambda\\",
+        \\"name\\": \\"test-event-bridge-lambda-Rule\\",
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/test-event-bridge-lambda/event-bridge-rule/event-bridge-rule\\",
@@ -395,7 +395,7 @@ exports[`renders an event bridge and lambda target with environment variables 1`
     \\"aws_cloudwatch_event_target\\": {
       \\"test_testeventbridgelambda_eventbridgerule_eventbridgetarget_5C2BE9DA\\": {
         \\"arn\\": \\"\${aws_lambda_alias.test_testeventbridgelambda_alias_265F8FC4.arn}\\",
-        \\"rule\\": \\"test-event-bridge-lambda\\",
+        \\"rule\\": \\"test-event-bridge-lambda-Rule\\",
         \\"target_id\\": \\"lambda\\",
         \\"depends_on\\": [
           \\"aws_lambda_alias.test_testeventbridgelambda_alias_265F8FC4\\",
@@ -412,7 +412,7 @@ exports[`renders an event bridge and lambda target with environment variables 1`
     \\"aws_lambda_permission\\": {
       \\"test_testeventbridgelambda_lambdapermission_17031D34\\": {
         \\"action\\": \\"lambda:InvokeFunction\\",
-        \\"function_name\\": \\"test-event-bridge-lambda\\",
+        \\"function_name\\": \\"test-event-bridge-lambda-Function\\",
         \\"principal\\": \\"events.amazonaws.com\\",
         \\"source_arn\\": \\"\${aws_cloudwatch_event_rule.test_testeventbridgelambda_eventbridgerule_6105B57C.arn}\\",
         \\"depends_on\\": [
@@ -485,7 +485,7 @@ exports[`renders an event bridge and lambda target with environment variables 1`
         \\"type\\": \\"zip\\",
         \\"source\\": [
           {
-            \\"content\\": \\"handler(event, context):\\\\n\\\\tprint(event)\\",
+            \\"content\\": \\"handler(event, context):\\\\n\\\\t print(event)\\",
             \\"filename\\": \\"index.py\\"
           }
         ],
@@ -566,7 +566,7 @@ exports[`renders an event bridge and lambda target with event bus name 1`] = `
     \\"aws_lambda_function\\": {
       \\"test_testeventbridgelambda_FC596200\\": {
         \\"filename\\": \\"index.py.zip\\",
-        \\"function_name\\": \\"test-event-bridge-lambda\\",
+        \\"function_name\\": \\"test-event-bridge-lambda-Function\\",
         \\"handler\\": \\"index.handler\\",
         \\"publish\\": true,
         \\"role\\": \\"\${aws_iam_role.test_testeventbridgelambda_executionrole_A3207E70.arn}\\",
@@ -593,7 +593,7 @@ exports[`renders an event bridge and lambda target with event bus name 1`] = `
     },
     \\"aws_cloudwatch_log_group\\": {
       \\"test_testeventbridgelambda_loggroup_709F3593\\": {
-        \\"name\\": \\"/aws/lambda/test-event-bridge-lambda\\",
+        \\"name\\": \\"/aws/lambda/test-event-bridge-lambda-Function\\",
         \\"retention_in_days\\": 14,
         \\"depends_on\\": [
           \\"aws_lambda_function.test_testeventbridgelambda_FC596200\\"
@@ -608,7 +608,7 @@ exports[`renders an event bridge and lambda target with event bus name 1`] = `
     },
     \\"aws_lambda_alias\\": {
       \\"test_testeventbridgelambda_alias_265F8FC4\\": {
-        \\"function_name\\": \\"test-event-bridge-lambda\\",
+        \\"function_name\\": \\"test-event-bridge-lambda-Function\\",
         \\"function_version\\": \\"split(\\\\\\":\\\\\\", \${aws_lambda_function.test_testeventbridgelambda_FC596200.qualified_arn})[7]\\",
         \\"name\\": \\"DEPLOYED\\",
         \\"depends_on\\": [
@@ -631,7 +631,7 @@ exports[`renders an event bridge and lambda target with event bus name 1`] = `
       \\"test_testeventbridgelambda_eventbridgerule_6105B57C\\": {
         \\"event_bus_name\\": \\"test-bus\\",
         \\"event_pattern\\": \\"{\\\\\\"source\\\\\\":[\\\\\\"aws.states\\\\\\"],\\\\\\"detail-type\\\\\\":[\\\\\\"Step Functions Execution Status Change\\\\\\"]}\\",
-        \\"name\\": \\"test-event-bridge-lambda\\",
+        \\"name\\": \\"test-event-bridge-lambda-Rule\\",
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/test-event-bridge-lambda/event-bridge-rule/event-bridge-rule\\",
@@ -643,7 +643,7 @@ exports[`renders an event bridge and lambda target with event bus name 1`] = `
     \\"aws_cloudwatch_event_target\\": {
       \\"test_testeventbridgelambda_eventbridgerule_eventbridgetarget_5C2BE9DA\\": {
         \\"arn\\": \\"\${aws_lambda_alias.test_testeventbridgelambda_alias_265F8FC4.arn}\\",
-        \\"rule\\": \\"test-event-bridge-lambda\\",
+        \\"rule\\": \\"test-event-bridge-lambda-Rule\\",
         \\"target_id\\": \\"lambda\\",
         \\"depends_on\\": [
           \\"aws_lambda_alias.test_testeventbridgelambda_alias_265F8FC4\\",
@@ -660,7 +660,7 @@ exports[`renders an event bridge and lambda target with event bus name 1`] = `
     \\"aws_lambda_permission\\": {
       \\"test_testeventbridgelambda_lambdapermission_17031D34\\": {
         \\"action\\": \\"lambda:InvokeFunction\\",
-        \\"function_name\\": \\"test-event-bridge-lambda\\",
+        \\"function_name\\": \\"test-event-bridge-lambda-Function\\",
         \\"principal\\": \\"events.amazonaws.com\\",
         \\"source_arn\\": \\"\${aws_cloudwatch_event_rule.test_testeventbridgelambda_eventbridgerule_6105B57C.arn}\\",
         \\"depends_on\\": [
@@ -733,7 +733,7 @@ exports[`renders an event bridge and lambda target with event bus name 1`] = `
         \\"type\\": \\"zip\\",
         \\"source\\": [
           {
-            \\"content\\": \\"handler(event, context):\\\\n\\\\tprint(event)\\",
+            \\"content\\": \\"handler(event, context):\\\\n\\\\t print(event)\\",
             \\"filename\\": \\"index.py\\"
           }
         ],
@@ -814,7 +814,7 @@ exports[`renders an event bridge and lambda target with execution policy 1`] = `
     \\"aws_lambda_function\\": {
       \\"test_testeventbridgelambda_FC596200\\": {
         \\"filename\\": \\"index.py.zip\\",
-        \\"function_name\\": \\"test-event-bridge-lambda\\",
+        \\"function_name\\": \\"test-event-bridge-lambda-Function\\",
         \\"handler\\": \\"index.handler\\",
         \\"publish\\": true,
         \\"role\\": \\"\${aws_iam_role.test_testeventbridgelambda_executionrole_A3207E70.arn}\\",
@@ -841,7 +841,7 @@ exports[`renders an event bridge and lambda target with execution policy 1`] = `
     },
     \\"aws_cloudwatch_log_group\\": {
       \\"test_testeventbridgelambda_loggroup_709F3593\\": {
-        \\"name\\": \\"/aws/lambda/test-event-bridge-lambda\\",
+        \\"name\\": \\"/aws/lambda/test-event-bridge-lambda-Function\\",
         \\"retention_in_days\\": 14,
         \\"depends_on\\": [
           \\"aws_lambda_function.test_testeventbridgelambda_FC596200\\"
@@ -856,7 +856,7 @@ exports[`renders an event bridge and lambda target with execution policy 1`] = `
     },
     \\"aws_lambda_alias\\": {
       \\"test_testeventbridgelambda_alias_265F8FC4\\": {
-        \\"function_name\\": \\"test-event-bridge-lambda\\",
+        \\"function_name\\": \\"test-event-bridge-lambda-Function\\",
         \\"function_version\\": \\"split(\\\\\\":\\\\\\", \${aws_lambda_function.test_testeventbridgelambda_FC596200.qualified_arn})[7]\\",
         \\"name\\": \\"DEPLOYED\\",
         \\"depends_on\\": [
@@ -879,7 +879,7 @@ exports[`renders an event bridge and lambda target with execution policy 1`] = `
       \\"test_testeventbridgelambda_eventbridgerule_6105B57C\\": {
         \\"event_bus_name\\": \\"default\\",
         \\"event_pattern\\": \\"{\\\\\\"source\\\\\\":[\\\\\\"aws.states\\\\\\"],\\\\\\"detail-type\\\\\\":[\\\\\\"Step Functions Execution Status Change\\\\\\"]}\\",
-        \\"name\\": \\"test-event-bridge-lambda\\",
+        \\"name\\": \\"test-event-bridge-lambda-Rule\\",
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/test-event-bridge-lambda/event-bridge-rule/event-bridge-rule\\",
@@ -891,7 +891,7 @@ exports[`renders an event bridge and lambda target with execution policy 1`] = `
     \\"aws_cloudwatch_event_target\\": {
       \\"test_testeventbridgelambda_eventbridgerule_eventbridgetarget_5C2BE9DA\\": {
         \\"arn\\": \\"\${aws_lambda_alias.test_testeventbridgelambda_alias_265F8FC4.arn}\\",
-        \\"rule\\": \\"test-event-bridge-lambda\\",
+        \\"rule\\": \\"test-event-bridge-lambda-Rule\\",
         \\"target_id\\": \\"lambda\\",
         \\"depends_on\\": [
           \\"aws_lambda_alias.test_testeventbridgelambda_alias_265F8FC4\\",
@@ -908,7 +908,7 @@ exports[`renders an event bridge and lambda target with execution policy 1`] = `
     \\"aws_lambda_permission\\": {
       \\"test_testeventbridgelambda_lambdapermission_17031D34\\": {
         \\"action\\": \\"lambda:InvokeFunction\\",
-        \\"function_name\\": \\"test-event-bridge-lambda\\",
+        \\"function_name\\": \\"test-event-bridge-lambda-Function\\",
         \\"principal\\": \\"events.amazonaws.com\\",
         \\"source_arn\\": \\"\${aws_cloudwatch_event_rule.test_testeventbridgelambda_eventbridgerule_6105B57C.arn}\\",
         \\"depends_on\\": [
@@ -990,7 +990,7 @@ exports[`renders an event bridge and lambda target with execution policy 1`] = `
         \\"type\\": \\"zip\\",
         \\"source\\": [
           {
-            \\"content\\": \\"handler(event, context):\\\\n\\\\tprint(event)\\",
+            \\"content\\": \\"handler(event, context):\\\\n\\\\t print(event)\\",
             \\"filename\\": \\"index.py\\"
           }
         ],
@@ -1071,7 +1071,7 @@ exports[`renders an event bridge and lambda target with lambda description 1`] =
     \\"aws_lambda_function\\": {
       \\"test_testeventbridgelambda_FC596200\\": {
         \\"filename\\": \\"index.py.zip\\",
-        \\"function_name\\": \\"test-event-bridge-lambda\\",
+        \\"function_name\\": \\"test-event-bridge-lambda-Function\\",
         \\"handler\\": \\"index.handler\\",
         \\"publish\\": true,
         \\"role\\": \\"\${aws_iam_role.test_testeventbridgelambda_executionrole_A3207E70.arn}\\",
@@ -1098,7 +1098,7 @@ exports[`renders an event bridge and lambda target with lambda description 1`] =
     },
     \\"aws_cloudwatch_log_group\\": {
       \\"test_testeventbridgelambda_loggroup_709F3593\\": {
-        \\"name\\": \\"/aws/lambda/test-event-bridge-lambda\\",
+        \\"name\\": \\"/aws/lambda/test-event-bridge-lambda-Function\\",
         \\"retention_in_days\\": 14,
         \\"depends_on\\": [
           \\"aws_lambda_function.test_testeventbridgelambda_FC596200\\"
@@ -1113,7 +1113,7 @@ exports[`renders an event bridge and lambda target with lambda description 1`] =
     },
     \\"aws_lambda_alias\\": {
       \\"test_testeventbridgelambda_alias_265F8FC4\\": {
-        \\"function_name\\": \\"test-event-bridge-lambda\\",
+        \\"function_name\\": \\"test-event-bridge-lambda-Function\\",
         \\"function_version\\": \\"split(\\\\\\":\\\\\\", \${aws_lambda_function.test_testeventbridgelambda_FC596200.qualified_arn})[7]\\",
         \\"name\\": \\"DEPLOYED\\",
         \\"depends_on\\": [
@@ -1136,7 +1136,7 @@ exports[`renders an event bridge and lambda target with lambda description 1`] =
       \\"test_testeventbridgelambda_eventbridgerule_6105B57C\\": {
         \\"event_bus_name\\": \\"default\\",
         \\"event_pattern\\": \\"{\\\\\\"source\\\\\\":[\\\\\\"aws.states\\\\\\"],\\\\\\"detail-type\\\\\\":[\\\\\\"Step Functions Execution Status Change\\\\\\"]}\\",
-        \\"name\\": \\"test-event-bridge-lambda\\",
+        \\"name\\": \\"test-event-bridge-lambda-Rule\\",
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/test-event-bridge-lambda/event-bridge-rule/event-bridge-rule\\",
@@ -1148,7 +1148,7 @@ exports[`renders an event bridge and lambda target with lambda description 1`] =
     \\"aws_cloudwatch_event_target\\": {
       \\"test_testeventbridgelambda_eventbridgerule_eventbridgetarget_5C2BE9DA\\": {
         \\"arn\\": \\"\${aws_lambda_alias.test_testeventbridgelambda_alias_265F8FC4.arn}\\",
-        \\"rule\\": \\"test-event-bridge-lambda\\",
+        \\"rule\\": \\"test-event-bridge-lambda-Rule\\",
         \\"target_id\\": \\"lambda\\",
         \\"depends_on\\": [
           \\"aws_lambda_alias.test_testeventbridgelambda_alias_265F8FC4\\",
@@ -1165,7 +1165,7 @@ exports[`renders an event bridge and lambda target with lambda description 1`] =
     \\"aws_lambda_permission\\": {
       \\"test_testeventbridgelambda_lambdapermission_17031D34\\": {
         \\"action\\": \\"lambda:InvokeFunction\\",
-        \\"function_name\\": \\"test-event-bridge-lambda\\",
+        \\"function_name\\": \\"test-event-bridge-lambda-Function\\",
         \\"principal\\": \\"events.amazonaws.com\\",
         \\"source_arn\\": \\"\${aws_cloudwatch_event_rule.test_testeventbridgelambda_eventbridgerule_6105B57C.arn}\\",
         \\"depends_on\\": [
@@ -1238,7 +1238,7 @@ exports[`renders an event bridge and lambda target with lambda description 1`] =
         \\"type\\": \\"zip\\",
         \\"source\\": [
           {
-            \\"content\\": \\"handler(event, context):\\\\n\\\\tprint(event)\\",
+            \\"content\\": \\"handler(event, context):\\\\n\\\\t print(event)\\",
             \\"filename\\": \\"index.py\\"
           }
         ],
@@ -1319,7 +1319,7 @@ exports[`renders an event bridge and lambda target with log retention 1`] = `
     \\"aws_lambda_function\\": {
       \\"test_testeventbridgelambda_FC596200\\": {
         \\"filename\\": \\"index.py.zip\\",
-        \\"function_name\\": \\"test-event-bridge-lambda\\",
+        \\"function_name\\": \\"test-event-bridge-lambda-Function\\",
         \\"handler\\": \\"index.handler\\",
         \\"publish\\": true,
         \\"role\\": \\"\${aws_iam_role.test_testeventbridgelambda_executionrole_A3207E70.arn}\\",
@@ -1346,7 +1346,7 @@ exports[`renders an event bridge and lambda target with log retention 1`] = `
     },
     \\"aws_cloudwatch_log_group\\": {
       \\"test_testeventbridgelambda_loggroup_709F3593\\": {
-        \\"name\\": \\"/aws/lambda/test-event-bridge-lambda\\",
+        \\"name\\": \\"/aws/lambda/test-event-bridge-lambda-Function\\",
         \\"retention_in_days\\": 10,
         \\"depends_on\\": [
           \\"aws_lambda_function.test_testeventbridgelambda_FC596200\\"
@@ -1361,7 +1361,7 @@ exports[`renders an event bridge and lambda target with log retention 1`] = `
     },
     \\"aws_lambda_alias\\": {
       \\"test_testeventbridgelambda_alias_265F8FC4\\": {
-        \\"function_name\\": \\"test-event-bridge-lambda\\",
+        \\"function_name\\": \\"test-event-bridge-lambda-Function\\",
         \\"function_version\\": \\"split(\\\\\\":\\\\\\", \${aws_lambda_function.test_testeventbridgelambda_FC596200.qualified_arn})[7]\\",
         \\"name\\": \\"DEPLOYED\\",
         \\"depends_on\\": [
@@ -1384,7 +1384,7 @@ exports[`renders an event bridge and lambda target with log retention 1`] = `
       \\"test_testeventbridgelambda_eventbridgerule_6105B57C\\": {
         \\"event_bus_name\\": \\"default\\",
         \\"event_pattern\\": \\"{\\\\\\"source\\\\\\":[\\\\\\"aws.states\\\\\\"],\\\\\\"detail-type\\\\\\":[\\\\\\"Step Functions Execution Status Change\\\\\\"]}\\",
-        \\"name\\": \\"test-event-bridge-lambda\\",
+        \\"name\\": \\"test-event-bridge-lambda-Rule\\",
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/test-event-bridge-lambda/event-bridge-rule/event-bridge-rule\\",
@@ -1396,7 +1396,7 @@ exports[`renders an event bridge and lambda target with log retention 1`] = `
     \\"aws_cloudwatch_event_target\\": {
       \\"test_testeventbridgelambda_eventbridgerule_eventbridgetarget_5C2BE9DA\\": {
         \\"arn\\": \\"\${aws_lambda_alias.test_testeventbridgelambda_alias_265F8FC4.arn}\\",
-        \\"rule\\": \\"test-event-bridge-lambda\\",
+        \\"rule\\": \\"test-event-bridge-lambda-Rule\\",
         \\"target_id\\": \\"lambda\\",
         \\"depends_on\\": [
           \\"aws_lambda_alias.test_testeventbridgelambda_alias_265F8FC4\\",
@@ -1413,7 +1413,7 @@ exports[`renders an event bridge and lambda target with log retention 1`] = `
     \\"aws_lambda_permission\\": {
       \\"test_testeventbridgelambda_lambdapermission_17031D34\\": {
         \\"action\\": \\"lambda:InvokeFunction\\",
-        \\"function_name\\": \\"test-event-bridge-lambda\\",
+        \\"function_name\\": \\"test-event-bridge-lambda-Function\\",
         \\"principal\\": \\"events.amazonaws.com\\",
         \\"source_arn\\": \\"\${aws_cloudwatch_event_rule.test_testeventbridgelambda_eventbridgerule_6105B57C.arn}\\",
         \\"depends_on\\": [
@@ -1486,7 +1486,7 @@ exports[`renders an event bridge and lambda target with log retention 1`] = `
         \\"type\\": \\"zip\\",
         \\"source\\": [
           {
-            \\"content\\": \\"handler(event, context):\\\\n\\\\tprint(event)\\",
+            \\"content\\": \\"handler(event, context):\\\\n\\\\t print(event)\\",
             \\"filename\\": \\"index.py\\"
           }
         ],
@@ -1567,7 +1567,7 @@ exports[`renders an event bridge and lambda target with rule description 1`] = `
     \\"aws_lambda_function\\": {
       \\"test_testeventbridgelambda_FC596200\\": {
         \\"filename\\": \\"index.py.zip\\",
-        \\"function_name\\": \\"test-event-bridge-lambda\\",
+        \\"function_name\\": \\"test-event-bridge-lambda-Function\\",
         \\"handler\\": \\"index.handler\\",
         \\"publish\\": true,
         \\"role\\": \\"\${aws_iam_role.test_testeventbridgelambda_executionrole_A3207E70.arn}\\",
@@ -1594,7 +1594,7 @@ exports[`renders an event bridge and lambda target with rule description 1`] = `
     },
     \\"aws_cloudwatch_log_group\\": {
       \\"test_testeventbridgelambda_loggroup_709F3593\\": {
-        \\"name\\": \\"/aws/lambda/test-event-bridge-lambda\\",
+        \\"name\\": \\"/aws/lambda/test-event-bridge-lambda-Function\\",
         \\"retention_in_days\\": 14,
         \\"depends_on\\": [
           \\"aws_lambda_function.test_testeventbridgelambda_FC596200\\"
@@ -1609,7 +1609,7 @@ exports[`renders an event bridge and lambda target with rule description 1`] = `
     },
     \\"aws_lambda_alias\\": {
       \\"test_testeventbridgelambda_alias_265F8FC4\\": {
-        \\"function_name\\": \\"test-event-bridge-lambda\\",
+        \\"function_name\\": \\"test-event-bridge-lambda-Function\\",
         \\"function_version\\": \\"split(\\\\\\":\\\\\\", \${aws_lambda_function.test_testeventbridgelambda_FC596200.qualified_arn})[7]\\",
         \\"name\\": \\"DEPLOYED\\",
         \\"depends_on\\": [
@@ -1633,7 +1633,7 @@ exports[`renders an event bridge and lambda target with rule description 1`] = `
         \\"description\\": \\"Test description\\",
         \\"event_bus_name\\": \\"default\\",
         \\"event_pattern\\": \\"{\\\\\\"source\\\\\\":[\\\\\\"aws.states\\\\\\"],\\\\\\"detail-type\\\\\\":[\\\\\\"Step Functions Execution Status Change\\\\\\"]}\\",
-        \\"name\\": \\"test-event-bridge-lambda\\",
+        \\"name\\": \\"test-event-bridge-lambda-Rule\\",
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/test-event-bridge-lambda/event-bridge-rule/event-bridge-rule\\",
@@ -1645,7 +1645,7 @@ exports[`renders an event bridge and lambda target with rule description 1`] = `
     \\"aws_cloudwatch_event_target\\": {
       \\"test_testeventbridgelambda_eventbridgerule_eventbridgetarget_5C2BE9DA\\": {
         \\"arn\\": \\"\${aws_lambda_alias.test_testeventbridgelambda_alias_265F8FC4.arn}\\",
-        \\"rule\\": \\"test-event-bridge-lambda\\",
+        \\"rule\\": \\"test-event-bridge-lambda-Rule\\",
         \\"target_id\\": \\"lambda\\",
         \\"depends_on\\": [
           \\"aws_lambda_alias.test_testeventbridgelambda_alias_265F8FC4\\",
@@ -1662,7 +1662,7 @@ exports[`renders an event bridge and lambda target with rule description 1`] = `
     \\"aws_lambda_permission\\": {
       \\"test_testeventbridgelambda_lambdapermission_17031D34\\": {
         \\"action\\": \\"lambda:InvokeFunction\\",
-        \\"function_name\\": \\"test-event-bridge-lambda\\",
+        \\"function_name\\": \\"test-event-bridge-lambda-Function\\",
         \\"principal\\": \\"events.amazonaws.com\\",
         \\"source_arn\\": \\"\${aws_cloudwatch_event_rule.test_testeventbridgelambda_eventbridgerule_6105B57C.arn}\\",
         \\"depends_on\\": [
@@ -1735,7 +1735,7 @@ exports[`renders an event bridge and lambda target with rule description 1`] = `
         \\"type\\": \\"zip\\",
         \\"source\\": [
           {
-            \\"content\\": \\"handler(event, context):\\\\n\\\\tprint(event)\\",
+            \\"content\\": \\"handler(event, context):\\\\n\\\\t print(event)\\",
             \\"filename\\": \\"index.py\\"
           }
         ],
@@ -1816,7 +1816,7 @@ exports[`renders an event bridge and lambda target with s3 bucket 1`] = `
     \\"aws_lambda_function\\": {
       \\"test_testeventbridgelambda_FC596200\\": {
         \\"filename\\": \\"index.py.zip\\",
-        \\"function_name\\": \\"test-event-bridge-lambda\\",
+        \\"function_name\\": \\"test-event-bridge-lambda-Function\\",
         \\"handler\\": \\"index.handler\\",
         \\"publish\\": true,
         \\"role\\": \\"\${aws_iam_role.test_testeventbridgelambda_executionrole_A3207E70.arn}\\",
@@ -1843,7 +1843,7 @@ exports[`renders an event bridge and lambda target with s3 bucket 1`] = `
     },
     \\"aws_cloudwatch_log_group\\": {
       \\"test_testeventbridgelambda_loggroup_709F3593\\": {
-        \\"name\\": \\"/aws/lambda/test-event-bridge-lambda\\",
+        \\"name\\": \\"/aws/lambda/test-event-bridge-lambda-Function\\",
         \\"retention_in_days\\": 14,
         \\"depends_on\\": [
           \\"aws_lambda_function.test_testeventbridgelambda_FC596200\\"
@@ -1858,7 +1858,7 @@ exports[`renders an event bridge and lambda target with s3 bucket 1`] = `
     },
     \\"aws_lambda_alias\\": {
       \\"test_testeventbridgelambda_alias_265F8FC4\\": {
-        \\"function_name\\": \\"test-event-bridge-lambda\\",
+        \\"function_name\\": \\"test-event-bridge-lambda-Function\\",
         \\"function_version\\": \\"split(\\\\\\":\\\\\\", \${aws_lambda_function.test_testeventbridgelambda_FC596200.qualified_arn})[7]\\",
         \\"name\\": \\"DEPLOYED\\",
         \\"depends_on\\": [
@@ -1881,7 +1881,7 @@ exports[`renders an event bridge and lambda target with s3 bucket 1`] = `
       \\"test_testeventbridgelambda_eventbridgerule_6105B57C\\": {
         \\"event_bus_name\\": \\"default\\",
         \\"event_pattern\\": \\"{\\\\\\"source\\\\\\":[\\\\\\"aws.states\\\\\\"],\\\\\\"detail-type\\\\\\":[\\\\\\"Step Functions Execution Status Change\\\\\\"]}\\",
-        \\"name\\": \\"test-event-bridge-lambda\\",
+        \\"name\\": \\"test-event-bridge-lambda-Rule\\",
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/test-event-bridge-lambda/event-bridge-rule/event-bridge-rule\\",
@@ -1893,7 +1893,7 @@ exports[`renders an event bridge and lambda target with s3 bucket 1`] = `
     \\"aws_cloudwatch_event_target\\": {
       \\"test_testeventbridgelambda_eventbridgerule_eventbridgetarget_5C2BE9DA\\": {
         \\"arn\\": \\"\${aws_lambda_alias.test_testeventbridgelambda_alias_265F8FC4.arn}\\",
-        \\"rule\\": \\"test-event-bridge-lambda\\",
+        \\"rule\\": \\"test-event-bridge-lambda-Rule\\",
         \\"target_id\\": \\"lambda\\",
         \\"depends_on\\": [
           \\"aws_lambda_alias.test_testeventbridgelambda_alias_265F8FC4\\",
@@ -1910,7 +1910,7 @@ exports[`renders an event bridge and lambda target with s3 bucket 1`] = `
     \\"aws_lambda_permission\\": {
       \\"test_testeventbridgelambda_lambdapermission_17031D34\\": {
         \\"action\\": \\"lambda:InvokeFunction\\",
-        \\"function_name\\": \\"test-event-bridge-lambda\\",
+        \\"function_name\\": \\"test-event-bridge-lambda-Function\\",
         \\"principal\\": \\"events.amazonaws.com\\",
         \\"source_arn\\": \\"\${aws_cloudwatch_event_rule.test_testeventbridgelambda_eventbridgerule_6105B57C.arn}\\",
         \\"depends_on\\": [
@@ -1983,7 +1983,7 @@ exports[`renders an event bridge and lambda target with s3 bucket 1`] = `
         \\"type\\": \\"zip\\",
         \\"source\\": [
           {
-            \\"content\\": \\"handler(event, context):\\\\n\\\\tprint(event)\\",
+            \\"content\\": \\"handler(event, context):\\\\n\\\\t print(event)\\",
             \\"filename\\": \\"index.py\\"
           }
         ],
@@ -2068,7 +2068,7 @@ exports[`renders an event bridge and lambda target with tags 1`] = `
     \\"aws_lambda_function\\": {
       \\"test_testeventbridgelambda_FC596200\\": {
         \\"filename\\": \\"index.py.zip\\",
-        \\"function_name\\": \\"test-event-bridge-lambda\\",
+        \\"function_name\\": \\"test-event-bridge-lambda-Function\\",
         \\"handler\\": \\"index.handler\\",
         \\"publish\\": true,
         \\"role\\": \\"\${aws_iam_role.test_testeventbridgelambda_executionrole_A3207E70.arn}\\",
@@ -2099,7 +2099,7 @@ exports[`renders an event bridge and lambda target with tags 1`] = `
     },
     \\"aws_cloudwatch_log_group\\": {
       \\"test_testeventbridgelambda_loggroup_709F3593\\": {
-        \\"name\\": \\"/aws/lambda/test-event-bridge-lambda\\",
+        \\"name\\": \\"/aws/lambda/test-event-bridge-lambda-Function\\",
         \\"retention_in_days\\": 14,
         \\"depends_on\\": [
           \\"aws_lambda_function.test_testeventbridgelambda_FC596200\\"
@@ -2114,7 +2114,7 @@ exports[`renders an event bridge and lambda target with tags 1`] = `
     },
     \\"aws_lambda_alias\\": {
       \\"test_testeventbridgelambda_alias_265F8FC4\\": {
-        \\"function_name\\": \\"test-event-bridge-lambda\\",
+        \\"function_name\\": \\"test-event-bridge-lambda-Function\\",
         \\"function_version\\": \\"split(\\\\\\":\\\\\\", \${aws_lambda_function.test_testeventbridgelambda_FC596200.qualified_arn})[7]\\",
         \\"name\\": \\"DEPLOYED\\",
         \\"depends_on\\": [
@@ -2137,7 +2137,7 @@ exports[`renders an event bridge and lambda target with tags 1`] = `
       \\"test_testeventbridgelambda_eventbridgerule_6105B57C\\": {
         \\"event_bus_name\\": \\"default\\",
         \\"event_pattern\\": \\"{\\\\\\"source\\\\\\":[\\\\\\"aws.states\\\\\\"],\\\\\\"detail-type\\\\\\":[\\\\\\"Step Functions Execution Status Change\\\\\\"]}\\",
-        \\"name\\": \\"test-event-bridge-lambda\\",
+        \\"name\\": \\"test-event-bridge-lambda-Rule\\",
         \\"tags\\": {
           \\"my\\": \\"tags\\",
           \\"for\\": \\"test\\"
@@ -2153,7 +2153,7 @@ exports[`renders an event bridge and lambda target with tags 1`] = `
     \\"aws_cloudwatch_event_target\\": {
       \\"test_testeventbridgelambda_eventbridgerule_eventbridgetarget_5C2BE9DA\\": {
         \\"arn\\": \\"\${aws_lambda_alias.test_testeventbridgelambda_alias_265F8FC4.arn}\\",
-        \\"rule\\": \\"test-event-bridge-lambda\\",
+        \\"rule\\": \\"test-event-bridge-lambda-Rule\\",
         \\"target_id\\": \\"lambda\\",
         \\"depends_on\\": [
           \\"aws_lambda_alias.test_testeventbridgelambda_alias_265F8FC4\\",
@@ -2170,7 +2170,7 @@ exports[`renders an event bridge and lambda target with tags 1`] = `
     \\"aws_lambda_permission\\": {
       \\"test_testeventbridgelambda_lambdapermission_17031D34\\": {
         \\"action\\": \\"lambda:InvokeFunction\\",
-        \\"function_name\\": \\"test-event-bridge-lambda\\",
+        \\"function_name\\": \\"test-event-bridge-lambda-Function\\",
         \\"principal\\": \\"events.amazonaws.com\\",
         \\"source_arn\\": \\"\${aws_cloudwatch_event_rule.test_testeventbridgelambda_eventbridgerule_6105B57C.arn}\\",
         \\"depends_on\\": [
@@ -2243,7 +2243,7 @@ exports[`renders an event bridge and lambda target with tags 1`] = `
         \\"type\\": \\"zip\\",
         \\"source\\": [
           {
-            \\"content\\": \\"handler(event, context):\\\\n\\\\tprint(event)\\",
+            \\"content\\": \\"handler(event, context):\\\\n\\\\t print(event)\\",
             \\"filename\\": \\"index.py\\"
           }
         ],
@@ -2324,7 +2324,7 @@ exports[`renders an event bridge and lambda target with timeout 1`] = `
     \\"aws_lambda_function\\": {
       \\"test_testeventbridgelambda_FC596200\\": {
         \\"filename\\": \\"index.py.zip\\",
-        \\"function_name\\": \\"test-event-bridge-lambda\\",
+        \\"function_name\\": \\"test-event-bridge-lambda-Function\\",
         \\"handler\\": \\"index.handler\\",
         \\"publish\\": true,
         \\"role\\": \\"\${aws_iam_role.test_testeventbridgelambda_executionrole_A3207E70.arn}\\",
@@ -2351,7 +2351,7 @@ exports[`renders an event bridge and lambda target with timeout 1`] = `
     },
     \\"aws_cloudwatch_log_group\\": {
       \\"test_testeventbridgelambda_loggroup_709F3593\\": {
-        \\"name\\": \\"/aws/lambda/test-event-bridge-lambda\\",
+        \\"name\\": \\"/aws/lambda/test-event-bridge-lambda-Function\\",
         \\"retention_in_days\\": 14,
         \\"depends_on\\": [
           \\"aws_lambda_function.test_testeventbridgelambda_FC596200\\"
@@ -2366,7 +2366,7 @@ exports[`renders an event bridge and lambda target with timeout 1`] = `
     },
     \\"aws_lambda_alias\\": {
       \\"test_testeventbridgelambda_alias_265F8FC4\\": {
-        \\"function_name\\": \\"test-event-bridge-lambda\\",
+        \\"function_name\\": \\"test-event-bridge-lambda-Function\\",
         \\"function_version\\": \\"split(\\\\\\":\\\\\\", \${aws_lambda_function.test_testeventbridgelambda_FC596200.qualified_arn})[7]\\",
         \\"name\\": \\"DEPLOYED\\",
         \\"depends_on\\": [
@@ -2389,7 +2389,7 @@ exports[`renders an event bridge and lambda target with timeout 1`] = `
       \\"test_testeventbridgelambda_eventbridgerule_6105B57C\\": {
         \\"event_bus_name\\": \\"default\\",
         \\"event_pattern\\": \\"{\\\\\\"source\\\\\\":[\\\\\\"aws.states\\\\\\"],\\\\\\"detail-type\\\\\\":[\\\\\\"Step Functions Execution Status Change\\\\\\"]}\\",
-        \\"name\\": \\"test-event-bridge-lambda\\",
+        \\"name\\": \\"test-event-bridge-lambda-Rule\\",
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/test-event-bridge-lambda/event-bridge-rule/event-bridge-rule\\",
@@ -2401,7 +2401,7 @@ exports[`renders an event bridge and lambda target with timeout 1`] = `
     \\"aws_cloudwatch_event_target\\": {
       \\"test_testeventbridgelambda_eventbridgerule_eventbridgetarget_5C2BE9DA\\": {
         \\"arn\\": \\"\${aws_lambda_alias.test_testeventbridgelambda_alias_265F8FC4.arn}\\",
-        \\"rule\\": \\"test-event-bridge-lambda\\",
+        \\"rule\\": \\"test-event-bridge-lambda-Rule\\",
         \\"target_id\\": \\"lambda\\",
         \\"depends_on\\": [
           \\"aws_lambda_alias.test_testeventbridgelambda_alias_265F8FC4\\",
@@ -2418,7 +2418,7 @@ exports[`renders an event bridge and lambda target with timeout 1`] = `
     \\"aws_lambda_permission\\": {
       \\"test_testeventbridgelambda_lambdapermission_17031D34\\": {
         \\"action\\": \\"lambda:InvokeFunction\\",
-        \\"function_name\\": \\"test-event-bridge-lambda\\",
+        \\"function_name\\": \\"test-event-bridge-lambda-Function\\",
         \\"principal\\": \\"events.amazonaws.com\\",
         \\"source_arn\\": \\"\${aws_cloudwatch_event_rule.test_testeventbridgelambda_eventbridgerule_6105B57C.arn}\\",
         \\"depends_on\\": [
@@ -2491,7 +2491,7 @@ exports[`renders an event bridge and lambda target with timeout 1`] = `
         \\"type\\": \\"zip\\",
         \\"source\\": [
           {
-            \\"content\\": \\"handler(event, context):\\\\n\\\\tprint(event)\\",
+            \\"content\\": \\"handler(event, context):\\\\n\\\\t print(event)\\",
             \\"filename\\": \\"index.py\\"
           }
         ],
@@ -2572,7 +2572,7 @@ exports[`renders an event bridge and lambda target with vpc config 1`] = `
     \\"aws_lambda_function\\": {
       \\"test_testeventbridgelambda_FC596200\\": {
         \\"filename\\": \\"index.py.zip\\",
-        \\"function_name\\": \\"test-event-bridge-lambda\\",
+        \\"function_name\\": \\"test-event-bridge-lambda-Function\\",
         \\"handler\\": \\"index.handler\\",
         \\"publish\\": true,
         \\"role\\": \\"\${aws_iam_role.test_testeventbridgelambda_executionrole_A3207E70.arn}\\",
@@ -2610,7 +2610,7 @@ exports[`renders an event bridge and lambda target with vpc config 1`] = `
     },
     \\"aws_cloudwatch_log_group\\": {
       \\"test_testeventbridgelambda_loggroup_709F3593\\": {
-        \\"name\\": \\"/aws/lambda/test-event-bridge-lambda\\",
+        \\"name\\": \\"/aws/lambda/test-event-bridge-lambda-Function\\",
         \\"retention_in_days\\": 14,
         \\"depends_on\\": [
           \\"aws_lambda_function.test_testeventbridgelambda_FC596200\\"
@@ -2625,7 +2625,7 @@ exports[`renders an event bridge and lambda target with vpc config 1`] = `
     },
     \\"aws_lambda_alias\\": {
       \\"test_testeventbridgelambda_alias_265F8FC4\\": {
-        \\"function_name\\": \\"test-event-bridge-lambda\\",
+        \\"function_name\\": \\"test-event-bridge-lambda-Function\\",
         \\"function_version\\": \\"split(\\\\\\":\\\\\\", \${aws_lambda_function.test_testeventbridgelambda_FC596200.qualified_arn})[7]\\",
         \\"name\\": \\"DEPLOYED\\",
         \\"depends_on\\": [
@@ -2648,7 +2648,7 @@ exports[`renders an event bridge and lambda target with vpc config 1`] = `
       \\"test_testeventbridgelambda_eventbridgerule_6105B57C\\": {
         \\"event_bus_name\\": \\"default\\",
         \\"event_pattern\\": \\"{\\\\\\"source\\\\\\":[\\\\\\"aws.states\\\\\\"],\\\\\\"detail-type\\\\\\":[\\\\\\"Step Functions Execution Status Change\\\\\\"]}\\",
-        \\"name\\": \\"test-event-bridge-lambda\\",
+        \\"name\\": \\"test-event-bridge-lambda-Rule\\",
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/test-event-bridge-lambda/event-bridge-rule/event-bridge-rule\\",
@@ -2660,7 +2660,7 @@ exports[`renders an event bridge and lambda target with vpc config 1`] = `
     \\"aws_cloudwatch_event_target\\": {
       \\"test_testeventbridgelambda_eventbridgerule_eventbridgetarget_5C2BE9DA\\": {
         \\"arn\\": \\"\${aws_lambda_alias.test_testeventbridgelambda_alias_265F8FC4.arn}\\",
-        \\"rule\\": \\"test-event-bridge-lambda\\",
+        \\"rule\\": \\"test-event-bridge-lambda-Rule\\",
         \\"target_id\\": \\"lambda\\",
         \\"depends_on\\": [
           \\"aws_lambda_alias.test_testeventbridgelambda_alias_265F8FC4\\",
@@ -2677,7 +2677,7 @@ exports[`renders an event bridge and lambda target with vpc config 1`] = `
     \\"aws_lambda_permission\\": {
       \\"test_testeventbridgelambda_lambdapermission_17031D34\\": {
         \\"action\\": \\"lambda:InvokeFunction\\",
-        \\"function_name\\": \\"test-event-bridge-lambda\\",
+        \\"function_name\\": \\"test-event-bridge-lambda-Function\\",
         \\"principal\\": \\"events.amazonaws.com\\",
         \\"source_arn\\": \\"\${aws_cloudwatch_event_rule.test_testeventbridgelambda_eventbridgerule_6105B57C.arn}\\",
         \\"depends_on\\": [
@@ -2763,7 +2763,7 @@ exports[`renders an event bridge and lambda target with vpc config 1`] = `
         \\"type\\": \\"zip\\",
         \\"source\\": [
           {
-            \\"content\\": \\"handler(event, context):\\\\n\\\\tprint(event)\\",
+            \\"content\\": \\"handler(event, context):\\\\n\\\\t print(event)\\",
             \\"filename\\": \\"index.py\\"
           }
         ],

@@ -18,14 +18,15 @@ import {
 } from '../../.gen/providers/archive';
 
 export enum LAMBDA_RUNTIMES {
-  PYTHON = 'python3.8',
-  NODEJS = 'nodejs12.x',
+  PYTHON38 = 'python3.8',
+  NODEJS12 = 'nodejs12.x',
 }
 
 export interface ApplicationVersionedLambdaProps {
   name: string;
   description?: string;
   runtime: LAMBDA_RUNTIMES;
+  handler: string;
   timeout?: number;
   environment?: { [key: string]: string };
   vpcConfig?: LambdaFunctionVpcConfig;
@@ -68,9 +69,9 @@ export class ApplicationVersionedLambda extends Resource {
     const defaultLambda = this.getDefaultLambda();
 
     const lambda = new LambdaFunction(this, 'lambda', {
-      functionName: this.config.name,
+      functionName: `${this.config.name}-Function`,
       filename: defaultLambda.outputPath,
-      handler: 'index.handler',
+      handler: this.config.handler,
       runtime: this.config.runtime,
       timeout: this.config.timeout ?? DEFAULT_TIMEOUT,
       sourceCodeHash: defaultLambda.outputBase64Sha256,
@@ -180,14 +181,16 @@ export class ApplicationVersionedLambda extends Resource {
 
   private getDefaultLambdaSource(): DataArchiveFileSource {
     const runtime = this.config.runtime.match(/[a-z]*/)[0];
+    const handler = this.config.handler.split('.');
+    const functionFilename = handler[0];
+    const functionName = handler[1];
 
-    let content =
-      'export const handler = (event, context) => { console.log(event) }';
-    let filename = 'index.js';
+    let content = `export const ${functionName} = (event, context) => { console.log(event) }`;
+    let filename = `${functionFilename}.js`;
 
     if (runtime === 'python') {
-      content = 'handler(event, context):\n\tprint(event)';
-      filename = 'index.py';
+      content = `${functionName}(event, context):\n\t print(event)`;
+      filename = `${functionFilename}.py`;
     }
 
     return {
