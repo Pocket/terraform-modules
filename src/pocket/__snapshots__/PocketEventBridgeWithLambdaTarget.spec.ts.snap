@@ -106,7 +106,7 @@ exports[`renders an event bridge and lambda target 1`] = `
     \\"aws_lambda_alias\\": {
       \\"test_testeventbridgelambda_alias_265F8FC4\\": {
         \\"function_name\\": \\"test-event-bridge-lambda-Function\\",
-        \\"function_version\\": \\"\${split(\\\\\\",\\\\\\", \${aws_lambda_function.test_testeventbridgelambda_FC596200.qualified_arn})[7]}\\",
+        \\"function_version\\": \\"\${split(\\\\\\":\\\\\\", aws_lambda_function.test_testeventbridgelambda_FC596200.qualified_arn)[7]}\\",
         \\"name\\": \\"DEPLOYED\\",
         \\"depends_on\\": [
           \\"aws_lambda_function.test_testeventbridgelambda_FC596200\\"
@@ -362,7 +362,7 @@ exports[`renders an event bridge and lambda target with code deploy 1`] = `
     \\"aws_lambda_alias\\": {
       \\"test_testeventbridgelambda_alias_265F8FC4\\": {
         \\"function_name\\": \\"test-event-bridge-lambda-Function\\",
-        \\"function_version\\": \\"\${split(\\\\\\",\\\\\\", \${aws_lambda_function.test_testeventbridgelambda_FC596200.qualified_arn})[7]}\\",
+        \\"function_version\\": \\"\${split(\\\\\\":\\\\\\", aws_lambda_function.test_testeventbridgelambda_FC596200.qualified_arn)[7]}\\",
         \\"name\\": \\"DEPLOYED\\",
         \\"depends_on\\": [
           \\"aws_lambda_function.test_testeventbridgelambda_FC596200\\"
@@ -719,7 +719,7 @@ exports[`renders an event bridge and lambda target with environment variables 1`
     \\"aws_lambda_alias\\": {
       \\"test_testeventbridgelambda_alias_265F8FC4\\": {
         \\"function_name\\": \\"test-event-bridge-lambda-Function\\",
-        \\"function_version\\": \\"\${split(\\\\\\",\\\\\\", \${aws_lambda_function.test_testeventbridgelambda_FC596200.qualified_arn})[7]}\\",
+        \\"function_version\\": \\"\${split(\\\\\\":\\\\\\", aws_lambda_function.test_testeventbridgelambda_FC596200.qualified_arn)[7]}\\",
         \\"name\\": \\"DEPLOYED\\",
         \\"depends_on\\": [
           \\"aws_lambda_function.test_testeventbridgelambda_FC596200\\"
@@ -965,7 +965,7 @@ exports[`renders an event bridge and lambda target with event bus name 1`] = `
     \\"aws_lambda_alias\\": {
       \\"test_testeventbridgelambda_alias_265F8FC4\\": {
         \\"function_name\\": \\"test-event-bridge-lambda-Function\\",
-        \\"function_version\\": \\"\${split(\\\\\\",\\\\\\", \${aws_lambda_function.test_testeventbridgelambda_FC596200.qualified_arn})[7]}\\",
+        \\"function_version\\": \\"\${split(\\\\\\":\\\\\\", aws_lambda_function.test_testeventbridgelambda_FC596200.qualified_arn)[7]}\\",
         \\"name\\": \\"DEPLOYED\\",
         \\"depends_on\\": [
           \\"aws_lambda_function.test_testeventbridgelambda_FC596200\\"
@@ -1211,7 +1211,7 @@ exports[`renders an event bridge and lambda target with execution policy 1`] = `
     \\"aws_lambda_alias\\": {
       \\"test_testeventbridgelambda_alias_265F8FC4\\": {
         \\"function_name\\": \\"test-event-bridge-lambda-Function\\",
-        \\"function_version\\": \\"\${split(\\\\\\",\\\\\\", \${aws_lambda_function.test_testeventbridgelambda_FC596200.qualified_arn})[7]}\\",
+        \\"function_version\\": \\"\${split(\\\\\\":\\\\\\", aws_lambda_function.test_testeventbridgelambda_FC596200.qualified_arn)[7]}\\",
         \\"name\\": \\"DEPLOYED\\",
         \\"depends_on\\": [
           \\"aws_lambda_function.test_testeventbridgelambda_FC596200\\"
@@ -1466,7 +1466,7 @@ exports[`renders an event bridge and lambda target with lambda description 1`] =
     \\"aws_lambda_alias\\": {
       \\"test_testeventbridgelambda_alias_265F8FC4\\": {
         \\"function_name\\": \\"test-event-bridge-lambda-Function\\",
-        \\"function_version\\": \\"\${split(\\\\\\",\\\\\\", \${aws_lambda_function.test_testeventbridgelambda_FC596200.qualified_arn})[7]}\\",
+        \\"function_version\\": \\"\${split(\\\\\\":\\\\\\", aws_lambda_function.test_testeventbridgelambda_FC596200.qualified_arn)[7]}\\",
         \\"name\\": \\"DEPLOYED\\",
         \\"depends_on\\": [
           \\"aws_lambda_function.test_testeventbridgelambda_FC596200\\"
@@ -1712,7 +1712,7 @@ exports[`renders an event bridge and lambda target with log retention 1`] = `
     \\"aws_lambda_alias\\": {
       \\"test_testeventbridgelambda_alias_265F8FC4\\": {
         \\"function_name\\": \\"test-event-bridge-lambda-Function\\",
-        \\"function_version\\": \\"\${split(\\\\\\",\\\\\\", \${aws_lambda_function.test_testeventbridgelambda_FC596200.qualified_arn})[7]}\\",
+        \\"function_version\\": \\"\${split(\\\\\\":\\\\\\", aws_lambda_function.test_testeventbridgelambda_FC596200.qualified_arn)[7]}\\",
         \\"name\\": \\"DEPLOYED\\",
         \\"depends_on\\": [
           \\"aws_lambda_function.test_testeventbridgelambda_FC596200\\"
@@ -1958,7 +1958,7 @@ exports[`renders an event bridge and lambda target with rule description 1`] = `
     \\"aws_lambda_alias\\": {
       \\"test_testeventbridgelambda_alias_265F8FC4\\": {
         \\"function_name\\": \\"test-event-bridge-lambda-Function\\",
-        \\"function_version\\": \\"\${split(\\\\\\",\\\\\\", \${aws_lambda_function.test_testeventbridgelambda_FC596200.qualified_arn})[7]}\\",
+        \\"function_version\\": \\"\${split(\\\\\\":\\\\\\", aws_lambda_function.test_testeventbridgelambda_FC596200.qualified_arn)[7]}\\",
         \\"name\\": \\"DEPLOYED\\",
         \\"depends_on\\": [
           \\"aws_lambda_function.test_testeventbridgelambda_FC596200\\"
@@ -2205,7 +2205,7 @@ exports[`renders an event bridge and lambda target with s3 bucket 1`] = `
     \\"aws_lambda_alias\\": {
       \\"test_testeventbridgelambda_alias_265F8FC4\\": {
         \\"function_name\\": \\"test-event-bridge-lambda-Function\\",
-        \\"function_version\\": \\"\${split(\\\\\\",\\\\\\", \${aws_lambda_function.test_testeventbridgelambda_FC596200.qualified_arn})[7]}\\",
+        \\"function_version\\": \\"\${split(\\\\\\":\\\\\\", aws_lambda_function.test_testeventbridgelambda_FC596200.qualified_arn)[7]}\\",
         \\"name\\": \\"DEPLOYED\\",
         \\"depends_on\\": [
           \\"aws_lambda_function.test_testeventbridgelambda_FC596200\\"
@@ -2459,7 +2459,7 @@ exports[`renders an event bridge and lambda target with tags 1`] = `
     \\"aws_lambda_alias\\": {
       \\"test_testeventbridgelambda_alias_265F8FC4\\": {
         \\"function_name\\": \\"test-event-bridge-lambda-Function\\",
-        \\"function_version\\": \\"\${split(\\\\\\",\\\\\\", \${aws_lambda_function.test_testeventbridgelambda_FC596200.qualified_arn})[7]}\\",
+        \\"function_version\\": \\"\${split(\\\\\\":\\\\\\", aws_lambda_function.test_testeventbridgelambda_FC596200.qualified_arn)[7]}\\",
         \\"name\\": \\"DEPLOYED\\",
         \\"depends_on\\": [
           \\"aws_lambda_function.test_testeventbridgelambda_FC596200\\"
@@ -2709,7 +2709,7 @@ exports[`renders an event bridge and lambda target with timeout 1`] = `
     \\"aws_lambda_alias\\": {
       \\"test_testeventbridgelambda_alias_265F8FC4\\": {
         \\"function_name\\": \\"test-event-bridge-lambda-Function\\",
-        \\"function_version\\": \\"\${split(\\\\\\",\\\\\\", \${aws_lambda_function.test_testeventbridgelambda_FC596200.qualified_arn})[7]}\\",
+        \\"function_version\\": \\"\${split(\\\\\\":\\\\\\", aws_lambda_function.test_testeventbridgelambda_FC596200.qualified_arn)[7]}\\",
         \\"name\\": \\"DEPLOYED\\",
         \\"depends_on\\": [
           \\"aws_lambda_function.test_testeventbridgelambda_FC596200\\"
@@ -2966,7 +2966,7 @@ exports[`renders an event bridge and lambda target with vpc config 1`] = `
     \\"aws_lambda_alias\\": {
       \\"test_testeventbridgelambda_alias_265F8FC4\\": {
         \\"function_name\\": \\"test-event-bridge-lambda-Function\\",
-        \\"function_version\\": \\"\${split(\\\\\\",\\\\\\", \${aws_lambda_function.test_testeventbridgelambda_FC596200.qualified_arn})[7]}\\",
+        \\"function_version\\": \\"\${split(\\\\\\":\\\\\\", aws_lambda_function.test_testeventbridgelambda_FC596200.qualified_arn)[7]}\\",
         \\"name\\": \\"DEPLOYED\\",
         \\"depends_on\\": [
           \\"aws_lambda_function.test_testeventbridgelambda_FC596200\\"
