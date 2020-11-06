@@ -53,7 +53,7 @@ export class PocketEventBridgeWithLambdaTarget extends Resource {
       vpcConfig: config.vpcConfig,
       executionPolicyStatements: config.executionPolicyStatements,
       logRetention: config.logRetention,
-      s3Bucket: config.s3Bucket ?? `pocket-${config.name}`,
+      s3Bucket: config.s3Bucket ?? `pocket-${config.name.toLowerCase()}`,
       tags: config.tags,
     });
 
