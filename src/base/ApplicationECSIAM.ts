@@ -12,7 +12,7 @@ export interface ApplicationECSIAMProps {
   prefix: string;
   taskExecutionRolePolicyStatements: DataAwsIamPolicyDocumentStatement[];
   taskRolePolicyStatements: DataAwsIamPolicyDocumentStatement[];
-  taskExecutionDefaultAttachmentArn: string;
+  taskExecutionDefaultAttachmentArn?: string;
   tags?: { [key: string]: string };
 }
 
@@ -44,39 +44,51 @@ export class ApplicationECSIAM extends Resource {
       }
     );
 
-    const dataEcsTaskExecutionRolePolicy = new DataAwsIamPolicyDocument(
-      this,
-      'data-ecs-task-execution-role-policy',
-      {
-        version: '2012-10-17',
-        statement: config.taskExecutionRolePolicyStatements,
-      }
-    );
-
     const ecsTaskExecutionRole = new IamRole(this, 'ecs-execution-role', {
       assumeRolePolicy: dataEcsTaskAssume.json,
       name: `${config.prefix}-TaskExecutionRole`,
       tags: config.tags,
     });
 
-    new IamRolePolicyAttachment(this, 'ecs-task-execution-default-attachment', {
-      policyArn: config.taskExecutionDefaultAttachmentArn,
-      role: ecsTaskExecutionRole.id,
-    });
+    if (config.taskExecutionDefaultAttachmentArn) {
+      new IamRolePolicyAttachment(
+        this,
+        'ecs-task-execution-default-attachment',
+        {
+          policyArn: config.taskExecutionDefaultAttachmentArn,
+          role: ecsTaskExecutionRole.id,
+        }
+      );
+    }
 
-    const ecsTaskExecutionRolePolicy = new IamPolicy(
-      this,
-      'ecs-task-execution-role-policy',
-      {
-        name: `${config.prefix}-TaskExecutionRolePolicy`,
-        policy: dataEcsTaskExecutionRolePolicy.json,
-      }
-    );
+    if (config.taskExecutionRolePolicyStatements.length > 0) {
+      const dataEcsTaskExecutionRolePolicy = new DataAwsIamPolicyDocument(
+        this,
+        'data-ecs-task-execution-role-policy',
+        {
+          version: '2012-10-17',
+          statement: config.taskExecutionRolePolicyStatements,
+        }
+      );
 
-    new IamRolePolicyAttachment(this, 'ecs-task-execution-custom-attachment', {
-      policyArn: ecsTaskExecutionRolePolicy.arn,
-      role: ecsTaskExecutionRole.id,
-    });
+      const ecsTaskExecutionRolePolicy = new IamPolicy(
+        this,
+        'ecs-task-execution-role-policy',
+        {
+          name: `${config.prefix}-TaskExecutionRolePolicy`,
+          policy: dataEcsTaskExecutionRolePolicy.json,
+        }
+      );
+
+      new IamRolePolicyAttachment(
+        this,
+        'ecs-task-execution-custom-attachment',
+        {
+          policyArn: ecsTaskExecutionRolePolicy.arn,
+          role: ecsTaskExecutionRole.id,
+        }
+      );
+    }
 
     const ecsTaskRole = new IamRole(this, 'ecs-task-role', {
       assumeRolePolicy: dataEcsTaskAssume.json,

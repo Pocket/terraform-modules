@@ -13,6 +13,10 @@ describe('PocketALBApplication', () => {
       alb6CharacterPrefix: 'TSTAPP',
       domain: 'testing.bowling.gov',
       containerConfigs: [],
+      codeDeploy: {
+        useCodeDeploy: false,
+        snsNotificationTopicArn: 'notify-me',
+      },
       ecsIamConfig: {
         prefix: 'testapp-',
         taskExecutionDefaultAttachmentArn: '',
