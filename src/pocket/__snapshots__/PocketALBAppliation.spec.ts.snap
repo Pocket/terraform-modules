@@ -179,16 +179,6 @@ exports[`PocketALBApplication renders an application with custom task sizes 1`] 
             \\"uniqueId\\": \\"test_testPocketApp_ecsservice_ecsiam_ecstaskassume_A392A140\\"
           }
         }
-      },
-      \\"test_testPocketApp_ecsservice_ecsiam_dataecstaskexecutionrolepolicy_A05E196C\\": {
-        \\"version\\": \\"2012-10-17\\",
-        \\"statement\\": [],
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/testPocketApp/ecs_service/ecs-iam/data-ecs-task-execution-role-policy\\",
-            \\"uniqueId\\": \\"test_testPocketApp_ecsservice_ecsiam_dataecstaskexecutionrolepolicy_A05E196C\\"
-          }
-        }
       }
     }
   },
@@ -438,34 +428,6 @@ exports[`PocketALBApplication renders an application with custom task sizes 1`] 
         }
       }
     },
-    \\"aws_alb_target_group\\": {
-      \\"test_testPocketApp_ecstargetgroup_9480469C\\": {
-        \\"deregistration_delay\\": 120,
-        \\"name_prefix\\": \\"TSTAPP\\",
-        \\"port\\": 80,
-        \\"protocol\\": \\"HTTP\\",
-        \\"target_type\\": \\"ip\\",
-        \\"vpc_id\\": \\"\${data.aws_vpc.test_testPocketApp_pocketvpc_40AC0971.id}\\",
-        \\"health_check\\": [
-          {
-            \\"interval\\": 15,
-            \\"path\\": \\"/test\\",
-            \\"protocol\\": \\"HTTP\\",
-            \\"healthy_threshold\\": 5,
-            \\"unhealthy_threshold\\": 3
-          }
-        ],
-        \\"depends_on\\": [
-          \\"aws_alb.test_testPocketApp_applicationloadbalancer_alb_6EA5BF17\\"
-        ],
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/testPocketApp/ecs_target_group\\",
-            \\"uniqueId\\": \\"test_testPocketApp_ecstargetgroup_9480469C\\"
-          }
-        }
-      }
-    },
     \\"aws_alb_listener\\": {
       \\"test_testPocketApp_listenerhttp_9C0A7034\\": {
         \\"load_balancer_arn\\": \\"\${aws_alb.test_testPocketApp_applicationloadbalancer_alb_6EA5BF17.arn}\\",
@@ -498,14 +460,30 @@ exports[`PocketALBApplication renders an application with custom task sizes 1`] 
         \\"ssl_policy\\": \\"ELBSecurityPolicy-TLS-1-1-2017-01\\",
         \\"default_action\\": [
           {
-            \\"type\\": \\"forward\\",
-            \\"target_group_arn\\": \\"\${aws_alb_target_group.test_testPocketApp_ecstargetgroup_9480469C.arn}\\"
+            \\"type\\": \\"fixed-response\\",
+            \\"fixed_response\\": [
+              {
+                \\"content_type\\": \\"text/plain\\",
+                \\"status_code\\": \\"503\\",
+                \\"message_body\\": \\"\\"
+              }
+            ]
           }
         ],
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/testPocketApp/listener_https\\",
             \\"uniqueId\\": \\"test_testPocketApp_listenerhttps_7078E225\\"
+          }
+        }
+      }
+    },
+    \\"null_resource\\": {
+      \\"test_testPocketApp_ecsservice_016DE763\\": {
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/ecs_service\\",
+            \\"uniqueId\\": \\"test_testPocketApp_ecsservice_016DE763\\"
           }
         }
       }
@@ -532,40 +510,6 @@ exports[`PocketALBApplication renders an application with custom task sizes 1`] 
         }
       }
     },
-    \\"aws_iam_role_policy_attachment\\": {
-      \\"test_testPocketApp_ecsservice_ecsiam_ecstaskexecutiondefaultattachment_48A8A818\\": {
-        \\"policy_arn\\": \\"\\",
-        \\"role\\": \\"\${aws_iam_role.test_testPocketApp_ecsservice_ecsiam_ecsexecutionrole_670A7AD5.id}\\",
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/testPocketApp/ecs_service/ecs-iam/ecs-task-execution-default-attachment\\",
-            \\"uniqueId\\": \\"test_testPocketApp_ecsservice_ecsiam_ecstaskexecutiondefaultattachment_48A8A818\\"
-          }
-        }
-      },
-      \\"test_testPocketApp_ecsservice_ecsiam_ecstaskexecutioncustomattachment_E1366D85\\": {
-        \\"policy_arn\\": \\"\${aws_iam_policy.test_testPocketApp_ecsservice_ecsiam_ecstaskexecutionrolepolicy_03341FE5.arn}\\",
-        \\"role\\": \\"\${aws_iam_role.test_testPocketApp_ecsservice_ecsiam_ecsexecutionrole_670A7AD5.id}\\",
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/testPocketApp/ecs_service/ecs-iam/ecs-task-execution-custom-attachment\\",
-            \\"uniqueId\\": \\"test_testPocketApp_ecsservice_ecsiam_ecstaskexecutioncustomattachment_E1366D85\\"
-          }
-        }
-      }
-    },
-    \\"aws_iam_policy\\": {
-      \\"test_testPocketApp_ecsservice_ecsiam_ecstaskexecutionrolepolicy_03341FE5\\": {
-        \\"name\\": \\"testapp--TaskExecutionRolePolicy\\",
-        \\"policy\\": \\"\${data.aws_iam_policy_document.test_testPocketApp_ecsservice_ecsiam_dataecstaskexecutionrolepolicy_A05E196C.json}\\",
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/testPocketApp/ecs_service/ecs-iam/ecs-task-execution-role-policy\\",
-            \\"uniqueId\\": \\"test_testPocketApp_ecsservice_ecsiam_ecstaskexecutionrolepolicy_03341FE5\\"
-          }
-        }
-      }
-    },
     \\"aws_ecs_task_definition\\": {
       \\"test_testPocketApp_ecsservice_ecstask_A752DB7C\\": {
         \\"container_definitions\\": \\"[]\\",
@@ -587,6 +531,60 @@ exports[`PocketALBApplication renders an application with custom task sizes 1`] 
         }
       }
     },
+    \\"aws_alb_target_group\\": {
+      \\"test_testPocketApp_ecsservice_bluetargetgroup_ecstargetgroup_F811A231\\": {
+        \\"deregistration_delay\\": 120,
+        \\"name_prefix\\": \\"TSTAPP\\",
+        \\"port\\": 80,
+        \\"protocol\\": \\"HTTP\\",
+        \\"target_type\\": \\"ip\\",
+        \\"vpc_id\\": \\"\${data.aws_vpc.test_testPocketApp_pocketvpc_40AC0971.id}\\",
+        \\"health_check\\": [
+          {
+            \\"interval\\": 15,
+            \\"path\\": \\"/test\\",
+            \\"protocol\\": \\"HTTP\\",
+            \\"healthy_threshold\\": 5,
+            \\"unhealthy_threshold\\": 3
+          }
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/ecs_service/blue_target_group/ecs_target_group\\",
+            \\"uniqueId\\": \\"test_testPocketApp_ecsservice_bluetargetgroup_ecstargetgroup_F811A231\\"
+          }
+        }
+      }
+    },
+    \\"aws_alb_listener_rule\\": {
+      \\"test_testPocketApp_ecsservice_listenerrule_CD5A6DFA\\": {
+        \\"listener_arn\\": \\"\${aws_alb_listener.test_testPocketApp_listenerhttps_7078E225.arn}\\",
+        \\"priority\\": 1,
+        \\"action\\": [
+          {
+            \\"type\\": \\"forward\\",
+            \\"target_group_arn\\": \\"\${aws_alb_target_group.test_testPocketApp_ecsservice_bluetargetgroup_ecstargetgroup_F811A231.arn}\\"
+          }
+        ],
+        \\"condition\\": [
+          {
+            \\"path_pattern\\": [
+              {
+                \\"values\\": [
+                  \\"*\\"
+                ]
+              }
+            ]
+          }
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/ecs_service/listener_rule\\",
+            \\"uniqueId\\": \\"test_testPocketApp_ecsservice_listenerrule_CD5A6DFA\\"
+          }
+        }
+      }
+    },
     \\"aws_ecs_service\\": {
       \\"test_testPocketApp_ecsservice_ecsservice_B23795BD\\": {
         \\"cluster\\": \\"\${aws_ecs_cluster.test_testPocketApp_ecscluster_CE90B54F.arn}\\",
@@ -597,11 +595,16 @@ exports[`PocketALBApplication renders an application with custom task sizes 1`] 
         \\"name\\": \\"testapp-\\",
         \\"propagate_tags\\": \\"SERVICE\\",
         \\"task_definition\\": \\"\${aws_ecs_task_definition.test_testPocketApp_ecsservice_ecstask_A752DB7C.arn}\\",
+        \\"deployment_controller\\": [
+          {
+            \\"type\\": \\"ECS\\"
+          }
+        ],
         \\"load_balancer\\": [
           {
             \\"container_name\\": \\"main_container\\",
             \\"container_port\\": 8675309,
-            \\"target_group_arn\\": \\"\${aws_alb_target_group.test_testPocketApp_ecstargetgroup_9480469C.arn}\\"
+            \\"target_group_arn\\": \\"\${aws_alb_target_group.test_testPocketApp_ecsservice_bluetargetgroup_ecstargetgroup_F811A231.arn}\\"
           }
         ],
         \\"network_configuration\\": [
@@ -612,14 +615,14 @@ exports[`PocketALBApplication renders an application with custom task sizes 1`] 
             \\"subnets\\": \\"\${data.aws_subnet_ids.test_testPocketApp_pocketvpc_privatesubnetids_A272E250.ids}\\"
           }
         ],
-        \\"depends_on\\": [],
+        \\"depends_on\\": [
+          \\"aws_alb_target_group.test_testPocketApp_ecsservice_bluetargetgroup_ecstargetgroup_F811A231\\"
+        ],
         \\"lifecycle\\": {
           \\"ignore_changes\\": [
-            \\"task_definition\\",
             \\"desired_count\\",
             \\"load_balancer\\"
-          ],
-          \\"create_before_destroy\\": true
+          ]
         },
         \\"//\\": {
           \\"metadata\\": {
@@ -812,16 +815,6 @@ exports[`PocketALBApplication renders an application with minimal config 1`] = `
             \\"uniqueId\\": \\"test_testPocketApp_ecsservice_ecsiam_ecstaskassume_A392A140\\"
           }
         }
-      },
-      \\"test_testPocketApp_ecsservice_ecsiam_dataecstaskexecutionrolepolicy_A05E196C\\": {
-        \\"version\\": \\"2012-10-17\\",
-        \\"statement\\": [],
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/testPocketApp/ecs_service/ecs-iam/data-ecs-task-execution-role-policy\\",
-            \\"uniqueId\\": \\"test_testPocketApp_ecsservice_ecsiam_dataecstaskexecutionrolepolicy_A05E196C\\"
-          }
-        }
       }
     }
   },
@@ -1071,34 +1064,6 @@ exports[`PocketALBApplication renders an application with minimal config 1`] = `
         }
       }
     },
-    \\"aws_alb_target_group\\": {
-      \\"test_testPocketApp_ecstargetgroup_9480469C\\": {
-        \\"deregistration_delay\\": 120,
-        \\"name_prefix\\": \\"TSTAPP\\",
-        \\"port\\": 80,
-        \\"protocol\\": \\"HTTP\\",
-        \\"target_type\\": \\"ip\\",
-        \\"vpc_id\\": \\"\${data.aws_vpc.test_testPocketApp_pocketvpc_40AC0971.id}\\",
-        \\"health_check\\": [
-          {
-            \\"interval\\": 15,
-            \\"path\\": \\"/test\\",
-            \\"protocol\\": \\"HTTP\\",
-            \\"healthy_threshold\\": 5,
-            \\"unhealthy_threshold\\": 3
-          }
-        ],
-        \\"depends_on\\": [
-          \\"aws_alb.test_testPocketApp_applicationloadbalancer_alb_6EA5BF17\\"
-        ],
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/testPocketApp/ecs_target_group\\",
-            \\"uniqueId\\": \\"test_testPocketApp_ecstargetgroup_9480469C\\"
-          }
-        }
-      }
-    },
     \\"aws_alb_listener\\": {
       \\"test_testPocketApp_listenerhttp_9C0A7034\\": {
         \\"load_balancer_arn\\": \\"\${aws_alb.test_testPocketApp_applicationloadbalancer_alb_6EA5BF17.arn}\\",
@@ -1131,14 +1096,30 @@ exports[`PocketALBApplication renders an application with minimal config 1`] = `
         \\"ssl_policy\\": \\"ELBSecurityPolicy-TLS-1-1-2017-01\\",
         \\"default_action\\": [
           {
-            \\"type\\": \\"forward\\",
-            \\"target_group_arn\\": \\"\${aws_alb_target_group.test_testPocketApp_ecstargetgroup_9480469C.arn}\\"
+            \\"type\\": \\"fixed-response\\",
+            \\"fixed_response\\": [
+              {
+                \\"content_type\\": \\"text/plain\\",
+                \\"status_code\\": \\"503\\",
+                \\"message_body\\": \\"\\"
+              }
+            ]
           }
         ],
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/testPocketApp/listener_https\\",
             \\"uniqueId\\": \\"test_testPocketApp_listenerhttps_7078E225\\"
+          }
+        }
+      }
+    },
+    \\"null_resource\\": {
+      \\"test_testPocketApp_ecsservice_016DE763\\": {
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/ecs_service\\",
+            \\"uniqueId\\": \\"test_testPocketApp_ecsservice_016DE763\\"
           }
         }
       }
@@ -1165,40 +1146,6 @@ exports[`PocketALBApplication renders an application with minimal config 1`] = `
         }
       }
     },
-    \\"aws_iam_role_policy_attachment\\": {
-      \\"test_testPocketApp_ecsservice_ecsiam_ecstaskexecutiondefaultattachment_48A8A818\\": {
-        \\"policy_arn\\": \\"\\",
-        \\"role\\": \\"\${aws_iam_role.test_testPocketApp_ecsservice_ecsiam_ecsexecutionrole_670A7AD5.id}\\",
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/testPocketApp/ecs_service/ecs-iam/ecs-task-execution-default-attachment\\",
-            \\"uniqueId\\": \\"test_testPocketApp_ecsservice_ecsiam_ecstaskexecutiondefaultattachment_48A8A818\\"
-          }
-        }
-      },
-      \\"test_testPocketApp_ecsservice_ecsiam_ecstaskexecutioncustomattachment_E1366D85\\": {
-        \\"policy_arn\\": \\"\${aws_iam_policy.test_testPocketApp_ecsservice_ecsiam_ecstaskexecutionrolepolicy_03341FE5.arn}\\",
-        \\"role\\": \\"\${aws_iam_role.test_testPocketApp_ecsservice_ecsiam_ecsexecutionrole_670A7AD5.id}\\",
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/testPocketApp/ecs_service/ecs-iam/ecs-task-execution-custom-attachment\\",
-            \\"uniqueId\\": \\"test_testPocketApp_ecsservice_ecsiam_ecstaskexecutioncustomattachment_E1366D85\\"
-          }
-        }
-      }
-    },
-    \\"aws_iam_policy\\": {
-      \\"test_testPocketApp_ecsservice_ecsiam_ecstaskexecutionrolepolicy_03341FE5\\": {
-        \\"name\\": \\"testapp--TaskExecutionRolePolicy\\",
-        \\"policy\\": \\"\${data.aws_iam_policy_document.test_testPocketApp_ecsservice_ecsiam_dataecstaskexecutionrolepolicy_A05E196C.json}\\",
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/testPocketApp/ecs_service/ecs-iam/ecs-task-execution-role-policy\\",
-            \\"uniqueId\\": \\"test_testPocketApp_ecsservice_ecsiam_ecstaskexecutionrolepolicy_03341FE5\\"
-          }
-        }
-      }
-    },
     \\"aws_ecs_task_definition\\": {
       \\"test_testPocketApp_ecsservice_ecstask_A752DB7C\\": {
         \\"container_definitions\\": \\"[]\\",
@@ -1220,6 +1167,60 @@ exports[`PocketALBApplication renders an application with minimal config 1`] = `
         }
       }
     },
+    \\"aws_alb_target_group\\": {
+      \\"test_testPocketApp_ecsservice_bluetargetgroup_ecstargetgroup_F811A231\\": {
+        \\"deregistration_delay\\": 120,
+        \\"name_prefix\\": \\"TSTAPP\\",
+        \\"port\\": 80,
+        \\"protocol\\": \\"HTTP\\",
+        \\"target_type\\": \\"ip\\",
+        \\"vpc_id\\": \\"\${data.aws_vpc.test_testPocketApp_pocketvpc_40AC0971.id}\\",
+        \\"health_check\\": [
+          {
+            \\"interval\\": 15,
+            \\"path\\": \\"/test\\",
+            \\"protocol\\": \\"HTTP\\",
+            \\"healthy_threshold\\": 5,
+            \\"unhealthy_threshold\\": 3
+          }
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/ecs_service/blue_target_group/ecs_target_group\\",
+            \\"uniqueId\\": \\"test_testPocketApp_ecsservice_bluetargetgroup_ecstargetgroup_F811A231\\"
+          }
+        }
+      }
+    },
+    \\"aws_alb_listener_rule\\": {
+      \\"test_testPocketApp_ecsservice_listenerrule_CD5A6DFA\\": {
+        \\"listener_arn\\": \\"\${aws_alb_listener.test_testPocketApp_listenerhttps_7078E225.arn}\\",
+        \\"priority\\": 1,
+        \\"action\\": [
+          {
+            \\"type\\": \\"forward\\",
+            \\"target_group_arn\\": \\"\${aws_alb_target_group.test_testPocketApp_ecsservice_bluetargetgroup_ecstargetgroup_F811A231.arn}\\"
+          }
+        ],
+        \\"condition\\": [
+          {
+            \\"path_pattern\\": [
+              {
+                \\"values\\": [
+                  \\"*\\"
+                ]
+              }
+            ]
+          }
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/ecs_service/listener_rule\\",
+            \\"uniqueId\\": \\"test_testPocketApp_ecsservice_listenerrule_CD5A6DFA\\"
+          }
+        }
+      }
+    },
     \\"aws_ecs_service\\": {
       \\"test_testPocketApp_ecsservice_ecsservice_B23795BD\\": {
         \\"cluster\\": \\"\${aws_ecs_cluster.test_testPocketApp_ecscluster_CE90B54F.arn}\\",
@@ -1230,11 +1231,16 @@ exports[`PocketALBApplication renders an application with minimal config 1`] = `
         \\"name\\": \\"testapp-\\",
         \\"propagate_tags\\": \\"SERVICE\\",
         \\"task_definition\\": \\"\${aws_ecs_task_definition.test_testPocketApp_ecsservice_ecstask_A752DB7C.arn}\\",
+        \\"deployment_controller\\": [
+          {
+            \\"type\\": \\"ECS\\"
+          }
+        ],
         \\"load_balancer\\": [
           {
             \\"container_name\\": \\"main_container\\",
             \\"container_port\\": 8675309,
-            \\"target_group_arn\\": \\"\${aws_alb_target_group.test_testPocketApp_ecstargetgroup_9480469C.arn}\\"
+            \\"target_group_arn\\": \\"\${aws_alb_target_group.test_testPocketApp_ecsservice_bluetargetgroup_ecstargetgroup_F811A231.arn}\\"
           }
         ],
         \\"network_configuration\\": [
@@ -1245,14 +1251,14 @@ exports[`PocketALBApplication renders an application with minimal config 1`] = `
             \\"subnets\\": \\"\${data.aws_subnet_ids.test_testPocketApp_pocketvpc_privatesubnetids_A272E250.ids}\\"
           }
         ],
-        \\"depends_on\\": [],
+        \\"depends_on\\": [
+          \\"aws_alb_target_group.test_testPocketApp_ecsservice_bluetargetgroup_ecstargetgroup_F811A231\\"
+        ],
         \\"lifecycle\\": {
           \\"ignore_changes\\": [
-            \\"task_definition\\",
             \\"desired_count\\",
             \\"load_balancer\\"
-          ],
-          \\"create_before_destroy\\": true
+          ]
         },
         \\"//\\": {
           \\"metadata\\": {
@@ -1443,16 +1449,6 @@ exports[`PocketALBApplication renders an external application 1`] = `
           \\"metadata\\": {
             \\"path\\": \\"test/testPocketApp/ecs_service/ecs-iam/ecs-task-assume\\",
             \\"uniqueId\\": \\"test_testPocketApp_ecsservice_ecsiam_ecstaskassume_A392A140\\"
-          }
-        }
-      },
-      \\"test_testPocketApp_ecsservice_ecsiam_dataecstaskexecutionrolepolicy_A05E196C\\": {
-        \\"version\\": \\"2012-10-17\\",
-        \\"statement\\": [],
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/testPocketApp/ecs_service/ecs-iam/data-ecs-task-execution-role-policy\\",
-            \\"uniqueId\\": \\"test_testPocketApp_ecsservice_ecsiam_dataecstaskexecutionrolepolicy_A05E196C\\"
           }
         }
       }
@@ -1865,34 +1861,6 @@ exports[`PocketALBApplication renders an external application 1`] = `
         }
       }
     },
-    \\"aws_alb_target_group\\": {
-      \\"test_testPocketApp_ecstargetgroup_9480469C\\": {
-        \\"deregistration_delay\\": 120,
-        \\"name_prefix\\": \\"TSTAPP\\",
-        \\"port\\": 80,
-        \\"protocol\\": \\"HTTP\\",
-        \\"target_type\\": \\"ip\\",
-        \\"vpc_id\\": \\"\${data.aws_vpc.test_testPocketApp_pocketvpc_40AC0971.id}\\",
-        \\"health_check\\": [
-          {
-            \\"interval\\": 15,
-            \\"path\\": \\"/test\\",
-            \\"protocol\\": \\"HTTP\\",
-            \\"healthy_threshold\\": 5,
-            \\"unhealthy_threshold\\": 3
-          }
-        ],
-        \\"depends_on\\": [
-          \\"aws_alb.test_testPocketApp_applicationloadbalancer_alb_6EA5BF17\\"
-        ],
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/testPocketApp/ecs_target_group\\",
-            \\"uniqueId\\": \\"test_testPocketApp_ecstargetgroup_9480469C\\"
-          }
-        }
-      }
-    },
     \\"aws_alb_listener\\": {
       \\"test_testPocketApp_listenerhttp_9C0A7034\\": {
         \\"load_balancer_arn\\": \\"\${aws_alb.test_testPocketApp_applicationloadbalancer_alb_6EA5BF17.arn}\\",
@@ -1925,14 +1893,30 @@ exports[`PocketALBApplication renders an external application 1`] = `
         \\"ssl_policy\\": \\"ELBSecurityPolicy-TLS-1-1-2017-01\\",
         \\"default_action\\": [
           {
-            \\"type\\": \\"forward\\",
-            \\"target_group_arn\\": \\"\${aws_alb_target_group.test_testPocketApp_ecstargetgroup_9480469C.arn}\\"
+            \\"type\\": \\"fixed-response\\",
+            \\"fixed_response\\": [
+              {
+                \\"content_type\\": \\"text/plain\\",
+                \\"status_code\\": \\"503\\",
+                \\"message_body\\": \\"\\"
+              }
+            ]
           }
         ],
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/testPocketApp/listener_https\\",
             \\"uniqueId\\": \\"test_testPocketApp_listenerhttps_7078E225\\"
+          }
+        }
+      }
+    },
+    \\"null_resource\\": {
+      \\"test_testPocketApp_ecsservice_016DE763\\": {
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/ecs_service\\",
+            \\"uniqueId\\": \\"test_testPocketApp_ecsservice_016DE763\\"
           }
         }
       }
@@ -1959,40 +1943,6 @@ exports[`PocketALBApplication renders an external application 1`] = `
         }
       }
     },
-    \\"aws_iam_role_policy_attachment\\": {
-      \\"test_testPocketApp_ecsservice_ecsiam_ecstaskexecutiondefaultattachment_48A8A818\\": {
-        \\"policy_arn\\": \\"\\",
-        \\"role\\": \\"\${aws_iam_role.test_testPocketApp_ecsservice_ecsiam_ecsexecutionrole_670A7AD5.id}\\",
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/testPocketApp/ecs_service/ecs-iam/ecs-task-execution-default-attachment\\",
-            \\"uniqueId\\": \\"test_testPocketApp_ecsservice_ecsiam_ecstaskexecutiondefaultattachment_48A8A818\\"
-          }
-        }
-      },
-      \\"test_testPocketApp_ecsservice_ecsiam_ecstaskexecutioncustomattachment_E1366D85\\": {
-        \\"policy_arn\\": \\"\${aws_iam_policy.test_testPocketApp_ecsservice_ecsiam_ecstaskexecutionrolepolicy_03341FE5.arn}\\",
-        \\"role\\": \\"\${aws_iam_role.test_testPocketApp_ecsservice_ecsiam_ecsexecutionrole_670A7AD5.id}\\",
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/testPocketApp/ecs_service/ecs-iam/ecs-task-execution-custom-attachment\\",
-            \\"uniqueId\\": \\"test_testPocketApp_ecsservice_ecsiam_ecstaskexecutioncustomattachment_E1366D85\\"
-          }
-        }
-      }
-    },
-    \\"aws_iam_policy\\": {
-      \\"test_testPocketApp_ecsservice_ecsiam_ecstaskexecutionrolepolicy_03341FE5\\": {
-        \\"name\\": \\"testapp--TaskExecutionRolePolicy\\",
-        \\"policy\\": \\"\${data.aws_iam_policy_document.test_testPocketApp_ecsservice_ecsiam_dataecstaskexecutionrolepolicy_A05E196C.json}\\",
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/testPocketApp/ecs_service/ecs-iam/ecs-task-execution-role-policy\\",
-            \\"uniqueId\\": \\"test_testPocketApp_ecsservice_ecsiam_ecstaskexecutionrolepolicy_03341FE5\\"
-          }
-        }
-      }
-    },
     \\"aws_ecs_task_definition\\": {
       \\"test_testPocketApp_ecsservice_ecstask_A752DB7C\\": {
         \\"container_definitions\\": \\"[]\\",
@@ -2014,6 +1964,60 @@ exports[`PocketALBApplication renders an external application 1`] = `
         }
       }
     },
+    \\"aws_alb_target_group\\": {
+      \\"test_testPocketApp_ecsservice_bluetargetgroup_ecstargetgroup_F811A231\\": {
+        \\"deregistration_delay\\": 120,
+        \\"name_prefix\\": \\"TSTAPP\\",
+        \\"port\\": 80,
+        \\"protocol\\": \\"HTTP\\",
+        \\"target_type\\": \\"ip\\",
+        \\"vpc_id\\": \\"\${data.aws_vpc.test_testPocketApp_pocketvpc_40AC0971.id}\\",
+        \\"health_check\\": [
+          {
+            \\"interval\\": 15,
+            \\"path\\": \\"/test\\",
+            \\"protocol\\": \\"HTTP\\",
+            \\"healthy_threshold\\": 5,
+            \\"unhealthy_threshold\\": 3
+          }
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/ecs_service/blue_target_group/ecs_target_group\\",
+            \\"uniqueId\\": \\"test_testPocketApp_ecsservice_bluetargetgroup_ecstargetgroup_F811A231\\"
+          }
+        }
+      }
+    },
+    \\"aws_alb_listener_rule\\": {
+      \\"test_testPocketApp_ecsservice_listenerrule_CD5A6DFA\\": {
+        \\"listener_arn\\": \\"\${aws_alb_listener.test_testPocketApp_listenerhttps_7078E225.arn}\\",
+        \\"priority\\": 1,
+        \\"action\\": [
+          {
+            \\"type\\": \\"forward\\",
+            \\"target_group_arn\\": \\"\${aws_alb_target_group.test_testPocketApp_ecsservice_bluetargetgroup_ecstargetgroup_F811A231.arn}\\"
+          }
+        ],
+        \\"condition\\": [
+          {
+            \\"path_pattern\\": [
+              {
+                \\"values\\": [
+                  \\"*\\"
+                ]
+              }
+            ]
+          }
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/ecs_service/listener_rule\\",
+            \\"uniqueId\\": \\"test_testPocketApp_ecsservice_listenerrule_CD5A6DFA\\"
+          }
+        }
+      }
+    },
     \\"aws_ecs_service\\": {
       \\"test_testPocketApp_ecsservice_ecsservice_B23795BD\\": {
         \\"cluster\\": \\"\${aws_ecs_cluster.test_testPocketApp_ecscluster_CE90B54F.arn}\\",
@@ -2024,11 +2028,16 @@ exports[`PocketALBApplication renders an external application 1`] = `
         \\"name\\": \\"testapp-\\",
         \\"propagate_tags\\": \\"SERVICE\\",
         \\"task_definition\\": \\"\${aws_ecs_task_definition.test_testPocketApp_ecsservice_ecstask_A752DB7C.arn}\\",
+        \\"deployment_controller\\": [
+          {
+            \\"type\\": \\"ECS\\"
+          }
+        ],
         \\"load_balancer\\": [
           {
             \\"container_name\\": \\"main_container\\",
             \\"container_port\\": 8675309,
-            \\"target_group_arn\\": \\"\${aws_alb_target_group.test_testPocketApp_ecstargetgroup_9480469C.arn}\\"
+            \\"target_group_arn\\": \\"\${aws_alb_target_group.test_testPocketApp_ecsservice_bluetargetgroup_ecstargetgroup_F811A231.arn}\\"
           }
         ],
         \\"network_configuration\\": [
@@ -2039,14 +2048,14 @@ exports[`PocketALBApplication renders an external application 1`] = `
             \\"subnets\\": \\"\${data.aws_subnet_ids.test_testPocketApp_pocketvpc_privatesubnetids_A272E250.ids}\\"
           }
         ],
-        \\"depends_on\\": [],
+        \\"depends_on\\": [
+          \\"aws_alb_target_group.test_testPocketApp_ecsservice_bluetargetgroup_ecstargetgroup_F811A231\\"
+        ],
         \\"lifecycle\\": {
           \\"ignore_changes\\": [
-            \\"task_definition\\",
             \\"desired_count\\",
             \\"load_balancer\\"
-          ],
-          \\"create_before_destroy\\": true
+          ]
         },
         \\"//\\": {
           \\"metadata\\": {
@@ -2237,16 +2246,6 @@ exports[`PocketALBApplication renders an internal application 1`] = `
           \\"metadata\\": {
             \\"path\\": \\"test/testPocketApp/ecs_service/ecs-iam/ecs-task-assume\\",
             \\"uniqueId\\": \\"test_testPocketApp_ecsservice_ecsiam_ecstaskassume_A392A140\\"
-          }
-        }
-      },
-      \\"test_testPocketApp_ecsservice_ecsiam_dataecstaskexecutionrolepolicy_A05E196C\\": {
-        \\"version\\": \\"2012-10-17\\",
-        \\"statement\\": [],
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/testPocketApp/ecs_service/ecs-iam/data-ecs-task-execution-role-policy\\",
-            \\"uniqueId\\": \\"test_testPocketApp_ecsservice_ecsiam_dataecstaskexecutionrolepolicy_A05E196C\\"
           }
         }
       }
@@ -2498,34 +2497,6 @@ exports[`PocketALBApplication renders an internal application 1`] = `
         }
       }
     },
-    \\"aws_alb_target_group\\": {
-      \\"test_testPocketApp_ecstargetgroup_9480469C\\": {
-        \\"deregistration_delay\\": 120,
-        \\"name_prefix\\": \\"TSTAPP\\",
-        \\"port\\": 80,
-        \\"protocol\\": \\"HTTP\\",
-        \\"target_type\\": \\"ip\\",
-        \\"vpc_id\\": \\"\${data.aws_vpc.test_testPocketApp_pocketvpc_40AC0971.id}\\",
-        \\"health_check\\": [
-          {
-            \\"interval\\": 15,
-            \\"path\\": \\"/test\\",
-            \\"protocol\\": \\"HTTP\\",
-            \\"healthy_threshold\\": 5,
-            \\"unhealthy_threshold\\": 3
-          }
-        ],
-        \\"depends_on\\": [
-          \\"aws_alb.test_testPocketApp_applicationloadbalancer_alb_6EA5BF17\\"
-        ],
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/testPocketApp/ecs_target_group\\",
-            \\"uniqueId\\": \\"test_testPocketApp_ecstargetgroup_9480469C\\"
-          }
-        }
-      }
-    },
     \\"aws_alb_listener\\": {
       \\"test_testPocketApp_listenerhttp_9C0A7034\\": {
         \\"load_balancer_arn\\": \\"\${aws_alb.test_testPocketApp_applicationloadbalancer_alb_6EA5BF17.arn}\\",
@@ -2558,14 +2529,30 @@ exports[`PocketALBApplication renders an internal application 1`] = `
         \\"ssl_policy\\": \\"ELBSecurityPolicy-TLS-1-1-2017-01\\",
         \\"default_action\\": [
           {
-            \\"type\\": \\"forward\\",
-            \\"target_group_arn\\": \\"\${aws_alb_target_group.test_testPocketApp_ecstargetgroup_9480469C.arn}\\"
+            \\"type\\": \\"fixed-response\\",
+            \\"fixed_response\\": [
+              {
+                \\"content_type\\": \\"text/plain\\",
+                \\"status_code\\": \\"503\\",
+                \\"message_body\\": \\"\\"
+              }
+            ]
           }
         ],
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/testPocketApp/listener_https\\",
             \\"uniqueId\\": \\"test_testPocketApp_listenerhttps_7078E225\\"
+          }
+        }
+      }
+    },
+    \\"null_resource\\": {
+      \\"test_testPocketApp_ecsservice_016DE763\\": {
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/ecs_service\\",
+            \\"uniqueId\\": \\"test_testPocketApp_ecsservice_016DE763\\"
           }
         }
       }
@@ -2592,40 +2579,6 @@ exports[`PocketALBApplication renders an internal application 1`] = `
         }
       }
     },
-    \\"aws_iam_role_policy_attachment\\": {
-      \\"test_testPocketApp_ecsservice_ecsiam_ecstaskexecutiondefaultattachment_48A8A818\\": {
-        \\"policy_arn\\": \\"\\",
-        \\"role\\": \\"\${aws_iam_role.test_testPocketApp_ecsservice_ecsiam_ecsexecutionrole_670A7AD5.id}\\",
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/testPocketApp/ecs_service/ecs-iam/ecs-task-execution-default-attachment\\",
-            \\"uniqueId\\": \\"test_testPocketApp_ecsservice_ecsiam_ecstaskexecutiondefaultattachment_48A8A818\\"
-          }
-        }
-      },
-      \\"test_testPocketApp_ecsservice_ecsiam_ecstaskexecutioncustomattachment_E1366D85\\": {
-        \\"policy_arn\\": \\"\${aws_iam_policy.test_testPocketApp_ecsservice_ecsiam_ecstaskexecutionrolepolicy_03341FE5.arn}\\",
-        \\"role\\": \\"\${aws_iam_role.test_testPocketApp_ecsservice_ecsiam_ecsexecutionrole_670A7AD5.id}\\",
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/testPocketApp/ecs_service/ecs-iam/ecs-task-execution-custom-attachment\\",
-            \\"uniqueId\\": \\"test_testPocketApp_ecsservice_ecsiam_ecstaskexecutioncustomattachment_E1366D85\\"
-          }
-        }
-      }
-    },
-    \\"aws_iam_policy\\": {
-      \\"test_testPocketApp_ecsservice_ecsiam_ecstaskexecutionrolepolicy_03341FE5\\": {
-        \\"name\\": \\"testapp--TaskExecutionRolePolicy\\",
-        \\"policy\\": \\"\${data.aws_iam_policy_document.test_testPocketApp_ecsservice_ecsiam_dataecstaskexecutionrolepolicy_A05E196C.json}\\",
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/testPocketApp/ecs_service/ecs-iam/ecs-task-execution-role-policy\\",
-            \\"uniqueId\\": \\"test_testPocketApp_ecsservice_ecsiam_ecstaskexecutionrolepolicy_03341FE5\\"
-          }
-        }
-      }
-    },
     \\"aws_ecs_task_definition\\": {
       \\"test_testPocketApp_ecsservice_ecstask_A752DB7C\\": {
         \\"container_definitions\\": \\"[]\\",
@@ -2647,6 +2600,60 @@ exports[`PocketALBApplication renders an internal application 1`] = `
         }
       }
     },
+    \\"aws_alb_target_group\\": {
+      \\"test_testPocketApp_ecsservice_bluetargetgroup_ecstargetgroup_F811A231\\": {
+        \\"deregistration_delay\\": 120,
+        \\"name_prefix\\": \\"TSTAPP\\",
+        \\"port\\": 80,
+        \\"protocol\\": \\"HTTP\\",
+        \\"target_type\\": \\"ip\\",
+        \\"vpc_id\\": \\"\${data.aws_vpc.test_testPocketApp_pocketvpc_40AC0971.id}\\",
+        \\"health_check\\": [
+          {
+            \\"interval\\": 15,
+            \\"path\\": \\"/test\\",
+            \\"protocol\\": \\"HTTP\\",
+            \\"healthy_threshold\\": 5,
+            \\"unhealthy_threshold\\": 3
+          }
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/ecs_service/blue_target_group/ecs_target_group\\",
+            \\"uniqueId\\": \\"test_testPocketApp_ecsservice_bluetargetgroup_ecstargetgroup_F811A231\\"
+          }
+        }
+      }
+    },
+    \\"aws_alb_listener_rule\\": {
+      \\"test_testPocketApp_ecsservice_listenerrule_CD5A6DFA\\": {
+        \\"listener_arn\\": \\"\${aws_alb_listener.test_testPocketApp_listenerhttps_7078E225.arn}\\",
+        \\"priority\\": 1,
+        \\"action\\": [
+          {
+            \\"type\\": \\"forward\\",
+            \\"target_group_arn\\": \\"\${aws_alb_target_group.test_testPocketApp_ecsservice_bluetargetgroup_ecstargetgroup_F811A231.arn}\\"
+          }
+        ],
+        \\"condition\\": [
+          {
+            \\"path_pattern\\": [
+              {
+                \\"values\\": [
+                  \\"*\\"
+                ]
+              }
+            ]
+          }
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/ecs_service/listener_rule\\",
+            \\"uniqueId\\": \\"test_testPocketApp_ecsservice_listenerrule_CD5A6DFA\\"
+          }
+        }
+      }
+    },
     \\"aws_ecs_service\\": {
       \\"test_testPocketApp_ecsservice_ecsservice_B23795BD\\": {
         \\"cluster\\": \\"\${aws_ecs_cluster.test_testPocketApp_ecscluster_CE90B54F.arn}\\",
@@ -2657,11 +2664,16 @@ exports[`PocketALBApplication renders an internal application 1`] = `
         \\"name\\": \\"testapp-\\",
         \\"propagate_tags\\": \\"SERVICE\\",
         \\"task_definition\\": \\"\${aws_ecs_task_definition.test_testPocketApp_ecsservice_ecstask_A752DB7C.arn}\\",
+        \\"deployment_controller\\": [
+          {
+            \\"type\\": \\"ECS\\"
+          }
+        ],
         \\"load_balancer\\": [
           {
             \\"container_name\\": \\"main_container\\",
             \\"container_port\\": 8675309,
-            \\"target_group_arn\\": \\"\${aws_alb_target_group.test_testPocketApp_ecstargetgroup_9480469C.arn}\\"
+            \\"target_group_arn\\": \\"\${aws_alb_target_group.test_testPocketApp_ecsservice_bluetargetgroup_ecstargetgroup_F811A231.arn}\\"
           }
         ],
         \\"network_configuration\\": [
@@ -2672,14 +2684,14 @@ exports[`PocketALBApplication renders an internal application 1`] = `
             \\"subnets\\": \\"\${data.aws_subnet_ids.test_testPocketApp_pocketvpc_privatesubnetids_A272E250.ids}\\"
           }
         ],
-        \\"depends_on\\": [],
+        \\"depends_on\\": [
+          \\"aws_alb_target_group.test_testPocketApp_ecsservice_bluetargetgroup_ecstargetgroup_F811A231\\"
+        ],
         \\"lifecycle\\": {
           \\"ignore_changes\\": [
-            \\"task_definition\\",
             \\"desired_count\\",
             \\"load_balancer\\"
-          ],
-          \\"create_before_destroy\\": true
+          ]
         },
         \\"//\\": {
           \\"metadata\\": {
@@ -2870,16 +2882,6 @@ exports[`PocketALBApplication renders an internal application with tags 1`] = `
           \\"metadata\\": {
             \\"path\\": \\"test/testPocketApp/ecs_service/ecs-iam/ecs-task-assume\\",
             \\"uniqueId\\": \\"test_testPocketApp_ecsservice_ecsiam_ecstaskassume_A392A140\\"
-          }
-        }
-      },
-      \\"test_testPocketApp_ecsservice_ecsiam_dataecstaskexecutionrolepolicy_A05E196C\\": {
-        \\"version\\": \\"2012-10-17\\",
-        \\"statement\\": [],
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/testPocketApp/ecs_service/ecs-iam/data-ecs-task-execution-role-policy\\",
-            \\"uniqueId\\": \\"test_testPocketApp_ecsservice_ecsiam_dataecstaskexecutionrolepolicy_A05E196C\\"
           }
         }
       }
@@ -3153,38 +3155,6 @@ exports[`PocketALBApplication renders an internal application with tags 1`] = `
         }
       }
     },
-    \\"aws_alb_target_group\\": {
-      \\"test_testPocketApp_ecstargetgroup_9480469C\\": {
-        \\"deregistration_delay\\": 120,
-        \\"name_prefix\\": \\"TSTAPP\\",
-        \\"port\\": 80,
-        \\"protocol\\": \\"HTTP\\",
-        \\"tags\\": {
-          \\"name\\": \\"thedude\\",
-          \\"hobby\\": \\"bowling\\"
-        },
-        \\"target_type\\": \\"ip\\",
-        \\"vpc_id\\": \\"\${data.aws_vpc.test_testPocketApp_pocketvpc_40AC0971.id}\\",
-        \\"health_check\\": [
-          {
-            \\"interval\\": 15,
-            \\"path\\": \\"/test\\",
-            \\"protocol\\": \\"HTTP\\",
-            \\"healthy_threshold\\": 5,
-            \\"unhealthy_threshold\\": 3
-          }
-        ],
-        \\"depends_on\\": [
-          \\"aws_alb.test_testPocketApp_applicationloadbalancer_alb_6EA5BF17\\"
-        ],
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/testPocketApp/ecs_target_group\\",
-            \\"uniqueId\\": \\"test_testPocketApp_ecstargetgroup_9480469C\\"
-          }
-        }
-      }
-    },
     \\"aws_alb_listener\\": {
       \\"test_testPocketApp_listenerhttp_9C0A7034\\": {
         \\"load_balancer_arn\\": \\"\${aws_alb.test_testPocketApp_applicationloadbalancer_alb_6EA5BF17.arn}\\",
@@ -3217,14 +3187,30 @@ exports[`PocketALBApplication renders an internal application with tags 1`] = `
         \\"ssl_policy\\": \\"ELBSecurityPolicy-TLS-1-1-2017-01\\",
         \\"default_action\\": [
           {
-            \\"type\\": \\"forward\\",
-            \\"target_group_arn\\": \\"\${aws_alb_target_group.test_testPocketApp_ecstargetgroup_9480469C.arn}\\"
+            \\"type\\": \\"fixed-response\\",
+            \\"fixed_response\\": [
+              {
+                \\"content_type\\": \\"text/plain\\",
+                \\"status_code\\": \\"503\\",
+                \\"message_body\\": \\"\\"
+              }
+            ]
           }
         ],
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/testPocketApp/listener_https\\",
             \\"uniqueId\\": \\"test_testPocketApp_listenerhttps_7078E225\\"
+          }
+        }
+      }
+    },
+    \\"null_resource\\": {
+      \\"test_testPocketApp_ecsservice_016DE763\\": {
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/ecs_service\\",
+            \\"uniqueId\\": \\"test_testPocketApp_ecsservice_016DE763\\"
           }
         }
       }
@@ -3259,40 +3245,6 @@ exports[`PocketALBApplication renders an internal application with tags 1`] = `
         }
       }
     },
-    \\"aws_iam_role_policy_attachment\\": {
-      \\"test_testPocketApp_ecsservice_ecsiam_ecstaskexecutiondefaultattachment_48A8A818\\": {
-        \\"policy_arn\\": \\"\\",
-        \\"role\\": \\"\${aws_iam_role.test_testPocketApp_ecsservice_ecsiam_ecsexecutionrole_670A7AD5.id}\\",
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/testPocketApp/ecs_service/ecs-iam/ecs-task-execution-default-attachment\\",
-            \\"uniqueId\\": \\"test_testPocketApp_ecsservice_ecsiam_ecstaskexecutiondefaultattachment_48A8A818\\"
-          }
-        }
-      },
-      \\"test_testPocketApp_ecsservice_ecsiam_ecstaskexecutioncustomattachment_E1366D85\\": {
-        \\"policy_arn\\": \\"\${aws_iam_policy.test_testPocketApp_ecsservice_ecsiam_ecstaskexecutionrolepolicy_03341FE5.arn}\\",
-        \\"role\\": \\"\${aws_iam_role.test_testPocketApp_ecsservice_ecsiam_ecsexecutionrole_670A7AD5.id}\\",
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/testPocketApp/ecs_service/ecs-iam/ecs-task-execution-custom-attachment\\",
-            \\"uniqueId\\": \\"test_testPocketApp_ecsservice_ecsiam_ecstaskexecutioncustomattachment_E1366D85\\"
-          }
-        }
-      }
-    },
-    \\"aws_iam_policy\\": {
-      \\"test_testPocketApp_ecsservice_ecsiam_ecstaskexecutionrolepolicy_03341FE5\\": {
-        \\"name\\": \\"testapp--TaskExecutionRolePolicy\\",
-        \\"policy\\": \\"\${data.aws_iam_policy_document.test_testPocketApp_ecsservice_ecsiam_dataecstaskexecutionrolepolicy_A05E196C.json}\\",
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/testPocketApp/ecs_service/ecs-iam/ecs-task-execution-role-policy\\",
-            \\"uniqueId\\": \\"test_testPocketApp_ecsservice_ecsiam_ecstaskexecutionrolepolicy_03341FE5\\"
-          }
-        }
-      }
-    },
     \\"aws_ecs_task_definition\\": {
       \\"test_testPocketApp_ecsservice_ecstask_A752DB7C\\": {
         \\"container_definitions\\": \\"[]\\",
@@ -3318,6 +3270,64 @@ exports[`PocketALBApplication renders an internal application with tags 1`] = `
         }
       }
     },
+    \\"aws_alb_target_group\\": {
+      \\"test_testPocketApp_ecsservice_bluetargetgroup_ecstargetgroup_F811A231\\": {
+        \\"deregistration_delay\\": 120,
+        \\"name_prefix\\": \\"TSTAPP\\",
+        \\"port\\": 80,
+        \\"protocol\\": \\"HTTP\\",
+        \\"tags\\": {
+          \\"name\\": \\"thedude\\",
+          \\"hobby\\": \\"bowling\\"
+        },
+        \\"target_type\\": \\"ip\\",
+        \\"vpc_id\\": \\"\${data.aws_vpc.test_testPocketApp_pocketvpc_40AC0971.id}\\",
+        \\"health_check\\": [
+          {
+            \\"interval\\": 15,
+            \\"path\\": \\"/test\\",
+            \\"protocol\\": \\"HTTP\\",
+            \\"healthy_threshold\\": 5,
+            \\"unhealthy_threshold\\": 3
+          }
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/ecs_service/blue_target_group/ecs_target_group\\",
+            \\"uniqueId\\": \\"test_testPocketApp_ecsservice_bluetargetgroup_ecstargetgroup_F811A231\\"
+          }
+        }
+      }
+    },
+    \\"aws_alb_listener_rule\\": {
+      \\"test_testPocketApp_ecsservice_listenerrule_CD5A6DFA\\": {
+        \\"listener_arn\\": \\"\${aws_alb_listener.test_testPocketApp_listenerhttps_7078E225.arn}\\",
+        \\"priority\\": 1,
+        \\"action\\": [
+          {
+            \\"type\\": \\"forward\\",
+            \\"target_group_arn\\": \\"\${aws_alb_target_group.test_testPocketApp_ecsservice_bluetargetgroup_ecstargetgroup_F811A231.arn}\\"
+          }
+        ],
+        \\"condition\\": [
+          {
+            \\"path_pattern\\": [
+              {
+                \\"values\\": [
+                  \\"*\\"
+                ]
+              }
+            ]
+          }
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/ecs_service/listener_rule\\",
+            \\"uniqueId\\": \\"test_testPocketApp_ecsservice_listenerrule_CD5A6DFA\\"
+          }
+        }
+      }
+    },
     \\"aws_ecs_service\\": {
       \\"test_testPocketApp_ecsservice_ecsservice_B23795BD\\": {
         \\"cluster\\": \\"\${aws_ecs_cluster.test_testPocketApp_ecscluster_CE90B54F.arn}\\",
@@ -3332,11 +3342,16 @@ exports[`PocketALBApplication renders an internal application with tags 1`] = `
           \\"hobby\\": \\"bowling\\"
         },
         \\"task_definition\\": \\"\${aws_ecs_task_definition.test_testPocketApp_ecsservice_ecstask_A752DB7C.arn}\\",
+        \\"deployment_controller\\": [
+          {
+            \\"type\\": \\"ECS\\"
+          }
+        ],
         \\"load_balancer\\": [
           {
             \\"container_name\\": \\"main_container\\",
             \\"container_port\\": 8675309,
-            \\"target_group_arn\\": \\"\${aws_alb_target_group.test_testPocketApp_ecstargetgroup_9480469C.arn}\\"
+            \\"target_group_arn\\": \\"\${aws_alb_target_group.test_testPocketApp_ecsservice_bluetargetgroup_ecstargetgroup_F811A231.arn}\\"
           }
         ],
         \\"network_configuration\\": [
@@ -3347,14 +3362,14 @@ exports[`PocketALBApplication renders an internal application with tags 1`] = `
             \\"subnets\\": \\"\${data.aws_subnet_ids.test_testPocketApp_pocketvpc_privatesubnetids_A272E250.ids}\\"
           }
         ],
-        \\"depends_on\\": [],
+        \\"depends_on\\": [
+          \\"aws_alb_target_group.test_testPocketApp_ecsservice_bluetargetgroup_ecstargetgroup_F811A231\\"
+        ],
         \\"lifecycle\\": {
           \\"ignore_changes\\": [
-            \\"task_definition\\",
             \\"desired_count\\",
             \\"load_balancer\\"
-          ],
-          \\"create_before_destroy\\": true
+          ]
         },
         \\"//\\": {
           \\"metadata\\": {

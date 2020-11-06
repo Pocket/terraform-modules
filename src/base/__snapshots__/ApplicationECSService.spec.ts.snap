@@ -9,6 +9,16 @@ exports[`AppliationECSService renders an ECS service with full container definit
     }
   },
   \\"resource\\": {
+    \\"null_resource\\": {
+      \\"test_testECSService_99ABE86A\\": {
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testECSService\\",
+            \\"uniqueId\\": \\"test_testECSService_99ABE86A\\"
+          }
+        }
+      }
+    },
     \\"aws_security_group\\": {
       \\"test_testECSService_ecssecuritygroup_AF33BCF2\\": {
         \\"description\\": \\"Internal ECS Security Group (Managed by Terraform)\\",
@@ -73,28 +83,6 @@ exports[`AppliationECSService renders an ECS service with full container definit
             \\"uniqueId\\": \\"test_testECSService_ecsiam_ecstaskexecutiondefaultattachment_9D51EEF2\\"
           }
         }
-      },
-      \\"test_testECSService_ecsiam_ecstaskexecutioncustomattachment_3D8FE3E6\\": {
-        \\"policy_arn\\": \\"\${aws_iam_policy.test_testECSService_ecsiam_ecstaskexecutionrolepolicy_0AA7E7DB.arn}\\",
-        \\"role\\": \\"\${aws_iam_role.test_testECSService_ecsiam_ecsexecutionrole_EBC2006B.id}\\",
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/testECSService/ecs-iam/ecs-task-execution-custom-attachment\\",
-            \\"uniqueId\\": \\"test_testECSService_ecsiam_ecstaskexecutioncustomattachment_3D8FE3E6\\"
-          }
-        }
-      }
-    },
-    \\"aws_iam_policy\\": {
-      \\"test_testECSService_ecsiam_ecstaskexecutionrolepolicy_0AA7E7DB\\": {
-        \\"name\\": \\"abides-dev-TaskExecutionRolePolicy\\",
-        \\"policy\\": \\"\${data.aws_iam_policy_document.test_testECSService_ecsiam_dataecstaskexecutionrolepolicy_0505F85E.json}\\",
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/testECSService/ecs-iam/ecs-task-execution-role-policy\\",
-            \\"uniqueId\\": \\"test_testECSService_ecsiam_ecstaskexecutionrolepolicy_0AA7E7DB\\"
-          }
-        }
       }
     },
     \\"aws_ecs_task_definition\\": {
@@ -128,6 +116,11 @@ exports[`AppliationECSService renders an ECS service with full container definit
         \\"name\\": \\"abides-dev\\",
         \\"propagate_tags\\": \\"SERVICE\\",
         \\"task_definition\\": \\"\${aws_ecs_task_definition.test_testECSService_ecstask_7A99AC0B.arn}\\",
+        \\"deployment_controller\\": [
+          {
+            \\"type\\": \\"ECS\\"
+          }
+        ],
         \\"load_balancer\\": [],
         \\"network_configuration\\": [
           {
@@ -146,8 +139,7 @@ exports[`AppliationECSService renders an ECS service with full container definit
             \\"bowling\\",
             \\"donnie\\",
             \\"autobahn\\"
-          ],
-          \\"create_before_destroy\\": true
+          ]
         },
         \\"//\\": {
           \\"metadata\\": {
@@ -184,16 +176,6 @@ exports[`AppliationECSService renders an ECS service with full container definit
             \\"uniqueId\\": \\"test_testECSService_ecsiam_ecstaskassume_82092BCB\\"
           }
         }
-      },
-      \\"test_testECSService_ecsiam_dataecstaskexecutionrolepolicy_0505F85E\\": {
-        \\"version\\": \\"2012-10-17\\",
-        \\"statement\\": [],
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/testECSService/ecs-iam/data-ecs-task-execution-role-policy\\",
-            \\"uniqueId\\": \\"test_testECSService_ecsiam_dataecstaskexecutionrolepolicy_0505F85E\\"
-          }
-        }
       }
     }
   }
@@ -209,6 +191,16 @@ exports[`AppliationECSService renders an ECS service with full container definit
     }
   },
   \\"resource\\": {
+    \\"null_resource\\": {
+      \\"test_testECSService_99ABE86A\\": {
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testECSService\\",
+            \\"uniqueId\\": \\"test_testECSService_99ABE86A\\"
+          }
+        }
+      }
+    },
     \\"aws_security_group\\": {
       \\"test_testECSService_ecssecuritygroup_AF33BCF2\\": {
         \\"description\\": \\"Internal ECS Security Group (Managed by Terraform)\\",
@@ -287,28 +279,6 @@ exports[`AppliationECSService renders an ECS service with full container definit
             \\"uniqueId\\": \\"test_testECSService_ecsiam_ecstaskexecutiondefaultattachment_9D51EEF2\\"
           }
         }
-      },
-      \\"test_testECSService_ecsiam_ecstaskexecutioncustomattachment_3D8FE3E6\\": {
-        \\"policy_arn\\": \\"\${aws_iam_policy.test_testECSService_ecsiam_ecstaskexecutionrolepolicy_0AA7E7DB.arn}\\",
-        \\"role\\": \\"\${aws_iam_role.test_testECSService_ecsiam_ecsexecutionrole_EBC2006B.id}\\",
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/testECSService/ecs-iam/ecs-task-execution-custom-attachment\\",
-            \\"uniqueId\\": \\"test_testECSService_ecsiam_ecstaskexecutioncustomattachment_3D8FE3E6\\"
-          }
-        }
-      }
-    },
-    \\"aws_iam_policy\\": {
-      \\"test_testECSService_ecsiam_ecstaskexecutionrolepolicy_0AA7E7DB\\": {
-        \\"name\\": \\"abides-dev-TaskExecutionRolePolicy\\",
-        \\"policy\\": \\"\${data.aws_iam_policy_document.test_testECSService_ecsiam_dataecstaskexecutionrolepolicy_0505F85E.json}\\",
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/testECSService/ecs-iam/ecs-task-execution-role-policy\\",
-            \\"uniqueId\\": \\"test_testECSService_ecsiam_ecstaskexecutionrolepolicy_0AA7E7DB\\"
-          }
-        }
       }
     },
     \\"aws_ecs_task_definition\\": {
@@ -332,6 +302,60 @@ exports[`AppliationECSService renders an ECS service with full container definit
         }
       }
     },
+    \\"aws_alb_target_group\\": {
+      \\"test_testECSService_bluetargetgroup_ecstargetgroup_0E1C18C4\\": {
+        \\"deregistration_delay\\": 120,
+        \\"name_prefix\\": \\"short\\",
+        \\"port\\": 80,
+        \\"protocol\\": \\"HTTP\\",
+        \\"target_type\\": \\"ip\\",
+        \\"vpc_id\\": \\"myhouse\\",
+        \\"health_check\\": [
+          {
+            \\"interval\\": 15,
+            \\"path\\": \\"/health\\",
+            \\"protocol\\": \\"HTTP\\",
+            \\"healthy_threshold\\": 5,
+            \\"unhealthy_threshold\\": 3
+          }
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testECSService/blue_target_group/ecs_target_group\\",
+            \\"uniqueId\\": \\"test_testECSService_bluetargetgroup_ecstargetgroup_0E1C18C4\\"
+          }
+        }
+      }
+    },
+    \\"aws_alb_listener_rule\\": {
+      \\"test_testECSService_listenerrule_1599E421\\": {
+        \\"listener_arn\\": \\"listen-to-me\\",
+        \\"priority\\": 1,
+        \\"action\\": [
+          {
+            \\"type\\": \\"forward\\",
+            \\"target_group_arn\\": \\"\${aws_alb_target_group.test_testECSService_bluetargetgroup_ecstargetgroup_0E1C18C4.arn}\\"
+          }
+        ],
+        \\"condition\\": [
+          {
+            \\"path_pattern\\": [
+              {
+                \\"values\\": [
+                  \\"*\\"
+                ]
+              }
+            ]
+          }
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testECSService/listener_rule\\",
+            \\"uniqueId\\": \\"test_testECSService_listenerrule_1599E421\\"
+          }
+        }
+      }
+    },
     \\"aws_ecs_service\\": {
       \\"test_testECSService_ecsservice_8AE480A6\\": {
         \\"cluster\\": \\"gorp\\",
@@ -342,11 +366,16 @@ exports[`AppliationECSService renders an ECS service with full container definit
         \\"name\\": \\"abides-dev\\",
         \\"propagate_tags\\": \\"SERVICE\\",
         \\"task_definition\\": \\"\${aws_ecs_task_definition.test_testECSService_ecstask_7A99AC0B.arn}\\",
+        \\"deployment_controller\\": [
+          {
+            \\"type\\": \\"ECS\\"
+          }
+        ],
         \\"load_balancer\\": [
           {
             \\"container_name\\": \\"runme\\",
             \\"container_port\\": 3000,
-            \\"target_group_arn\\": \\"targetonmyback\\"
+            \\"target_group_arn\\": \\"\${aws_alb_target_group.test_testECSService_bluetargetgroup_ecstargetgroup_0E1C18C4.arn}\\"
           }
         ],
         \\"network_configuration\\": [
@@ -360,14 +389,14 @@ exports[`AppliationECSService renders an ECS service with full container definit
             ]
           }
         ],
-        \\"depends_on\\": [],
+        \\"depends_on\\": [
+          \\"aws_alb_target_group.test_testECSService_bluetargetgroup_ecstargetgroup_0E1C18C4\\"
+        ],
         \\"lifecycle\\": {
           \\"ignore_changes\\": [
-            \\"task_definition\\",
             \\"desired_count\\",
             \\"load_balancer\\"
-          ],
-          \\"create_before_destroy\\": true
+          ]
         },
         \\"//\\": {
           \\"metadata\\": {
@@ -404,16 +433,6 @@ exports[`AppliationECSService renders an ECS service with full container definit
             \\"uniqueId\\": \\"test_testECSService_ecsiam_ecstaskassume_82092BCB\\"
           }
         }
-      },
-      \\"test_testECSService_ecsiam_dataecstaskexecutionrolepolicy_0505F85E\\": {
-        \\"version\\": \\"2012-10-17\\",
-        \\"statement\\": [],
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/testECSService/ecs-iam/data-ecs-task-execution-role-policy\\",
-            \\"uniqueId\\": \\"test_testECSService_ecsiam_dataecstaskexecutionrolepolicy_0505F85E\\"
-          }
-        }
       }
     }
   }
@@ -429,6 +448,16 @@ exports[`AppliationECSService renders an ECS service with minimal config 1`] = `
     }
   },
   \\"resource\\": {
+    \\"null_resource\\": {
+      \\"test_testECSService_99ABE86A\\": {
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testECSService\\",
+            \\"uniqueId\\": \\"test_testECSService_99ABE86A\\"
+          }
+        }
+      }
+    },
     \\"aws_security_group\\": {
       \\"test_testECSService_ecssecuritygroup_AF33BCF2\\": {
         \\"description\\": \\"Internal ECS Security Group (Managed by Terraform)\\",
@@ -493,28 +522,6 @@ exports[`AppliationECSService renders an ECS service with minimal config 1`] = `
             \\"uniqueId\\": \\"test_testECSService_ecsiam_ecstaskexecutiondefaultattachment_9D51EEF2\\"
           }
         }
-      },
-      \\"test_testECSService_ecsiam_ecstaskexecutioncustomattachment_3D8FE3E6\\": {
-        \\"policy_arn\\": \\"\${aws_iam_policy.test_testECSService_ecsiam_ecstaskexecutionrolepolicy_0AA7E7DB.arn}\\",
-        \\"role\\": \\"\${aws_iam_role.test_testECSService_ecsiam_ecsexecutionrole_EBC2006B.id}\\",
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/testECSService/ecs-iam/ecs-task-execution-custom-attachment\\",
-            \\"uniqueId\\": \\"test_testECSService_ecsiam_ecstaskexecutioncustomattachment_3D8FE3E6\\"
-          }
-        }
-      }
-    },
-    \\"aws_iam_policy\\": {
-      \\"test_testECSService_ecsiam_ecstaskexecutionrolepolicy_0AA7E7DB\\": {
-        \\"name\\": \\"abides-dev-TaskExecutionRolePolicy\\",
-        \\"policy\\": \\"\${data.aws_iam_policy_document.test_testECSService_ecsiam_dataecstaskexecutionrolepolicy_0505F85E.json}\\",
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/testECSService/ecs-iam/ecs-task-execution-role-policy\\",
-            \\"uniqueId\\": \\"test_testECSService_ecsiam_ecstaskexecutionrolepolicy_0AA7E7DB\\"
-          }
-        }
       }
     },
     \\"aws_ecs_task_definition\\": {
@@ -548,6 +555,11 @@ exports[`AppliationECSService renders an ECS service with minimal config 1`] = `
         \\"name\\": \\"abides-dev\\",
         \\"propagate_tags\\": \\"SERVICE\\",
         \\"task_definition\\": \\"\${aws_ecs_task_definition.test_testECSService_ecstask_7A99AC0B.arn}\\",
+        \\"deployment_controller\\": [
+          {
+            \\"type\\": \\"ECS\\"
+          }
+        ],
         \\"load_balancer\\": [],
         \\"network_configuration\\": [
           {
@@ -563,11 +575,9 @@ exports[`AppliationECSService renders an ECS service with minimal config 1`] = `
         \\"depends_on\\": [],
         \\"lifecycle\\": {
           \\"ignore_changes\\": [
-            \\"task_definition\\",
             \\"desired_count\\",
             \\"load_balancer\\"
-          ],
-          \\"create_before_destroy\\": true
+          ]
         },
         \\"//\\": {
           \\"metadata\\": {
@@ -604,16 +614,6 @@ exports[`AppliationECSService renders an ECS service with minimal config 1`] = `
             \\"uniqueId\\": \\"test_testECSService_ecsiam_ecstaskassume_82092BCB\\"
           }
         }
-      },
-      \\"test_testECSService_ecsiam_dataecstaskexecutionrolepolicy_0505F85E\\": {
-        \\"version\\": \\"2012-10-17\\",
-        \\"statement\\": [],
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/testECSService/ecs-iam/data-ecs-task-execution-role-policy\\",
-            \\"uniqueId\\": \\"test_testECSService_ecsiam_dataecstaskexecutionrolepolicy_0505F85E\\"
-          }
-        }
       }
     }
   }
@@ -629,6 +629,16 @@ exports[`AppliationECSService renders an ECS service without a log group contain
     }
   },
   \\"resource\\": {
+    \\"null_resource\\": {
+      \\"test_testECSService_99ABE86A\\": {
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testECSService\\",
+            \\"uniqueId\\": \\"test_testECSService_99ABE86A\\"
+          }
+        }
+      }
+    },
     \\"aws_security_group\\": {
       \\"test_testECSService_ecssecuritygroup_AF33BCF2\\": {
         \\"description\\": \\"Internal ECS Security Group (Managed by Terraform)\\",
@@ -705,28 +715,6 @@ exports[`AppliationECSService renders an ECS service without a log group contain
             \\"uniqueId\\": \\"test_testECSService_ecsiam_ecstaskexecutiondefaultattachment_9D51EEF2\\"
           }
         }
-      },
-      \\"test_testECSService_ecsiam_ecstaskexecutioncustomattachment_3D8FE3E6\\": {
-        \\"policy_arn\\": \\"\${aws_iam_policy.test_testECSService_ecsiam_ecstaskexecutionrolepolicy_0AA7E7DB.arn}\\",
-        \\"role\\": \\"\${aws_iam_role.test_testECSService_ecsiam_ecsexecutionrole_EBC2006B.id}\\",
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/testECSService/ecs-iam/ecs-task-execution-custom-attachment\\",
-            \\"uniqueId\\": \\"test_testECSService_ecsiam_ecstaskexecutioncustomattachment_3D8FE3E6\\"
-          }
-        }
-      }
-    },
-    \\"aws_iam_policy\\": {
-      \\"test_testECSService_ecsiam_ecstaskexecutionrolepolicy_0AA7E7DB\\": {
-        \\"name\\": \\"abides-dev-TaskExecutionRolePolicy\\",
-        \\"policy\\": \\"\${data.aws_iam_policy_document.test_testECSService_ecsiam_dataecstaskexecutionrolepolicy_0505F85E.json}\\",
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/testECSService/ecs-iam/ecs-task-execution-role-policy\\",
-            \\"uniqueId\\": \\"test_testECSService_ecsiam_ecstaskexecutionrolepolicy_0AA7E7DB\\"
-          }
-        }
       }
     },
     \\"aws_ecs_task_definition\\": {
@@ -760,6 +748,11 @@ exports[`AppliationECSService renders an ECS service without a log group contain
         \\"name\\": \\"abides-dev\\",
         \\"propagate_tags\\": \\"SERVICE\\",
         \\"task_definition\\": \\"\${aws_ecs_task_definition.test_testECSService_ecstask_7A99AC0B.arn}\\",
+        \\"deployment_controller\\": [
+          {
+            \\"type\\": \\"ECS\\"
+          }
+        ],
         \\"load_balancer\\": [],
         \\"network_configuration\\": [
           {
@@ -778,8 +771,7 @@ exports[`AppliationECSService renders an ECS service without a log group contain
             \\"bowling\\",
             \\"donnie\\",
             \\"autobahn\\"
-          ],
-          \\"create_before_destroy\\": true
+          ]
         },
         \\"//\\": {
           \\"metadata\\": {
@@ -816,16 +808,6 @@ exports[`AppliationECSService renders an ECS service without a log group contain
             \\"uniqueId\\": \\"test_testECSService_ecsiam_ecstaskassume_82092BCB\\"
           }
         }
-      },
-      \\"test_testECSService_ecsiam_dataecstaskexecutionrolepolicy_0505F85E\\": {
-        \\"version\\": \\"2012-10-17\\",
-        \\"statement\\": [],
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/testECSService/ecs-iam/data-ecs-task-execution-role-policy\\",
-            \\"uniqueId\\": \\"test_testECSService_ecsiam_dataecstaskexecutionrolepolicy_0505F85E\\"
-          }
-        }
       }
     }
   }
@@ -841,6 +823,16 @@ exports[`AppliationECSService renders an ECS service without an image container 
     }
   },
   \\"resource\\": {
+    \\"null_resource\\": {
+      \\"test_testECSService_99ABE86A\\": {
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testECSService\\",
+            \\"uniqueId\\": \\"test_testECSService_99ABE86A\\"
+          }
+        }
+      }
+    },
     \\"aws_security_group\\": {
       \\"test_testECSService_ecssecuritygroup_AF33BCF2\\": {
         \\"description\\": \\"Internal ECS Security Group (Managed by Terraform)\\",
@@ -936,28 +928,6 @@ exports[`AppliationECSService renders an ECS service without an image container 
             \\"uniqueId\\": \\"test_testECSService_ecsiam_ecstaskexecutiondefaultattachment_9D51EEF2\\"
           }
         }
-      },
-      \\"test_testECSService_ecsiam_ecstaskexecutioncustomattachment_3D8FE3E6\\": {
-        \\"policy_arn\\": \\"\${aws_iam_policy.test_testECSService_ecsiam_ecstaskexecutionrolepolicy_0AA7E7DB.arn}\\",
-        \\"role\\": \\"\${aws_iam_role.test_testECSService_ecsiam_ecsexecutionrole_EBC2006B.id}\\",
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/testECSService/ecs-iam/ecs-task-execution-custom-attachment\\",
-            \\"uniqueId\\": \\"test_testECSService_ecsiam_ecstaskexecutioncustomattachment_3D8FE3E6\\"
-          }
-        }
-      }
-    },
-    \\"aws_iam_policy\\": {
-      \\"test_testECSService_ecsiam_ecstaskexecutionrolepolicy_0AA7E7DB\\": {
-        \\"name\\": \\"abides-dev-TaskExecutionRolePolicy\\",
-        \\"policy\\": \\"\${data.aws_iam_policy_document.test_testECSService_ecsiam_dataecstaskexecutionrolepolicy_0505F85E.json}\\",
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/testECSService/ecs-iam/ecs-task-execution-role-policy\\",
-            \\"uniqueId\\": \\"test_testECSService_ecsiam_ecstaskexecutionrolepolicy_0AA7E7DB\\"
-          }
-        }
       }
     },
     \\"aws_ecs_task_definition\\": {
@@ -993,6 +963,11 @@ exports[`AppliationECSService renders an ECS service without an image container 
         \\"name\\": \\"abides-dev\\",
         \\"propagate_tags\\": \\"SERVICE\\",
         \\"task_definition\\": \\"\${aws_ecs_task_definition.test_testECSService_ecstask_7A99AC0B.arn}\\",
+        \\"deployment_controller\\": [
+          {
+            \\"type\\": \\"ECS\\"
+          }
+        ],
         \\"load_balancer\\": [],
         \\"network_configuration\\": [
           {
@@ -1013,8 +988,7 @@ exports[`AppliationECSService renders an ECS service without an image container 
             \\"bowling\\",
             \\"donnie\\",
             \\"autobahn\\"
-          ],
-          \\"create_before_destroy\\": true
+          ]
         },
         \\"//\\": {
           \\"metadata\\": {
@@ -1049,16 +1023,6 @@ exports[`AppliationECSService renders an ECS service without an image container 
           \\"metadata\\": {
             \\"path\\": \\"test/testECSService/ecs-iam/ecs-task-assume\\",
             \\"uniqueId\\": \\"test_testECSService_ecsiam_ecstaskassume_82092BCB\\"
-          }
-        }
-      },
-      \\"test_testECSService_ecsiam_dataecstaskexecutionrolepolicy_0505F85E\\": {
-        \\"version\\": \\"2012-10-17\\",
-        \\"statement\\": [],
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/testECSService/ecs-iam/data-ecs-task-execution-role-policy\\",
-            \\"uniqueId\\": \\"test_testECSService_ecsiam_dataecstaskexecutionrolepolicy_0505F85E\\"
           }
         }
       }

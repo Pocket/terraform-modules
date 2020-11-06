@@ -1,6 +1,7 @@
 import { Resource } from 'cdktf';
 import {
   AlbListener,
+  AlbListenerRule,
   AlbTargetGroup,
   CloudfrontDistribution,
   Route53Record,
@@ -24,6 +25,10 @@ export interface PocketALBApplicationProps {
   internal?: boolean;
   domain: string;
   cdn?: boolean;
+  codeDeploy: {
+    useCodeDeploy: boolean;
+    snsNotificationTopicArn?: string;
+  };
   tags?: { [key: string]: string };
   containerConfigs: ApplicationECSContainerDefinitionProps[];
   exposedContainer: {
@@ -100,7 +105,6 @@ export class PocketALBApplication extends Resource {
 
   /**
    * Creates the ALB stack and certificates
-   * @param name
    * @param config
    * @param pocketVPC
    * @private
@@ -282,6 +286,7 @@ export class PocketALBApplication extends Resource {
    * @param config
    * @param pocketVPC
    * @param alb
+   * @param albCertificate
    * @private
    */
   private createECSService(
@@ -293,25 +298,6 @@ export class PocketALBApplication extends Resource {
     const ecsCluster = new ApplicationECSCluster(this, 'ecs_cluster', {
       prefix: config.prefix,
       tags: config.tags,
-    });
-    const albTargetGroup = new AlbTargetGroup(this, 'ecs_target_group', {
-      namePrefix: config.alb6CharacterPrefix,
-      protocol: 'HTTP',
-      vpcId: pocketVPC.vpc.id,
-      tags: config.tags,
-      targetType: 'ip',
-      port: 80,
-      deregistrationDelay: 120,
-      dependsOn: [alb.alb],
-      healthCheck: [
-        {
-          interval: 15,
-          path: config.exposedContainer.healthCheckPath,
-          protocol: 'HTTP',
-          healthyThreshold: 5,
-          unhealthyThreshold: 3,
-        },
-      ],
     });
 
     new AlbListener(this, 'listener_http', {
@@ -328,15 +314,24 @@ export class PocketALBApplication extends Resource {
       ],
     });
 
-    new AlbListener(this, 'listener_https', {
+    const httpsListener = new AlbListener(this, 'listener_https', {
       loadBalancerArn: alb.alb.arn,
       port: 443,
       protocol: 'HTTPS',
       sslPolicy: 'ELBSecurityPolicy-TLS-1-1-2017-01',
       defaultAction: [
         {
-          type: 'forward',
-          targetGroupArn: albTargetGroup.arn,
+          type: 'fixed-response',
+          fixedResponse: [
+            {
+              // To keep things dry we use a default status code here and append a rule for our target group.
+              // This is because our ECSService is responsible for creating our target group because CodeDeploy requires
+              // 2 target groups and knowing the names of them both
+              contentType: 'text/plain',
+              statusCode: '503',
+              messageBody: '',
+            },
+          ],
         },
       ],
       certificateArn: albCertificate.arn,
@@ -344,12 +339,18 @@ export class PocketALBApplication extends Resource {
 
     let ecsConfig: ApplicationECSServiceProps = {
       prefix: config.prefix,
-      ecsCluster: ecsCluster.cluster.arn,
+      shortName: config.alb6CharacterPrefix,
+      ecsClusterArn: ecsCluster.cluster.arn,
+      ecsClusterName: ecsCluster.cluster.name,
+      useCodeDeploy: config.codeDeploy.useCodeDeploy,
+      codeDeploySnsNotificationTopicArn:
+        config.codeDeploy.snsNotificationTopicArn,
       albConfig: {
         containerPort: config.exposedContainer.port,
         containerName: config.exposedContainer.name,
+        healthCheckPath: config.exposedContainer.healthCheckPath,
+        listenerArn: httpsListener.arn,
         albSecurityGroupId: alb.securityGroup.id,
-        targetGroupArn: albTargetGroup.arn,
       },
       vpcId: pocketVPC.vpc.id,
       containerConfigs: config.containerConfigs,

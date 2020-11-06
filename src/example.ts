@@ -25,30 +25,25 @@ class Example extends TerraformStack {
 
     const containerConfigBlue: ApplicationECSContainerDefinitionProps = {
       name: 'blueContainer',
-      containerImage: 'fake',
-      logGroup: 'no',
-      hostPort: 3002,
-      containerPort: 3002,
+      containerImage: 'bitnami/node-example:0.0.1',
+      hostPort: 3000,
+      containerPort: 3000,
       envVars: [
         {
           name: 'foo',
           value: 'bar',
         },
       ],
-      secretEnvVars: [
-        {
-          name: 'somesecret',
-          valueFrom: 'someArn',
-        },
-      ],
-      repositoryCredentialsParam: '',
     };
 
     new PocketALBApplication(this, 'example', {
       exposedContainer: {
         name: 'blueContainer',
-        port: 3002,
+        port: 3000,
         healthCheckPath: '/',
+      },
+      codeDeploy: {
+        useCodeDeploy: true,
       },
       cdn: false, // maybe make this false if you're testing an actual terraform apply - cdn's take a loooong time to spin up
       alb6CharacterPrefix: 'ACMECO',
@@ -60,7 +55,6 @@ class Example extends TerraformStack {
         prefix: 'ACME-Dev',
         taskExecutionRolePolicyStatements: [],
         taskRolePolicyStatements: [],
-        taskExecutionDefaultAttachmentArn: '',
       },
     });
   }
