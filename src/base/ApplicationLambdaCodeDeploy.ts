@@ -32,7 +32,7 @@ export class ApplicationLambdaCodeDeploy extends Resource {
 
   private setupCodeDeploy() {
     const codeDeployApp = new CodedeployApp(this, 'code-deploy-app', {
-      name: `${this.config.name}-CodeDeploy`,
+      name: `${this.config.name}-LambdaCodeDeploy`,
       computePlatform: 'Lambda',
     });
 
@@ -49,7 +49,7 @@ export class ApplicationLambdaCodeDeploy extends Resource {
     new CodedeployDeploymentGroup(this, 'code-deployment-group', {
       appName: codeDeployApp.name,
       deploymentConfigName: 'CodeDeployDefault.LambdaAllAtOnce',
-      deploymentGroupName: `${this.config.name}-CodeDeployGroup`,
+      deploymentGroupName: `${this.config.name}-LambdaCodeDeployGroup`,
       serviceRoleArn: this.getCodeDeployRole().arn,
       deploymentStyle: [
         {
