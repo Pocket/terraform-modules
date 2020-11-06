@@ -22,6 +22,11 @@ export interface ApplicationECSAlbCodeDeployProps {
   dependsOn?: TerraformResource[];
 }
 
+interface CodeDeployResponse {
+  codeDeployApp: CodedeployApp;
+  ecsCodeDeployRole: IamRole;
+}
+
 /**
  * Represents a ECS Codeploy App that uses an ALB
  */
@@ -105,10 +110,7 @@ export class ApplicationECSAlbCodeDeploy extends Resource {
    * Setup the codedeploy app, permissions, and notifications
    * @private
    */
-  private setupCodeDeployApp(): {
-    codeDeployApp: CodedeployApp;
-    ecsCodeDeployRole: IamRole;
-  } {
+  private setupCodeDeployApp(): CodeDeployResponse {
     const ecsCodeDeployRole = new IamRole(this, 'ecs_code_deploy_role', {
       name: `${this.config.prefix}-ECSCodeDeployRole`,
       assumeRolePolicy: new DataAwsIamPolicyDocument(

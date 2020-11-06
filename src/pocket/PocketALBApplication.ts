@@ -1,8 +1,6 @@
 import { Resource } from 'cdktf';
 import {
   AlbListener,
-  AlbListenerRule,
-  AlbTargetGroup,
   CloudfrontDistribution,
   Route53Record,
 } from '../../.gen/providers/aws';

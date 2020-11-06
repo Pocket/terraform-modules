@@ -50,6 +50,11 @@ export interface ApplicationECSServiceProps {
   codeDeploySnsNotificationTopicArn?: string;
 }
 
+interface ECSTaskDefinitionResponse {
+  taskDef: EcsTaskDefinition;
+  ecrRepos: EcrRepository[];
+}
+
 /**
  * Generates an Application Certificate given a domain name and zoneId
  */
@@ -272,10 +277,7 @@ export class ApplicationECSService extends Resource {
    * Setup the ECS Task Definition
    * @private
    */
-  private setupECSTaskDefinition(): {
-    taskDef: EcsTaskDefinition;
-    ecrRepos: EcrRepository[];
-  } {
+  private setupECSTaskDefinition(): ECSTaskDefinitionResponse {
     const ecrRepos: EcrRepository[] = [];
 
     const containerDefs = [];
