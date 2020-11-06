@@ -8,28 +8,6 @@ exports[`renders an event bridge with description 1`] = `
       \\"stackName\\": \\"test\\"
     }
   },
-  \\"data\\": {
-    \\"aws_region\\": {
-      \\"test_testeventbridgerule_region_466ADDBF\\": {
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/test-event-bridge-rule/region\\",
-            \\"uniqueId\\": \\"test_testeventbridgerule_region_466ADDBF\\"
-          }
-        }
-      }
-    },
-    \\"aws_caller_identity\\": {
-      \\"test_testeventbridgerule_calleridentity_7F8C0786\\": {
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/test-event-bridge-rule/caller-identity\\",
-            \\"uniqueId\\": \\"test_testeventbridgerule_calleridentity_7F8C0786\\"
-          }
-        }
-      }
-    }
-  },
   \\"resource\\": {
     \\"aws_cloudwatch_event_rule\\": {
       \\"test_testeventbridgerule_30AFD110\\": {
@@ -55,28 +33,6 @@ exports[`renders an event bridge with event bus name 1`] = `
     \\"metadata\\": {
       \\"version\\": \\"stubbed\\",
       \\"stackName\\": \\"test\\"
-    }
-  },
-  \\"data\\": {
-    \\"aws_region\\": {
-      \\"test_testeventbridgerule_region_466ADDBF\\": {
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/test-event-bridge-rule/region\\",
-            \\"uniqueId\\": \\"test_testeventbridgerule_region_466ADDBF\\"
-          }
-        }
-      }
-    },
-    \\"aws_caller_identity\\": {
-      \\"test_testeventbridgerule_calleridentity_7F8C0786\\": {
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/test-event-bridge-rule/caller-identity\\",
-            \\"uniqueId\\": \\"test_testeventbridgerule_calleridentity_7F8C0786\\"
-          }
-        }
-      }
     }
   },
   \\"resource\\": {
@@ -147,28 +103,6 @@ exports[`renders an event bridge with sqs target 1`] = `
         }
       }
     }
-  },
-  \\"data\\": {
-    \\"aws_region\\": {
-      \\"test_testeventbridgerule_region_466ADDBF\\": {
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/test-event-bridge-rule/region\\",
-            \\"uniqueId\\": \\"test_testeventbridgerule_region_466ADDBF\\"
-          }
-        }
-      }
-    },
-    \\"aws_caller_identity\\": {
-      \\"test_testeventbridgerule_calleridentity_7F8C0786\\": {
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/test-event-bridge-rule/caller-identity\\",
-            \\"uniqueId\\": \\"test_testeventbridgerule_calleridentity_7F8C0786\\"
-          }
-        }
-      }
-    }
   }
 }"
 `;
@@ -179,28 +113,6 @@ exports[`renders an event bridge with tags 1`] = `
     \\"metadata\\": {
       \\"version\\": \\"stubbed\\",
       \\"stackName\\": \\"test\\"
-    }
-  },
-  \\"data\\": {
-    \\"aws_region\\": {
-      \\"test_testeventbridgerule_region_466ADDBF\\": {
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/test-event-bridge-rule/region\\",
-            \\"uniqueId\\": \\"test_testeventbridgerule_region_466ADDBF\\"
-          }
-        }
-      }
-    },
-    \\"aws_caller_identity\\": {
-      \\"test_testeventbridgerule_calleridentity_7F8C0786\\": {
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/test-event-bridge-rule/caller-identity\\",
-            \\"uniqueId\\": \\"test_testeventbridgerule_calleridentity_7F8C0786\\"
-          }
-        }
-      }
     }
   },
   \\"resource\\": {
@@ -231,28 +143,6 @@ exports[`renders an event bridge without a target 1`] = `
     \\"metadata\\": {
       \\"version\\": \\"stubbed\\",
       \\"stackName\\": \\"test\\"
-    }
-  },
-  \\"data\\": {
-    \\"aws_region\\": {
-      \\"test_testeventbridgerule_region_466ADDBF\\": {
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/test-event-bridge-rule/region\\",
-            \\"uniqueId\\": \\"test_testeventbridgerule_region_466ADDBF\\"
-          }
-        }
-      }
-    },
-    \\"aws_caller_identity\\": {
-      \\"test_testeventbridgerule_calleridentity_7F8C0786\\": {
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/test-event-bridge-rule/caller-identity\\",
-            \\"uniqueId\\": \\"test_testeventbridgerule_calleridentity_7F8C0786\\"
-          }
-        }
-      }
     }
   },
   \\"resource\\": {

@@ -243,26 +243,6 @@ exports[`renders an event bridge and lambda target 1`] = `
           }
         }
       }
-    },
-    \\"aws_region\\": {
-      \\"test_testeventbridgelambda_eventbridgerule_region_9C813A82\\": {
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/test-event-bridge-lambda/event-bridge-rule/region\\",
-            \\"uniqueId\\": \\"test_testeventbridgelambda_eventbridgerule_region_9C813A82\\"
-          }
-        }
-      }
-    },
-    \\"aws_caller_identity\\": {
-      \\"test_testeventbridgelambda_eventbridgerule_calleridentity_B8FA3344\\": {
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/test-event-bridge-lambda/event-bridge-rule/caller-identity\\",
-            \\"uniqueId\\": \\"test_testeventbridgelambda_eventbridgerule_calleridentity_B8FA3344\\"
-          }
-        }
-      }
     }
   }
 }"
@@ -516,26 +496,6 @@ exports[`renders an event bridge and lambda target with environment variables 1`
           }
         }
       }
-    },
-    \\"aws_region\\": {
-      \\"test_testeventbridgelambda_eventbridgerule_region_9C813A82\\": {
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/test-event-bridge-lambda/event-bridge-rule/region\\",
-            \\"uniqueId\\": \\"test_testeventbridgelambda_eventbridgerule_region_9C813A82\\"
-          }
-        }
-      }
-    },
-    \\"aws_caller_identity\\": {
-      \\"test_testeventbridgelambda_eventbridgerule_calleridentity_B8FA3344\\": {
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/test-event-bridge-lambda/event-bridge-rule/caller-identity\\",
-            \\"uniqueId\\": \\"test_testeventbridgelambda_eventbridgerule_calleridentity_B8FA3344\\"
-          }
-        }
-      }
     }
   }
 }"
@@ -781,26 +741,6 @@ exports[`renders an event bridge and lambda target with event bus name 1`] = `
           \\"metadata\\": {
             \\"path\\": \\"test/test-event-bridge-lambda/lambda/lambda-default-file\\",
             \\"uniqueId\\": \\"test_testeventbridgelambda_lambdadefaultfile_F29C5502\\"
-          }
-        }
-      }
-    },
-    \\"aws_region\\": {
-      \\"test_testeventbridgelambda_eventbridgerule_region_9C813A82\\": {
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/test-event-bridge-lambda/event-bridge-rule/region\\",
-            \\"uniqueId\\": \\"test_testeventbridgelambda_eventbridgerule_region_9C813A82\\"
-          }
-        }
-      }
-    },
-    \\"aws_caller_identity\\": {
-      \\"test_testeventbridgelambda_eventbridgerule_calleridentity_B8FA3344\\": {
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/test-event-bridge-lambda/event-bridge-rule/caller-identity\\",
-            \\"uniqueId\\": \\"test_testeventbridgelambda_eventbridgerule_calleridentity_B8FA3344\\"
           }
         }
       }
@@ -1061,26 +1001,6 @@ exports[`renders an event bridge and lambda target with execution policy 1`] = `
           }
         }
       }
-    },
-    \\"aws_region\\": {
-      \\"test_testeventbridgelambda_eventbridgerule_region_9C813A82\\": {
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/test-event-bridge-lambda/event-bridge-rule/region\\",
-            \\"uniqueId\\": \\"test_testeventbridgelambda_eventbridgerule_region_9C813A82\\"
-          }
-        }
-      }
-    },
-    \\"aws_caller_identity\\": {
-      \\"test_testeventbridgelambda_eventbridgerule_calleridentity_B8FA3344\\": {
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/test-event-bridge-lambda/event-bridge-rule/caller-identity\\",
-            \\"uniqueId\\": \\"test_testeventbridgelambda_eventbridgerule_calleridentity_B8FA3344\\"
-          }
-        }
-      }
     }
   }
 }"
@@ -1329,26 +1249,6 @@ exports[`renders an event bridge and lambda target with lambda description 1`] =
           }
         }
       }
-    },
-    \\"aws_region\\": {
-      \\"test_testeventbridgelambda_eventbridgerule_region_9C813A82\\": {
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/test-event-bridge-lambda/event-bridge-rule/region\\",
-            \\"uniqueId\\": \\"test_testeventbridgelambda_eventbridgerule_region_9C813A82\\"
-          }
-        }
-      }
-    },
-    \\"aws_caller_identity\\": {
-      \\"test_testeventbridgelambda_eventbridgerule_calleridentity_B8FA3344\\": {
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/test-event-bridge-lambda/event-bridge-rule/caller-identity\\",
-            \\"uniqueId\\": \\"test_testeventbridgelambda_eventbridgerule_calleridentity_B8FA3344\\"
-          }
-        }
-      }
     }
   }
 }"
@@ -1594,26 +1494,6 @@ exports[`renders an event bridge and lambda target with log retention 1`] = `
           \\"metadata\\": {
             \\"path\\": \\"test/test-event-bridge-lambda/lambda/lambda-default-file\\",
             \\"uniqueId\\": \\"test_testeventbridgelambda_lambdadefaultfile_F29C5502\\"
-          }
-        }
-      }
-    },
-    \\"aws_region\\": {
-      \\"test_testeventbridgelambda_eventbridgerule_region_9C813A82\\": {
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/test-event-bridge-lambda/event-bridge-rule/region\\",
-            \\"uniqueId\\": \\"test_testeventbridgelambda_eventbridgerule_region_9C813A82\\"
-          }
-        }
-      }
-    },
-    \\"aws_caller_identity\\": {
-      \\"test_testeventbridgelambda_eventbridgerule_calleridentity_B8FA3344\\": {
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/test-event-bridge-lambda/event-bridge-rule/caller-identity\\",
-            \\"uniqueId\\": \\"test_testeventbridgelambda_eventbridgerule_calleridentity_B8FA3344\\"
           }
         }
       }
@@ -1866,26 +1746,6 @@ exports[`renders an event bridge and lambda target with rule description 1`] = `
           }
         }
       }
-    },
-    \\"aws_region\\": {
-      \\"test_testeventbridgelambda_eventbridgerule_region_9C813A82\\": {
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/test-event-bridge-lambda/event-bridge-rule/region\\",
-            \\"uniqueId\\": \\"test_testeventbridgelambda_eventbridgerule_region_9C813A82\\"
-          }
-        }
-      }
-    },
-    \\"aws_caller_identity\\": {
-      \\"test_testeventbridgelambda_eventbridgerule_calleridentity_B8FA3344\\": {
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/test-event-bridge-lambda/event-bridge-rule/caller-identity\\",
-            \\"uniqueId\\": \\"test_testeventbridgelambda_eventbridgerule_calleridentity_B8FA3344\\"
-          }
-        }
-      }
     }
   }
 }"
@@ -2131,26 +1991,6 @@ exports[`renders an event bridge and lambda target with s3 bucket 1`] = `
           \\"metadata\\": {
             \\"path\\": \\"test/test-event-bridge-lambda/lambda/lambda-default-file\\",
             \\"uniqueId\\": \\"test_testeventbridgelambda_lambdadefaultfile_F29C5502\\"
-          }
-        }
-      }
-    },
-    \\"aws_region\\": {
-      \\"test_testeventbridgelambda_eventbridgerule_region_9C813A82\\": {
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/test-event-bridge-lambda/event-bridge-rule/region\\",
-            \\"uniqueId\\": \\"test_testeventbridgelambda_eventbridgerule_region_9C813A82\\"
-          }
-        }
-      }
-    },
-    \\"aws_caller_identity\\": {
-      \\"test_testeventbridgelambda_eventbridgerule_calleridentity_B8FA3344\\": {
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/test-event-bridge-lambda/event-bridge-rule/caller-identity\\",
-            \\"uniqueId\\": \\"test_testeventbridgelambda_eventbridgerule_calleridentity_B8FA3344\\"
           }
         }
       }
@@ -2414,26 +2254,6 @@ exports[`renders an event bridge and lambda target with tags 1`] = `
           }
         }
       }
-    },
-    \\"aws_region\\": {
-      \\"test_testeventbridgelambda_eventbridgerule_region_9C813A82\\": {
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/test-event-bridge-lambda/event-bridge-rule/region\\",
-            \\"uniqueId\\": \\"test_testeventbridgelambda_eventbridgerule_region_9C813A82\\"
-          }
-        }
-      }
-    },
-    \\"aws_caller_identity\\": {
-      \\"test_testeventbridgelambda_eventbridgerule_calleridentity_B8FA3344\\": {
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/test-event-bridge-lambda/event-bridge-rule/caller-identity\\",
-            \\"uniqueId\\": \\"test_testeventbridgelambda_eventbridgerule_calleridentity_B8FA3344\\"
-          }
-        }
-      }
     }
   }
 }"
@@ -2679,26 +2499,6 @@ exports[`renders an event bridge and lambda target with timeout 1`] = `
           \\"metadata\\": {
             \\"path\\": \\"test/test-event-bridge-lambda/lambda/lambda-default-file\\",
             \\"uniqueId\\": \\"test_testeventbridgelambda_lambdadefaultfile_F29C5502\\"
-          }
-        }
-      }
-    },
-    \\"aws_region\\": {
-      \\"test_testeventbridgelambda_eventbridgerule_region_9C813A82\\": {
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/test-event-bridge-lambda/event-bridge-rule/region\\",
-            \\"uniqueId\\": \\"test_testeventbridgelambda_eventbridgerule_region_9C813A82\\"
-          }
-        }
-      }
-    },
-    \\"aws_caller_identity\\": {
-      \\"test_testeventbridgelambda_eventbridgerule_calleridentity_B8FA3344\\": {
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/test-event-bridge-lambda/event-bridge-rule/caller-identity\\",
-            \\"uniqueId\\": \\"test_testeventbridgelambda_eventbridgerule_calleridentity_B8FA3344\\"
           }
         }
       }
@@ -2971,26 +2771,6 @@ exports[`renders an event bridge and lambda target with vpc config 1`] = `
           \\"metadata\\": {
             \\"path\\": \\"test/test-event-bridge-lambda/lambda/lambda-default-file\\",
             \\"uniqueId\\": \\"test_testeventbridgelambda_lambdadefaultfile_F29C5502\\"
-          }
-        }
-      }
-    },
-    \\"aws_region\\": {
-      \\"test_testeventbridgelambda_eventbridgerule_region_9C813A82\\": {
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/test-event-bridge-lambda/event-bridge-rule/region\\",
-            \\"uniqueId\\": \\"test_testeventbridgelambda_eventbridgerule_region_9C813A82\\"
-          }
-        }
-      }
-    },
-    \\"aws_caller_identity\\": {
-      \\"test_testeventbridgelambda_eventbridgerule_calleridentity_B8FA3344\\": {
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/test-event-bridge-lambda/event-bridge-rule/caller-identity\\",
-            \\"uniqueId\\": \\"test_testeventbridgelambda_eventbridgerule_calleridentity_B8FA3344\\"
           }
         }
       }

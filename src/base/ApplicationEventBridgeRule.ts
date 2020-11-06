@@ -3,11 +3,9 @@ import { Construct } from 'constructs';
 import {
   CloudwatchEventRule,
   CloudwatchEventTarget,
-  DataAwsCallerIdentity,
-  DataAwsRegion,
 } from '../../.gen/providers/aws';
 
-interface ApplicationEventBridgeRuleProps {
+export interface ApplicationEventBridgeRuleProps {
   name: string;
   description?: string;
   eventBusName?: string;
@@ -21,8 +19,6 @@ interface ApplicationEventBridgeRuleProps {
 }
 
 export class ApplicationEventBridgeRule extends Resource {
-  private callerIdentity: DataAwsCallerIdentity;
-  private region: DataAwsRegion;
   public readonly rule: CloudwatchEventRule;
 
   constructor(
@@ -32,8 +28,6 @@ export class ApplicationEventBridgeRule extends Resource {
   ) {
     super(scope, name);
 
-    this.region = new DataAwsRegion(this, 'region');
-    this.callerIdentity = new DataAwsCallerIdentity(this, 'caller-identity');
     this.rule = this.createCloudwatchEventRule();
   }
 

@@ -1,7 +1,10 @@
 import { Resource } from 'cdktf';
 import { Construct } from 'constructs';
 import { ApplicationEventBridgeRule } from '../base/ApplicationEventBridgeRule';
-import { ApplicationVersionedLambda } from '../base/ApplicationVersionedLambda';
+import {
+  ApplicationVersionedLambda,
+  LAMBDA_RUNTIMES,
+} from '../base/ApplicationVersionedLambda';
 import {
   DataAwsIamPolicyDocumentStatement,
   LambdaFunctionVpcConfig,
@@ -14,7 +17,7 @@ interface PocketEventBridgeWithLambdaTargetProps {
   ruleDescription?: string;
   eventBusName?: string;
   eventPattern: { [key: string]: any };
-  runtime: string;
+  runtime: LAMBDA_RUNTIMES;
   timeout?: number;
   environment?: { [key: string]: string };
   vpcConfig?: LambdaFunctionVpcConfig;
@@ -41,7 +44,7 @@ export class PocketEventBridgeWithLambdaTarget extends Resource {
       vpcConfig: config.vpcConfig,
       executionPolicyStatements: config.executionPolicyStatements,
       logRetention: config.logRetention,
-      s3Bucket: config.s3Bucket,
+      s3Bucket: config.s3Bucket ?? `pocket-${config.name}`,
       tags: config.tags,
     });
 

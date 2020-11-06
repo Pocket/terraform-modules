@@ -1,9 +1,14 @@
 import { Testing, TerraformStack } from 'cdktf';
-import { ApplicationVersionedLambda } from './ApplicationVersionedLambda';
+import {
+  ApplicationVersionedLambda,
+  ApplicationVersionedLambdaProps,
+  LAMBDA_RUNTIMES,
+} from './ApplicationVersionedLambda';
 
-const config = {
+const config: ApplicationVersionedLambdaProps = {
   name: 'Test-Lambda',
-  runtime: 'python3.8',
+  runtime: LAMBDA_RUNTIMES.PYTHON,
+  s3Bucket: 'test-bucket',
 };
 
 test('renders a versioned lambda', () => {

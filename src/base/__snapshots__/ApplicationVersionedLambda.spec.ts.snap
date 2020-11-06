@@ -12,7 +12,7 @@ exports[`renders a versioned lambda 1`] = `
     \\"aws_s3_bucket\\": {
       \\"test_testversionedlambda_codebucket_BC2D4650\\": {
         \\"acl\\": \\"private\\",
-        \\"bucket\\": \\"pocket-test-lambda\\",
+        \\"bucket\\": \\"test-bucket\\",
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/test-versioned-lambda/code-bucket\\",
@@ -212,7 +212,7 @@ exports[`renders a versioned lambda with description 1`] = `
     \\"aws_s3_bucket\\": {
       \\"test_testversionedlambda_codebucket_BC2D4650\\": {
         \\"acl\\": \\"private\\",
-        \\"bucket\\": \\"pocket-test-lambda\\",
+        \\"bucket\\": \\"test-bucket\\",
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/test-versioned-lambda/code-bucket\\",
@@ -412,7 +412,7 @@ exports[`renders a versioned lambda with environment variables 1`] = `
     \\"aws_s3_bucket\\": {
       \\"test_testversionedlambda_codebucket_BC2D4650\\": {
         \\"acl\\": \\"private\\",
-        \\"bucket\\": \\"pocket-test-lambda\\",
+        \\"bucket\\": \\"test-bucket\\",
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/test-versioned-lambda/code-bucket\\",
@@ -617,7 +617,7 @@ exports[`renders a versioned lambda with execution policy statements 1`] = `
     \\"aws_s3_bucket\\": {
       \\"test_testversionedlambda_codebucket_BC2D4650\\": {
         \\"acl\\": \\"private\\",
-        \\"bucket\\": \\"pocket-test-lambda\\",
+        \\"bucket\\": \\"test-bucket\\",
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/test-versioned-lambda/code-bucket\\",
@@ -826,7 +826,7 @@ exports[`renders a versioned lambda with log retention 1`] = `
     \\"aws_s3_bucket\\": {
       \\"test_testversionedlambda_codebucket_BC2D4650\\": {
         \\"acl\\": \\"private\\",
-        \\"bucket\\": \\"pocket-test-lambda\\",
+        \\"bucket\\": \\"test-bucket\\",
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/test-versioned-lambda/code-bucket\\",
@@ -1226,7 +1226,7 @@ exports[`renders a versioned lambda with tags 1`] = `
     \\"aws_s3_bucket\\": {
       \\"test_testversionedlambda_codebucket_BC2D4650\\": {
         \\"acl\\": \\"private\\",
-        \\"bucket\\": \\"pocket-test-lambda\\",
+        \\"bucket\\": \\"test-bucket\\",
         \\"tags\\": {
           \\"my\\": \\"tag\\",
           \\"for\\": \\"test\\"
@@ -1434,7 +1434,7 @@ exports[`renders a versioned lambda with timeout 1`] = `
     \\"aws_s3_bucket\\": {
       \\"test_testversionedlambda_codebucket_BC2D4650\\": {
         \\"acl\\": \\"private\\",
-        \\"bucket\\": \\"pocket-test-lambda\\",
+        \\"bucket\\": \\"test-bucket\\",
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/test-versioned-lambda/code-bucket\\",
@@ -1634,7 +1634,7 @@ exports[`renders a versioned lambda with vpc 1`] = `
     \\"aws_s3_bucket\\": {
       \\"test_testversionedlambda_codebucket_BC2D4650\\": {
         \\"acl\\": \\"private\\",
-        \\"bucket\\": \\"pocket-test-lambda\\",
+        \\"bucket\\": \\"test-bucket\\",
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/test-versioned-lambda/code-bucket\\",

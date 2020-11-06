@@ -1,8 +1,11 @@
 import { Testing, TerraformStack } from 'cdktf';
-import { ApplicationEventBridgeRule } from './ApplicationEventBridgeRule';
+import {
+  ApplicationEventBridgeRule,
+  ApplicationEventBridgeRuleProps,
+} from './ApplicationEventBridgeRule';
 import { SqsQueue } from '../../.gen/providers/aws';
 
-const config = {
+const config: ApplicationEventBridgeRuleProps = {
   name: 'Test-EventBridge',
   eventPattern: {
     source: ['aws.states'],

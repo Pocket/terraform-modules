@@ -17,17 +17,22 @@ import {
   DataArchiveFileSource,
 } from '../../.gen/providers/archive';
 
-interface ApplicationLambdaProps {
+export enum LAMBDA_RUNTIMES {
+  PYTHON = 'python3.8',
+  NODEJS = 'nodejs12.x',
+}
+
+export interface ApplicationVersionedLambdaProps {
   name: string;
   description?: string;
-  runtime: string;
+  runtime: LAMBDA_RUNTIMES;
   timeout?: number;
   environment?: { [key: string]: string };
   vpcConfig?: LambdaFunctionVpcConfig;
   executionPolicyStatements?: DataAwsIamPolicyDocumentStatement[];
   tags?: { [key: string]: string };
   logRetention?: number;
-  s3Bucket?: string;
+  s3Bucket: string;
 }
 
 const DEFAULT_TIMEOUT = 5;
@@ -39,7 +44,7 @@ export class ApplicationVersionedLambda extends Resource {
   constructor(
     scope: Construct,
     name: string,
-    private config: ApplicationLambdaProps
+    private config: ApplicationVersionedLambdaProps
   ) {
     super(scope, name);
 
@@ -193,8 +198,7 @@ export class ApplicationVersionedLambda extends Resource {
 
   private createCodeBucket() {
     const codeBucket = new S3Bucket(this, 'code-bucket', {
-      bucket:
-        this.config.s3Bucket ?? `pocket-${this.config.name.toLowerCase()}`,
+      bucket: this.config.s3Bucket,
       acl: 'private',
       tags: this.config.tags,
     });

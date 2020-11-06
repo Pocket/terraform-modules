@@ -4,23 +4,20 @@ import {
   CodedeployApp,
   CodedeployDeploymentGroup,
   CodestarnotificationsNotificationRule,
-  DataAwsCallerIdentity,
   DataAwsIamPolicyDocument,
-  DataAwsRegion,
-  DataAwsSnsTopic,
   IamRole,
   IamRolePolicyAttachment,
 } from '../../.gen/providers/aws';
 
-interface ApplicationVersionedLambdaCodeDeployProps {
+export interface ApplicationVersionedLambdaCodeDeployProps {
   name: string;
-  deploySnsTopicName: string;
+  deploySnsTopicArn?: string;
   detailType?: 'BASIC' | 'FULL';
+  region: string;
+  accountId: string;
 }
 
 export class ApplicationLambdaCodeDeploy extends Resource {
-  private callerIdentity: DataAwsCallerIdentity;
-  private region: DataAwsRegion;
   public readonly codeDeployApp: CodedeployApp;
 
   constructor(
@@ -30,8 +27,6 @@ export class ApplicationLambdaCodeDeploy extends Resource {
   ) {
     super(scope, name);
 
-    this.region = new DataAwsRegion(this, 'region');
-    this.callerIdentity = new DataAwsCallerIdentity(this, 'caller-identity');
     this.codeDeployApp = this.setupCodeDeploy();
   }
 
@@ -42,7 +37,10 @@ export class ApplicationLambdaCodeDeploy extends Resource {
     });
 
     this.createCodeDeploymentGroup(codeDeployApp);
-    this.setupCodeDeployNotifications(codeDeployApp);
+
+    if (this.config.deploySnsTopicArn) {
+      this.setupCodeDeployNotifications(codeDeployApp);
+    }
 
     return codeDeployApp;
   }
@@ -106,20 +104,14 @@ export class ApplicationLambdaCodeDeploy extends Resource {
   }
 
   private setupCodeDeployNotifications(codeDeployApp: CodedeployApp) {
-    // TODO: Optionally create SNS topic when deploy topic is not found.
-    //  This is not required for our use case now but may be useful
-    const deployTopic = new DataAwsSnsTopic(this, 'deploy-topic', {
-      name: this.config.deploySnsTopicName,
-    });
-
     new CodestarnotificationsNotificationRule(this, 'notifications', {
       detailType: this.config.detailType ?? 'BASIC',
       eventTypeIds: ['codedeploy-application-deployment-failed'],
       name: codeDeployApp.name,
-      resource: `arn:aws:codedeploy:${this.region.name}:${this.callerIdentity.accountId}:application:${codeDeployApp.name}`,
+      resource: `arn:aws:codedeploy:${this.config.region}:${this.config.accountId}:application:${codeDeployApp.name}`,
       target: [
         {
-          address: deployTopic.arn,
+          address: this.config.deploySnsTopicArn,
         },
       ],
     });
