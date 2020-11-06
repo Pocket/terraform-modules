@@ -10,6 +10,7 @@ import {
   LambdaFunctionVpcConfig,
   LambdaPermission,
 } from '../../.gen/providers/aws';
+import { ApplicationLambdaCodeDeploy } from '../base/ApplicationLambdaCodeDeploy';
 
 export interface PocketEventBridgeWithLambdaTargetProps {
   name: string;
@@ -26,6 +27,12 @@ export interface PocketEventBridgeWithLambdaTargetProps {
   logRetention?: number;
   s3Bucket?: string;
   tags?: { [key: string]: string };
+  codeDeploy?: {
+    deploySnsTopicArn?: string;
+    detailType?: 'BASIC' | 'FULL';
+    region: string;
+    accountId: string;
+  };
 }
 
 export class PocketEventBridgeWithLambdaTarget extends Resource {
@@ -74,5 +81,15 @@ export class PocketEventBridgeWithLambdaTarget extends Resource {
       sourceArn: eventBridgeRule.rule.arn,
       dependsOn: [lambda.versionedLambda, eventBridgeRule.rule],
     });
+
+    if (config.codeDeploy) {
+      new ApplicationLambdaCodeDeploy(this, 'lambda-code-deploy', {
+        name: config.name,
+        deploySnsTopicArn: config.codeDeploy.deploySnsTopicArn,
+        detailType: config.codeDeploy.detailType,
+        region: config.codeDeploy.region,
+        accountId: config.codeDeploy.accountId,
+      });
+    }
   }
 }
