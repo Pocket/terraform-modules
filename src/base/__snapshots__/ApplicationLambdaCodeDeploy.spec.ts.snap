@@ -12,7 +12,7 @@ exports[`renders a lambda code deploy app 1`] = `
     \\"aws_codedeploy_app\\": {
       \\"test_testlambdacodedeploy_codedeployapp_8F9AF4BD\\": {
         \\"compute_platform\\": \\"Lambda\\",
-        \\"name\\": \\"Test-Lambda-Code-Deploy-CodeDeploy\\",
+        \\"name\\": \\"Test-Lambda-Code-Deploy-Lambda\\",
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/test-lambda-code-deploy/code-deploy-app\\",
@@ -50,9 +50,9 @@ exports[`renders a lambda code deploy app 1`] = `
     },
     \\"aws_codedeploy_deployment_group\\": {
       \\"test_testlambdacodedeploy_codedeploymentgroup_A7E2E869\\": {
-        \\"app_name\\": \\"Test-Lambda-Code-Deploy-CodeDeploy\\",
+        \\"app_name\\": \\"Test-Lambda-Code-Deploy-Lambda\\",
         \\"deployment_config_name\\": \\"CodeDeployDefault.LambdaAllAtOnce\\",
-        \\"deployment_group_name\\": \\"Test-Lambda-Code-Deploy-CodeDeployGroup\\",
+        \\"deployment_group_name\\": \\"Test-Lambda-Code-Deploy-Lambda\\",
         \\"service_role_arn\\": \\"\${aws_iam_role.test_testlambdacodedeploy_codedeployrole_755F51E7.arn}\\",
         \\"auto_rollback_configuration\\": [
           {
@@ -67,6 +67,9 @@ exports[`renders a lambda code deploy app 1`] = `
             \\"deployment_type\\": \\"BLUE_GREEN\\",
             \\"deployment_option\\": \\"WITH_TRAFFIC_CONTROL\\"
           }
+        ],
+        \\"depends_on\\": [
+          \\"aws_codedeploy_app.test_testlambdacodedeploy_codedeployapp_8F9AF4BD\\"
         ],
         \\"//\\": {
           \\"metadata\\": {
@@ -120,7 +123,7 @@ exports[`renders a lambda code deploy app with sns topic arn 1`] = `
     \\"aws_codedeploy_app\\": {
       \\"test_testlambdacodedeploy_codedeployapp_8F9AF4BD\\": {
         \\"compute_platform\\": \\"Lambda\\",
-        \\"name\\": \\"Test-Lambda-Code-Deploy-CodeDeploy\\",
+        \\"name\\": \\"Test-Lambda-Code-Deploy-Lambda\\",
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/test-lambda-code-deploy/code-deploy-app\\",
@@ -158,9 +161,9 @@ exports[`renders a lambda code deploy app with sns topic arn 1`] = `
     },
     \\"aws_codedeploy_deployment_group\\": {
       \\"test_testlambdacodedeploy_codedeploymentgroup_A7E2E869\\": {
-        \\"app_name\\": \\"Test-Lambda-Code-Deploy-CodeDeploy\\",
+        \\"app_name\\": \\"Test-Lambda-Code-Deploy-Lambda\\",
         \\"deployment_config_name\\": \\"CodeDeployDefault.LambdaAllAtOnce\\",
-        \\"deployment_group_name\\": \\"Test-Lambda-Code-Deploy-CodeDeployGroup\\",
+        \\"deployment_group_name\\": \\"Test-Lambda-Code-Deploy-Lambda\\",
         \\"service_role_arn\\": \\"\${aws_iam_role.test_testlambdacodedeploy_codedeployrole_755F51E7.arn}\\",
         \\"auto_rollback_configuration\\": [
           {
@@ -176,6 +179,9 @@ exports[`renders a lambda code deploy app with sns topic arn 1`] = `
             \\"deployment_option\\": \\"WITH_TRAFFIC_CONTROL\\"
           }
         ],
+        \\"depends_on\\": [
+          \\"aws_codedeploy_app.test_testlambdacodedeploy_codedeployapp_8F9AF4BD\\"
+        ],
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/test-lambda-code-deploy/code-deployment-group\\",
@@ -190,8 +196,8 @@ exports[`renders a lambda code deploy app with sns topic arn 1`] = `
         \\"event_type_ids\\": [
           \\"codedeploy-application-deployment-failed\\"
         ],
-        \\"name\\": \\"Test-Lambda-Code-Deploy-CodeDeploy\\",
-        \\"resource\\": \\"arn:aws:codedeploy:us-east-1:123:application:Test-Lambda-Code-Deploy-CodeDeploy\\",
+        \\"name\\": \\"Test-Lambda-Code-Deploy-Lambda\\",
+        \\"resource\\": \\"arn:aws:codedeploy:us-east-1:123:application:Test-Lambda-Code-Deploy-Lambda\\",
         \\"target\\": [
           {
             \\"address\\": \\"test:deploy-topic:arn\\"
@@ -249,7 +255,7 @@ exports[`renders a lambda code deploy app with sns topic arn and detail type 1`]
     \\"aws_codedeploy_app\\": {
       \\"test_testlambdacodedeploy_codedeployapp_8F9AF4BD\\": {
         \\"compute_platform\\": \\"Lambda\\",
-        \\"name\\": \\"Test-Lambda-Code-Deploy-CodeDeploy\\",
+        \\"name\\": \\"Test-Lambda-Code-Deploy-Lambda\\",
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/test-lambda-code-deploy/code-deploy-app\\",
@@ -287,9 +293,9 @@ exports[`renders a lambda code deploy app with sns topic arn and detail type 1`]
     },
     \\"aws_codedeploy_deployment_group\\": {
       \\"test_testlambdacodedeploy_codedeploymentgroup_A7E2E869\\": {
-        \\"app_name\\": \\"Test-Lambda-Code-Deploy-CodeDeploy\\",
+        \\"app_name\\": \\"Test-Lambda-Code-Deploy-Lambda\\",
         \\"deployment_config_name\\": \\"CodeDeployDefault.LambdaAllAtOnce\\",
-        \\"deployment_group_name\\": \\"Test-Lambda-Code-Deploy-CodeDeployGroup\\",
+        \\"deployment_group_name\\": \\"Test-Lambda-Code-Deploy-Lambda\\",
         \\"service_role_arn\\": \\"\${aws_iam_role.test_testlambdacodedeploy_codedeployrole_755F51E7.arn}\\",
         \\"auto_rollback_configuration\\": [
           {
@@ -305,6 +311,9 @@ exports[`renders a lambda code deploy app with sns topic arn and detail type 1`]
             \\"deployment_option\\": \\"WITH_TRAFFIC_CONTROL\\"
           }
         ],
+        \\"depends_on\\": [
+          \\"aws_codedeploy_app.test_testlambdacodedeploy_codedeployapp_8F9AF4BD\\"
+        ],
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/test-lambda-code-deploy/code-deployment-group\\",
@@ -319,8 +328,8 @@ exports[`renders a lambda code deploy app with sns topic arn and detail type 1`]
         \\"event_type_ids\\": [
           \\"codedeploy-application-deployment-failed\\"
         ],
-        \\"name\\": \\"Test-Lambda-Code-Deploy-CodeDeploy\\",
-        \\"resource\\": \\"arn:aws:codedeploy:us-east-1:123:application:Test-Lambda-Code-Deploy-CodeDeploy\\",
+        \\"name\\": \\"Test-Lambda-Code-Deploy-Lambda\\",
+        \\"resource\\": \\"arn:aws:codedeploy:us-east-1:123:application:Test-Lambda-Code-Deploy-Lambda\\",
         \\"target\\": [
           {
             \\"address\\": \\"test:deploy-topic:arn\\"
