@@ -616,7 +616,8 @@ exports[`PocketALBApplication renders an application with custom task sizes 1`] 
           }
         ],
         \\"depends_on\\": [
-          \\"aws_alb_target_group.test_testPocketApp_ecsservice_bluetargetgroup_ecstargetgroup_F811A231\\"
+          \\"aws_alb_target_group.test_testPocketApp_ecsservice_bluetargetgroup_ecstargetgroup_F811A231\\",
+          \\"aws_alb_listener_rule.test_testPocketApp_ecsservice_listenerrule_CD5A6DFA\\"
         ],
         \\"lifecycle\\": {
           \\"ignore_changes\\": [
@@ -1252,7 +1253,8 @@ exports[`PocketALBApplication renders an application with minimal config 1`] = `
           }
         ],
         \\"depends_on\\": [
-          \\"aws_alb_target_group.test_testPocketApp_ecsservice_bluetargetgroup_ecstargetgroup_F811A231\\"
+          \\"aws_alb_target_group.test_testPocketApp_ecsservice_bluetargetgroup_ecstargetgroup_F811A231\\",
+          \\"aws_alb_listener_rule.test_testPocketApp_ecsservice_listenerrule_CD5A6DFA\\"
         ],
         \\"lifecycle\\": {
           \\"ignore_changes\\": [
@@ -2049,7 +2051,8 @@ exports[`PocketALBApplication renders an external application 1`] = `
           }
         ],
         \\"depends_on\\": [
-          \\"aws_alb_target_group.test_testPocketApp_ecsservice_bluetargetgroup_ecstargetgroup_F811A231\\"
+          \\"aws_alb_target_group.test_testPocketApp_ecsservice_bluetargetgroup_ecstargetgroup_F811A231\\",
+          \\"aws_alb_listener_rule.test_testPocketApp_ecsservice_listenerrule_CD5A6DFA\\"
         ],
         \\"lifecycle\\": {
           \\"ignore_changes\\": [
@@ -2685,7 +2688,8 @@ exports[`PocketALBApplication renders an internal application 1`] = `
           }
         ],
         \\"depends_on\\": [
-          \\"aws_alb_target_group.test_testPocketApp_ecsservice_bluetargetgroup_ecstargetgroup_F811A231\\"
+          \\"aws_alb_target_group.test_testPocketApp_ecsservice_bluetargetgroup_ecstargetgroup_F811A231\\",
+          \\"aws_alb_listener_rule.test_testPocketApp_ecsservice_listenerrule_CD5A6DFA\\"
         ],
         \\"lifecycle\\": {
           \\"ignore_changes\\": [
@@ -3363,7 +3367,8 @@ exports[`PocketALBApplication renders an internal application with tags 1`] = `
           }
         ],
         \\"depends_on\\": [
-          \\"aws_alb_target_group.test_testPocketApp_ecsservice_bluetargetgroup_ecstargetgroup_F811A231\\"
+          \\"aws_alb_target_group.test_testPocketApp_ecsservice_bluetargetgroup_ecstargetgroup_F811A231\\",
+          \\"aws_alb_listener_rule.test_testPocketApp_ecsservice_listenerrule_CD5A6DFA\\"
         ],
         \\"lifecycle\\": {
           \\"ignore_changes\\": [

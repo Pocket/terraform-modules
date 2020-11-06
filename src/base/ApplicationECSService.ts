@@ -125,7 +125,7 @@ export class ApplicationECSService extends Resource {
       this.mainTargetGroup = this.createTargetGroup('blue');
       ecsServiceDependsOn.push(this.mainTargetGroup.targetGroup);
       // Now that we have our service created, we append the alb listener rule to our HTTPS listener.
-      new AlbListenerRule(this, 'listener_rule', {
+      const listenerRule = new AlbListenerRule(this, 'listener_rule', {
         listenerArn: this.config.albConfig.listenerArn,
         priority: 1,
         condition: [
@@ -140,6 +140,7 @@ export class ApplicationECSService extends Resource {
           },
         ],
       });
+      ecsServiceDependsOn.push(listenerRule);
       targetGroupNames.push(this.mainTargetGroup.targetGroup.name);
       ecsLoadBalancerConfig.push({
         containerName: config.albConfig.containerName,

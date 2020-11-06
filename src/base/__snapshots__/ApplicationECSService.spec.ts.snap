@@ -390,7 +390,8 @@ exports[`AppliationECSService renders an ECS service with full container definit
           }
         ],
         \\"depends_on\\": [
-          \\"aws_alb_target_group.test_testECSService_bluetargetgroup_ecstargetgroup_0E1C18C4\\"
+          \\"aws_alb_target_group.test_testECSService_bluetargetgroup_ecstargetgroup_0E1C18C4\\",
+          \\"aws_alb_listener_rule.test_testECSService_listenerrule_1599E421\\"
         ],
         \\"lifecycle\\": {
           \\"ignore_changes\\": [
