@@ -8,6 +8,7 @@ import {
   IamRolePolicy,
   LambdaAlias,
   LambdaFunction,
+  LambdaFunctionConfig,
   LambdaFunctionVpcConfig,
   S3Bucket,
   S3BucketPublicAccessBlock,
@@ -68,7 +69,7 @@ export class ApplicationVersionedLambda extends Resource {
 
     const defaultLambda = this.getDefaultLambda();
 
-    const lambda = new LambdaFunction(this, 'lambda', {
+    let lambdaConfig: LambdaFunctionConfig = {
       functionName: `${this.config.name}-Function`,
       filename: defaultLambda.outputPath,
       handler: this.config.handler,
@@ -81,13 +82,21 @@ export class ApplicationVersionedLambda extends Resource {
       lifecycle: {
         ignoreChanges: ['filename', 'source_code_hash'],
       },
-      environment: [
-        {
-          variables: this.config.environment,
-        },
-      ],
       tags: this.config.tags,
-    });
+    };
+
+    if (this.config.environment) {
+      lambdaConfig = {
+        ...lambdaConfig,
+        environment: [
+          {
+            variables: this.config.environment,
+          },
+        ],
+      };
+    }
+
+    const lambda = new LambdaFunction(this, 'lambda', lambdaConfig);
 
     new CloudwatchLogGroup(this, 'log-group', {
       name: `/aws/lambda/${lambda.functionName}`,

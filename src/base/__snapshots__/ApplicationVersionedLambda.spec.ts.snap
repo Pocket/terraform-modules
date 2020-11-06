@@ -72,9 +72,6 @@ exports[`renders a versioned lambda 1`] = `
         \\"runtime\\": \\"python3.8\\",
         \\"source_code_hash\\": \\"\${data.archive_file.test_testversionedlambda_lambdadefaultfile_57465E51.output_base64sha256}\\",
         \\"timeout\\": 5,
-        \\"environment\\": [
-          {}
-        ],
         \\"vpc_config\\": [],
         \\"lifecycle\\": {
           \\"ignore_changes\\": [
@@ -272,9 +269,6 @@ exports[`renders a versioned lambda with description 1`] = `
         \\"runtime\\": \\"python3.8\\",
         \\"source_code_hash\\": \\"\${data.archive_file.test_testversionedlambda_lambdadefaultfile_57465E51.output_base64sha256}\\",
         \\"timeout\\": 5,
-        \\"environment\\": [
-          {}
-        ],
         \\"vpc_config\\": [],
         \\"lifecycle\\": {
           \\"ignore_changes\\": [
@@ -677,9 +671,6 @@ exports[`renders a versioned lambda with execution policy statements 1`] = `
         \\"runtime\\": \\"python3.8\\",
         \\"source_code_hash\\": \\"\${data.archive_file.test_testversionedlambda_lambdadefaultfile_57465E51.output_base64sha256}\\",
         \\"timeout\\": 5,
-        \\"environment\\": [
-          {}
-        ],
         \\"vpc_config\\": [],
         \\"lifecycle\\": {
           \\"ignore_changes\\": [
@@ -886,9 +877,6 @@ exports[`renders a versioned lambda with log retention 1`] = `
         \\"runtime\\": \\"python3.8\\",
         \\"source_code_hash\\": \\"\${data.archive_file.test_testversionedlambda_lambdadefaultfile_57465E51.output_base64sha256}\\",
         \\"timeout\\": 5,
-        \\"environment\\": [
-          {}
-        ],
         \\"vpc_config\\": [],
         \\"lifecycle\\": {
           \\"ignore_changes\\": [
@@ -1086,9 +1074,6 @@ exports[`renders a versioned lambda with s3 bucket 1`] = `
         \\"runtime\\": \\"python3.8\\",
         \\"source_code_hash\\": \\"\${data.archive_file.test_testversionedlambda_lambdadefaultfile_57465E51.output_base64sha256}\\",
         \\"timeout\\": 5,
-        \\"environment\\": [
-          {}
-        ],
         \\"vpc_config\\": [],
         \\"lifecycle\\": {
           \\"ignore_changes\\": [
@@ -1294,9 +1279,6 @@ exports[`renders a versioned lambda with tags 1`] = `
           \\"for\\": \\"test\\"
         },
         \\"timeout\\": 5,
-        \\"environment\\": [
-          {}
-        ],
         \\"vpc_config\\": [],
         \\"lifecycle\\": {
           \\"ignore_changes\\": [
@@ -1494,9 +1476,6 @@ exports[`renders a versioned lambda with timeout 1`] = `
         \\"runtime\\": \\"python3.8\\",
         \\"source_code_hash\\": \\"\${data.archive_file.test_testversionedlambda_lambdadefaultfile_57465E51.output_base64sha256}\\",
         \\"timeout\\": 500,
-        \\"environment\\": [
-          {}
-        ],
         \\"vpc_config\\": [],
         \\"lifecycle\\": {
           \\"ignore_changes\\": [
@@ -1694,9 +1673,6 @@ exports[`renders a versioned lambda with vpc 1`] = `
         \\"runtime\\": \\"python3.8\\",
         \\"source_code_hash\\": \\"\${data.archive_file.test_testversionedlambda_lambdadefaultfile_57465E51.output_base64sha256}\\",
         \\"timeout\\": 5,
-        \\"environment\\": [
-          {}
-        ],
         \\"vpc_config\\": [
           {
             \\"subnet_ids\\": [
