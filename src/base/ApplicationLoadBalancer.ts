@@ -45,10 +45,16 @@ export class ApplicationLoadBalancer extends Resource {
       ],
       egress: [
         {
-          fromPort: 80,
-          toPort: 80,
-          protocol: 'TCP',
+          fromPort: 0,
+          protocol: '-1',
+          toPort: 0,
           cidrBlocks: ['0.0.0.0/0'],
+          description: 'required',
+          ipv6CidrBlocks: [],
+          prefixListIds: [],
+          securityGroups: [],
+          // @ts-ignore: https://github.com/hashicorp/terraform-cdk/issues/282
+          self: false,
         },
       ],
       tags: {

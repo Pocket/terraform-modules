@@ -271,9 +271,9 @@ exports[`PocketALBApplication renders an application with custom task sizes 1`] 
         \\"description\\": \\"External security group  (Managed by Terraform)\\",
         \\"egress\\": [
           {
-            \\"from_port\\": 80,
-            \\"to_port\\": 80,
-            \\"protocol\\": \\"TCP\\",
+            \\"from_port\\": 0,
+            \\"protocol\\": \\"-1\\",
+            \\"to_port\\": 0,
             \\"cidr_blocks\\": [
               \\"0.0.0.0/0\\"
             ],
@@ -904,9 +904,9 @@ exports[`PocketALBApplication renders an application with minimal config 1`] = `
         \\"description\\": \\"External security group  (Managed by Terraform)\\",
         \\"egress\\": [
           {
-            \\"from_port\\": 80,
-            \\"to_port\\": 80,
-            \\"protocol\\": \\"TCP\\",
+            \\"from_port\\": 0,
+            \\"protocol\\": \\"-1\\",
+            \\"to_port\\": 0,
             \\"cidr_blocks\\": [
               \\"0.0.0.0/0\\"
             ],
@@ -1584,9 +1584,9 @@ exports[`PocketALBApplication renders an external application 1`] = `
         \\"description\\": \\"External security group  (Managed by Terraform)\\",
         \\"egress\\": [
           {
-            \\"from_port\\": 80,
-            \\"to_port\\": 80,
-            \\"protocol\\": \\"TCP\\",
+            \\"from_port\\": 0,
+            \\"protocol\\": \\"-1\\",
+            \\"to_port\\": 0,
             \\"cidr_blocks\\": [
               \\"0.0.0.0/0\\"
             ],
@@ -2331,9 +2331,9 @@ exports[`PocketALBApplication renders an internal application 1`] = `
         \\"description\\": \\"External security group  (Managed by Terraform)\\",
         \\"egress\\": [
           {
-            \\"from_port\\": 80,
-            \\"to_port\\": 80,
-            \\"protocol\\": \\"TCP\\",
+            \\"from_port\\": 0,
+            \\"protocol\\": \\"-1\\",
+            \\"to_port\\": 0,
             \\"cidr_blocks\\": [
               \\"0.0.0.0/0\\"
             ],
@@ -2968,9 +2968,9 @@ exports[`PocketALBApplication renders an internal application with tags 1`] = `
         \\"description\\": \\"External security group  (Managed by Terraform)\\",
         \\"egress\\": [
           {
-            \\"from_port\\": 80,
-            \\"to_port\\": 80,
-            \\"protocol\\": \\"TCP\\",
+            \\"from_port\\": 0,
+            \\"protocol\\": \\"-1\\",
+            \\"to_port\\": 0,
             \\"cidr_blocks\\": [
               \\"0.0.0.0/0\\"
             ],

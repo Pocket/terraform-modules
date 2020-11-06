@@ -14,9 +14,9 @@ exports[`renders an ALB with tags 1`] = `
         \\"description\\": \\"External security group  (Managed by Terraform)\\",
         \\"egress\\": [
           {
-            \\"from_port\\": 80,
-            \\"to_port\\": 80,
-            \\"protocol\\": \\"TCP\\",
+            \\"from_port\\": 0,
+            \\"protocol\\": \\"-1\\",
+            \\"to_port\\": 0,
             \\"cidr_blocks\\": [
               \\"0.0.0.0/0\\"
             ],
@@ -114,9 +114,9 @@ exports[`renders an ALB without tags 1`] = `
         \\"description\\": \\"External security group  (Managed by Terraform)\\",
         \\"egress\\": [
           {
-            \\"from_port\\": 80,
-            \\"to_port\\": 80,
-            \\"protocol\\": \\"TCP\\",
+            \\"from_port\\": 0,
+            \\"protocol\\": \\"-1\\",
+            \\"to_port\\": 0,
             \\"cidr_blocks\\": [
               \\"0.0.0.0/0\\"
             ],
