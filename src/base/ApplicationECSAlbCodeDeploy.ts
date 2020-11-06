@@ -159,6 +159,11 @@ export class ApplicationECSAlbCodeDeploy extends Resource {
           ],
           name: codeDeployApp.name,
           resource: `arn:aws:codedeploy:${region.name}:${account.accountId}:application:${codeDeployApp.name}`,
+          target: [
+            {
+              address: this.config.snsNotificationTopicArn,
+            },
+          ],
         }
       );
     }

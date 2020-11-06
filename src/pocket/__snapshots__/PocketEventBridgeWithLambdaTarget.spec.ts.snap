@@ -73,9 +73,6 @@ exports[`renders an event bridge and lambda target 1`] = `
         \\"runtime\\": \\"python3.8\\",
         \\"source_code_hash\\": \\"\${data.archive_file.test_testeventbridgelambda_lambdadefaultfile_F29C5502.output_base64sha256}\\",
         \\"timeout\\": 5,
-        \\"environment\\": [
-          {}
-        ],
         \\"vpc_config\\": [],
         \\"lifecycle\\": {
           \\"ignore_changes\\": [
@@ -332,9 +329,6 @@ exports[`renders an event bridge and lambda target with code deploy 1`] = `
         \\"runtime\\": \\"python3.8\\",
         \\"source_code_hash\\": \\"\${data.archive_file.test_testeventbridgelambda_lambdadefaultfile_F29C5502.output_base64sha256}\\",
         \\"timeout\\": 5,
-        \\"environment\\": [
-          {}
-        ],
         \\"vpc_config\\": [],
         \\"lifecycle\\": {
           \\"ignore_changes\\": [
@@ -938,9 +932,6 @@ exports[`renders an event bridge and lambda target with event bus name 1`] = `
         \\"runtime\\": \\"python3.8\\",
         \\"source_code_hash\\": \\"\${data.archive_file.test_testeventbridgelambda_lambdadefaultfile_F29C5502.output_base64sha256}\\",
         \\"timeout\\": 5,
-        \\"environment\\": [
-          {}
-        ],
         \\"vpc_config\\": [],
         \\"lifecycle\\": {
           \\"ignore_changes\\": [
@@ -1187,9 +1178,6 @@ exports[`renders an event bridge and lambda target with execution policy 1`] = `
         \\"runtime\\": \\"python3.8\\",
         \\"source_code_hash\\": \\"\${data.archive_file.test_testeventbridgelambda_lambdadefaultfile_F29C5502.output_base64sha256}\\",
         \\"timeout\\": 5,
-        \\"environment\\": [
-          {}
-        ],
         \\"vpc_config\\": [],
         \\"lifecycle\\": {
           \\"ignore_changes\\": [
@@ -1445,9 +1433,6 @@ exports[`renders an event bridge and lambda target with lambda description 1`] =
         \\"runtime\\": \\"python3.8\\",
         \\"source_code_hash\\": \\"\${data.archive_file.test_testeventbridgelambda_lambdadefaultfile_F29C5502.output_base64sha256}\\",
         \\"timeout\\": 5,
-        \\"environment\\": [
-          {}
-        ],
         \\"vpc_config\\": [],
         \\"lifecycle\\": {
           \\"ignore_changes\\": [
@@ -1694,9 +1679,6 @@ exports[`renders an event bridge and lambda target with log retention 1`] = `
         \\"runtime\\": \\"python3.8\\",
         \\"source_code_hash\\": \\"\${data.archive_file.test_testeventbridgelambda_lambdadefaultfile_F29C5502.output_base64sha256}\\",
         \\"timeout\\": 5,
-        \\"environment\\": [
-          {}
-        ],
         \\"vpc_config\\": [],
         \\"lifecycle\\": {
           \\"ignore_changes\\": [
@@ -1943,9 +1925,6 @@ exports[`renders an event bridge and lambda target with rule description 1`] = `
         \\"runtime\\": \\"python3.8\\",
         \\"source_code_hash\\": \\"\${data.archive_file.test_testeventbridgelambda_lambdadefaultfile_F29C5502.output_base64sha256}\\",
         \\"timeout\\": 5,
-        \\"environment\\": [
-          {}
-        ],
         \\"vpc_config\\": [],
         \\"lifecycle\\": {
           \\"ignore_changes\\": [
@@ -2193,9 +2172,6 @@ exports[`renders an event bridge and lambda target with s3 bucket 1`] = `
         \\"runtime\\": \\"python3.8\\",
         \\"source_code_hash\\": \\"\${data.archive_file.test_testeventbridgelambda_lambdadefaultfile_F29C5502.output_base64sha256}\\",
         \\"timeout\\": 5,
-        \\"environment\\": [
-          {}
-        ],
         \\"vpc_config\\": [],
         \\"lifecycle\\": {
           \\"ignore_changes\\": [
@@ -2450,9 +2426,6 @@ exports[`renders an event bridge and lambda target with tags 1`] = `
           \\"for\\": \\"test\\"
         },
         \\"timeout\\": 5,
-        \\"environment\\": [
-          {}
-        ],
         \\"vpc_config\\": [],
         \\"lifecycle\\": {
           \\"ignore_changes\\": [
@@ -2703,9 +2676,6 @@ exports[`renders an event bridge and lambda target with timeout 1`] = `
         \\"runtime\\": \\"python3.8\\",
         \\"source_code_hash\\": \\"\${data.archive_file.test_testeventbridgelambda_lambdadefaultfile_F29C5502.output_base64sha256}\\",
         \\"timeout\\": 300,
-        \\"environment\\": [
-          {}
-        ],
         \\"vpc_config\\": [],
         \\"lifecycle\\": {
           \\"ignore_changes\\": [
@@ -2952,9 +2922,6 @@ exports[`renders an event bridge and lambda target with vpc config 1`] = `
         \\"runtime\\": \\"python3.8\\",
         \\"source_code_hash\\": \\"\${data.archive_file.test_testeventbridgelambda_lambdadefaultfile_F29C5502.output_base64sha256}\\",
         \\"timeout\\": 5,
-        \\"environment\\": [
-          {}
-        ],
         \\"vpc_config\\": [
           {
             \\"subnet_ids\\": [
