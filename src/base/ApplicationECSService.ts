@@ -348,7 +348,7 @@ export class ApplicationECSService extends Resource {
    */
   private createTargetGroup(name: string): ApplicationTargetGroup {
     return new ApplicationTargetGroup(this, `${name}_target_group`, {
-      shortName: this.config.shortName,
+      shortName: `${this.config.shortName}-${name}`,
       vpcId: this.config.vpcId,
       healthCheckPath: this.config.albConfig.healthCheckPath,
       tags: this.config.tags,

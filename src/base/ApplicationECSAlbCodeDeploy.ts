@@ -141,7 +141,7 @@ export class ApplicationECSAlbCodeDeploy extends Resource {
 
     const codeDeployApp = new CodedeployApp(this, 'ecs_code_deploy', {
       computePlatform: 'ECS',
-      name: this.config.prefix,
+      name: `${this.config.prefix}-ECS`,
     });
 
     if (this.config.snsNotificationTopicArn) {

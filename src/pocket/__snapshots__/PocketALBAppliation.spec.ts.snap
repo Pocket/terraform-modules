@@ -534,7 +534,7 @@ exports[`PocketALBApplication renders an application with custom task sizes 1`] 
     \\"aws_alb_target_group\\": {
       \\"test_testPocketApp_ecsservice_bluetargetgroup_ecstargetgroup_F811A231\\": {
         \\"deregistration_delay\\": 120,
-        \\"name_prefix\\": \\"TSTAPP\\",
+        \\"name_prefix\\": \\"TSTAPP-blue\\",
         \\"port\\": 80,
         \\"protocol\\": \\"HTTP\\",
         \\"target_type\\": \\"ip\\",
@@ -1171,7 +1171,7 @@ exports[`PocketALBApplication renders an application with minimal config 1`] = `
     \\"aws_alb_target_group\\": {
       \\"test_testPocketApp_ecsservice_bluetargetgroup_ecstargetgroup_F811A231\\": {
         \\"deregistration_delay\\": 120,
-        \\"name_prefix\\": \\"TSTAPP\\",
+        \\"name_prefix\\": \\"TSTAPP-blue\\",
         \\"port\\": 80,
         \\"protocol\\": \\"HTTP\\",
         \\"target_type\\": \\"ip\\",
@@ -1969,7 +1969,7 @@ exports[`PocketALBApplication renders an external application 1`] = `
     \\"aws_alb_target_group\\": {
       \\"test_testPocketApp_ecsservice_bluetargetgroup_ecstargetgroup_F811A231\\": {
         \\"deregistration_delay\\": 120,
-        \\"name_prefix\\": \\"TSTAPP\\",
+        \\"name_prefix\\": \\"TSTAPP-blue\\",
         \\"port\\": 80,
         \\"protocol\\": \\"HTTP\\",
         \\"target_type\\": \\"ip\\",
@@ -2606,7 +2606,7 @@ exports[`PocketALBApplication renders an internal application 1`] = `
     \\"aws_alb_target_group\\": {
       \\"test_testPocketApp_ecsservice_bluetargetgroup_ecstargetgroup_F811A231\\": {
         \\"deregistration_delay\\": 120,
-        \\"name_prefix\\": \\"TSTAPP\\",
+        \\"name_prefix\\": \\"TSTAPP-blue\\",
         \\"port\\": 80,
         \\"protocol\\": \\"HTTP\\",
         \\"target_type\\": \\"ip\\",
@@ -3277,7 +3277,7 @@ exports[`PocketALBApplication renders an internal application with tags 1`] = `
     \\"aws_alb_target_group\\": {
       \\"test_testPocketApp_ecsservice_bluetargetgroup_ecstargetgroup_F811A231\\": {
         \\"deregistration_delay\\": 120,
-        \\"name_prefix\\": \\"TSTAPP\\",
+        \\"name_prefix\\": \\"TSTAPP-blue\\",
         \\"port\\": 80,
         \\"protocol\\": \\"HTTP\\",
         \\"tags\\": {
