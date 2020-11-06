@@ -13,6 +13,7 @@ exports[`renders an event bridge and lambda target 1`] = `
       \\"test_testeventbridgelambda_codebucket_2025467F\\": {
         \\"acl\\": \\"private\\",
         \\"bucket\\": \\"pocket-test-event-bridge-lambda\\",
+        \\"force_destroy\\": true,
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/test-event-bridge-lambda/lambda/code-bucket\\",
@@ -258,6 +259,7 @@ exports[`renders an event bridge and lambda target with code deploy 1`] = `
       \\"test_testeventbridgelambda_codebucket_2025467F\\": {
         \\"acl\\": \\"private\\",
         \\"bucket\\": \\"pocket-test-event-bridge-lambda\\",
+        \\"force_destroy\\": true,
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/test-event-bridge-lambda/lambda/code-bucket\\",
@@ -429,7 +431,7 @@ exports[`renders an event bridge and lambda target with code deploy 1`] = `
     \\"aws_codedeploy_app\\": {
       \\"test_testeventbridgelambda_lambdacodedeploy_codedeployapp_237F4656\\": {
         \\"compute_platform\\": \\"Lambda\\",
-        \\"name\\": \\"test-event-bridge-lambda-CodeDeploy\\",
+        \\"name\\": \\"test-event-bridge-lambda-Lambda\\",
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/test-event-bridge-lambda/lambda-code-deploy/code-deploy-app\\",
@@ -455,9 +457,9 @@ exports[`renders an event bridge and lambda target with code deploy 1`] = `
     },
     \\"aws_codedeploy_deployment_group\\": {
       \\"test_testeventbridgelambda_lambdacodedeploy_codedeploymentgroup_239B1D9F\\": {
-        \\"app_name\\": \\"test-event-bridge-lambda-CodeDeploy\\",
+        \\"app_name\\": \\"test-event-bridge-lambda-Lambda\\",
         \\"deployment_config_name\\": \\"CodeDeployDefault.LambdaAllAtOnce\\",
-        \\"deployment_group_name\\": \\"test-event-bridge-lambda-CodeDeployGroup\\",
+        \\"deployment_group_name\\": \\"test-event-bridge-lambda-Lambda\\",
         \\"service_role_arn\\": \\"\${aws_iam_role.test_testeventbridgelambda_lambdacodedeploy_codedeployrole_DBAC576F.arn}\\",
         \\"auto_rollback_configuration\\": [
           {
@@ -473,6 +475,9 @@ exports[`renders an event bridge and lambda target with code deploy 1`] = `
             \\"deployment_option\\": \\"WITH_TRAFFIC_CONTROL\\"
           }
         ],
+        \\"depends_on\\": [
+          \\"aws_codedeploy_app.test_testeventbridgelambda_lambdacodedeploy_codedeployapp_237F4656\\"
+        ],
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/test-event-bridge-lambda/lambda-code-deploy/code-deployment-group\\",
@@ -487,8 +492,8 @@ exports[`renders an event bridge and lambda target with code deploy 1`] = `
         \\"event_type_ids\\": [
           \\"codedeploy-application-deployment-failed\\"
         ],
-        \\"name\\": \\"test-event-bridge-lambda-CodeDeploy\\",
-        \\"resource\\": \\"arn:aws:codedeploy:us-east-1:test-account:application:test-event-bridge-lambda-CodeDeploy\\",
+        \\"name\\": \\"test-event-bridge-lambda-Lambda\\",
+        \\"resource\\": \\"arn:aws:codedeploy:us-east-1:test-account:application:test-event-bridge-lambda-Lambda\\",
         \\"target\\": [
           {
             \\"address\\": \\"arn:test\\"
@@ -613,6 +618,7 @@ exports[`renders an event bridge and lambda target with environment variables 1`
       \\"test_testeventbridgelambda_codebucket_2025467F\\": {
         \\"acl\\": \\"private\\",
         \\"bucket\\": \\"pocket-test-event-bridge-lambda\\",
+        \\"force_destroy\\": true,
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/test-event-bridge-lambda/lambda/code-bucket\\",
@@ -866,6 +872,7 @@ exports[`renders an event bridge and lambda target with event bus name 1`] = `
       \\"test_testeventbridgelambda_codebucket_2025467F\\": {
         \\"acl\\": \\"private\\",
         \\"bucket\\": \\"pocket-test-event-bridge-lambda\\",
+        \\"force_destroy\\": true,
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/test-event-bridge-lambda/lambda/code-bucket\\",
@@ -1111,6 +1118,7 @@ exports[`renders an event bridge and lambda target with execution policy 1`] = `
       \\"test_testeventbridgelambda_codebucket_2025467F\\": {
         \\"acl\\": \\"private\\",
         \\"bucket\\": \\"pocket-test-event-bridge-lambda\\",
+        \\"force_destroy\\": true,
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/test-event-bridge-lambda/lambda/code-bucket\\",
@@ -1365,6 +1373,7 @@ exports[`renders an event bridge and lambda target with lambda description 1`] =
       \\"test_testeventbridgelambda_codebucket_2025467F\\": {
         \\"acl\\": \\"private\\",
         \\"bucket\\": \\"pocket-test-event-bridge-lambda\\",
+        \\"force_destroy\\": true,
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/test-event-bridge-lambda/lambda/code-bucket\\",
@@ -1610,6 +1619,7 @@ exports[`renders an event bridge and lambda target with log retention 1`] = `
       \\"test_testeventbridgelambda_codebucket_2025467F\\": {
         \\"acl\\": \\"private\\",
         \\"bucket\\": \\"pocket-test-event-bridge-lambda\\",
+        \\"force_destroy\\": true,
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/test-event-bridge-lambda/lambda/code-bucket\\",
@@ -1855,6 +1865,7 @@ exports[`renders an event bridge and lambda target with rule description 1`] = `
       \\"test_testeventbridgelambda_codebucket_2025467F\\": {
         \\"acl\\": \\"private\\",
         \\"bucket\\": \\"pocket-test-event-bridge-lambda\\",
+        \\"force_destroy\\": true,
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/test-event-bridge-lambda/lambda/code-bucket\\",
@@ -2101,6 +2112,7 @@ exports[`renders an event bridge and lambda target with s3 bucket 1`] = `
       \\"test_testeventbridgelambda_codebucket_2025467F\\": {
         \\"acl\\": \\"private\\",
         \\"bucket\\": \\"test-bucket\\",
+        \\"force_destroy\\": true,
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/test-event-bridge-lambda/lambda/code-bucket\\",
@@ -2346,6 +2358,7 @@ exports[`renders an event bridge and lambda target with tags 1`] = `
       \\"test_testeventbridgelambda_codebucket_2025467F\\": {
         \\"acl\\": \\"private\\",
         \\"bucket\\": \\"pocket-test-event-bridge-lambda\\",
+        \\"force_destroy\\": true,
         \\"tags\\": {
           \\"my\\": \\"tags\\",
           \\"for\\": \\"test\\"
@@ -2603,6 +2616,7 @@ exports[`renders an event bridge and lambda target with timeout 1`] = `
       \\"test_testeventbridgelambda_codebucket_2025467F\\": {
         \\"acl\\": \\"private\\",
         \\"bucket\\": \\"pocket-test-event-bridge-lambda\\",
+        \\"force_destroy\\": true,
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/test-event-bridge-lambda/lambda/code-bucket\\",
@@ -2848,6 +2862,7 @@ exports[`renders an event bridge and lambda target with vpc config 1`] = `
       \\"test_testeventbridgelambda_codebucket_2025467F\\": {
         \\"acl\\": \\"private\\",
         \\"bucket\\": \\"pocket-test-event-bridge-lambda\\",
+        \\"force_destroy\\": true,
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/test-event-bridge-lambda/lambda/code-bucket\\",
