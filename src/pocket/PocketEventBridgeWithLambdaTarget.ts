@@ -7,7 +7,6 @@ import {
 } from '../base/ApplicationVersionedLambda';
 import {
   DataAwsIamPolicyDocumentStatement,
-  LambdaEventSourceMapping,
   LambdaFunctionVpcConfig,
   LambdaPermission,
 } from '../../.gen/providers/aws';
