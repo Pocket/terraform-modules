@@ -70,13 +70,13 @@ export class ApplicationAutoscaling extends Resource {
               'cloudwatch:DeleteAlarms',
             ],
             resources: [
-              `arn:aws:cloudwatch:*:*:alarm:/${config.ecsServiceName}-*`,
+              `arn:aws:cloudwatch:*:*:alarm:/${config.ecsServiceName}*`,
             ],
           },
           {
             effect: 'Allow',
             actions: ['ecs:DescribeServices', 'ecs:UpdateService'],
-            resources: [`arn:aws:ecs:*:*:service/${config.ecsServiceName}`],
+            resources: [`arn:aws:ecs:*:*:service/${config.ecsServiceName}*`],
           },
         ],
       }).json,
@@ -107,7 +107,7 @@ export class ApplicationAutoscaling extends Resource {
 
         stepScalingPolicyConfiguration: [
           {
-            adjustmentType: 'ChangeInCpacity',
+            adjustmentType: 'ChangeInCapacity',
             cooldown: 60,
             metricAggregationType: 'Average',
 
