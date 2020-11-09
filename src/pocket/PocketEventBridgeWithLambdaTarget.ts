@@ -77,6 +77,7 @@ export class PocketEventBridgeWithLambdaTarget extends Resource {
     new LambdaPermission(this, 'lambda-permission', {
       action: 'lambda:InvokeFunction',
       functionName: lambda.versionedLambda.functionName,
+      qualifier: lambda.versionedLambda.name,
       principal: 'events.amazonaws.com',
       sourceArn: eventBridgeRule.rule.arn,
       dependsOn: [lambda.versionedLambda, eventBridgeRule.rule],
