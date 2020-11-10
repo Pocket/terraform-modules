@@ -135,7 +135,7 @@ export class ApplicationAutoscaling extends Resource {
 
         stepScalingPolicyConfiguration: [
           {
-            adjustmentType: 'ChangeInCpacity',
+            adjustmentType: 'ChangeInCapacity',
             cooldown: 60,
             metricAggregationType: 'Average',
 
