@@ -107,4 +107,27 @@ describe('PocketALBApplication', () => {
 
     expect(Testing.synth(stack)).toMatchSnapshot();
   });
+
+  it('renders an application with autoscaling group and tags', () => {
+    const app = Testing.app();
+    const stack = new TerraformStack(app, 'test');
+
+    BASE_CONFIG.tags = {
+      name: 'thedude',
+      hobby: 'bowling',
+    };
+
+    BASE_CONFIG.autoscalingConfig = {
+      targetMinCapacity: 1,
+      targetMaxCapacity: 2,
+      stepScaleInAdjustment: 1,
+      stepScaleOutAdjustment: 2,
+      scaleInThreshold: 30,
+      scaleOutThreshold: 45,
+    };
+
+    new PocketALBApplication(stack, 'testPocketApp', BASE_CONFIG);
+
+    expect(Testing.synth(stack)).toMatchSnapshot();
+  });
 });

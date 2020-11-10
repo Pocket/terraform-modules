@@ -14,6 +14,7 @@ import {
   ApplicationECSService,
   ApplicationECSServiceProps,
   ApplicationLoadBalancer,
+  ApplicationAutoscaling,
 } from '..';
 import { PocketVPC } from './PocketVPC';
 
@@ -39,6 +40,14 @@ export interface PocketALBApplicationProps {
     memory: number;
   };
   ecsIamConfig: ApplicationECSIAMProps;
+  autoscalingConfig?: {
+    targetMinCapacity?: number;
+    targetMaxCapacity?: number;
+    stepScaleInAdjustment?: number;
+    stepScaleOutAdjustment?: number;
+    scaleInThreshold?: number;
+    scaleOutThreshold?: number;
+  };
 }
 
 export class PocketALBApplication extends Resource {
@@ -369,6 +378,24 @@ export class PocketALBApplication extends Resource {
       'ecs_service',
       ecsConfig
     );
+
+    if (config.autoscalingConfig) {
+      new ApplicationAutoscaling(this, 'autoscaling', {
+        prefix: config.prefix,
+        targetMinCapacity: config.autoscalingConfig.targetMinCapacity ?? 1,
+        targetMaxCapacity: config.autoscalingConfig.targetMaxCapacity ?? 2,
+        ecsClusterName: ecsCluster.cluster.name,
+        ecsServiceName: ecsService.service.name,
+        scalableDimension: 'ecs:service:DesiredCount',
+        stepScaleInAdjustment:
+          config.autoscalingConfig.stepScaleInAdjustment ?? 1,
+        stepScaleOutAdjustment:
+          config.autoscalingConfig.stepScaleOutAdjustment ?? 2,
+        scaleInThreshold: config.autoscalingConfig.scaleInThreshold ?? 30,
+        scaleOutThreshold: config.autoscalingConfig.scaleOutThreshold ?? 45,
+        tags: config.tags,
+      });
+    }
 
     return {
       ecs: ecsService,
