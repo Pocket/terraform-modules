@@ -13,3 +13,4 @@ export * from './base/ApplicationECSContainerDefinition';
 export * from './base/ApplicationECSIAM';
 export * from './base/ApplicationECSAlbCodeDeploy';
 export * from './base/ApplicationTargetGroup';
+export * from './base/ApplicationAutoscaling';
