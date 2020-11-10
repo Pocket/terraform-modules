@@ -396,6 +396,7 @@ export class PocketALBApplication extends Resource {
         tags: config.tags,
       });
     }
+
     return {
       ecs: ecsService,
     };
