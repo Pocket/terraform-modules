@@ -124,7 +124,7 @@ exports[`renders autoscaling without tags 1`] = `
             \\"step_adjustment\\": [
               {
                 \\"metric_interval_lower_bound\\": \\"0\\",
-                \\"scaling_adjustment\\": 20
+                \\"scaling_adjustment\\": 2
               }
             ]
           }
@@ -147,13 +147,13 @@ exports[`renders autoscaling without tags 1`] = `
         \\"service_namespace\\": \\"ecs\\",
         \\"step_scaling_policy_configuration\\": [
           {
-            \\"adjustment_type\\": \\"ChangeInCpacity\\",
+            \\"adjustment_type\\": \\"ChangeInCapacity\\",
             \\"cooldown\\": 60,
             \\"metric_aggregation_type\\": \\"Average\\",
             \\"step_adjustment\\": [
               {
                 \\"metric_interval_upper_bound\\": \\"0\\",
-                \\"scaling_adjustment\\": 10
+                \\"scaling_adjustment\\": 1
               }
             ]
           }
@@ -186,7 +186,7 @@ exports[`renders autoscaling without tags 1`] = `
         \\"namespace\\": \\"AWS/ECS\\",
         \\"period\\": 60,
         \\"statistic\\": \\"Average\\",
-        \\"threshold\\": 3,
+        \\"threshold\\": 45,
         \\"treat_missing_data\\": \\"notBreaching\\",
         \\"//\\": {
           \\"metadata\\": {
@@ -211,7 +211,7 @@ exports[`renders autoscaling without tags 1`] = `
         \\"namespace\\": \\"AWS/ECS\\",
         \\"period\\": 60,
         \\"statistic\\": \\"Average\\",
-        \\"threshold\\": 1,
+        \\"threshold\\": 30,
         \\"treat_missing_data\\": \\"notBreaching\\",
         \\"//\\": {
           \\"metadata\\": {

@@ -12,10 +12,10 @@ test('renders autoscaling without tags', () => {
     ecsClusterName: 'ecs-cluster-test',
     ecsServiceName: 'ecs-service-test',
     scalableDimension: 'ecs:service:DesiredCount',
-    stepScaleOutAdjustment: 20,
-    stepScaleInAdjustment: 10,
-    scaleInThreshold: 1,
-    scaleOutThreshold: 3,
+    stepScaleOutAdjustment: 2,
+    stepScaleInAdjustment: 1,
+    scaleInThreshold: 30,
+    scaleOutThreshold: 45,
   });
 
   expect(Testing.synth(stack)).toMatchSnapshot();

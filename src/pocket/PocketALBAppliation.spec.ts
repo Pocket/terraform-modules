@@ -108,7 +108,7 @@ describe('PocketALBApplication', () => {
     expect(Testing.synth(stack)).toMatchSnapshot();
   });
 
-  it('renders an internal application with autoscaling group and tags', () => {
+  it('renders an application with autoscaling group and tags', () => {
     const app = Testing.app();
     const stack = new TerraformStack(app, 'test');
 
