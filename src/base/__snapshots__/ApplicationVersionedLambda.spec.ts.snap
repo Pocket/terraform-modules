@@ -472,7 +472,7 @@ exports[`renders a versioned lambda with environment variables 1`] = `
         \\"environment\\": [
           {
             \\"variables\\": {
-              \\"my\\": \\"env_var\\",
+              \\"MY\\": \\"env_var\\",
               \\"for\\": \\"test\\"
             }
           }

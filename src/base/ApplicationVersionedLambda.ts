@@ -69,7 +69,7 @@ export class ApplicationVersionedLambda extends Resource {
 
     const defaultLambda = this.getDefaultLambda();
 
-    let lambdaConfig: LambdaFunctionConfig = {
+    const lambdaConfig: LambdaFunctionConfig = {
       functionName: `${this.config.name}-Function`,
       filename: defaultLambda.outputPath,
       handler: this.config.handler,
@@ -85,18 +85,13 @@ export class ApplicationVersionedLambda extends Resource {
       tags: this.config.tags,
     };
 
-    if (this.config.environment) {
-      lambdaConfig = {
-        ...lambdaConfig,
-        environment: [
-          {
-            variables: this.config.environment,
-          },
-        ],
-      };
-    }
-
     const lambda = new LambdaFunction(this, 'lambda', lambdaConfig);
+
+    if (this.config.environment) {
+      lambda.addOverride('environment', [
+        { variables: this.config.environment },
+      ]);
+    }
 
     new CloudwatchLogGroup(this, 'log-group', {
       name: `/aws/lambda/${lambda.functionName}`,
