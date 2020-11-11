@@ -186,8 +186,8 @@ export class ApplicationVersionedLambda extends Resource {
   private getDefaultLambdaSource(): DataArchiveFileSource {
     const runtime = this.config.runtime.match(/[a-z]*/)[0];
     const handler = this.config.handler.split('.');
-    const functionFilename = handler[0];
-    const functionName = handler[1];
+    const functionName = handler.pop();
+    const functionFilename = handler.join('.');
 
     let content = `export const ${functionName} = (event, context) => { console.log(event) }`;
     let filename = `${functionFilename}.js`;
