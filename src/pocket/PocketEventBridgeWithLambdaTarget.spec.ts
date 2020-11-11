@@ -99,7 +99,7 @@ test('renders an event bridge and lambda target with environment variables', () 
     ...config,
     environment: {
       my: 'var',
-      is: 'good',
+      IS: 'good',
     },
   });
 

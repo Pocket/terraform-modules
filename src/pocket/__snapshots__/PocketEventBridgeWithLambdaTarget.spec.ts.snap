@@ -684,7 +684,7 @@ exports[`renders an event bridge and lambda target with environment variables 1`
           {
             \\"variables\\": {
               \\"my\\": \\"var\\",
-              \\"is\\": \\"good\\"
+              \\"IS\\": \\"good\\"
             }
           }
         ],

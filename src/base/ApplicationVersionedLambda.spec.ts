@@ -43,7 +43,7 @@ test('renders a versioned lambda with environment variables', () => {
   new ApplicationVersionedLambda(stack, 'test-versioned-lambda', {
     ...config,
     environment: {
-      my: 'env_var',
+      MY: 'env_var',
       for: 'test',
     },
   });
