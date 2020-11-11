@@ -13,7 +13,7 @@ test('renders autoscaling without tags', () => {
     ecsServiceName: 'ecs-service-test',
     scalableDimension: 'ecs:service:DesiredCount',
     stepScaleOutAdjustment: 2,
-    stepScaleInAdjustment: 1,
+    stepScaleInAdjustment: -1,
     scaleInThreshold: 30,
     scaleOutThreshold: 45,
   });

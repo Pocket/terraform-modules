@@ -819,7 +819,7 @@ exports[`PocketALBApplication renders an application with autoscaling group and 
             \\"step_adjustment\\": [
               {
                 \\"metric_interval_upper_bound\\": \\"0\\",
-                \\"scaling_adjustment\\": 1
+                \\"scaling_adjustment\\": -1
               }
             ]
           }
