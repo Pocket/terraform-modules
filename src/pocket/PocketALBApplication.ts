@@ -388,7 +388,7 @@ export class PocketALBApplication extends Resource {
         ecsServiceName: ecsService.service.name,
         scalableDimension: 'ecs:service:DesiredCount',
         stepScaleInAdjustment:
-          config.autoscalingConfig.stepScaleInAdjustment ?? 1,
+          config.autoscalingConfig.stepScaleInAdjustment ?? -1,
         stepScaleOutAdjustment:
           config.autoscalingConfig.stepScaleOutAdjustment ?? 2,
         scaleInThreshold: config.autoscalingConfig.scaleInThreshold ?? 30,

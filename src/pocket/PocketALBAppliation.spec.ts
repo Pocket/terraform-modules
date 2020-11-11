@@ -120,7 +120,7 @@ describe('PocketALBApplication', () => {
     BASE_CONFIG.autoscalingConfig = {
       targetMinCapacity: 1,
       targetMaxCapacity: 2,
-      stepScaleInAdjustment: 1,
+      stepScaleInAdjustment: -1,
       stepScaleOutAdjustment: 2,
       scaleInThreshold: 30,
       scaleOutThreshold: 45,
