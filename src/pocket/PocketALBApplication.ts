@@ -1,12 +1,21 @@
 import { Resource } from 'cdktf';
 import {
+  AlbListener,
   CloudfrontDistribution,
   Route53Record,
 } from '../../.gen/providers/aws';
 import { Construct } from 'constructs';
-import { ApplicationBaseDNS } from '..';
-import { ApplicationCertificate } from '..';
-import { ApplicationLoadBalancer } from '..';
+import {
+  ApplicationBaseDNS,
+  ApplicationCertificate,
+  ApplicationECSCluster,
+  ApplicationECSContainerDefinitionProps,
+  ApplicationECSIAMProps,
+  ApplicationECSService,
+  ApplicationECSServiceProps,
+  ApplicationLoadBalancer,
+  ApplicationAutoscaling,
+} from '..';
 import { PocketVPC } from './PocketVPC';
 
 export interface PocketALBApplicationProps {
@@ -15,7 +24,30 @@ export interface PocketALBApplicationProps {
   internal?: boolean;
   domain: string;
   cdn?: boolean;
+  codeDeploy: {
+    useCodeDeploy: boolean;
+    snsNotificationTopicArn?: string;
+  };
   tags?: { [key: string]: string };
+  containerConfigs: ApplicationECSContainerDefinitionProps[];
+  exposedContainer: {
+    port: number;
+    name: string;
+    healthCheckPath: string;
+  };
+  taskSize?: {
+    cpu: number;
+    memory: number;
+  };
+  ecsIamConfig: ApplicationECSIAMProps;
+  autoscalingConfig?: {
+    targetMinCapacity?: number;
+    targetMaxCapacity?: number;
+    stepScaleInAdjustment?: number;
+    stepScaleOutAdjustment?: number;
+    scaleInThreshold?: number;
+    scaleOutThreshold?: number;
+  };
 }
 
 export class PocketALBApplication extends Resource {
@@ -39,12 +71,17 @@ export class PocketALBApplication extends Resource {
       tags: config.tags,
     });
 
-    const { alb, albRecord } = this.createALB(config, pocketVPC);
+    const { alb, albRecord, albCertificate } = this.createALB(
+      config,
+      pocketVPC
+    );
     this.alb = alb;
 
     if (config.cdn) {
       this.createCDN(config, albRecord);
     }
+
+    this.createECSService(config, pocketVPC, alb, albCertificate);
   }
 
   /**
@@ -75,7 +112,6 @@ export class PocketALBApplication extends Resource {
 
   /**
    * Creates the ALB stack and certificates
-   * @param name
    * @param config
    * @param pocketVPC
    * @private
@@ -83,7 +119,11 @@ export class PocketALBApplication extends Resource {
   private createALB(
     config: PocketALBApplicationProps,
     pocketVPC: PocketVPC
-  ): { alb: ApplicationLoadBalancer; albRecord: Route53Record } {
+  ): {
+    alb: ApplicationLoadBalancer;
+    albRecord: Route53Record;
+    albCertificate: ApplicationCertificate;
+  } {
     //Create our application Load Balancer
     const alb = new ApplicationLoadBalancer(this, `application_load_balancer`, {
       vpcId: pocketVPC.vpc.id,
@@ -96,13 +136,11 @@ export class PocketALBApplication extends Resource {
       tags: config.tags,
     });
 
-    let albDomainName = config.domain;
-
-    if (config.cdn) {
-      //When the app uses a CDN we set the ALB to be direct.app-domain
-      //Then the CDN is our main app.
-      albDomainName = `direct.${albDomainName}`;
-    }
+    //When the app uses a CDN we set the ALB to be direct.app-domain
+    //Then the CDN is our main app.
+    const albDomainName = config.cdn
+      ? `direct.${config.domain}`
+      : config.domain;
 
     //Sets up the record for the ALB.
     const albRecord = new Route53Record(this, `alb_record`, {
@@ -125,16 +163,21 @@ export class PocketALBApplication extends Resource {
       lifecycle: {
         ignoreChanges: ['weighted_routing_policy[0].weight'],
       },
+      setIdentifier: '1',
     });
 
     //Creates the Certificate for the ALB
-    new ApplicationCertificate(this, `alb_certificate`, {
+    const albCertificate = new ApplicationCertificate(this, `alb_certificate`, {
       zoneId: this.baseDNS.zoneId,
       domain: albDomainName,
       tags: config.tags,
     });
 
-    return { alb, albRecord };
+    return {
+      alb,
+      albRecord,
+      albCertificate,
+    };
   }
 
   /**
@@ -243,6 +286,121 @@ export class PocketALBApplication extends Resource {
       lifecycle: {
         ignoreChanges: ['weighted_routing_policy[0].weight'],
       },
+      setIdentifier: '2',
     });
+  }
+
+  /**
+   * Create the ECS service and attach it to the ALB
+   * @param config
+   * @param pocketVPC
+   * @param alb
+   * @param albCertificate
+   * @private
+   */
+  private createECSService(
+    config: PocketALBApplicationProps,
+    pocketVPC: PocketVPC,
+    alb: ApplicationLoadBalancer,
+    albCertificate: ApplicationCertificate
+  ): { ecs: ApplicationECSService } {
+    const ecsCluster = new ApplicationECSCluster(this, 'ecs_cluster', {
+      prefix: config.prefix,
+      tags: config.tags,
+    });
+
+    new AlbListener(this, 'listener_http', {
+      loadBalancerArn: alb.alb.arn,
+      port: 80,
+      protocol: 'HTTP',
+      defaultAction: [
+        {
+          type: 'redirect',
+          redirect: [
+            { port: '443', protocol: 'HTTPS', statusCode: 'HTTP_301' },
+          ],
+        },
+      ],
+    });
+
+    const httpsListener = new AlbListener(this, 'listener_https', {
+      loadBalancerArn: alb.alb.arn,
+      port: 443,
+      protocol: 'HTTPS',
+      sslPolicy: 'ELBSecurityPolicy-TLS-1-1-2017-01',
+      defaultAction: [
+        {
+          type: 'fixed-response',
+          fixedResponse: [
+            {
+              // To keep things dry we use a default status code here and append a rule for our target group.
+              // This is because our ECSService is responsible for creating our target group because CodeDeploy requires
+              // 2 target groups and knowing the names of them both
+              contentType: 'text/plain',
+              statusCode: '503',
+              messageBody: '',
+            },
+          ],
+        },
+      ],
+      certificateArn: albCertificate.arn,
+    });
+
+    let ecsConfig: ApplicationECSServiceProps = {
+      prefix: config.prefix,
+      shortName: config.alb6CharacterPrefix,
+      ecsClusterArn: ecsCluster.cluster.arn,
+      ecsClusterName: ecsCluster.cluster.name,
+      useCodeDeploy: config.codeDeploy.useCodeDeploy,
+      codeDeploySnsNotificationTopicArn:
+        config.codeDeploy.snsNotificationTopicArn,
+      albConfig: {
+        containerPort: config.exposedContainer.port,
+        containerName: config.exposedContainer.name,
+        healthCheckPath: config.exposedContainer.healthCheckPath,
+        listenerArn: httpsListener.arn,
+        albSecurityGroupId: alb.securityGroup.id,
+      },
+      vpcId: pocketVPC.vpc.id,
+      containerConfigs: config.containerConfigs,
+      privateSubnetIds: pocketVPC.privateSubnetIds,
+      ecsIamConfig: config.ecsIamConfig,
+      tags: config.tags,
+    };
+
+    if (config.taskSize) {
+      ecsConfig = {
+        ...config.taskSize,
+        ...ecsConfig,
+      };
+    }
+
+    const ecsService = new ApplicationECSService(
+      this,
+      'ecs_service',
+      ecsConfig
+    );
+
+    if (config.autoscalingConfig) {
+      new ApplicationAutoscaling(this, 'autoscaling', {
+        prefix: config.prefix,
+        targetMinCapacity: config.autoscalingConfig.targetMinCapacity ?? 1,
+        targetMaxCapacity: config.autoscalingConfig.targetMaxCapacity ?? 2,
+        ecsClusterName: ecsCluster.cluster.name,
+        ecsServiceName: ecsService.service.name,
+        scalableDimension: 'ecs:service:DesiredCount',
+        stepScaleInAdjustment:
+          config.autoscalingConfig.stepScaleInAdjustment ?? -1,
+        stepScaleOutAdjustment:
+          config.autoscalingConfig.stepScaleOutAdjustment ?? 2,
+        scaleInThreshold: config.autoscalingConfig.scaleInThreshold ?? 30,
+        scaleOutThreshold: config.autoscalingConfig.scaleOutThreshold ?? 45,
+        tags: config.tags,
+      });
+    }
+
+    return {
+      ecs: ecsService,
+    };
   }
 }

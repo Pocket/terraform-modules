@@ -1,0 +1,65 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders an ECS cluster with tags 1`] = `
+"{
+  \\"//\\": {
+    \\"metadata\\": {
+      \\"version\\": \\"stubbed\\",
+      \\"stackName\\": \\"test\\"
+    }
+  },
+  \\"resource\\": {
+    \\"aws_ecs_cluster\\": {
+      \\"test_testECSCluster_ecscluster_97BA6072\\": {
+        \\"name\\": \\"bowling-\\",
+        \\"tags\\": {
+          \\"name\\": \\"maude\\",
+          \\"description\\": \\"artist\\"
+        },
+        \\"setting\\": [
+          {
+            \\"name\\": \\"containerInsights\\",
+            \\"value\\": \\"enabled\\"
+          }
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testECSCluster/ecs_cluster\\",
+            \\"uniqueId\\": \\"test_testECSCluster_ecscluster_97BA6072\\"
+          }
+        }
+      }
+    }
+  }
+}"
+`;
+
+exports[`renders an ECS cluster without tags 1`] = `
+"{
+  \\"//\\": {
+    \\"metadata\\": {
+      \\"version\\": \\"stubbed\\",
+      \\"stackName\\": \\"test\\"
+    }
+  },
+  \\"resource\\": {
+    \\"aws_ecs_cluster\\": {
+      \\"test_testECSCluster_ecscluster_97BA6072\\": {
+        \\"name\\": \\"bowling-\\",
+        \\"setting\\": [
+          {
+            \\"name\\": \\"containerInsights\\",
+            \\"value\\": \\"enabled\\"
+          }
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testECSCluster/ecs_cluster\\",
+            \\"uniqueId\\": \\"test_testECSCluster_ecscluster_97BA6072\\"
+          }
+        }
+      }
+    }
+  }
+}"
+`;

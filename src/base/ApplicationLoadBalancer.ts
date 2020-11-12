@@ -16,6 +16,7 @@ export interface ApplicationLoadBalancerProps {
  */
 export class ApplicationLoadBalancer extends Resource {
   public readonly alb: Alb;
+  public readonly securityGroup: SecurityGroup;
 
   constructor(
     scope: Construct,
@@ -24,9 +25,9 @@ export class ApplicationLoadBalancer extends Resource {
   ) {
     super(scope, name);
 
-    const ingressSecurityGroup = new SecurityGroup(this, `alb_security_group`, {
-      name: `${config.prefix}-HTTP/S Security Group`,
-      description: 'External security group',
+    this.securityGroup = new SecurityGroup(this, `alb_security_group`, {
+      namePrefix: `${config.prefix}-HTTP/S Security Group`,
+      description: 'External security group  (Managed by Terraform)',
       vpcId: config.vpcId,
       ingress: [
         {
@@ -44,41 +45,50 @@ export class ApplicationLoadBalancer extends Resource {
       ],
       egress: [
         {
-          fromPort: 80,
-          toPort: 80,
-          protocol: 'TCP',
+          fromPort: 0,
+          protocol: '-1',
+          toPort: 0,
           cidrBlocks: ['0.0.0.0/0'],
+          description: 'required',
+          ipv6CidrBlocks: [],
+          prefixListIds: [],
+          securityGroups: [],
+          // @ts-ignore: https://github.com/hashicorp/terraform-cdk/issues/282
+          self: false,
         },
       ],
       tags: {
         ...config.tags,
         Name: `${config.prefix}-HTTP/S Security Group`,
       },
+      lifecycle: {
+        createBeforeDestroy: true,
+      },
     });
 
     // the following are included due to a bug
     // https://github.com/hashicorp/terraform-cdk/issues/223
-    ingressSecurityGroup.addOverride('ingress.0.description', null);
-    ingressSecurityGroup.addOverride('ingress.0.ipv6_cidr_blocks', null);
-    ingressSecurityGroup.addOverride('ingress.0.prefix_list_ids', null);
-    ingressSecurityGroup.addOverride('ingress.0.security_groups', null);
-    ingressSecurityGroup.addOverride('ingress.0.self', null);
+    this.securityGroup.addOverride('ingress.0.description', null);
+    this.securityGroup.addOverride('ingress.0.ipv6_cidr_blocks', null);
+    this.securityGroup.addOverride('ingress.0.prefix_list_ids', null);
+    this.securityGroup.addOverride('ingress.0.security_groups', null);
+    this.securityGroup.addOverride('ingress.0.self', null);
 
-    ingressSecurityGroup.addOverride('ingress.1.description', null);
-    ingressSecurityGroup.addOverride('ingress.1.ipv6_cidr_blocks', null);
-    ingressSecurityGroup.addOverride('ingress.1.prefix_list_ids', null);
-    ingressSecurityGroup.addOverride('ingress.1.security_groups', null);
-    ingressSecurityGroup.addOverride('ingress.1.self', null);
+    this.securityGroup.addOverride('ingress.1.description', null);
+    this.securityGroup.addOverride('ingress.1.ipv6_cidr_blocks', null);
+    this.securityGroup.addOverride('ingress.1.prefix_list_ids', null);
+    this.securityGroup.addOverride('ingress.1.security_groups', null);
+    this.securityGroup.addOverride('ingress.1.self', null);
 
-    ingressSecurityGroup.addOverride('egress.0.description', null);
-    ingressSecurityGroup.addOverride('egress.0.ipv6_cidr_blocks', null);
-    ingressSecurityGroup.addOverride('egress.0.prefix_list_ids', null);
-    ingressSecurityGroup.addOverride('egress.0.security_groups', null);
-    ingressSecurityGroup.addOverride('egress.0.self', null);
+    this.securityGroup.addOverride('egress.0.description', null);
+    this.securityGroup.addOverride('egress.0.ipv6_cidr_blocks', null);
+    this.securityGroup.addOverride('egress.0.prefix_list_ids', null);
+    this.securityGroup.addOverride('egress.0.security_groups', null);
+    this.securityGroup.addOverride('egress.0.self', null);
 
     this.alb = new Alb(this, `alb`, {
       namePrefix: config.alb6CharacterPrefix,
-      securityGroups: [ingressSecurityGroup.id],
+      securityGroups: [this.securityGroup.id],
       internal: config.internal !== undefined ? config.internal : false,
       subnets: config.subnetIds,
       tags: config.tags,

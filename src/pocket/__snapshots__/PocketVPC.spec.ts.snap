@@ -1,0 +1,148 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders a VPC with minimal config 1`] = `
+"{
+  \\"//\\": {
+    \\"metadata\\": {
+      \\"version\\": \\"stubbed\\",
+      \\"stackName\\": \\"test\\"
+    }
+  },
+  \\"data\\": {
+    \\"aws_ssm_parameter\\": {
+      \\"test_testPocketVPC_vpcssmparam_E59A2937\\": {
+        \\"name\\": \\"/Shared/Vpc\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketVPC/vpc_ssm_param\\",
+            \\"uniqueId\\": \\"test_testPocketVPC_vpcssmparam_E59A2937\\"
+          }
+        }
+      },
+      \\"test_testPocketVPC_privatesubnets_709EC9B6\\": {
+        \\"name\\": \\"/Shared/PrivateSubnets\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketVPC/private_subnets\\",
+            \\"uniqueId\\": \\"test_testPocketVPC_privatesubnets_709EC9B6\\"
+          }
+        }
+      },
+      \\"test_testPocketVPC_publicsubnets_3883DA97\\": {
+        \\"name\\": \\"/Shared/PublicSubnets\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketVPC/public_subnets\\",
+            \\"uniqueId\\": \\"test_testPocketVPC_publicsubnets_3883DA97\\"
+          }
+        }
+      }
+    },
+    \\"aws_vpc\\": {
+      \\"test_testPocketVPC_vpc_A6FDDA30\\": {
+        \\"filter\\": [
+          {
+            \\"name\\": \\"vpc-id\\",
+            \\"values\\": [
+              \\"\${data.aws_ssm_parameter.test_testPocketVPC_vpcssmparam_E59A2937.value}\\"
+            ]
+          }
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketVPC/vpc\\",
+            \\"uniqueId\\": \\"test_testPocketVPC_vpc_A6FDDA30\\"
+          }
+        }
+      }
+    },
+    \\"aws_subnet_ids\\": {
+      \\"test_testPocketVPC_privatesubnetids_335D0E23\\": {
+        \\"vpc_id\\": \\"\${data.aws_vpc.test_testPocketVPC_vpc_A6FDDA30.id}\\",
+        \\"filter\\": [
+          {
+            \\"name\\": \\"subnet-id\\",
+            \\"values\\": \\"\${split(\\\\\\",\\\\\\", data.aws_ssm_parameter.test_testPocketVPC_privatesubnets_709EC9B6.value)}\\"
+          }
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketVPC/private_subnet_ids\\",
+            \\"uniqueId\\": \\"test_testPocketVPC_privatesubnetids_335D0E23\\"
+          }
+        }
+      },
+      \\"test_testPocketVPC_publicsubnetids_355E2CB1\\": {
+        \\"vpc_id\\": \\"\${data.aws_vpc.test_testPocketVPC_vpc_A6FDDA30.id}\\",
+        \\"filter\\": [
+          {
+            \\"name\\": \\"subnet-id\\",
+            \\"values\\": \\"\${split(\\\\\\",\\\\\\", data.aws_ssm_parameter.test_testPocketVPC_publicsubnets_3883DA97.value)}\\"
+          }
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketVPC/public_subnet_ids\\",
+            \\"uniqueId\\": \\"test_testPocketVPC_publicsubnetids_355E2CB1\\"
+          }
+        }
+      }
+    },
+    \\"aws_caller_identity\\": {
+      \\"test_testPocketVPC_currentidentity_B6BC0F13\\": {
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketVPC/current_identity\\",
+            \\"uniqueId\\": \\"test_testPocketVPC_currentidentity_B6BC0F13\\"
+          }
+        }
+      }
+    },
+    \\"aws_region\\": {
+      \\"test_testPocketVPC_currentregion_4E6856FB\\": {
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketVPC/current_region\\",
+            \\"uniqueId\\": \\"test_testPocketVPC_currentregion_4E6856FB\\"
+          }
+        }
+      }
+    },
+    \\"aws_kms_alias\\": {
+      \\"test_testPocketVPC_secretsmanagerkey_0A335748\\": {
+        \\"name\\": \\"alias/aws/secretsmanager\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketVPC/secrets_manager_key\\",
+            \\"uniqueId\\": \\"test_testPocketVPC_secretsmanagerkey_0A335748\\"
+          }
+        }
+      }
+    },
+    \\"aws_security_groups\\": {
+      \\"test_testPocketVPC_defaultsecuritygroups_7548CA43\\": {
+        \\"filter\\": [
+          {
+            \\"name\\": \\"group-name\\",
+            \\"values\\": [
+              \\"default\\"
+            ]
+          },
+          {
+            \\"name\\": \\"vpc-id\\",
+            \\"values\\": [
+              \\"\${data.aws_vpc.test_testPocketVPC_vpc_A6FDDA30.id}\\"
+            ]
+          }
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketVPC/default_security_groups\\",
+            \\"uniqueId\\": \\"test_testPocketVPC_defaultsecuritygroups_7548CA43\\"
+          }
+        }
+      }
+    }
+  }
+}"
+`;

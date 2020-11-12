@@ -1,0 +1,226 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders autoscaling without tags 1`] = `
+"{
+  \\"//\\": {
+    \\"metadata\\": {
+      \\"version\\": \\"stubbed\\",
+      \\"stackName\\": \\"test\\"
+    }
+  },
+  \\"data\\": {
+    \\"aws_iam_policy_document\\": {
+      \\"test_testAutoscaling_autoscalingassume_54D0B5CC\\": {
+        \\"statement\\": [
+          {
+            \\"effect\\": \\"Allow\\",
+            \\"actions\\": [
+              \\"sts:AssumeRole\\"
+            ],
+            \\"principals\\": [
+              {
+                \\"identifiers\\": [
+                  \\"ecs.application-autoscaling.amazonaws.com\\"
+                ],
+                \\"type\\": \\"Service\\"
+              }
+            ]
+          }
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testAutoscaling/autoscaling_assume\\",
+            \\"uniqueId\\": \\"test_testAutoscaling_autoscalingassume_54D0B5CC\\"
+          }
+        }
+      },
+      \\"test_testAutoscaling_rolepolicy_B0C95E5C\\": {
+        \\"statement\\": [
+          {
+            \\"effect\\": \\"Allow\\",
+            \\"actions\\": [
+              \\"cloudwatch:PutMetricAlarm\\",
+              \\"cloudwatch:DescribeAlarms\\",
+              \\"cloudwatch:DeleteAlarms\\"
+            ],
+            \\"resources\\": [
+              \\"arn:aws:cloudwatch:*:*:alarm:/ecs-service-test*\\"
+            ]
+          },
+          {
+            \\"effect\\": \\"Allow\\",
+            \\"actions\\": [
+              \\"ecs:DescribeServices\\",
+              \\"ecs:UpdateService\\"
+            ],
+            \\"resources\\": [
+              \\"arn:aws:ecs:*:*:service/ecs-service-test*\\"
+            ]
+          }
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testAutoscaling/role_policy\\",
+            \\"uniqueId\\": \\"test_testAutoscaling_rolepolicy_B0C95E5C\\"
+          }
+        }
+      }
+    }
+  },
+  \\"resource\\": {
+    \\"aws_iam_role\\": {
+      \\"test_testAutoscaling_autoscalingrole_E1FD86EE\\": {
+        \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.test_testAutoscaling_autoscalingassume_54D0B5CC.json}\\",
+        \\"name\\": \\"test--AutoScalingRole\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testAutoscaling/autoscaling_role\\",
+            \\"uniqueId\\": \\"test_testAutoscaling_autoscalingrole_E1FD86EE\\"
+          }
+        }
+      }
+    },
+    \\"aws_iam_role_policy\\": {
+      \\"test_testAutoscaling_autoscalingrolepolicy_11493457\\": {
+        \\"name\\": \\"test--AutoScalingPolicy\\",
+        \\"policy\\": \\"\${data.aws_iam_policy_document.test_testAutoscaling_rolepolicy_B0C95E5C.json}\\",
+        \\"role\\": \\"\${aws_iam_role.test_testAutoscaling_autoscalingrole_E1FD86EE.id}\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testAutoscaling/autoscaling_role_policy\\",
+            \\"uniqueId\\": \\"test_testAutoscaling_autoscalingrolepolicy_11493457\\"
+          }
+        }
+      }
+    },
+    \\"aws_appautoscaling_target\\": {
+      \\"test_testAutoscaling_autoscalingtarget_F7E4FE8B\\": {
+        \\"max_capacity\\": 5,
+        \\"min_capacity\\": 1,
+        \\"resource_id\\": \\"service/ecs-cluster-test/ecs-service-test\\",
+        \\"role_arn\\": \\"\${aws_iam_role.test_testAutoscaling_autoscalingrole_E1FD86EE.arn}\\",
+        \\"scalable_dimension\\": \\"ecs:service:DesiredCount\\",
+        \\"service_namespace\\": \\"ecs\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testAutoscaling/autoscaling_target\\",
+            \\"uniqueId\\": \\"test_testAutoscaling_autoscalingtarget_F7E4FE8B\\"
+          }
+        }
+      }
+    },
+    \\"aws_appautoscaling_policy\\": {
+      \\"test_testAutoscaling_scaleoutpolicy_5CF0532E\\": {
+        \\"name\\": \\"test--ScaleOutPolicy\\",
+        \\"policy_type\\": \\"StepScaling\\",
+        \\"resource_id\\": \\"service/ecs-cluster-test/ecs-service-test\\",
+        \\"scalable_dimension\\": \\"ecs:service:DesiredCount\\",
+        \\"service_namespace\\": \\"ecs\\",
+        \\"step_scaling_policy_configuration\\": [
+          {
+            \\"adjustment_type\\": \\"ChangeInCapacity\\",
+            \\"cooldown\\": 60,
+            \\"metric_aggregation_type\\": \\"Average\\",
+            \\"step_adjustment\\": [
+              {
+                \\"metric_interval_lower_bound\\": \\"0\\",
+                \\"scaling_adjustment\\": 2
+              }
+            ]
+          }
+        ],
+        \\"depends_on\\": [
+          \\"aws_appautoscaling_target.test_testAutoscaling_autoscalingtarget_F7E4FE8B\\"
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testAutoscaling/scale_out_policy\\",
+            \\"uniqueId\\": \\"test_testAutoscaling_scaleoutpolicy_5CF0532E\\"
+          }
+        }
+      },
+      \\"test_testAutoscaling_scaleinpolicy_44D22064\\": {
+        \\"name\\": \\"test--ScaleInPolicy\\",
+        \\"policy_type\\": \\"StepScaling\\",
+        \\"resource_id\\": \\"service/ecs-cluster-test/ecs-service-test\\",
+        \\"scalable_dimension\\": \\"ecs:service:DesiredCount\\",
+        \\"service_namespace\\": \\"ecs\\",
+        \\"step_scaling_policy_configuration\\": [
+          {
+            \\"adjustment_type\\": \\"ChangeInCapacity\\",
+            \\"cooldown\\": 60,
+            \\"metric_aggregation_type\\": \\"Average\\",
+            \\"step_adjustment\\": [
+              {
+                \\"metric_interval_upper_bound\\": \\"0\\",
+                \\"scaling_adjustment\\": -1
+              }
+            ]
+          }
+        ],
+        \\"depends_on\\": [
+          \\"aws_appautoscaling_target.test_testAutoscaling_autoscalingtarget_F7E4FE8B\\"
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testAutoscaling/scale_in_policy\\",
+            \\"uniqueId\\": \\"test_testAutoscaling_scaleinpolicy_44D22064\\"
+          }
+        }
+      }
+    },
+    \\"aws_cloudwatch_metric_alarm\\": {
+      \\"test_testAutoscaling_scaleoutalarm_4DBCB6AD\\": {
+        \\"alarm_actions\\": [
+          \\"\${aws_appautoscaling_policy.test_testAutoscaling_scaleoutpolicy_5CF0532E.arn}\\"
+        ],
+        \\"alarm_description\\": \\"Alarm to add capacity if CPU is high\\",
+        \\"alarm_name\\": \\"test- Service High CPU\\",
+        \\"comparison_operator\\": \\"GreaterThanThreshold\\",
+        \\"dimensions\\": {
+          \\"cluster_name\\": \\"ecs-cluster-test\\",
+          \\"service_name\\": \\"ecs-service-test\\"
+        },
+        \\"evaluation_periods\\": 2,
+        \\"metric_name\\": \\"CPUUtilization\\",
+        \\"namespace\\": \\"AWS/ECS\\",
+        \\"period\\": 60,
+        \\"statistic\\": \\"Average\\",
+        \\"threshold\\": 45,
+        \\"treat_missing_data\\": \\"notBreaching\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testAutoscaling/scale_out_alarm\\",
+            \\"uniqueId\\": \\"test_testAutoscaling_scaleoutalarm_4DBCB6AD\\"
+          }
+        }
+      },
+      \\"test_testAutoscaling_scaleinalarm_B05CCD8A\\": {
+        \\"alarm_actions\\": [
+          \\"\${aws_appautoscaling_policy.test_testAutoscaling_scaleinpolicy_44D22064.arn}\\"
+        ],
+        \\"alarm_description\\": \\"Alarm to reduce capacity if container CPU is low\\",
+        \\"alarm_name\\": \\"test- Service Low CPU\\",
+        \\"comparison_operator\\": \\"LessThanThreshold\\",
+        \\"dimensions\\": {
+          \\"cluster_name\\": \\"ecs-cluster-test\\",
+          \\"service_name\\": \\"ecs-service-test\\"
+        },
+        \\"evaluation_periods\\": 2,
+        \\"metric_name\\": \\"CPUUtilization\\",
+        \\"namespace\\": \\"AWS/ECS\\",
+        \\"period\\": 60,
+        \\"statistic\\": \\"Average\\",
+        \\"threshold\\": 30,
+        \\"treat_missing_data\\": \\"notBreaching\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testAutoscaling/scale_in_alarm\\",
+            \\"uniqueId\\": \\"test_testAutoscaling_scaleinalarm_B05CCD8A\\"
+          }
+        }
+      }
+    }
+  }
+}"
+`;

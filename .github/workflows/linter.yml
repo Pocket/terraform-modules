@@ -44,7 +44,7 @@ jobs:
       # the latest definitions installed
       ##########################
       - name: Use Node.js 14.x
-        uses: actions/setup-node@v2.1.1
+        uses: actions/setup-node@v2.1.2
         with:
           node-version: 14.x
       - run: npm install
@@ -53,7 +53,7 @@ jobs:
       # Run Linter against code base #
       ################################
       - name: Lint Code Base
-        uses: docker://github/super-linter:v3
+        uses: docker://github/super-linter:v3.13.1
         env:
           DEFAULT_BRANCH: main
           VALIDATE_ALL_CODEBASE: true

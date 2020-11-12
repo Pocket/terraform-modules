@@ -1,0 +1,36 @@
+import { Testing, TerraformStack } from 'cdktf';
+import { ApplicationRDSCluster } from './ApplicationRDSCluster';
+
+/*
+as far as i can tell, this test has all the required config set,
+yet results in an error during synth:
+
+TypeError: Cannot convert undefined or null to object
+        at Function.keys (<anonymous>)
+
+      at keysToSnakeCase (node_modules/cdktf/lib/util.ts:63:23)
+      at node_modules/cdktf/lib/util.ts:72:15
+          at Array.reduce (<anonymous>)
+      at keysToSnakeCase (node_modules/cdktf/lib/util.ts:64:15)
+      at node_modules/cdktf/lib/util.ts:60:39
+          at Array.map (<anonymous>)
+      at keysToSnakeCase (node_modules/cdktf/lib/util.ts:59:19)
+      at node_modules/cdktf/lib/util.ts:72:15
+          at Array.reduce (<anonymous>)
+
+test('renders a RDS clusterwithout tags', () => {
+  const app = Testing.app();
+  const stack = new TerraformStack(app, 'test');
+
+  new ApplicationRDSCluster(stack, 'testRDSCluster', {
+    prefix: 'bowling-',
+    vpcId: 'rug',
+    subnetIds: ['0', '1'],
+    rdsConfig: {
+      databaseName: 'walter',
+    },
+  });
+
+  expect(Testing.synth(stack)).toMatchSnapshot();
+});
+*/

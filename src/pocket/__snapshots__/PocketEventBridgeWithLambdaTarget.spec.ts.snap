@@ -1,0 +1,3132 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders an event bridge and lambda target 1`] = `
+"{
+  \\"//\\": {
+    \\"metadata\\": {
+      \\"version\\": \\"stubbed\\",
+      \\"stackName\\": \\"test\\"
+    }
+  },
+  \\"resource\\": {
+    \\"aws_s3_bucket\\": {
+      \\"test_testeventbridgelambda_codebucket_2025467F\\": {
+        \\"acl\\": \\"private\\",
+        \\"bucket\\": \\"pocket-test-event-bridge-lambda\\",
+        \\"force_destroy\\": true,
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/lambda/code-bucket\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_codebucket_2025467F\\"
+          }
+        }
+      }
+    },
+    \\"aws_s3_bucket_public_access_block\\": {
+      \\"test_testeventbridgelambda_codebucketpublicaccessblock_B87062A0\\": {
+        \\"block_public_acls\\": true,
+        \\"block_public_policy\\": true,
+        \\"bucket\\": \\"\${aws_s3_bucket.test_testeventbridgelambda_codebucket_2025467F.id}\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/lambda/code-bucket-public-access-block\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_codebucketpublicaccessblock_B87062A0\\"
+          }
+        }
+      }
+    },
+    \\"aws_iam_role\\": {
+      \\"test_testeventbridgelambda_executionrole_A3207E70\\": {
+        \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.test_testeventbridgelambda_assumepolicydocument_2168188A.json}\\",
+        \\"name\\": \\"test-event-bridge-lambda-ExecutionRole\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/lambda/execution-role\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_executionrole_A3207E70\\"
+          }
+        }
+      }
+    },
+    \\"aws_iam_role_policy\\": {
+      \\"test_testeventbridgelambda_executionrolepolicy_E0E11A15\\": {
+        \\"name\\": \\"test-event-bridge-lambda-ExecutionRolePolicy\\",
+        \\"policy\\": \\"\${data.aws_iam_policy_document.test_testeventbridgelambda_executionpolicydocument_298C9BEE.json}\\",
+        \\"role\\": \\"test-event-bridge-lambda-ExecutionRole\\",
+        \\"depends_on\\": [
+          \\"aws_iam_role.test_testeventbridgelambda_executionrole_A3207E70\\"
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/lambda/execution-role-policy\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_executionrolepolicy_E0E11A15\\"
+          }
+        }
+      }
+    },
+    \\"aws_lambda_function\\": {
+      \\"test_testeventbridgelambda_FC596200\\": {
+        \\"filename\\": \\"index.py.zip\\",
+        \\"function_name\\": \\"test-event-bridge-lambda-Function\\",
+        \\"handler\\": \\"index.handler\\",
+        \\"publish\\": true,
+        \\"role\\": \\"\${aws_iam_role.test_testeventbridgelambda_executionrole_A3207E70.arn}\\",
+        \\"runtime\\": \\"python3.8\\",
+        \\"source_code_hash\\": \\"\${data.archive_file.test_testeventbridgelambda_lambdadefaultfile_F29C5502.output_base64sha256}\\",
+        \\"timeout\\": 5,
+        \\"vpc_config\\": [],
+        \\"lifecycle\\": {
+          \\"ignore_changes\\": [
+            \\"filename\\",
+            \\"source_code_hash\\"
+          ]
+        },
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/lambda/lambda\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_FC596200\\"
+          }
+        }
+      }
+    },
+    \\"aws_cloudwatch_log_group\\": {
+      \\"test_testeventbridgelambda_loggroup_709F3593\\": {
+        \\"name\\": \\"/aws/lambda/test-event-bridge-lambda-Function\\",
+        \\"retention_in_days\\": 14,
+        \\"depends_on\\": [
+          \\"aws_lambda_function.test_testeventbridgelambda_FC596200\\"
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/lambda/log-group\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_loggroup_709F3593\\"
+          }
+        }
+      }
+    },
+    \\"aws_lambda_alias\\": {
+      \\"test_testeventbridgelambda_alias_265F8FC4\\": {
+        \\"function_name\\": \\"test-event-bridge-lambda-Function\\",
+        \\"function_version\\": \\"\${split(\\\\\\":\\\\\\", aws_lambda_function.test_testeventbridgelambda_FC596200.qualified_arn)[7]}\\",
+        \\"name\\": \\"DEPLOYED\\",
+        \\"depends_on\\": [
+          \\"aws_lambda_function.test_testeventbridgelambda_FC596200\\"
+        ],
+        \\"lifecycle\\": {
+          \\"ignore_changes\\": [
+            \\"function_version\\"
+          ]
+        },
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/lambda/alias\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_alias_265F8FC4\\"
+          }
+        }
+      }
+    },
+    \\"aws_cloudwatch_event_rule\\": {
+      \\"test_testeventbridgelambda_eventbridgerule_6105B57C\\": {
+        \\"event_bus_name\\": \\"default\\",
+        \\"event_pattern\\": \\"{\\\\\\"source\\\\\\":[\\\\\\"aws.states\\\\\\"],\\\\\\"detail-type\\\\\\":[\\\\\\"Step Functions Execution Status Change\\\\\\"]}\\",
+        \\"name\\": \\"test-event-bridge-lambda-Rule\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/event-bridge-rule/event-bridge-rule\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_eventbridgerule_6105B57C\\"
+          }
+        }
+      }
+    },
+    \\"aws_cloudwatch_event_target\\": {
+      \\"test_testeventbridgelambda_eventbridgerule_eventbridgetarget_5C2BE9DA\\": {
+        \\"arn\\": \\"\${aws_lambda_alias.test_testeventbridgelambda_alias_265F8FC4.arn}\\",
+        \\"rule\\": \\"test-event-bridge-lambda-Rule\\",
+        \\"target_id\\": \\"lambda\\",
+        \\"depends_on\\": [
+          \\"aws_lambda_alias.test_testeventbridgelambda_alias_265F8FC4\\",
+          \\"aws_cloudwatch_event_rule.test_testeventbridgelambda_eventbridgerule_6105B57C\\"
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/event-bridge-rule/event-bridge-target\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_eventbridgerule_eventbridgetarget_5C2BE9DA\\"
+          }
+        }
+      }
+    },
+    \\"aws_lambda_permission\\": {
+      \\"test_testeventbridgelambda_lambdapermission_17031D34\\": {
+        \\"action\\": \\"lambda:InvokeFunction\\",
+        \\"function_name\\": \\"test-event-bridge-lambda-Function\\",
+        \\"principal\\": \\"events.amazonaws.com\\",
+        \\"qualifier\\": \\"DEPLOYED\\",
+        \\"source_arn\\": \\"\${aws_cloudwatch_event_rule.test_testeventbridgelambda_eventbridgerule_6105B57C.arn}\\",
+        \\"depends_on\\": [
+          \\"aws_lambda_alias.test_testeventbridgelambda_alias_265F8FC4\\",
+          \\"aws_cloudwatch_event_rule.test_testeventbridgelambda_eventbridgerule_6105B57C\\"
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/lambda-permission\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_lambdapermission_17031D34\\"
+          }
+        }
+      }
+    }
+  },
+  \\"data\\": {
+    \\"aws_iam_policy_document\\": {
+      \\"test_testeventbridgelambda_assumepolicydocument_2168188A\\": {
+        \\"version\\": \\"2012-10-17\\",
+        \\"statement\\": [
+          {
+            \\"effect\\": \\"Allow\\",
+            \\"actions\\": [
+              \\"sts:AssumeRole\\"
+            ],
+            \\"principals\\": [
+              {
+                \\"identifiers\\": [
+                  \\"lambda.amazonaws.com\\"
+                ],
+                \\"type\\": \\"Service\\"
+              }
+            ]
+          }
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/lambda/assume-policy-document\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_assumepolicydocument_2168188A\\"
+          }
+        }
+      },
+      \\"test_testeventbridgelambda_executionpolicydocument_298C9BEE\\": {
+        \\"version\\": \\"2012-10-17\\",
+        \\"statement\\": [
+          {
+            \\"effect\\": \\"Allow\\",
+            \\"actions\\": [
+              \\"logs:CreateLogGroup\\",
+              \\"logs:CreateLogStream\\",
+              \\"logs:PutLogEvents\\",
+              \\"logs:DescribeLogStreams\\"
+            ],
+            \\"resources\\": [
+              \\"arn:aws:logs:*:*:*\\"
+            ]
+          }
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/lambda/execution-policy-document\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_executionpolicydocument_298C9BEE\\"
+          }
+        }
+      }
+    },
+    \\"archive_file\\": {
+      \\"test_testeventbridgelambda_lambdadefaultfile_F29C5502\\": {
+        \\"output_path\\": \\"index.py.zip\\",
+        \\"type\\": \\"zip\\",
+        \\"source\\": [
+          {
+            \\"content\\": \\"handler(event, context):\\\\n\\\\t print(event)\\",
+            \\"filename\\": \\"index.py\\"
+          }
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/lambda/lambda-default-file\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_lambdadefaultfile_F29C5502\\"
+          }
+        }
+      }
+    }
+  }
+}"
+`;
+
+exports[`renders an event bridge and lambda target with code deploy 1`] = `
+"{
+  \\"//\\": {
+    \\"metadata\\": {
+      \\"version\\": \\"stubbed\\",
+      \\"stackName\\": \\"test\\"
+    }
+  },
+  \\"resource\\": {
+    \\"aws_s3_bucket\\": {
+      \\"test_testeventbridgelambda_codebucket_2025467F\\": {
+        \\"acl\\": \\"private\\",
+        \\"bucket\\": \\"pocket-test-event-bridge-lambda\\",
+        \\"force_destroy\\": true,
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/lambda/code-bucket\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_codebucket_2025467F\\"
+          }
+        }
+      }
+    },
+    \\"aws_s3_bucket_public_access_block\\": {
+      \\"test_testeventbridgelambda_codebucketpublicaccessblock_B87062A0\\": {
+        \\"block_public_acls\\": true,
+        \\"block_public_policy\\": true,
+        \\"bucket\\": \\"\${aws_s3_bucket.test_testeventbridgelambda_codebucket_2025467F.id}\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/lambda/code-bucket-public-access-block\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_codebucketpublicaccessblock_B87062A0\\"
+          }
+        }
+      }
+    },
+    \\"aws_iam_role\\": {
+      \\"test_testeventbridgelambda_executionrole_A3207E70\\": {
+        \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.test_testeventbridgelambda_assumepolicydocument_2168188A.json}\\",
+        \\"name\\": \\"test-event-bridge-lambda-ExecutionRole\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/lambda/execution-role\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_executionrole_A3207E70\\"
+          }
+        }
+      },
+      \\"test_testeventbridgelambda_lambdacodedeploy_codedeployrole_DBAC576F\\": {
+        \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.test_testeventbridgelambda_lambdacodedeploy_codedeployassumerolepolicydocument_70AA2276.json}\\",
+        \\"name\\": \\"test-event-bridge-lambda-CodeDeployRole\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/lambda-code-deploy/code-deploy-role\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_lambdacodedeploy_codedeployrole_DBAC576F\\"
+          }
+        }
+      }
+    },
+    \\"aws_iam_role_policy\\": {
+      \\"test_testeventbridgelambda_executionrolepolicy_E0E11A15\\": {
+        \\"name\\": \\"test-event-bridge-lambda-ExecutionRolePolicy\\",
+        \\"policy\\": \\"\${data.aws_iam_policy_document.test_testeventbridgelambda_executionpolicydocument_298C9BEE.json}\\",
+        \\"role\\": \\"test-event-bridge-lambda-ExecutionRole\\",
+        \\"depends_on\\": [
+          \\"aws_iam_role.test_testeventbridgelambda_executionrole_A3207E70\\"
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/lambda/execution-role-policy\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_executionrolepolicy_E0E11A15\\"
+          }
+        }
+      }
+    },
+    \\"aws_lambda_function\\": {
+      \\"test_testeventbridgelambda_FC596200\\": {
+        \\"filename\\": \\"index.py.zip\\",
+        \\"function_name\\": \\"test-event-bridge-lambda-Function\\",
+        \\"handler\\": \\"index.handler\\",
+        \\"publish\\": true,
+        \\"role\\": \\"\${aws_iam_role.test_testeventbridgelambda_executionrole_A3207E70.arn}\\",
+        \\"runtime\\": \\"python3.8\\",
+        \\"source_code_hash\\": \\"\${data.archive_file.test_testeventbridgelambda_lambdadefaultfile_F29C5502.output_base64sha256}\\",
+        \\"timeout\\": 5,
+        \\"vpc_config\\": [],
+        \\"lifecycle\\": {
+          \\"ignore_changes\\": [
+            \\"filename\\",
+            \\"source_code_hash\\"
+          ]
+        },
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/lambda/lambda\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_FC596200\\"
+          }
+        }
+      }
+    },
+    \\"aws_cloudwatch_log_group\\": {
+      \\"test_testeventbridgelambda_loggroup_709F3593\\": {
+        \\"name\\": \\"/aws/lambda/test-event-bridge-lambda-Function\\",
+        \\"retention_in_days\\": 14,
+        \\"depends_on\\": [
+          \\"aws_lambda_function.test_testeventbridgelambda_FC596200\\"
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/lambda/log-group\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_loggroup_709F3593\\"
+          }
+        }
+      }
+    },
+    \\"aws_lambda_alias\\": {
+      \\"test_testeventbridgelambda_alias_265F8FC4\\": {
+        \\"function_name\\": \\"test-event-bridge-lambda-Function\\",
+        \\"function_version\\": \\"\${split(\\\\\\":\\\\\\", aws_lambda_function.test_testeventbridgelambda_FC596200.qualified_arn)[7]}\\",
+        \\"name\\": \\"DEPLOYED\\",
+        \\"depends_on\\": [
+          \\"aws_lambda_function.test_testeventbridgelambda_FC596200\\"
+        ],
+        \\"lifecycle\\": {
+          \\"ignore_changes\\": [
+            \\"function_version\\"
+          ]
+        },
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/lambda/alias\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_alias_265F8FC4\\"
+          }
+        }
+      }
+    },
+    \\"aws_cloudwatch_event_rule\\": {
+      \\"test_testeventbridgelambda_eventbridgerule_6105B57C\\": {
+        \\"event_bus_name\\": \\"default\\",
+        \\"event_pattern\\": \\"{\\\\\\"source\\\\\\":[\\\\\\"aws.states\\\\\\"],\\\\\\"detail-type\\\\\\":[\\\\\\"Step Functions Execution Status Change\\\\\\"]}\\",
+        \\"name\\": \\"test-event-bridge-lambda-Rule\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/event-bridge-rule/event-bridge-rule\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_eventbridgerule_6105B57C\\"
+          }
+        }
+      }
+    },
+    \\"aws_cloudwatch_event_target\\": {
+      \\"test_testeventbridgelambda_eventbridgerule_eventbridgetarget_5C2BE9DA\\": {
+        \\"arn\\": \\"\${aws_lambda_alias.test_testeventbridgelambda_alias_265F8FC4.arn}\\",
+        \\"rule\\": \\"test-event-bridge-lambda-Rule\\",
+        \\"target_id\\": \\"lambda\\",
+        \\"depends_on\\": [
+          \\"aws_lambda_alias.test_testeventbridgelambda_alias_265F8FC4\\",
+          \\"aws_cloudwatch_event_rule.test_testeventbridgelambda_eventbridgerule_6105B57C\\"
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/event-bridge-rule/event-bridge-target\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_eventbridgerule_eventbridgetarget_5C2BE9DA\\"
+          }
+        }
+      }
+    },
+    \\"aws_lambda_permission\\": {
+      \\"test_testeventbridgelambda_lambdapermission_17031D34\\": {
+        \\"action\\": \\"lambda:InvokeFunction\\",
+        \\"function_name\\": \\"test-event-bridge-lambda-Function\\",
+        \\"principal\\": \\"events.amazonaws.com\\",
+        \\"qualifier\\": \\"DEPLOYED\\",
+        \\"source_arn\\": \\"\${aws_cloudwatch_event_rule.test_testeventbridgelambda_eventbridgerule_6105B57C.arn}\\",
+        \\"depends_on\\": [
+          \\"aws_lambda_alias.test_testeventbridgelambda_alias_265F8FC4\\",
+          \\"aws_cloudwatch_event_rule.test_testeventbridgelambda_eventbridgerule_6105B57C\\"
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/lambda-permission\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_lambdapermission_17031D34\\"
+          }
+        }
+      }
+    },
+    \\"aws_codedeploy_app\\": {
+      \\"test_testeventbridgelambda_lambdacodedeploy_codedeployapp_237F4656\\": {
+        \\"compute_platform\\": \\"Lambda\\",
+        \\"name\\": \\"test-event-bridge-lambda-Lambda\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/lambda-code-deploy/code-deploy-app\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_lambdacodedeploy_codedeployapp_237F4656\\"
+          }
+        }
+      }
+    },
+    \\"aws_iam_role_policy_attachment\\": {
+      \\"test_testeventbridgelambda_lambdacodedeploy_codedeploypolicyattachment_D2BA2108\\": {
+        \\"policy_arn\\": \\"arn:aws:iam::aws:policy/service-role/AWSCodeDeployRoleForLambda\\",
+        \\"role\\": \\"test-event-bridge-lambda-CodeDeployRole\\",
+        \\"depends_on\\": [
+          \\"aws_iam_role.test_testeventbridgelambda_lambdacodedeploy_codedeployrole_DBAC576F\\"
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/lambda-code-deploy/code-deploy-policy-attachment\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_lambdacodedeploy_codedeploypolicyattachment_D2BA2108\\"
+          }
+        }
+      }
+    },
+    \\"aws_codedeploy_deployment_group\\": {
+      \\"test_testeventbridgelambda_lambdacodedeploy_codedeploymentgroup_239B1D9F\\": {
+        \\"app_name\\": \\"test-event-bridge-lambda-Lambda\\",
+        \\"deployment_config_name\\": \\"CodeDeployDefault.LambdaAllAtOnce\\",
+        \\"deployment_group_name\\": \\"test-event-bridge-lambda-Lambda\\",
+        \\"service_role_arn\\": \\"\${aws_iam_role.test_testeventbridgelambda_lambdacodedeploy_codedeployrole_DBAC576F.arn}\\",
+        \\"auto_rollback_configuration\\": [
+          {
+            \\"enabled\\": true,
+            \\"events\\": [
+              \\"DEPLOYMENT_FAILURE\\"
+            ]
+          }
+        ],
+        \\"deployment_style\\": [
+          {
+            \\"deployment_type\\": \\"BLUE_GREEN\\",
+            \\"deployment_option\\": \\"WITH_TRAFFIC_CONTROL\\"
+          }
+        ],
+        \\"depends_on\\": [
+          \\"aws_codedeploy_app.test_testeventbridgelambda_lambdacodedeploy_codedeployapp_237F4656\\"
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/lambda-code-deploy/code-deployment-group\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_lambdacodedeploy_codedeploymentgroup_239B1D9F\\"
+          }
+        }
+      }
+    },
+    \\"aws_codestarnotifications_notification_rule\\": {
+      \\"test_testeventbridgelambda_lambdacodedeploy_notifications_0FE7499F\\": {
+        \\"detail_type\\": \\"FULL\\",
+        \\"event_type_ids\\": [
+          \\"codedeploy-application-deployment-failed\\"
+        ],
+        \\"name\\": \\"test-event-bridge-lambda-Lambda\\",
+        \\"resource\\": \\"arn:aws:codedeploy:us-east-1:test-account:application:test-event-bridge-lambda-Lambda\\",
+        \\"target\\": [
+          {
+            \\"address\\": \\"arn:test\\"
+          }
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/lambda-code-deploy/notifications\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_lambdacodedeploy_notifications_0FE7499F\\"
+          }
+        }
+      }
+    }
+  },
+  \\"data\\": {
+    \\"aws_iam_policy_document\\": {
+      \\"test_testeventbridgelambda_assumepolicydocument_2168188A\\": {
+        \\"version\\": \\"2012-10-17\\",
+        \\"statement\\": [
+          {
+            \\"effect\\": \\"Allow\\",
+            \\"actions\\": [
+              \\"sts:AssumeRole\\"
+            ],
+            \\"principals\\": [
+              {
+                \\"identifiers\\": [
+                  \\"lambda.amazonaws.com\\"
+                ],
+                \\"type\\": \\"Service\\"
+              }
+            ]
+          }
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/lambda/assume-policy-document\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_assumepolicydocument_2168188A\\"
+          }
+        }
+      },
+      \\"test_testeventbridgelambda_executionpolicydocument_298C9BEE\\": {
+        \\"version\\": \\"2012-10-17\\",
+        \\"statement\\": [
+          {
+            \\"effect\\": \\"Allow\\",
+            \\"actions\\": [
+              \\"logs:CreateLogGroup\\",
+              \\"logs:CreateLogStream\\",
+              \\"logs:PutLogEvents\\",
+              \\"logs:DescribeLogStreams\\"
+            ],
+            \\"resources\\": [
+              \\"arn:aws:logs:*:*:*\\"
+            ]
+          }
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/lambda/execution-policy-document\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_executionpolicydocument_298C9BEE\\"
+          }
+        }
+      },
+      \\"test_testeventbridgelambda_lambdacodedeploy_codedeployassumerolepolicydocument_70AA2276\\": {
+        \\"statement\\": [
+          {
+            \\"effect\\": \\"Allow\\",
+            \\"actions\\": [
+              \\"sts:AssumeRole\\"
+            ],
+            \\"principals\\": [
+              {
+                \\"identifiers\\": [
+                  \\"codedeploy.amazonaws.com\\"
+                ],
+                \\"type\\": \\"Service\\"
+              }
+            ]
+          }
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/lambda-code-deploy/code-deploy-assume-role-policy-document\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_lambdacodedeploy_codedeployassumerolepolicydocument_70AA2276\\"
+          }
+        }
+      }
+    },
+    \\"archive_file\\": {
+      \\"test_testeventbridgelambda_lambdadefaultfile_F29C5502\\": {
+        \\"output_path\\": \\"index.py.zip\\",
+        \\"type\\": \\"zip\\",
+        \\"source\\": [
+          {
+            \\"content\\": \\"handler(event, context):\\\\n\\\\t print(event)\\",
+            \\"filename\\": \\"index.py\\"
+          }
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/lambda/lambda-default-file\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_lambdadefaultfile_F29C5502\\"
+          }
+        }
+      }
+    }
+  }
+}"
+`;
+
+exports[`renders an event bridge and lambda target with environment variables 1`] = `
+"{
+  \\"//\\": {
+    \\"metadata\\": {
+      \\"version\\": \\"stubbed\\",
+      \\"stackName\\": \\"test\\"
+    }
+  },
+  \\"resource\\": {
+    \\"aws_s3_bucket\\": {
+      \\"test_testeventbridgelambda_codebucket_2025467F\\": {
+        \\"acl\\": \\"private\\",
+        \\"bucket\\": \\"pocket-test-event-bridge-lambda\\",
+        \\"force_destroy\\": true,
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/lambda/code-bucket\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_codebucket_2025467F\\"
+          }
+        }
+      }
+    },
+    \\"aws_s3_bucket_public_access_block\\": {
+      \\"test_testeventbridgelambda_codebucketpublicaccessblock_B87062A0\\": {
+        \\"block_public_acls\\": true,
+        \\"block_public_policy\\": true,
+        \\"bucket\\": \\"\${aws_s3_bucket.test_testeventbridgelambda_codebucket_2025467F.id}\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/lambda/code-bucket-public-access-block\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_codebucketpublicaccessblock_B87062A0\\"
+          }
+        }
+      }
+    },
+    \\"aws_iam_role\\": {
+      \\"test_testeventbridgelambda_executionrole_A3207E70\\": {
+        \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.test_testeventbridgelambda_assumepolicydocument_2168188A.json}\\",
+        \\"name\\": \\"test-event-bridge-lambda-ExecutionRole\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/lambda/execution-role\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_executionrole_A3207E70\\"
+          }
+        }
+      }
+    },
+    \\"aws_iam_role_policy\\": {
+      \\"test_testeventbridgelambda_executionrolepolicy_E0E11A15\\": {
+        \\"name\\": \\"test-event-bridge-lambda-ExecutionRolePolicy\\",
+        \\"policy\\": \\"\${data.aws_iam_policy_document.test_testeventbridgelambda_executionpolicydocument_298C9BEE.json}\\",
+        \\"role\\": \\"test-event-bridge-lambda-ExecutionRole\\",
+        \\"depends_on\\": [
+          \\"aws_iam_role.test_testeventbridgelambda_executionrole_A3207E70\\"
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/lambda/execution-role-policy\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_executionrolepolicy_E0E11A15\\"
+          }
+        }
+      }
+    },
+    \\"aws_lambda_function\\": {
+      \\"test_testeventbridgelambda_FC596200\\": {
+        \\"filename\\": \\"index.py.zip\\",
+        \\"function_name\\": \\"test-event-bridge-lambda-Function\\",
+        \\"handler\\": \\"index.handler\\",
+        \\"publish\\": true,
+        \\"role\\": \\"\${aws_iam_role.test_testeventbridgelambda_executionrole_A3207E70.arn}\\",
+        \\"runtime\\": \\"python3.8\\",
+        \\"source_code_hash\\": \\"\${data.archive_file.test_testeventbridgelambda_lambdadefaultfile_F29C5502.output_base64sha256}\\",
+        \\"timeout\\": 5,
+        \\"environment\\": [
+          {
+            \\"variables\\": {
+              \\"my\\": \\"var\\",
+              \\"IS\\": \\"good\\"
+            }
+          }
+        ],
+        \\"vpc_config\\": [],
+        \\"lifecycle\\": {
+          \\"ignore_changes\\": [
+            \\"filename\\",
+            \\"source_code_hash\\"
+          ]
+        },
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/lambda/lambda\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_FC596200\\"
+          }
+        }
+      }
+    },
+    \\"aws_cloudwatch_log_group\\": {
+      \\"test_testeventbridgelambda_loggroup_709F3593\\": {
+        \\"name\\": \\"/aws/lambda/test-event-bridge-lambda-Function\\",
+        \\"retention_in_days\\": 14,
+        \\"depends_on\\": [
+          \\"aws_lambda_function.test_testeventbridgelambda_FC596200\\"
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/lambda/log-group\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_loggroup_709F3593\\"
+          }
+        }
+      }
+    },
+    \\"aws_lambda_alias\\": {
+      \\"test_testeventbridgelambda_alias_265F8FC4\\": {
+        \\"function_name\\": \\"test-event-bridge-lambda-Function\\",
+        \\"function_version\\": \\"\${split(\\\\\\":\\\\\\", aws_lambda_function.test_testeventbridgelambda_FC596200.qualified_arn)[7]}\\",
+        \\"name\\": \\"DEPLOYED\\",
+        \\"depends_on\\": [
+          \\"aws_lambda_function.test_testeventbridgelambda_FC596200\\"
+        ],
+        \\"lifecycle\\": {
+          \\"ignore_changes\\": [
+            \\"function_version\\"
+          ]
+        },
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/lambda/alias\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_alias_265F8FC4\\"
+          }
+        }
+      }
+    },
+    \\"aws_cloudwatch_event_rule\\": {
+      \\"test_testeventbridgelambda_eventbridgerule_6105B57C\\": {
+        \\"event_bus_name\\": \\"default\\",
+        \\"event_pattern\\": \\"{\\\\\\"source\\\\\\":[\\\\\\"aws.states\\\\\\"],\\\\\\"detail-type\\\\\\":[\\\\\\"Step Functions Execution Status Change\\\\\\"]}\\",
+        \\"name\\": \\"test-event-bridge-lambda-Rule\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/event-bridge-rule/event-bridge-rule\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_eventbridgerule_6105B57C\\"
+          }
+        }
+      }
+    },
+    \\"aws_cloudwatch_event_target\\": {
+      \\"test_testeventbridgelambda_eventbridgerule_eventbridgetarget_5C2BE9DA\\": {
+        \\"arn\\": \\"\${aws_lambda_alias.test_testeventbridgelambda_alias_265F8FC4.arn}\\",
+        \\"rule\\": \\"test-event-bridge-lambda-Rule\\",
+        \\"target_id\\": \\"lambda\\",
+        \\"depends_on\\": [
+          \\"aws_lambda_alias.test_testeventbridgelambda_alias_265F8FC4\\",
+          \\"aws_cloudwatch_event_rule.test_testeventbridgelambda_eventbridgerule_6105B57C\\"
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/event-bridge-rule/event-bridge-target\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_eventbridgerule_eventbridgetarget_5C2BE9DA\\"
+          }
+        }
+      }
+    },
+    \\"aws_lambda_permission\\": {
+      \\"test_testeventbridgelambda_lambdapermission_17031D34\\": {
+        \\"action\\": \\"lambda:InvokeFunction\\",
+        \\"function_name\\": \\"test-event-bridge-lambda-Function\\",
+        \\"principal\\": \\"events.amazonaws.com\\",
+        \\"qualifier\\": \\"DEPLOYED\\",
+        \\"source_arn\\": \\"\${aws_cloudwatch_event_rule.test_testeventbridgelambda_eventbridgerule_6105B57C.arn}\\",
+        \\"depends_on\\": [
+          \\"aws_lambda_alias.test_testeventbridgelambda_alias_265F8FC4\\",
+          \\"aws_cloudwatch_event_rule.test_testeventbridgelambda_eventbridgerule_6105B57C\\"
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/lambda-permission\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_lambdapermission_17031D34\\"
+          }
+        }
+      }
+    }
+  },
+  \\"data\\": {
+    \\"aws_iam_policy_document\\": {
+      \\"test_testeventbridgelambda_assumepolicydocument_2168188A\\": {
+        \\"version\\": \\"2012-10-17\\",
+        \\"statement\\": [
+          {
+            \\"effect\\": \\"Allow\\",
+            \\"actions\\": [
+              \\"sts:AssumeRole\\"
+            ],
+            \\"principals\\": [
+              {
+                \\"identifiers\\": [
+                  \\"lambda.amazonaws.com\\"
+                ],
+                \\"type\\": \\"Service\\"
+              }
+            ]
+          }
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/lambda/assume-policy-document\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_assumepolicydocument_2168188A\\"
+          }
+        }
+      },
+      \\"test_testeventbridgelambda_executionpolicydocument_298C9BEE\\": {
+        \\"version\\": \\"2012-10-17\\",
+        \\"statement\\": [
+          {
+            \\"effect\\": \\"Allow\\",
+            \\"actions\\": [
+              \\"logs:CreateLogGroup\\",
+              \\"logs:CreateLogStream\\",
+              \\"logs:PutLogEvents\\",
+              \\"logs:DescribeLogStreams\\"
+            ],
+            \\"resources\\": [
+              \\"arn:aws:logs:*:*:*\\"
+            ]
+          }
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/lambda/execution-policy-document\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_executionpolicydocument_298C9BEE\\"
+          }
+        }
+      }
+    },
+    \\"archive_file\\": {
+      \\"test_testeventbridgelambda_lambdadefaultfile_F29C5502\\": {
+        \\"output_path\\": \\"index.py.zip\\",
+        \\"type\\": \\"zip\\",
+        \\"source\\": [
+          {
+            \\"content\\": \\"handler(event, context):\\\\n\\\\t print(event)\\",
+            \\"filename\\": \\"index.py\\"
+          }
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/lambda/lambda-default-file\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_lambdadefaultfile_F29C5502\\"
+          }
+        }
+      }
+    }
+  }
+}"
+`;
+
+exports[`renders an event bridge and lambda target with event bus name 1`] = `
+"{
+  \\"//\\": {
+    \\"metadata\\": {
+      \\"version\\": \\"stubbed\\",
+      \\"stackName\\": \\"test\\"
+    }
+  },
+  \\"resource\\": {
+    \\"aws_s3_bucket\\": {
+      \\"test_testeventbridgelambda_codebucket_2025467F\\": {
+        \\"acl\\": \\"private\\",
+        \\"bucket\\": \\"pocket-test-event-bridge-lambda\\",
+        \\"force_destroy\\": true,
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/lambda/code-bucket\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_codebucket_2025467F\\"
+          }
+        }
+      }
+    },
+    \\"aws_s3_bucket_public_access_block\\": {
+      \\"test_testeventbridgelambda_codebucketpublicaccessblock_B87062A0\\": {
+        \\"block_public_acls\\": true,
+        \\"block_public_policy\\": true,
+        \\"bucket\\": \\"\${aws_s3_bucket.test_testeventbridgelambda_codebucket_2025467F.id}\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/lambda/code-bucket-public-access-block\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_codebucketpublicaccessblock_B87062A0\\"
+          }
+        }
+      }
+    },
+    \\"aws_iam_role\\": {
+      \\"test_testeventbridgelambda_executionrole_A3207E70\\": {
+        \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.test_testeventbridgelambda_assumepolicydocument_2168188A.json}\\",
+        \\"name\\": \\"test-event-bridge-lambda-ExecutionRole\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/lambda/execution-role\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_executionrole_A3207E70\\"
+          }
+        }
+      }
+    },
+    \\"aws_iam_role_policy\\": {
+      \\"test_testeventbridgelambda_executionrolepolicy_E0E11A15\\": {
+        \\"name\\": \\"test-event-bridge-lambda-ExecutionRolePolicy\\",
+        \\"policy\\": \\"\${data.aws_iam_policy_document.test_testeventbridgelambda_executionpolicydocument_298C9BEE.json}\\",
+        \\"role\\": \\"test-event-bridge-lambda-ExecutionRole\\",
+        \\"depends_on\\": [
+          \\"aws_iam_role.test_testeventbridgelambda_executionrole_A3207E70\\"
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/lambda/execution-role-policy\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_executionrolepolicy_E0E11A15\\"
+          }
+        }
+      }
+    },
+    \\"aws_lambda_function\\": {
+      \\"test_testeventbridgelambda_FC596200\\": {
+        \\"filename\\": \\"index.py.zip\\",
+        \\"function_name\\": \\"test-event-bridge-lambda-Function\\",
+        \\"handler\\": \\"index.handler\\",
+        \\"publish\\": true,
+        \\"role\\": \\"\${aws_iam_role.test_testeventbridgelambda_executionrole_A3207E70.arn}\\",
+        \\"runtime\\": \\"python3.8\\",
+        \\"source_code_hash\\": \\"\${data.archive_file.test_testeventbridgelambda_lambdadefaultfile_F29C5502.output_base64sha256}\\",
+        \\"timeout\\": 5,
+        \\"vpc_config\\": [],
+        \\"lifecycle\\": {
+          \\"ignore_changes\\": [
+            \\"filename\\",
+            \\"source_code_hash\\"
+          ]
+        },
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/lambda/lambda\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_FC596200\\"
+          }
+        }
+      }
+    },
+    \\"aws_cloudwatch_log_group\\": {
+      \\"test_testeventbridgelambda_loggroup_709F3593\\": {
+        \\"name\\": \\"/aws/lambda/test-event-bridge-lambda-Function\\",
+        \\"retention_in_days\\": 14,
+        \\"depends_on\\": [
+          \\"aws_lambda_function.test_testeventbridgelambda_FC596200\\"
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/lambda/log-group\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_loggroup_709F3593\\"
+          }
+        }
+      }
+    },
+    \\"aws_lambda_alias\\": {
+      \\"test_testeventbridgelambda_alias_265F8FC4\\": {
+        \\"function_name\\": \\"test-event-bridge-lambda-Function\\",
+        \\"function_version\\": \\"\${split(\\\\\\":\\\\\\", aws_lambda_function.test_testeventbridgelambda_FC596200.qualified_arn)[7]}\\",
+        \\"name\\": \\"DEPLOYED\\",
+        \\"depends_on\\": [
+          \\"aws_lambda_function.test_testeventbridgelambda_FC596200\\"
+        ],
+        \\"lifecycle\\": {
+          \\"ignore_changes\\": [
+            \\"function_version\\"
+          ]
+        },
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/lambda/alias\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_alias_265F8FC4\\"
+          }
+        }
+      }
+    },
+    \\"aws_cloudwatch_event_rule\\": {
+      \\"test_testeventbridgelambda_eventbridgerule_6105B57C\\": {
+        \\"event_bus_name\\": \\"test-bus\\",
+        \\"event_pattern\\": \\"{\\\\\\"source\\\\\\":[\\\\\\"aws.states\\\\\\"],\\\\\\"detail-type\\\\\\":[\\\\\\"Step Functions Execution Status Change\\\\\\"]}\\",
+        \\"name\\": \\"test-event-bridge-lambda-Rule\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/event-bridge-rule/event-bridge-rule\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_eventbridgerule_6105B57C\\"
+          }
+        }
+      }
+    },
+    \\"aws_cloudwatch_event_target\\": {
+      \\"test_testeventbridgelambda_eventbridgerule_eventbridgetarget_5C2BE9DA\\": {
+        \\"arn\\": \\"\${aws_lambda_alias.test_testeventbridgelambda_alias_265F8FC4.arn}\\",
+        \\"rule\\": \\"test-event-bridge-lambda-Rule\\",
+        \\"target_id\\": \\"lambda\\",
+        \\"depends_on\\": [
+          \\"aws_lambda_alias.test_testeventbridgelambda_alias_265F8FC4\\",
+          \\"aws_cloudwatch_event_rule.test_testeventbridgelambda_eventbridgerule_6105B57C\\"
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/event-bridge-rule/event-bridge-target\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_eventbridgerule_eventbridgetarget_5C2BE9DA\\"
+          }
+        }
+      }
+    },
+    \\"aws_lambda_permission\\": {
+      \\"test_testeventbridgelambda_lambdapermission_17031D34\\": {
+        \\"action\\": \\"lambda:InvokeFunction\\",
+        \\"function_name\\": \\"test-event-bridge-lambda-Function\\",
+        \\"principal\\": \\"events.amazonaws.com\\",
+        \\"qualifier\\": \\"DEPLOYED\\",
+        \\"source_arn\\": \\"\${aws_cloudwatch_event_rule.test_testeventbridgelambda_eventbridgerule_6105B57C.arn}\\",
+        \\"depends_on\\": [
+          \\"aws_lambda_alias.test_testeventbridgelambda_alias_265F8FC4\\",
+          \\"aws_cloudwatch_event_rule.test_testeventbridgelambda_eventbridgerule_6105B57C\\"
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/lambda-permission\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_lambdapermission_17031D34\\"
+          }
+        }
+      }
+    }
+  },
+  \\"data\\": {
+    \\"aws_iam_policy_document\\": {
+      \\"test_testeventbridgelambda_assumepolicydocument_2168188A\\": {
+        \\"version\\": \\"2012-10-17\\",
+        \\"statement\\": [
+          {
+            \\"effect\\": \\"Allow\\",
+            \\"actions\\": [
+              \\"sts:AssumeRole\\"
+            ],
+            \\"principals\\": [
+              {
+                \\"identifiers\\": [
+                  \\"lambda.amazonaws.com\\"
+                ],
+                \\"type\\": \\"Service\\"
+              }
+            ]
+          }
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/lambda/assume-policy-document\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_assumepolicydocument_2168188A\\"
+          }
+        }
+      },
+      \\"test_testeventbridgelambda_executionpolicydocument_298C9BEE\\": {
+        \\"version\\": \\"2012-10-17\\",
+        \\"statement\\": [
+          {
+            \\"effect\\": \\"Allow\\",
+            \\"actions\\": [
+              \\"logs:CreateLogGroup\\",
+              \\"logs:CreateLogStream\\",
+              \\"logs:PutLogEvents\\",
+              \\"logs:DescribeLogStreams\\"
+            ],
+            \\"resources\\": [
+              \\"arn:aws:logs:*:*:*\\"
+            ]
+          }
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/lambda/execution-policy-document\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_executionpolicydocument_298C9BEE\\"
+          }
+        }
+      }
+    },
+    \\"archive_file\\": {
+      \\"test_testeventbridgelambda_lambdadefaultfile_F29C5502\\": {
+        \\"output_path\\": \\"index.py.zip\\",
+        \\"type\\": \\"zip\\",
+        \\"source\\": [
+          {
+            \\"content\\": \\"handler(event, context):\\\\n\\\\t print(event)\\",
+            \\"filename\\": \\"index.py\\"
+          }
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/lambda/lambda-default-file\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_lambdadefaultfile_F29C5502\\"
+          }
+        }
+      }
+    }
+  }
+}"
+`;
+
+exports[`renders an event bridge and lambda target with execution policy 1`] = `
+"{
+  \\"//\\": {
+    \\"metadata\\": {
+      \\"version\\": \\"stubbed\\",
+      \\"stackName\\": \\"test\\"
+    }
+  },
+  \\"resource\\": {
+    \\"aws_s3_bucket\\": {
+      \\"test_testeventbridgelambda_codebucket_2025467F\\": {
+        \\"acl\\": \\"private\\",
+        \\"bucket\\": \\"pocket-test-event-bridge-lambda\\",
+        \\"force_destroy\\": true,
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/lambda/code-bucket\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_codebucket_2025467F\\"
+          }
+        }
+      }
+    },
+    \\"aws_s3_bucket_public_access_block\\": {
+      \\"test_testeventbridgelambda_codebucketpublicaccessblock_B87062A0\\": {
+        \\"block_public_acls\\": true,
+        \\"block_public_policy\\": true,
+        \\"bucket\\": \\"\${aws_s3_bucket.test_testeventbridgelambda_codebucket_2025467F.id}\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/lambda/code-bucket-public-access-block\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_codebucketpublicaccessblock_B87062A0\\"
+          }
+        }
+      }
+    },
+    \\"aws_iam_role\\": {
+      \\"test_testeventbridgelambda_executionrole_A3207E70\\": {
+        \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.test_testeventbridgelambda_assumepolicydocument_2168188A.json}\\",
+        \\"name\\": \\"test-event-bridge-lambda-ExecutionRole\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/lambda/execution-role\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_executionrole_A3207E70\\"
+          }
+        }
+      }
+    },
+    \\"aws_iam_role_policy\\": {
+      \\"test_testeventbridgelambda_executionrolepolicy_E0E11A15\\": {
+        \\"name\\": \\"test-event-bridge-lambda-ExecutionRolePolicy\\",
+        \\"policy\\": \\"\${data.aws_iam_policy_document.test_testeventbridgelambda_executionpolicydocument_298C9BEE.json}\\",
+        \\"role\\": \\"test-event-bridge-lambda-ExecutionRole\\",
+        \\"depends_on\\": [
+          \\"aws_iam_role.test_testeventbridgelambda_executionrole_A3207E70\\"
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/lambda/execution-role-policy\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_executionrolepolicy_E0E11A15\\"
+          }
+        }
+      }
+    },
+    \\"aws_lambda_function\\": {
+      \\"test_testeventbridgelambda_FC596200\\": {
+        \\"filename\\": \\"index.py.zip\\",
+        \\"function_name\\": \\"test-event-bridge-lambda-Function\\",
+        \\"handler\\": \\"index.handler\\",
+        \\"publish\\": true,
+        \\"role\\": \\"\${aws_iam_role.test_testeventbridgelambda_executionrole_A3207E70.arn}\\",
+        \\"runtime\\": \\"python3.8\\",
+        \\"source_code_hash\\": \\"\${data.archive_file.test_testeventbridgelambda_lambdadefaultfile_F29C5502.output_base64sha256}\\",
+        \\"timeout\\": 5,
+        \\"vpc_config\\": [],
+        \\"lifecycle\\": {
+          \\"ignore_changes\\": [
+            \\"filename\\",
+            \\"source_code_hash\\"
+          ]
+        },
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/lambda/lambda\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_FC596200\\"
+          }
+        }
+      }
+    },
+    \\"aws_cloudwatch_log_group\\": {
+      \\"test_testeventbridgelambda_loggroup_709F3593\\": {
+        \\"name\\": \\"/aws/lambda/test-event-bridge-lambda-Function\\",
+        \\"retention_in_days\\": 14,
+        \\"depends_on\\": [
+          \\"aws_lambda_function.test_testeventbridgelambda_FC596200\\"
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/lambda/log-group\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_loggroup_709F3593\\"
+          }
+        }
+      }
+    },
+    \\"aws_lambda_alias\\": {
+      \\"test_testeventbridgelambda_alias_265F8FC4\\": {
+        \\"function_name\\": \\"test-event-bridge-lambda-Function\\",
+        \\"function_version\\": \\"\${split(\\\\\\":\\\\\\", aws_lambda_function.test_testeventbridgelambda_FC596200.qualified_arn)[7]}\\",
+        \\"name\\": \\"DEPLOYED\\",
+        \\"depends_on\\": [
+          \\"aws_lambda_function.test_testeventbridgelambda_FC596200\\"
+        ],
+        \\"lifecycle\\": {
+          \\"ignore_changes\\": [
+            \\"function_version\\"
+          ]
+        },
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/lambda/alias\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_alias_265F8FC4\\"
+          }
+        }
+      }
+    },
+    \\"aws_cloudwatch_event_rule\\": {
+      \\"test_testeventbridgelambda_eventbridgerule_6105B57C\\": {
+        \\"event_bus_name\\": \\"default\\",
+        \\"event_pattern\\": \\"{\\\\\\"source\\\\\\":[\\\\\\"aws.states\\\\\\"],\\\\\\"detail-type\\\\\\":[\\\\\\"Step Functions Execution Status Change\\\\\\"]}\\",
+        \\"name\\": \\"test-event-bridge-lambda-Rule\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/event-bridge-rule/event-bridge-rule\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_eventbridgerule_6105B57C\\"
+          }
+        }
+      }
+    },
+    \\"aws_cloudwatch_event_target\\": {
+      \\"test_testeventbridgelambda_eventbridgerule_eventbridgetarget_5C2BE9DA\\": {
+        \\"arn\\": \\"\${aws_lambda_alias.test_testeventbridgelambda_alias_265F8FC4.arn}\\",
+        \\"rule\\": \\"test-event-bridge-lambda-Rule\\",
+        \\"target_id\\": \\"lambda\\",
+        \\"depends_on\\": [
+          \\"aws_lambda_alias.test_testeventbridgelambda_alias_265F8FC4\\",
+          \\"aws_cloudwatch_event_rule.test_testeventbridgelambda_eventbridgerule_6105B57C\\"
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/event-bridge-rule/event-bridge-target\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_eventbridgerule_eventbridgetarget_5C2BE9DA\\"
+          }
+        }
+      }
+    },
+    \\"aws_lambda_permission\\": {
+      \\"test_testeventbridgelambda_lambdapermission_17031D34\\": {
+        \\"action\\": \\"lambda:InvokeFunction\\",
+        \\"function_name\\": \\"test-event-bridge-lambda-Function\\",
+        \\"principal\\": \\"events.amazonaws.com\\",
+        \\"qualifier\\": \\"DEPLOYED\\",
+        \\"source_arn\\": \\"\${aws_cloudwatch_event_rule.test_testeventbridgelambda_eventbridgerule_6105B57C.arn}\\",
+        \\"depends_on\\": [
+          \\"aws_lambda_alias.test_testeventbridgelambda_alias_265F8FC4\\",
+          \\"aws_cloudwatch_event_rule.test_testeventbridgelambda_eventbridgerule_6105B57C\\"
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/lambda-permission\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_lambdapermission_17031D34\\"
+          }
+        }
+      }
+    }
+  },
+  \\"data\\": {
+    \\"aws_iam_policy_document\\": {
+      \\"test_testeventbridgelambda_assumepolicydocument_2168188A\\": {
+        \\"version\\": \\"2012-10-17\\",
+        \\"statement\\": [
+          {
+            \\"effect\\": \\"Allow\\",
+            \\"actions\\": [
+              \\"sts:AssumeRole\\"
+            ],
+            \\"principals\\": [
+              {
+                \\"identifiers\\": [
+                  \\"lambda.amazonaws.com\\"
+                ],
+                \\"type\\": \\"Service\\"
+              }
+            ]
+          }
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/lambda/assume-policy-document\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_assumepolicydocument_2168188A\\"
+          }
+        }
+      },
+      \\"test_testeventbridgelambda_executionpolicydocument_298C9BEE\\": {
+        \\"version\\": \\"2012-10-17\\",
+        \\"statement\\": [
+          {
+            \\"effect\\": \\"Allow\\",
+            \\"actions\\": [
+              \\"logs:CreateLogGroup\\",
+              \\"logs:CreateLogStream\\",
+              \\"logs:PutLogEvents\\",
+              \\"logs:DescribeLogStreams\\"
+            ],
+            \\"resources\\": [
+              \\"arn:aws:logs:*:*:*\\"
+            ]
+          },
+          {
+            \\"effect\\": \\"Allow\\",
+            \\"actions\\": [
+              \\"*\\"
+            ],
+            \\"resources\\": [
+              \\"*\\"
+            ]
+          }
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/lambda/execution-policy-document\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_executionpolicydocument_298C9BEE\\"
+          }
+        }
+      }
+    },
+    \\"archive_file\\": {
+      \\"test_testeventbridgelambda_lambdadefaultfile_F29C5502\\": {
+        \\"output_path\\": \\"index.py.zip\\",
+        \\"type\\": \\"zip\\",
+        \\"source\\": [
+          {
+            \\"content\\": \\"handler(event, context):\\\\n\\\\t print(event)\\",
+            \\"filename\\": \\"index.py\\"
+          }
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/lambda/lambda-default-file\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_lambdadefaultfile_F29C5502\\"
+          }
+        }
+      }
+    }
+  }
+}"
+`;
+
+exports[`renders an event bridge and lambda target with lambda description 1`] = `
+"{
+  \\"//\\": {
+    \\"metadata\\": {
+      \\"version\\": \\"stubbed\\",
+      \\"stackName\\": \\"test\\"
+    }
+  },
+  \\"resource\\": {
+    \\"aws_s3_bucket\\": {
+      \\"test_testeventbridgelambda_codebucket_2025467F\\": {
+        \\"acl\\": \\"private\\",
+        \\"bucket\\": \\"pocket-test-event-bridge-lambda\\",
+        \\"force_destroy\\": true,
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/lambda/code-bucket\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_codebucket_2025467F\\"
+          }
+        }
+      }
+    },
+    \\"aws_s3_bucket_public_access_block\\": {
+      \\"test_testeventbridgelambda_codebucketpublicaccessblock_B87062A0\\": {
+        \\"block_public_acls\\": true,
+        \\"block_public_policy\\": true,
+        \\"bucket\\": \\"\${aws_s3_bucket.test_testeventbridgelambda_codebucket_2025467F.id}\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/lambda/code-bucket-public-access-block\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_codebucketpublicaccessblock_B87062A0\\"
+          }
+        }
+      }
+    },
+    \\"aws_iam_role\\": {
+      \\"test_testeventbridgelambda_executionrole_A3207E70\\": {
+        \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.test_testeventbridgelambda_assumepolicydocument_2168188A.json}\\",
+        \\"name\\": \\"test-event-bridge-lambda-ExecutionRole\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/lambda/execution-role\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_executionrole_A3207E70\\"
+          }
+        }
+      }
+    },
+    \\"aws_iam_role_policy\\": {
+      \\"test_testeventbridgelambda_executionrolepolicy_E0E11A15\\": {
+        \\"name\\": \\"test-event-bridge-lambda-ExecutionRolePolicy\\",
+        \\"policy\\": \\"\${data.aws_iam_policy_document.test_testeventbridgelambda_executionpolicydocument_298C9BEE.json}\\",
+        \\"role\\": \\"test-event-bridge-lambda-ExecutionRole\\",
+        \\"depends_on\\": [
+          \\"aws_iam_role.test_testeventbridgelambda_executionrole_A3207E70\\"
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/lambda/execution-role-policy\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_executionrolepolicy_E0E11A15\\"
+          }
+        }
+      }
+    },
+    \\"aws_lambda_function\\": {
+      \\"test_testeventbridgelambda_FC596200\\": {
+        \\"filename\\": \\"index.py.zip\\",
+        \\"function_name\\": \\"test-event-bridge-lambda-Function\\",
+        \\"handler\\": \\"index.handler\\",
+        \\"publish\\": true,
+        \\"role\\": \\"\${aws_iam_role.test_testeventbridgelambda_executionrole_A3207E70.arn}\\",
+        \\"runtime\\": \\"python3.8\\",
+        \\"source_code_hash\\": \\"\${data.archive_file.test_testeventbridgelambda_lambdadefaultfile_F29C5502.output_base64sha256}\\",
+        \\"timeout\\": 5,
+        \\"vpc_config\\": [],
+        \\"lifecycle\\": {
+          \\"ignore_changes\\": [
+            \\"filename\\",
+            \\"source_code_hash\\"
+          ]
+        },
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/lambda/lambda\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_FC596200\\"
+          }
+        }
+      }
+    },
+    \\"aws_cloudwatch_log_group\\": {
+      \\"test_testeventbridgelambda_loggroup_709F3593\\": {
+        \\"name\\": \\"/aws/lambda/test-event-bridge-lambda-Function\\",
+        \\"retention_in_days\\": 14,
+        \\"depends_on\\": [
+          \\"aws_lambda_function.test_testeventbridgelambda_FC596200\\"
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/lambda/log-group\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_loggroup_709F3593\\"
+          }
+        }
+      }
+    },
+    \\"aws_lambda_alias\\": {
+      \\"test_testeventbridgelambda_alias_265F8FC4\\": {
+        \\"function_name\\": \\"test-event-bridge-lambda-Function\\",
+        \\"function_version\\": \\"\${split(\\\\\\":\\\\\\", aws_lambda_function.test_testeventbridgelambda_FC596200.qualified_arn)[7]}\\",
+        \\"name\\": \\"DEPLOYED\\",
+        \\"depends_on\\": [
+          \\"aws_lambda_function.test_testeventbridgelambda_FC596200\\"
+        ],
+        \\"lifecycle\\": {
+          \\"ignore_changes\\": [
+            \\"function_version\\"
+          ]
+        },
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/lambda/alias\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_alias_265F8FC4\\"
+          }
+        }
+      }
+    },
+    \\"aws_cloudwatch_event_rule\\": {
+      \\"test_testeventbridgelambda_eventbridgerule_6105B57C\\": {
+        \\"event_bus_name\\": \\"default\\",
+        \\"event_pattern\\": \\"{\\\\\\"source\\\\\\":[\\\\\\"aws.states\\\\\\"],\\\\\\"detail-type\\\\\\":[\\\\\\"Step Functions Execution Status Change\\\\\\"]}\\",
+        \\"name\\": \\"test-event-bridge-lambda-Rule\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/event-bridge-rule/event-bridge-rule\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_eventbridgerule_6105B57C\\"
+          }
+        }
+      }
+    },
+    \\"aws_cloudwatch_event_target\\": {
+      \\"test_testeventbridgelambda_eventbridgerule_eventbridgetarget_5C2BE9DA\\": {
+        \\"arn\\": \\"\${aws_lambda_alias.test_testeventbridgelambda_alias_265F8FC4.arn}\\",
+        \\"rule\\": \\"test-event-bridge-lambda-Rule\\",
+        \\"target_id\\": \\"lambda\\",
+        \\"depends_on\\": [
+          \\"aws_lambda_alias.test_testeventbridgelambda_alias_265F8FC4\\",
+          \\"aws_cloudwatch_event_rule.test_testeventbridgelambda_eventbridgerule_6105B57C\\"
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/event-bridge-rule/event-bridge-target\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_eventbridgerule_eventbridgetarget_5C2BE9DA\\"
+          }
+        }
+      }
+    },
+    \\"aws_lambda_permission\\": {
+      \\"test_testeventbridgelambda_lambdapermission_17031D34\\": {
+        \\"action\\": \\"lambda:InvokeFunction\\",
+        \\"function_name\\": \\"test-event-bridge-lambda-Function\\",
+        \\"principal\\": \\"events.amazonaws.com\\",
+        \\"qualifier\\": \\"DEPLOYED\\",
+        \\"source_arn\\": \\"\${aws_cloudwatch_event_rule.test_testeventbridgelambda_eventbridgerule_6105B57C.arn}\\",
+        \\"depends_on\\": [
+          \\"aws_lambda_alias.test_testeventbridgelambda_alias_265F8FC4\\",
+          \\"aws_cloudwatch_event_rule.test_testeventbridgelambda_eventbridgerule_6105B57C\\"
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/lambda-permission\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_lambdapermission_17031D34\\"
+          }
+        }
+      }
+    }
+  },
+  \\"data\\": {
+    \\"aws_iam_policy_document\\": {
+      \\"test_testeventbridgelambda_assumepolicydocument_2168188A\\": {
+        \\"version\\": \\"2012-10-17\\",
+        \\"statement\\": [
+          {
+            \\"effect\\": \\"Allow\\",
+            \\"actions\\": [
+              \\"sts:AssumeRole\\"
+            ],
+            \\"principals\\": [
+              {
+                \\"identifiers\\": [
+                  \\"lambda.amazonaws.com\\"
+                ],
+                \\"type\\": \\"Service\\"
+              }
+            ]
+          }
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/lambda/assume-policy-document\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_assumepolicydocument_2168188A\\"
+          }
+        }
+      },
+      \\"test_testeventbridgelambda_executionpolicydocument_298C9BEE\\": {
+        \\"version\\": \\"2012-10-17\\",
+        \\"statement\\": [
+          {
+            \\"effect\\": \\"Allow\\",
+            \\"actions\\": [
+              \\"logs:CreateLogGroup\\",
+              \\"logs:CreateLogStream\\",
+              \\"logs:PutLogEvents\\",
+              \\"logs:DescribeLogStreams\\"
+            ],
+            \\"resources\\": [
+              \\"arn:aws:logs:*:*:*\\"
+            ]
+          }
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/lambda/execution-policy-document\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_executionpolicydocument_298C9BEE\\"
+          }
+        }
+      }
+    },
+    \\"archive_file\\": {
+      \\"test_testeventbridgelambda_lambdadefaultfile_F29C5502\\": {
+        \\"output_path\\": \\"index.py.zip\\",
+        \\"type\\": \\"zip\\",
+        \\"source\\": [
+          {
+            \\"content\\": \\"handler(event, context):\\\\n\\\\t print(event)\\",
+            \\"filename\\": \\"index.py\\"
+          }
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/lambda/lambda-default-file\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_lambdadefaultfile_F29C5502\\"
+          }
+        }
+      }
+    }
+  }
+}"
+`;
+
+exports[`renders an event bridge and lambda target with log retention 1`] = `
+"{
+  \\"//\\": {
+    \\"metadata\\": {
+      \\"version\\": \\"stubbed\\",
+      \\"stackName\\": \\"test\\"
+    }
+  },
+  \\"resource\\": {
+    \\"aws_s3_bucket\\": {
+      \\"test_testeventbridgelambda_codebucket_2025467F\\": {
+        \\"acl\\": \\"private\\",
+        \\"bucket\\": \\"pocket-test-event-bridge-lambda\\",
+        \\"force_destroy\\": true,
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/lambda/code-bucket\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_codebucket_2025467F\\"
+          }
+        }
+      }
+    },
+    \\"aws_s3_bucket_public_access_block\\": {
+      \\"test_testeventbridgelambda_codebucketpublicaccessblock_B87062A0\\": {
+        \\"block_public_acls\\": true,
+        \\"block_public_policy\\": true,
+        \\"bucket\\": \\"\${aws_s3_bucket.test_testeventbridgelambda_codebucket_2025467F.id}\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/lambda/code-bucket-public-access-block\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_codebucketpublicaccessblock_B87062A0\\"
+          }
+        }
+      }
+    },
+    \\"aws_iam_role\\": {
+      \\"test_testeventbridgelambda_executionrole_A3207E70\\": {
+        \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.test_testeventbridgelambda_assumepolicydocument_2168188A.json}\\",
+        \\"name\\": \\"test-event-bridge-lambda-ExecutionRole\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/lambda/execution-role\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_executionrole_A3207E70\\"
+          }
+        }
+      }
+    },
+    \\"aws_iam_role_policy\\": {
+      \\"test_testeventbridgelambda_executionrolepolicy_E0E11A15\\": {
+        \\"name\\": \\"test-event-bridge-lambda-ExecutionRolePolicy\\",
+        \\"policy\\": \\"\${data.aws_iam_policy_document.test_testeventbridgelambda_executionpolicydocument_298C9BEE.json}\\",
+        \\"role\\": \\"test-event-bridge-lambda-ExecutionRole\\",
+        \\"depends_on\\": [
+          \\"aws_iam_role.test_testeventbridgelambda_executionrole_A3207E70\\"
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/lambda/execution-role-policy\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_executionrolepolicy_E0E11A15\\"
+          }
+        }
+      }
+    },
+    \\"aws_lambda_function\\": {
+      \\"test_testeventbridgelambda_FC596200\\": {
+        \\"filename\\": \\"index.py.zip\\",
+        \\"function_name\\": \\"test-event-bridge-lambda-Function\\",
+        \\"handler\\": \\"index.handler\\",
+        \\"publish\\": true,
+        \\"role\\": \\"\${aws_iam_role.test_testeventbridgelambda_executionrole_A3207E70.arn}\\",
+        \\"runtime\\": \\"python3.8\\",
+        \\"source_code_hash\\": \\"\${data.archive_file.test_testeventbridgelambda_lambdadefaultfile_F29C5502.output_base64sha256}\\",
+        \\"timeout\\": 5,
+        \\"vpc_config\\": [],
+        \\"lifecycle\\": {
+          \\"ignore_changes\\": [
+            \\"filename\\",
+            \\"source_code_hash\\"
+          ]
+        },
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/lambda/lambda\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_FC596200\\"
+          }
+        }
+      }
+    },
+    \\"aws_cloudwatch_log_group\\": {
+      \\"test_testeventbridgelambda_loggroup_709F3593\\": {
+        \\"name\\": \\"/aws/lambda/test-event-bridge-lambda-Function\\",
+        \\"retention_in_days\\": 10,
+        \\"depends_on\\": [
+          \\"aws_lambda_function.test_testeventbridgelambda_FC596200\\"
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/lambda/log-group\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_loggroup_709F3593\\"
+          }
+        }
+      }
+    },
+    \\"aws_lambda_alias\\": {
+      \\"test_testeventbridgelambda_alias_265F8FC4\\": {
+        \\"function_name\\": \\"test-event-bridge-lambda-Function\\",
+        \\"function_version\\": \\"\${split(\\\\\\":\\\\\\", aws_lambda_function.test_testeventbridgelambda_FC596200.qualified_arn)[7]}\\",
+        \\"name\\": \\"DEPLOYED\\",
+        \\"depends_on\\": [
+          \\"aws_lambda_function.test_testeventbridgelambda_FC596200\\"
+        ],
+        \\"lifecycle\\": {
+          \\"ignore_changes\\": [
+            \\"function_version\\"
+          ]
+        },
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/lambda/alias\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_alias_265F8FC4\\"
+          }
+        }
+      }
+    },
+    \\"aws_cloudwatch_event_rule\\": {
+      \\"test_testeventbridgelambda_eventbridgerule_6105B57C\\": {
+        \\"event_bus_name\\": \\"default\\",
+        \\"event_pattern\\": \\"{\\\\\\"source\\\\\\":[\\\\\\"aws.states\\\\\\"],\\\\\\"detail-type\\\\\\":[\\\\\\"Step Functions Execution Status Change\\\\\\"]}\\",
+        \\"name\\": \\"test-event-bridge-lambda-Rule\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/event-bridge-rule/event-bridge-rule\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_eventbridgerule_6105B57C\\"
+          }
+        }
+      }
+    },
+    \\"aws_cloudwatch_event_target\\": {
+      \\"test_testeventbridgelambda_eventbridgerule_eventbridgetarget_5C2BE9DA\\": {
+        \\"arn\\": \\"\${aws_lambda_alias.test_testeventbridgelambda_alias_265F8FC4.arn}\\",
+        \\"rule\\": \\"test-event-bridge-lambda-Rule\\",
+        \\"target_id\\": \\"lambda\\",
+        \\"depends_on\\": [
+          \\"aws_lambda_alias.test_testeventbridgelambda_alias_265F8FC4\\",
+          \\"aws_cloudwatch_event_rule.test_testeventbridgelambda_eventbridgerule_6105B57C\\"
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/event-bridge-rule/event-bridge-target\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_eventbridgerule_eventbridgetarget_5C2BE9DA\\"
+          }
+        }
+      }
+    },
+    \\"aws_lambda_permission\\": {
+      \\"test_testeventbridgelambda_lambdapermission_17031D34\\": {
+        \\"action\\": \\"lambda:InvokeFunction\\",
+        \\"function_name\\": \\"test-event-bridge-lambda-Function\\",
+        \\"principal\\": \\"events.amazonaws.com\\",
+        \\"qualifier\\": \\"DEPLOYED\\",
+        \\"source_arn\\": \\"\${aws_cloudwatch_event_rule.test_testeventbridgelambda_eventbridgerule_6105B57C.arn}\\",
+        \\"depends_on\\": [
+          \\"aws_lambda_alias.test_testeventbridgelambda_alias_265F8FC4\\",
+          \\"aws_cloudwatch_event_rule.test_testeventbridgelambda_eventbridgerule_6105B57C\\"
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/lambda-permission\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_lambdapermission_17031D34\\"
+          }
+        }
+      }
+    }
+  },
+  \\"data\\": {
+    \\"aws_iam_policy_document\\": {
+      \\"test_testeventbridgelambda_assumepolicydocument_2168188A\\": {
+        \\"version\\": \\"2012-10-17\\",
+        \\"statement\\": [
+          {
+            \\"effect\\": \\"Allow\\",
+            \\"actions\\": [
+              \\"sts:AssumeRole\\"
+            ],
+            \\"principals\\": [
+              {
+                \\"identifiers\\": [
+                  \\"lambda.amazonaws.com\\"
+                ],
+                \\"type\\": \\"Service\\"
+              }
+            ]
+          }
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/lambda/assume-policy-document\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_assumepolicydocument_2168188A\\"
+          }
+        }
+      },
+      \\"test_testeventbridgelambda_executionpolicydocument_298C9BEE\\": {
+        \\"version\\": \\"2012-10-17\\",
+        \\"statement\\": [
+          {
+            \\"effect\\": \\"Allow\\",
+            \\"actions\\": [
+              \\"logs:CreateLogGroup\\",
+              \\"logs:CreateLogStream\\",
+              \\"logs:PutLogEvents\\",
+              \\"logs:DescribeLogStreams\\"
+            ],
+            \\"resources\\": [
+              \\"arn:aws:logs:*:*:*\\"
+            ]
+          }
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/lambda/execution-policy-document\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_executionpolicydocument_298C9BEE\\"
+          }
+        }
+      }
+    },
+    \\"archive_file\\": {
+      \\"test_testeventbridgelambda_lambdadefaultfile_F29C5502\\": {
+        \\"output_path\\": \\"index.py.zip\\",
+        \\"type\\": \\"zip\\",
+        \\"source\\": [
+          {
+            \\"content\\": \\"handler(event, context):\\\\n\\\\t print(event)\\",
+            \\"filename\\": \\"index.py\\"
+          }
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/lambda/lambda-default-file\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_lambdadefaultfile_F29C5502\\"
+          }
+        }
+      }
+    }
+  }
+}"
+`;
+
+exports[`renders an event bridge and lambda target with rule description 1`] = `
+"{
+  \\"//\\": {
+    \\"metadata\\": {
+      \\"version\\": \\"stubbed\\",
+      \\"stackName\\": \\"test\\"
+    }
+  },
+  \\"resource\\": {
+    \\"aws_s3_bucket\\": {
+      \\"test_testeventbridgelambda_codebucket_2025467F\\": {
+        \\"acl\\": \\"private\\",
+        \\"bucket\\": \\"pocket-test-event-bridge-lambda\\",
+        \\"force_destroy\\": true,
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/lambda/code-bucket\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_codebucket_2025467F\\"
+          }
+        }
+      }
+    },
+    \\"aws_s3_bucket_public_access_block\\": {
+      \\"test_testeventbridgelambda_codebucketpublicaccessblock_B87062A0\\": {
+        \\"block_public_acls\\": true,
+        \\"block_public_policy\\": true,
+        \\"bucket\\": \\"\${aws_s3_bucket.test_testeventbridgelambda_codebucket_2025467F.id}\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/lambda/code-bucket-public-access-block\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_codebucketpublicaccessblock_B87062A0\\"
+          }
+        }
+      }
+    },
+    \\"aws_iam_role\\": {
+      \\"test_testeventbridgelambda_executionrole_A3207E70\\": {
+        \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.test_testeventbridgelambda_assumepolicydocument_2168188A.json}\\",
+        \\"name\\": \\"test-event-bridge-lambda-ExecutionRole\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/lambda/execution-role\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_executionrole_A3207E70\\"
+          }
+        }
+      }
+    },
+    \\"aws_iam_role_policy\\": {
+      \\"test_testeventbridgelambda_executionrolepolicy_E0E11A15\\": {
+        \\"name\\": \\"test-event-bridge-lambda-ExecutionRolePolicy\\",
+        \\"policy\\": \\"\${data.aws_iam_policy_document.test_testeventbridgelambda_executionpolicydocument_298C9BEE.json}\\",
+        \\"role\\": \\"test-event-bridge-lambda-ExecutionRole\\",
+        \\"depends_on\\": [
+          \\"aws_iam_role.test_testeventbridgelambda_executionrole_A3207E70\\"
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/lambda/execution-role-policy\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_executionrolepolicy_E0E11A15\\"
+          }
+        }
+      }
+    },
+    \\"aws_lambda_function\\": {
+      \\"test_testeventbridgelambda_FC596200\\": {
+        \\"filename\\": \\"index.py.zip\\",
+        \\"function_name\\": \\"test-event-bridge-lambda-Function\\",
+        \\"handler\\": \\"index.handler\\",
+        \\"publish\\": true,
+        \\"role\\": \\"\${aws_iam_role.test_testeventbridgelambda_executionrole_A3207E70.arn}\\",
+        \\"runtime\\": \\"python3.8\\",
+        \\"source_code_hash\\": \\"\${data.archive_file.test_testeventbridgelambda_lambdadefaultfile_F29C5502.output_base64sha256}\\",
+        \\"timeout\\": 5,
+        \\"vpc_config\\": [],
+        \\"lifecycle\\": {
+          \\"ignore_changes\\": [
+            \\"filename\\",
+            \\"source_code_hash\\"
+          ]
+        },
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/lambda/lambda\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_FC596200\\"
+          }
+        }
+      }
+    },
+    \\"aws_cloudwatch_log_group\\": {
+      \\"test_testeventbridgelambda_loggroup_709F3593\\": {
+        \\"name\\": \\"/aws/lambda/test-event-bridge-lambda-Function\\",
+        \\"retention_in_days\\": 14,
+        \\"depends_on\\": [
+          \\"aws_lambda_function.test_testeventbridgelambda_FC596200\\"
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/lambda/log-group\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_loggroup_709F3593\\"
+          }
+        }
+      }
+    },
+    \\"aws_lambda_alias\\": {
+      \\"test_testeventbridgelambda_alias_265F8FC4\\": {
+        \\"function_name\\": \\"test-event-bridge-lambda-Function\\",
+        \\"function_version\\": \\"\${split(\\\\\\":\\\\\\", aws_lambda_function.test_testeventbridgelambda_FC596200.qualified_arn)[7]}\\",
+        \\"name\\": \\"DEPLOYED\\",
+        \\"depends_on\\": [
+          \\"aws_lambda_function.test_testeventbridgelambda_FC596200\\"
+        ],
+        \\"lifecycle\\": {
+          \\"ignore_changes\\": [
+            \\"function_version\\"
+          ]
+        },
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/lambda/alias\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_alias_265F8FC4\\"
+          }
+        }
+      }
+    },
+    \\"aws_cloudwatch_event_rule\\": {
+      \\"test_testeventbridgelambda_eventbridgerule_6105B57C\\": {
+        \\"description\\": \\"Test description\\",
+        \\"event_bus_name\\": \\"default\\",
+        \\"event_pattern\\": \\"{\\\\\\"source\\\\\\":[\\\\\\"aws.states\\\\\\"],\\\\\\"detail-type\\\\\\":[\\\\\\"Step Functions Execution Status Change\\\\\\"]}\\",
+        \\"name\\": \\"test-event-bridge-lambda-Rule\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/event-bridge-rule/event-bridge-rule\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_eventbridgerule_6105B57C\\"
+          }
+        }
+      }
+    },
+    \\"aws_cloudwatch_event_target\\": {
+      \\"test_testeventbridgelambda_eventbridgerule_eventbridgetarget_5C2BE9DA\\": {
+        \\"arn\\": \\"\${aws_lambda_alias.test_testeventbridgelambda_alias_265F8FC4.arn}\\",
+        \\"rule\\": \\"test-event-bridge-lambda-Rule\\",
+        \\"target_id\\": \\"lambda\\",
+        \\"depends_on\\": [
+          \\"aws_lambda_alias.test_testeventbridgelambda_alias_265F8FC4\\",
+          \\"aws_cloudwatch_event_rule.test_testeventbridgelambda_eventbridgerule_6105B57C\\"
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/event-bridge-rule/event-bridge-target\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_eventbridgerule_eventbridgetarget_5C2BE9DA\\"
+          }
+        }
+      }
+    },
+    \\"aws_lambda_permission\\": {
+      \\"test_testeventbridgelambda_lambdapermission_17031D34\\": {
+        \\"action\\": \\"lambda:InvokeFunction\\",
+        \\"function_name\\": \\"test-event-bridge-lambda-Function\\",
+        \\"principal\\": \\"events.amazonaws.com\\",
+        \\"qualifier\\": \\"DEPLOYED\\",
+        \\"source_arn\\": \\"\${aws_cloudwatch_event_rule.test_testeventbridgelambda_eventbridgerule_6105B57C.arn}\\",
+        \\"depends_on\\": [
+          \\"aws_lambda_alias.test_testeventbridgelambda_alias_265F8FC4\\",
+          \\"aws_cloudwatch_event_rule.test_testeventbridgelambda_eventbridgerule_6105B57C\\"
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/lambda-permission\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_lambdapermission_17031D34\\"
+          }
+        }
+      }
+    }
+  },
+  \\"data\\": {
+    \\"aws_iam_policy_document\\": {
+      \\"test_testeventbridgelambda_assumepolicydocument_2168188A\\": {
+        \\"version\\": \\"2012-10-17\\",
+        \\"statement\\": [
+          {
+            \\"effect\\": \\"Allow\\",
+            \\"actions\\": [
+              \\"sts:AssumeRole\\"
+            ],
+            \\"principals\\": [
+              {
+                \\"identifiers\\": [
+                  \\"lambda.amazonaws.com\\"
+                ],
+                \\"type\\": \\"Service\\"
+              }
+            ]
+          }
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/lambda/assume-policy-document\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_assumepolicydocument_2168188A\\"
+          }
+        }
+      },
+      \\"test_testeventbridgelambda_executionpolicydocument_298C9BEE\\": {
+        \\"version\\": \\"2012-10-17\\",
+        \\"statement\\": [
+          {
+            \\"effect\\": \\"Allow\\",
+            \\"actions\\": [
+              \\"logs:CreateLogGroup\\",
+              \\"logs:CreateLogStream\\",
+              \\"logs:PutLogEvents\\",
+              \\"logs:DescribeLogStreams\\"
+            ],
+            \\"resources\\": [
+              \\"arn:aws:logs:*:*:*\\"
+            ]
+          }
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/lambda/execution-policy-document\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_executionpolicydocument_298C9BEE\\"
+          }
+        }
+      }
+    },
+    \\"archive_file\\": {
+      \\"test_testeventbridgelambda_lambdadefaultfile_F29C5502\\": {
+        \\"output_path\\": \\"index.py.zip\\",
+        \\"type\\": \\"zip\\",
+        \\"source\\": [
+          {
+            \\"content\\": \\"handler(event, context):\\\\n\\\\t print(event)\\",
+            \\"filename\\": \\"index.py\\"
+          }
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/lambda/lambda-default-file\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_lambdadefaultfile_F29C5502\\"
+          }
+        }
+      }
+    }
+  }
+}"
+`;
+
+exports[`renders an event bridge and lambda target with s3 bucket 1`] = `
+"{
+  \\"//\\": {
+    \\"metadata\\": {
+      \\"version\\": \\"stubbed\\",
+      \\"stackName\\": \\"test\\"
+    }
+  },
+  \\"resource\\": {
+    \\"aws_s3_bucket\\": {
+      \\"test_testeventbridgelambda_codebucket_2025467F\\": {
+        \\"acl\\": \\"private\\",
+        \\"bucket\\": \\"test-bucket\\",
+        \\"force_destroy\\": true,
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/lambda/code-bucket\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_codebucket_2025467F\\"
+          }
+        }
+      }
+    },
+    \\"aws_s3_bucket_public_access_block\\": {
+      \\"test_testeventbridgelambda_codebucketpublicaccessblock_B87062A0\\": {
+        \\"block_public_acls\\": true,
+        \\"block_public_policy\\": true,
+        \\"bucket\\": \\"\${aws_s3_bucket.test_testeventbridgelambda_codebucket_2025467F.id}\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/lambda/code-bucket-public-access-block\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_codebucketpublicaccessblock_B87062A0\\"
+          }
+        }
+      }
+    },
+    \\"aws_iam_role\\": {
+      \\"test_testeventbridgelambda_executionrole_A3207E70\\": {
+        \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.test_testeventbridgelambda_assumepolicydocument_2168188A.json}\\",
+        \\"name\\": \\"test-event-bridge-lambda-ExecutionRole\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/lambda/execution-role\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_executionrole_A3207E70\\"
+          }
+        }
+      }
+    },
+    \\"aws_iam_role_policy\\": {
+      \\"test_testeventbridgelambda_executionrolepolicy_E0E11A15\\": {
+        \\"name\\": \\"test-event-bridge-lambda-ExecutionRolePolicy\\",
+        \\"policy\\": \\"\${data.aws_iam_policy_document.test_testeventbridgelambda_executionpolicydocument_298C9BEE.json}\\",
+        \\"role\\": \\"test-event-bridge-lambda-ExecutionRole\\",
+        \\"depends_on\\": [
+          \\"aws_iam_role.test_testeventbridgelambda_executionrole_A3207E70\\"
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/lambda/execution-role-policy\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_executionrolepolicy_E0E11A15\\"
+          }
+        }
+      }
+    },
+    \\"aws_lambda_function\\": {
+      \\"test_testeventbridgelambda_FC596200\\": {
+        \\"filename\\": \\"index.py.zip\\",
+        \\"function_name\\": \\"test-event-bridge-lambda-Function\\",
+        \\"handler\\": \\"index.handler\\",
+        \\"publish\\": true,
+        \\"role\\": \\"\${aws_iam_role.test_testeventbridgelambda_executionrole_A3207E70.arn}\\",
+        \\"runtime\\": \\"python3.8\\",
+        \\"source_code_hash\\": \\"\${data.archive_file.test_testeventbridgelambda_lambdadefaultfile_F29C5502.output_base64sha256}\\",
+        \\"timeout\\": 5,
+        \\"vpc_config\\": [],
+        \\"lifecycle\\": {
+          \\"ignore_changes\\": [
+            \\"filename\\",
+            \\"source_code_hash\\"
+          ]
+        },
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/lambda/lambda\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_FC596200\\"
+          }
+        }
+      }
+    },
+    \\"aws_cloudwatch_log_group\\": {
+      \\"test_testeventbridgelambda_loggroup_709F3593\\": {
+        \\"name\\": \\"/aws/lambda/test-event-bridge-lambda-Function\\",
+        \\"retention_in_days\\": 14,
+        \\"depends_on\\": [
+          \\"aws_lambda_function.test_testeventbridgelambda_FC596200\\"
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/lambda/log-group\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_loggroup_709F3593\\"
+          }
+        }
+      }
+    },
+    \\"aws_lambda_alias\\": {
+      \\"test_testeventbridgelambda_alias_265F8FC4\\": {
+        \\"function_name\\": \\"test-event-bridge-lambda-Function\\",
+        \\"function_version\\": \\"\${split(\\\\\\":\\\\\\", aws_lambda_function.test_testeventbridgelambda_FC596200.qualified_arn)[7]}\\",
+        \\"name\\": \\"DEPLOYED\\",
+        \\"depends_on\\": [
+          \\"aws_lambda_function.test_testeventbridgelambda_FC596200\\"
+        ],
+        \\"lifecycle\\": {
+          \\"ignore_changes\\": [
+            \\"function_version\\"
+          ]
+        },
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/lambda/alias\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_alias_265F8FC4\\"
+          }
+        }
+      }
+    },
+    \\"aws_cloudwatch_event_rule\\": {
+      \\"test_testeventbridgelambda_eventbridgerule_6105B57C\\": {
+        \\"event_bus_name\\": \\"default\\",
+        \\"event_pattern\\": \\"{\\\\\\"source\\\\\\":[\\\\\\"aws.states\\\\\\"],\\\\\\"detail-type\\\\\\":[\\\\\\"Step Functions Execution Status Change\\\\\\"]}\\",
+        \\"name\\": \\"test-event-bridge-lambda-Rule\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/event-bridge-rule/event-bridge-rule\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_eventbridgerule_6105B57C\\"
+          }
+        }
+      }
+    },
+    \\"aws_cloudwatch_event_target\\": {
+      \\"test_testeventbridgelambda_eventbridgerule_eventbridgetarget_5C2BE9DA\\": {
+        \\"arn\\": \\"\${aws_lambda_alias.test_testeventbridgelambda_alias_265F8FC4.arn}\\",
+        \\"rule\\": \\"test-event-bridge-lambda-Rule\\",
+        \\"target_id\\": \\"lambda\\",
+        \\"depends_on\\": [
+          \\"aws_lambda_alias.test_testeventbridgelambda_alias_265F8FC4\\",
+          \\"aws_cloudwatch_event_rule.test_testeventbridgelambda_eventbridgerule_6105B57C\\"
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/event-bridge-rule/event-bridge-target\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_eventbridgerule_eventbridgetarget_5C2BE9DA\\"
+          }
+        }
+      }
+    },
+    \\"aws_lambda_permission\\": {
+      \\"test_testeventbridgelambda_lambdapermission_17031D34\\": {
+        \\"action\\": \\"lambda:InvokeFunction\\",
+        \\"function_name\\": \\"test-event-bridge-lambda-Function\\",
+        \\"principal\\": \\"events.amazonaws.com\\",
+        \\"qualifier\\": \\"DEPLOYED\\",
+        \\"source_arn\\": \\"\${aws_cloudwatch_event_rule.test_testeventbridgelambda_eventbridgerule_6105B57C.arn}\\",
+        \\"depends_on\\": [
+          \\"aws_lambda_alias.test_testeventbridgelambda_alias_265F8FC4\\",
+          \\"aws_cloudwatch_event_rule.test_testeventbridgelambda_eventbridgerule_6105B57C\\"
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/lambda-permission\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_lambdapermission_17031D34\\"
+          }
+        }
+      }
+    }
+  },
+  \\"data\\": {
+    \\"aws_iam_policy_document\\": {
+      \\"test_testeventbridgelambda_assumepolicydocument_2168188A\\": {
+        \\"version\\": \\"2012-10-17\\",
+        \\"statement\\": [
+          {
+            \\"effect\\": \\"Allow\\",
+            \\"actions\\": [
+              \\"sts:AssumeRole\\"
+            ],
+            \\"principals\\": [
+              {
+                \\"identifiers\\": [
+                  \\"lambda.amazonaws.com\\"
+                ],
+                \\"type\\": \\"Service\\"
+              }
+            ]
+          }
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/lambda/assume-policy-document\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_assumepolicydocument_2168188A\\"
+          }
+        }
+      },
+      \\"test_testeventbridgelambda_executionpolicydocument_298C9BEE\\": {
+        \\"version\\": \\"2012-10-17\\",
+        \\"statement\\": [
+          {
+            \\"effect\\": \\"Allow\\",
+            \\"actions\\": [
+              \\"logs:CreateLogGroup\\",
+              \\"logs:CreateLogStream\\",
+              \\"logs:PutLogEvents\\",
+              \\"logs:DescribeLogStreams\\"
+            ],
+            \\"resources\\": [
+              \\"arn:aws:logs:*:*:*\\"
+            ]
+          }
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/lambda/execution-policy-document\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_executionpolicydocument_298C9BEE\\"
+          }
+        }
+      }
+    },
+    \\"archive_file\\": {
+      \\"test_testeventbridgelambda_lambdadefaultfile_F29C5502\\": {
+        \\"output_path\\": \\"index.py.zip\\",
+        \\"type\\": \\"zip\\",
+        \\"source\\": [
+          {
+            \\"content\\": \\"handler(event, context):\\\\n\\\\t print(event)\\",
+            \\"filename\\": \\"index.py\\"
+          }
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/lambda/lambda-default-file\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_lambdadefaultfile_F29C5502\\"
+          }
+        }
+      }
+    }
+  }
+}"
+`;
+
+exports[`renders an event bridge and lambda target with tags 1`] = `
+"{
+  \\"//\\": {
+    \\"metadata\\": {
+      \\"version\\": \\"stubbed\\",
+      \\"stackName\\": \\"test\\"
+    }
+  },
+  \\"resource\\": {
+    \\"aws_s3_bucket\\": {
+      \\"test_testeventbridgelambda_codebucket_2025467F\\": {
+        \\"acl\\": \\"private\\",
+        \\"bucket\\": \\"pocket-test-event-bridge-lambda\\",
+        \\"force_destroy\\": true,
+        \\"tags\\": {
+          \\"my\\": \\"tags\\",
+          \\"for\\": \\"test\\"
+        },
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/lambda/code-bucket\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_codebucket_2025467F\\"
+          }
+        }
+      }
+    },
+    \\"aws_s3_bucket_public_access_block\\": {
+      \\"test_testeventbridgelambda_codebucketpublicaccessblock_B87062A0\\": {
+        \\"block_public_acls\\": true,
+        \\"block_public_policy\\": true,
+        \\"bucket\\": \\"\${aws_s3_bucket.test_testeventbridgelambda_codebucket_2025467F.id}\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/lambda/code-bucket-public-access-block\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_codebucketpublicaccessblock_B87062A0\\"
+          }
+        }
+      }
+    },
+    \\"aws_iam_role\\": {
+      \\"test_testeventbridgelambda_executionrole_A3207E70\\": {
+        \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.test_testeventbridgelambda_assumepolicydocument_2168188A.json}\\",
+        \\"name\\": \\"test-event-bridge-lambda-ExecutionRole\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/lambda/execution-role\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_executionrole_A3207E70\\"
+          }
+        }
+      }
+    },
+    \\"aws_iam_role_policy\\": {
+      \\"test_testeventbridgelambda_executionrolepolicy_E0E11A15\\": {
+        \\"name\\": \\"test-event-bridge-lambda-ExecutionRolePolicy\\",
+        \\"policy\\": \\"\${data.aws_iam_policy_document.test_testeventbridgelambda_executionpolicydocument_298C9BEE.json}\\",
+        \\"role\\": \\"test-event-bridge-lambda-ExecutionRole\\",
+        \\"depends_on\\": [
+          \\"aws_iam_role.test_testeventbridgelambda_executionrole_A3207E70\\"
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/lambda/execution-role-policy\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_executionrolepolicy_E0E11A15\\"
+          }
+        }
+      }
+    },
+    \\"aws_lambda_function\\": {
+      \\"test_testeventbridgelambda_FC596200\\": {
+        \\"filename\\": \\"index.py.zip\\",
+        \\"function_name\\": \\"test-event-bridge-lambda-Function\\",
+        \\"handler\\": \\"index.handler\\",
+        \\"publish\\": true,
+        \\"role\\": \\"\${aws_iam_role.test_testeventbridgelambda_executionrole_A3207E70.arn}\\",
+        \\"runtime\\": \\"python3.8\\",
+        \\"source_code_hash\\": \\"\${data.archive_file.test_testeventbridgelambda_lambdadefaultfile_F29C5502.output_base64sha256}\\",
+        \\"tags\\": {
+          \\"my\\": \\"tags\\",
+          \\"for\\": \\"test\\"
+        },
+        \\"timeout\\": 5,
+        \\"vpc_config\\": [],
+        \\"lifecycle\\": {
+          \\"ignore_changes\\": [
+            \\"filename\\",
+            \\"source_code_hash\\"
+          ]
+        },
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/lambda/lambda\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_FC596200\\"
+          }
+        }
+      }
+    },
+    \\"aws_cloudwatch_log_group\\": {
+      \\"test_testeventbridgelambda_loggroup_709F3593\\": {
+        \\"name\\": \\"/aws/lambda/test-event-bridge-lambda-Function\\",
+        \\"retention_in_days\\": 14,
+        \\"depends_on\\": [
+          \\"aws_lambda_function.test_testeventbridgelambda_FC596200\\"
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/lambda/log-group\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_loggroup_709F3593\\"
+          }
+        }
+      }
+    },
+    \\"aws_lambda_alias\\": {
+      \\"test_testeventbridgelambda_alias_265F8FC4\\": {
+        \\"function_name\\": \\"test-event-bridge-lambda-Function\\",
+        \\"function_version\\": \\"\${split(\\\\\\":\\\\\\", aws_lambda_function.test_testeventbridgelambda_FC596200.qualified_arn)[7]}\\",
+        \\"name\\": \\"DEPLOYED\\",
+        \\"depends_on\\": [
+          \\"aws_lambda_function.test_testeventbridgelambda_FC596200\\"
+        ],
+        \\"lifecycle\\": {
+          \\"ignore_changes\\": [
+            \\"function_version\\"
+          ]
+        },
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/lambda/alias\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_alias_265F8FC4\\"
+          }
+        }
+      }
+    },
+    \\"aws_cloudwatch_event_rule\\": {
+      \\"test_testeventbridgelambda_eventbridgerule_6105B57C\\": {
+        \\"event_bus_name\\": \\"default\\",
+        \\"event_pattern\\": \\"{\\\\\\"source\\\\\\":[\\\\\\"aws.states\\\\\\"],\\\\\\"detail-type\\\\\\":[\\\\\\"Step Functions Execution Status Change\\\\\\"]}\\",
+        \\"name\\": \\"test-event-bridge-lambda-Rule\\",
+        \\"tags\\": {
+          \\"my\\": \\"tags\\",
+          \\"for\\": \\"test\\"
+        },
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/event-bridge-rule/event-bridge-rule\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_eventbridgerule_6105B57C\\"
+          }
+        }
+      }
+    },
+    \\"aws_cloudwatch_event_target\\": {
+      \\"test_testeventbridgelambda_eventbridgerule_eventbridgetarget_5C2BE9DA\\": {
+        \\"arn\\": \\"\${aws_lambda_alias.test_testeventbridgelambda_alias_265F8FC4.arn}\\",
+        \\"rule\\": \\"test-event-bridge-lambda-Rule\\",
+        \\"target_id\\": \\"lambda\\",
+        \\"depends_on\\": [
+          \\"aws_lambda_alias.test_testeventbridgelambda_alias_265F8FC4\\",
+          \\"aws_cloudwatch_event_rule.test_testeventbridgelambda_eventbridgerule_6105B57C\\"
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/event-bridge-rule/event-bridge-target\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_eventbridgerule_eventbridgetarget_5C2BE9DA\\"
+          }
+        }
+      }
+    },
+    \\"aws_lambda_permission\\": {
+      \\"test_testeventbridgelambda_lambdapermission_17031D34\\": {
+        \\"action\\": \\"lambda:InvokeFunction\\",
+        \\"function_name\\": \\"test-event-bridge-lambda-Function\\",
+        \\"principal\\": \\"events.amazonaws.com\\",
+        \\"qualifier\\": \\"DEPLOYED\\",
+        \\"source_arn\\": \\"\${aws_cloudwatch_event_rule.test_testeventbridgelambda_eventbridgerule_6105B57C.arn}\\",
+        \\"depends_on\\": [
+          \\"aws_lambda_alias.test_testeventbridgelambda_alias_265F8FC4\\",
+          \\"aws_cloudwatch_event_rule.test_testeventbridgelambda_eventbridgerule_6105B57C\\"
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/lambda-permission\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_lambdapermission_17031D34\\"
+          }
+        }
+      }
+    }
+  },
+  \\"data\\": {
+    \\"aws_iam_policy_document\\": {
+      \\"test_testeventbridgelambda_assumepolicydocument_2168188A\\": {
+        \\"version\\": \\"2012-10-17\\",
+        \\"statement\\": [
+          {
+            \\"effect\\": \\"Allow\\",
+            \\"actions\\": [
+              \\"sts:AssumeRole\\"
+            ],
+            \\"principals\\": [
+              {
+                \\"identifiers\\": [
+                  \\"lambda.amazonaws.com\\"
+                ],
+                \\"type\\": \\"Service\\"
+              }
+            ]
+          }
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/lambda/assume-policy-document\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_assumepolicydocument_2168188A\\"
+          }
+        }
+      },
+      \\"test_testeventbridgelambda_executionpolicydocument_298C9BEE\\": {
+        \\"version\\": \\"2012-10-17\\",
+        \\"statement\\": [
+          {
+            \\"effect\\": \\"Allow\\",
+            \\"actions\\": [
+              \\"logs:CreateLogGroup\\",
+              \\"logs:CreateLogStream\\",
+              \\"logs:PutLogEvents\\",
+              \\"logs:DescribeLogStreams\\"
+            ],
+            \\"resources\\": [
+              \\"arn:aws:logs:*:*:*\\"
+            ]
+          }
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/lambda/execution-policy-document\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_executionpolicydocument_298C9BEE\\"
+          }
+        }
+      }
+    },
+    \\"archive_file\\": {
+      \\"test_testeventbridgelambda_lambdadefaultfile_F29C5502\\": {
+        \\"output_path\\": \\"index.py.zip\\",
+        \\"type\\": \\"zip\\",
+        \\"source\\": [
+          {
+            \\"content\\": \\"handler(event, context):\\\\n\\\\t print(event)\\",
+            \\"filename\\": \\"index.py\\"
+          }
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/lambda/lambda-default-file\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_lambdadefaultfile_F29C5502\\"
+          }
+        }
+      }
+    }
+  }
+}"
+`;
+
+exports[`renders an event bridge and lambda target with timeout 1`] = `
+"{
+  \\"//\\": {
+    \\"metadata\\": {
+      \\"version\\": \\"stubbed\\",
+      \\"stackName\\": \\"test\\"
+    }
+  },
+  \\"resource\\": {
+    \\"aws_s3_bucket\\": {
+      \\"test_testeventbridgelambda_codebucket_2025467F\\": {
+        \\"acl\\": \\"private\\",
+        \\"bucket\\": \\"pocket-test-event-bridge-lambda\\",
+        \\"force_destroy\\": true,
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/lambda/code-bucket\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_codebucket_2025467F\\"
+          }
+        }
+      }
+    },
+    \\"aws_s3_bucket_public_access_block\\": {
+      \\"test_testeventbridgelambda_codebucketpublicaccessblock_B87062A0\\": {
+        \\"block_public_acls\\": true,
+        \\"block_public_policy\\": true,
+        \\"bucket\\": \\"\${aws_s3_bucket.test_testeventbridgelambda_codebucket_2025467F.id}\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/lambda/code-bucket-public-access-block\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_codebucketpublicaccessblock_B87062A0\\"
+          }
+        }
+      }
+    },
+    \\"aws_iam_role\\": {
+      \\"test_testeventbridgelambda_executionrole_A3207E70\\": {
+        \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.test_testeventbridgelambda_assumepolicydocument_2168188A.json}\\",
+        \\"name\\": \\"test-event-bridge-lambda-ExecutionRole\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/lambda/execution-role\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_executionrole_A3207E70\\"
+          }
+        }
+      }
+    },
+    \\"aws_iam_role_policy\\": {
+      \\"test_testeventbridgelambda_executionrolepolicy_E0E11A15\\": {
+        \\"name\\": \\"test-event-bridge-lambda-ExecutionRolePolicy\\",
+        \\"policy\\": \\"\${data.aws_iam_policy_document.test_testeventbridgelambda_executionpolicydocument_298C9BEE.json}\\",
+        \\"role\\": \\"test-event-bridge-lambda-ExecutionRole\\",
+        \\"depends_on\\": [
+          \\"aws_iam_role.test_testeventbridgelambda_executionrole_A3207E70\\"
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/lambda/execution-role-policy\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_executionrolepolicy_E0E11A15\\"
+          }
+        }
+      }
+    },
+    \\"aws_lambda_function\\": {
+      \\"test_testeventbridgelambda_FC596200\\": {
+        \\"filename\\": \\"index.py.zip\\",
+        \\"function_name\\": \\"test-event-bridge-lambda-Function\\",
+        \\"handler\\": \\"index.handler\\",
+        \\"publish\\": true,
+        \\"role\\": \\"\${aws_iam_role.test_testeventbridgelambda_executionrole_A3207E70.arn}\\",
+        \\"runtime\\": \\"python3.8\\",
+        \\"source_code_hash\\": \\"\${data.archive_file.test_testeventbridgelambda_lambdadefaultfile_F29C5502.output_base64sha256}\\",
+        \\"timeout\\": 300,
+        \\"vpc_config\\": [],
+        \\"lifecycle\\": {
+          \\"ignore_changes\\": [
+            \\"filename\\",
+            \\"source_code_hash\\"
+          ]
+        },
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/lambda/lambda\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_FC596200\\"
+          }
+        }
+      }
+    },
+    \\"aws_cloudwatch_log_group\\": {
+      \\"test_testeventbridgelambda_loggroup_709F3593\\": {
+        \\"name\\": \\"/aws/lambda/test-event-bridge-lambda-Function\\",
+        \\"retention_in_days\\": 14,
+        \\"depends_on\\": [
+          \\"aws_lambda_function.test_testeventbridgelambda_FC596200\\"
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/lambda/log-group\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_loggroup_709F3593\\"
+          }
+        }
+      }
+    },
+    \\"aws_lambda_alias\\": {
+      \\"test_testeventbridgelambda_alias_265F8FC4\\": {
+        \\"function_name\\": \\"test-event-bridge-lambda-Function\\",
+        \\"function_version\\": \\"\${split(\\\\\\":\\\\\\", aws_lambda_function.test_testeventbridgelambda_FC596200.qualified_arn)[7]}\\",
+        \\"name\\": \\"DEPLOYED\\",
+        \\"depends_on\\": [
+          \\"aws_lambda_function.test_testeventbridgelambda_FC596200\\"
+        ],
+        \\"lifecycle\\": {
+          \\"ignore_changes\\": [
+            \\"function_version\\"
+          ]
+        },
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/lambda/alias\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_alias_265F8FC4\\"
+          }
+        }
+      }
+    },
+    \\"aws_cloudwatch_event_rule\\": {
+      \\"test_testeventbridgelambda_eventbridgerule_6105B57C\\": {
+        \\"event_bus_name\\": \\"default\\",
+        \\"event_pattern\\": \\"{\\\\\\"source\\\\\\":[\\\\\\"aws.states\\\\\\"],\\\\\\"detail-type\\\\\\":[\\\\\\"Step Functions Execution Status Change\\\\\\"]}\\",
+        \\"name\\": \\"test-event-bridge-lambda-Rule\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/event-bridge-rule/event-bridge-rule\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_eventbridgerule_6105B57C\\"
+          }
+        }
+      }
+    },
+    \\"aws_cloudwatch_event_target\\": {
+      \\"test_testeventbridgelambda_eventbridgerule_eventbridgetarget_5C2BE9DA\\": {
+        \\"arn\\": \\"\${aws_lambda_alias.test_testeventbridgelambda_alias_265F8FC4.arn}\\",
+        \\"rule\\": \\"test-event-bridge-lambda-Rule\\",
+        \\"target_id\\": \\"lambda\\",
+        \\"depends_on\\": [
+          \\"aws_lambda_alias.test_testeventbridgelambda_alias_265F8FC4\\",
+          \\"aws_cloudwatch_event_rule.test_testeventbridgelambda_eventbridgerule_6105B57C\\"
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/event-bridge-rule/event-bridge-target\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_eventbridgerule_eventbridgetarget_5C2BE9DA\\"
+          }
+        }
+      }
+    },
+    \\"aws_lambda_permission\\": {
+      \\"test_testeventbridgelambda_lambdapermission_17031D34\\": {
+        \\"action\\": \\"lambda:InvokeFunction\\",
+        \\"function_name\\": \\"test-event-bridge-lambda-Function\\",
+        \\"principal\\": \\"events.amazonaws.com\\",
+        \\"qualifier\\": \\"DEPLOYED\\",
+        \\"source_arn\\": \\"\${aws_cloudwatch_event_rule.test_testeventbridgelambda_eventbridgerule_6105B57C.arn}\\",
+        \\"depends_on\\": [
+          \\"aws_lambda_alias.test_testeventbridgelambda_alias_265F8FC4\\",
+          \\"aws_cloudwatch_event_rule.test_testeventbridgelambda_eventbridgerule_6105B57C\\"
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/lambda-permission\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_lambdapermission_17031D34\\"
+          }
+        }
+      }
+    }
+  },
+  \\"data\\": {
+    \\"aws_iam_policy_document\\": {
+      \\"test_testeventbridgelambda_assumepolicydocument_2168188A\\": {
+        \\"version\\": \\"2012-10-17\\",
+        \\"statement\\": [
+          {
+            \\"effect\\": \\"Allow\\",
+            \\"actions\\": [
+              \\"sts:AssumeRole\\"
+            ],
+            \\"principals\\": [
+              {
+                \\"identifiers\\": [
+                  \\"lambda.amazonaws.com\\"
+                ],
+                \\"type\\": \\"Service\\"
+              }
+            ]
+          }
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/lambda/assume-policy-document\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_assumepolicydocument_2168188A\\"
+          }
+        }
+      },
+      \\"test_testeventbridgelambda_executionpolicydocument_298C9BEE\\": {
+        \\"version\\": \\"2012-10-17\\",
+        \\"statement\\": [
+          {
+            \\"effect\\": \\"Allow\\",
+            \\"actions\\": [
+              \\"logs:CreateLogGroup\\",
+              \\"logs:CreateLogStream\\",
+              \\"logs:PutLogEvents\\",
+              \\"logs:DescribeLogStreams\\"
+            ],
+            \\"resources\\": [
+              \\"arn:aws:logs:*:*:*\\"
+            ]
+          }
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/lambda/execution-policy-document\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_executionpolicydocument_298C9BEE\\"
+          }
+        }
+      }
+    },
+    \\"archive_file\\": {
+      \\"test_testeventbridgelambda_lambdadefaultfile_F29C5502\\": {
+        \\"output_path\\": \\"index.py.zip\\",
+        \\"type\\": \\"zip\\",
+        \\"source\\": [
+          {
+            \\"content\\": \\"handler(event, context):\\\\n\\\\t print(event)\\",
+            \\"filename\\": \\"index.py\\"
+          }
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/lambda/lambda-default-file\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_lambdadefaultfile_F29C5502\\"
+          }
+        }
+      }
+    }
+  }
+}"
+`;
+
+exports[`renders an event bridge and lambda target with vpc config 1`] = `
+"{
+  \\"//\\": {
+    \\"metadata\\": {
+      \\"version\\": \\"stubbed\\",
+      \\"stackName\\": \\"test\\"
+    }
+  },
+  \\"resource\\": {
+    \\"aws_s3_bucket\\": {
+      \\"test_testeventbridgelambda_codebucket_2025467F\\": {
+        \\"acl\\": \\"private\\",
+        \\"bucket\\": \\"pocket-test-event-bridge-lambda\\",
+        \\"force_destroy\\": true,
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/lambda/code-bucket\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_codebucket_2025467F\\"
+          }
+        }
+      }
+    },
+    \\"aws_s3_bucket_public_access_block\\": {
+      \\"test_testeventbridgelambda_codebucketpublicaccessblock_B87062A0\\": {
+        \\"block_public_acls\\": true,
+        \\"block_public_policy\\": true,
+        \\"bucket\\": \\"\${aws_s3_bucket.test_testeventbridgelambda_codebucket_2025467F.id}\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/lambda/code-bucket-public-access-block\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_codebucketpublicaccessblock_B87062A0\\"
+          }
+        }
+      }
+    },
+    \\"aws_iam_role\\": {
+      \\"test_testeventbridgelambda_executionrole_A3207E70\\": {
+        \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.test_testeventbridgelambda_assumepolicydocument_2168188A.json}\\",
+        \\"name\\": \\"test-event-bridge-lambda-ExecutionRole\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/lambda/execution-role\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_executionrole_A3207E70\\"
+          }
+        }
+      }
+    },
+    \\"aws_iam_role_policy\\": {
+      \\"test_testeventbridgelambda_executionrolepolicy_E0E11A15\\": {
+        \\"name\\": \\"test-event-bridge-lambda-ExecutionRolePolicy\\",
+        \\"policy\\": \\"\${data.aws_iam_policy_document.test_testeventbridgelambda_executionpolicydocument_298C9BEE.json}\\",
+        \\"role\\": \\"test-event-bridge-lambda-ExecutionRole\\",
+        \\"depends_on\\": [
+          \\"aws_iam_role.test_testeventbridgelambda_executionrole_A3207E70\\"
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/lambda/execution-role-policy\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_executionrolepolicy_E0E11A15\\"
+          }
+        }
+      }
+    },
+    \\"aws_lambda_function\\": {
+      \\"test_testeventbridgelambda_FC596200\\": {
+        \\"filename\\": \\"index.py.zip\\",
+        \\"function_name\\": \\"test-event-bridge-lambda-Function\\",
+        \\"handler\\": \\"index.handler\\",
+        \\"publish\\": true,
+        \\"role\\": \\"\${aws_iam_role.test_testeventbridgelambda_executionrole_A3207E70.arn}\\",
+        \\"runtime\\": \\"python3.8\\",
+        \\"source_code_hash\\": \\"\${data.archive_file.test_testeventbridgelambda_lambdadefaultfile_F29C5502.output_base64sha256}\\",
+        \\"timeout\\": 5,
+        \\"vpc_config\\": [
+          {
+            \\"subnet_ids\\": [
+              \\"1\\",
+              \\"2\\"
+            ],
+            \\"security_group_ids\\": [
+              \\"sec1\\",
+              \\"sec2\\"
+            ]
+          }
+        ],
+        \\"lifecycle\\": {
+          \\"ignore_changes\\": [
+            \\"filename\\",
+            \\"source_code_hash\\"
+          ]
+        },
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/lambda/lambda\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_FC596200\\"
+          }
+        }
+      }
+    },
+    \\"aws_cloudwatch_log_group\\": {
+      \\"test_testeventbridgelambda_loggroup_709F3593\\": {
+        \\"name\\": \\"/aws/lambda/test-event-bridge-lambda-Function\\",
+        \\"retention_in_days\\": 14,
+        \\"depends_on\\": [
+          \\"aws_lambda_function.test_testeventbridgelambda_FC596200\\"
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/lambda/log-group\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_loggroup_709F3593\\"
+          }
+        }
+      }
+    },
+    \\"aws_lambda_alias\\": {
+      \\"test_testeventbridgelambda_alias_265F8FC4\\": {
+        \\"function_name\\": \\"test-event-bridge-lambda-Function\\",
+        \\"function_version\\": \\"\${split(\\\\\\":\\\\\\", aws_lambda_function.test_testeventbridgelambda_FC596200.qualified_arn)[7]}\\",
+        \\"name\\": \\"DEPLOYED\\",
+        \\"depends_on\\": [
+          \\"aws_lambda_function.test_testeventbridgelambda_FC596200\\"
+        ],
+        \\"lifecycle\\": {
+          \\"ignore_changes\\": [
+            \\"function_version\\"
+          ]
+        },
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/lambda/alias\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_alias_265F8FC4\\"
+          }
+        }
+      }
+    },
+    \\"aws_cloudwatch_event_rule\\": {
+      \\"test_testeventbridgelambda_eventbridgerule_6105B57C\\": {
+        \\"event_bus_name\\": \\"default\\",
+        \\"event_pattern\\": \\"{\\\\\\"source\\\\\\":[\\\\\\"aws.states\\\\\\"],\\\\\\"detail-type\\\\\\":[\\\\\\"Step Functions Execution Status Change\\\\\\"]}\\",
+        \\"name\\": \\"test-event-bridge-lambda-Rule\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/event-bridge-rule/event-bridge-rule\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_eventbridgerule_6105B57C\\"
+          }
+        }
+      }
+    },
+    \\"aws_cloudwatch_event_target\\": {
+      \\"test_testeventbridgelambda_eventbridgerule_eventbridgetarget_5C2BE9DA\\": {
+        \\"arn\\": \\"\${aws_lambda_alias.test_testeventbridgelambda_alias_265F8FC4.arn}\\",
+        \\"rule\\": \\"test-event-bridge-lambda-Rule\\",
+        \\"target_id\\": \\"lambda\\",
+        \\"depends_on\\": [
+          \\"aws_lambda_alias.test_testeventbridgelambda_alias_265F8FC4\\",
+          \\"aws_cloudwatch_event_rule.test_testeventbridgelambda_eventbridgerule_6105B57C\\"
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/event-bridge-rule/event-bridge-target\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_eventbridgerule_eventbridgetarget_5C2BE9DA\\"
+          }
+        }
+      }
+    },
+    \\"aws_lambda_permission\\": {
+      \\"test_testeventbridgelambda_lambdapermission_17031D34\\": {
+        \\"action\\": \\"lambda:InvokeFunction\\",
+        \\"function_name\\": \\"test-event-bridge-lambda-Function\\",
+        \\"principal\\": \\"events.amazonaws.com\\",
+        \\"qualifier\\": \\"DEPLOYED\\",
+        \\"source_arn\\": \\"\${aws_cloudwatch_event_rule.test_testeventbridgelambda_eventbridgerule_6105B57C.arn}\\",
+        \\"depends_on\\": [
+          \\"aws_lambda_alias.test_testeventbridgelambda_alias_265F8FC4\\",
+          \\"aws_cloudwatch_event_rule.test_testeventbridgelambda_eventbridgerule_6105B57C\\"
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/lambda-permission\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_lambdapermission_17031D34\\"
+          }
+        }
+      }
+    }
+  },
+  \\"data\\": {
+    \\"aws_iam_policy_document\\": {
+      \\"test_testeventbridgelambda_assumepolicydocument_2168188A\\": {
+        \\"version\\": \\"2012-10-17\\",
+        \\"statement\\": [
+          {
+            \\"effect\\": \\"Allow\\",
+            \\"actions\\": [
+              \\"sts:AssumeRole\\"
+            ],
+            \\"principals\\": [
+              {
+                \\"identifiers\\": [
+                  \\"lambda.amazonaws.com\\"
+                ],
+                \\"type\\": \\"Service\\"
+              }
+            ]
+          }
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/lambda/assume-policy-document\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_assumepolicydocument_2168188A\\"
+          }
+        }
+      },
+      \\"test_testeventbridgelambda_executionpolicydocument_298C9BEE\\": {
+        \\"version\\": \\"2012-10-17\\",
+        \\"statement\\": [
+          {
+            \\"effect\\": \\"Allow\\",
+            \\"actions\\": [
+              \\"logs:CreateLogGroup\\",
+              \\"logs:CreateLogStream\\",
+              \\"logs:PutLogEvents\\",
+              \\"logs:DescribeLogStreams\\"
+            ],
+            \\"resources\\": [
+              \\"arn:aws:logs:*:*:*\\"
+            ]
+          },
+          {
+            \\"effect\\": \\"Allow\\",
+            \\"actions\\": [
+              \\"ec2:DescribeNetworkInterfaces\\",
+              \\"ec2:CreateNetworkInterface\\",
+              \\"ec2:DeleteNetworkInterface\\",
+              \\"ec2:DescribeInstances\\",
+              \\"ec2:AttachNetworkInterface\\"
+            ],
+            \\"resources\\": [
+              \\"*\\"
+            ]
+          }
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/lambda/execution-policy-document\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_executionpolicydocument_298C9BEE\\"
+          }
+        }
+      }
+    },
+    \\"archive_file\\": {
+      \\"test_testeventbridgelambda_lambdadefaultfile_F29C5502\\": {
+        \\"output_path\\": \\"index.py.zip\\",
+        \\"type\\": \\"zip\\",
+        \\"source\\": [
+          {
+            \\"content\\": \\"handler(event, context):\\\\n\\\\t print(event)\\",
+            \\"filename\\": \\"index.py\\"
+          }
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/lambda/lambda-default-file\\",
+            \\"uniqueId\\": \\"test_testeventbridgelambda_lambdadefaultfile_F29C5502\\"
+          }
+        }
+      }
+    }
+  }
+}"
+`;

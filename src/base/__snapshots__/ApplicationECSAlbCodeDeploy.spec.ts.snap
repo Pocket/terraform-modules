@@ -1,0 +1,543 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders a CodeDeploy with a sns 1`] = `
+"{
+  \\"//\\": {
+    \\"metadata\\": {
+      \\"version\\": \\"stubbed\\",
+      \\"stackName\\": \\"test\\"
+    }
+  },
+  \\"data\\": {
+    \\"aws_iam_policy_document\\": {
+      \\"test_testCodeDeploy_codedeployassumerole_0FACD16A\\": {
+        \\"statement\\": [
+          {
+            \\"effect\\": \\"Allow\\",
+            \\"actions\\": [
+              \\"sts:AssumeRole\\"
+            ],
+            \\"principals\\": [
+              {
+                \\"identifiers\\": [
+                  \\"codedeploy.amazonaws.com\\"
+                ],
+                \\"type\\": \\"Service\\"
+              }
+            ]
+          }
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testCodeDeploy/codedeploy_assume_role\\",
+            \\"uniqueId\\": \\"test_testCodeDeploy_codedeployassumerole_0FACD16A\\"
+          }
+        }
+      }
+    },
+    \\"aws_region\\": {
+      \\"test_testCodeDeploy_currentregion_3129581C\\": {
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testCodeDeploy/current_region\\",
+            \\"uniqueId\\": \\"test_testCodeDeploy_currentregion_3129581C\\"
+          }
+        }
+      }
+    },
+    \\"aws_caller_identity\\": {
+      \\"test_testCodeDeploy_currentaccount_1E72CE97\\": {
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testCodeDeploy/current_account\\",
+            \\"uniqueId\\": \\"test_testCodeDeploy_currentaccount_1E72CE97\\"
+          }
+        }
+      }
+    }
+  },
+  \\"resource\\": {
+    \\"aws_iam_role\\": {
+      \\"test_testCodeDeploy_ecscodedeployrole_2889DBEE\\": {
+        \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.test_testCodeDeploy_codedeployassumerole_0FACD16A.json}\\",
+        \\"name\\": \\"Test-Dev-ECSCodeDeployRole\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testCodeDeploy/ecs_code_deploy_role\\",
+            \\"uniqueId\\": \\"test_testCodeDeploy_ecscodedeployrole_2889DBEE\\"
+          }
+        }
+      }
+    },
+    \\"aws_iam_role_policy_attachment\\": {
+      \\"test_testCodeDeploy_ecscodedeployroleattachment_522FBAA0\\": {
+        \\"policy_arn\\": \\"arn:aws:iam::aws:policy/AWSCodeDeployRoleForECS\\",
+        \\"role\\": \\"Test-Dev-ECSCodeDeployRole\\",
+        \\"depends_on\\": [
+          \\"aws_iam_role.test_testCodeDeploy_ecscodedeployrole_2889DBEE\\"
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testCodeDeploy/ecs_codedeploy_role_attachment\\",
+            \\"uniqueId\\": \\"test_testCodeDeploy_ecscodedeployroleattachment_522FBAA0\\"
+          }
+        }
+      }
+    },
+    \\"aws_codedeploy_app\\": {
+      \\"test_testCodeDeploy_ecscodedeploy_A30BA24D\\": {
+        \\"compute_platform\\": \\"ECS\\",
+        \\"name\\": \\"Test-Dev-ECS\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testCodeDeploy/ecs_code_deploy\\",
+            \\"uniqueId\\": \\"test_testCodeDeploy_ecscodedeploy_A30BA24D\\"
+          }
+        }
+      }
+    },
+    \\"aws_codestarnotifications_notification_rule\\": {
+      \\"test_testCodeDeploy_ecscodedeploynotifications_2E05454F\\": {
+        \\"detail_type\\": \\"BASIC\\",
+        \\"event_type_ids\\": [
+          \\"codedeploy-application-deployment-failed\\",
+          \\"codedeploy-application-deployment-succeeded\\",
+          \\"codedeploy-application-deployment-started\\"
+        ],
+        \\"name\\": \\"Test-Dev-ECS\\",
+        \\"resource\\": \\"arn:aws:codedeploy:\${data.aws_region.test_testCodeDeploy_currentregion_3129581C.name}:\${data.aws_caller_identity.test_testCodeDeploy_currentaccount_1E72CE97.account_id}:application:Test-Dev-ECS\\",
+        \\"target\\": [
+          {
+            \\"address\\": \\"notify-me\\"
+          }
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testCodeDeploy/ecs_codedeploy_notifications\\",
+            \\"uniqueId\\": \\"test_testCodeDeploy_ecscodedeploynotifications_2E05454F\\"
+          }
+        }
+      }
+    },
+    \\"aws_codedeploy_deployment_group\\": {
+      \\"test_testCodeDeploy_ecscodedeploydeploymentgroup_3BE18ACC\\": {
+        \\"app_name\\": \\"Test-Dev-ECS\\",
+        \\"deployment_config_name\\": \\"CodeDeployDefault.ECSAllAtOnce\\",
+        \\"deployment_group_name\\": \\"Test-Dev-ECS\\",
+        \\"service_role_arn\\": \\"\${aws_iam_role.test_testCodeDeploy_ecscodedeployrole_2889DBEE.arn}\\",
+        \\"auto_rollback_configuration\\": [
+          {
+            \\"enabled\\": true,
+            \\"events\\": [
+              \\"DEPLOYMENT_FAILURE\\"
+            ]
+          }
+        ],
+        \\"blue_green_deployment_config\\": [
+          {
+            \\"deployment_ready_option\\": [
+              {
+                \\"action_on_timeout\\": \\"CONTINUE_DEPLOYMENT\\"
+              }
+            ],
+            \\"terminate_blue_instances_on_deployment_success\\": [
+              {
+                \\"action\\": \\"TERMINATE\\",
+                \\"termination_wait_time_in_minutes\\": 5
+              }
+            ]
+          }
+        ],
+        \\"deployment_style\\": [
+          {
+            \\"deployment_option\\": \\"WITH_TRAFFIC_CONTROL\\",
+            \\"deployment_type\\": \\"BLUE_GREEN\\"
+          }
+        ],
+        \\"ecs_service\\": [
+          {
+            \\"cluster_name\\": \\"cluster\\",
+            \\"service_name\\": \\"theService\\"
+          }
+        ],
+        \\"load_balancer_info\\": [
+          {
+            \\"target_group_pair_info\\": [
+              {
+                \\"prod_traffic_route\\": [
+                  {
+                    \\"listener_arns\\": [
+                      \\"listen-to-me\\"
+                    ]
+                  }
+                ],
+                \\"target_group\\": [
+                  {
+                    \\"name\\": \\"target-1\\"
+                  },
+                  {
+                    \\"name\\": \\"target-2\\"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testCodeDeploy/ecs_codedeploy_deployment_group\\",
+            \\"uniqueId\\": \\"test_testCodeDeploy_ecscodedeploydeploymentgroup_3BE18ACC\\"
+          }
+        }
+      }
+    }
+  }
+}"
+`;
+
+exports[`renders a CodeDeploy with tags 1`] = `
+"{
+  \\"//\\": {
+    \\"metadata\\": {
+      \\"version\\": \\"stubbed\\",
+      \\"stackName\\": \\"test\\"
+    }
+  },
+  \\"data\\": {
+    \\"aws_iam_policy_document\\": {
+      \\"test_testCodeDeploy_codedeployassumerole_0FACD16A\\": {
+        \\"statement\\": [
+          {
+            \\"effect\\": \\"Allow\\",
+            \\"actions\\": [
+              \\"sts:AssumeRole\\"
+            ],
+            \\"principals\\": [
+              {
+                \\"identifiers\\": [
+                  \\"codedeploy.amazonaws.com\\"
+                ],
+                \\"type\\": \\"Service\\"
+              }
+            ]
+          }
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testCodeDeploy/codedeploy_assume_role\\",
+            \\"uniqueId\\": \\"test_testCodeDeploy_codedeployassumerole_0FACD16A\\"
+          }
+        }
+      }
+    },
+    \\"aws_region\\": {
+      \\"test_testCodeDeploy_currentregion_3129581C\\": {
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testCodeDeploy/current_region\\",
+            \\"uniqueId\\": \\"test_testCodeDeploy_currentregion_3129581C\\"
+          }
+        }
+      }
+    },
+    \\"aws_caller_identity\\": {
+      \\"test_testCodeDeploy_currentaccount_1E72CE97\\": {
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testCodeDeploy/current_account\\",
+            \\"uniqueId\\": \\"test_testCodeDeploy_currentaccount_1E72CE97\\"
+          }
+        }
+      }
+    }
+  },
+  \\"resource\\": {
+    \\"aws_iam_role\\": {
+      \\"test_testCodeDeploy_ecscodedeployrole_2889DBEE\\": {
+        \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.test_testCodeDeploy_codedeployassumerole_0FACD16A.json}\\",
+        \\"name\\": \\"Test-Dev-ECSCodeDeployRole\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testCodeDeploy/ecs_code_deploy_role\\",
+            \\"uniqueId\\": \\"test_testCodeDeploy_ecscodedeployrole_2889DBEE\\"
+          }
+        }
+      }
+    },
+    \\"aws_iam_role_policy_attachment\\": {
+      \\"test_testCodeDeploy_ecscodedeployroleattachment_522FBAA0\\": {
+        \\"policy_arn\\": \\"arn:aws:iam::aws:policy/AWSCodeDeployRoleForECS\\",
+        \\"role\\": \\"Test-Dev-ECSCodeDeployRole\\",
+        \\"depends_on\\": [
+          \\"aws_iam_role.test_testCodeDeploy_ecscodedeployrole_2889DBEE\\"
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testCodeDeploy/ecs_codedeploy_role_attachment\\",
+            \\"uniqueId\\": \\"test_testCodeDeploy_ecscodedeployroleattachment_522FBAA0\\"
+          }
+        }
+      }
+    },
+    \\"aws_codedeploy_app\\": {
+      \\"test_testCodeDeploy_ecscodedeploy_A30BA24D\\": {
+        \\"compute_platform\\": \\"ECS\\",
+        \\"name\\": \\"Test-Dev-ECS\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testCodeDeploy/ecs_code_deploy\\",
+            \\"uniqueId\\": \\"test_testCodeDeploy_ecscodedeploy_A30BA24D\\"
+          }
+        }
+      }
+    },
+    \\"aws_codestarnotifications_notification_rule\\": {
+      \\"test_testCodeDeploy_ecscodedeploynotifications_2E05454F\\": {
+        \\"detail_type\\": \\"BASIC\\",
+        \\"event_type_ids\\": [
+          \\"codedeploy-application-deployment-failed\\",
+          \\"codedeploy-application-deployment-succeeded\\",
+          \\"codedeploy-application-deployment-started\\"
+        ],
+        \\"name\\": \\"Test-Dev-ECS\\",
+        \\"resource\\": \\"arn:aws:codedeploy:\${data.aws_region.test_testCodeDeploy_currentregion_3129581C.name}:\${data.aws_caller_identity.test_testCodeDeploy_currentaccount_1E72CE97.account_id}:application:Test-Dev-ECS\\",
+        \\"target\\": [
+          {
+            \\"address\\": \\"notify-me\\"
+          }
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testCodeDeploy/ecs_codedeploy_notifications\\",
+            \\"uniqueId\\": \\"test_testCodeDeploy_ecscodedeploynotifications_2E05454F\\"
+          }
+        }
+      }
+    },
+    \\"aws_codedeploy_deployment_group\\": {
+      \\"test_testCodeDeploy_ecscodedeploydeploymentgroup_3BE18ACC\\": {
+        \\"app_name\\": \\"Test-Dev-ECS\\",
+        \\"deployment_config_name\\": \\"CodeDeployDefault.ECSAllAtOnce\\",
+        \\"deployment_group_name\\": \\"Test-Dev-ECS\\",
+        \\"service_role_arn\\": \\"\${aws_iam_role.test_testCodeDeploy_ecscodedeployrole_2889DBEE.arn}\\",
+        \\"auto_rollback_configuration\\": [
+          {
+            \\"enabled\\": true,
+            \\"events\\": [
+              \\"DEPLOYMENT_FAILURE\\"
+            ]
+          }
+        ],
+        \\"blue_green_deployment_config\\": [
+          {
+            \\"deployment_ready_option\\": [
+              {
+                \\"action_on_timeout\\": \\"CONTINUE_DEPLOYMENT\\"
+              }
+            ],
+            \\"terminate_blue_instances_on_deployment_success\\": [
+              {
+                \\"action\\": \\"TERMINATE\\",
+                \\"termination_wait_time_in_minutes\\": 5
+              }
+            ]
+          }
+        ],
+        \\"deployment_style\\": [
+          {
+            \\"deployment_option\\": \\"WITH_TRAFFIC_CONTROL\\",
+            \\"deployment_type\\": \\"BLUE_GREEN\\"
+          }
+        ],
+        \\"ecs_service\\": [
+          {
+            \\"cluster_name\\": \\"cluster\\",
+            \\"service_name\\": \\"theService\\"
+          }
+        ],
+        \\"load_balancer_info\\": [
+          {
+            \\"target_group_pair_info\\": [
+              {
+                \\"prod_traffic_route\\": [
+                  {
+                    \\"listener_arns\\": [
+                      \\"listen-to-me\\"
+                    ]
+                  }
+                ],
+                \\"target_group\\": [
+                  {
+                    \\"name\\": \\"target-1\\"
+                  },
+                  {
+                    \\"name\\": \\"target-2\\"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testCodeDeploy/ecs_codedeploy_deployment_group\\",
+            \\"uniqueId\\": \\"test_testCodeDeploy_ecscodedeploydeploymentgroup_3BE18ACC\\"
+          }
+        }
+      }
+    }
+  }
+}"
+`;
+
+exports[`renders a CodeDeploy without a sns 1`] = `
+"{
+  \\"//\\": {
+    \\"metadata\\": {
+      \\"version\\": \\"stubbed\\",
+      \\"stackName\\": \\"test\\"
+    }
+  },
+  \\"data\\": {
+    \\"aws_iam_policy_document\\": {
+      \\"test_testCodeDeploy_codedeployassumerole_0FACD16A\\": {
+        \\"statement\\": [
+          {
+            \\"effect\\": \\"Allow\\",
+            \\"actions\\": [
+              \\"sts:AssumeRole\\"
+            ],
+            \\"principals\\": [
+              {
+                \\"identifiers\\": [
+                  \\"codedeploy.amazonaws.com\\"
+                ],
+                \\"type\\": \\"Service\\"
+              }
+            ]
+          }
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testCodeDeploy/codedeploy_assume_role\\",
+            \\"uniqueId\\": \\"test_testCodeDeploy_codedeployassumerole_0FACD16A\\"
+          }
+        }
+      }
+    }
+  },
+  \\"resource\\": {
+    \\"aws_iam_role\\": {
+      \\"test_testCodeDeploy_ecscodedeployrole_2889DBEE\\": {
+        \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.test_testCodeDeploy_codedeployassumerole_0FACD16A.json}\\",
+        \\"name\\": \\"Test-Dev-ECSCodeDeployRole\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testCodeDeploy/ecs_code_deploy_role\\",
+            \\"uniqueId\\": \\"test_testCodeDeploy_ecscodedeployrole_2889DBEE\\"
+          }
+        }
+      }
+    },
+    \\"aws_iam_role_policy_attachment\\": {
+      \\"test_testCodeDeploy_ecscodedeployroleattachment_522FBAA0\\": {
+        \\"policy_arn\\": \\"arn:aws:iam::aws:policy/AWSCodeDeployRoleForECS\\",
+        \\"role\\": \\"Test-Dev-ECSCodeDeployRole\\",
+        \\"depends_on\\": [
+          \\"aws_iam_role.test_testCodeDeploy_ecscodedeployrole_2889DBEE\\"
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testCodeDeploy/ecs_codedeploy_role_attachment\\",
+            \\"uniqueId\\": \\"test_testCodeDeploy_ecscodedeployroleattachment_522FBAA0\\"
+          }
+        }
+      }
+    },
+    \\"aws_codedeploy_app\\": {
+      \\"test_testCodeDeploy_ecscodedeploy_A30BA24D\\": {
+        \\"compute_platform\\": \\"ECS\\",
+        \\"name\\": \\"Test-Dev-ECS\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testCodeDeploy/ecs_code_deploy\\",
+            \\"uniqueId\\": \\"test_testCodeDeploy_ecscodedeploy_A30BA24D\\"
+          }
+        }
+      }
+    },
+    \\"aws_codedeploy_deployment_group\\": {
+      \\"test_testCodeDeploy_ecscodedeploydeploymentgroup_3BE18ACC\\": {
+        \\"app_name\\": \\"Test-Dev-ECS\\",
+        \\"deployment_config_name\\": \\"CodeDeployDefault.ECSAllAtOnce\\",
+        \\"deployment_group_name\\": \\"Test-Dev-ECS\\",
+        \\"service_role_arn\\": \\"\${aws_iam_role.test_testCodeDeploy_ecscodedeployrole_2889DBEE.arn}\\",
+        \\"auto_rollback_configuration\\": [
+          {
+            \\"enabled\\": true,
+            \\"events\\": [
+              \\"DEPLOYMENT_FAILURE\\"
+            ]
+          }
+        ],
+        \\"blue_green_deployment_config\\": [
+          {
+            \\"deployment_ready_option\\": [
+              {
+                \\"action_on_timeout\\": \\"CONTINUE_DEPLOYMENT\\"
+              }
+            ],
+            \\"terminate_blue_instances_on_deployment_success\\": [
+              {
+                \\"action\\": \\"TERMINATE\\",
+                \\"termination_wait_time_in_minutes\\": 5
+              }
+            ]
+          }
+        ],
+        \\"deployment_style\\": [
+          {
+            \\"deployment_option\\": \\"WITH_TRAFFIC_CONTROL\\",
+            \\"deployment_type\\": \\"BLUE_GREEN\\"
+          }
+        ],
+        \\"ecs_service\\": [
+          {
+            \\"cluster_name\\": \\"cluster\\",
+            \\"service_name\\": \\"theService\\"
+          }
+        ],
+        \\"load_balancer_info\\": [
+          {
+            \\"target_group_pair_info\\": [
+              {
+                \\"prod_traffic_route\\": [
+                  {
+                    \\"listener_arns\\": [
+                      \\"listen-to-me\\"
+                    ]
+                  }
+                ],
+                \\"target_group\\": [
+                  {
+                    \\"name\\": \\"target-1\\"
+                  },
+                  {
+                    \\"name\\": \\"target-2\\"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testCodeDeploy/ecs_codedeploy_deployment_group\\",
+            \\"uniqueId\\": \\"test_testCodeDeploy_ecscodedeploydeploymentgroup_3BE18ACC\\"
+          }
+        }
+      }
+    }
+  }
+}"
+`;
