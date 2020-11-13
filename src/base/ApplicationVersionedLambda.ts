@@ -35,6 +35,7 @@ export interface ApplicationVersionedLambdaProps {
   tags?: { [key: string]: string };
   logRetention?: number;
   s3Bucket: string;
+  usesCodeDeploy?: boolean;
 }
 
 const DEFAULT_TIMEOUT = 5;
@@ -68,7 +69,6 @@ export class ApplicationVersionedLambda extends Resource {
     });
 
     const defaultLambda = this.getDefaultLambda();
-
     const lambdaConfig: LambdaFunctionConfig = {
       functionName: `${this.config.name}-Function`,
       filename: defaultLambda.outputPath,
@@ -80,7 +80,11 @@ export class ApplicationVersionedLambda extends Resource {
       vpcConfig: [this.config.vpcConfig],
       publish: true,
       lifecycle: {
-        ignoreChanges: ['filename', 'source_code_hash'],
+        ignoreChanges: [
+          'filename',
+          'source_code_hash',
+          this.ignorePublish() ? 'publish' : '',
+        ].filter((v: string) => v),
       },
       tags: this.config.tags,
     };
@@ -115,6 +119,14 @@ export class ApplicationVersionedLambda extends Resource {
     );
 
     return lambdaAlias;
+  }
+
+  private ignorePublish() {
+    if (this.config.usesCodeDeploy !== undefined) {
+      return this.config.usesCodeDeploy;
+    }
+
+    return false;
   }
 
   private getLambdaAssumePolicyDocument() {

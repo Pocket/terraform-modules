@@ -131,3 +131,15 @@ test('renders a versioned lambda with s3 bucket', () => {
 
   expect(Testing.synth(stack)).toMatchSnapshot();
 });
+
+test('renders a versioned lambda with publish ignored', () => {
+  const app = Testing.app();
+  const stack = new TerraformStack(app, 'test');
+
+  new ApplicationVersionedLambda(stack, 'test-versioned-lambda', {
+    ...config,
+    usesCodeDeploy: true,
+  });
+
+  expect(Testing.synth(stack)).toMatchSnapshot();
+});
