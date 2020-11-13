@@ -55,6 +55,7 @@ export class PocketEventBridgeWithLambdaTarget extends Resource {
       logRetention: config.logRetention,
       s3Bucket: config.s3Bucket ?? `pocket-${config.name.toLowerCase()}`,
       tags: config.tags,
+      usesCodeDeploy: !!config.codeDeploy,
     });
 
     const eventBridgeRule = new ApplicationEventBridgeRule(

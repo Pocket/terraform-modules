@@ -334,7 +334,8 @@ exports[`renders an event bridge and lambda target with code deploy 1`] = `
         \\"lifecycle\\": {
           \\"ignore_changes\\": [
             \\"filename\\",
-            \\"source_code_hash\\"
+            \\"source_code_hash\\",
+            \\"publish\\"
           ]
         },
         \\"//\\": {
