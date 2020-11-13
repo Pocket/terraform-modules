@@ -83,7 +83,7 @@ export class ApplicationVersionedLambda extends Resource {
         ignoreChanges: [
           'filename',
           'source_code_hash',
-          this.ignorePublish() ? 'publish' : '',
+          this.shouldIgnorePublish() ? 'publish' : '',
         ].filter((v: string) => v),
       },
       tags: this.config.tags,
@@ -121,7 +121,7 @@ export class ApplicationVersionedLambda extends Resource {
     return lambdaAlias;
   }
 
-  private ignorePublish() {
+  private shouldIgnorePublish() {
     if (this.config.usesCodeDeploy !== undefined) {
       return this.config.usesCodeDeploy;
     }
