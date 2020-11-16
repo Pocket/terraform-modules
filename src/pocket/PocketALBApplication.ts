@@ -3,6 +3,7 @@ import {
   AlbListener,
   CloudfrontDistribution,
   Route53Record,
+  CloudwatchDashboard,
 } from '../../.gen/providers/aws';
 import { Construct } from 'constructs';
 import {
@@ -50,6 +51,16 @@ export interface PocketALBApplicationProps {
   };
 }
 
+// can export if we need to use outside of this module
+const DEFAULT_AUTOSCALING_CONFIG = {
+  scaleOutThreshold: 45,
+  scaleInThreshold: 30,
+  targetMinCapacity: 1,
+  targetMaxCapacity: 2,
+  stepScaleInAdjustment: 1,
+  stepScaleOutAdjustment: 2,
+};
+
 export class PocketALBApplication extends Resource {
   public readonly alb: ApplicationLoadBalancer;
   public readonly baseDNS: ApplicationBaseDNS;
@@ -62,6 +73,12 @@ export class PocketALBApplication extends Resource {
     super(scope, name);
 
     config = PocketALBApplication.validateConfig(config);
+
+    // use default auto-scaling config, but update any user-provided values
+    config.autoscalingConfig = {
+      ...DEFAULT_AUTOSCALING_CONFIG,
+      ...config.autoscalingConfig,
+    };
 
     const pocketVPC = new PocketVPC(this, `pocket_vpc`);
 
@@ -81,7 +98,21 @@ export class PocketALBApplication extends Resource {
       this.createCDN(config, albRecord);
     }
 
-    this.createECSService(config, pocketVPC, alb, albCertificate);
+    const ecsService = this.createECSService(
+      config,
+      pocketVPC,
+      alb,
+      albCertificate
+    );
+
+    this.createCloudwatchDashboard(
+      alb.alb.arnSuffix,
+      ecsService.ecs.service.name,
+      ecsService.ecs.service.cluster,
+      config.autoscalingConfig.scaleOutThreshold,
+      config.autoscalingConfig.scaleInThreshold,
+      config.prefix
+    );
   }
 
   /**
@@ -379,26 +410,225 @@ export class PocketALBApplication extends Resource {
       ecsConfig
     );
 
-    if (config.autoscalingConfig) {
-      new ApplicationAutoscaling(this, 'autoscaling', {
-        prefix: config.prefix,
-        targetMinCapacity: config.autoscalingConfig.targetMinCapacity ?? 1,
-        targetMaxCapacity: config.autoscalingConfig.targetMaxCapacity ?? 2,
-        ecsClusterName: ecsCluster.cluster.name,
-        ecsServiceName: ecsService.service.name,
-        scalableDimension: 'ecs:service:DesiredCount',
-        stepScaleInAdjustment:
-          config.autoscalingConfig.stepScaleInAdjustment ?? -1,
-        stepScaleOutAdjustment:
-          config.autoscalingConfig.stepScaleOutAdjustment ?? 2,
-        scaleInThreshold: config.autoscalingConfig.scaleInThreshold ?? 30,
-        scaleOutThreshold: config.autoscalingConfig.scaleOutThreshold ?? 45,
-        tags: config.tags,
-      });
-    }
+    new ApplicationAutoscaling(this, 'autoscaling', {
+      prefix: config.prefix,
+      targetMinCapacity: config.autoscalingConfig.targetMinCapacity,
+      targetMaxCapacity: config.autoscalingConfig.targetMaxCapacity,
+      ecsClusterName: ecsCluster.cluster.name,
+      ecsServiceName: ecsService.service.name,
+      scalableDimension: 'ecs:service:DesiredCount',
+      stepScaleInAdjustment: config.autoscalingConfig.stepScaleInAdjustment,
+      stepScaleOutAdjustment: config.autoscalingConfig.stepScaleOutAdjustment,
+      scaleInThreshold: config.autoscalingConfig.scaleInThreshold,
+      scaleOutThreshold: config.autoscalingConfig.scaleOutThreshold,
+      tags: config.tags,
+    });
 
     return {
       ecs: ecsService,
     };
+  }
+
+  /**
+   * Create a Cloudwatch dashboard JSON object
+   *
+   * @param albArnSuffix
+   * @param ecsServiceName
+   * @param ecsServiceClusterName
+   * @param scaleOutThreshold
+   * @param scaleInThreshold
+   * @param prefix
+   */
+  private createCloudwatchDashboard(
+    albArnSuffix: string,
+    ecsServiceName: string,
+    ecsServiceClusterName: string,
+    scaleOutThreshold: number,
+    scaleInThreshold: number,
+    prefix: string
+  ): CloudwatchDashboard {
+    // don't love having this big ol' JSON object here, but it is the simplest way to achieve the result
+    const dashboardJSON = {
+      widgets: [
+        {
+          type: 'metric',
+          x: 0,
+          y: 0,
+          width: 12,
+          height: 6,
+          properties: {
+            metrics: [
+              [
+                'AWS/ApplicationELB',
+                'HTTPCode_Target_4XX_Count',
+                'LoadBalancer',
+                albArnSuffix,
+                {
+                  yAxis: 'left',
+                  color: '#ff7f0e',
+                },
+              ],
+              [
+                '.',
+                'RequestCount',
+                '.',
+                '.',
+                {
+                  yAxis: 'right',
+                  color: '#1f77b4',
+                },
+              ],
+              [
+                '.',
+                'HTTPCode_Target_5XX_Count',
+                '.',
+                '.',
+                {
+                  color: '#d62728',
+                },
+              ],
+              [
+                '.',
+                'HTTPCode_Target_2XX_Count',
+                '.',
+                '.',
+                {
+                  yAxis: 'right',
+                  color: '#2ca02c',
+                },
+              ],
+            ],
+            view: 'timeSeries',
+            stacked: false,
+            region: 'us-east-1',
+            period: 60,
+            stat: 'Sum',
+            annotations: {
+              horizontal: [
+                {
+                  color: '#17becf',
+                  label: 'RequestCountThreshold',
+                  value: 3,
+                },
+              ],
+            },
+            title: 'ALB Requests',
+          },
+        },
+        {
+          type: 'metric',
+          x: 12,
+          y: 0,
+          width: 12,
+          height: 6,
+          properties: {
+            metrics: [
+              [
+                'AWS/ApplicationELB',
+                'TargetResponseTime',
+                'LoadBalancer',
+                albArnSuffix,
+                {
+                  label: 'Average',
+                  color: '#aec7e8',
+                },
+              ],
+              [
+                '...',
+                {
+                  stat: 'p95',
+                  label: 'p95',
+                  color: '#ffbb78',
+                },
+              ],
+              [
+                '...',
+                {
+                  stat: 'p99',
+                  label: 'p99',
+                  color: '#98df8a',
+                },
+              ],
+            ],
+            view: 'timeSeries',
+            stacked: false,
+            region: 'us-east-1',
+            stat: 'Average',
+            period: 60,
+          },
+        },
+        {
+          type: 'metric',
+          x: 0,
+          y: 6,
+          width: 12,
+          height: 6,
+          properties: {
+            metrics: [
+              [
+                'ECS/ContainerInsights',
+                'RunningTaskCount',
+                'ServiceName',
+                ecsServiceName,
+                'ClusterName',
+                ecsServiceClusterName,
+                {
+                  yAxis: 'right',
+                  stat: 'Sum',
+                  color: '#c49c94',
+                },
+              ],
+              [
+                '.',
+                'CpuUtilized',
+                '.',
+                '.',
+                '.',
+                '.',
+                {
+                  color: '#f7b6d2',
+                },
+              ],
+              [
+                '.',
+                'MemoryUtilized',
+                '.',
+                '.',
+                '.',
+                '.',
+                {
+                  color: '#c7c7c7',
+                },
+              ],
+            ],
+            view: 'timeSeries',
+            stacked: false,
+            region: 'us-east-1',
+            stat: 'Average',
+            period: 60,
+            annotations: {
+              horizontal: [
+                {
+                  color: '#e377c2',
+                  label: 'CPU scale out',
+                  value: scaleOutThreshold,
+                },
+                {
+                  color: '#c5b0d5',
+                  label: 'CPU scale in',
+                  value: scaleInThreshold,
+                },
+              ],
+            },
+            title: 'Service Load',
+          },
+        },
+      ],
+    };
+
+    return new CloudwatchDashboard(this, 'cloudwatch-dashboard', {
+      dashboardName: `${prefix}-ALBDashboard`,
+      dashboardBody: JSON.stringify(dashboardJSON),
+    });
   }
 }

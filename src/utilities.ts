@@ -14,7 +14,7 @@ export const getRootDomain = (inputDomain: string): string => {
   return `${domain}.${topLevelDomains.join('.')}`;
 };
 
-export const truncateString = (str: string, num: number) => {
+export const truncateString = (str: string, num: number): string => {
   // If the length of str is less than or equal to num
   // just return str--don't truncate it.
   if (str.length <= num) {

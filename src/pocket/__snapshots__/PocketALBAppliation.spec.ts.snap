@@ -894,6 +894,18 @@ exports[`PocketALBApplication renders an application with autoscaling group and 
           }
         }
       }
+    },
+    \\"aws_cloudwatch_dashboard\\": {
+      \\"test_testPocketApp_cloudwatchdashboard_8824C28A\\": {
+        \\"dashboard_body\\": \\"{\\\\\\"widgets\\\\\\":[{\\\\\\"type\\\\\\":\\\\\\"metric\\\\\\",\\\\\\"x\\\\\\":0,\\\\\\"y\\\\\\":0,\\\\\\"width\\\\\\":12,\\\\\\"height\\\\\\":6,\\\\\\"properties\\\\\\":{\\\\\\"metrics\\\\\\":[[\\\\\\"AWS/ApplicationELB\\\\\\",\\\\\\"HTTPCode_Target_4XX_Count\\\\\\",\\\\\\"LoadBalancer\\\\\\",\\\\\\"\${aws_alb.test_testPocketApp_applicationloadbalancer_alb_6EA5BF17.arn_suffix}\\\\\\",{\\\\\\"yAxis\\\\\\":\\\\\\"left\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#ff7f0e\\\\\\"}],[\\\\\\".\\\\\\",\\\\\\"RequestCount\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",{\\\\\\"yAxis\\\\\\":\\\\\\"right\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#1f77b4\\\\\\"}],[\\\\\\".\\\\\\",\\\\\\"HTTPCode_Target_5XX_Count\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",{\\\\\\"color\\\\\\":\\\\\\"#d62728\\\\\\"}],[\\\\\\".\\\\\\",\\\\\\"HTTPCode_Target_2XX_Count\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",{\\\\\\"yAxis\\\\\\":\\\\\\"right\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#2ca02c\\\\\\"}]],\\\\\\"view\\\\\\":\\\\\\"timeSeries\\\\\\",\\\\\\"stacked\\\\\\":false,\\\\\\"region\\\\\\":\\\\\\"us-east-1\\\\\\",\\\\\\"period\\\\\\":60,\\\\\\"stat\\\\\\":\\\\\\"Sum\\\\\\",\\\\\\"annotations\\\\\\":{\\\\\\"horizontal\\\\\\":[{\\\\\\"color\\\\\\":\\\\\\"#17becf\\\\\\",\\\\\\"label\\\\\\":\\\\\\"RequestCountThreshold\\\\\\",\\\\\\"value\\\\\\":3}]},\\\\\\"title\\\\\\":\\\\\\"ALB Requests\\\\\\"}},{\\\\\\"type\\\\\\":\\\\\\"metric\\\\\\",\\\\\\"x\\\\\\":12,\\\\\\"y\\\\\\":0,\\\\\\"width\\\\\\":12,\\\\\\"height\\\\\\":6,\\\\\\"properties\\\\\\":{\\\\\\"metrics\\\\\\":[[\\\\\\"AWS/ApplicationELB\\\\\\",\\\\\\"TargetResponseTime\\\\\\",\\\\\\"LoadBalancer\\\\\\",\\\\\\"\${aws_alb.test_testPocketApp_applicationloadbalancer_alb_6EA5BF17.arn_suffix}\\\\\\",{\\\\\\"label\\\\\\":\\\\\\"Average\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#aec7e8\\\\\\"}],[\\\\\\"...\\\\\\",{\\\\\\"stat\\\\\\":\\\\\\"p95\\\\\\",\\\\\\"label\\\\\\":\\\\\\"p95\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#ffbb78\\\\\\"}],[\\\\\\"...\\\\\\",{\\\\\\"stat\\\\\\":\\\\\\"p99\\\\\\",\\\\\\"label\\\\\\":\\\\\\"p99\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#98df8a\\\\\\"}]],\\\\\\"view\\\\\\":\\\\\\"timeSeries\\\\\\",\\\\\\"stacked\\\\\\":false,\\\\\\"region\\\\\\":\\\\\\"us-east-1\\\\\\",\\\\\\"stat\\\\\\":\\\\\\"Average\\\\\\",\\\\\\"period\\\\\\":60}},{\\\\\\"type\\\\\\":\\\\\\"metric\\\\\\",\\\\\\"x\\\\\\":0,\\\\\\"y\\\\\\":6,\\\\\\"width\\\\\\":12,\\\\\\"height\\\\\\":6,\\\\\\"properties\\\\\\":{\\\\\\"metrics\\\\\\":[[\\\\\\"ECS/ContainerInsights\\\\\\",\\\\\\"RunningTaskCount\\\\\\",\\\\\\"ServiceName\\\\\\",\\\\\\"testapp-\\\\\\",\\\\\\"ClusterName\\\\\\",\\\\\\"\${aws_ecs_cluster.test_testPocketApp_ecscluster_CE90B54F.arn}\\\\\\",{\\\\\\"yAxis\\\\\\":\\\\\\"right\\\\\\",\\\\\\"stat\\\\\\":\\\\\\"Sum\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#c49c94\\\\\\"}],[\\\\\\".\\\\\\",\\\\\\"CpuUtilized\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",{\\\\\\"color\\\\\\":\\\\\\"#f7b6d2\\\\\\"}],[\\\\\\".\\\\\\",\\\\\\"MemoryUtilized\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",{\\\\\\"color\\\\\\":\\\\\\"#c7c7c7\\\\\\"}]],\\\\\\"view\\\\\\":\\\\\\"timeSeries\\\\\\",\\\\\\"stacked\\\\\\":false,\\\\\\"region\\\\\\":\\\\\\"us-east-1\\\\\\",\\\\\\"stat\\\\\\":\\\\\\"Average\\\\\\",\\\\\\"period\\\\\\":60,\\\\\\"annotations\\\\\\":{\\\\\\"horizontal\\\\\\":[{\\\\\\"color\\\\\\":\\\\\\"#e377c2\\\\\\",\\\\\\"label\\\\\\":\\\\\\"CPU scale out\\\\\\",\\\\\\"value\\\\\\":45},{\\\\\\"color\\\\\\":\\\\\\"#c5b0d5\\\\\\",\\\\\\"label\\\\\\":\\\\\\"CPU scale in\\\\\\",\\\\\\"value\\\\\\":30}]},\\\\\\"title\\\\\\":\\\\\\"Service Load\\\\\\"}}]}\\",
+        \\"dashboard_name\\": \\"testapp--ALBDashboard\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/cloudwatch-dashboard\\",
+            \\"uniqueId\\": \\"test_testPocketApp_cloudwatchdashboard_8824C28A\\"
+          }
+        }
+      }
     }
   }
 }"
@@ -1076,6 +1088,61 @@ exports[`PocketALBApplication renders an application with custom task sizes 1`] 
           \\"metadata\\": {
             \\"path\\": \\"test/testPocketApp/ecs_service/ecs-iam/ecs-task-assume\\",
             \\"uniqueId\\": \\"test_testPocketApp_ecsservice_ecsiam_ecstaskassume_A392A140\\"
+          }
+        }
+      },
+      \\"test_testPocketApp_autoscaling_autoscalingassume_6CD4F67B\\": {
+        \\"statement\\": [
+          {
+            \\"effect\\": \\"Allow\\",
+            \\"actions\\": [
+              \\"sts:AssumeRole\\"
+            ],
+            \\"principals\\": [
+              {
+                \\"identifiers\\": [
+                  \\"ecs.application-autoscaling.amazonaws.com\\"
+                ],
+                \\"type\\": \\"Service\\"
+              }
+            ]
+          }
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/autoscaling/autoscaling_assume\\",
+            \\"uniqueId\\": \\"test_testPocketApp_autoscaling_autoscalingassume_6CD4F67B\\"
+          }
+        }
+      },
+      \\"test_testPocketApp_autoscaling_rolepolicy_38FC9EBD\\": {
+        \\"statement\\": [
+          {
+            \\"effect\\": \\"Allow\\",
+            \\"actions\\": [
+              \\"cloudwatch:PutMetricAlarm\\",
+              \\"cloudwatch:DescribeAlarms\\",
+              \\"cloudwatch:DeleteAlarms\\"
+            ],
+            \\"resources\\": [
+              \\"arn:aws:cloudwatch:*:*:alarm:/testapp-*\\"
+            ]
+          },
+          {
+            \\"effect\\": \\"Allow\\",
+            \\"actions\\": [
+              \\"ecs:DescribeServices\\",
+              \\"ecs:UpdateService\\"
+            ],
+            \\"resources\\": [
+              \\"arn:aws:ecs:*:*:service/testapp-*\\"
+            ]
+          }
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/autoscaling/role_policy\\",
+            \\"uniqueId\\": \\"test_testPocketApp_autoscaling_rolepolicy_38FC9EBD\\"
           }
         }
       }
@@ -1407,6 +1474,16 @@ exports[`PocketALBApplication renders an application with custom task sizes 1`] 
             \\"uniqueId\\": \\"test_testPocketApp_ecsservice_ecsiam_ecstaskrole_E41363D4\\"
           }
         }
+      },
+      \\"test_testPocketApp_autoscaling_autoscalingrole_7AF03E02\\": {
+        \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.test_testPocketApp_autoscaling_autoscalingassume_6CD4F67B.json}\\",
+        \\"name\\": \\"testapp--AutoScalingRole\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/autoscaling/autoscaling_role\\",
+            \\"uniqueId\\": \\"test_testPocketApp_autoscaling_autoscalingrole_7AF03E02\\"
+          }
+        }
       }
     },
     \\"aws_ecs_task_definition\\": {
@@ -1536,6 +1613,159 @@ exports[`PocketALBApplication renders an application with custom task sizes 1`] 
           \\"metadata\\": {
             \\"path\\": \\"test/testPocketApp/ecs_service/ecs-service\\",
             \\"uniqueId\\": \\"test_testPocketApp_ecsservice_ecsservice_B23795BD\\"
+          }
+        }
+      }
+    },
+    \\"aws_iam_role_policy\\": {
+      \\"test_testPocketApp_autoscaling_autoscalingrolepolicy_74F4D9D4\\": {
+        \\"name\\": \\"testapp--AutoScalingPolicy\\",
+        \\"policy\\": \\"\${data.aws_iam_policy_document.test_testPocketApp_autoscaling_rolepolicy_38FC9EBD.json}\\",
+        \\"role\\": \\"\${aws_iam_role.test_testPocketApp_autoscaling_autoscalingrole_7AF03E02.id}\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/autoscaling/autoscaling_role_policy\\",
+            \\"uniqueId\\": \\"test_testPocketApp_autoscaling_autoscalingrolepolicy_74F4D9D4\\"
+          }
+        }
+      }
+    },
+    \\"aws_appautoscaling_target\\": {
+      \\"test_testPocketApp_autoscaling_autoscalingtarget_6206F84C\\": {
+        \\"max_capacity\\": 2,
+        \\"min_capacity\\": 1,
+        \\"resource_id\\": \\"service/testapp-/testapp-\\",
+        \\"role_arn\\": \\"\${aws_iam_role.test_testPocketApp_autoscaling_autoscalingrole_7AF03E02.arn}\\",
+        \\"scalable_dimension\\": \\"ecs:service:DesiredCount\\",
+        \\"service_namespace\\": \\"ecs\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/autoscaling/autoscaling_target\\",
+            \\"uniqueId\\": \\"test_testPocketApp_autoscaling_autoscalingtarget_6206F84C\\"
+          }
+        }
+      }
+    },
+    \\"aws_appautoscaling_policy\\": {
+      \\"test_testPocketApp_autoscaling_scaleoutpolicy_65809B71\\": {
+        \\"name\\": \\"testapp--ScaleOutPolicy\\",
+        \\"policy_type\\": \\"StepScaling\\",
+        \\"resource_id\\": \\"service/testapp-/testapp-\\",
+        \\"scalable_dimension\\": \\"ecs:service:DesiredCount\\",
+        \\"service_namespace\\": \\"ecs\\",
+        \\"step_scaling_policy_configuration\\": [
+          {
+            \\"adjustment_type\\": \\"ChangeInCapacity\\",
+            \\"cooldown\\": 60,
+            \\"metric_aggregation_type\\": \\"Average\\",
+            \\"step_adjustment\\": [
+              {
+                \\"metric_interval_lower_bound\\": \\"0\\",
+                \\"scaling_adjustment\\": 2
+              }
+            ]
+          }
+        ],
+        \\"depends_on\\": [
+          \\"aws_appautoscaling_target.test_testPocketApp_autoscaling_autoscalingtarget_6206F84C\\"
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/autoscaling/scale_out_policy\\",
+            \\"uniqueId\\": \\"test_testPocketApp_autoscaling_scaleoutpolicy_65809B71\\"
+          }
+        }
+      },
+      \\"test_testPocketApp_autoscaling_scaleinpolicy_79053E73\\": {
+        \\"name\\": \\"testapp--ScaleInPolicy\\",
+        \\"policy_type\\": \\"StepScaling\\",
+        \\"resource_id\\": \\"service/testapp-/testapp-\\",
+        \\"scalable_dimension\\": \\"ecs:service:DesiredCount\\",
+        \\"service_namespace\\": \\"ecs\\",
+        \\"step_scaling_policy_configuration\\": [
+          {
+            \\"adjustment_type\\": \\"ChangeInCapacity\\",
+            \\"cooldown\\": 60,
+            \\"metric_aggregation_type\\": \\"Average\\",
+            \\"step_adjustment\\": [
+              {
+                \\"metric_interval_upper_bound\\": \\"0\\",
+                \\"scaling_adjustment\\": 1
+              }
+            ]
+          }
+        ],
+        \\"depends_on\\": [
+          \\"aws_appautoscaling_target.test_testPocketApp_autoscaling_autoscalingtarget_6206F84C\\"
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/autoscaling/scale_in_policy\\",
+            \\"uniqueId\\": \\"test_testPocketApp_autoscaling_scaleinpolicy_79053E73\\"
+          }
+        }
+      }
+    },
+    \\"aws_cloudwatch_metric_alarm\\": {
+      \\"test_testPocketApp_autoscaling_scaleoutalarm_2AEF0584\\": {
+        \\"alarm_actions\\": [
+          \\"\${aws_appautoscaling_policy.test_testPocketApp_autoscaling_scaleoutpolicy_65809B71.arn}\\"
+        ],
+        \\"alarm_description\\": \\"Alarm to add capacity if CPU is high\\",
+        \\"alarm_name\\": \\"testapp- Service High CPU\\",
+        \\"comparison_operator\\": \\"GreaterThanThreshold\\",
+        \\"dimensions\\": {
+          \\"cluster_name\\": \\"testapp-\\",
+          \\"service_name\\": \\"testapp-\\"
+        },
+        \\"evaluation_periods\\": 2,
+        \\"metric_name\\": \\"CPUUtilization\\",
+        \\"namespace\\": \\"AWS/ECS\\",
+        \\"period\\": 60,
+        \\"statistic\\": \\"Average\\",
+        \\"threshold\\": 45,
+        \\"treat_missing_data\\": \\"notBreaching\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/autoscaling/scale_out_alarm\\",
+            \\"uniqueId\\": \\"test_testPocketApp_autoscaling_scaleoutalarm_2AEF0584\\"
+          }
+        }
+      },
+      \\"test_testPocketApp_autoscaling_scaleinalarm_5B889D45\\": {
+        \\"alarm_actions\\": [
+          \\"\${aws_appautoscaling_policy.test_testPocketApp_autoscaling_scaleinpolicy_79053E73.arn}\\"
+        ],
+        \\"alarm_description\\": \\"Alarm to reduce capacity if container CPU is low\\",
+        \\"alarm_name\\": \\"testapp- Service Low CPU\\",
+        \\"comparison_operator\\": \\"LessThanThreshold\\",
+        \\"dimensions\\": {
+          \\"cluster_name\\": \\"testapp-\\",
+          \\"service_name\\": \\"testapp-\\"
+        },
+        \\"evaluation_periods\\": 2,
+        \\"metric_name\\": \\"CPUUtilization\\",
+        \\"namespace\\": \\"AWS/ECS\\",
+        \\"period\\": 60,
+        \\"statistic\\": \\"Average\\",
+        \\"threshold\\": 30,
+        \\"treat_missing_data\\": \\"notBreaching\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/autoscaling/scale_in_alarm\\",
+            \\"uniqueId\\": \\"test_testPocketApp_autoscaling_scaleinalarm_5B889D45\\"
+          }
+        }
+      }
+    },
+    \\"aws_cloudwatch_dashboard\\": {
+      \\"test_testPocketApp_cloudwatchdashboard_8824C28A\\": {
+        \\"dashboard_body\\": \\"{\\\\\\"widgets\\\\\\":[{\\\\\\"type\\\\\\":\\\\\\"metric\\\\\\",\\\\\\"x\\\\\\":0,\\\\\\"y\\\\\\":0,\\\\\\"width\\\\\\":12,\\\\\\"height\\\\\\":6,\\\\\\"properties\\\\\\":{\\\\\\"metrics\\\\\\":[[\\\\\\"AWS/ApplicationELB\\\\\\",\\\\\\"HTTPCode_Target_4XX_Count\\\\\\",\\\\\\"LoadBalancer\\\\\\",\\\\\\"\${aws_alb.test_testPocketApp_applicationloadbalancer_alb_6EA5BF17.arn_suffix}\\\\\\",{\\\\\\"yAxis\\\\\\":\\\\\\"left\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#ff7f0e\\\\\\"}],[\\\\\\".\\\\\\",\\\\\\"RequestCount\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",{\\\\\\"yAxis\\\\\\":\\\\\\"right\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#1f77b4\\\\\\"}],[\\\\\\".\\\\\\",\\\\\\"HTTPCode_Target_5XX_Count\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",{\\\\\\"color\\\\\\":\\\\\\"#d62728\\\\\\"}],[\\\\\\".\\\\\\",\\\\\\"HTTPCode_Target_2XX_Count\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",{\\\\\\"yAxis\\\\\\":\\\\\\"right\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#2ca02c\\\\\\"}]],\\\\\\"view\\\\\\":\\\\\\"timeSeries\\\\\\",\\\\\\"stacked\\\\\\":false,\\\\\\"region\\\\\\":\\\\\\"us-east-1\\\\\\",\\\\\\"period\\\\\\":60,\\\\\\"stat\\\\\\":\\\\\\"Sum\\\\\\",\\\\\\"annotations\\\\\\":{\\\\\\"horizontal\\\\\\":[{\\\\\\"color\\\\\\":\\\\\\"#17becf\\\\\\",\\\\\\"label\\\\\\":\\\\\\"RequestCountThreshold\\\\\\",\\\\\\"value\\\\\\":3}]},\\\\\\"title\\\\\\":\\\\\\"ALB Requests\\\\\\"}},{\\\\\\"type\\\\\\":\\\\\\"metric\\\\\\",\\\\\\"x\\\\\\":12,\\\\\\"y\\\\\\":0,\\\\\\"width\\\\\\":12,\\\\\\"height\\\\\\":6,\\\\\\"properties\\\\\\":{\\\\\\"metrics\\\\\\":[[\\\\\\"AWS/ApplicationELB\\\\\\",\\\\\\"TargetResponseTime\\\\\\",\\\\\\"LoadBalancer\\\\\\",\\\\\\"\${aws_alb.test_testPocketApp_applicationloadbalancer_alb_6EA5BF17.arn_suffix}\\\\\\",{\\\\\\"label\\\\\\":\\\\\\"Average\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#aec7e8\\\\\\"}],[\\\\\\"...\\\\\\",{\\\\\\"stat\\\\\\":\\\\\\"p95\\\\\\",\\\\\\"label\\\\\\":\\\\\\"p95\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#ffbb78\\\\\\"}],[\\\\\\"...\\\\\\",{\\\\\\"stat\\\\\\":\\\\\\"p99\\\\\\",\\\\\\"label\\\\\\":\\\\\\"p99\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#98df8a\\\\\\"}]],\\\\\\"view\\\\\\":\\\\\\"timeSeries\\\\\\",\\\\\\"stacked\\\\\\":false,\\\\\\"region\\\\\\":\\\\\\"us-east-1\\\\\\",\\\\\\"stat\\\\\\":\\\\\\"Average\\\\\\",\\\\\\"period\\\\\\":60}},{\\\\\\"type\\\\\\":\\\\\\"metric\\\\\\",\\\\\\"x\\\\\\":0,\\\\\\"y\\\\\\":6,\\\\\\"width\\\\\\":12,\\\\\\"height\\\\\\":6,\\\\\\"properties\\\\\\":{\\\\\\"metrics\\\\\\":[[\\\\\\"ECS/ContainerInsights\\\\\\",\\\\\\"RunningTaskCount\\\\\\",\\\\\\"ServiceName\\\\\\",\\\\\\"testapp-\\\\\\",\\\\\\"ClusterName\\\\\\",\\\\\\"\${aws_ecs_cluster.test_testPocketApp_ecscluster_CE90B54F.arn}\\\\\\",{\\\\\\"yAxis\\\\\\":\\\\\\"right\\\\\\",\\\\\\"stat\\\\\\":\\\\\\"Sum\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#c49c94\\\\\\"}],[\\\\\\".\\\\\\",\\\\\\"CpuUtilized\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",{\\\\\\"color\\\\\\":\\\\\\"#f7b6d2\\\\\\"}],[\\\\\\".\\\\\\",\\\\\\"MemoryUtilized\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",{\\\\\\"color\\\\\\":\\\\\\"#c7c7c7\\\\\\"}]],\\\\\\"view\\\\\\":\\\\\\"timeSeries\\\\\\",\\\\\\"stacked\\\\\\":false,\\\\\\"region\\\\\\":\\\\\\"us-east-1\\\\\\",\\\\\\"stat\\\\\\":\\\\\\"Average\\\\\\",\\\\\\"period\\\\\\":60,\\\\\\"annotations\\\\\\":{\\\\\\"horizontal\\\\\\":[{\\\\\\"color\\\\\\":\\\\\\"#e377c2\\\\\\",\\\\\\"label\\\\\\":\\\\\\"CPU scale out\\\\\\",\\\\\\"value\\\\\\":45},{\\\\\\"color\\\\\\":\\\\\\"#c5b0d5\\\\\\",\\\\\\"label\\\\\\":\\\\\\"CPU scale in\\\\\\",\\\\\\"value\\\\\\":30}]},\\\\\\"title\\\\\\":\\\\\\"Service Load\\\\\\"}}]}\\",
+        \\"dashboard_name\\": \\"testapp--ALBDashboard\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/cloudwatch-dashboard\\",
+            \\"uniqueId\\": \\"test_testPocketApp_cloudwatchdashboard_8824C28A\\"
           }
         }
       }
@@ -1723,6 +1953,61 @@ exports[`PocketALBApplication renders an application with minimal config 1`] = `
             \\"uniqueId\\": \\"test_testPocketApp_ecsservice_ecsiam_ecstaskassume_A392A140\\"
           }
         }
+      },
+      \\"test_testPocketApp_autoscaling_autoscalingassume_6CD4F67B\\": {
+        \\"statement\\": [
+          {
+            \\"effect\\": \\"Allow\\",
+            \\"actions\\": [
+              \\"sts:AssumeRole\\"
+            ],
+            \\"principals\\": [
+              {
+                \\"identifiers\\": [
+                  \\"ecs.application-autoscaling.amazonaws.com\\"
+                ],
+                \\"type\\": \\"Service\\"
+              }
+            ]
+          }
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/autoscaling/autoscaling_assume\\",
+            \\"uniqueId\\": \\"test_testPocketApp_autoscaling_autoscalingassume_6CD4F67B\\"
+          }
+        }
+      },
+      \\"test_testPocketApp_autoscaling_rolepolicy_38FC9EBD\\": {
+        \\"statement\\": [
+          {
+            \\"effect\\": \\"Allow\\",
+            \\"actions\\": [
+              \\"cloudwatch:PutMetricAlarm\\",
+              \\"cloudwatch:DescribeAlarms\\",
+              \\"cloudwatch:DeleteAlarms\\"
+            ],
+            \\"resources\\": [
+              \\"arn:aws:cloudwatch:*:*:alarm:/testapp-*\\"
+            ]
+          },
+          {
+            \\"effect\\": \\"Allow\\",
+            \\"actions\\": [
+              \\"ecs:DescribeServices\\",
+              \\"ecs:UpdateService\\"
+            ],
+            \\"resources\\": [
+              \\"arn:aws:ecs:*:*:service/testapp-*\\"
+            ]
+          }
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/autoscaling/role_policy\\",
+            \\"uniqueId\\": \\"test_testPocketApp_autoscaling_rolepolicy_38FC9EBD\\"
+          }
+        }
       }
     }
   },
@@ -2052,6 +2337,16 @@ exports[`PocketALBApplication renders an application with minimal config 1`] = `
             \\"uniqueId\\": \\"test_testPocketApp_ecsservice_ecsiam_ecstaskrole_E41363D4\\"
           }
         }
+      },
+      \\"test_testPocketApp_autoscaling_autoscalingrole_7AF03E02\\": {
+        \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.test_testPocketApp_autoscaling_autoscalingassume_6CD4F67B.json}\\",
+        \\"name\\": \\"testapp--AutoScalingRole\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/autoscaling/autoscaling_role\\",
+            \\"uniqueId\\": \\"test_testPocketApp_autoscaling_autoscalingrole_7AF03E02\\"
+          }
+        }
       }
     },
     \\"aws_ecs_task_definition\\": {
@@ -2181,6 +2476,159 @@ exports[`PocketALBApplication renders an application with minimal config 1`] = `
           \\"metadata\\": {
             \\"path\\": \\"test/testPocketApp/ecs_service/ecs-service\\",
             \\"uniqueId\\": \\"test_testPocketApp_ecsservice_ecsservice_B23795BD\\"
+          }
+        }
+      }
+    },
+    \\"aws_iam_role_policy\\": {
+      \\"test_testPocketApp_autoscaling_autoscalingrolepolicy_74F4D9D4\\": {
+        \\"name\\": \\"testapp--AutoScalingPolicy\\",
+        \\"policy\\": \\"\${data.aws_iam_policy_document.test_testPocketApp_autoscaling_rolepolicy_38FC9EBD.json}\\",
+        \\"role\\": \\"\${aws_iam_role.test_testPocketApp_autoscaling_autoscalingrole_7AF03E02.id}\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/autoscaling/autoscaling_role_policy\\",
+            \\"uniqueId\\": \\"test_testPocketApp_autoscaling_autoscalingrolepolicy_74F4D9D4\\"
+          }
+        }
+      }
+    },
+    \\"aws_appautoscaling_target\\": {
+      \\"test_testPocketApp_autoscaling_autoscalingtarget_6206F84C\\": {
+        \\"max_capacity\\": 2,
+        \\"min_capacity\\": 1,
+        \\"resource_id\\": \\"service/testapp-/testapp-\\",
+        \\"role_arn\\": \\"\${aws_iam_role.test_testPocketApp_autoscaling_autoscalingrole_7AF03E02.arn}\\",
+        \\"scalable_dimension\\": \\"ecs:service:DesiredCount\\",
+        \\"service_namespace\\": \\"ecs\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/autoscaling/autoscaling_target\\",
+            \\"uniqueId\\": \\"test_testPocketApp_autoscaling_autoscalingtarget_6206F84C\\"
+          }
+        }
+      }
+    },
+    \\"aws_appautoscaling_policy\\": {
+      \\"test_testPocketApp_autoscaling_scaleoutpolicy_65809B71\\": {
+        \\"name\\": \\"testapp--ScaleOutPolicy\\",
+        \\"policy_type\\": \\"StepScaling\\",
+        \\"resource_id\\": \\"service/testapp-/testapp-\\",
+        \\"scalable_dimension\\": \\"ecs:service:DesiredCount\\",
+        \\"service_namespace\\": \\"ecs\\",
+        \\"step_scaling_policy_configuration\\": [
+          {
+            \\"adjustment_type\\": \\"ChangeInCapacity\\",
+            \\"cooldown\\": 60,
+            \\"metric_aggregation_type\\": \\"Average\\",
+            \\"step_adjustment\\": [
+              {
+                \\"metric_interval_lower_bound\\": \\"0\\",
+                \\"scaling_adjustment\\": 2
+              }
+            ]
+          }
+        ],
+        \\"depends_on\\": [
+          \\"aws_appautoscaling_target.test_testPocketApp_autoscaling_autoscalingtarget_6206F84C\\"
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/autoscaling/scale_out_policy\\",
+            \\"uniqueId\\": \\"test_testPocketApp_autoscaling_scaleoutpolicy_65809B71\\"
+          }
+        }
+      },
+      \\"test_testPocketApp_autoscaling_scaleinpolicy_79053E73\\": {
+        \\"name\\": \\"testapp--ScaleInPolicy\\",
+        \\"policy_type\\": \\"StepScaling\\",
+        \\"resource_id\\": \\"service/testapp-/testapp-\\",
+        \\"scalable_dimension\\": \\"ecs:service:DesiredCount\\",
+        \\"service_namespace\\": \\"ecs\\",
+        \\"step_scaling_policy_configuration\\": [
+          {
+            \\"adjustment_type\\": \\"ChangeInCapacity\\",
+            \\"cooldown\\": 60,
+            \\"metric_aggregation_type\\": \\"Average\\",
+            \\"step_adjustment\\": [
+              {
+                \\"metric_interval_upper_bound\\": \\"0\\",
+                \\"scaling_adjustment\\": 1
+              }
+            ]
+          }
+        ],
+        \\"depends_on\\": [
+          \\"aws_appautoscaling_target.test_testPocketApp_autoscaling_autoscalingtarget_6206F84C\\"
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/autoscaling/scale_in_policy\\",
+            \\"uniqueId\\": \\"test_testPocketApp_autoscaling_scaleinpolicy_79053E73\\"
+          }
+        }
+      }
+    },
+    \\"aws_cloudwatch_metric_alarm\\": {
+      \\"test_testPocketApp_autoscaling_scaleoutalarm_2AEF0584\\": {
+        \\"alarm_actions\\": [
+          \\"\${aws_appautoscaling_policy.test_testPocketApp_autoscaling_scaleoutpolicy_65809B71.arn}\\"
+        ],
+        \\"alarm_description\\": \\"Alarm to add capacity if CPU is high\\",
+        \\"alarm_name\\": \\"testapp- Service High CPU\\",
+        \\"comparison_operator\\": \\"GreaterThanThreshold\\",
+        \\"dimensions\\": {
+          \\"cluster_name\\": \\"testapp-\\",
+          \\"service_name\\": \\"testapp-\\"
+        },
+        \\"evaluation_periods\\": 2,
+        \\"metric_name\\": \\"CPUUtilization\\",
+        \\"namespace\\": \\"AWS/ECS\\",
+        \\"period\\": 60,
+        \\"statistic\\": \\"Average\\",
+        \\"threshold\\": 45,
+        \\"treat_missing_data\\": \\"notBreaching\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/autoscaling/scale_out_alarm\\",
+            \\"uniqueId\\": \\"test_testPocketApp_autoscaling_scaleoutalarm_2AEF0584\\"
+          }
+        }
+      },
+      \\"test_testPocketApp_autoscaling_scaleinalarm_5B889D45\\": {
+        \\"alarm_actions\\": [
+          \\"\${aws_appautoscaling_policy.test_testPocketApp_autoscaling_scaleinpolicy_79053E73.arn}\\"
+        ],
+        \\"alarm_description\\": \\"Alarm to reduce capacity if container CPU is low\\",
+        \\"alarm_name\\": \\"testapp- Service Low CPU\\",
+        \\"comparison_operator\\": \\"LessThanThreshold\\",
+        \\"dimensions\\": {
+          \\"cluster_name\\": \\"testapp-\\",
+          \\"service_name\\": \\"testapp-\\"
+        },
+        \\"evaluation_periods\\": 2,
+        \\"metric_name\\": \\"CPUUtilization\\",
+        \\"namespace\\": \\"AWS/ECS\\",
+        \\"period\\": 60,
+        \\"statistic\\": \\"Average\\",
+        \\"threshold\\": 30,
+        \\"treat_missing_data\\": \\"notBreaching\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/autoscaling/scale_in_alarm\\",
+            \\"uniqueId\\": \\"test_testPocketApp_autoscaling_scaleinalarm_5B889D45\\"
+          }
+        }
+      }
+    },
+    \\"aws_cloudwatch_dashboard\\": {
+      \\"test_testPocketApp_cloudwatchdashboard_8824C28A\\": {
+        \\"dashboard_body\\": \\"{\\\\\\"widgets\\\\\\":[{\\\\\\"type\\\\\\":\\\\\\"metric\\\\\\",\\\\\\"x\\\\\\":0,\\\\\\"y\\\\\\":0,\\\\\\"width\\\\\\":12,\\\\\\"height\\\\\\":6,\\\\\\"properties\\\\\\":{\\\\\\"metrics\\\\\\":[[\\\\\\"AWS/ApplicationELB\\\\\\",\\\\\\"HTTPCode_Target_4XX_Count\\\\\\",\\\\\\"LoadBalancer\\\\\\",\\\\\\"\${aws_alb.test_testPocketApp_applicationloadbalancer_alb_6EA5BF17.arn_suffix}\\\\\\",{\\\\\\"yAxis\\\\\\":\\\\\\"left\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#ff7f0e\\\\\\"}],[\\\\\\".\\\\\\",\\\\\\"RequestCount\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",{\\\\\\"yAxis\\\\\\":\\\\\\"right\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#1f77b4\\\\\\"}],[\\\\\\".\\\\\\",\\\\\\"HTTPCode_Target_5XX_Count\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",{\\\\\\"color\\\\\\":\\\\\\"#d62728\\\\\\"}],[\\\\\\".\\\\\\",\\\\\\"HTTPCode_Target_2XX_Count\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",{\\\\\\"yAxis\\\\\\":\\\\\\"right\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#2ca02c\\\\\\"}]],\\\\\\"view\\\\\\":\\\\\\"timeSeries\\\\\\",\\\\\\"stacked\\\\\\":false,\\\\\\"region\\\\\\":\\\\\\"us-east-1\\\\\\",\\\\\\"period\\\\\\":60,\\\\\\"stat\\\\\\":\\\\\\"Sum\\\\\\",\\\\\\"annotations\\\\\\":{\\\\\\"horizontal\\\\\\":[{\\\\\\"color\\\\\\":\\\\\\"#17becf\\\\\\",\\\\\\"label\\\\\\":\\\\\\"RequestCountThreshold\\\\\\",\\\\\\"value\\\\\\":3}]},\\\\\\"title\\\\\\":\\\\\\"ALB Requests\\\\\\"}},{\\\\\\"type\\\\\\":\\\\\\"metric\\\\\\",\\\\\\"x\\\\\\":12,\\\\\\"y\\\\\\":0,\\\\\\"width\\\\\\":12,\\\\\\"height\\\\\\":6,\\\\\\"properties\\\\\\":{\\\\\\"metrics\\\\\\":[[\\\\\\"AWS/ApplicationELB\\\\\\",\\\\\\"TargetResponseTime\\\\\\",\\\\\\"LoadBalancer\\\\\\",\\\\\\"\${aws_alb.test_testPocketApp_applicationloadbalancer_alb_6EA5BF17.arn_suffix}\\\\\\",{\\\\\\"label\\\\\\":\\\\\\"Average\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#aec7e8\\\\\\"}],[\\\\\\"...\\\\\\",{\\\\\\"stat\\\\\\":\\\\\\"p95\\\\\\",\\\\\\"label\\\\\\":\\\\\\"p95\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#ffbb78\\\\\\"}],[\\\\\\"...\\\\\\",{\\\\\\"stat\\\\\\":\\\\\\"p99\\\\\\",\\\\\\"label\\\\\\":\\\\\\"p99\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#98df8a\\\\\\"}]],\\\\\\"view\\\\\\":\\\\\\"timeSeries\\\\\\",\\\\\\"stacked\\\\\\":false,\\\\\\"region\\\\\\":\\\\\\"us-east-1\\\\\\",\\\\\\"stat\\\\\\":\\\\\\"Average\\\\\\",\\\\\\"period\\\\\\":60}},{\\\\\\"type\\\\\\":\\\\\\"metric\\\\\\",\\\\\\"x\\\\\\":0,\\\\\\"y\\\\\\":6,\\\\\\"width\\\\\\":12,\\\\\\"height\\\\\\":6,\\\\\\"properties\\\\\\":{\\\\\\"metrics\\\\\\":[[\\\\\\"ECS/ContainerInsights\\\\\\",\\\\\\"RunningTaskCount\\\\\\",\\\\\\"ServiceName\\\\\\",\\\\\\"testapp-\\\\\\",\\\\\\"ClusterName\\\\\\",\\\\\\"\${aws_ecs_cluster.test_testPocketApp_ecscluster_CE90B54F.arn}\\\\\\",{\\\\\\"yAxis\\\\\\":\\\\\\"right\\\\\\",\\\\\\"stat\\\\\\":\\\\\\"Sum\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#c49c94\\\\\\"}],[\\\\\\".\\\\\\",\\\\\\"CpuUtilized\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",{\\\\\\"color\\\\\\":\\\\\\"#f7b6d2\\\\\\"}],[\\\\\\".\\\\\\",\\\\\\"MemoryUtilized\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",{\\\\\\"color\\\\\\":\\\\\\"#c7c7c7\\\\\\"}]],\\\\\\"view\\\\\\":\\\\\\"timeSeries\\\\\\",\\\\\\"stacked\\\\\\":false,\\\\\\"region\\\\\\":\\\\\\"us-east-1\\\\\\",\\\\\\"stat\\\\\\":\\\\\\"Average\\\\\\",\\\\\\"period\\\\\\":60,\\\\\\"annotations\\\\\\":{\\\\\\"horizontal\\\\\\":[{\\\\\\"color\\\\\\":\\\\\\"#e377c2\\\\\\",\\\\\\"label\\\\\\":\\\\\\"CPU scale out\\\\\\",\\\\\\"value\\\\\\":45},{\\\\\\"color\\\\\\":\\\\\\"#c5b0d5\\\\\\",\\\\\\"label\\\\\\":\\\\\\"CPU scale in\\\\\\",\\\\\\"value\\\\\\":30}]},\\\\\\"title\\\\\\":\\\\\\"Service Load\\\\\\"}}]}\\",
+        \\"dashboard_name\\": \\"testapp--ALBDashboard\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/cloudwatch-dashboard\\",
+            \\"uniqueId\\": \\"test_testPocketApp_cloudwatchdashboard_8824C28A\\"
           }
         }
       }
@@ -2366,6 +2814,61 @@ exports[`PocketALBApplication renders an external application 1`] = `
           \\"metadata\\": {
             \\"path\\": \\"test/testPocketApp/ecs_service/ecs-iam/ecs-task-assume\\",
             \\"uniqueId\\": \\"test_testPocketApp_ecsservice_ecsiam_ecstaskassume_A392A140\\"
+          }
+        }
+      },
+      \\"test_testPocketApp_autoscaling_autoscalingassume_6CD4F67B\\": {
+        \\"statement\\": [
+          {
+            \\"effect\\": \\"Allow\\",
+            \\"actions\\": [
+              \\"sts:AssumeRole\\"
+            ],
+            \\"principals\\": [
+              {
+                \\"identifiers\\": [
+                  \\"ecs.application-autoscaling.amazonaws.com\\"
+                ],
+                \\"type\\": \\"Service\\"
+              }
+            ]
+          }
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/autoscaling/autoscaling_assume\\",
+            \\"uniqueId\\": \\"test_testPocketApp_autoscaling_autoscalingassume_6CD4F67B\\"
+          }
+        }
+      },
+      \\"test_testPocketApp_autoscaling_rolepolicy_38FC9EBD\\": {
+        \\"statement\\": [
+          {
+            \\"effect\\": \\"Allow\\",
+            \\"actions\\": [
+              \\"cloudwatch:PutMetricAlarm\\",
+              \\"cloudwatch:DescribeAlarms\\",
+              \\"cloudwatch:DeleteAlarms\\"
+            ],
+            \\"resources\\": [
+              \\"arn:aws:cloudwatch:*:*:alarm:/testapp-*\\"
+            ]
+          },
+          {
+            \\"effect\\": \\"Allow\\",
+            \\"actions\\": [
+              \\"ecs:DescribeServices\\",
+              \\"ecs:UpdateService\\"
+            ],
+            \\"resources\\": [
+              \\"arn:aws:ecs:*:*:service/testapp-*\\"
+            ]
+          }
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/autoscaling/role_policy\\",
+            \\"uniqueId\\": \\"test_testPocketApp_autoscaling_rolepolicy_38FC9EBD\\"
           }
         }
       }
@@ -2858,6 +3361,16 @@ exports[`PocketALBApplication renders an external application 1`] = `
             \\"uniqueId\\": \\"test_testPocketApp_ecsservice_ecsiam_ecstaskrole_E41363D4\\"
           }
         }
+      },
+      \\"test_testPocketApp_autoscaling_autoscalingrole_7AF03E02\\": {
+        \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.test_testPocketApp_autoscaling_autoscalingassume_6CD4F67B.json}\\",
+        \\"name\\": \\"testapp--AutoScalingRole\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/autoscaling/autoscaling_role\\",
+            \\"uniqueId\\": \\"test_testPocketApp_autoscaling_autoscalingrole_7AF03E02\\"
+          }
+        }
       }
     },
     \\"aws_ecs_task_definition\\": {
@@ -2987,6 +3500,159 @@ exports[`PocketALBApplication renders an external application 1`] = `
           \\"metadata\\": {
             \\"path\\": \\"test/testPocketApp/ecs_service/ecs-service\\",
             \\"uniqueId\\": \\"test_testPocketApp_ecsservice_ecsservice_B23795BD\\"
+          }
+        }
+      }
+    },
+    \\"aws_iam_role_policy\\": {
+      \\"test_testPocketApp_autoscaling_autoscalingrolepolicy_74F4D9D4\\": {
+        \\"name\\": \\"testapp--AutoScalingPolicy\\",
+        \\"policy\\": \\"\${data.aws_iam_policy_document.test_testPocketApp_autoscaling_rolepolicy_38FC9EBD.json}\\",
+        \\"role\\": \\"\${aws_iam_role.test_testPocketApp_autoscaling_autoscalingrole_7AF03E02.id}\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/autoscaling/autoscaling_role_policy\\",
+            \\"uniqueId\\": \\"test_testPocketApp_autoscaling_autoscalingrolepolicy_74F4D9D4\\"
+          }
+        }
+      }
+    },
+    \\"aws_appautoscaling_target\\": {
+      \\"test_testPocketApp_autoscaling_autoscalingtarget_6206F84C\\": {
+        \\"max_capacity\\": 2,
+        \\"min_capacity\\": 1,
+        \\"resource_id\\": \\"service/testapp-/testapp-\\",
+        \\"role_arn\\": \\"\${aws_iam_role.test_testPocketApp_autoscaling_autoscalingrole_7AF03E02.arn}\\",
+        \\"scalable_dimension\\": \\"ecs:service:DesiredCount\\",
+        \\"service_namespace\\": \\"ecs\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/autoscaling/autoscaling_target\\",
+            \\"uniqueId\\": \\"test_testPocketApp_autoscaling_autoscalingtarget_6206F84C\\"
+          }
+        }
+      }
+    },
+    \\"aws_appautoscaling_policy\\": {
+      \\"test_testPocketApp_autoscaling_scaleoutpolicy_65809B71\\": {
+        \\"name\\": \\"testapp--ScaleOutPolicy\\",
+        \\"policy_type\\": \\"StepScaling\\",
+        \\"resource_id\\": \\"service/testapp-/testapp-\\",
+        \\"scalable_dimension\\": \\"ecs:service:DesiredCount\\",
+        \\"service_namespace\\": \\"ecs\\",
+        \\"step_scaling_policy_configuration\\": [
+          {
+            \\"adjustment_type\\": \\"ChangeInCapacity\\",
+            \\"cooldown\\": 60,
+            \\"metric_aggregation_type\\": \\"Average\\",
+            \\"step_adjustment\\": [
+              {
+                \\"metric_interval_lower_bound\\": \\"0\\",
+                \\"scaling_adjustment\\": 2
+              }
+            ]
+          }
+        ],
+        \\"depends_on\\": [
+          \\"aws_appautoscaling_target.test_testPocketApp_autoscaling_autoscalingtarget_6206F84C\\"
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/autoscaling/scale_out_policy\\",
+            \\"uniqueId\\": \\"test_testPocketApp_autoscaling_scaleoutpolicy_65809B71\\"
+          }
+        }
+      },
+      \\"test_testPocketApp_autoscaling_scaleinpolicy_79053E73\\": {
+        \\"name\\": \\"testapp--ScaleInPolicy\\",
+        \\"policy_type\\": \\"StepScaling\\",
+        \\"resource_id\\": \\"service/testapp-/testapp-\\",
+        \\"scalable_dimension\\": \\"ecs:service:DesiredCount\\",
+        \\"service_namespace\\": \\"ecs\\",
+        \\"step_scaling_policy_configuration\\": [
+          {
+            \\"adjustment_type\\": \\"ChangeInCapacity\\",
+            \\"cooldown\\": 60,
+            \\"metric_aggregation_type\\": \\"Average\\",
+            \\"step_adjustment\\": [
+              {
+                \\"metric_interval_upper_bound\\": \\"0\\",
+                \\"scaling_adjustment\\": 1
+              }
+            ]
+          }
+        ],
+        \\"depends_on\\": [
+          \\"aws_appautoscaling_target.test_testPocketApp_autoscaling_autoscalingtarget_6206F84C\\"
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/autoscaling/scale_in_policy\\",
+            \\"uniqueId\\": \\"test_testPocketApp_autoscaling_scaleinpolicy_79053E73\\"
+          }
+        }
+      }
+    },
+    \\"aws_cloudwatch_metric_alarm\\": {
+      \\"test_testPocketApp_autoscaling_scaleoutalarm_2AEF0584\\": {
+        \\"alarm_actions\\": [
+          \\"\${aws_appautoscaling_policy.test_testPocketApp_autoscaling_scaleoutpolicy_65809B71.arn}\\"
+        ],
+        \\"alarm_description\\": \\"Alarm to add capacity if CPU is high\\",
+        \\"alarm_name\\": \\"testapp- Service High CPU\\",
+        \\"comparison_operator\\": \\"GreaterThanThreshold\\",
+        \\"dimensions\\": {
+          \\"cluster_name\\": \\"testapp-\\",
+          \\"service_name\\": \\"testapp-\\"
+        },
+        \\"evaluation_periods\\": 2,
+        \\"metric_name\\": \\"CPUUtilization\\",
+        \\"namespace\\": \\"AWS/ECS\\",
+        \\"period\\": 60,
+        \\"statistic\\": \\"Average\\",
+        \\"threshold\\": 45,
+        \\"treat_missing_data\\": \\"notBreaching\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/autoscaling/scale_out_alarm\\",
+            \\"uniqueId\\": \\"test_testPocketApp_autoscaling_scaleoutalarm_2AEF0584\\"
+          }
+        }
+      },
+      \\"test_testPocketApp_autoscaling_scaleinalarm_5B889D45\\": {
+        \\"alarm_actions\\": [
+          \\"\${aws_appautoscaling_policy.test_testPocketApp_autoscaling_scaleinpolicy_79053E73.arn}\\"
+        ],
+        \\"alarm_description\\": \\"Alarm to reduce capacity if container CPU is low\\",
+        \\"alarm_name\\": \\"testapp- Service Low CPU\\",
+        \\"comparison_operator\\": \\"LessThanThreshold\\",
+        \\"dimensions\\": {
+          \\"cluster_name\\": \\"testapp-\\",
+          \\"service_name\\": \\"testapp-\\"
+        },
+        \\"evaluation_periods\\": 2,
+        \\"metric_name\\": \\"CPUUtilization\\",
+        \\"namespace\\": \\"AWS/ECS\\",
+        \\"period\\": 60,
+        \\"statistic\\": \\"Average\\",
+        \\"threshold\\": 30,
+        \\"treat_missing_data\\": \\"notBreaching\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/autoscaling/scale_in_alarm\\",
+            \\"uniqueId\\": \\"test_testPocketApp_autoscaling_scaleinalarm_5B889D45\\"
+          }
+        }
+      }
+    },
+    \\"aws_cloudwatch_dashboard\\": {
+      \\"test_testPocketApp_cloudwatchdashboard_8824C28A\\": {
+        \\"dashboard_body\\": \\"{\\\\\\"widgets\\\\\\":[{\\\\\\"type\\\\\\":\\\\\\"metric\\\\\\",\\\\\\"x\\\\\\":0,\\\\\\"y\\\\\\":0,\\\\\\"width\\\\\\":12,\\\\\\"height\\\\\\":6,\\\\\\"properties\\\\\\":{\\\\\\"metrics\\\\\\":[[\\\\\\"AWS/ApplicationELB\\\\\\",\\\\\\"HTTPCode_Target_4XX_Count\\\\\\",\\\\\\"LoadBalancer\\\\\\",\\\\\\"\${aws_alb.test_testPocketApp_applicationloadbalancer_alb_6EA5BF17.arn_suffix}\\\\\\",{\\\\\\"yAxis\\\\\\":\\\\\\"left\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#ff7f0e\\\\\\"}],[\\\\\\".\\\\\\",\\\\\\"RequestCount\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",{\\\\\\"yAxis\\\\\\":\\\\\\"right\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#1f77b4\\\\\\"}],[\\\\\\".\\\\\\",\\\\\\"HTTPCode_Target_5XX_Count\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",{\\\\\\"color\\\\\\":\\\\\\"#d62728\\\\\\"}],[\\\\\\".\\\\\\",\\\\\\"HTTPCode_Target_2XX_Count\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",{\\\\\\"yAxis\\\\\\":\\\\\\"right\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#2ca02c\\\\\\"}]],\\\\\\"view\\\\\\":\\\\\\"timeSeries\\\\\\",\\\\\\"stacked\\\\\\":false,\\\\\\"region\\\\\\":\\\\\\"us-east-1\\\\\\",\\\\\\"period\\\\\\":60,\\\\\\"stat\\\\\\":\\\\\\"Sum\\\\\\",\\\\\\"annotations\\\\\\":{\\\\\\"horizontal\\\\\\":[{\\\\\\"color\\\\\\":\\\\\\"#17becf\\\\\\",\\\\\\"label\\\\\\":\\\\\\"RequestCountThreshold\\\\\\",\\\\\\"value\\\\\\":3}]},\\\\\\"title\\\\\\":\\\\\\"ALB Requests\\\\\\"}},{\\\\\\"type\\\\\\":\\\\\\"metric\\\\\\",\\\\\\"x\\\\\\":12,\\\\\\"y\\\\\\":0,\\\\\\"width\\\\\\":12,\\\\\\"height\\\\\\":6,\\\\\\"properties\\\\\\":{\\\\\\"metrics\\\\\\":[[\\\\\\"AWS/ApplicationELB\\\\\\",\\\\\\"TargetResponseTime\\\\\\",\\\\\\"LoadBalancer\\\\\\",\\\\\\"\${aws_alb.test_testPocketApp_applicationloadbalancer_alb_6EA5BF17.arn_suffix}\\\\\\",{\\\\\\"label\\\\\\":\\\\\\"Average\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#aec7e8\\\\\\"}],[\\\\\\"...\\\\\\",{\\\\\\"stat\\\\\\":\\\\\\"p95\\\\\\",\\\\\\"label\\\\\\":\\\\\\"p95\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#ffbb78\\\\\\"}],[\\\\\\"...\\\\\\",{\\\\\\"stat\\\\\\":\\\\\\"p99\\\\\\",\\\\\\"label\\\\\\":\\\\\\"p99\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#98df8a\\\\\\"}]],\\\\\\"view\\\\\\":\\\\\\"timeSeries\\\\\\",\\\\\\"stacked\\\\\\":false,\\\\\\"region\\\\\\":\\\\\\"us-east-1\\\\\\",\\\\\\"stat\\\\\\":\\\\\\"Average\\\\\\",\\\\\\"period\\\\\\":60}},{\\\\\\"type\\\\\\":\\\\\\"metric\\\\\\",\\\\\\"x\\\\\\":0,\\\\\\"y\\\\\\":6,\\\\\\"width\\\\\\":12,\\\\\\"height\\\\\\":6,\\\\\\"properties\\\\\\":{\\\\\\"metrics\\\\\\":[[\\\\\\"ECS/ContainerInsights\\\\\\",\\\\\\"RunningTaskCount\\\\\\",\\\\\\"ServiceName\\\\\\",\\\\\\"testapp-\\\\\\",\\\\\\"ClusterName\\\\\\",\\\\\\"\${aws_ecs_cluster.test_testPocketApp_ecscluster_CE90B54F.arn}\\\\\\",{\\\\\\"yAxis\\\\\\":\\\\\\"right\\\\\\",\\\\\\"stat\\\\\\":\\\\\\"Sum\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#c49c94\\\\\\"}],[\\\\\\".\\\\\\",\\\\\\"CpuUtilized\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",{\\\\\\"color\\\\\\":\\\\\\"#f7b6d2\\\\\\"}],[\\\\\\".\\\\\\",\\\\\\"MemoryUtilized\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",{\\\\\\"color\\\\\\":\\\\\\"#c7c7c7\\\\\\"}]],\\\\\\"view\\\\\\":\\\\\\"timeSeries\\\\\\",\\\\\\"stacked\\\\\\":false,\\\\\\"region\\\\\\":\\\\\\"us-east-1\\\\\\",\\\\\\"stat\\\\\\":\\\\\\"Average\\\\\\",\\\\\\"period\\\\\\":60,\\\\\\"annotations\\\\\\":{\\\\\\"horizontal\\\\\\":[{\\\\\\"color\\\\\\":\\\\\\"#e377c2\\\\\\",\\\\\\"label\\\\\\":\\\\\\"CPU scale out\\\\\\",\\\\\\"value\\\\\\":45},{\\\\\\"color\\\\\\":\\\\\\"#c5b0d5\\\\\\",\\\\\\"label\\\\\\":\\\\\\"CPU scale in\\\\\\",\\\\\\"value\\\\\\":30}]},\\\\\\"title\\\\\\":\\\\\\"Service Load\\\\\\"}}]}\\",
+        \\"dashboard_name\\": \\"testapp--ALBDashboard\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/cloudwatch-dashboard\\",
+            \\"uniqueId\\": \\"test_testPocketApp_cloudwatchdashboard_8824C28A\\"
           }
         }
       }
@@ -3174,6 +3840,61 @@ exports[`PocketALBApplication renders an internal application 1`] = `
             \\"uniqueId\\": \\"test_testPocketApp_ecsservice_ecsiam_ecstaskassume_A392A140\\"
           }
         }
+      },
+      \\"test_testPocketApp_autoscaling_autoscalingassume_6CD4F67B\\": {
+        \\"statement\\": [
+          {
+            \\"effect\\": \\"Allow\\",
+            \\"actions\\": [
+              \\"sts:AssumeRole\\"
+            ],
+            \\"principals\\": [
+              {
+                \\"identifiers\\": [
+                  \\"ecs.application-autoscaling.amazonaws.com\\"
+                ],
+                \\"type\\": \\"Service\\"
+              }
+            ]
+          }
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/autoscaling/autoscaling_assume\\",
+            \\"uniqueId\\": \\"test_testPocketApp_autoscaling_autoscalingassume_6CD4F67B\\"
+          }
+        }
+      },
+      \\"test_testPocketApp_autoscaling_rolepolicy_38FC9EBD\\": {
+        \\"statement\\": [
+          {
+            \\"effect\\": \\"Allow\\",
+            \\"actions\\": [
+              \\"cloudwatch:PutMetricAlarm\\",
+              \\"cloudwatch:DescribeAlarms\\",
+              \\"cloudwatch:DeleteAlarms\\"
+            ],
+            \\"resources\\": [
+              \\"arn:aws:cloudwatch:*:*:alarm:/testapp-*\\"
+            ]
+          },
+          {
+            \\"effect\\": \\"Allow\\",
+            \\"actions\\": [
+              \\"ecs:DescribeServices\\",
+              \\"ecs:UpdateService\\"
+            ],
+            \\"resources\\": [
+              \\"arn:aws:ecs:*:*:service/testapp-*\\"
+            ]
+          }
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/autoscaling/role_policy\\",
+            \\"uniqueId\\": \\"test_testPocketApp_autoscaling_rolepolicy_38FC9EBD\\"
+          }
+        }
       }
     }
   },
@@ -3503,6 +4224,16 @@ exports[`PocketALBApplication renders an internal application 1`] = `
             \\"uniqueId\\": \\"test_testPocketApp_ecsservice_ecsiam_ecstaskrole_E41363D4\\"
           }
         }
+      },
+      \\"test_testPocketApp_autoscaling_autoscalingrole_7AF03E02\\": {
+        \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.test_testPocketApp_autoscaling_autoscalingassume_6CD4F67B.json}\\",
+        \\"name\\": \\"testapp--AutoScalingRole\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/autoscaling/autoscaling_role\\",
+            \\"uniqueId\\": \\"test_testPocketApp_autoscaling_autoscalingrole_7AF03E02\\"
+          }
+        }
       }
     },
     \\"aws_ecs_task_definition\\": {
@@ -3632,6 +4363,159 @@ exports[`PocketALBApplication renders an internal application 1`] = `
           \\"metadata\\": {
             \\"path\\": \\"test/testPocketApp/ecs_service/ecs-service\\",
             \\"uniqueId\\": \\"test_testPocketApp_ecsservice_ecsservice_B23795BD\\"
+          }
+        }
+      }
+    },
+    \\"aws_iam_role_policy\\": {
+      \\"test_testPocketApp_autoscaling_autoscalingrolepolicy_74F4D9D4\\": {
+        \\"name\\": \\"testapp--AutoScalingPolicy\\",
+        \\"policy\\": \\"\${data.aws_iam_policy_document.test_testPocketApp_autoscaling_rolepolicy_38FC9EBD.json}\\",
+        \\"role\\": \\"\${aws_iam_role.test_testPocketApp_autoscaling_autoscalingrole_7AF03E02.id}\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/autoscaling/autoscaling_role_policy\\",
+            \\"uniqueId\\": \\"test_testPocketApp_autoscaling_autoscalingrolepolicy_74F4D9D4\\"
+          }
+        }
+      }
+    },
+    \\"aws_appautoscaling_target\\": {
+      \\"test_testPocketApp_autoscaling_autoscalingtarget_6206F84C\\": {
+        \\"max_capacity\\": 2,
+        \\"min_capacity\\": 1,
+        \\"resource_id\\": \\"service/testapp-/testapp-\\",
+        \\"role_arn\\": \\"\${aws_iam_role.test_testPocketApp_autoscaling_autoscalingrole_7AF03E02.arn}\\",
+        \\"scalable_dimension\\": \\"ecs:service:DesiredCount\\",
+        \\"service_namespace\\": \\"ecs\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/autoscaling/autoscaling_target\\",
+            \\"uniqueId\\": \\"test_testPocketApp_autoscaling_autoscalingtarget_6206F84C\\"
+          }
+        }
+      }
+    },
+    \\"aws_appautoscaling_policy\\": {
+      \\"test_testPocketApp_autoscaling_scaleoutpolicy_65809B71\\": {
+        \\"name\\": \\"testapp--ScaleOutPolicy\\",
+        \\"policy_type\\": \\"StepScaling\\",
+        \\"resource_id\\": \\"service/testapp-/testapp-\\",
+        \\"scalable_dimension\\": \\"ecs:service:DesiredCount\\",
+        \\"service_namespace\\": \\"ecs\\",
+        \\"step_scaling_policy_configuration\\": [
+          {
+            \\"adjustment_type\\": \\"ChangeInCapacity\\",
+            \\"cooldown\\": 60,
+            \\"metric_aggregation_type\\": \\"Average\\",
+            \\"step_adjustment\\": [
+              {
+                \\"metric_interval_lower_bound\\": \\"0\\",
+                \\"scaling_adjustment\\": 2
+              }
+            ]
+          }
+        ],
+        \\"depends_on\\": [
+          \\"aws_appautoscaling_target.test_testPocketApp_autoscaling_autoscalingtarget_6206F84C\\"
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/autoscaling/scale_out_policy\\",
+            \\"uniqueId\\": \\"test_testPocketApp_autoscaling_scaleoutpolicy_65809B71\\"
+          }
+        }
+      },
+      \\"test_testPocketApp_autoscaling_scaleinpolicy_79053E73\\": {
+        \\"name\\": \\"testapp--ScaleInPolicy\\",
+        \\"policy_type\\": \\"StepScaling\\",
+        \\"resource_id\\": \\"service/testapp-/testapp-\\",
+        \\"scalable_dimension\\": \\"ecs:service:DesiredCount\\",
+        \\"service_namespace\\": \\"ecs\\",
+        \\"step_scaling_policy_configuration\\": [
+          {
+            \\"adjustment_type\\": \\"ChangeInCapacity\\",
+            \\"cooldown\\": 60,
+            \\"metric_aggregation_type\\": \\"Average\\",
+            \\"step_adjustment\\": [
+              {
+                \\"metric_interval_upper_bound\\": \\"0\\",
+                \\"scaling_adjustment\\": 1
+              }
+            ]
+          }
+        ],
+        \\"depends_on\\": [
+          \\"aws_appautoscaling_target.test_testPocketApp_autoscaling_autoscalingtarget_6206F84C\\"
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/autoscaling/scale_in_policy\\",
+            \\"uniqueId\\": \\"test_testPocketApp_autoscaling_scaleinpolicy_79053E73\\"
+          }
+        }
+      }
+    },
+    \\"aws_cloudwatch_metric_alarm\\": {
+      \\"test_testPocketApp_autoscaling_scaleoutalarm_2AEF0584\\": {
+        \\"alarm_actions\\": [
+          \\"\${aws_appautoscaling_policy.test_testPocketApp_autoscaling_scaleoutpolicy_65809B71.arn}\\"
+        ],
+        \\"alarm_description\\": \\"Alarm to add capacity if CPU is high\\",
+        \\"alarm_name\\": \\"testapp- Service High CPU\\",
+        \\"comparison_operator\\": \\"GreaterThanThreshold\\",
+        \\"dimensions\\": {
+          \\"cluster_name\\": \\"testapp-\\",
+          \\"service_name\\": \\"testapp-\\"
+        },
+        \\"evaluation_periods\\": 2,
+        \\"metric_name\\": \\"CPUUtilization\\",
+        \\"namespace\\": \\"AWS/ECS\\",
+        \\"period\\": 60,
+        \\"statistic\\": \\"Average\\",
+        \\"threshold\\": 45,
+        \\"treat_missing_data\\": \\"notBreaching\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/autoscaling/scale_out_alarm\\",
+            \\"uniqueId\\": \\"test_testPocketApp_autoscaling_scaleoutalarm_2AEF0584\\"
+          }
+        }
+      },
+      \\"test_testPocketApp_autoscaling_scaleinalarm_5B889D45\\": {
+        \\"alarm_actions\\": [
+          \\"\${aws_appautoscaling_policy.test_testPocketApp_autoscaling_scaleinpolicy_79053E73.arn}\\"
+        ],
+        \\"alarm_description\\": \\"Alarm to reduce capacity if container CPU is low\\",
+        \\"alarm_name\\": \\"testapp- Service Low CPU\\",
+        \\"comparison_operator\\": \\"LessThanThreshold\\",
+        \\"dimensions\\": {
+          \\"cluster_name\\": \\"testapp-\\",
+          \\"service_name\\": \\"testapp-\\"
+        },
+        \\"evaluation_periods\\": 2,
+        \\"metric_name\\": \\"CPUUtilization\\",
+        \\"namespace\\": \\"AWS/ECS\\",
+        \\"period\\": 60,
+        \\"statistic\\": \\"Average\\",
+        \\"threshold\\": 30,
+        \\"treat_missing_data\\": \\"notBreaching\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/autoscaling/scale_in_alarm\\",
+            \\"uniqueId\\": \\"test_testPocketApp_autoscaling_scaleinalarm_5B889D45\\"
+          }
+        }
+      }
+    },
+    \\"aws_cloudwatch_dashboard\\": {
+      \\"test_testPocketApp_cloudwatchdashboard_8824C28A\\": {
+        \\"dashboard_body\\": \\"{\\\\\\"widgets\\\\\\":[{\\\\\\"type\\\\\\":\\\\\\"metric\\\\\\",\\\\\\"x\\\\\\":0,\\\\\\"y\\\\\\":0,\\\\\\"width\\\\\\":12,\\\\\\"height\\\\\\":6,\\\\\\"properties\\\\\\":{\\\\\\"metrics\\\\\\":[[\\\\\\"AWS/ApplicationELB\\\\\\",\\\\\\"HTTPCode_Target_4XX_Count\\\\\\",\\\\\\"LoadBalancer\\\\\\",\\\\\\"\${aws_alb.test_testPocketApp_applicationloadbalancer_alb_6EA5BF17.arn_suffix}\\\\\\",{\\\\\\"yAxis\\\\\\":\\\\\\"left\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#ff7f0e\\\\\\"}],[\\\\\\".\\\\\\",\\\\\\"RequestCount\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",{\\\\\\"yAxis\\\\\\":\\\\\\"right\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#1f77b4\\\\\\"}],[\\\\\\".\\\\\\",\\\\\\"HTTPCode_Target_5XX_Count\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",{\\\\\\"color\\\\\\":\\\\\\"#d62728\\\\\\"}],[\\\\\\".\\\\\\",\\\\\\"HTTPCode_Target_2XX_Count\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",{\\\\\\"yAxis\\\\\\":\\\\\\"right\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#2ca02c\\\\\\"}]],\\\\\\"view\\\\\\":\\\\\\"timeSeries\\\\\\",\\\\\\"stacked\\\\\\":false,\\\\\\"region\\\\\\":\\\\\\"us-east-1\\\\\\",\\\\\\"period\\\\\\":60,\\\\\\"stat\\\\\\":\\\\\\"Sum\\\\\\",\\\\\\"annotations\\\\\\":{\\\\\\"horizontal\\\\\\":[{\\\\\\"color\\\\\\":\\\\\\"#17becf\\\\\\",\\\\\\"label\\\\\\":\\\\\\"RequestCountThreshold\\\\\\",\\\\\\"value\\\\\\":3}]},\\\\\\"title\\\\\\":\\\\\\"ALB Requests\\\\\\"}},{\\\\\\"type\\\\\\":\\\\\\"metric\\\\\\",\\\\\\"x\\\\\\":12,\\\\\\"y\\\\\\":0,\\\\\\"width\\\\\\":12,\\\\\\"height\\\\\\":6,\\\\\\"properties\\\\\\":{\\\\\\"metrics\\\\\\":[[\\\\\\"AWS/ApplicationELB\\\\\\",\\\\\\"TargetResponseTime\\\\\\",\\\\\\"LoadBalancer\\\\\\",\\\\\\"\${aws_alb.test_testPocketApp_applicationloadbalancer_alb_6EA5BF17.arn_suffix}\\\\\\",{\\\\\\"label\\\\\\":\\\\\\"Average\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#aec7e8\\\\\\"}],[\\\\\\"...\\\\\\",{\\\\\\"stat\\\\\\":\\\\\\"p95\\\\\\",\\\\\\"label\\\\\\":\\\\\\"p95\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#ffbb78\\\\\\"}],[\\\\\\"...\\\\\\",{\\\\\\"stat\\\\\\":\\\\\\"p99\\\\\\",\\\\\\"label\\\\\\":\\\\\\"p99\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#98df8a\\\\\\"}]],\\\\\\"view\\\\\\":\\\\\\"timeSeries\\\\\\",\\\\\\"stacked\\\\\\":false,\\\\\\"region\\\\\\":\\\\\\"us-east-1\\\\\\",\\\\\\"stat\\\\\\":\\\\\\"Average\\\\\\",\\\\\\"period\\\\\\":60}},{\\\\\\"type\\\\\\":\\\\\\"metric\\\\\\",\\\\\\"x\\\\\\":0,\\\\\\"y\\\\\\":6,\\\\\\"width\\\\\\":12,\\\\\\"height\\\\\\":6,\\\\\\"properties\\\\\\":{\\\\\\"metrics\\\\\\":[[\\\\\\"ECS/ContainerInsights\\\\\\",\\\\\\"RunningTaskCount\\\\\\",\\\\\\"ServiceName\\\\\\",\\\\\\"testapp-\\\\\\",\\\\\\"ClusterName\\\\\\",\\\\\\"\${aws_ecs_cluster.test_testPocketApp_ecscluster_CE90B54F.arn}\\\\\\",{\\\\\\"yAxis\\\\\\":\\\\\\"right\\\\\\",\\\\\\"stat\\\\\\":\\\\\\"Sum\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#c49c94\\\\\\"}],[\\\\\\".\\\\\\",\\\\\\"CpuUtilized\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",{\\\\\\"color\\\\\\":\\\\\\"#f7b6d2\\\\\\"}],[\\\\\\".\\\\\\",\\\\\\"MemoryUtilized\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",{\\\\\\"color\\\\\\":\\\\\\"#c7c7c7\\\\\\"}]],\\\\\\"view\\\\\\":\\\\\\"timeSeries\\\\\\",\\\\\\"stacked\\\\\\":false,\\\\\\"region\\\\\\":\\\\\\"us-east-1\\\\\\",\\\\\\"stat\\\\\\":\\\\\\"Average\\\\\\",\\\\\\"period\\\\\\":60,\\\\\\"annotations\\\\\\":{\\\\\\"horizontal\\\\\\":[{\\\\\\"color\\\\\\":\\\\\\"#e377c2\\\\\\",\\\\\\"label\\\\\\":\\\\\\"CPU scale out\\\\\\",\\\\\\"value\\\\\\":45},{\\\\\\"color\\\\\\":\\\\\\"#c5b0d5\\\\\\",\\\\\\"label\\\\\\":\\\\\\"CPU scale in\\\\\\",\\\\\\"value\\\\\\":30}]},\\\\\\"title\\\\\\":\\\\\\"Service Load\\\\\\"}}]}\\",
+        \\"dashboard_name\\": \\"testapp--ALBDashboard\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/cloudwatch-dashboard\\",
+            \\"uniqueId\\": \\"test_testPocketApp_cloudwatchdashboard_8824C28A\\"
           }
         }
       }
@@ -3819,6 +4703,61 @@ exports[`PocketALBApplication renders an internal application with tags 1`] = `
             \\"uniqueId\\": \\"test_testPocketApp_ecsservice_ecsiam_ecstaskassume_A392A140\\"
           }
         }
+      },
+      \\"test_testPocketApp_autoscaling_autoscalingassume_6CD4F67B\\": {
+        \\"statement\\": [
+          {
+            \\"effect\\": \\"Allow\\",
+            \\"actions\\": [
+              \\"sts:AssumeRole\\"
+            ],
+            \\"principals\\": [
+              {
+                \\"identifiers\\": [
+                  \\"ecs.application-autoscaling.amazonaws.com\\"
+                ],
+                \\"type\\": \\"Service\\"
+              }
+            ]
+          }
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/autoscaling/autoscaling_assume\\",
+            \\"uniqueId\\": \\"test_testPocketApp_autoscaling_autoscalingassume_6CD4F67B\\"
+          }
+        }
+      },
+      \\"test_testPocketApp_autoscaling_rolepolicy_38FC9EBD\\": {
+        \\"statement\\": [
+          {
+            \\"effect\\": \\"Allow\\",
+            \\"actions\\": [
+              \\"cloudwatch:PutMetricAlarm\\",
+              \\"cloudwatch:DescribeAlarms\\",
+              \\"cloudwatch:DeleteAlarms\\"
+            ],
+            \\"resources\\": [
+              \\"arn:aws:cloudwatch:*:*:alarm:/testapp-*\\"
+            ]
+          },
+          {
+            \\"effect\\": \\"Allow\\",
+            \\"actions\\": [
+              \\"ecs:DescribeServices\\",
+              \\"ecs:UpdateService\\"
+            ],
+            \\"resources\\": [
+              \\"arn:aws:ecs:*:*:service/testapp-*\\"
+            ]
+          }
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/autoscaling/role_policy\\",
+            \\"uniqueId\\": \\"test_testPocketApp_autoscaling_rolepolicy_38FC9EBD\\"
+          }
+        }
       }
     }
   },
@@ -4178,6 +5117,16 @@ exports[`PocketALBApplication renders an internal application with tags 1`] = `
             \\"uniqueId\\": \\"test_testPocketApp_ecsservice_ecsiam_ecstaskrole_E41363D4\\"
           }
         }
+      },
+      \\"test_testPocketApp_autoscaling_autoscalingrole_7AF03E02\\": {
+        \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.test_testPocketApp_autoscaling_autoscalingassume_6CD4F67B.json}\\",
+        \\"name\\": \\"testapp--AutoScalingRole\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/autoscaling/autoscaling_role\\",
+            \\"uniqueId\\": \\"test_testPocketApp_autoscaling_autoscalingrole_7AF03E02\\"
+          }
+        }
       }
     },
     \\"aws_ecs_task_definition\\": {
@@ -4317,6 +5266,167 @@ exports[`PocketALBApplication renders an internal application with tags 1`] = `
           \\"metadata\\": {
             \\"path\\": \\"test/testPocketApp/ecs_service/ecs-service\\",
             \\"uniqueId\\": \\"test_testPocketApp_ecsservice_ecsservice_B23795BD\\"
+          }
+        }
+      }
+    },
+    \\"aws_iam_role_policy\\": {
+      \\"test_testPocketApp_autoscaling_autoscalingrolepolicy_74F4D9D4\\": {
+        \\"name\\": \\"testapp--AutoScalingPolicy\\",
+        \\"policy\\": \\"\${data.aws_iam_policy_document.test_testPocketApp_autoscaling_rolepolicy_38FC9EBD.json}\\",
+        \\"role\\": \\"\${aws_iam_role.test_testPocketApp_autoscaling_autoscalingrole_7AF03E02.id}\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/autoscaling/autoscaling_role_policy\\",
+            \\"uniqueId\\": \\"test_testPocketApp_autoscaling_autoscalingrolepolicy_74F4D9D4\\"
+          }
+        }
+      }
+    },
+    \\"aws_appautoscaling_target\\": {
+      \\"test_testPocketApp_autoscaling_autoscalingtarget_6206F84C\\": {
+        \\"max_capacity\\": 2,
+        \\"min_capacity\\": 1,
+        \\"resource_id\\": \\"service/testapp-/testapp-\\",
+        \\"role_arn\\": \\"\${aws_iam_role.test_testPocketApp_autoscaling_autoscalingrole_7AF03E02.arn}\\",
+        \\"scalable_dimension\\": \\"ecs:service:DesiredCount\\",
+        \\"service_namespace\\": \\"ecs\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/autoscaling/autoscaling_target\\",
+            \\"uniqueId\\": \\"test_testPocketApp_autoscaling_autoscalingtarget_6206F84C\\"
+          }
+        }
+      }
+    },
+    \\"aws_appautoscaling_policy\\": {
+      \\"test_testPocketApp_autoscaling_scaleoutpolicy_65809B71\\": {
+        \\"name\\": \\"testapp--ScaleOutPolicy\\",
+        \\"policy_type\\": \\"StepScaling\\",
+        \\"resource_id\\": \\"service/testapp-/testapp-\\",
+        \\"scalable_dimension\\": \\"ecs:service:DesiredCount\\",
+        \\"service_namespace\\": \\"ecs\\",
+        \\"step_scaling_policy_configuration\\": [
+          {
+            \\"adjustment_type\\": \\"ChangeInCapacity\\",
+            \\"cooldown\\": 60,
+            \\"metric_aggregation_type\\": \\"Average\\",
+            \\"step_adjustment\\": [
+              {
+                \\"metric_interval_lower_bound\\": \\"0\\",
+                \\"scaling_adjustment\\": 2
+              }
+            ]
+          }
+        ],
+        \\"depends_on\\": [
+          \\"aws_appautoscaling_target.test_testPocketApp_autoscaling_autoscalingtarget_6206F84C\\"
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/autoscaling/scale_out_policy\\",
+            \\"uniqueId\\": \\"test_testPocketApp_autoscaling_scaleoutpolicy_65809B71\\"
+          }
+        }
+      },
+      \\"test_testPocketApp_autoscaling_scaleinpolicy_79053E73\\": {
+        \\"name\\": \\"testapp--ScaleInPolicy\\",
+        \\"policy_type\\": \\"StepScaling\\",
+        \\"resource_id\\": \\"service/testapp-/testapp-\\",
+        \\"scalable_dimension\\": \\"ecs:service:DesiredCount\\",
+        \\"service_namespace\\": \\"ecs\\",
+        \\"step_scaling_policy_configuration\\": [
+          {
+            \\"adjustment_type\\": \\"ChangeInCapacity\\",
+            \\"cooldown\\": 60,
+            \\"metric_aggregation_type\\": \\"Average\\",
+            \\"step_adjustment\\": [
+              {
+                \\"metric_interval_upper_bound\\": \\"0\\",
+                \\"scaling_adjustment\\": 1
+              }
+            ]
+          }
+        ],
+        \\"depends_on\\": [
+          \\"aws_appautoscaling_target.test_testPocketApp_autoscaling_autoscalingtarget_6206F84C\\"
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/autoscaling/scale_in_policy\\",
+            \\"uniqueId\\": \\"test_testPocketApp_autoscaling_scaleinpolicy_79053E73\\"
+          }
+        }
+      }
+    },
+    \\"aws_cloudwatch_metric_alarm\\": {
+      \\"test_testPocketApp_autoscaling_scaleoutalarm_2AEF0584\\": {
+        \\"alarm_actions\\": [
+          \\"\${aws_appautoscaling_policy.test_testPocketApp_autoscaling_scaleoutpolicy_65809B71.arn}\\"
+        ],
+        \\"alarm_description\\": \\"Alarm to add capacity if CPU is high\\",
+        \\"alarm_name\\": \\"testapp- Service High CPU\\",
+        \\"comparison_operator\\": \\"GreaterThanThreshold\\",
+        \\"dimensions\\": {
+          \\"cluster_name\\": \\"testapp-\\",
+          \\"service_name\\": \\"testapp-\\"
+        },
+        \\"evaluation_periods\\": 2,
+        \\"metric_name\\": \\"CPUUtilization\\",
+        \\"namespace\\": \\"AWS/ECS\\",
+        \\"period\\": 60,
+        \\"statistic\\": \\"Average\\",
+        \\"tags\\": {
+          \\"name\\": \\"thedude\\",
+          \\"hobby\\": \\"bowling\\"
+        },
+        \\"threshold\\": 45,
+        \\"treat_missing_data\\": \\"notBreaching\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/autoscaling/scale_out_alarm\\",
+            \\"uniqueId\\": \\"test_testPocketApp_autoscaling_scaleoutalarm_2AEF0584\\"
+          }
+        }
+      },
+      \\"test_testPocketApp_autoscaling_scaleinalarm_5B889D45\\": {
+        \\"alarm_actions\\": [
+          \\"\${aws_appautoscaling_policy.test_testPocketApp_autoscaling_scaleinpolicy_79053E73.arn}\\"
+        ],
+        \\"alarm_description\\": \\"Alarm to reduce capacity if container CPU is low\\",
+        \\"alarm_name\\": \\"testapp- Service Low CPU\\",
+        \\"comparison_operator\\": \\"LessThanThreshold\\",
+        \\"dimensions\\": {
+          \\"cluster_name\\": \\"testapp-\\",
+          \\"service_name\\": \\"testapp-\\"
+        },
+        \\"evaluation_periods\\": 2,
+        \\"metric_name\\": \\"CPUUtilization\\",
+        \\"namespace\\": \\"AWS/ECS\\",
+        \\"period\\": 60,
+        \\"statistic\\": \\"Average\\",
+        \\"tags\\": {
+          \\"name\\": \\"thedude\\",
+          \\"hobby\\": \\"bowling\\"
+        },
+        \\"threshold\\": 30,
+        \\"treat_missing_data\\": \\"notBreaching\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/autoscaling/scale_in_alarm\\",
+            \\"uniqueId\\": \\"test_testPocketApp_autoscaling_scaleinalarm_5B889D45\\"
+          }
+        }
+      }
+    },
+    \\"aws_cloudwatch_dashboard\\": {
+      \\"test_testPocketApp_cloudwatchdashboard_8824C28A\\": {
+        \\"dashboard_body\\": \\"{\\\\\\"widgets\\\\\\":[{\\\\\\"type\\\\\\":\\\\\\"metric\\\\\\",\\\\\\"x\\\\\\":0,\\\\\\"y\\\\\\":0,\\\\\\"width\\\\\\":12,\\\\\\"height\\\\\\":6,\\\\\\"properties\\\\\\":{\\\\\\"metrics\\\\\\":[[\\\\\\"AWS/ApplicationELB\\\\\\",\\\\\\"HTTPCode_Target_4XX_Count\\\\\\",\\\\\\"LoadBalancer\\\\\\",\\\\\\"\${aws_alb.test_testPocketApp_applicationloadbalancer_alb_6EA5BF17.arn_suffix}\\\\\\",{\\\\\\"yAxis\\\\\\":\\\\\\"left\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#ff7f0e\\\\\\"}],[\\\\\\".\\\\\\",\\\\\\"RequestCount\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",{\\\\\\"yAxis\\\\\\":\\\\\\"right\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#1f77b4\\\\\\"}],[\\\\\\".\\\\\\",\\\\\\"HTTPCode_Target_5XX_Count\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",{\\\\\\"color\\\\\\":\\\\\\"#d62728\\\\\\"}],[\\\\\\".\\\\\\",\\\\\\"HTTPCode_Target_2XX_Count\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",{\\\\\\"yAxis\\\\\\":\\\\\\"right\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#2ca02c\\\\\\"}]],\\\\\\"view\\\\\\":\\\\\\"timeSeries\\\\\\",\\\\\\"stacked\\\\\\":false,\\\\\\"region\\\\\\":\\\\\\"us-east-1\\\\\\",\\\\\\"period\\\\\\":60,\\\\\\"stat\\\\\\":\\\\\\"Sum\\\\\\",\\\\\\"annotations\\\\\\":{\\\\\\"horizontal\\\\\\":[{\\\\\\"color\\\\\\":\\\\\\"#17becf\\\\\\",\\\\\\"label\\\\\\":\\\\\\"RequestCountThreshold\\\\\\",\\\\\\"value\\\\\\":3}]},\\\\\\"title\\\\\\":\\\\\\"ALB Requests\\\\\\"}},{\\\\\\"type\\\\\\":\\\\\\"metric\\\\\\",\\\\\\"x\\\\\\":12,\\\\\\"y\\\\\\":0,\\\\\\"width\\\\\\":12,\\\\\\"height\\\\\\":6,\\\\\\"properties\\\\\\":{\\\\\\"metrics\\\\\\":[[\\\\\\"AWS/ApplicationELB\\\\\\",\\\\\\"TargetResponseTime\\\\\\",\\\\\\"LoadBalancer\\\\\\",\\\\\\"\${aws_alb.test_testPocketApp_applicationloadbalancer_alb_6EA5BF17.arn_suffix}\\\\\\",{\\\\\\"label\\\\\\":\\\\\\"Average\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#aec7e8\\\\\\"}],[\\\\\\"...\\\\\\",{\\\\\\"stat\\\\\\":\\\\\\"p95\\\\\\",\\\\\\"label\\\\\\":\\\\\\"p95\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#ffbb78\\\\\\"}],[\\\\\\"...\\\\\\",{\\\\\\"stat\\\\\\":\\\\\\"p99\\\\\\",\\\\\\"label\\\\\\":\\\\\\"p99\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#98df8a\\\\\\"}]],\\\\\\"view\\\\\\":\\\\\\"timeSeries\\\\\\",\\\\\\"stacked\\\\\\":false,\\\\\\"region\\\\\\":\\\\\\"us-east-1\\\\\\",\\\\\\"stat\\\\\\":\\\\\\"Average\\\\\\",\\\\\\"period\\\\\\":60}},{\\\\\\"type\\\\\\":\\\\\\"metric\\\\\\",\\\\\\"x\\\\\\":0,\\\\\\"y\\\\\\":6,\\\\\\"width\\\\\\":12,\\\\\\"height\\\\\\":6,\\\\\\"properties\\\\\\":{\\\\\\"metrics\\\\\\":[[\\\\\\"ECS/ContainerInsights\\\\\\",\\\\\\"RunningTaskCount\\\\\\",\\\\\\"ServiceName\\\\\\",\\\\\\"testapp-\\\\\\",\\\\\\"ClusterName\\\\\\",\\\\\\"\${aws_ecs_cluster.test_testPocketApp_ecscluster_CE90B54F.arn}\\\\\\",{\\\\\\"yAxis\\\\\\":\\\\\\"right\\\\\\",\\\\\\"stat\\\\\\":\\\\\\"Sum\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#c49c94\\\\\\"}],[\\\\\\".\\\\\\",\\\\\\"CpuUtilized\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",{\\\\\\"color\\\\\\":\\\\\\"#f7b6d2\\\\\\"}],[\\\\\\".\\\\\\",\\\\\\"MemoryUtilized\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",{\\\\\\"color\\\\\\":\\\\\\"#c7c7c7\\\\\\"}]],\\\\\\"view\\\\\\":\\\\\\"timeSeries\\\\\\",\\\\\\"stacked\\\\\\":false,\\\\\\"region\\\\\\":\\\\\\"us-east-1\\\\\\",\\\\\\"stat\\\\\\":\\\\\\"Average\\\\\\",\\\\\\"period\\\\\\":60,\\\\\\"annotations\\\\\\":{\\\\\\"horizontal\\\\\\":[{\\\\\\"color\\\\\\":\\\\\\"#e377c2\\\\\\",\\\\\\"label\\\\\\":\\\\\\"CPU scale out\\\\\\",\\\\\\"value\\\\\\":45},{\\\\\\"color\\\\\\":\\\\\\"#c5b0d5\\\\\\",\\\\\\"label\\\\\\":\\\\\\"CPU scale in\\\\\\",\\\\\\"value\\\\\\":30}]},\\\\\\"title\\\\\\":\\\\\\"Service Load\\\\\\"}}]}\\",
+        \\"dashboard_name\\": \\"testapp--ALBDashboard\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/cloudwatch-dashboard\\",
+            \\"uniqueId\\": \\"test_testPocketApp_cloudwatchdashboard_8824C28A\\"
           }
         }
       }
