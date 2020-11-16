@@ -110,7 +110,8 @@ export class PocketALBApplication extends Resource {
       ecsService.ecs.service.name,
       ecsService.ecs.service.cluster,
       config.autoscalingConfig.scaleOutThreshold,
-      config.autoscalingConfig.scaleInThreshold
+      config.autoscalingConfig.scaleInThreshold,
+      config.prefix
     );
   }
 
@@ -436,13 +437,15 @@ export class PocketALBApplication extends Resource {
    * @param ecsServiceClusterName
    * @param scaleOutThreshold
    * @param scaleInThreshold
+   * @param prefix
    */
   private createCloudwatchDashboard(
     albArnSuffix: string,
     ecsServiceName: string,
     ecsServiceClusterName: string,
     scaleOutThreshold: number,
-    scaleInThreshold: number
+    scaleInThreshold: number,
+    prefix: string
   ): CloudwatchDashboard {
     // don't love having this big ol' JSON object here, but it is the simplest way to achieve the result
     const dashboardJSON = {
@@ -624,7 +627,7 @@ export class PocketALBApplication extends Resource {
     };
 
     return new CloudwatchDashboard(this, 'cloudwatch-dashboard', {
-      dashboardName: 'default',
+      dashboardName: `${prefix}-ALBDashboard`,
       dashboardBody: JSON.stringify(dashboardJSON),
     });
   }
