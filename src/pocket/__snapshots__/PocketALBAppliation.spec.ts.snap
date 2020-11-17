@@ -845,7 +845,9 @@ exports[`PocketALBApplication renders an application with autoscaling group and 
         \\"comparison_operator\\": \\"GreaterThanThreshold\\",
         \\"dimensions\\": {
           \\"cluster_name\\": \\"testapp-\\",
-          \\"service_name\\": \\"testapp-\\"
+          \\"service_name\\": \\"testapp-\\",
+          \\"ClusterName\\": \\"testapp-\\",
+          \\"ServiceName\\": \\"testapp-\\"
         },
         \\"evaluation_periods\\": 2,
         \\"metric_name\\": \\"CPUUtilization\\",
@@ -874,7 +876,9 @@ exports[`PocketALBApplication renders an application with autoscaling group and 
         \\"comparison_operator\\": \\"LessThanThreshold\\",
         \\"dimensions\\": {
           \\"cluster_name\\": \\"testapp-\\",
-          \\"service_name\\": \\"testapp-\\"
+          \\"service_name\\": \\"testapp-\\",
+          \\"ClusterName\\": \\"testapp-\\",
+          \\"ServiceName\\": \\"testapp-\\"
         },
         \\"evaluation_periods\\": 2,
         \\"metric_name\\": \\"CPUUtilization\\",
@@ -1716,7 +1720,9 @@ exports[`PocketALBApplication renders an application with custom task sizes 1`] 
         \\"comparison_operator\\": \\"GreaterThanThreshold\\",
         \\"dimensions\\": {
           \\"cluster_name\\": \\"testapp-\\",
-          \\"service_name\\": \\"testapp-\\"
+          \\"service_name\\": \\"testapp-\\",
+          \\"ClusterName\\": \\"testapp-\\",
+          \\"ServiceName\\": \\"testapp-\\"
         },
         \\"evaluation_periods\\": 2,
         \\"metric_name\\": \\"CPUUtilization\\",
@@ -1741,7 +1747,9 @@ exports[`PocketALBApplication renders an application with custom task sizes 1`] 
         \\"comparison_operator\\": \\"LessThanThreshold\\",
         \\"dimensions\\": {
           \\"cluster_name\\": \\"testapp-\\",
-          \\"service_name\\": \\"testapp-\\"
+          \\"service_name\\": \\"testapp-\\",
+          \\"ClusterName\\": \\"testapp-\\",
+          \\"ServiceName\\": \\"testapp-\\"
         },
         \\"evaluation_periods\\": 2,
         \\"metric_name\\": \\"CPUUtilization\\",
@@ -2579,7 +2587,9 @@ exports[`PocketALBApplication renders an application with minimal config 1`] = `
         \\"comparison_operator\\": \\"GreaterThanThreshold\\",
         \\"dimensions\\": {
           \\"cluster_name\\": \\"testapp-\\",
-          \\"service_name\\": \\"testapp-\\"
+          \\"service_name\\": \\"testapp-\\",
+          \\"ClusterName\\": \\"testapp-\\",
+          \\"ServiceName\\": \\"testapp-\\"
         },
         \\"evaluation_periods\\": 2,
         \\"metric_name\\": \\"CPUUtilization\\",
@@ -2604,7 +2614,9 @@ exports[`PocketALBApplication renders an application with minimal config 1`] = `
         \\"comparison_operator\\": \\"LessThanThreshold\\",
         \\"dimensions\\": {
           \\"cluster_name\\": \\"testapp-\\",
-          \\"service_name\\": \\"testapp-\\"
+          \\"service_name\\": \\"testapp-\\",
+          \\"ClusterName\\": \\"testapp-\\",
+          \\"ServiceName\\": \\"testapp-\\"
         },
         \\"evaluation_periods\\": 2,
         \\"metric_name\\": \\"CPUUtilization\\",
@@ -3603,7 +3615,9 @@ exports[`PocketALBApplication renders an external application 1`] = `
         \\"comparison_operator\\": \\"GreaterThanThreshold\\",
         \\"dimensions\\": {
           \\"cluster_name\\": \\"testapp-\\",
-          \\"service_name\\": \\"testapp-\\"
+          \\"service_name\\": \\"testapp-\\",
+          \\"ClusterName\\": \\"testapp-\\",
+          \\"ServiceName\\": \\"testapp-\\"
         },
         \\"evaluation_periods\\": 2,
         \\"metric_name\\": \\"CPUUtilization\\",
@@ -3628,7 +3642,9 @@ exports[`PocketALBApplication renders an external application 1`] = `
         \\"comparison_operator\\": \\"LessThanThreshold\\",
         \\"dimensions\\": {
           \\"cluster_name\\": \\"testapp-\\",
-          \\"service_name\\": \\"testapp-\\"
+          \\"service_name\\": \\"testapp-\\",
+          \\"ClusterName\\": \\"testapp-\\",
+          \\"ServiceName\\": \\"testapp-\\"
         },
         \\"evaluation_periods\\": 2,
         \\"metric_name\\": \\"CPUUtilization\\",
@@ -4466,7 +4482,9 @@ exports[`PocketALBApplication renders an internal application 1`] = `
         \\"comparison_operator\\": \\"GreaterThanThreshold\\",
         \\"dimensions\\": {
           \\"cluster_name\\": \\"testapp-\\",
-          \\"service_name\\": \\"testapp-\\"
+          \\"service_name\\": \\"testapp-\\",
+          \\"ClusterName\\": \\"testapp-\\",
+          \\"ServiceName\\": \\"testapp-\\"
         },
         \\"evaluation_periods\\": 2,
         \\"metric_name\\": \\"CPUUtilization\\",
@@ -4491,7 +4509,9 @@ exports[`PocketALBApplication renders an internal application 1`] = `
         \\"comparison_operator\\": \\"LessThanThreshold\\",
         \\"dimensions\\": {
           \\"cluster_name\\": \\"testapp-\\",
-          \\"service_name\\": \\"testapp-\\"
+          \\"service_name\\": \\"testapp-\\",
+          \\"ClusterName\\": \\"testapp-\\",
+          \\"ServiceName\\": \\"testapp-\\"
         },
         \\"evaluation_periods\\": 2,
         \\"metric_name\\": \\"CPUUtilization\\",
@@ -5369,7 +5389,9 @@ exports[`PocketALBApplication renders an internal application with tags 1`] = `
         \\"comparison_operator\\": \\"GreaterThanThreshold\\",
         \\"dimensions\\": {
           \\"cluster_name\\": \\"testapp-\\",
-          \\"service_name\\": \\"testapp-\\"
+          \\"service_name\\": \\"testapp-\\",
+          \\"ClusterName\\": \\"testapp-\\",
+          \\"ServiceName\\": \\"testapp-\\"
         },
         \\"evaluation_periods\\": 2,
         \\"metric_name\\": \\"CPUUtilization\\",
@@ -5398,7 +5420,9 @@ exports[`PocketALBApplication renders an internal application with tags 1`] = `
         \\"comparison_operator\\": \\"LessThanThreshold\\",
         \\"dimensions\\": {
           \\"cluster_name\\": \\"testapp-\\",
-          \\"service_name\\": \\"testapp-\\"
+          \\"service_name\\": \\"testapp-\\",
+          \\"ClusterName\\": \\"testapp-\\",
+          \\"ServiceName\\": \\"testapp-\\"
         },
         \\"evaluation_periods\\": 2,
         \\"metric_name\\": \\"CPUUtilization\\",

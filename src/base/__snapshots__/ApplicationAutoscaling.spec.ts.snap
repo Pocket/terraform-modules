@@ -179,7 +179,9 @@ exports[`renders autoscaling without tags 1`] = `
         \\"comparison_operator\\": \\"GreaterThanThreshold\\",
         \\"dimensions\\": {
           \\"cluster_name\\": \\"ecs-cluster-test\\",
-          \\"service_name\\": \\"ecs-service-test\\"
+          \\"service_name\\": \\"ecs-service-test\\",
+          \\"ClusterName\\": \\"ecs-cluster-test\\",
+          \\"ServiceName\\": \\"ecs-service-test\\"
         },
         \\"evaluation_periods\\": 2,
         \\"metric_name\\": \\"CPUUtilization\\",
@@ -204,7 +206,9 @@ exports[`renders autoscaling without tags 1`] = `
         \\"comparison_operator\\": \\"LessThanThreshold\\",
         \\"dimensions\\": {
           \\"cluster_name\\": \\"ecs-cluster-test\\",
-          \\"service_name\\": \\"ecs-service-test\\"
+          \\"service_name\\": \\"ecs-service-test\\",
+          \\"ClusterName\\": \\"ecs-cluster-test\\",
+          \\"ServiceName\\": \\"ecs-service-test\\"
         },
         \\"evaluation_periods\\": 2,
         \\"metric_name\\": \\"CPUUtilization\\",
