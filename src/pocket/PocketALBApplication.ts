@@ -98,7 +98,7 @@ export class PocketALBApplication extends Resource {
       this.createCDN(config, albRecord);
     }
 
-    const ecsService = this.createECSService(
+    const { ecs, cluster } = this.createECSService(
       config,
       pocketVPC,
       alb,
@@ -107,8 +107,8 @@ export class PocketALBApplication extends Resource {
 
     this.createCloudwatchDashboard(
       alb.alb.arnSuffix,
-      ecsService.ecs.service.name,
-      ecsService.ecs.service.cluster,
+      ecs.service.name,
+      cluster.cluster.name,
       config.autoscalingConfig.scaleOutThreshold,
       config.autoscalingConfig.scaleInThreshold,
       config.prefix
@@ -332,7 +332,7 @@ export class PocketALBApplication extends Resource {
     pocketVPC: PocketVPC,
     alb: ApplicationLoadBalancer,
     albCertificate: ApplicationCertificate
-  ): { ecs: ApplicationECSService } {
+  ): { ecs: ApplicationECSService; cluster: ApplicationECSCluster } {
     const ecsCluster = new ApplicationECSCluster(this, 'ecs_cluster', {
       prefix: config.prefix,
       tags: config.tags,
@@ -426,6 +426,7 @@ export class PocketALBApplication extends Resource {
 
     return {
       ecs: ecsService,
+      cluster: ecsCluster,
     };
   }
 
