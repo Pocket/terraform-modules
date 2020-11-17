@@ -57,7 +57,7 @@ const DEFAULT_AUTOSCALING_CONFIG = {
   scaleInThreshold: 30,
   targetMinCapacity: 1,
   targetMaxCapacity: 2,
-  stepScaleInAdjustment: 1,
+  stepScaleInAdjustment: -1,
   stepScaleOutAdjustment: 2,
 };
 
