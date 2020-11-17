@@ -727,7 +727,7 @@ export class PocketALBApplication extends Resource {
         }
       );
 
-      // Use the escape hatch to add dimensions if any from the origin config
+      // Use the escape hatch to add dimensions if any from the original config
       if (alarmConfig.dimensions) {
         alarm.addOverride(`dimensions`, alarmConfig.dimensions);
       }
