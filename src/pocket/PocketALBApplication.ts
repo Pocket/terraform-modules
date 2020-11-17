@@ -2,13 +2,14 @@ import { Resource } from 'cdktf';
 import {
   AlbListener,
   CloudfrontDistribution,
-  Route53Record,
   CloudwatchDashboard,
   CloudwatchMetricAlarm,
   CloudwatchMetricAlarmConfig,
+  Route53Record,
 } from '../../.gen/providers/aws';
 import { Construct } from 'constructs';
 import {
+  ApplicationAutoscaling,
   ApplicationBaseDNS,
   ApplicationCertificate,
   ApplicationECSCluster,
@@ -17,7 +18,6 @@ import {
   ApplicationECSService,
   ApplicationECSServiceProps,
   ApplicationLoadBalancer,
-  ApplicationAutoscaling,
 } from '..';
 import { PocketVPC } from './PocketVPC';
 
@@ -79,7 +79,7 @@ const DEFAULT_AUTOSCALING_CONFIG = {
   scaleInThreshold: 30,
   targetMinCapacity: 1,
   targetMaxCapacity: 2,
-  stepScaleInAdjustment: 1,
+  stepScaleInAdjustment: -1,
   stepScaleOutAdjustment: 2,
 };
 
@@ -330,7 +330,7 @@ export class PocketALBApplication extends Resource {
   private createECSService(
     alb: ApplicationLoadBalancer,
     albCertificate: ApplicationCertificate
-  ): { ecs: ApplicationECSService } {
+  ): { ecs: ApplicationECSService; cluster: ApplicationECSCluster } {
     const ecsCluster = new ApplicationECSCluster(this, 'ecs_cluster', {
       prefix: this.config.prefix,
       tags: this.config.tags,
@@ -426,6 +426,7 @@ export class PocketALBApplication extends Resource {
 
     return {
       ecs: ecsService,
+      cluster: ecsCluster,
     };
   }
 
@@ -573,8 +574,8 @@ export class PocketALBApplication extends Resource {
                 },
               ],
               [
-                '.',
-                'CpuUtilized',
+                'AWS/ECS',
+                'CPUUtilization',
                 '.',
                 '.',
                 '.',
@@ -585,7 +586,7 @@ export class PocketALBApplication extends Resource {
               ],
               [
                 '.',
-                'MemoryUtilized',
+                'MemoryUtilization',
                 '.',
                 '.',
                 '.',

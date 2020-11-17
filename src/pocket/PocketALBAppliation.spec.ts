@@ -130,4 +130,18 @@ describe('PocketALBApplication', () => {
 
     expect(Testing.synth(stack)).toMatchSnapshot();
   });
+
+  it('renders an application with default autoscaling group and tags', () => {
+    const app = Testing.app();
+    const stack = new TerraformStack(app, 'test');
+
+    BASE_CONFIG.tags = {
+      name: 'thedude',
+      hobby: 'bowling',
+    };
+
+    new PocketALBApplication(stack, 'testPocketApp', BASE_CONFIG);
+
+    expect(Testing.synth(stack)).toMatchSnapshot();
+  });
 });
