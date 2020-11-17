@@ -86,8 +86,8 @@ const DEFAULT_AUTOSCALING_CONFIG = {
 export class PocketALBApplication extends Resource {
   public readonly alb: ApplicationLoadBalancer;
   public readonly baseDNS: ApplicationBaseDNS;
-  private config: PocketALBApplicationProps;
-  private pocketVPC: PocketVPC;
+  private readonly config: PocketALBApplicationProps;
+  private readonly pocketVPC: PocketVPC;
 
   constructor(
     scope: Construct,
