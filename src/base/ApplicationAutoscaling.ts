@@ -162,10 +162,7 @@ export class ApplicationAutoscaling extends Resource {
       namespace: 'AWS/ECS',
       metricName: 'CPUUtilization',
       treatMissingData: 'notBreaching',
-      dimensions: {
-        ClusterName: config.ecsClusterName,
-        ServiceName: config.ecsServiceName,
-      },
+      dimensions: {},
       alarmActions: [applicationScaleOut.arn],
       tags: config.tags,
     });
@@ -193,10 +190,7 @@ export class ApplicationAutoscaling extends Resource {
       namespace: 'AWS/ECS',
       metricName: 'CPUUtilization',
       treatMissingData: 'notBreaching',
-      dimensions: {
-        ClusterName: config.ecsClusterName,
-        ServiceName: config.ecsServiceName,
-      },
+      dimensions: {},
       alarmActions: [applicationScaleIn.arn],
       tags: config.tags,
     });
