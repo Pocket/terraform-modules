@@ -9,7 +9,7 @@ describe('PocketALBApplication', () => {
 
   beforeEach(() => {
     BASE_CONFIG = {
-      prefix: 'testapp-',
+      prefix: 'testapp',
       alb6CharacterPrefix: 'TSTAPP',
       domain: 'testing.bowling.gov',
       containerConfigs: [],
