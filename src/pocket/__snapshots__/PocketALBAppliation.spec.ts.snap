@@ -819,7 +819,7 @@ exports[`PocketALBApplication renders an application with autoscaling group and 
             \\"step_adjustment\\": [
               {
                 \\"metric_interval_upper_bound\\": \\"0\\",
-                \\"scaling_adjustment\\": 1
+                \\"scaling_adjustment\\": -1
               }
             ]
           }
@@ -1690,7 +1690,7 @@ exports[`PocketALBApplication renders an application with custom task sizes 1`] 
             \\"step_adjustment\\": [
               {
                 \\"metric_interval_upper_bound\\": \\"0\\",
-                \\"scaling_adjustment\\": -1
+                \\"scaling_adjustment\\": 1
               }
             ]
           }
@@ -2553,7 +2553,7 @@ exports[`PocketALBApplication renders an application with minimal config 1`] = `
             \\"step_adjustment\\": [
               {
                 \\"metric_interval_upper_bound\\": \\"0\\",
-                \\"scaling_adjustment\\": -1
+                \\"scaling_adjustment\\": 1
               }
             ]
           }
@@ -3577,7 +3577,7 @@ exports[`PocketALBApplication renders an external application 1`] = `
             \\"step_adjustment\\": [
               {
                 \\"metric_interval_upper_bound\\": \\"0\\",
-                \\"scaling_adjustment\\": -1
+                \\"scaling_adjustment\\": 1
               }
             ]
           }
@@ -4440,7 +4440,7 @@ exports[`PocketALBApplication renders an internal application 1`] = `
             \\"step_adjustment\\": [
               {
                 \\"metric_interval_upper_bound\\": \\"0\\",
-                \\"scaling_adjustment\\": -1
+                \\"scaling_adjustment\\": 1
               }
             ]
           }
@@ -5343,7 +5343,7 @@ exports[`PocketALBApplication renders an internal application with tags 1`] = `
             \\"step_adjustment\\": [
               {
                 \\"metric_interval_upper_bound\\": \\"0\\",
-                \\"scaling_adjustment\\": -1
+                \\"scaling_adjustment\\": 1
               }
             ]
           }
