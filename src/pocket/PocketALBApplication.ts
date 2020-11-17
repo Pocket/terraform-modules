@@ -2,11 +2,12 @@ import { Resource } from 'cdktf';
 import {
   AlbListener,
   CloudfrontDistribution,
-  Route53Record,
   CloudwatchDashboard,
+  Route53Record,
 } from '../../.gen/providers/aws';
 import { Construct } from 'constructs';
 import {
+  ApplicationAutoscaling,
   ApplicationBaseDNS,
   ApplicationCertificate,
   ApplicationECSCluster,
@@ -15,7 +16,6 @@ import {
   ApplicationECSService,
   ApplicationECSServiceProps,
   ApplicationLoadBalancer,
-  ApplicationAutoscaling,
 } from '..';
 import { PocketVPC } from './PocketVPC';
 
@@ -579,8 +579,8 @@ export class PocketALBApplication extends Resource {
                 },
               ],
               [
-                '.',
-                'CpuUtilized',
+                'AWS/ECS',
+                'CPUUtilization',
                 '.',
                 '.',
                 '.',
@@ -591,7 +591,7 @@ export class PocketALBApplication extends Resource {
               ],
               [
                 '.',
-                'MemoryUtilized',
+                'MemoryUtilization',
                 '.',
                 '.',
                 '.',
