@@ -178,8 +178,8 @@ exports[`renders autoscaling without tags 1`] = `
         \\"alarm_name\\": \\"test- Service High CPU\\",
         \\"comparison_operator\\": \\"GreaterThanThreshold\\",
         \\"dimensions\\": {
-          \\"cluster_name\\": \\"ecs-cluster-test\\",
-          \\"service_name\\": \\"ecs-service-test\\"
+          \\"ClusterName\\": \\"ecs-cluster-test\\",
+          \\"ServiceName\\": \\"ecs-service-test\\"
         },
         \\"evaluation_periods\\": 2,
         \\"metric_name\\": \\"CPUUtilization\\",
@@ -203,8 +203,8 @@ exports[`renders autoscaling without tags 1`] = `
         \\"alarm_name\\": \\"test- Service Low CPU\\",
         \\"comparison_operator\\": \\"LessThanThreshold\\",
         \\"dimensions\\": {
-          \\"cluster_name\\": \\"ecs-cluster-test\\",
-          \\"service_name\\": \\"ecs-service-test\\"
+          \\"ClusterName\\": \\"ecs-cluster-test\\",
+          \\"ServiceName\\": \\"ecs-service-test\\"
         },
         \\"evaluation_periods\\": 2,
         \\"metric_name\\": \\"CPUUtilization\\",
