@@ -142,7 +142,7 @@ export class ApplicationAutoscaling extends Resource {
             stepAdjustment: [
               {
                 metricIntervalUpperBound: '0',
-                scalingAdjustment: config.stepScaleInAdjustment,
+                scalingAdjustment: -config.stepScaleInAdjustment,
               },
             ],
           },
