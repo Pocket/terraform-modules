@@ -509,17 +509,84 @@ export class PocketALBApplication extends Resource {
                 {
                   color: '#17becf',
                   label: 'RequestCountThreshold',
-                  value: 3,
+                  value: 500, //TODO: This needs to be set from an alarm config option
+                  yAxis: 'right',
                 },
               ],
             },
-            title: 'ALB Requests',
+            title: 'Target Requests',
           },
         },
         {
           type: 'metric',
           x: 12,
           y: 0,
+          width: 12,
+          height: 6,
+          properties: {
+            metrics: [
+              [
+                'AWS/ApplicationELB',
+                'HTTPCode_ELB_4XX_Count',
+                'LoadBalancer',
+                albArnSuffix,
+                {
+                  yAxis: 'left',
+                  color: '#ff7f0e',
+                },
+              ],
+              [
+                '.',
+                'RequestCount',
+                '.',
+                '.',
+                {
+                  yAxis: 'right',
+                  color: '#1f77b4',
+                },
+              ],
+              [
+                '.',
+                'HTTPCode_ELB_5XX_Count',
+                '.',
+                '.',
+                {
+                  color: '#d62728',
+                },
+              ],
+              [
+                '.',
+                'HTTPCode_ELB_2XX_Count',
+                '.',
+                '.',
+                {
+                  yAxis: 'right',
+                  color: '#2ca02c',
+                },
+              ],
+            ],
+            view: 'timeSeries',
+            stacked: false,
+            region: 'us-east-1',
+            period: 60,
+            stat: 'Sum',
+            annotations: {
+              horizontal: [
+                {
+                  color: '#17becf',
+                  label: 'RequestCountThreshold',
+                  value: 500, //TODO: This needs to be set from an alarm config option
+                  yAxis: 'right',
+                },
+              ],
+            },
+            title: 'Target Requests',
+          },
+        },
+        {
+          type: 'metric',
+          x: 12,
+          y: 6,
           width: 12,
           height: 6,
           properties: {
