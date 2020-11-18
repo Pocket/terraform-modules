@@ -2,11 +2,12 @@ import { Resource } from 'cdktf';
 import {
   AlbListener,
   CloudfrontDistribution,
-  Route53Record,
   CloudwatchDashboard,
+  Route53Record,
 } from '../../.gen/providers/aws';
 import { Construct } from 'constructs';
 import {
+  ApplicationAutoscaling,
   ApplicationBaseDNS,
   ApplicationCertificate,
   ApplicationECSCluster,
@@ -15,7 +16,6 @@ import {
   ApplicationECSService,
   ApplicationECSServiceProps,
   ApplicationLoadBalancer,
-  ApplicationAutoscaling,
 } from '..';
 import { PocketVPC } from './PocketVPC';
 
@@ -57,7 +57,7 @@ const DEFAULT_AUTOSCALING_CONFIG = {
   scaleInThreshold: 30,
   targetMinCapacity: 1,
   targetMaxCapacity: 2,
-  stepScaleInAdjustment: 1,
+  stepScaleInAdjustment: -1,
   stepScaleOutAdjustment: 2,
 };
 
@@ -98,7 +98,7 @@ export class PocketALBApplication extends Resource {
       this.createCDN(config, albRecord);
     }
 
-    const ecsService = this.createECSService(
+    const { ecs, cluster } = this.createECSService(
       config,
       pocketVPC,
       alb,
@@ -107,8 +107,8 @@ export class PocketALBApplication extends Resource {
 
     this.createCloudwatchDashboard(
       alb.alb.arnSuffix,
-      ecsService.ecs.service.name,
-      ecsService.ecs.service.cluster,
+      ecs.service.name,
+      cluster.cluster.name,
       config.autoscalingConfig.scaleOutThreshold,
       config.autoscalingConfig.scaleInThreshold,
       config.prefix
@@ -332,7 +332,7 @@ export class PocketALBApplication extends Resource {
     pocketVPC: PocketVPC,
     alb: ApplicationLoadBalancer,
     albCertificate: ApplicationCertificate
-  ): { ecs: ApplicationECSService } {
+  ): { ecs: ApplicationECSService; cluster: ApplicationECSCluster } {
     const ecsCluster = new ApplicationECSCluster(this, 'ecs_cluster', {
       prefix: config.prefix,
       tags: config.tags,
@@ -426,6 +426,7 @@ export class PocketALBApplication extends Resource {
 
     return {
       ecs: ecsService,
+      cluster: ecsCluster,
     };
   }
 
@@ -508,7 +509,64 @@ export class PocketALBApplication extends Resource {
                 {
                   color: '#17becf',
                   label: 'RequestCountThreshold',
-                  value: 3,
+                  value: 500, //TODO: This needs to be set from an alarm config option
+                  yAxis: 'right',
+                },
+              ],
+            },
+            title: 'Target Requests',
+          },
+        },
+        {
+          type: 'metric',
+          x: 12,
+          y: 0,
+          width: 12,
+          height: 6,
+          properties: {
+            metrics: [
+              [
+                'AWS/ApplicationELB',
+                'HTTPCode_ELB_4XX_Count',
+                'LoadBalancer',
+                albArnSuffix,
+                {
+                  yAxis: 'left',
+                  color: '#ff7f0e',
+                },
+              ],
+              [
+                '.',
+                'RequestCount',
+                '.',
+                '.',
+                {
+                  yAxis: 'right',
+                  color: '#1f77b4',
+                },
+              ],
+              [
+                '.',
+                'HTTPCode_ELB_5XX_Count',
+                '.',
+                '.',
+                {
+                  color: '#d62728',
+                },
+              ],
+            ],
+            view: 'timeSeries',
+            stacked: false,
+            region: 'us-east-1',
+            period: 60,
+            stat: 'Sum',
+            annotations: {
+              horizontal: [
+                {
+                  color: '#17becf',
+                  label: 'RequestCountThreshold',
+                  value: 500, //TODO: This needs to be set from an alarm config option
+                  yAxis: 'right',
                 },
               ],
             },
@@ -518,7 +576,7 @@ export class PocketALBApplication extends Resource {
         {
           type: 'metric',
           x: 12,
-          y: 0,
+          y: 6,
           width: 12,
           height: 6,
           properties: {
@@ -579,8 +637,8 @@ export class PocketALBApplication extends Resource {
                 },
               ],
               [
-                '.',
-                'CpuUtilized',
+                'AWS/ECS',
+                'CPUUtilization',
                 '.',
                 '.',
                 '.',
@@ -591,7 +649,7 @@ export class PocketALBApplication extends Resource {
               ],
               [
                 '.',
-                'MemoryUtilized',
+                'MemoryUtilization',
                 '.',
                 '.',
                 '.',
