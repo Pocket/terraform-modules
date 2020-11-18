@@ -554,16 +554,6 @@ export class PocketALBApplication extends Resource {
                   color: '#d62728',
                 },
               ],
-              [
-                '.',
-                'HTTPCode_ELB_2XX_Count',
-                '.',
-                '.',
-                {
-                  yAxis: 'right',
-                  color: '#2ca02c',
-                },
-              ],
             ],
             view: 'timeSeries',
             stacked: false,
@@ -580,7 +570,7 @@ export class PocketALBApplication extends Resource {
                 },
               ],
             },
-            title: 'Target Requests',
+            title: 'ALB Requests',
           },
         },
         {
