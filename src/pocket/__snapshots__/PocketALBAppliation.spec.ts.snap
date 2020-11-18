@@ -3548,6 +3548,915 @@ exports[`PocketALBApplication renders an application with minimal config 1`] = `
 }"
 `;
 
+exports[`PocketALBApplication renders an application with modified container def protocol 1`] = `
+"{
+  \\"//\\": {
+    \\"metadata\\": {
+      \\"version\\": \\"stubbed\\",
+      \\"stackName\\": \\"test\\"
+    }
+  },
+  \\"data\\": {
+    \\"aws_ssm_parameter\\": {
+      \\"test_testPocketApp_pocketvpc_vpcssmparam_1F258A54\\": {
+        \\"name\\": \\"/Shared/Vpc\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/pocket_vpc/vpc_ssm_param\\",
+            \\"uniqueId\\": \\"test_testPocketApp_pocketvpc_vpcssmparam_1F258A54\\"
+          }
+        }
+      },
+      \\"test_testPocketApp_pocketvpc_privatesubnets_9DE8BF13\\": {
+        \\"name\\": \\"/Shared/PrivateSubnets\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/pocket_vpc/private_subnets\\",
+            \\"uniqueId\\": \\"test_testPocketApp_pocketvpc_privatesubnets_9DE8BF13\\"
+          }
+        }
+      },
+      \\"test_testPocketApp_pocketvpc_publicsubnets_39DF82A9\\": {
+        \\"name\\": \\"/Shared/PublicSubnets\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/pocket_vpc/public_subnets\\",
+            \\"uniqueId\\": \\"test_testPocketApp_pocketvpc_publicsubnets_39DF82A9\\"
+          }
+        }
+      }
+    },
+    \\"aws_vpc\\": {
+      \\"test_testPocketApp_pocketvpc_40AC0971\\": {
+        \\"filter\\": [
+          {
+            \\"name\\": \\"vpc-id\\",
+            \\"values\\": [
+              \\"\${data.aws_ssm_parameter.test_testPocketApp_pocketvpc_vpcssmparam_1F258A54.value}\\"
+            ]
+          }
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/pocket_vpc/vpc\\",
+            \\"uniqueId\\": \\"test_testPocketApp_pocketvpc_40AC0971\\"
+          }
+        }
+      }
+    },
+    \\"aws_subnet_ids\\": {
+      \\"test_testPocketApp_pocketvpc_privatesubnetids_A272E250\\": {
+        \\"vpc_id\\": \\"\${data.aws_vpc.test_testPocketApp_pocketvpc_40AC0971.id}\\",
+        \\"filter\\": [
+          {
+            \\"name\\": \\"subnet-id\\",
+            \\"values\\": \\"\${split(\\\\\\",\\\\\\", data.aws_ssm_parameter.test_testPocketApp_pocketvpc_privatesubnets_9DE8BF13.value)}\\"
+          }
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/pocket_vpc/private_subnet_ids\\",
+            \\"uniqueId\\": \\"test_testPocketApp_pocketvpc_privatesubnetids_A272E250\\"
+          }
+        }
+      },
+      \\"test_testPocketApp_pocketvpc_publicsubnetids_123C258E\\": {
+        \\"vpc_id\\": \\"\${data.aws_vpc.test_testPocketApp_pocketvpc_40AC0971.id}\\",
+        \\"filter\\": [
+          {
+            \\"name\\": \\"subnet-id\\",
+            \\"values\\": \\"\${split(\\\\\\",\\\\\\", data.aws_ssm_parameter.test_testPocketApp_pocketvpc_publicsubnets_39DF82A9.value)}\\"
+          }
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/pocket_vpc/public_subnet_ids\\",
+            \\"uniqueId\\": \\"test_testPocketApp_pocketvpc_publicsubnetids_123C258E\\"
+          }
+        }
+      }
+    },
+    \\"aws_caller_identity\\": {
+      \\"test_testPocketApp_pocketvpc_currentidentity_20783D44\\": {
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/pocket_vpc/current_identity\\",
+            \\"uniqueId\\": \\"test_testPocketApp_pocketvpc_currentidentity_20783D44\\"
+          }
+        }
+      }
+    },
+    \\"aws_region\\": {
+      \\"test_testPocketApp_pocketvpc_currentregion_B66A0BE6\\": {
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/pocket_vpc/current_region\\",
+            \\"uniqueId\\": \\"test_testPocketApp_pocketvpc_currentregion_B66A0BE6\\"
+          }
+        }
+      }
+    },
+    \\"aws_kms_alias\\": {
+      \\"test_testPocketApp_pocketvpc_secretsmanagerkey_4235C517\\": {
+        \\"name\\": \\"alias/aws/secretsmanager\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/pocket_vpc/secrets_manager_key\\",
+            \\"uniqueId\\": \\"test_testPocketApp_pocketvpc_secretsmanagerkey_4235C517\\"
+          }
+        }
+      }
+    },
+    \\"aws_security_groups\\": {
+      \\"test_testPocketApp_pocketvpc_defaultsecuritygroups_4DC561FB\\": {
+        \\"filter\\": [
+          {
+            \\"name\\": \\"group-name\\",
+            \\"values\\": [
+              \\"default\\"
+            ]
+          },
+          {
+            \\"name\\": \\"vpc-id\\",
+            \\"values\\": [
+              \\"\${data.aws_vpc.test_testPocketApp_pocketvpc_40AC0971.id}\\"
+            ]
+          }
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/pocket_vpc/default_security_groups\\",
+            \\"uniqueId\\": \\"test_testPocketApp_pocketvpc_defaultsecuritygroups_4DC561FB\\"
+          }
+        }
+      }
+    },
+    \\"aws_route53_zone\\": {
+      \\"test_testPocketApp_basednsmainhostedzone_F3E3F27E\\": {
+        \\"name\\": \\"bowling.gov\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/base_dns_main_hosted_zone\\",
+            \\"uniqueId\\": \\"test_testPocketApp_basednsmainhostedzone_F3E3F27E\\"
+          }
+        }
+      }
+    },
+    \\"aws_iam_policy_document\\": {
+      \\"test_testPocketApp_ecsservice_ecsiam_ecstaskassume_A392A140\\": {
+        \\"version\\": \\"2012-10-17\\",
+        \\"statement\\": [
+          {
+            \\"effect\\": \\"Allow\\",
+            \\"actions\\": [
+              \\"sts:AssumeRole\\"
+            ],
+            \\"principals\\": [
+              {
+                \\"identifiers\\": [
+                  \\"ecs-tasks.amazonaws.com\\"
+                ],
+                \\"type\\": \\"Service\\"
+              }
+            ]
+          }
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/ecs_service/ecs-iam/ecs-task-assume\\",
+            \\"uniqueId\\": \\"test_testPocketApp_ecsservice_ecsiam_ecstaskassume_A392A140\\"
+          }
+        }
+      },
+      \\"test_testPocketApp_autoscaling_autoscalingassume_6CD4F67B\\": {
+        \\"statement\\": [
+          {
+            \\"effect\\": \\"Allow\\",
+            \\"actions\\": [
+              \\"sts:AssumeRole\\"
+            ],
+            \\"principals\\": [
+              {
+                \\"identifiers\\": [
+                  \\"ecs.application-autoscaling.amazonaws.com\\"
+                ],
+                \\"type\\": \\"Service\\"
+              }
+            ]
+          }
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/autoscaling/autoscaling_assume\\",
+            \\"uniqueId\\": \\"test_testPocketApp_autoscaling_autoscalingassume_6CD4F67B\\"
+          }
+        }
+      },
+      \\"test_testPocketApp_autoscaling_rolepolicy_38FC9EBD\\": {
+        \\"statement\\": [
+          {
+            \\"effect\\": \\"Allow\\",
+            \\"actions\\": [
+              \\"cloudwatch:PutMetricAlarm\\",
+              \\"cloudwatch:DescribeAlarms\\",
+              \\"cloudwatch:DeleteAlarms\\"
+            ],
+            \\"resources\\": [
+              \\"arn:aws:cloudwatch:*:*:alarm:/testapp-*\\"
+            ]
+          },
+          {
+            \\"effect\\": \\"Allow\\",
+            \\"actions\\": [
+              \\"ecs:DescribeServices\\",
+              \\"ecs:UpdateService\\"
+            ],
+            \\"resources\\": [
+              \\"arn:aws:ecs:*:*:service/testapp-*\\"
+            ]
+          }
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/autoscaling/role_policy\\",
+            \\"uniqueId\\": \\"test_testPocketApp_autoscaling_rolepolicy_38FC9EBD\\"
+          }
+        }
+      }
+    }
+  },
+  \\"resource\\": {
+    \\"aws_route53_zone\\": {
+      \\"test_testPocketApp_basedns_subhostedzone_4781B3B1\\": {
+        \\"name\\": \\"testing.bowling.gov\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/base_dns/subhosted_zone\\",
+            \\"uniqueId\\": \\"test_testPocketApp_basedns_subhostedzone_4781B3B1\\"
+          }
+        }
+      }
+    },
+    \\"aws_route53_record\\": {
+      \\"test_testPocketApp_basedns_subhostedzonens_0CFB2910\\": {
+        \\"name\\": \\"testing.bowling.gov\\",
+        \\"records\\": \\"\${aws_route53_zone.test_testPocketApp_basedns_subhostedzone_4781B3B1.name_servers}\\",
+        \\"ttl\\": 86400,
+        \\"type\\": \\"NS\\",
+        \\"zone_id\\": \\"\${data.aws_route53_zone.test_testPocketApp_basednsmainhostedzone_F3E3F27E.zone_id}\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/base_dns/subhosted_zone_ns\\",
+            \\"uniqueId\\": \\"test_testPocketApp_basedns_subhostedzonens_0CFB2910\\"
+          }
+        }
+      },
+      \\"test_testPocketApp_albrecord_F540FDB1\\": {
+        \\"name\\": \\"testing.bowling.gov\\",
+        \\"set_identifier\\": \\"1\\",
+        \\"type\\": \\"A\\",
+        \\"zone_id\\": \\"\${aws_route53_zone.test_testPocketApp_basedns_subhostedzone_4781B3B1.zone_id}\\",
+        \\"alias\\": [
+          {
+            \\"name\\": \\"\${aws_alb.test_testPocketApp_applicationloadbalancer_alb_6EA5BF17.dns_name}\\",
+            \\"zone_id\\": \\"\${aws_alb.test_testPocketApp_applicationloadbalancer_alb_6EA5BF17.zone_id}\\",
+            \\"evaluate_target_health\\": true
+          }
+        ],
+        \\"weighted_routing_policy\\": [
+          {
+            \\"weight\\": 1
+          }
+        ],
+        \\"lifecycle\\": {
+          \\"ignore_changes\\": [
+            \\"weighted_routing_policy[0].weight\\"
+          ]
+        },
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/alb_record\\",
+            \\"uniqueId\\": \\"test_testPocketApp_albrecord_F540FDB1\\"
+          }
+        }
+      },
+      \\"test_testPocketApp_albcertificate_certificaterecord_3757BF9E\\": {
+        \\"name\\": \\"\${tolist(aws_acm_certificate.test_testPocketApp_albcertificate_5D7B27A9.domain_validation_options)[0].resource_record_name}\\",
+        \\"records\\": [
+          \\"\${tolist(aws_acm_certificate.test_testPocketApp_albcertificate_5D7B27A9.domain_validation_options)[0].resource_record_value}\\"
+        ],
+        \\"ttl\\": 60,
+        \\"type\\": \\"\${tolist(aws_acm_certificate.test_testPocketApp_albcertificate_5D7B27A9.domain_validation_options)[0].resource_record_type}\\",
+        \\"zone_id\\": \\"\${aws_route53_zone.test_testPocketApp_basedns_subhostedzone_4781B3B1.zone_id}\\",
+        \\"depends_on\\": [
+          \\"aws_acm_certificate.test_testPocketApp_albcertificate_5D7B27A9\\"
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/alb_certificate/certificate_record\\",
+            \\"uniqueId\\": \\"test_testPocketApp_albcertificate_certificaterecord_3757BF9E\\"
+          }
+        }
+      }
+    },
+    \\"aws_security_group\\": {
+      \\"test_testPocketApp_applicationloadbalancer_albsecuritygroup_C4F681E3\\": {
+        \\"description\\": \\"External security group  (Managed by Terraform)\\",
+        \\"egress\\": [
+          {
+            \\"from_port\\": 0,
+            \\"protocol\\": \\"-1\\",
+            \\"to_port\\": 0,
+            \\"cidr_blocks\\": [
+              \\"0.0.0.0/0\\"
+            ],
+            \\"description\\": null,
+            \\"ipv6_cidr_blocks\\": null,
+            \\"prefix_list_ids\\": null,
+            \\"security_groups\\": null,
+            \\"self\\": null
+          }
+        ],
+        \\"ingress\\": [
+          {
+            \\"from_port\\": 443,
+            \\"to_port\\": 443,
+            \\"protocol\\": \\"TCP\\",
+            \\"cidr_blocks\\": [
+              \\"0.0.0.0/0\\"
+            ],
+            \\"description\\": null,
+            \\"ipv6_cidr_blocks\\": null,
+            \\"prefix_list_ids\\": null,
+            \\"security_groups\\": null,
+            \\"self\\": null
+          },
+          {
+            \\"from_port\\": 80,
+            \\"to_port\\": 80,
+            \\"protocol\\": \\"TCP\\",
+            \\"cidr_blocks\\": [
+              \\"0.0.0.0/0\\"
+            ],
+            \\"description\\": null,
+            \\"ipv6_cidr_blocks\\": null,
+            \\"prefix_list_ids\\": null,
+            \\"security_groups\\": null,
+            \\"self\\": null
+          }
+        ],
+        \\"name_prefix\\": \\"testapp--HTTP/S Security Group\\",
+        \\"tags\\": {
+          \\"Name\\": \\"testapp--HTTP/S Security Group\\"
+        },
+        \\"vpc_id\\": \\"\${data.aws_vpc.test_testPocketApp_pocketvpc_40AC0971.id}\\",
+        \\"lifecycle\\": {
+          \\"create_before_destroy\\": true
+        },
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/application_load_balancer/alb_security_group\\",
+            \\"uniqueId\\": \\"test_testPocketApp_applicationloadbalancer_albsecuritygroup_C4F681E3\\"
+          }
+        }
+      },
+      \\"test_testPocketApp_ecsservice_ecssecuritygroup_326B534A\\": {
+        \\"description\\": \\"Internal ECS Security Group (Managed by Terraform)\\",
+        \\"egress\\": [
+          {
+            \\"from_port\\": 0,
+            \\"protocol\\": \\"-1\\",
+            \\"to_port\\": 0,
+            \\"cidr_blocks\\": [
+              \\"0.0.0.0/0\\"
+            ],
+            \\"description\\": \\"required\\",
+            \\"ipv6_cidr_blocks\\": [],
+            \\"prefix_list_ids\\": [],
+            \\"security_groups\\": [],
+            \\"self\\": false
+          }
+        ],
+        \\"ingress\\": [
+          {
+            \\"from_port\\": 80,
+            \\"protocol\\": \\"TCP\\",
+            \\"to_port\\": 8675309,
+            \\"security_groups\\": [
+              \\"\${aws_security_group.test_testPocketApp_applicationloadbalancer_albsecuritygroup_C4F681E3.id}\\"
+            ],
+            \\"description\\": \\"required\\",
+            \\"cidr_blocks\\": [],
+            \\"ipv6_cidr_blocks\\": [],
+            \\"prefix_list_ids\\": [],
+            \\"self\\": false
+          }
+        ],
+        \\"name_prefix\\": \\"testapp--ECSSecurityGroup\\",
+        \\"vpc_id\\": \\"\${data.aws_vpc.test_testPocketApp_pocketvpc_40AC0971.id}\\",
+        \\"lifecycle\\": {
+          \\"create_before_destroy\\": true
+        },
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/ecs_service/ecs_security_group\\",
+            \\"uniqueId\\": \\"test_testPocketApp_ecsservice_ecssecuritygroup_326B534A\\"
+          }
+        }
+      }
+    },
+    \\"aws_alb\\": {
+      \\"test_testPocketApp_applicationloadbalancer_alb_6EA5BF17\\": {
+        \\"internal\\": false,
+        \\"name_prefix\\": \\"TSTAPP\\",
+        \\"security_groups\\": [
+          \\"\${aws_security_group.test_testPocketApp_applicationloadbalancer_albsecuritygroup_C4F681E3.id}\\"
+        ],
+        \\"subnets\\": \\"\${data.aws_subnet_ids.test_testPocketApp_pocketvpc_publicsubnetids_123C258E.ids}\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/application_load_balancer/alb\\",
+            \\"uniqueId\\": \\"test_testPocketApp_applicationloadbalancer_alb_6EA5BF17\\"
+          }
+        }
+      }
+    },
+    \\"aws_acm_certificate\\": {
+      \\"test_testPocketApp_albcertificate_5D7B27A9\\": {
+        \\"domain_name\\": \\"testing.bowling.gov\\",
+        \\"validation_method\\": \\"DNS\\",
+        \\"lifecycle\\": {
+          \\"create_before_destroy\\": true
+        },
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/alb_certificate/certificate\\",
+            \\"uniqueId\\": \\"test_testPocketApp_albcertificate_5D7B27A9\\"
+          }
+        }
+      }
+    },
+    \\"aws_acm_certificate_validation\\": {
+      \\"test_testPocketApp_albcertificate_certificatevalidation_D21A3E9E\\": {
+        \\"certificate_arn\\": \\"\${aws_acm_certificate.test_testPocketApp_albcertificate_5D7B27A9.arn}\\",
+        \\"validation_record_fqdns\\": [
+          \\"\${aws_route53_record.test_testPocketApp_albcertificate_certificaterecord_3757BF9E.fqdn}\\"
+        ],
+        \\"depends_on\\": [
+          \\"aws_route53_record.test_testPocketApp_albcertificate_certificaterecord_3757BF9E\\",
+          \\"aws_acm_certificate.test_testPocketApp_albcertificate_5D7B27A9\\"
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/alb_certificate/certificate_validation\\",
+            \\"uniqueId\\": \\"test_testPocketApp_albcertificate_certificatevalidation_D21A3E9E\\"
+          }
+        }
+      }
+    },
+    \\"aws_ecs_cluster\\": {
+      \\"test_testPocketApp_ecscluster_CE90B54F\\": {
+        \\"name\\": \\"testapp-\\",
+        \\"setting\\": [
+          {
+            \\"name\\": \\"containerInsights\\",
+            \\"value\\": \\"enabled\\"
+          }
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/ecs_cluster/ecs_cluster\\",
+            \\"uniqueId\\": \\"test_testPocketApp_ecscluster_CE90B54F\\"
+          }
+        }
+      }
+    },
+    \\"aws_alb_listener\\": {
+      \\"test_testPocketApp_listenerhttp_9C0A7034\\": {
+        \\"load_balancer_arn\\": \\"\${aws_alb.test_testPocketApp_applicationloadbalancer_alb_6EA5BF17.arn}\\",
+        \\"port\\": 80,
+        \\"protocol\\": \\"HTTP\\",
+        \\"default_action\\": [
+          {
+            \\"type\\": \\"redirect\\",
+            \\"redirect\\": [
+              {
+                \\"port\\": \\"443\\",
+                \\"protocol\\": \\"HTTPS\\",
+                \\"status_code\\": \\"HTTP_301\\"
+              }
+            ]
+          }
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/listener_http\\",
+            \\"uniqueId\\": \\"test_testPocketApp_listenerhttp_9C0A7034\\"
+          }
+        }
+      },
+      \\"test_testPocketApp_listenerhttps_7078E225\\": {
+        \\"certificate_arn\\": \\"\${aws_acm_certificate.test_testPocketApp_albcertificate_5D7B27A9.arn}\\",
+        \\"load_balancer_arn\\": \\"\${aws_alb.test_testPocketApp_applicationloadbalancer_alb_6EA5BF17.arn}\\",
+        \\"port\\": 443,
+        \\"protocol\\": \\"HTTPS\\",
+        \\"ssl_policy\\": \\"ELBSecurityPolicy-TLS-1-1-2017-01\\",
+        \\"default_action\\": [
+          {
+            \\"type\\": \\"fixed-response\\",
+            \\"fixed_response\\": [
+              {
+                \\"content_type\\": \\"text/plain\\",
+                \\"status_code\\": \\"503\\",
+                \\"message_body\\": \\"\\"
+              }
+            ]
+          }
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/listener_https\\",
+            \\"uniqueId\\": \\"test_testPocketApp_listenerhttps_7078E225\\"
+          }
+        }
+      }
+    },
+    \\"null_resource\\": {
+      \\"test_testPocketApp_ecsservice_016DE763\\": {
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/ecs_service\\",
+            \\"uniqueId\\": \\"test_testPocketApp_ecsservice_016DE763\\"
+          }
+        }
+      }
+    },
+    \\"aws_ecr_repository\\": {
+      \\"test_testPocketApp_ecsservice_ecrxraydaemon_ecrrepo_04FC4DEC\\": {
+        \\"name\\": \\"testapp--xray-daemon\\",
+        \\"image_scanning_configuration\\": [
+          {
+            \\"scan_on_push\\": true
+          }
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/ecs_service/ecr-xray-daemon/ecr-repo\\",
+            \\"uniqueId\\": \\"test_testPocketApp_ecsservice_ecrxraydaemon_ecrrepo_04FC4DEC\\"
+          }
+        }
+      }
+    },
+    \\"aws_ecr_lifecycle_policy\\": {
+      \\"test_testPocketApp_ecsservice_ecrxraydaemon_ecrrepolifecyclepolicy_8DF87844\\": {
+        \\"policy\\": \\"{\\\\\\"rules\\\\\\":[{\\\\\\"rulePriority\\\\\\":1,\\\\\\"description\\\\\\":\\\\\\"expire old images\\\\\\",\\\\\\"selection\\\\\\":{\\\\\\"tagStatus\\\\\\":\\\\\\"any\\\\\\",\\\\\\"countType\\\\\\":\\\\\\"imageCountMoreThan\\\\\\",\\\\\\"countNumber\\\\\\":800},\\\\\\"action\\\\\\":{\\\\\\"type\\\\\\":\\\\\\"expire\\\\\\"}}]}\\",
+        \\"repository\\": \\"testapp--xray-daemon\\",
+        \\"depends_on\\": [
+          \\"aws_ecr_repository.test_testPocketApp_ecsservice_ecrxraydaemon_ecrrepo_04FC4DEC\\"
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/ecs_service/ecr-xray-daemon/ecr-repo-lifecyclepolicy\\",
+            \\"uniqueId\\": \\"test_testPocketApp_ecsservice_ecrxraydaemon_ecrrepolifecyclepolicy_8DF87844\\"
+          }
+        }
+      }
+    },
+    \\"aws_cloudwatch_log_group\\": {
+      \\"test_testPocketApp_ecsservice_ecsxraydaemon_01F44ECB\\": {
+        \\"name_prefix\\": \\"/ecs/testapp-/xray-daemon\\",
+        \\"retention_in_days\\": 30,
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/ecs_service/ecs-xray-daemon\\",
+            \\"uniqueId\\": \\"test_testPocketApp_ecsservice_ecsxraydaemon_01F44ECB\\"
+          }
+        }
+      }
+    },
+    \\"aws_iam_role\\": {
+      \\"test_testPocketApp_ecsservice_ecsiam_ecsexecutionrole_670A7AD5\\": {
+        \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.test_testPocketApp_ecsservice_ecsiam_ecstaskassume_A392A140.json}\\",
+        \\"name\\": \\"testapp--TaskExecutionRole\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/ecs_service/ecs-iam/ecs-execution-role\\",
+            \\"uniqueId\\": \\"test_testPocketApp_ecsservice_ecsiam_ecsexecutionrole_670A7AD5\\"
+          }
+        }
+      },
+      \\"test_testPocketApp_ecsservice_ecsiam_ecstaskrole_E41363D4\\": {
+        \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.test_testPocketApp_ecsservice_ecsiam_ecstaskassume_A392A140.json}\\",
+        \\"name\\": \\"testapp--TaskRole\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/ecs_service/ecs-iam/ecs-task-role\\",
+            \\"uniqueId\\": \\"test_testPocketApp_ecsservice_ecsiam_ecstaskrole_E41363D4\\"
+          }
+        }
+      },
+      \\"test_testPocketApp_autoscaling_autoscalingrole_7AF03E02\\": {
+        \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.test_testPocketApp_autoscaling_autoscalingassume_6CD4F67B.json}\\",
+        \\"name\\": \\"testapp--AutoScalingRole\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/autoscaling/autoscaling_role\\",
+            \\"uniqueId\\": \\"test_testPocketApp_autoscaling_autoscalingrole_7AF03E02\\"
+          }
+        }
+      }
+    },
+    \\"aws_ecs_task_definition\\": {
+      \\"test_testPocketApp_ecsservice_ecstask_A752DB7C\\": {
+        \\"container_definitions\\": \\"[{  \\\\\\"dnsSearchDomains\\\\\\": null,  \\\\\\"environmentFiles\\\\\\": null,  \\\\\\"logConfiguration\\\\\\": {    \\\\\\"logDriver\\\\\\": \\\\\\"awslogs\\\\\\",    \\\\\\"secretOptions\\\\\\": [],    \\\\\\"options\\\\\\": {      \\\\\\"awslogs-group\\\\\\": \\\\\\"\${aws_cloudwatch_log_group.test_testPocketApp_ecsservice_ecsxraydaemon_01F44ECB.name}\\\\\\",      \\\\\\"awslogs-region\\\\\\": \\\\\\"us-east-1\\\\\\",      \\\\\\"awslogs-stream-prefix\\\\\\": \\\\\\"ecs\\\\\\"    }  },  \\\\\\"entryPoint\\\\\\": null,  \\\\\\"portMappings\\\\\\": [    {      \\\\\\"hostPort\\\\\\": 0,      \\\\\\"protocol\\\\\\": \\\\\\"udp\\\\\\",      \\\\\\"containerPort\\\\\\": 2000    }  ],    \\\\\\"linuxParameters\\\\\\": null,  \\\\\\"cpu\\\\\\": 0,  \\\\\\"environment\\\\\\": [],  \\\\\\"resourceRequirements\\\\\\": null,  \\\\\\"ulimits\\\\\\": null,  \\\\\\"repositoryCredentials\\\\\\": null,  \\\\\\"dnsServers\\\\\\": null,  \\\\\\"mountPoints\\\\\\": [],  \\\\\\"workingDirectory\\\\\\": null,  \\\\\\"secrets\\\\\\": null,  \\\\\\"dockerSecurityOptions\\\\\\": null,  \\\\\\"memory\\\\\\": null,  \\\\\\"memoryReservation\\\\\\": null,  \\\\\\"volumesFrom\\\\\\": [],  \\\\\\"stopTimeout\\\\\\": null,  \\\\\\"image\\\\\\": \\\\\\"\${aws_ecr_repository.test_testPocketApp_ecsservice_ecrxraydaemon_ecrrepo_04FC4DEC.repository_url}:latest\\\\\\",  \\\\\\"startTimeout\\\\\\": null,  \\\\\\"firelensConfiguration\\\\\\": null,  \\\\\\"dependsOn\\\\\\": null,  \\\\\\"disableNetworking\\\\\\": null,  \\\\\\"interactive\\\\\\": null,  \\\\\\"healthCheck\\\\\\": null,  \\\\\\"essential\\\\\\": true,  \\\\\\"links\\\\\\": null,  \\\\\\"hostname\\\\\\": null,  \\\\\\"extraHosts\\\\\\": null,  \\\\\\"pseudoTerminal\\\\\\": null,  \\\\\\"user\\\\\\": null,  \\\\\\"readonlyRootFilesystem\\\\\\": false,  \\\\\\"dockerLabels\\\\\\": null,  \\\\\\"systemControls\\\\\\": null,  \\\\\\"privileged\\\\\\": null,  \\\\\\"name\\\\\\": \\\\\\"xray-daemon\\\\\\"}]\\",
+        \\"cpu\\": \\"512\\",
+        \\"execution_role_arn\\": \\"\${aws_iam_role.test_testPocketApp_ecsservice_ecsiam_ecsexecutionrole_670A7AD5.arn}\\",
+        \\"family\\": \\"testapp-\\",
+        \\"memory\\": \\"2048\\",
+        \\"network_mode\\": \\"awsvpc\\",
+        \\"requires_compatibilities\\": [
+          \\"FARGATE\\"
+        ],
+        \\"task_role_arn\\": \\"\${aws_iam_role.test_testPocketApp_ecsservice_ecsiam_ecstaskrole_E41363D4.arn}\\",
+        \\"depends_on\\": [
+          \\"aws_ecr_repository.test_testPocketApp_ecsservice_ecrxraydaemon_ecrrepo_04FC4DEC\\"
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/ecs_service/ecs-task\\",
+            \\"uniqueId\\": \\"test_testPocketApp_ecsservice_ecstask_A752DB7C\\"
+          }
+        }
+      }
+    },
+    \\"aws_alb_target_group\\": {
+      \\"test_testPocketApp_ecsservice_bluetargetgroup_ecstargetgroup_F811A231\\": {
+        \\"deregistration_delay\\": 120,
+        \\"name_prefix\\": \\"TSTAPP\\",
+        \\"port\\": 80,
+        \\"protocol\\": \\"HTTP\\",
+        \\"tags\\": {
+          \\"type\\": \\"blue\\"
+        },
+        \\"target_type\\": \\"ip\\",
+        \\"vpc_id\\": \\"\${data.aws_vpc.test_testPocketApp_pocketvpc_40AC0971.id}\\",
+        \\"health_check\\": [
+          {
+            \\"interval\\": 15,
+            \\"path\\": \\"/test\\",
+            \\"protocol\\": \\"HTTP\\",
+            \\"healthy_threshold\\": 5,
+            \\"unhealthy_threshold\\": 3
+          }
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/ecs_service/blue_target_group/ecs_target_group\\",
+            \\"uniqueId\\": \\"test_testPocketApp_ecsservice_bluetargetgroup_ecstargetgroup_F811A231\\"
+          }
+        }
+      }
+    },
+    \\"aws_alb_listener_rule\\": {
+      \\"test_testPocketApp_ecsservice_listenerrule_CD5A6DFA\\": {
+        \\"listener_arn\\": \\"\${aws_alb_listener.test_testPocketApp_listenerhttps_7078E225.arn}\\",
+        \\"priority\\": 1,
+        \\"action\\": [
+          {
+            \\"type\\": \\"forward\\",
+            \\"target_group_arn\\": \\"\${aws_alb_target_group.test_testPocketApp_ecsservice_bluetargetgroup_ecstargetgroup_F811A231.arn}\\"
+          }
+        ],
+        \\"condition\\": [
+          {
+            \\"path_pattern\\": [
+              {
+                \\"values\\": [
+                  \\"*\\"
+                ]
+              }
+            ]
+          }
+        ],
+        \\"lifecycle\\": {
+          \\"ignore_changes\\": [
+            \\"action\\"
+          ]
+        },
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/ecs_service/listener_rule\\",
+            \\"uniqueId\\": \\"test_testPocketApp_ecsservice_listenerrule_CD5A6DFA\\"
+          }
+        }
+      }
+    },
+    \\"aws_ecs_service\\": {
+      \\"test_testPocketApp_ecsservice_ecsservice_B23795BD\\": {
+        \\"cluster\\": \\"\${aws_ecs_cluster.test_testPocketApp_ecscluster_CE90B54F.arn}\\",
+        \\"deployment_maximum_percent\\": 200,
+        \\"deployment_minimum_healthy_percent\\": 100,
+        \\"desired_count\\": 2,
+        \\"launch_type\\": \\"FARGATE\\",
+        \\"name\\": \\"testapp-\\",
+        \\"propagate_tags\\": \\"SERVICE\\",
+        \\"task_definition\\": \\"\${aws_ecs_task_definition.test_testPocketApp_ecsservice_ecstask_A752DB7C.arn}\\",
+        \\"deployment_controller\\": [
+          {
+            \\"type\\": \\"ECS\\"
+          }
+        ],
+        \\"load_balancer\\": [
+          {
+            \\"container_name\\": \\"main_container\\",
+            \\"container_port\\": 8675309,
+            \\"target_group_arn\\": \\"\${aws_alb_target_group.test_testPocketApp_ecsservice_bluetargetgroup_ecstargetgroup_F811A231.arn}\\"
+          }
+        ],
+        \\"network_configuration\\": [
+          {
+            \\"security_groups\\": [
+              \\"\${aws_security_group.test_testPocketApp_ecsservice_ecssecuritygroup_326B534A.id}\\"
+            ],
+            \\"subnets\\": \\"\${data.aws_subnet_ids.test_testPocketApp_pocketvpc_privatesubnetids_A272E250.ids}\\"
+          }
+        ],
+        \\"depends_on\\": [
+          \\"aws_ecr_repository.test_testPocketApp_ecsservice_ecrxraydaemon_ecrrepo_04FC4DEC\\",
+          \\"aws_alb_target_group.test_testPocketApp_ecsservice_bluetargetgroup_ecstargetgroup_F811A231\\",
+          \\"aws_alb_listener_rule.test_testPocketApp_ecsservice_listenerrule_CD5A6DFA\\"
+        ],
+        \\"lifecycle\\": {
+          \\"ignore_changes\\": [
+            \\"desired_count\\",
+            \\"load_balancer\\"
+          ]
+        },
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/ecs_service/ecs-service\\",
+            \\"uniqueId\\": \\"test_testPocketApp_ecsservice_ecsservice_B23795BD\\"
+          }
+        }
+      }
+    },
+    \\"aws_iam_role_policy\\": {
+      \\"test_testPocketApp_autoscaling_autoscalingrolepolicy_74F4D9D4\\": {
+        \\"name\\": \\"testapp--AutoScalingPolicy\\",
+        \\"policy\\": \\"\${data.aws_iam_policy_document.test_testPocketApp_autoscaling_rolepolicy_38FC9EBD.json}\\",
+        \\"role\\": \\"\${aws_iam_role.test_testPocketApp_autoscaling_autoscalingrole_7AF03E02.id}\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/autoscaling/autoscaling_role_policy\\",
+            \\"uniqueId\\": \\"test_testPocketApp_autoscaling_autoscalingrolepolicy_74F4D9D4\\"
+          }
+        }
+      }
+    },
+    \\"aws_appautoscaling_target\\": {
+      \\"test_testPocketApp_autoscaling_autoscalingtarget_6206F84C\\": {
+        \\"max_capacity\\": 2,
+        \\"min_capacity\\": 1,
+        \\"resource_id\\": \\"service/testapp-/testapp-\\",
+        \\"role_arn\\": \\"\${aws_iam_role.test_testPocketApp_autoscaling_autoscalingrole_7AF03E02.arn}\\",
+        \\"scalable_dimension\\": \\"ecs:service:DesiredCount\\",
+        \\"service_namespace\\": \\"ecs\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/autoscaling/autoscaling_target\\",
+            \\"uniqueId\\": \\"test_testPocketApp_autoscaling_autoscalingtarget_6206F84C\\"
+          }
+        }
+      }
+    },
+    \\"aws_appautoscaling_policy\\": {
+      \\"test_testPocketApp_autoscaling_scaleoutpolicy_65809B71\\": {
+        \\"name\\": \\"testapp--ScaleOutPolicy\\",
+        \\"policy_type\\": \\"StepScaling\\",
+        \\"resource_id\\": \\"service/testapp-/testapp-\\",
+        \\"scalable_dimension\\": \\"ecs:service:DesiredCount\\",
+        \\"service_namespace\\": \\"ecs\\",
+        \\"step_scaling_policy_configuration\\": [
+          {
+            \\"adjustment_type\\": \\"ChangeInCapacity\\",
+            \\"cooldown\\": 60,
+            \\"metric_aggregation_type\\": \\"Average\\",
+            \\"step_adjustment\\": [
+              {
+                \\"metric_interval_lower_bound\\": \\"0\\",
+                \\"scaling_adjustment\\": 2
+              }
+            ]
+          }
+        ],
+        \\"depends_on\\": [
+          \\"aws_appautoscaling_target.test_testPocketApp_autoscaling_autoscalingtarget_6206F84C\\"
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/autoscaling/scale_out_policy\\",
+            \\"uniqueId\\": \\"test_testPocketApp_autoscaling_scaleoutpolicy_65809B71\\"
+          }
+        }
+      },
+      \\"test_testPocketApp_autoscaling_scaleinpolicy_79053E73\\": {
+        \\"name\\": \\"testapp--ScaleInPolicy\\",
+        \\"policy_type\\": \\"StepScaling\\",
+        \\"resource_id\\": \\"service/testapp-/testapp-\\",
+        \\"scalable_dimension\\": \\"ecs:service:DesiredCount\\",
+        \\"service_namespace\\": \\"ecs\\",
+        \\"step_scaling_policy_configuration\\": [
+          {
+            \\"adjustment_type\\": \\"ChangeInCapacity\\",
+            \\"cooldown\\": 60,
+            \\"metric_aggregation_type\\": \\"Average\\",
+            \\"step_adjustment\\": [
+              {
+                \\"metric_interval_upper_bound\\": \\"0\\",
+                \\"scaling_adjustment\\": -1
+              }
+            ]
+          }
+        ],
+        \\"depends_on\\": [
+          \\"aws_appautoscaling_target.test_testPocketApp_autoscaling_autoscalingtarget_6206F84C\\"
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/autoscaling/scale_in_policy\\",
+            \\"uniqueId\\": \\"test_testPocketApp_autoscaling_scaleinpolicy_79053E73\\"
+          }
+        }
+      }
+    },
+    \\"aws_cloudwatch_metric_alarm\\": {
+      \\"test_testPocketApp_autoscaling_scaleoutalarm_2AEF0584\\": {
+        \\"alarm_actions\\": [
+          \\"\${aws_appautoscaling_policy.test_testPocketApp_autoscaling_scaleoutpolicy_65809B71.arn}\\"
+        ],
+        \\"alarm_description\\": \\"Alarm to add capacity if CPU is high\\",
+        \\"alarm_name\\": \\"testapp- Service High CPU\\",
+        \\"comparison_operator\\": \\"GreaterThanThreshold\\",
+        \\"dimensions\\": {
+          \\"ClusterName\\": \\"testapp-\\",
+          \\"ServiceName\\": \\"testapp-\\"
+        },
+        \\"evaluation_periods\\": 2,
+        \\"metric_name\\": \\"CPUUtilization\\",
+        \\"namespace\\": \\"AWS/ECS\\",
+        \\"period\\": 60,
+        \\"statistic\\": \\"Average\\",
+        \\"threshold\\": 45,
+        \\"treat_missing_data\\": \\"notBreaching\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/autoscaling/scale_out_alarm\\",
+            \\"uniqueId\\": \\"test_testPocketApp_autoscaling_scaleoutalarm_2AEF0584\\"
+          }
+        }
+      },
+      \\"test_testPocketApp_autoscaling_scaleinalarm_5B889D45\\": {
+        \\"alarm_actions\\": [
+          \\"\${aws_appautoscaling_policy.test_testPocketApp_autoscaling_scaleinpolicy_79053E73.arn}\\"
+        ],
+        \\"alarm_description\\": \\"Alarm to reduce capacity if container CPU is low\\",
+        \\"alarm_name\\": \\"testapp- Service Low CPU\\",
+        \\"comparison_operator\\": \\"LessThanThreshold\\",
+        \\"dimensions\\": {
+          \\"ClusterName\\": \\"testapp-\\",
+          \\"ServiceName\\": \\"testapp-\\"
+        },
+        \\"evaluation_periods\\": 2,
+        \\"metric_name\\": \\"CPUUtilization\\",
+        \\"namespace\\": \\"AWS/ECS\\",
+        \\"period\\": 60,
+        \\"statistic\\": \\"Average\\",
+        \\"threshold\\": 30,
+        \\"treat_missing_data\\": \\"notBreaching\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/autoscaling/scale_in_alarm\\",
+            \\"uniqueId\\": \\"test_testPocketApp_autoscaling_scaleinalarm_5B889D45\\"
+          }
+        }
+      }
+    },
+    \\"aws_cloudwatch_dashboard\\": {
+      \\"test_testPocketApp_cloudwatchdashboard_8824C28A\\": {
+        \\"dashboard_body\\": \\"{\\\\\\"widgets\\\\\\":[{\\\\\\"type\\\\\\":\\\\\\"metric\\\\\\",\\\\\\"x\\\\\\":0,\\\\\\"y\\\\\\":0,\\\\\\"width\\\\\\":12,\\\\\\"height\\\\\\":6,\\\\\\"properties\\\\\\":{\\\\\\"metrics\\\\\\":[[\\\\\\"AWS/ApplicationELB\\\\\\",\\\\\\"HTTPCode_Target_4XX_Count\\\\\\",\\\\\\"LoadBalancer\\\\\\",\\\\\\"\${aws_alb.test_testPocketApp_applicationloadbalancer_alb_6EA5BF17.arn_suffix}\\\\\\",{\\\\\\"yAxis\\\\\\":\\\\\\"left\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#ff7f0e\\\\\\"}],[\\\\\\".\\\\\\",\\\\\\"RequestCount\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",{\\\\\\"yAxis\\\\\\":\\\\\\"right\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#1f77b4\\\\\\"}],[\\\\\\".\\\\\\",\\\\\\"HTTPCode_Target_5XX_Count\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",{\\\\\\"color\\\\\\":\\\\\\"#d62728\\\\\\"}],[\\\\\\".\\\\\\",\\\\\\"HTTPCode_Target_2XX_Count\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",{\\\\\\"yAxis\\\\\\":\\\\\\"right\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#2ca02c\\\\\\"}]],\\\\\\"view\\\\\\":\\\\\\"timeSeries\\\\\\",\\\\\\"stacked\\\\\\":false,\\\\\\"region\\\\\\":\\\\\\"us-east-1\\\\\\",\\\\\\"period\\\\\\":60,\\\\\\"stat\\\\\\":\\\\\\"Sum\\\\\\",\\\\\\"annotations\\\\\\":{\\\\\\"horizontal\\\\\\":[{\\\\\\"color\\\\\\":\\\\\\"#17becf\\\\\\",\\\\\\"label\\\\\\":\\\\\\"RequestCountThreshold\\\\\\",\\\\\\"value\\\\\\":500,\\\\\\"yAxis\\\\\\":\\\\\\"right\\\\\\"}]},\\\\\\"title\\\\\\":\\\\\\"Target Requests\\\\\\"}},{\\\\\\"type\\\\\\":\\\\\\"metric\\\\\\",\\\\\\"x\\\\\\":12,\\\\\\"y\\\\\\":0,\\\\\\"width\\\\\\":12,\\\\\\"height\\\\\\":6,\\\\\\"properties\\\\\\":{\\\\\\"metrics\\\\\\":[[\\\\\\"AWS/ApplicationELB\\\\\\",\\\\\\"HTTPCode_ELB_4XX_Count\\\\\\",\\\\\\"LoadBalancer\\\\\\",\\\\\\"\${aws_alb.test_testPocketApp_applicationloadbalancer_alb_6EA5BF17.arn_suffix}\\\\\\",{\\\\\\"yAxis\\\\\\":\\\\\\"left\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#ff7f0e\\\\\\"}],[\\\\\\".\\\\\\",\\\\\\"RequestCount\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",{\\\\\\"yAxis\\\\\\":\\\\\\"right\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#1f77b4\\\\\\"}],[\\\\\\".\\\\\\",\\\\\\"HTTPCode_ELB_5XX_Count\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",{\\\\\\"color\\\\\\":\\\\\\"#d62728\\\\\\"}]],\\\\\\"view\\\\\\":\\\\\\"timeSeries\\\\\\",\\\\\\"stacked\\\\\\":false,\\\\\\"region\\\\\\":\\\\\\"us-east-1\\\\\\",\\\\\\"period\\\\\\":60,\\\\\\"stat\\\\\\":\\\\\\"Sum\\\\\\",\\\\\\"annotations\\\\\\":{\\\\\\"horizontal\\\\\\":[{\\\\\\"color\\\\\\":\\\\\\"#17becf\\\\\\",\\\\\\"label\\\\\\":\\\\\\"RequestCountThreshold\\\\\\",\\\\\\"value\\\\\\":500,\\\\\\"yAxis\\\\\\":\\\\\\"right\\\\\\"}]},\\\\\\"title\\\\\\":\\\\\\"ALB Requests\\\\\\"}},{\\\\\\"type\\\\\\":\\\\\\"metric\\\\\\",\\\\\\"x\\\\\\":12,\\\\\\"y\\\\\\":6,\\\\\\"width\\\\\\":12,\\\\\\"height\\\\\\":6,\\\\\\"properties\\\\\\":{\\\\\\"metrics\\\\\\":[[\\\\\\"AWS/ApplicationELB\\\\\\",\\\\\\"TargetResponseTime\\\\\\",\\\\\\"LoadBalancer\\\\\\",\\\\\\"\${aws_alb.test_testPocketApp_applicationloadbalancer_alb_6EA5BF17.arn_suffix}\\\\\\",{\\\\\\"label\\\\\\":\\\\\\"Average\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#aec7e8\\\\\\"}],[\\\\\\"...\\\\\\",{\\\\\\"stat\\\\\\":\\\\\\"p95\\\\\\",\\\\\\"label\\\\\\":\\\\\\"p95\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#ffbb78\\\\\\"}],[\\\\\\"...\\\\\\",{\\\\\\"stat\\\\\\":\\\\\\"p99\\\\\\",\\\\\\"label\\\\\\":\\\\\\"p99\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#98df8a\\\\\\"}]],\\\\\\"view\\\\\\":\\\\\\"timeSeries\\\\\\",\\\\\\"stacked\\\\\\":false,\\\\\\"region\\\\\\":\\\\\\"us-east-1\\\\\\",\\\\\\"stat\\\\\\":\\\\\\"Average\\\\\\",\\\\\\"period\\\\\\":60}},{\\\\\\"type\\\\\\":\\\\\\"metric\\\\\\",\\\\\\"x\\\\\\":0,\\\\\\"y\\\\\\":6,\\\\\\"width\\\\\\":12,\\\\\\"height\\\\\\":6,\\\\\\"properties\\\\\\":{\\\\\\"metrics\\\\\\":[[\\\\\\"ECS/ContainerInsights\\\\\\",\\\\\\"RunningTaskCount\\\\\\",\\\\\\"ServiceName\\\\\\",\\\\\\"testapp-\\\\\\",\\\\\\"ClusterName\\\\\\",\\\\\\"testapp-\\\\\\",{\\\\\\"yAxis\\\\\\":\\\\\\"right\\\\\\",\\\\\\"stat\\\\\\":\\\\\\"Sum\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#c49c94\\\\\\"}],[\\\\\\"AWS/ECS\\\\\\",\\\\\\"CPUUtilization\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",{\\\\\\"color\\\\\\":\\\\\\"#f7b6d2\\\\\\"}],[\\\\\\".\\\\\\",\\\\\\"MemoryUtilization\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",{\\\\\\"color\\\\\\":\\\\\\"#c7c7c7\\\\\\"}]],\\\\\\"view\\\\\\":\\\\\\"timeSeries\\\\\\",\\\\\\"stacked\\\\\\":false,\\\\\\"region\\\\\\":\\\\\\"us-east-1\\\\\\",\\\\\\"stat\\\\\\":\\\\\\"Average\\\\\\",\\\\\\"period\\\\\\":60,\\\\\\"annotations\\\\\\":{\\\\\\"horizontal\\\\\\":[{\\\\\\"color\\\\\\":\\\\\\"#e377c2\\\\\\",\\\\\\"label\\\\\\":\\\\\\"CPU scale out\\\\\\",\\\\\\"value\\\\\\":45},{\\\\\\"color\\\\\\":\\\\\\"#c5b0d5\\\\\\",\\\\\\"label\\\\\\":\\\\\\"CPU scale in\\\\\\",\\\\\\"value\\\\\\":30}]},\\\\\\"title\\\\\\":\\\\\\"Service Load\\\\\\"}}]}\\",
+        \\"dashboard_name\\": \\"testapp--ALBDashboard\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/cloudwatch-dashboard\\",
+            \\"uniqueId\\": \\"test_testPocketApp_cloudwatchdashboard_8824C28A\\"
+          }
+        }
+      }
+    }
+  }
+}"
+`;
+
 exports[`PocketALBApplication renders an external application 1`] = `
 "{
   \\"//\\": {
