@@ -51,15 +51,16 @@ export interface PocketALBApplicationProps {
     scaleInThreshold?: number;
     scaleOutThreshold?: number;
   };
-  dashboard?: {
-    requestCountThreshold: number;
-  };
   alarms?: {
     http5xxError?: {
       threshold?: number;
       actions?: string[];
     };
     httpLatency?: {
+      threshold?: number;
+      actions?: string[];
+    };
+    httpRequestCount?: {
       threshold?: number;
       actions?: string[];
     };
@@ -503,7 +504,64 @@ export class PocketALBApplication extends Resource {
                 {
                   color: '#17becf',
                   label: 'RequestCountThreshold',
-                  value: this.config.dashboard?.requestCountThreshold ?? 5000,
+                  value: this.config.alarms?.httpRequestCount?.threshold ?? 500,
+                  yAxis: 'right',
+                },
+              ],
+            },
+            title: 'Target Requests',
+          },
+        },
+        {
+          type: 'metric',
+          x: 12,
+          y: 0,
+          width: 12,
+          height: 6,
+          properties: {
+            metrics: [
+              [
+                'AWS/ApplicationELB',
+                'HTTPCode_ELB_4XX_Count',
+                'LoadBalancer',
+                albArnSuffix,
+                {
+                  yAxis: 'left',
+                  color: '#ff7f0e',
+                },
+              ],
+              [
+                '.',
+                'RequestCount',
+                '.',
+                '.',
+                {
+                  yAxis: 'right',
+                  color: '#1f77b4',
+                },
+              ],
+              [
+                '.',
+                'HTTPCode_ELB_5XX_Count',
+                '.',
+                '.',
+                {
+                  color: '#d62728',
+                },
+              ],
+            ],
+            view: 'timeSeries',
+            stacked: false,
+            region: 'us-east-1',
+            period: 60,
+            stat: 'Sum',
+            annotations: {
+              horizontal: [
+                {
+                  color: '#17becf',
+                  label: 'RequestCountThreshold',
+                  value: this.config.alarms?.httpRequestCount?.threshold ?? 500,
+                  yAxis: 'right',
                 },
               ],
             },
@@ -513,7 +571,7 @@ export class PocketALBApplication extends Resource {
         {
           type: 'metric',
           x: 12,
-          y: 0,
+          y: 6,
           width: 12,
           height: 6,
           properties: {
@@ -684,6 +742,22 @@ export class PocketALBApplication extends Resource {
         comparisonOperator: 'GreaterThanThreshold',
         threshold: this.config.alarms?.httpLatency?.threshold ?? 300,
         alarmDescription: 'Detecting slower-than-average HTTP response times',
+        insufficientDataActions: [],
+        alarmActions: this.config.alarms?.httpLatency?.actions ?? [],
+        okActions: this.config.alarms?.httpLatency?.actions ?? [],
+        tags: this.config.tags,
+      },
+      {
+        alarmName: `${this.config.prefix}-Alarm-HTTPRequestCount`,
+        namespace: 'AWS/ApplicationELB',
+        metricName: 'RequestCount',
+        dimensions: { LoadBalancer: this.alb.alb.arnSuffix },
+        period: 300,
+        evaluationPeriods: 1,
+        statistic: 'Sum',
+        comparisonOperator: 'GreaterThanThreshold',
+        threshold: this.config.alarms?.httpRequestCount?.threshold ?? 500,
+        alarmDescription: 'Detecting higher than normal HTTP request count',
         insufficientDataActions: [],
         alarmActions: this.config.alarms?.httpLatency?.actions ?? [],
         okActions: this.config.alarms?.httpLatency?.actions ?? [],
