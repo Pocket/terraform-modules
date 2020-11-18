@@ -15,13 +15,13 @@ export const JSON_TEMPLATE = `
   "portMappings": [
     {
       "hostPort": [[HOST_PORT]],
-      "protocol": "tcp",
+      "protocol": "[[PROTOCOL]]",
       "containerPort": [[CONTAINER_PORT]]
     }
   ],
   "command": [[COMMAND]],
   "linuxParameters": null,
-  "cpu": 0,
+  "cpu": [[CPU]],
   "environment": [[ENV_VARS]],
   "resourceRequirements": null,
   "ulimits": null,
@@ -32,7 +32,7 @@ export const JSON_TEMPLATE = `
   "secrets": [[SECRET_ENV_VARS]],
   "dockerSecurityOptions": null,
   "memory": null,
-  "memoryReservation": null,
+  "memoryReservation": [[MEMORY_RESERVATION]],
   "volumesFrom": [],
   "stopTimeout": null,
   "image": "[[CONTAINER_IMAGE]]",
@@ -75,6 +75,9 @@ export interface ApplicationECSContainerDefinitionProps {
   command?: string[];
   name: string;
   repositoryCredentialsParam?: string;
+  memoryReservation?: number;
+  protocol?: string;
+  cpu?: number;
 }
 
 export function buildDefinitionJSON(
@@ -122,6 +125,21 @@ export function buildDefinitionJSON(
   templateInstance = templateInstance.replace(
     '[[SECRET_ENV_VARS]]',
     secretEnvVarsValue
+  );
+
+  templateInstance = templateInstance.replace(
+    '[[CPU]]',
+    config.cpu ? config.cpu.toString() : '0'
+  );
+
+  templateInstance = templateInstance.replace(
+    '[[MEMORY_RESERVATION]]',
+    config.memoryReservation ? config.memoryReservation.toString() : 'null'
+  );
+
+  templateInstance = templateInstance.replace(
+    '[[PROTOCOL]]',
+    config.protocol ?? 'tcp'
   );
 
   // strip out whitespace and newlines and return
