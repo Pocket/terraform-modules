@@ -144,4 +144,24 @@ describe('PocketALBApplication', () => {
 
     expect(Testing.synth(stack)).toMatchSnapshot();
   });
+
+  it('renders an application with modified container def protocol, cpu and memory reservation', () => {
+    const app = Testing.app();
+    const stack = new TerraformStack(app, 'test');
+
+    BASE_CONFIG.containerConfigs = [
+      {
+        name: 'xray-daemon',
+        hostPort: 0,
+        containerPort: 2000,
+        protocol: 'udp',
+        cpu: 10,
+        memoryReservation: 50,
+      },
+    ];
+
+    new PocketALBApplication(stack, 'testPocketApp', BASE_CONFIG);
+
+    expect(Testing.synth(stack)).toMatchSnapshot();
+  });
 });
