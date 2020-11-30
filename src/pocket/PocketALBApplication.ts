@@ -741,7 +741,7 @@ export class PocketALBApplication extends Resource {
         statistic: 'Average',
         comparisonOperator: 'GreaterThanThreshold',
         threshold: this.config.alarms?.httpLatency?.threshold ?? 300,
-        alarmDescription: 'Detecting slower-than-average HTTP response times',
+        alarmDescription: 'Average HTTP response time exceeds threshold',
         insufficientDataActions: [],
         alarmActions: this.config.alarms?.httpLatency?.actions ?? [],
         okActions: this.config.alarms?.httpLatency?.actions ?? [],
