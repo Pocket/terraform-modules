@@ -730,7 +730,7 @@ export class PocketALBApplication extends Resource {
         alarmActions: this.config.alarms?.http5xxError?.actions ?? [],
         okActions: this.config.alarms?.http5xxError?.actions ?? [],
         tags: this.config.tags,
-        alarmDescription: 'Percentage of 5xx responses exceeds threshold'
+        alarmDescription: 'Percentage of 5xx responses exceeds threshold',
       },
       {
         alarmName: `${this.config.prefix}-Alarm-HTTPResponseTime`,
@@ -758,7 +758,7 @@ export class PocketALBApplication extends Resource {
         statistic: 'Sum',
         comparisonOperator: 'GreaterThanThreshold',
         threshold: this.config.alarms?.httpRequestCount?.threshold ?? 500,
-        alarmDescription: 'Detecting higher than normal HTTP request count',
+        alarmDescription: 'Total HTTP request count exceeds threshold',
         insufficientDataActions: [],
         alarmActions: this.config.alarms?.httpLatency?.actions ?? [],
         okActions: this.config.alarms?.httpLatency?.actions ?? [],

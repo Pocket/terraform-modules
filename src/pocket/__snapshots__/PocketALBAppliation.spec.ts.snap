@@ -896,6 +896,7 @@ exports[`PocketALBApplication renders an application with autoscaling group and 
       },
       \\"test_testPocketApp_testappalarmhttp5xxerrorrate_65E69F72\\": {
         \\"alarm_actions\\": [],
+        \\"alarm_description\\": \\"Percentage of 5xx responses exceeds threshold\\",
         \\"alarm_name\\": \\"testapp-testapp-Alarm-HTTP5xxErrorRate\\",
         \\"comparison_operator\\": \\"GreaterThanOrEqualToThreshold\\",
         \\"evaluation_periods\\": 5,
@@ -953,7 +954,7 @@ exports[`PocketALBApplication renders an application with autoscaling group and 
       },
       \\"test_testPocketApp_testappalarmhttpresponsetime_1AA1AB0A\\": {
         \\"alarm_actions\\": [],
-        \\"alarm_description\\": \\"Detecting slower-than-average HTTP response times\\",
+        \\"alarm_description\\": \\"Average HTTP response time exceeds threshold\\",
         \\"alarm_name\\": \\"testapp-testapp-Alarm-HTTPResponseTime\\",
         \\"comparison_operator\\": \\"GreaterThanThreshold\\",
         \\"dimensions\\": {
@@ -980,7 +981,7 @@ exports[`PocketALBApplication renders an application with autoscaling group and 
       },
       \\"test_testPocketApp_testappalarmhttprequestcount_2E762128\\": {
         \\"alarm_actions\\": [],
-        \\"alarm_description\\": \\"Detecting higher than normal HTTP request count\\",
+        \\"alarm_description\\": \\"Total HTTP request count exceeds threshold\\",
         \\"alarm_name\\": \\"testapp-testapp-Alarm-HTTPRequestCount\\",
         \\"comparison_operator\\": \\"GreaterThanThreshold\\",
         \\"dimensions\\": {
@@ -1870,6 +1871,7 @@ exports[`PocketALBApplication renders an application with custom task sizes 1`] 
       },
       \\"test_testPocketApp_testappalarmhttp5xxerrorrate_65E69F72\\": {
         \\"alarm_actions\\": [],
+        \\"alarm_description\\": \\"Percentage of 5xx responses exceeds threshold\\",
         \\"alarm_name\\": \\"testapp-testapp-Alarm-HTTP5xxErrorRate\\",
         \\"comparison_operator\\": \\"GreaterThanOrEqualToThreshold\\",
         \\"evaluation_periods\\": 5,
@@ -1923,7 +1925,7 @@ exports[`PocketALBApplication renders an application with custom task sizes 1`] 
       },
       \\"test_testPocketApp_testappalarmhttpresponsetime_1AA1AB0A\\": {
         \\"alarm_actions\\": [],
-        \\"alarm_description\\": \\"Detecting slower-than-average HTTP response times\\",
+        \\"alarm_description\\": \\"Average HTTP response time exceeds threshold\\",
         \\"alarm_name\\": \\"testapp-testapp-Alarm-HTTPResponseTime\\",
         \\"comparison_operator\\": \\"GreaterThanThreshold\\",
         \\"dimensions\\": {
@@ -1946,7 +1948,7 @@ exports[`PocketALBApplication renders an application with custom task sizes 1`] 
       },
       \\"test_testPocketApp_testappalarmhttprequestcount_2E762128\\": {
         \\"alarm_actions\\": [],
-        \\"alarm_description\\": \\"Detecting higher than normal HTTP request count\\",
+        \\"alarm_description\\": \\"Total HTTP request count exceeds threshold\\",
         \\"alarm_name\\": \\"testapp-testapp-Alarm-HTTPRequestCount\\",
         \\"comparison_operator\\": \\"GreaterThanThreshold\\",
         \\"dimensions\\": {
@@ -2880,6 +2882,7 @@ exports[`PocketALBApplication renders an application with default autoscaling gr
       },
       \\"test_testPocketApp_testappalarmhttp5xxerrorrate_65E69F72\\": {
         \\"alarm_actions\\": [],
+        \\"alarm_description\\": \\"Percentage of 5xx responses exceeds threshold\\",
         \\"alarm_name\\": \\"testapp-testapp-Alarm-HTTP5xxErrorRate\\",
         \\"comparison_operator\\": \\"GreaterThanOrEqualToThreshold\\",
         \\"evaluation_periods\\": 5,
@@ -2937,7 +2940,7 @@ exports[`PocketALBApplication renders an application with default autoscaling gr
       },
       \\"test_testPocketApp_testappalarmhttpresponsetime_1AA1AB0A\\": {
         \\"alarm_actions\\": [],
-        \\"alarm_description\\": \\"Detecting slower-than-average HTTP response times\\",
+        \\"alarm_description\\": \\"Average HTTP response time exceeds threshold\\",
         \\"alarm_name\\": \\"testapp-testapp-Alarm-HTTPResponseTime\\",
         \\"comparison_operator\\": \\"GreaterThanThreshold\\",
         \\"dimensions\\": {
@@ -2964,7 +2967,7 @@ exports[`PocketALBApplication renders an application with default autoscaling gr
       },
       \\"test_testPocketApp_testappalarmhttprequestcount_2E762128\\": {
         \\"alarm_actions\\": [],
-        \\"alarm_description\\": \\"Detecting higher than normal HTTP request count\\",
+        \\"alarm_description\\": \\"Total HTTP request count exceeds threshold\\",
         \\"alarm_name\\": \\"testapp-testapp-Alarm-HTTPRequestCount\\",
         \\"comparison_operator\\": \\"GreaterThanThreshold\\",
         \\"dimensions\\": {
@@ -3854,6 +3857,7 @@ exports[`PocketALBApplication renders an application with minimal config 1`] = `
       },
       \\"test_testPocketApp_testappalarmhttp5xxerrorrate_65E69F72\\": {
         \\"alarm_actions\\": [],
+        \\"alarm_description\\": \\"Percentage of 5xx responses exceeds threshold\\",
         \\"alarm_name\\": \\"testapp-testapp-Alarm-HTTP5xxErrorRate\\",
         \\"comparison_operator\\": \\"GreaterThanOrEqualToThreshold\\",
         \\"evaluation_periods\\": 5,
@@ -3907,7 +3911,7 @@ exports[`PocketALBApplication renders an application with minimal config 1`] = `
       },
       \\"test_testPocketApp_testappalarmhttpresponsetime_1AA1AB0A\\": {
         \\"alarm_actions\\": [],
-        \\"alarm_description\\": \\"Detecting slower-than-average HTTP response times\\",
+        \\"alarm_description\\": \\"Average HTTP response time exceeds threshold\\",
         \\"alarm_name\\": \\"testapp-testapp-Alarm-HTTPResponseTime\\",
         \\"comparison_operator\\": \\"GreaterThanThreshold\\",
         \\"dimensions\\": {
@@ -3930,7 +3934,7 @@ exports[`PocketALBApplication renders an application with minimal config 1`] = `
       },
       \\"test_testPocketApp_testappalarmhttprequestcount_2E762128\\": {
         \\"alarm_actions\\": [],
-        \\"alarm_description\\": \\"Detecting higher than normal HTTP request count\\",
+        \\"alarm_description\\": \\"Total HTTP request count exceeds threshold\\",
         \\"alarm_name\\": \\"testapp-testapp-Alarm-HTTPRequestCount\\",
         \\"comparison_operator\\": \\"GreaterThanThreshold\\",
         \\"dimensions\\": {
@@ -4862,6 +4866,7 @@ exports[`PocketALBApplication renders an application with modified container def
       },
       \\"test_testPocketApp_testappalarmhttp5xxerrorrate_65E69F72\\": {
         \\"alarm_actions\\": [],
+        \\"alarm_description\\": \\"Percentage of 5xx responses exceeds threshold\\",
         \\"alarm_name\\": \\"testapp-testapp-Alarm-HTTP5xxErrorRate\\",
         \\"comparison_operator\\": \\"GreaterThanOrEqualToThreshold\\",
         \\"evaluation_periods\\": 5,
@@ -4915,7 +4920,7 @@ exports[`PocketALBApplication renders an application with modified container def
       },
       \\"test_testPocketApp_testappalarmhttpresponsetime_1AA1AB0A\\": {
         \\"alarm_actions\\": [],
-        \\"alarm_description\\": \\"Detecting slower-than-average HTTP response times\\",
+        \\"alarm_description\\": \\"Average HTTP response time exceeds threshold\\",
         \\"alarm_name\\": \\"testapp-testapp-Alarm-HTTPResponseTime\\",
         \\"comparison_operator\\": \\"GreaterThanThreshold\\",
         \\"dimensions\\": {
@@ -4938,7 +4943,7 @@ exports[`PocketALBApplication renders an application with modified container def
       },
       \\"test_testPocketApp_testappalarmhttprequestcount_2E762128\\": {
         \\"alarm_actions\\": [],
-        \\"alarm_description\\": \\"Detecting higher than normal HTTP request count\\",
+        \\"alarm_description\\": \\"Total HTTP request count exceeds threshold\\",
         \\"alarm_name\\": \\"testapp-testapp-Alarm-HTTPRequestCount\\",
         \\"comparison_operator\\": \\"GreaterThanThreshold\\",
         \\"dimensions\\": {
@@ -5985,6 +5990,7 @@ exports[`PocketALBApplication renders an external application 1`] = `
       },
       \\"test_testPocketApp_testappalarmhttp5xxerrorrate_65E69F72\\": {
         \\"alarm_actions\\": [],
+        \\"alarm_description\\": \\"Percentage of 5xx responses exceeds threshold\\",
         \\"alarm_name\\": \\"testapp-testapp-Alarm-HTTP5xxErrorRate\\",
         \\"comparison_operator\\": \\"GreaterThanOrEqualToThreshold\\",
         \\"evaluation_periods\\": 5,
@@ -6038,7 +6044,7 @@ exports[`PocketALBApplication renders an external application 1`] = `
       },
       \\"test_testPocketApp_testappalarmhttpresponsetime_1AA1AB0A\\": {
         \\"alarm_actions\\": [],
-        \\"alarm_description\\": \\"Detecting slower-than-average HTTP response times\\",
+        \\"alarm_description\\": \\"Average HTTP response time exceeds threshold\\",
         \\"alarm_name\\": \\"testapp-testapp-Alarm-HTTPResponseTime\\",
         \\"comparison_operator\\": \\"GreaterThanThreshold\\",
         \\"dimensions\\": {
@@ -6061,7 +6067,7 @@ exports[`PocketALBApplication renders an external application 1`] = `
       },
       \\"test_testPocketApp_testappalarmhttprequestcount_2E762128\\": {
         \\"alarm_actions\\": [],
-        \\"alarm_description\\": \\"Detecting higher than normal HTTP request count\\",
+        \\"alarm_description\\": \\"Total HTTP request count exceeds threshold\\",
         \\"alarm_name\\": \\"testapp-testapp-Alarm-HTTPRequestCount\\",
         \\"comparison_operator\\": \\"GreaterThanThreshold\\",
         \\"dimensions\\": {
@@ -6947,6 +6953,7 @@ exports[`PocketALBApplication renders an internal application 1`] = `
       },
       \\"test_testPocketApp_testappalarmhttp5xxerrorrate_65E69F72\\": {
         \\"alarm_actions\\": [],
+        \\"alarm_description\\": \\"Percentage of 5xx responses exceeds threshold\\",
         \\"alarm_name\\": \\"testapp-testapp-Alarm-HTTP5xxErrorRate\\",
         \\"comparison_operator\\": \\"GreaterThanOrEqualToThreshold\\",
         \\"evaluation_periods\\": 5,
@@ -7000,7 +7007,7 @@ exports[`PocketALBApplication renders an internal application 1`] = `
       },
       \\"test_testPocketApp_testappalarmhttpresponsetime_1AA1AB0A\\": {
         \\"alarm_actions\\": [],
-        \\"alarm_description\\": \\"Detecting slower-than-average HTTP response times\\",
+        \\"alarm_description\\": \\"Average HTTP response time exceeds threshold\\",
         \\"alarm_name\\": \\"testapp-testapp-Alarm-HTTPResponseTime\\",
         \\"comparison_operator\\": \\"GreaterThanThreshold\\",
         \\"dimensions\\": {
@@ -7023,7 +7030,7 @@ exports[`PocketALBApplication renders an internal application 1`] = `
       },
       \\"test_testPocketApp_testappalarmhttprequestcount_2E762128\\": {
         \\"alarm_actions\\": [],
-        \\"alarm_description\\": \\"Detecting higher than normal HTTP request count\\",
+        \\"alarm_description\\": \\"Total HTTP request count exceeds threshold\\",
         \\"alarm_name\\": \\"testapp-testapp-Alarm-HTTPRequestCount\\",
         \\"comparison_operator\\": \\"GreaterThanThreshold\\",
         \\"dimensions\\": {
@@ -7957,6 +7964,7 @@ exports[`PocketALBApplication renders an internal application with tags 1`] = `
       },
       \\"test_testPocketApp_testappalarmhttp5xxerrorrate_65E69F72\\": {
         \\"alarm_actions\\": [],
+        \\"alarm_description\\": \\"Percentage of 5xx responses exceeds threshold\\",
         \\"alarm_name\\": \\"testapp-testapp-Alarm-HTTP5xxErrorRate\\",
         \\"comparison_operator\\": \\"GreaterThanOrEqualToThreshold\\",
         \\"evaluation_periods\\": 5,
@@ -8014,7 +8022,7 @@ exports[`PocketALBApplication renders an internal application with tags 1`] = `
       },
       \\"test_testPocketApp_testappalarmhttpresponsetime_1AA1AB0A\\": {
         \\"alarm_actions\\": [],
-        \\"alarm_description\\": \\"Detecting slower-than-average HTTP response times\\",
+        \\"alarm_description\\": \\"Average HTTP response time exceeds threshold\\",
         \\"alarm_name\\": \\"testapp-testapp-Alarm-HTTPResponseTime\\",
         \\"comparison_operator\\": \\"GreaterThanThreshold\\",
         \\"dimensions\\": {
@@ -8041,7 +8049,7 @@ exports[`PocketALBApplication renders an internal application with tags 1`] = `
       },
       \\"test_testPocketApp_testappalarmhttprequestcount_2E762128\\": {
         \\"alarm_actions\\": [],
-        \\"alarm_description\\": \\"Detecting higher than normal HTTP request count\\",
+        \\"alarm_description\\": \\"Total HTTP request count exceeds threshold\\",
         \\"alarm_name\\": \\"testapp-testapp-Alarm-HTTPRequestCount\\",
         \\"comparison_operator\\": \\"GreaterThanThreshold\\",
         \\"dimensions\\": {
