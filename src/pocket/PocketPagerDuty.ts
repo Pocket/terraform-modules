@@ -158,7 +158,10 @@ export class PocketPagerDuty extends Resource {
         serviceConfig.autoResolveTimeout?.toString() ??
         PocketPagerDuty.SERVICE_AUTO_RESOLVE_TIMEOUT,
       description: `PagerDuty ${urgency}`,
-      escalationPolicy: serviceConfig.criticalEscalationPolicyId,
+      escalationPolicy:
+        urgency === PAGERDUTY_SERVICE_URGENCY.CRITICAL
+          ? serviceConfig.criticalEscalationPolicyId
+          : serviceConfig.nonCriticalEscalationPolicyId,
       incidentUrgencyRule: [
         {
           type: 'constant',
