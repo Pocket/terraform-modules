@@ -214,7 +214,7 @@ exports[`PocketALBApplication renders an application with autoscaling group and 
               \\"cloudwatch:DeleteAlarms\\"
             ],
             \\"resources\\": [
-              \\"arn:aws:cloudwatch:*:*:alarm:/testapp-*\\"
+              \\"arn:aws:cloudwatch:*:*:alarm:/testapp*\\"
             ]
           },
           {
@@ -224,7 +224,7 @@ exports[`PocketALBApplication renders an application with autoscaling group and 
               \\"ecs:UpdateService\\"
             ],
             \\"resources\\": [
-              \\"arn:aws:ecs:*:*:service/testapp-*\\"
+              \\"arn:aws:ecs:*:*:service/testapp*\\"
             ]
           }
         ],
@@ -361,11 +361,11 @@ exports[`PocketALBApplication renders an application with autoscaling group and 
             \\"self\\": null
           }
         ],
-        \\"name_prefix\\": \\"testapp--HTTP/S Security Group\\",
+        \\"name_prefix\\": \\"testapp-HTTP/S Security Group\\",
         \\"tags\\": {
           \\"name\\": \\"thedude\\",
           \\"hobby\\": \\"bowling\\",
-          \\"Name\\": \\"testapp--HTTP/S Security Group\\"
+          \\"Name\\": \\"testapp-HTTP/S Security Group\\"
         },
         \\"vpc_id\\": \\"\${data.aws_vpc.test_testPocketApp_pocketvpc_40AC0971.id}\\",
         \\"lifecycle\\": {
@@ -410,7 +410,7 @@ exports[`PocketALBApplication renders an application with autoscaling group and 
             \\"self\\": false
           }
         ],
-        \\"name_prefix\\": \\"testapp--ECSSecurityGroup\\",
+        \\"name_prefix\\": \\"testapp-ECSSecurityGroup\\",
         \\"tags\\": {
           \\"name\\": \\"thedude\\",
           \\"hobby\\": \\"bowling\\"
@@ -486,7 +486,7 @@ exports[`PocketALBApplication renders an application with autoscaling group and 
     },
     \\"aws_ecs_cluster\\": {
       \\"test_testPocketApp_ecscluster_CE90B54F\\": {
-        \\"name\\": \\"testapp-\\",
+        \\"name\\": \\"testapp\\",
         \\"tags\\": {
           \\"name\\": \\"thedude\\",
           \\"hobby\\": \\"bowling\\"
@@ -568,7 +568,7 @@ exports[`PocketALBApplication renders an application with autoscaling group and 
     \\"aws_iam_role\\": {
       \\"test_testPocketApp_ecsservice_ecsiam_ecsexecutionrole_670A7AD5\\": {
         \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.test_testPocketApp_ecsservice_ecsiam_ecstaskassume_A392A140.json}\\",
-        \\"name\\": \\"testapp--TaskExecutionRole\\",
+        \\"name\\": \\"testapp-TaskExecutionRole\\",
         \\"tags\\": {
           \\"name\\": \\"thedude\\",
           \\"hobby\\": \\"bowling\\"
@@ -582,7 +582,7 @@ exports[`PocketALBApplication renders an application with autoscaling group and 
       },
       \\"test_testPocketApp_ecsservice_ecsiam_ecstaskrole_E41363D4\\": {
         \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.test_testPocketApp_ecsservice_ecsiam_ecstaskassume_A392A140.json}\\",
-        \\"name\\": \\"testapp--TaskRole\\",
+        \\"name\\": \\"testapp-TaskRole\\",
         \\"tags\\": {
           \\"name\\": \\"thedude\\",
           \\"hobby\\": \\"bowling\\"
@@ -596,7 +596,7 @@ exports[`PocketALBApplication renders an application with autoscaling group and 
       },
       \\"test_testPocketApp_autoscaling_autoscalingrole_7AF03E02\\": {
         \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.test_testPocketApp_autoscaling_autoscalingassume_6CD4F67B.json}\\",
-        \\"name\\": \\"testapp--AutoScalingRole\\",
+        \\"name\\": \\"testapp-AutoScalingRole\\",
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/testPocketApp/autoscaling/autoscaling_role\\",
@@ -610,7 +610,7 @@ exports[`PocketALBApplication renders an application with autoscaling group and 
         \\"container_definitions\\": \\"[]\\",
         \\"cpu\\": \\"512\\",
         \\"execution_role_arn\\": \\"\${aws_iam_role.test_testPocketApp_ecsservice_ecsiam_ecsexecutionrole_670A7AD5.arn}\\",
-        \\"family\\": \\"testapp-\\",
+        \\"family\\": \\"testapp\\",
         \\"memory\\": \\"2048\\",
         \\"network_mode\\": \\"awsvpc\\",
         \\"requires_compatibilities\\": [
@@ -701,7 +701,7 @@ exports[`PocketALBApplication renders an application with autoscaling group and 
         \\"deployment_minimum_healthy_percent\\": 100,
         \\"desired_count\\": 2,
         \\"launch_type\\": \\"FARGATE\\",
-        \\"name\\": \\"testapp-\\",
+        \\"name\\": \\"testapp\\",
         \\"propagate_tags\\": \\"SERVICE\\",
         \\"tags\\": {
           \\"name\\": \\"thedude\\",
@@ -748,7 +748,7 @@ exports[`PocketALBApplication renders an application with autoscaling group and 
     },
     \\"aws_iam_role_policy\\": {
       \\"test_testPocketApp_autoscaling_autoscalingrolepolicy_74F4D9D4\\": {
-        \\"name\\": \\"testapp--AutoScalingPolicy\\",
+        \\"name\\": \\"testapp-AutoScalingPolicy\\",
         \\"policy\\": \\"\${data.aws_iam_policy_document.test_testPocketApp_autoscaling_rolepolicy_38FC9EBD.json}\\",
         \\"role\\": \\"\${aws_iam_role.test_testPocketApp_autoscaling_autoscalingrole_7AF03E02.id}\\",
         \\"//\\": {
@@ -763,7 +763,7 @@ exports[`PocketALBApplication renders an application with autoscaling group and 
       \\"test_testPocketApp_autoscaling_autoscalingtarget_6206F84C\\": {
         \\"max_capacity\\": 2,
         \\"min_capacity\\": 1,
-        \\"resource_id\\": \\"service/testapp-/testapp-\\",
+        \\"resource_id\\": \\"service/testapp/testapp\\",
         \\"role_arn\\": \\"\${aws_iam_role.test_testPocketApp_autoscaling_autoscalingrole_7AF03E02.arn}\\",
         \\"scalable_dimension\\": \\"ecs:service:DesiredCount\\",
         \\"service_namespace\\": \\"ecs\\",
@@ -777,9 +777,9 @@ exports[`PocketALBApplication renders an application with autoscaling group and 
     },
     \\"aws_appautoscaling_policy\\": {
       \\"test_testPocketApp_autoscaling_scaleoutpolicy_65809B71\\": {
-        \\"name\\": \\"testapp--ScaleOutPolicy\\",
+        \\"name\\": \\"testapp-ScaleOutPolicy\\",
         \\"policy_type\\": \\"StepScaling\\",
-        \\"resource_id\\": \\"service/testapp-/testapp-\\",
+        \\"resource_id\\": \\"service/testapp/testapp\\",
         \\"scalable_dimension\\": \\"ecs:service:DesiredCount\\",
         \\"service_namespace\\": \\"ecs\\",
         \\"step_scaling_policy_configuration\\": [
@@ -806,9 +806,9 @@ exports[`PocketALBApplication renders an application with autoscaling group and 
         }
       },
       \\"test_testPocketApp_autoscaling_scaleinpolicy_79053E73\\": {
-        \\"name\\": \\"testapp--ScaleInPolicy\\",
+        \\"name\\": \\"testapp-ScaleInPolicy\\",
         \\"policy_type\\": \\"StepScaling\\",
-        \\"resource_id\\": \\"service/testapp-/testapp-\\",
+        \\"resource_id\\": \\"service/testapp/testapp\\",
         \\"scalable_dimension\\": \\"ecs:service:DesiredCount\\",
         \\"service_namespace\\": \\"ecs\\",
         \\"step_scaling_policy_configuration\\": [
@@ -841,11 +841,11 @@ exports[`PocketALBApplication renders an application with autoscaling group and 
           \\"\${aws_appautoscaling_policy.test_testPocketApp_autoscaling_scaleoutpolicy_65809B71.arn}\\"
         ],
         \\"alarm_description\\": \\"Alarm to add capacity if CPU is high\\",
-        \\"alarm_name\\": \\"testapp- Service High CPU\\",
+        \\"alarm_name\\": \\"testapp Service High CPU\\",
         \\"comparison_operator\\": \\"GreaterThanThreshold\\",
         \\"dimensions\\": {
-          \\"ClusterName\\": \\"testapp-\\",
-          \\"ServiceName\\": \\"testapp-\\"
+          \\"ClusterName\\": \\"testapp\\",
+          \\"ServiceName\\": \\"testapp\\"
         },
         \\"evaluation_periods\\": 2,
         \\"metric_name\\": \\"CPUUtilization\\",
@@ -870,11 +870,11 @@ exports[`PocketALBApplication renders an application with autoscaling group and 
           \\"\${aws_appautoscaling_policy.test_testPocketApp_autoscaling_scaleinpolicy_79053E73.arn}\\"
         ],
         \\"alarm_description\\": \\"Alarm to reduce capacity if container CPU is low\\",
-        \\"alarm_name\\": \\"testapp- Service Low CPU\\",
+        \\"alarm_name\\": \\"testapp Service Low CPU\\",
         \\"comparison_operator\\": \\"LessThanThreshold\\",
         \\"dimensions\\": {
-          \\"ClusterName\\": \\"testapp-\\",
-          \\"ServiceName\\": \\"testapp-\\"
+          \\"ClusterName\\": \\"testapp\\",
+          \\"ServiceName\\": \\"testapp\\"
         },
         \\"evaluation_periods\\": 2,
         \\"metric_name\\": \\"CPUUtilization\\",
@@ -893,12 +893,124 @@ exports[`PocketALBApplication renders an application with autoscaling group and 
             \\"uniqueId\\": \\"test_testPocketApp_autoscaling_scaleinalarm_5B889D45\\"
           }
         }
+      },
+      \\"test_testPocketApp_testappalarmhttp5xxerrorrate_65E69F72\\": {
+        \\"alarm_actions\\": [],
+        \\"alarm_description\\": \\"Percentage of 5xx responses exceeds threshold\\",
+        \\"alarm_name\\": \\"testapp-testapp-Alarm-HTTP5xxErrorRate\\",
+        \\"comparison_operator\\": \\"GreaterThanOrEqualToThreshold\\",
+        \\"evaluation_periods\\": 5,
+        \\"insufficient_data_actions\\": [],
+        \\"ok_actions\\": [],
+        \\"tags\\": {
+          \\"name\\": \\"thedude\\",
+          \\"hobby\\": \\"bowling\\"
+        },
+        \\"threshold\\": 5,
+        \\"metric_query\\": [
+          {
+            \\"id\\": \\"requests\\",
+            \\"metric\\": [
+              {
+                \\"metric_name\\": \\"RequestCount\\",
+                \\"namespace\\": \\"AWS/ApplicationELB\\",
+                \\"period\\": 60,
+                \\"stat\\": \\"Sum\\",
+                \\"unit\\": \\"Count\\",
+                \\"dimensions\\": {
+                  \\"LoadBalancer\\": \\"\${aws_alb.test_testPocketApp_applicationloadbalancer_alb_6EA5BF17.arn_suffix}\\"
+                }
+              }
+            ]
+          },
+          {
+            \\"id\\": \\"errors\\",
+            \\"metric\\": [
+              {
+                \\"metric_name\\": \\"HTTPCode_ELB_5XX_Count\\",
+                \\"namespace\\": \\"AWS/ApplicationELB\\",
+                \\"period\\": 60,
+                \\"stat\\": \\"Sum\\",
+                \\"unit\\": \\"Count\\",
+                \\"dimensions\\": {
+                  \\"LoadBalancer\\": \\"\${aws_alb.test_testPocketApp_applicationloadbalancer_alb_6EA5BF17.arn_suffix}\\"
+                }
+              }
+            ]
+          },
+          {
+            \\"id\\": \\"expression\\",
+            \\"expression\\": \\"errors/requests*100\\",
+            \\"label\\": \\"HTTP 5xx Error Rate\\",
+            \\"return_data\\": true
+          }
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/testapp-alarm-http5xxerrorrate\\",
+            \\"uniqueId\\": \\"test_testPocketApp_testappalarmhttp5xxerrorrate_65E69F72\\"
+          }
+        }
+      },
+      \\"test_testPocketApp_testappalarmhttpresponsetime_1AA1AB0A\\": {
+        \\"alarm_actions\\": [],
+        \\"alarm_description\\": \\"Average HTTP response time exceeds threshold\\",
+        \\"alarm_name\\": \\"testapp-testapp-Alarm-HTTPResponseTime\\",
+        \\"comparison_operator\\": \\"GreaterThanThreshold\\",
+        \\"dimensions\\": {
+          \\"LoadBalancer\\": \\"\${aws_alb.test_testPocketApp_applicationloadbalancer_alb_6EA5BF17.arn_suffix}\\"
+        },
+        \\"evaluation_periods\\": 1,
+        \\"insufficient_data_actions\\": [],
+        \\"metric_name\\": \\"TargetResponseTime\\",
+        \\"namespace\\": \\"AWS/ApplicationELB\\",
+        \\"ok_actions\\": [],
+        \\"period\\": 300,
+        \\"statistic\\": \\"Average\\",
+        \\"tags\\": {
+          \\"name\\": \\"thedude\\",
+          \\"hobby\\": \\"bowling\\"
+        },
+        \\"threshold\\": 300,
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/testapp-alarm-httpresponsetime\\",
+            \\"uniqueId\\": \\"test_testPocketApp_testappalarmhttpresponsetime_1AA1AB0A\\"
+          }
+        }
+      },
+      \\"test_testPocketApp_testappalarmhttprequestcount_2E762128\\": {
+        \\"alarm_actions\\": [],
+        \\"alarm_description\\": \\"Total HTTP request count exceeds threshold\\",
+        \\"alarm_name\\": \\"testapp-testapp-Alarm-HTTPRequestCount\\",
+        \\"comparison_operator\\": \\"GreaterThanThreshold\\",
+        \\"dimensions\\": {
+          \\"LoadBalancer\\": \\"\${aws_alb.test_testPocketApp_applicationloadbalancer_alb_6EA5BF17.arn_suffix}\\"
+        },
+        \\"evaluation_periods\\": 1,
+        \\"insufficient_data_actions\\": [],
+        \\"metric_name\\": \\"RequestCount\\",
+        \\"namespace\\": \\"AWS/ApplicationELB\\",
+        \\"ok_actions\\": [],
+        \\"period\\": 300,
+        \\"statistic\\": \\"Sum\\",
+        \\"tags\\": {
+          \\"name\\": \\"thedude\\",
+          \\"hobby\\": \\"bowling\\"
+        },
+        \\"threshold\\": 500,
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/testapp-alarm-httprequestcount\\",
+            \\"uniqueId\\": \\"test_testPocketApp_testappalarmhttprequestcount_2E762128\\"
+          }
+        }
       }
     },
     \\"aws_cloudwatch_dashboard\\": {
       \\"test_testPocketApp_cloudwatchdashboard_8824C28A\\": {
-        \\"dashboard_body\\": \\"{\\\\\\"widgets\\\\\\":[{\\\\\\"type\\\\\\":\\\\\\"metric\\\\\\",\\\\\\"x\\\\\\":0,\\\\\\"y\\\\\\":0,\\\\\\"width\\\\\\":12,\\\\\\"height\\\\\\":6,\\\\\\"properties\\\\\\":{\\\\\\"metrics\\\\\\":[[\\\\\\"AWS/ApplicationELB\\\\\\",\\\\\\"HTTPCode_Target_4XX_Count\\\\\\",\\\\\\"LoadBalancer\\\\\\",\\\\\\"\${aws_alb.test_testPocketApp_applicationloadbalancer_alb_6EA5BF17.arn_suffix}\\\\\\",{\\\\\\"yAxis\\\\\\":\\\\\\"left\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#ff7f0e\\\\\\"}],[\\\\\\".\\\\\\",\\\\\\"RequestCount\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",{\\\\\\"yAxis\\\\\\":\\\\\\"right\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#1f77b4\\\\\\"}],[\\\\\\".\\\\\\",\\\\\\"HTTPCode_Target_5XX_Count\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",{\\\\\\"color\\\\\\":\\\\\\"#d62728\\\\\\"}],[\\\\\\".\\\\\\",\\\\\\"HTTPCode_Target_2XX_Count\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",{\\\\\\"yAxis\\\\\\":\\\\\\"right\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#2ca02c\\\\\\"}]],\\\\\\"view\\\\\\":\\\\\\"timeSeries\\\\\\",\\\\\\"stacked\\\\\\":false,\\\\\\"region\\\\\\":\\\\\\"us-east-1\\\\\\",\\\\\\"period\\\\\\":60,\\\\\\"stat\\\\\\":\\\\\\"Sum\\\\\\",\\\\\\"annotations\\\\\\":{\\\\\\"horizontal\\\\\\":[{\\\\\\"color\\\\\\":\\\\\\"#17becf\\\\\\",\\\\\\"label\\\\\\":\\\\\\"RequestCountThreshold\\\\\\",\\\\\\"value\\\\\\":500,\\\\\\"yAxis\\\\\\":\\\\\\"right\\\\\\"}]},\\\\\\"title\\\\\\":\\\\\\"Target Requests\\\\\\"}},{\\\\\\"type\\\\\\":\\\\\\"metric\\\\\\",\\\\\\"x\\\\\\":12,\\\\\\"y\\\\\\":0,\\\\\\"width\\\\\\":12,\\\\\\"height\\\\\\":6,\\\\\\"properties\\\\\\":{\\\\\\"metrics\\\\\\":[[\\\\\\"AWS/ApplicationELB\\\\\\",\\\\\\"HTTPCode_ELB_4XX_Count\\\\\\",\\\\\\"LoadBalancer\\\\\\",\\\\\\"\${aws_alb.test_testPocketApp_applicationloadbalancer_alb_6EA5BF17.arn_suffix}\\\\\\",{\\\\\\"yAxis\\\\\\":\\\\\\"left\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#ff7f0e\\\\\\"}],[\\\\\\".\\\\\\",\\\\\\"RequestCount\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",{\\\\\\"yAxis\\\\\\":\\\\\\"right\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#1f77b4\\\\\\"}],[\\\\\\".\\\\\\",\\\\\\"HTTPCode_ELB_5XX_Count\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",{\\\\\\"color\\\\\\":\\\\\\"#d62728\\\\\\"}]],\\\\\\"view\\\\\\":\\\\\\"timeSeries\\\\\\",\\\\\\"stacked\\\\\\":false,\\\\\\"region\\\\\\":\\\\\\"us-east-1\\\\\\",\\\\\\"period\\\\\\":60,\\\\\\"stat\\\\\\":\\\\\\"Sum\\\\\\",\\\\\\"annotations\\\\\\":{\\\\\\"horizontal\\\\\\":[{\\\\\\"color\\\\\\":\\\\\\"#17becf\\\\\\",\\\\\\"label\\\\\\":\\\\\\"RequestCountThreshold\\\\\\",\\\\\\"value\\\\\\":500,\\\\\\"yAxis\\\\\\":\\\\\\"right\\\\\\"}]},\\\\\\"title\\\\\\":\\\\\\"ALB Requests\\\\\\"}},{\\\\\\"type\\\\\\":\\\\\\"metric\\\\\\",\\\\\\"x\\\\\\":12,\\\\\\"y\\\\\\":6,\\\\\\"width\\\\\\":12,\\\\\\"height\\\\\\":6,\\\\\\"properties\\\\\\":{\\\\\\"metrics\\\\\\":[[\\\\\\"AWS/ApplicationELB\\\\\\",\\\\\\"TargetResponseTime\\\\\\",\\\\\\"LoadBalancer\\\\\\",\\\\\\"\${aws_alb.test_testPocketApp_applicationloadbalancer_alb_6EA5BF17.arn_suffix}\\\\\\",{\\\\\\"label\\\\\\":\\\\\\"Average\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#aec7e8\\\\\\"}],[\\\\\\"...\\\\\\",{\\\\\\"stat\\\\\\":\\\\\\"p95\\\\\\",\\\\\\"label\\\\\\":\\\\\\"p95\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#ffbb78\\\\\\"}],[\\\\\\"...\\\\\\",{\\\\\\"stat\\\\\\":\\\\\\"p99\\\\\\",\\\\\\"label\\\\\\":\\\\\\"p99\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#98df8a\\\\\\"}]],\\\\\\"view\\\\\\":\\\\\\"timeSeries\\\\\\",\\\\\\"stacked\\\\\\":false,\\\\\\"region\\\\\\":\\\\\\"us-east-1\\\\\\",\\\\\\"stat\\\\\\":\\\\\\"Average\\\\\\",\\\\\\"period\\\\\\":60}},{\\\\\\"type\\\\\\":\\\\\\"metric\\\\\\",\\\\\\"x\\\\\\":0,\\\\\\"y\\\\\\":6,\\\\\\"width\\\\\\":12,\\\\\\"height\\\\\\":6,\\\\\\"properties\\\\\\":{\\\\\\"metrics\\\\\\":[[\\\\\\"ECS/ContainerInsights\\\\\\",\\\\\\"RunningTaskCount\\\\\\",\\\\\\"ServiceName\\\\\\",\\\\\\"testapp-\\\\\\",\\\\\\"ClusterName\\\\\\",\\\\\\"testapp-\\\\\\",{\\\\\\"yAxis\\\\\\":\\\\\\"right\\\\\\",\\\\\\"stat\\\\\\":\\\\\\"Sum\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#c49c94\\\\\\"}],[\\\\\\"AWS/ECS\\\\\\",\\\\\\"CPUUtilization\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",{\\\\\\"color\\\\\\":\\\\\\"#f7b6d2\\\\\\"}],[\\\\\\".\\\\\\",\\\\\\"MemoryUtilization\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",{\\\\\\"color\\\\\\":\\\\\\"#c7c7c7\\\\\\"}]],\\\\\\"view\\\\\\":\\\\\\"timeSeries\\\\\\",\\\\\\"stacked\\\\\\":false,\\\\\\"region\\\\\\":\\\\\\"us-east-1\\\\\\",\\\\\\"stat\\\\\\":\\\\\\"Average\\\\\\",\\\\\\"period\\\\\\":60,\\\\\\"annotations\\\\\\":{\\\\\\"horizontal\\\\\\":[{\\\\\\"color\\\\\\":\\\\\\"#e377c2\\\\\\",\\\\\\"label\\\\\\":\\\\\\"CPU scale out\\\\\\",\\\\\\"value\\\\\\":45},{\\\\\\"color\\\\\\":\\\\\\"#c5b0d5\\\\\\",\\\\\\"label\\\\\\":\\\\\\"CPU scale in\\\\\\",\\\\\\"value\\\\\\":30}]},\\\\\\"title\\\\\\":\\\\\\"Service Load\\\\\\"}}]}\\",
-        \\"dashboard_name\\": \\"testapp--ALBDashboard\\",
+        \\"dashboard_body\\": \\"{\\\\\\"widgets\\\\\\":[{\\\\\\"type\\\\\\":\\\\\\"metric\\\\\\",\\\\\\"x\\\\\\":0,\\\\\\"y\\\\\\":0,\\\\\\"width\\\\\\":12,\\\\\\"height\\\\\\":6,\\\\\\"properties\\\\\\":{\\\\\\"metrics\\\\\\":[[\\\\\\"AWS/ApplicationELB\\\\\\",\\\\\\"HTTPCode_Target_4XX_Count\\\\\\",\\\\\\"LoadBalancer\\\\\\",\\\\\\"\${aws_alb.test_testPocketApp_applicationloadbalancer_alb_6EA5BF17.arn_suffix}\\\\\\",{\\\\\\"yAxis\\\\\\":\\\\\\"left\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#ff7f0e\\\\\\"}],[\\\\\\".\\\\\\",\\\\\\"RequestCount\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",{\\\\\\"yAxis\\\\\\":\\\\\\"right\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#1f77b4\\\\\\"}],[\\\\\\".\\\\\\",\\\\\\"HTTPCode_Target_5XX_Count\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",{\\\\\\"color\\\\\\":\\\\\\"#d62728\\\\\\"}],[\\\\\\".\\\\\\",\\\\\\"HTTPCode_Target_2XX_Count\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",{\\\\\\"yAxis\\\\\\":\\\\\\"right\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#2ca02c\\\\\\"}]],\\\\\\"view\\\\\\":\\\\\\"timeSeries\\\\\\",\\\\\\"stacked\\\\\\":false,\\\\\\"region\\\\\\":\\\\\\"us-east-1\\\\\\",\\\\\\"period\\\\\\":60,\\\\\\"stat\\\\\\":\\\\\\"Sum\\\\\\",\\\\\\"annotations\\\\\\":{\\\\\\"horizontal\\\\\\":[{\\\\\\"color\\\\\\":\\\\\\"#17becf\\\\\\",\\\\\\"label\\\\\\":\\\\\\"RequestCountThreshold\\\\\\",\\\\\\"value\\\\\\":500,\\\\\\"yAxis\\\\\\":\\\\\\"right\\\\\\"}]},\\\\\\"title\\\\\\":\\\\\\"Target Requests\\\\\\"}},{\\\\\\"type\\\\\\":\\\\\\"metric\\\\\\",\\\\\\"x\\\\\\":12,\\\\\\"y\\\\\\":0,\\\\\\"width\\\\\\":12,\\\\\\"height\\\\\\":6,\\\\\\"properties\\\\\\":{\\\\\\"metrics\\\\\\":[[\\\\\\"AWS/ApplicationELB\\\\\\",\\\\\\"HTTPCode_ELB_4XX_Count\\\\\\",\\\\\\"LoadBalancer\\\\\\",\\\\\\"\${aws_alb.test_testPocketApp_applicationloadbalancer_alb_6EA5BF17.arn_suffix}\\\\\\",{\\\\\\"yAxis\\\\\\":\\\\\\"left\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#ff7f0e\\\\\\"}],[\\\\\\".\\\\\\",\\\\\\"RequestCount\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",{\\\\\\"yAxis\\\\\\":\\\\\\"right\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#1f77b4\\\\\\"}],[\\\\\\".\\\\\\",\\\\\\"HTTPCode_ELB_5XX_Count\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",{\\\\\\"color\\\\\\":\\\\\\"#d62728\\\\\\"}]],\\\\\\"view\\\\\\":\\\\\\"timeSeries\\\\\\",\\\\\\"stacked\\\\\\":false,\\\\\\"region\\\\\\":\\\\\\"us-east-1\\\\\\",\\\\\\"period\\\\\\":60,\\\\\\"stat\\\\\\":\\\\\\"Sum\\\\\\",\\\\\\"annotations\\\\\\":{\\\\\\"horizontal\\\\\\":[{\\\\\\"color\\\\\\":\\\\\\"#17becf\\\\\\",\\\\\\"label\\\\\\":\\\\\\"RequestCountThreshold\\\\\\",\\\\\\"value\\\\\\":500,\\\\\\"yAxis\\\\\\":\\\\\\"right\\\\\\"}]},\\\\\\"title\\\\\\":\\\\\\"ALB Requests\\\\\\"}},{\\\\\\"type\\\\\\":\\\\\\"metric\\\\\\",\\\\\\"x\\\\\\":12,\\\\\\"y\\\\\\":6,\\\\\\"width\\\\\\":12,\\\\\\"height\\\\\\":6,\\\\\\"properties\\\\\\":{\\\\\\"metrics\\\\\\":[[\\\\\\"AWS/ApplicationELB\\\\\\",\\\\\\"TargetResponseTime\\\\\\",\\\\\\"LoadBalancer\\\\\\",\\\\\\"\${aws_alb.test_testPocketApp_applicationloadbalancer_alb_6EA5BF17.arn_suffix}\\\\\\",{\\\\\\"label\\\\\\":\\\\\\"Average\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#aec7e8\\\\\\"}],[\\\\\\"...\\\\\\",{\\\\\\"stat\\\\\\":\\\\\\"p95\\\\\\",\\\\\\"label\\\\\\":\\\\\\"p95\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#ffbb78\\\\\\"}],[\\\\\\"...\\\\\\",{\\\\\\"stat\\\\\\":\\\\\\"p99\\\\\\",\\\\\\"label\\\\\\":\\\\\\"p99\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#98df8a\\\\\\"}]],\\\\\\"view\\\\\\":\\\\\\"timeSeries\\\\\\",\\\\\\"stacked\\\\\\":false,\\\\\\"region\\\\\\":\\\\\\"us-east-1\\\\\\",\\\\\\"stat\\\\\\":\\\\\\"Average\\\\\\",\\\\\\"period\\\\\\":60}},{\\\\\\"type\\\\\\":\\\\\\"metric\\\\\\",\\\\\\"x\\\\\\":0,\\\\\\"y\\\\\\":6,\\\\\\"width\\\\\\":12,\\\\\\"height\\\\\\":6,\\\\\\"properties\\\\\\":{\\\\\\"metrics\\\\\\":[[\\\\\\"ECS/ContainerInsights\\\\\\",\\\\\\"RunningTaskCount\\\\\\",\\\\\\"ServiceName\\\\\\",\\\\\\"testapp\\\\\\",\\\\\\"ClusterName\\\\\\",\\\\\\"\${aws_ecs_cluster.test_testPocketApp_ecscluster_CE90B54F.arn}\\\\\\",{\\\\\\"yAxis\\\\\\":\\\\\\"right\\\\\\",\\\\\\"stat\\\\\\":\\\\\\"Sum\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#c49c94\\\\\\"}],[\\\\\\"AWS/ECS\\\\\\",\\\\\\"CPUUtilization\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",{\\\\\\"color\\\\\\":\\\\\\"#f7b6d2\\\\\\"}],[\\\\\\".\\\\\\",\\\\\\"MemoryUtilization\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",{\\\\\\"color\\\\\\":\\\\\\"#c7c7c7\\\\\\"}]],\\\\\\"view\\\\\\":\\\\\\"timeSeries\\\\\\",\\\\\\"stacked\\\\\\":false,\\\\\\"region\\\\\\":\\\\\\"us-east-1\\\\\\",\\\\\\"stat\\\\\\":\\\\\\"Average\\\\\\",\\\\\\"period\\\\\\":60,\\\\\\"annotations\\\\\\":{\\\\\\"horizontal\\\\\\":[{\\\\\\"color\\\\\\":\\\\\\"#e377c2\\\\\\",\\\\\\"label\\\\\\":\\\\\\"CPU scale out\\\\\\",\\\\\\"value\\\\\\":45},{\\\\\\"color\\\\\\":\\\\\\"#c5b0d5\\\\\\",\\\\\\"label\\\\\\":\\\\\\"CPU scale in\\\\\\",\\\\\\"value\\\\\\":30}]},\\\\\\"title\\\\\\":\\\\\\"Service Load\\\\\\"}}]}\\",
+        \\"dashboard_name\\": \\"testapp-ALBDashboard\\",
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/testPocketApp/cloudwatch-dashboard\\",
@@ -1125,7 +1237,7 @@ exports[`PocketALBApplication renders an application with custom task sizes 1`] 
               \\"cloudwatch:DeleteAlarms\\"
             ],
             \\"resources\\": [
-              \\"arn:aws:cloudwatch:*:*:alarm:/testapp-*\\"
+              \\"arn:aws:cloudwatch:*:*:alarm:/testapp*\\"
             ]
           },
           {
@@ -1135,7 +1247,7 @@ exports[`PocketALBApplication renders an application with custom task sizes 1`] 
               \\"ecs:UpdateService\\"
             ],
             \\"resources\\": [
-              \\"arn:aws:ecs:*:*:service/testapp-*\\"
+              \\"arn:aws:ecs:*:*:service/testapp*\\"
             ]
           }
         ],
@@ -1268,9 +1380,9 @@ exports[`PocketALBApplication renders an application with custom task sizes 1`] 
             \\"self\\": null
           }
         ],
-        \\"name_prefix\\": \\"testapp--HTTP/S Security Group\\",
+        \\"name_prefix\\": \\"testapp-HTTP/S Security Group\\",
         \\"tags\\": {
-          \\"Name\\": \\"testapp--HTTP/S Security Group\\"
+          \\"Name\\": \\"testapp-HTTP/S Security Group\\"
         },
         \\"vpc_id\\": \\"\${data.aws_vpc.test_testPocketApp_pocketvpc_40AC0971.id}\\",
         \\"lifecycle\\": {
@@ -1315,7 +1427,7 @@ exports[`PocketALBApplication renders an application with custom task sizes 1`] 
             \\"self\\": false
           }
         ],
-        \\"name_prefix\\": \\"testapp--ECSSecurityGroup\\",
+        \\"name_prefix\\": \\"testapp-ECSSecurityGroup\\",
         \\"vpc_id\\": \\"\${data.aws_vpc.test_testPocketApp_pocketvpc_40AC0971.id}\\",
         \\"lifecycle\\": {
           \\"create_before_destroy\\": true
@@ -1379,7 +1491,7 @@ exports[`PocketALBApplication renders an application with custom task sizes 1`] 
     },
     \\"aws_ecs_cluster\\": {
       \\"test_testPocketApp_ecscluster_CE90B54F\\": {
-        \\"name\\": \\"testapp-\\",
+        \\"name\\": \\"testapp\\",
         \\"setting\\": [
           {
             \\"name\\": \\"containerInsights\\",
@@ -1457,7 +1569,7 @@ exports[`PocketALBApplication renders an application with custom task sizes 1`] 
     \\"aws_iam_role\\": {
       \\"test_testPocketApp_ecsservice_ecsiam_ecsexecutionrole_670A7AD5\\": {
         \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.test_testPocketApp_ecsservice_ecsiam_ecstaskassume_A392A140.json}\\",
-        \\"name\\": \\"testapp--TaskExecutionRole\\",
+        \\"name\\": \\"testapp-TaskExecutionRole\\",
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/testPocketApp/ecs_service/ecs-iam/ecs-execution-role\\",
@@ -1467,7 +1579,7 @@ exports[`PocketALBApplication renders an application with custom task sizes 1`] 
       },
       \\"test_testPocketApp_ecsservice_ecsiam_ecstaskrole_E41363D4\\": {
         \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.test_testPocketApp_ecsservice_ecsiam_ecstaskassume_A392A140.json}\\",
-        \\"name\\": \\"testapp--TaskRole\\",
+        \\"name\\": \\"testapp-TaskRole\\",
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/testPocketApp/ecs_service/ecs-iam/ecs-task-role\\",
@@ -1477,7 +1589,7 @@ exports[`PocketALBApplication renders an application with custom task sizes 1`] 
       },
       \\"test_testPocketApp_autoscaling_autoscalingrole_7AF03E02\\": {
         \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.test_testPocketApp_autoscaling_autoscalingassume_6CD4F67B.json}\\",
-        \\"name\\": \\"testapp--AutoScalingRole\\",
+        \\"name\\": \\"testapp-AutoScalingRole\\",
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/testPocketApp/autoscaling/autoscaling_role\\",
@@ -1491,7 +1603,7 @@ exports[`PocketALBApplication renders an application with custom task sizes 1`] 
         \\"container_definitions\\": \\"[]\\",
         \\"cpu\\": \\"8675\\",
         \\"execution_role_arn\\": \\"\${aws_iam_role.test_testPocketApp_ecsservice_ecsiam_ecsexecutionrole_670A7AD5.arn}\\",
-        \\"family\\": \\"testapp-\\",
+        \\"family\\": \\"testapp\\",
         \\"memory\\": \\"309\\",
         \\"network_mode\\": \\"awsvpc\\",
         \\"requires_compatibilities\\": [
@@ -1576,7 +1688,7 @@ exports[`PocketALBApplication renders an application with custom task sizes 1`] 
         \\"deployment_minimum_healthy_percent\\": 100,
         \\"desired_count\\": 2,
         \\"launch_type\\": \\"FARGATE\\",
-        \\"name\\": \\"testapp-\\",
+        \\"name\\": \\"testapp\\",
         \\"propagate_tags\\": \\"SERVICE\\",
         \\"task_definition\\": \\"\${aws_ecs_task_definition.test_testPocketApp_ecsservice_ecstask_A752DB7C.arn}\\",
         \\"deployment_controller\\": [
@@ -1619,7 +1731,7 @@ exports[`PocketALBApplication renders an application with custom task sizes 1`] 
     },
     \\"aws_iam_role_policy\\": {
       \\"test_testPocketApp_autoscaling_autoscalingrolepolicy_74F4D9D4\\": {
-        \\"name\\": \\"testapp--AutoScalingPolicy\\",
+        \\"name\\": \\"testapp-AutoScalingPolicy\\",
         \\"policy\\": \\"\${data.aws_iam_policy_document.test_testPocketApp_autoscaling_rolepolicy_38FC9EBD.json}\\",
         \\"role\\": \\"\${aws_iam_role.test_testPocketApp_autoscaling_autoscalingrole_7AF03E02.id}\\",
         \\"//\\": {
@@ -1634,7 +1746,7 @@ exports[`PocketALBApplication renders an application with custom task sizes 1`] 
       \\"test_testPocketApp_autoscaling_autoscalingtarget_6206F84C\\": {
         \\"max_capacity\\": 2,
         \\"min_capacity\\": 1,
-        \\"resource_id\\": \\"service/testapp-/testapp-\\",
+        \\"resource_id\\": \\"service/testapp/testapp\\",
         \\"role_arn\\": \\"\${aws_iam_role.test_testPocketApp_autoscaling_autoscalingrole_7AF03E02.arn}\\",
         \\"scalable_dimension\\": \\"ecs:service:DesiredCount\\",
         \\"service_namespace\\": \\"ecs\\",
@@ -1648,9 +1760,9 @@ exports[`PocketALBApplication renders an application with custom task sizes 1`] 
     },
     \\"aws_appautoscaling_policy\\": {
       \\"test_testPocketApp_autoscaling_scaleoutpolicy_65809B71\\": {
-        \\"name\\": \\"testapp--ScaleOutPolicy\\",
+        \\"name\\": \\"testapp-ScaleOutPolicy\\",
         \\"policy_type\\": \\"StepScaling\\",
-        \\"resource_id\\": \\"service/testapp-/testapp-\\",
+        \\"resource_id\\": \\"service/testapp/testapp\\",
         \\"scalable_dimension\\": \\"ecs:service:DesiredCount\\",
         \\"service_namespace\\": \\"ecs\\",
         \\"step_scaling_policy_configuration\\": [
@@ -1677,9 +1789,9 @@ exports[`PocketALBApplication renders an application with custom task sizes 1`] 
         }
       },
       \\"test_testPocketApp_autoscaling_scaleinpolicy_79053E73\\": {
-        \\"name\\": \\"testapp--ScaleInPolicy\\",
+        \\"name\\": \\"testapp-ScaleInPolicy\\",
         \\"policy_type\\": \\"StepScaling\\",
-        \\"resource_id\\": \\"service/testapp-/testapp-\\",
+        \\"resource_id\\": \\"service/testapp/testapp\\",
         \\"scalable_dimension\\": \\"ecs:service:DesiredCount\\",
         \\"service_namespace\\": \\"ecs\\",
         \\"step_scaling_policy_configuration\\": [
@@ -1712,11 +1824,11 @@ exports[`PocketALBApplication renders an application with custom task sizes 1`] 
           \\"\${aws_appautoscaling_policy.test_testPocketApp_autoscaling_scaleoutpolicy_65809B71.arn}\\"
         ],
         \\"alarm_description\\": \\"Alarm to add capacity if CPU is high\\",
-        \\"alarm_name\\": \\"testapp- Service High CPU\\",
+        \\"alarm_name\\": \\"testapp Service High CPU\\",
         \\"comparison_operator\\": \\"GreaterThanThreshold\\",
         \\"dimensions\\": {
-          \\"ClusterName\\": \\"testapp-\\",
-          \\"ServiceName\\": \\"testapp-\\"
+          \\"ClusterName\\": \\"testapp\\",
+          \\"ServiceName\\": \\"testapp\\"
         },
         \\"evaluation_periods\\": 2,
         \\"metric_name\\": \\"CPUUtilization\\",
@@ -1737,11 +1849,11 @@ exports[`PocketALBApplication renders an application with custom task sizes 1`] 
           \\"\${aws_appautoscaling_policy.test_testPocketApp_autoscaling_scaleinpolicy_79053E73.arn}\\"
         ],
         \\"alarm_description\\": \\"Alarm to reduce capacity if container CPU is low\\",
-        \\"alarm_name\\": \\"testapp- Service Low CPU\\",
+        \\"alarm_name\\": \\"testapp Service Low CPU\\",
         \\"comparison_operator\\": \\"LessThanThreshold\\",
         \\"dimensions\\": {
-          \\"ClusterName\\": \\"testapp-\\",
-          \\"ServiceName\\": \\"testapp-\\"
+          \\"ClusterName\\": \\"testapp\\",
+          \\"ServiceName\\": \\"testapp\\"
         },
         \\"evaluation_periods\\": 2,
         \\"metric_name\\": \\"CPUUtilization\\",
@@ -1756,12 +1868,112 @@ exports[`PocketALBApplication renders an application with custom task sizes 1`] 
             \\"uniqueId\\": \\"test_testPocketApp_autoscaling_scaleinalarm_5B889D45\\"
           }
         }
+      },
+      \\"test_testPocketApp_testappalarmhttp5xxerrorrate_65E69F72\\": {
+        \\"alarm_actions\\": [],
+        \\"alarm_description\\": \\"Percentage of 5xx responses exceeds threshold\\",
+        \\"alarm_name\\": \\"testapp-testapp-Alarm-HTTP5xxErrorRate\\",
+        \\"comparison_operator\\": \\"GreaterThanOrEqualToThreshold\\",
+        \\"evaluation_periods\\": 5,
+        \\"insufficient_data_actions\\": [],
+        \\"ok_actions\\": [],
+        \\"threshold\\": 5,
+        \\"metric_query\\": [
+          {
+            \\"id\\": \\"requests\\",
+            \\"metric\\": [
+              {
+                \\"metric_name\\": \\"RequestCount\\",
+                \\"namespace\\": \\"AWS/ApplicationELB\\",
+                \\"period\\": 60,
+                \\"stat\\": \\"Sum\\",
+                \\"unit\\": \\"Count\\",
+                \\"dimensions\\": {
+                  \\"LoadBalancer\\": \\"\${aws_alb.test_testPocketApp_applicationloadbalancer_alb_6EA5BF17.arn_suffix}\\"
+                }
+              }
+            ]
+          },
+          {
+            \\"id\\": \\"errors\\",
+            \\"metric\\": [
+              {
+                \\"metric_name\\": \\"HTTPCode_ELB_5XX_Count\\",
+                \\"namespace\\": \\"AWS/ApplicationELB\\",
+                \\"period\\": 60,
+                \\"stat\\": \\"Sum\\",
+                \\"unit\\": \\"Count\\",
+                \\"dimensions\\": {
+                  \\"LoadBalancer\\": \\"\${aws_alb.test_testPocketApp_applicationloadbalancer_alb_6EA5BF17.arn_suffix}\\"
+                }
+              }
+            ]
+          },
+          {
+            \\"id\\": \\"expression\\",
+            \\"expression\\": \\"errors/requests*100\\",
+            \\"label\\": \\"HTTP 5xx Error Rate\\",
+            \\"return_data\\": true
+          }
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/testapp-alarm-http5xxerrorrate\\",
+            \\"uniqueId\\": \\"test_testPocketApp_testappalarmhttp5xxerrorrate_65E69F72\\"
+          }
+        }
+      },
+      \\"test_testPocketApp_testappalarmhttpresponsetime_1AA1AB0A\\": {
+        \\"alarm_actions\\": [],
+        \\"alarm_description\\": \\"Average HTTP response time exceeds threshold\\",
+        \\"alarm_name\\": \\"testapp-testapp-Alarm-HTTPResponseTime\\",
+        \\"comparison_operator\\": \\"GreaterThanThreshold\\",
+        \\"dimensions\\": {
+          \\"LoadBalancer\\": \\"\${aws_alb.test_testPocketApp_applicationloadbalancer_alb_6EA5BF17.arn_suffix}\\"
+        },
+        \\"evaluation_periods\\": 1,
+        \\"insufficient_data_actions\\": [],
+        \\"metric_name\\": \\"TargetResponseTime\\",
+        \\"namespace\\": \\"AWS/ApplicationELB\\",
+        \\"ok_actions\\": [],
+        \\"period\\": 300,
+        \\"statistic\\": \\"Average\\",
+        \\"threshold\\": 300,
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/testapp-alarm-httpresponsetime\\",
+            \\"uniqueId\\": \\"test_testPocketApp_testappalarmhttpresponsetime_1AA1AB0A\\"
+          }
+        }
+      },
+      \\"test_testPocketApp_testappalarmhttprequestcount_2E762128\\": {
+        \\"alarm_actions\\": [],
+        \\"alarm_description\\": \\"Total HTTP request count exceeds threshold\\",
+        \\"alarm_name\\": \\"testapp-testapp-Alarm-HTTPRequestCount\\",
+        \\"comparison_operator\\": \\"GreaterThanThreshold\\",
+        \\"dimensions\\": {
+          \\"LoadBalancer\\": \\"\${aws_alb.test_testPocketApp_applicationloadbalancer_alb_6EA5BF17.arn_suffix}\\"
+        },
+        \\"evaluation_periods\\": 1,
+        \\"insufficient_data_actions\\": [],
+        \\"metric_name\\": \\"RequestCount\\",
+        \\"namespace\\": \\"AWS/ApplicationELB\\",
+        \\"ok_actions\\": [],
+        \\"period\\": 300,
+        \\"statistic\\": \\"Sum\\",
+        \\"threshold\\": 500,
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/testapp-alarm-httprequestcount\\",
+            \\"uniqueId\\": \\"test_testPocketApp_testappalarmhttprequestcount_2E762128\\"
+          }
+        }
       }
     },
     \\"aws_cloudwatch_dashboard\\": {
       \\"test_testPocketApp_cloudwatchdashboard_8824C28A\\": {
-        \\"dashboard_body\\": \\"{\\\\\\"widgets\\\\\\":[{\\\\\\"type\\\\\\":\\\\\\"metric\\\\\\",\\\\\\"x\\\\\\":0,\\\\\\"y\\\\\\":0,\\\\\\"width\\\\\\":12,\\\\\\"height\\\\\\":6,\\\\\\"properties\\\\\\":{\\\\\\"metrics\\\\\\":[[\\\\\\"AWS/ApplicationELB\\\\\\",\\\\\\"HTTPCode_Target_4XX_Count\\\\\\",\\\\\\"LoadBalancer\\\\\\",\\\\\\"\${aws_alb.test_testPocketApp_applicationloadbalancer_alb_6EA5BF17.arn_suffix}\\\\\\",{\\\\\\"yAxis\\\\\\":\\\\\\"left\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#ff7f0e\\\\\\"}],[\\\\\\".\\\\\\",\\\\\\"RequestCount\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",{\\\\\\"yAxis\\\\\\":\\\\\\"right\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#1f77b4\\\\\\"}],[\\\\\\".\\\\\\",\\\\\\"HTTPCode_Target_5XX_Count\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",{\\\\\\"color\\\\\\":\\\\\\"#d62728\\\\\\"}],[\\\\\\".\\\\\\",\\\\\\"HTTPCode_Target_2XX_Count\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",{\\\\\\"yAxis\\\\\\":\\\\\\"right\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#2ca02c\\\\\\"}]],\\\\\\"view\\\\\\":\\\\\\"timeSeries\\\\\\",\\\\\\"stacked\\\\\\":false,\\\\\\"region\\\\\\":\\\\\\"us-east-1\\\\\\",\\\\\\"period\\\\\\":60,\\\\\\"stat\\\\\\":\\\\\\"Sum\\\\\\",\\\\\\"annotations\\\\\\":{\\\\\\"horizontal\\\\\\":[{\\\\\\"color\\\\\\":\\\\\\"#17becf\\\\\\",\\\\\\"label\\\\\\":\\\\\\"RequestCountThreshold\\\\\\",\\\\\\"value\\\\\\":500,\\\\\\"yAxis\\\\\\":\\\\\\"right\\\\\\"}]},\\\\\\"title\\\\\\":\\\\\\"Target Requests\\\\\\"}},{\\\\\\"type\\\\\\":\\\\\\"metric\\\\\\",\\\\\\"x\\\\\\":12,\\\\\\"y\\\\\\":0,\\\\\\"width\\\\\\":12,\\\\\\"height\\\\\\":6,\\\\\\"properties\\\\\\":{\\\\\\"metrics\\\\\\":[[\\\\\\"AWS/ApplicationELB\\\\\\",\\\\\\"HTTPCode_ELB_4XX_Count\\\\\\",\\\\\\"LoadBalancer\\\\\\",\\\\\\"\${aws_alb.test_testPocketApp_applicationloadbalancer_alb_6EA5BF17.arn_suffix}\\\\\\",{\\\\\\"yAxis\\\\\\":\\\\\\"left\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#ff7f0e\\\\\\"}],[\\\\\\".\\\\\\",\\\\\\"RequestCount\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",{\\\\\\"yAxis\\\\\\":\\\\\\"right\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#1f77b4\\\\\\"}],[\\\\\\".\\\\\\",\\\\\\"HTTPCode_ELB_5XX_Count\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",{\\\\\\"color\\\\\\":\\\\\\"#d62728\\\\\\"}]],\\\\\\"view\\\\\\":\\\\\\"timeSeries\\\\\\",\\\\\\"stacked\\\\\\":false,\\\\\\"region\\\\\\":\\\\\\"us-east-1\\\\\\",\\\\\\"period\\\\\\":60,\\\\\\"stat\\\\\\":\\\\\\"Sum\\\\\\",\\\\\\"annotations\\\\\\":{\\\\\\"horizontal\\\\\\":[{\\\\\\"color\\\\\\":\\\\\\"#17becf\\\\\\",\\\\\\"label\\\\\\":\\\\\\"RequestCountThreshold\\\\\\",\\\\\\"value\\\\\\":500,\\\\\\"yAxis\\\\\\":\\\\\\"right\\\\\\"}]},\\\\\\"title\\\\\\":\\\\\\"ALB Requests\\\\\\"}},{\\\\\\"type\\\\\\":\\\\\\"metric\\\\\\",\\\\\\"x\\\\\\":12,\\\\\\"y\\\\\\":6,\\\\\\"width\\\\\\":12,\\\\\\"height\\\\\\":6,\\\\\\"properties\\\\\\":{\\\\\\"metrics\\\\\\":[[\\\\\\"AWS/ApplicationELB\\\\\\",\\\\\\"TargetResponseTime\\\\\\",\\\\\\"LoadBalancer\\\\\\",\\\\\\"\${aws_alb.test_testPocketApp_applicationloadbalancer_alb_6EA5BF17.arn_suffix}\\\\\\",{\\\\\\"label\\\\\\":\\\\\\"Average\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#aec7e8\\\\\\"}],[\\\\\\"...\\\\\\",{\\\\\\"stat\\\\\\":\\\\\\"p95\\\\\\",\\\\\\"label\\\\\\":\\\\\\"p95\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#ffbb78\\\\\\"}],[\\\\\\"...\\\\\\",{\\\\\\"stat\\\\\\":\\\\\\"p99\\\\\\",\\\\\\"label\\\\\\":\\\\\\"p99\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#98df8a\\\\\\"}]],\\\\\\"view\\\\\\":\\\\\\"timeSeries\\\\\\",\\\\\\"stacked\\\\\\":false,\\\\\\"region\\\\\\":\\\\\\"us-east-1\\\\\\",\\\\\\"stat\\\\\\":\\\\\\"Average\\\\\\",\\\\\\"period\\\\\\":60}},{\\\\\\"type\\\\\\":\\\\\\"metric\\\\\\",\\\\\\"x\\\\\\":0,\\\\\\"y\\\\\\":6,\\\\\\"width\\\\\\":12,\\\\\\"height\\\\\\":6,\\\\\\"properties\\\\\\":{\\\\\\"metrics\\\\\\":[[\\\\\\"ECS/ContainerInsights\\\\\\",\\\\\\"RunningTaskCount\\\\\\",\\\\\\"ServiceName\\\\\\",\\\\\\"testapp-\\\\\\",\\\\\\"ClusterName\\\\\\",\\\\\\"testapp-\\\\\\",{\\\\\\"yAxis\\\\\\":\\\\\\"right\\\\\\",\\\\\\"stat\\\\\\":\\\\\\"Sum\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#c49c94\\\\\\"}],[\\\\\\"AWS/ECS\\\\\\",\\\\\\"CPUUtilization\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",{\\\\\\"color\\\\\\":\\\\\\"#f7b6d2\\\\\\"}],[\\\\\\".\\\\\\",\\\\\\"MemoryUtilization\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",{\\\\\\"color\\\\\\":\\\\\\"#c7c7c7\\\\\\"}]],\\\\\\"view\\\\\\":\\\\\\"timeSeries\\\\\\",\\\\\\"stacked\\\\\\":false,\\\\\\"region\\\\\\":\\\\\\"us-east-1\\\\\\",\\\\\\"stat\\\\\\":\\\\\\"Average\\\\\\",\\\\\\"period\\\\\\":60,\\\\\\"annotations\\\\\\":{\\\\\\"horizontal\\\\\\":[{\\\\\\"color\\\\\\":\\\\\\"#e377c2\\\\\\",\\\\\\"label\\\\\\":\\\\\\"CPU scale out\\\\\\",\\\\\\"value\\\\\\":45},{\\\\\\"color\\\\\\":\\\\\\"#c5b0d5\\\\\\",\\\\\\"label\\\\\\":\\\\\\"CPU scale in\\\\\\",\\\\\\"value\\\\\\":30}]},\\\\\\"title\\\\\\":\\\\\\"Service Load\\\\\\"}}]}\\",
-        \\"dashboard_name\\": \\"testapp--ALBDashboard\\",
+        \\"dashboard_body\\": \\"{\\\\\\"widgets\\\\\\":[{\\\\\\"type\\\\\\":\\\\\\"metric\\\\\\",\\\\\\"x\\\\\\":0,\\\\\\"y\\\\\\":0,\\\\\\"width\\\\\\":12,\\\\\\"height\\\\\\":6,\\\\\\"properties\\\\\\":{\\\\\\"metrics\\\\\\":[[\\\\\\"AWS/ApplicationELB\\\\\\",\\\\\\"HTTPCode_Target_4XX_Count\\\\\\",\\\\\\"LoadBalancer\\\\\\",\\\\\\"\${aws_alb.test_testPocketApp_applicationloadbalancer_alb_6EA5BF17.arn_suffix}\\\\\\",{\\\\\\"yAxis\\\\\\":\\\\\\"left\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#ff7f0e\\\\\\"}],[\\\\\\".\\\\\\",\\\\\\"RequestCount\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",{\\\\\\"yAxis\\\\\\":\\\\\\"right\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#1f77b4\\\\\\"}],[\\\\\\".\\\\\\",\\\\\\"HTTPCode_Target_5XX_Count\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",{\\\\\\"color\\\\\\":\\\\\\"#d62728\\\\\\"}],[\\\\\\".\\\\\\",\\\\\\"HTTPCode_Target_2XX_Count\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",{\\\\\\"yAxis\\\\\\":\\\\\\"right\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#2ca02c\\\\\\"}]],\\\\\\"view\\\\\\":\\\\\\"timeSeries\\\\\\",\\\\\\"stacked\\\\\\":false,\\\\\\"region\\\\\\":\\\\\\"us-east-1\\\\\\",\\\\\\"period\\\\\\":60,\\\\\\"stat\\\\\\":\\\\\\"Sum\\\\\\",\\\\\\"annotations\\\\\\":{\\\\\\"horizontal\\\\\\":[{\\\\\\"color\\\\\\":\\\\\\"#17becf\\\\\\",\\\\\\"label\\\\\\":\\\\\\"RequestCountThreshold\\\\\\",\\\\\\"value\\\\\\":500,\\\\\\"yAxis\\\\\\":\\\\\\"right\\\\\\"}]},\\\\\\"title\\\\\\":\\\\\\"Target Requests\\\\\\"}},{\\\\\\"type\\\\\\":\\\\\\"metric\\\\\\",\\\\\\"x\\\\\\":12,\\\\\\"y\\\\\\":0,\\\\\\"width\\\\\\":12,\\\\\\"height\\\\\\":6,\\\\\\"properties\\\\\\":{\\\\\\"metrics\\\\\\":[[\\\\\\"AWS/ApplicationELB\\\\\\",\\\\\\"HTTPCode_ELB_4XX_Count\\\\\\",\\\\\\"LoadBalancer\\\\\\",\\\\\\"\${aws_alb.test_testPocketApp_applicationloadbalancer_alb_6EA5BF17.arn_suffix}\\\\\\",{\\\\\\"yAxis\\\\\\":\\\\\\"left\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#ff7f0e\\\\\\"}],[\\\\\\".\\\\\\",\\\\\\"RequestCount\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",{\\\\\\"yAxis\\\\\\":\\\\\\"right\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#1f77b4\\\\\\"}],[\\\\\\".\\\\\\",\\\\\\"HTTPCode_ELB_5XX_Count\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",{\\\\\\"color\\\\\\":\\\\\\"#d62728\\\\\\"}]],\\\\\\"view\\\\\\":\\\\\\"timeSeries\\\\\\",\\\\\\"stacked\\\\\\":false,\\\\\\"region\\\\\\":\\\\\\"us-east-1\\\\\\",\\\\\\"period\\\\\\":60,\\\\\\"stat\\\\\\":\\\\\\"Sum\\\\\\",\\\\\\"annotations\\\\\\":{\\\\\\"horizontal\\\\\\":[{\\\\\\"color\\\\\\":\\\\\\"#17becf\\\\\\",\\\\\\"label\\\\\\":\\\\\\"RequestCountThreshold\\\\\\",\\\\\\"value\\\\\\":500,\\\\\\"yAxis\\\\\\":\\\\\\"right\\\\\\"}]},\\\\\\"title\\\\\\":\\\\\\"ALB Requests\\\\\\"}},{\\\\\\"type\\\\\\":\\\\\\"metric\\\\\\",\\\\\\"x\\\\\\":12,\\\\\\"y\\\\\\":6,\\\\\\"width\\\\\\":12,\\\\\\"height\\\\\\":6,\\\\\\"properties\\\\\\":{\\\\\\"metrics\\\\\\":[[\\\\\\"AWS/ApplicationELB\\\\\\",\\\\\\"TargetResponseTime\\\\\\",\\\\\\"LoadBalancer\\\\\\",\\\\\\"\${aws_alb.test_testPocketApp_applicationloadbalancer_alb_6EA5BF17.arn_suffix}\\\\\\",{\\\\\\"label\\\\\\":\\\\\\"Average\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#aec7e8\\\\\\"}],[\\\\\\"...\\\\\\",{\\\\\\"stat\\\\\\":\\\\\\"p95\\\\\\",\\\\\\"label\\\\\\":\\\\\\"p95\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#ffbb78\\\\\\"}],[\\\\\\"...\\\\\\",{\\\\\\"stat\\\\\\":\\\\\\"p99\\\\\\",\\\\\\"label\\\\\\":\\\\\\"p99\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#98df8a\\\\\\"}]],\\\\\\"view\\\\\\":\\\\\\"timeSeries\\\\\\",\\\\\\"stacked\\\\\\":false,\\\\\\"region\\\\\\":\\\\\\"us-east-1\\\\\\",\\\\\\"stat\\\\\\":\\\\\\"Average\\\\\\",\\\\\\"period\\\\\\":60}},{\\\\\\"type\\\\\\":\\\\\\"metric\\\\\\",\\\\\\"x\\\\\\":0,\\\\\\"y\\\\\\":6,\\\\\\"width\\\\\\":12,\\\\\\"height\\\\\\":6,\\\\\\"properties\\\\\\":{\\\\\\"metrics\\\\\\":[[\\\\\\"ECS/ContainerInsights\\\\\\",\\\\\\"RunningTaskCount\\\\\\",\\\\\\"ServiceName\\\\\\",\\\\\\"testapp\\\\\\",\\\\\\"ClusterName\\\\\\",\\\\\\"\${aws_ecs_cluster.test_testPocketApp_ecscluster_CE90B54F.arn}\\\\\\",{\\\\\\"yAxis\\\\\\":\\\\\\"right\\\\\\",\\\\\\"stat\\\\\\":\\\\\\"Sum\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#c49c94\\\\\\"}],[\\\\\\"AWS/ECS\\\\\\",\\\\\\"CPUUtilization\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",{\\\\\\"color\\\\\\":\\\\\\"#f7b6d2\\\\\\"}],[\\\\\\".\\\\\\",\\\\\\"MemoryUtilization\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",{\\\\\\"color\\\\\\":\\\\\\"#c7c7c7\\\\\\"}]],\\\\\\"view\\\\\\":\\\\\\"timeSeries\\\\\\",\\\\\\"stacked\\\\\\":false,\\\\\\"region\\\\\\":\\\\\\"us-east-1\\\\\\",\\\\\\"stat\\\\\\":\\\\\\"Average\\\\\\",\\\\\\"period\\\\\\":60,\\\\\\"annotations\\\\\\":{\\\\\\"horizontal\\\\\\":[{\\\\\\"color\\\\\\":\\\\\\"#e377c2\\\\\\",\\\\\\"label\\\\\\":\\\\\\"CPU scale out\\\\\\",\\\\\\"value\\\\\\":45},{\\\\\\"color\\\\\\":\\\\\\"#c5b0d5\\\\\\",\\\\\\"label\\\\\\":\\\\\\"CPU scale in\\\\\\",\\\\\\"value\\\\\\":30}]},\\\\\\"title\\\\\\":\\\\\\"Service Load\\\\\\"}}]}\\",
+        \\"dashboard_name\\": \\"testapp-ALBDashboard\\",
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/testPocketApp/cloudwatch-dashboard\\",
@@ -1988,7 +2200,7 @@ exports[`PocketALBApplication renders an application with default autoscaling gr
               \\"cloudwatch:DeleteAlarms\\"
             ],
             \\"resources\\": [
-              \\"arn:aws:cloudwatch:*:*:alarm:/testapp-*\\"
+              \\"arn:aws:cloudwatch:*:*:alarm:/testapp*\\"
             ]
           },
           {
@@ -1998,7 +2210,7 @@ exports[`PocketALBApplication renders an application with default autoscaling gr
               \\"ecs:UpdateService\\"
             ],
             \\"resources\\": [
-              \\"arn:aws:ecs:*:*:service/testapp-*\\"
+              \\"arn:aws:ecs:*:*:service/testapp*\\"
             ]
           }
         ],
@@ -2135,11 +2347,11 @@ exports[`PocketALBApplication renders an application with default autoscaling gr
             \\"self\\": null
           }
         ],
-        \\"name_prefix\\": \\"testapp--HTTP/S Security Group\\",
+        \\"name_prefix\\": \\"testapp-HTTP/S Security Group\\",
         \\"tags\\": {
           \\"name\\": \\"thedude\\",
           \\"hobby\\": \\"bowling\\",
-          \\"Name\\": \\"testapp--HTTP/S Security Group\\"
+          \\"Name\\": \\"testapp-HTTP/S Security Group\\"
         },
         \\"vpc_id\\": \\"\${data.aws_vpc.test_testPocketApp_pocketvpc_40AC0971.id}\\",
         \\"lifecycle\\": {
@@ -2184,7 +2396,7 @@ exports[`PocketALBApplication renders an application with default autoscaling gr
             \\"self\\": false
           }
         ],
-        \\"name_prefix\\": \\"testapp--ECSSecurityGroup\\",
+        \\"name_prefix\\": \\"testapp-ECSSecurityGroup\\",
         \\"tags\\": {
           \\"name\\": \\"thedude\\",
           \\"hobby\\": \\"bowling\\"
@@ -2260,7 +2472,7 @@ exports[`PocketALBApplication renders an application with default autoscaling gr
     },
     \\"aws_ecs_cluster\\": {
       \\"test_testPocketApp_ecscluster_CE90B54F\\": {
-        \\"name\\": \\"testapp-\\",
+        \\"name\\": \\"testapp\\",
         \\"tags\\": {
           \\"name\\": \\"thedude\\",
           \\"hobby\\": \\"bowling\\"
@@ -2342,7 +2554,7 @@ exports[`PocketALBApplication renders an application with default autoscaling gr
     \\"aws_iam_role\\": {
       \\"test_testPocketApp_ecsservice_ecsiam_ecsexecutionrole_670A7AD5\\": {
         \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.test_testPocketApp_ecsservice_ecsiam_ecstaskassume_A392A140.json}\\",
-        \\"name\\": \\"testapp--TaskExecutionRole\\",
+        \\"name\\": \\"testapp-TaskExecutionRole\\",
         \\"tags\\": {
           \\"name\\": \\"thedude\\",
           \\"hobby\\": \\"bowling\\"
@@ -2356,7 +2568,7 @@ exports[`PocketALBApplication renders an application with default autoscaling gr
       },
       \\"test_testPocketApp_ecsservice_ecsiam_ecstaskrole_E41363D4\\": {
         \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.test_testPocketApp_ecsservice_ecsiam_ecstaskassume_A392A140.json}\\",
-        \\"name\\": \\"testapp--TaskRole\\",
+        \\"name\\": \\"testapp-TaskRole\\",
         \\"tags\\": {
           \\"name\\": \\"thedude\\",
           \\"hobby\\": \\"bowling\\"
@@ -2370,7 +2582,7 @@ exports[`PocketALBApplication renders an application with default autoscaling gr
       },
       \\"test_testPocketApp_autoscaling_autoscalingrole_7AF03E02\\": {
         \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.test_testPocketApp_autoscaling_autoscalingassume_6CD4F67B.json}\\",
-        \\"name\\": \\"testapp--AutoScalingRole\\",
+        \\"name\\": \\"testapp-AutoScalingRole\\",
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/testPocketApp/autoscaling/autoscaling_role\\",
@@ -2384,7 +2596,7 @@ exports[`PocketALBApplication renders an application with default autoscaling gr
         \\"container_definitions\\": \\"[]\\",
         \\"cpu\\": \\"512\\",
         \\"execution_role_arn\\": \\"\${aws_iam_role.test_testPocketApp_ecsservice_ecsiam_ecsexecutionrole_670A7AD5.arn}\\",
-        \\"family\\": \\"testapp-\\",
+        \\"family\\": \\"testapp\\",
         \\"memory\\": \\"2048\\",
         \\"network_mode\\": \\"awsvpc\\",
         \\"requires_compatibilities\\": [
@@ -2475,7 +2687,7 @@ exports[`PocketALBApplication renders an application with default autoscaling gr
         \\"deployment_minimum_healthy_percent\\": 100,
         \\"desired_count\\": 2,
         \\"launch_type\\": \\"FARGATE\\",
-        \\"name\\": \\"testapp-\\",
+        \\"name\\": \\"testapp\\",
         \\"propagate_tags\\": \\"SERVICE\\",
         \\"tags\\": {
           \\"name\\": \\"thedude\\",
@@ -2522,7 +2734,7 @@ exports[`PocketALBApplication renders an application with default autoscaling gr
     },
     \\"aws_iam_role_policy\\": {
       \\"test_testPocketApp_autoscaling_autoscalingrolepolicy_74F4D9D4\\": {
-        \\"name\\": \\"testapp--AutoScalingPolicy\\",
+        \\"name\\": \\"testapp-AutoScalingPolicy\\",
         \\"policy\\": \\"\${data.aws_iam_policy_document.test_testPocketApp_autoscaling_rolepolicy_38FC9EBD.json}\\",
         \\"role\\": \\"\${aws_iam_role.test_testPocketApp_autoscaling_autoscalingrole_7AF03E02.id}\\",
         \\"//\\": {
@@ -2537,7 +2749,7 @@ exports[`PocketALBApplication renders an application with default autoscaling gr
       \\"test_testPocketApp_autoscaling_autoscalingtarget_6206F84C\\": {
         \\"max_capacity\\": 2,
         \\"min_capacity\\": 1,
-        \\"resource_id\\": \\"service/testapp-/testapp-\\",
+        \\"resource_id\\": \\"service/testapp/testapp\\",
         \\"role_arn\\": \\"\${aws_iam_role.test_testPocketApp_autoscaling_autoscalingrole_7AF03E02.arn}\\",
         \\"scalable_dimension\\": \\"ecs:service:DesiredCount\\",
         \\"service_namespace\\": \\"ecs\\",
@@ -2551,9 +2763,9 @@ exports[`PocketALBApplication renders an application with default autoscaling gr
     },
     \\"aws_appautoscaling_policy\\": {
       \\"test_testPocketApp_autoscaling_scaleoutpolicy_65809B71\\": {
-        \\"name\\": \\"testapp--ScaleOutPolicy\\",
+        \\"name\\": \\"testapp-ScaleOutPolicy\\",
         \\"policy_type\\": \\"StepScaling\\",
-        \\"resource_id\\": \\"service/testapp-/testapp-\\",
+        \\"resource_id\\": \\"service/testapp/testapp\\",
         \\"scalable_dimension\\": \\"ecs:service:DesiredCount\\",
         \\"service_namespace\\": \\"ecs\\",
         \\"step_scaling_policy_configuration\\": [
@@ -2580,9 +2792,9 @@ exports[`PocketALBApplication renders an application with default autoscaling gr
         }
       },
       \\"test_testPocketApp_autoscaling_scaleinpolicy_79053E73\\": {
-        \\"name\\": \\"testapp--ScaleInPolicy\\",
+        \\"name\\": \\"testapp-ScaleInPolicy\\",
         \\"policy_type\\": \\"StepScaling\\",
-        \\"resource_id\\": \\"service/testapp-/testapp-\\",
+        \\"resource_id\\": \\"service/testapp/testapp\\",
         \\"scalable_dimension\\": \\"ecs:service:DesiredCount\\",
         \\"service_namespace\\": \\"ecs\\",
         \\"step_scaling_policy_configuration\\": [
@@ -2615,11 +2827,11 @@ exports[`PocketALBApplication renders an application with default autoscaling gr
           \\"\${aws_appautoscaling_policy.test_testPocketApp_autoscaling_scaleoutpolicy_65809B71.arn}\\"
         ],
         \\"alarm_description\\": \\"Alarm to add capacity if CPU is high\\",
-        \\"alarm_name\\": \\"testapp- Service High CPU\\",
+        \\"alarm_name\\": \\"testapp Service High CPU\\",
         \\"comparison_operator\\": \\"GreaterThanThreshold\\",
         \\"dimensions\\": {
-          \\"ClusterName\\": \\"testapp-\\",
-          \\"ServiceName\\": \\"testapp-\\"
+          \\"ClusterName\\": \\"testapp\\",
+          \\"ServiceName\\": \\"testapp\\"
         },
         \\"evaluation_periods\\": 2,
         \\"metric_name\\": \\"CPUUtilization\\",
@@ -2644,11 +2856,11 @@ exports[`PocketALBApplication renders an application with default autoscaling gr
           \\"\${aws_appautoscaling_policy.test_testPocketApp_autoscaling_scaleinpolicy_79053E73.arn}\\"
         ],
         \\"alarm_description\\": \\"Alarm to reduce capacity if container CPU is low\\",
-        \\"alarm_name\\": \\"testapp- Service Low CPU\\",
+        \\"alarm_name\\": \\"testapp Service Low CPU\\",
         \\"comparison_operator\\": \\"LessThanThreshold\\",
         \\"dimensions\\": {
-          \\"ClusterName\\": \\"testapp-\\",
-          \\"ServiceName\\": \\"testapp-\\"
+          \\"ClusterName\\": \\"testapp\\",
+          \\"ServiceName\\": \\"testapp\\"
         },
         \\"evaluation_periods\\": 2,
         \\"metric_name\\": \\"CPUUtilization\\",
@@ -2667,12 +2879,124 @@ exports[`PocketALBApplication renders an application with default autoscaling gr
             \\"uniqueId\\": \\"test_testPocketApp_autoscaling_scaleinalarm_5B889D45\\"
           }
         }
+      },
+      \\"test_testPocketApp_testappalarmhttp5xxerrorrate_65E69F72\\": {
+        \\"alarm_actions\\": [],
+        \\"alarm_description\\": \\"Percentage of 5xx responses exceeds threshold\\",
+        \\"alarm_name\\": \\"testapp-testapp-Alarm-HTTP5xxErrorRate\\",
+        \\"comparison_operator\\": \\"GreaterThanOrEqualToThreshold\\",
+        \\"evaluation_periods\\": 5,
+        \\"insufficient_data_actions\\": [],
+        \\"ok_actions\\": [],
+        \\"tags\\": {
+          \\"name\\": \\"thedude\\",
+          \\"hobby\\": \\"bowling\\"
+        },
+        \\"threshold\\": 5,
+        \\"metric_query\\": [
+          {
+            \\"id\\": \\"requests\\",
+            \\"metric\\": [
+              {
+                \\"metric_name\\": \\"RequestCount\\",
+                \\"namespace\\": \\"AWS/ApplicationELB\\",
+                \\"period\\": 60,
+                \\"stat\\": \\"Sum\\",
+                \\"unit\\": \\"Count\\",
+                \\"dimensions\\": {
+                  \\"LoadBalancer\\": \\"\${aws_alb.test_testPocketApp_applicationloadbalancer_alb_6EA5BF17.arn_suffix}\\"
+                }
+              }
+            ]
+          },
+          {
+            \\"id\\": \\"errors\\",
+            \\"metric\\": [
+              {
+                \\"metric_name\\": \\"HTTPCode_ELB_5XX_Count\\",
+                \\"namespace\\": \\"AWS/ApplicationELB\\",
+                \\"period\\": 60,
+                \\"stat\\": \\"Sum\\",
+                \\"unit\\": \\"Count\\",
+                \\"dimensions\\": {
+                  \\"LoadBalancer\\": \\"\${aws_alb.test_testPocketApp_applicationloadbalancer_alb_6EA5BF17.arn_suffix}\\"
+                }
+              }
+            ]
+          },
+          {
+            \\"id\\": \\"expression\\",
+            \\"expression\\": \\"errors/requests*100\\",
+            \\"label\\": \\"HTTP 5xx Error Rate\\",
+            \\"return_data\\": true
+          }
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/testapp-alarm-http5xxerrorrate\\",
+            \\"uniqueId\\": \\"test_testPocketApp_testappalarmhttp5xxerrorrate_65E69F72\\"
+          }
+        }
+      },
+      \\"test_testPocketApp_testappalarmhttpresponsetime_1AA1AB0A\\": {
+        \\"alarm_actions\\": [],
+        \\"alarm_description\\": \\"Average HTTP response time exceeds threshold\\",
+        \\"alarm_name\\": \\"testapp-testapp-Alarm-HTTPResponseTime\\",
+        \\"comparison_operator\\": \\"GreaterThanThreshold\\",
+        \\"dimensions\\": {
+          \\"LoadBalancer\\": \\"\${aws_alb.test_testPocketApp_applicationloadbalancer_alb_6EA5BF17.arn_suffix}\\"
+        },
+        \\"evaluation_periods\\": 1,
+        \\"insufficient_data_actions\\": [],
+        \\"metric_name\\": \\"TargetResponseTime\\",
+        \\"namespace\\": \\"AWS/ApplicationELB\\",
+        \\"ok_actions\\": [],
+        \\"period\\": 300,
+        \\"statistic\\": \\"Average\\",
+        \\"tags\\": {
+          \\"name\\": \\"thedude\\",
+          \\"hobby\\": \\"bowling\\"
+        },
+        \\"threshold\\": 300,
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/testapp-alarm-httpresponsetime\\",
+            \\"uniqueId\\": \\"test_testPocketApp_testappalarmhttpresponsetime_1AA1AB0A\\"
+          }
+        }
+      },
+      \\"test_testPocketApp_testappalarmhttprequestcount_2E762128\\": {
+        \\"alarm_actions\\": [],
+        \\"alarm_description\\": \\"Total HTTP request count exceeds threshold\\",
+        \\"alarm_name\\": \\"testapp-testapp-Alarm-HTTPRequestCount\\",
+        \\"comparison_operator\\": \\"GreaterThanThreshold\\",
+        \\"dimensions\\": {
+          \\"LoadBalancer\\": \\"\${aws_alb.test_testPocketApp_applicationloadbalancer_alb_6EA5BF17.arn_suffix}\\"
+        },
+        \\"evaluation_periods\\": 1,
+        \\"insufficient_data_actions\\": [],
+        \\"metric_name\\": \\"RequestCount\\",
+        \\"namespace\\": \\"AWS/ApplicationELB\\",
+        \\"ok_actions\\": [],
+        \\"period\\": 300,
+        \\"statistic\\": \\"Sum\\",
+        \\"tags\\": {
+          \\"name\\": \\"thedude\\",
+          \\"hobby\\": \\"bowling\\"
+        },
+        \\"threshold\\": 500,
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/testapp-alarm-httprequestcount\\",
+            \\"uniqueId\\": \\"test_testPocketApp_testappalarmhttprequestcount_2E762128\\"
+          }
+        }
       }
     },
     \\"aws_cloudwatch_dashboard\\": {
       \\"test_testPocketApp_cloudwatchdashboard_8824C28A\\": {
-        \\"dashboard_body\\": \\"{\\\\\\"widgets\\\\\\":[{\\\\\\"type\\\\\\":\\\\\\"metric\\\\\\",\\\\\\"x\\\\\\":0,\\\\\\"y\\\\\\":0,\\\\\\"width\\\\\\":12,\\\\\\"height\\\\\\":6,\\\\\\"properties\\\\\\":{\\\\\\"metrics\\\\\\":[[\\\\\\"AWS/ApplicationELB\\\\\\",\\\\\\"HTTPCode_Target_4XX_Count\\\\\\",\\\\\\"LoadBalancer\\\\\\",\\\\\\"\${aws_alb.test_testPocketApp_applicationloadbalancer_alb_6EA5BF17.arn_suffix}\\\\\\",{\\\\\\"yAxis\\\\\\":\\\\\\"left\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#ff7f0e\\\\\\"}],[\\\\\\".\\\\\\",\\\\\\"RequestCount\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",{\\\\\\"yAxis\\\\\\":\\\\\\"right\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#1f77b4\\\\\\"}],[\\\\\\".\\\\\\",\\\\\\"HTTPCode_Target_5XX_Count\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",{\\\\\\"color\\\\\\":\\\\\\"#d62728\\\\\\"}],[\\\\\\".\\\\\\",\\\\\\"HTTPCode_Target_2XX_Count\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",{\\\\\\"yAxis\\\\\\":\\\\\\"right\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#2ca02c\\\\\\"}]],\\\\\\"view\\\\\\":\\\\\\"timeSeries\\\\\\",\\\\\\"stacked\\\\\\":false,\\\\\\"region\\\\\\":\\\\\\"us-east-1\\\\\\",\\\\\\"period\\\\\\":60,\\\\\\"stat\\\\\\":\\\\\\"Sum\\\\\\",\\\\\\"annotations\\\\\\":{\\\\\\"horizontal\\\\\\":[{\\\\\\"color\\\\\\":\\\\\\"#17becf\\\\\\",\\\\\\"label\\\\\\":\\\\\\"RequestCountThreshold\\\\\\",\\\\\\"value\\\\\\":500,\\\\\\"yAxis\\\\\\":\\\\\\"right\\\\\\"}]},\\\\\\"title\\\\\\":\\\\\\"Target Requests\\\\\\"}},{\\\\\\"type\\\\\\":\\\\\\"metric\\\\\\",\\\\\\"x\\\\\\":12,\\\\\\"y\\\\\\":0,\\\\\\"width\\\\\\":12,\\\\\\"height\\\\\\":6,\\\\\\"properties\\\\\\":{\\\\\\"metrics\\\\\\":[[\\\\\\"AWS/ApplicationELB\\\\\\",\\\\\\"HTTPCode_ELB_4XX_Count\\\\\\",\\\\\\"LoadBalancer\\\\\\",\\\\\\"\${aws_alb.test_testPocketApp_applicationloadbalancer_alb_6EA5BF17.arn_suffix}\\\\\\",{\\\\\\"yAxis\\\\\\":\\\\\\"left\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#ff7f0e\\\\\\"}],[\\\\\\".\\\\\\",\\\\\\"RequestCount\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",{\\\\\\"yAxis\\\\\\":\\\\\\"right\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#1f77b4\\\\\\"}],[\\\\\\".\\\\\\",\\\\\\"HTTPCode_ELB_5XX_Count\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",{\\\\\\"color\\\\\\":\\\\\\"#d62728\\\\\\"}]],\\\\\\"view\\\\\\":\\\\\\"timeSeries\\\\\\",\\\\\\"stacked\\\\\\":false,\\\\\\"region\\\\\\":\\\\\\"us-east-1\\\\\\",\\\\\\"period\\\\\\":60,\\\\\\"stat\\\\\\":\\\\\\"Sum\\\\\\",\\\\\\"annotations\\\\\\":{\\\\\\"horizontal\\\\\\":[{\\\\\\"color\\\\\\":\\\\\\"#17becf\\\\\\",\\\\\\"label\\\\\\":\\\\\\"RequestCountThreshold\\\\\\",\\\\\\"value\\\\\\":500,\\\\\\"yAxis\\\\\\":\\\\\\"right\\\\\\"}]},\\\\\\"title\\\\\\":\\\\\\"ALB Requests\\\\\\"}},{\\\\\\"type\\\\\\":\\\\\\"metric\\\\\\",\\\\\\"x\\\\\\":12,\\\\\\"y\\\\\\":6,\\\\\\"width\\\\\\":12,\\\\\\"height\\\\\\":6,\\\\\\"properties\\\\\\":{\\\\\\"metrics\\\\\\":[[\\\\\\"AWS/ApplicationELB\\\\\\",\\\\\\"TargetResponseTime\\\\\\",\\\\\\"LoadBalancer\\\\\\",\\\\\\"\${aws_alb.test_testPocketApp_applicationloadbalancer_alb_6EA5BF17.arn_suffix}\\\\\\",{\\\\\\"label\\\\\\":\\\\\\"Average\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#aec7e8\\\\\\"}],[\\\\\\"...\\\\\\",{\\\\\\"stat\\\\\\":\\\\\\"p95\\\\\\",\\\\\\"label\\\\\\":\\\\\\"p95\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#ffbb78\\\\\\"}],[\\\\\\"...\\\\\\",{\\\\\\"stat\\\\\\":\\\\\\"p99\\\\\\",\\\\\\"label\\\\\\":\\\\\\"p99\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#98df8a\\\\\\"}]],\\\\\\"view\\\\\\":\\\\\\"timeSeries\\\\\\",\\\\\\"stacked\\\\\\":false,\\\\\\"region\\\\\\":\\\\\\"us-east-1\\\\\\",\\\\\\"stat\\\\\\":\\\\\\"Average\\\\\\",\\\\\\"period\\\\\\":60}},{\\\\\\"type\\\\\\":\\\\\\"metric\\\\\\",\\\\\\"x\\\\\\":0,\\\\\\"y\\\\\\":6,\\\\\\"width\\\\\\":12,\\\\\\"height\\\\\\":6,\\\\\\"properties\\\\\\":{\\\\\\"metrics\\\\\\":[[\\\\\\"ECS/ContainerInsights\\\\\\",\\\\\\"RunningTaskCount\\\\\\",\\\\\\"ServiceName\\\\\\",\\\\\\"testapp-\\\\\\",\\\\\\"ClusterName\\\\\\",\\\\\\"testapp-\\\\\\",{\\\\\\"yAxis\\\\\\":\\\\\\"right\\\\\\",\\\\\\"stat\\\\\\":\\\\\\"Sum\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#c49c94\\\\\\"}],[\\\\\\"AWS/ECS\\\\\\",\\\\\\"CPUUtilization\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",{\\\\\\"color\\\\\\":\\\\\\"#f7b6d2\\\\\\"}],[\\\\\\".\\\\\\",\\\\\\"MemoryUtilization\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",{\\\\\\"color\\\\\\":\\\\\\"#c7c7c7\\\\\\"}]],\\\\\\"view\\\\\\":\\\\\\"timeSeries\\\\\\",\\\\\\"stacked\\\\\\":false,\\\\\\"region\\\\\\":\\\\\\"us-east-1\\\\\\",\\\\\\"stat\\\\\\":\\\\\\"Average\\\\\\",\\\\\\"period\\\\\\":60,\\\\\\"annotations\\\\\\":{\\\\\\"horizontal\\\\\\":[{\\\\\\"color\\\\\\":\\\\\\"#e377c2\\\\\\",\\\\\\"label\\\\\\":\\\\\\"CPU scale out\\\\\\",\\\\\\"value\\\\\\":45},{\\\\\\"color\\\\\\":\\\\\\"#c5b0d5\\\\\\",\\\\\\"label\\\\\\":\\\\\\"CPU scale in\\\\\\",\\\\\\"value\\\\\\":30}]},\\\\\\"title\\\\\\":\\\\\\"Service Load\\\\\\"}}]}\\",
-        \\"dashboard_name\\": \\"testapp--ALBDashboard\\",
+        \\"dashboard_body\\": \\"{\\\\\\"widgets\\\\\\":[{\\\\\\"type\\\\\\":\\\\\\"metric\\\\\\",\\\\\\"x\\\\\\":0,\\\\\\"y\\\\\\":0,\\\\\\"width\\\\\\":12,\\\\\\"height\\\\\\":6,\\\\\\"properties\\\\\\":{\\\\\\"metrics\\\\\\":[[\\\\\\"AWS/ApplicationELB\\\\\\",\\\\\\"HTTPCode_Target_4XX_Count\\\\\\",\\\\\\"LoadBalancer\\\\\\",\\\\\\"\${aws_alb.test_testPocketApp_applicationloadbalancer_alb_6EA5BF17.arn_suffix}\\\\\\",{\\\\\\"yAxis\\\\\\":\\\\\\"left\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#ff7f0e\\\\\\"}],[\\\\\\".\\\\\\",\\\\\\"RequestCount\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",{\\\\\\"yAxis\\\\\\":\\\\\\"right\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#1f77b4\\\\\\"}],[\\\\\\".\\\\\\",\\\\\\"HTTPCode_Target_5XX_Count\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",{\\\\\\"color\\\\\\":\\\\\\"#d62728\\\\\\"}],[\\\\\\".\\\\\\",\\\\\\"HTTPCode_Target_2XX_Count\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",{\\\\\\"yAxis\\\\\\":\\\\\\"right\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#2ca02c\\\\\\"}]],\\\\\\"view\\\\\\":\\\\\\"timeSeries\\\\\\",\\\\\\"stacked\\\\\\":false,\\\\\\"region\\\\\\":\\\\\\"us-east-1\\\\\\",\\\\\\"period\\\\\\":60,\\\\\\"stat\\\\\\":\\\\\\"Sum\\\\\\",\\\\\\"annotations\\\\\\":{\\\\\\"horizontal\\\\\\":[{\\\\\\"color\\\\\\":\\\\\\"#17becf\\\\\\",\\\\\\"label\\\\\\":\\\\\\"RequestCountThreshold\\\\\\",\\\\\\"value\\\\\\":500,\\\\\\"yAxis\\\\\\":\\\\\\"right\\\\\\"}]},\\\\\\"title\\\\\\":\\\\\\"Target Requests\\\\\\"}},{\\\\\\"type\\\\\\":\\\\\\"metric\\\\\\",\\\\\\"x\\\\\\":12,\\\\\\"y\\\\\\":0,\\\\\\"width\\\\\\":12,\\\\\\"height\\\\\\":6,\\\\\\"properties\\\\\\":{\\\\\\"metrics\\\\\\":[[\\\\\\"AWS/ApplicationELB\\\\\\",\\\\\\"HTTPCode_ELB_4XX_Count\\\\\\",\\\\\\"LoadBalancer\\\\\\",\\\\\\"\${aws_alb.test_testPocketApp_applicationloadbalancer_alb_6EA5BF17.arn_suffix}\\\\\\",{\\\\\\"yAxis\\\\\\":\\\\\\"left\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#ff7f0e\\\\\\"}],[\\\\\\".\\\\\\",\\\\\\"RequestCount\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",{\\\\\\"yAxis\\\\\\":\\\\\\"right\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#1f77b4\\\\\\"}],[\\\\\\".\\\\\\",\\\\\\"HTTPCode_ELB_5XX_Count\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",{\\\\\\"color\\\\\\":\\\\\\"#d62728\\\\\\"}]],\\\\\\"view\\\\\\":\\\\\\"timeSeries\\\\\\",\\\\\\"stacked\\\\\\":false,\\\\\\"region\\\\\\":\\\\\\"us-east-1\\\\\\",\\\\\\"period\\\\\\":60,\\\\\\"stat\\\\\\":\\\\\\"Sum\\\\\\",\\\\\\"annotations\\\\\\":{\\\\\\"horizontal\\\\\\":[{\\\\\\"color\\\\\\":\\\\\\"#17becf\\\\\\",\\\\\\"label\\\\\\":\\\\\\"RequestCountThreshold\\\\\\",\\\\\\"value\\\\\\":500,\\\\\\"yAxis\\\\\\":\\\\\\"right\\\\\\"}]},\\\\\\"title\\\\\\":\\\\\\"ALB Requests\\\\\\"}},{\\\\\\"type\\\\\\":\\\\\\"metric\\\\\\",\\\\\\"x\\\\\\":12,\\\\\\"y\\\\\\":6,\\\\\\"width\\\\\\":12,\\\\\\"height\\\\\\":6,\\\\\\"properties\\\\\\":{\\\\\\"metrics\\\\\\":[[\\\\\\"AWS/ApplicationELB\\\\\\",\\\\\\"TargetResponseTime\\\\\\",\\\\\\"LoadBalancer\\\\\\",\\\\\\"\${aws_alb.test_testPocketApp_applicationloadbalancer_alb_6EA5BF17.arn_suffix}\\\\\\",{\\\\\\"label\\\\\\":\\\\\\"Average\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#aec7e8\\\\\\"}],[\\\\\\"...\\\\\\",{\\\\\\"stat\\\\\\":\\\\\\"p95\\\\\\",\\\\\\"label\\\\\\":\\\\\\"p95\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#ffbb78\\\\\\"}],[\\\\\\"...\\\\\\",{\\\\\\"stat\\\\\\":\\\\\\"p99\\\\\\",\\\\\\"label\\\\\\":\\\\\\"p99\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#98df8a\\\\\\"}]],\\\\\\"view\\\\\\":\\\\\\"timeSeries\\\\\\",\\\\\\"stacked\\\\\\":false,\\\\\\"region\\\\\\":\\\\\\"us-east-1\\\\\\",\\\\\\"stat\\\\\\":\\\\\\"Average\\\\\\",\\\\\\"period\\\\\\":60}},{\\\\\\"type\\\\\\":\\\\\\"metric\\\\\\",\\\\\\"x\\\\\\":0,\\\\\\"y\\\\\\":6,\\\\\\"width\\\\\\":12,\\\\\\"height\\\\\\":6,\\\\\\"properties\\\\\\":{\\\\\\"metrics\\\\\\":[[\\\\\\"ECS/ContainerInsights\\\\\\",\\\\\\"RunningTaskCount\\\\\\",\\\\\\"ServiceName\\\\\\",\\\\\\"testapp\\\\\\",\\\\\\"ClusterName\\\\\\",\\\\\\"\${aws_ecs_cluster.test_testPocketApp_ecscluster_CE90B54F.arn}\\\\\\",{\\\\\\"yAxis\\\\\\":\\\\\\"right\\\\\\",\\\\\\"stat\\\\\\":\\\\\\"Sum\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#c49c94\\\\\\"}],[\\\\\\"AWS/ECS\\\\\\",\\\\\\"CPUUtilization\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",{\\\\\\"color\\\\\\":\\\\\\"#f7b6d2\\\\\\"}],[\\\\\\".\\\\\\",\\\\\\"MemoryUtilization\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",{\\\\\\"color\\\\\\":\\\\\\"#c7c7c7\\\\\\"}]],\\\\\\"view\\\\\\":\\\\\\"timeSeries\\\\\\",\\\\\\"stacked\\\\\\":false,\\\\\\"region\\\\\\":\\\\\\"us-east-1\\\\\\",\\\\\\"stat\\\\\\":\\\\\\"Average\\\\\\",\\\\\\"period\\\\\\":60,\\\\\\"annotations\\\\\\":{\\\\\\"horizontal\\\\\\":[{\\\\\\"color\\\\\\":\\\\\\"#e377c2\\\\\\",\\\\\\"label\\\\\\":\\\\\\"CPU scale out\\\\\\",\\\\\\"value\\\\\\":45},{\\\\\\"color\\\\\\":\\\\\\"#c5b0d5\\\\\\",\\\\\\"label\\\\\\":\\\\\\"CPU scale in\\\\\\",\\\\\\"value\\\\\\":30}]},\\\\\\"title\\\\\\":\\\\\\"Service Load\\\\\\"}}]}\\",
+        \\"dashboard_name\\": \\"testapp-ALBDashboard\\",
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/testPocketApp/cloudwatch-dashboard\\",
@@ -2899,7 +3223,7 @@ exports[`PocketALBApplication renders an application with minimal config 1`] = `
               \\"cloudwatch:DeleteAlarms\\"
             ],
             \\"resources\\": [
-              \\"arn:aws:cloudwatch:*:*:alarm:/testapp-*\\"
+              \\"arn:aws:cloudwatch:*:*:alarm:/testapp*\\"
             ]
           },
           {
@@ -2909,7 +3233,7 @@ exports[`PocketALBApplication renders an application with minimal config 1`] = `
               \\"ecs:UpdateService\\"
             ],
             \\"resources\\": [
-              \\"arn:aws:ecs:*:*:service/testapp-*\\"
+              \\"arn:aws:ecs:*:*:service/testapp*\\"
             ]
           }
         ],
@@ -3042,9 +3366,9 @@ exports[`PocketALBApplication renders an application with minimal config 1`] = `
             \\"self\\": null
           }
         ],
-        \\"name_prefix\\": \\"testapp--HTTP/S Security Group\\",
+        \\"name_prefix\\": \\"testapp-HTTP/S Security Group\\",
         \\"tags\\": {
-          \\"Name\\": \\"testapp--HTTP/S Security Group\\"
+          \\"Name\\": \\"testapp-HTTP/S Security Group\\"
         },
         \\"vpc_id\\": \\"\${data.aws_vpc.test_testPocketApp_pocketvpc_40AC0971.id}\\",
         \\"lifecycle\\": {
@@ -3089,7 +3413,7 @@ exports[`PocketALBApplication renders an application with minimal config 1`] = `
             \\"self\\": false
           }
         ],
-        \\"name_prefix\\": \\"testapp--ECSSecurityGroup\\",
+        \\"name_prefix\\": \\"testapp-ECSSecurityGroup\\",
         \\"vpc_id\\": \\"\${data.aws_vpc.test_testPocketApp_pocketvpc_40AC0971.id}\\",
         \\"lifecycle\\": {
           \\"create_before_destroy\\": true
@@ -3153,7 +3477,7 @@ exports[`PocketALBApplication renders an application with minimal config 1`] = `
     },
     \\"aws_ecs_cluster\\": {
       \\"test_testPocketApp_ecscluster_CE90B54F\\": {
-        \\"name\\": \\"testapp-\\",
+        \\"name\\": \\"testapp\\",
         \\"setting\\": [
           {
             \\"name\\": \\"containerInsights\\",
@@ -3231,7 +3555,7 @@ exports[`PocketALBApplication renders an application with minimal config 1`] = `
     \\"aws_iam_role\\": {
       \\"test_testPocketApp_ecsservice_ecsiam_ecsexecutionrole_670A7AD5\\": {
         \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.test_testPocketApp_ecsservice_ecsiam_ecstaskassume_A392A140.json}\\",
-        \\"name\\": \\"testapp--TaskExecutionRole\\",
+        \\"name\\": \\"testapp-TaskExecutionRole\\",
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/testPocketApp/ecs_service/ecs-iam/ecs-execution-role\\",
@@ -3241,7 +3565,7 @@ exports[`PocketALBApplication renders an application with minimal config 1`] = `
       },
       \\"test_testPocketApp_ecsservice_ecsiam_ecstaskrole_E41363D4\\": {
         \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.test_testPocketApp_ecsservice_ecsiam_ecstaskassume_A392A140.json}\\",
-        \\"name\\": \\"testapp--TaskRole\\",
+        \\"name\\": \\"testapp-TaskRole\\",
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/testPocketApp/ecs_service/ecs-iam/ecs-task-role\\",
@@ -3251,7 +3575,7 @@ exports[`PocketALBApplication renders an application with minimal config 1`] = `
       },
       \\"test_testPocketApp_autoscaling_autoscalingrole_7AF03E02\\": {
         \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.test_testPocketApp_autoscaling_autoscalingassume_6CD4F67B.json}\\",
-        \\"name\\": \\"testapp--AutoScalingRole\\",
+        \\"name\\": \\"testapp-AutoScalingRole\\",
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/testPocketApp/autoscaling/autoscaling_role\\",
@@ -3265,7 +3589,7 @@ exports[`PocketALBApplication renders an application with minimal config 1`] = `
         \\"container_definitions\\": \\"[]\\",
         \\"cpu\\": \\"512\\",
         \\"execution_role_arn\\": \\"\${aws_iam_role.test_testPocketApp_ecsservice_ecsiam_ecsexecutionrole_670A7AD5.arn}\\",
-        \\"family\\": \\"testapp-\\",
+        \\"family\\": \\"testapp\\",
         \\"memory\\": \\"2048\\",
         \\"network_mode\\": \\"awsvpc\\",
         \\"requires_compatibilities\\": [
@@ -3350,7 +3674,7 @@ exports[`PocketALBApplication renders an application with minimal config 1`] = `
         \\"deployment_minimum_healthy_percent\\": 100,
         \\"desired_count\\": 2,
         \\"launch_type\\": \\"FARGATE\\",
-        \\"name\\": \\"testapp-\\",
+        \\"name\\": \\"testapp\\",
         \\"propagate_tags\\": \\"SERVICE\\",
         \\"task_definition\\": \\"\${aws_ecs_task_definition.test_testPocketApp_ecsservice_ecstask_A752DB7C.arn}\\",
         \\"deployment_controller\\": [
@@ -3393,7 +3717,7 @@ exports[`PocketALBApplication renders an application with minimal config 1`] = `
     },
     \\"aws_iam_role_policy\\": {
       \\"test_testPocketApp_autoscaling_autoscalingrolepolicy_74F4D9D4\\": {
-        \\"name\\": \\"testapp--AutoScalingPolicy\\",
+        \\"name\\": \\"testapp-AutoScalingPolicy\\",
         \\"policy\\": \\"\${data.aws_iam_policy_document.test_testPocketApp_autoscaling_rolepolicy_38FC9EBD.json}\\",
         \\"role\\": \\"\${aws_iam_role.test_testPocketApp_autoscaling_autoscalingrole_7AF03E02.id}\\",
         \\"//\\": {
@@ -3408,7 +3732,7 @@ exports[`PocketALBApplication renders an application with minimal config 1`] = `
       \\"test_testPocketApp_autoscaling_autoscalingtarget_6206F84C\\": {
         \\"max_capacity\\": 2,
         \\"min_capacity\\": 1,
-        \\"resource_id\\": \\"service/testapp-/testapp-\\",
+        \\"resource_id\\": \\"service/testapp/testapp\\",
         \\"role_arn\\": \\"\${aws_iam_role.test_testPocketApp_autoscaling_autoscalingrole_7AF03E02.arn}\\",
         \\"scalable_dimension\\": \\"ecs:service:DesiredCount\\",
         \\"service_namespace\\": \\"ecs\\",
@@ -3422,9 +3746,9 @@ exports[`PocketALBApplication renders an application with minimal config 1`] = `
     },
     \\"aws_appautoscaling_policy\\": {
       \\"test_testPocketApp_autoscaling_scaleoutpolicy_65809B71\\": {
-        \\"name\\": \\"testapp--ScaleOutPolicy\\",
+        \\"name\\": \\"testapp-ScaleOutPolicy\\",
         \\"policy_type\\": \\"StepScaling\\",
-        \\"resource_id\\": \\"service/testapp-/testapp-\\",
+        \\"resource_id\\": \\"service/testapp/testapp\\",
         \\"scalable_dimension\\": \\"ecs:service:DesiredCount\\",
         \\"service_namespace\\": \\"ecs\\",
         \\"step_scaling_policy_configuration\\": [
@@ -3451,9 +3775,9 @@ exports[`PocketALBApplication renders an application with minimal config 1`] = `
         }
       },
       \\"test_testPocketApp_autoscaling_scaleinpolicy_79053E73\\": {
-        \\"name\\": \\"testapp--ScaleInPolicy\\",
+        \\"name\\": \\"testapp-ScaleInPolicy\\",
         \\"policy_type\\": \\"StepScaling\\",
-        \\"resource_id\\": \\"service/testapp-/testapp-\\",
+        \\"resource_id\\": \\"service/testapp/testapp\\",
         \\"scalable_dimension\\": \\"ecs:service:DesiredCount\\",
         \\"service_namespace\\": \\"ecs\\",
         \\"step_scaling_policy_configuration\\": [
@@ -3486,11 +3810,11 @@ exports[`PocketALBApplication renders an application with minimal config 1`] = `
           \\"\${aws_appautoscaling_policy.test_testPocketApp_autoscaling_scaleoutpolicy_65809B71.arn}\\"
         ],
         \\"alarm_description\\": \\"Alarm to add capacity if CPU is high\\",
-        \\"alarm_name\\": \\"testapp- Service High CPU\\",
+        \\"alarm_name\\": \\"testapp Service High CPU\\",
         \\"comparison_operator\\": \\"GreaterThanThreshold\\",
         \\"dimensions\\": {
-          \\"ClusterName\\": \\"testapp-\\",
-          \\"ServiceName\\": \\"testapp-\\"
+          \\"ClusterName\\": \\"testapp\\",
+          \\"ServiceName\\": \\"testapp\\"
         },
         \\"evaluation_periods\\": 2,
         \\"metric_name\\": \\"CPUUtilization\\",
@@ -3511,11 +3835,11 @@ exports[`PocketALBApplication renders an application with minimal config 1`] = `
           \\"\${aws_appautoscaling_policy.test_testPocketApp_autoscaling_scaleinpolicy_79053E73.arn}\\"
         ],
         \\"alarm_description\\": \\"Alarm to reduce capacity if container CPU is low\\",
-        \\"alarm_name\\": \\"testapp- Service Low CPU\\",
+        \\"alarm_name\\": \\"testapp Service Low CPU\\",
         \\"comparison_operator\\": \\"LessThanThreshold\\",
         \\"dimensions\\": {
-          \\"ClusterName\\": \\"testapp-\\",
-          \\"ServiceName\\": \\"testapp-\\"
+          \\"ClusterName\\": \\"testapp\\",
+          \\"ServiceName\\": \\"testapp\\"
         },
         \\"evaluation_periods\\": 2,
         \\"metric_name\\": \\"CPUUtilization\\",
@@ -3530,12 +3854,112 @@ exports[`PocketALBApplication renders an application with minimal config 1`] = `
             \\"uniqueId\\": \\"test_testPocketApp_autoscaling_scaleinalarm_5B889D45\\"
           }
         }
+      },
+      \\"test_testPocketApp_testappalarmhttp5xxerrorrate_65E69F72\\": {
+        \\"alarm_actions\\": [],
+        \\"alarm_description\\": \\"Percentage of 5xx responses exceeds threshold\\",
+        \\"alarm_name\\": \\"testapp-testapp-Alarm-HTTP5xxErrorRate\\",
+        \\"comparison_operator\\": \\"GreaterThanOrEqualToThreshold\\",
+        \\"evaluation_periods\\": 5,
+        \\"insufficient_data_actions\\": [],
+        \\"ok_actions\\": [],
+        \\"threshold\\": 5,
+        \\"metric_query\\": [
+          {
+            \\"id\\": \\"requests\\",
+            \\"metric\\": [
+              {
+                \\"metric_name\\": \\"RequestCount\\",
+                \\"namespace\\": \\"AWS/ApplicationELB\\",
+                \\"period\\": 60,
+                \\"stat\\": \\"Sum\\",
+                \\"unit\\": \\"Count\\",
+                \\"dimensions\\": {
+                  \\"LoadBalancer\\": \\"\${aws_alb.test_testPocketApp_applicationloadbalancer_alb_6EA5BF17.arn_suffix}\\"
+                }
+              }
+            ]
+          },
+          {
+            \\"id\\": \\"errors\\",
+            \\"metric\\": [
+              {
+                \\"metric_name\\": \\"HTTPCode_ELB_5XX_Count\\",
+                \\"namespace\\": \\"AWS/ApplicationELB\\",
+                \\"period\\": 60,
+                \\"stat\\": \\"Sum\\",
+                \\"unit\\": \\"Count\\",
+                \\"dimensions\\": {
+                  \\"LoadBalancer\\": \\"\${aws_alb.test_testPocketApp_applicationloadbalancer_alb_6EA5BF17.arn_suffix}\\"
+                }
+              }
+            ]
+          },
+          {
+            \\"id\\": \\"expression\\",
+            \\"expression\\": \\"errors/requests*100\\",
+            \\"label\\": \\"HTTP 5xx Error Rate\\",
+            \\"return_data\\": true
+          }
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/testapp-alarm-http5xxerrorrate\\",
+            \\"uniqueId\\": \\"test_testPocketApp_testappalarmhttp5xxerrorrate_65E69F72\\"
+          }
+        }
+      },
+      \\"test_testPocketApp_testappalarmhttpresponsetime_1AA1AB0A\\": {
+        \\"alarm_actions\\": [],
+        \\"alarm_description\\": \\"Average HTTP response time exceeds threshold\\",
+        \\"alarm_name\\": \\"testapp-testapp-Alarm-HTTPResponseTime\\",
+        \\"comparison_operator\\": \\"GreaterThanThreshold\\",
+        \\"dimensions\\": {
+          \\"LoadBalancer\\": \\"\${aws_alb.test_testPocketApp_applicationloadbalancer_alb_6EA5BF17.arn_suffix}\\"
+        },
+        \\"evaluation_periods\\": 1,
+        \\"insufficient_data_actions\\": [],
+        \\"metric_name\\": \\"TargetResponseTime\\",
+        \\"namespace\\": \\"AWS/ApplicationELB\\",
+        \\"ok_actions\\": [],
+        \\"period\\": 300,
+        \\"statistic\\": \\"Average\\",
+        \\"threshold\\": 300,
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/testapp-alarm-httpresponsetime\\",
+            \\"uniqueId\\": \\"test_testPocketApp_testappalarmhttpresponsetime_1AA1AB0A\\"
+          }
+        }
+      },
+      \\"test_testPocketApp_testappalarmhttprequestcount_2E762128\\": {
+        \\"alarm_actions\\": [],
+        \\"alarm_description\\": \\"Total HTTP request count exceeds threshold\\",
+        \\"alarm_name\\": \\"testapp-testapp-Alarm-HTTPRequestCount\\",
+        \\"comparison_operator\\": \\"GreaterThanThreshold\\",
+        \\"dimensions\\": {
+          \\"LoadBalancer\\": \\"\${aws_alb.test_testPocketApp_applicationloadbalancer_alb_6EA5BF17.arn_suffix}\\"
+        },
+        \\"evaluation_periods\\": 1,
+        \\"insufficient_data_actions\\": [],
+        \\"metric_name\\": \\"RequestCount\\",
+        \\"namespace\\": \\"AWS/ApplicationELB\\",
+        \\"ok_actions\\": [],
+        \\"period\\": 300,
+        \\"statistic\\": \\"Sum\\",
+        \\"threshold\\": 500,
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/testapp-alarm-httprequestcount\\",
+            \\"uniqueId\\": \\"test_testPocketApp_testappalarmhttprequestcount_2E762128\\"
+          }
+        }
       }
     },
     \\"aws_cloudwatch_dashboard\\": {
       \\"test_testPocketApp_cloudwatchdashboard_8824C28A\\": {
-        \\"dashboard_body\\": \\"{\\\\\\"widgets\\\\\\":[{\\\\\\"type\\\\\\":\\\\\\"metric\\\\\\",\\\\\\"x\\\\\\":0,\\\\\\"y\\\\\\":0,\\\\\\"width\\\\\\":12,\\\\\\"height\\\\\\":6,\\\\\\"properties\\\\\\":{\\\\\\"metrics\\\\\\":[[\\\\\\"AWS/ApplicationELB\\\\\\",\\\\\\"HTTPCode_Target_4XX_Count\\\\\\",\\\\\\"LoadBalancer\\\\\\",\\\\\\"\${aws_alb.test_testPocketApp_applicationloadbalancer_alb_6EA5BF17.arn_suffix}\\\\\\",{\\\\\\"yAxis\\\\\\":\\\\\\"left\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#ff7f0e\\\\\\"}],[\\\\\\".\\\\\\",\\\\\\"RequestCount\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",{\\\\\\"yAxis\\\\\\":\\\\\\"right\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#1f77b4\\\\\\"}],[\\\\\\".\\\\\\",\\\\\\"HTTPCode_Target_5XX_Count\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",{\\\\\\"color\\\\\\":\\\\\\"#d62728\\\\\\"}],[\\\\\\".\\\\\\",\\\\\\"HTTPCode_Target_2XX_Count\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",{\\\\\\"yAxis\\\\\\":\\\\\\"right\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#2ca02c\\\\\\"}]],\\\\\\"view\\\\\\":\\\\\\"timeSeries\\\\\\",\\\\\\"stacked\\\\\\":false,\\\\\\"region\\\\\\":\\\\\\"us-east-1\\\\\\",\\\\\\"period\\\\\\":60,\\\\\\"stat\\\\\\":\\\\\\"Sum\\\\\\",\\\\\\"annotations\\\\\\":{\\\\\\"horizontal\\\\\\":[{\\\\\\"color\\\\\\":\\\\\\"#17becf\\\\\\",\\\\\\"label\\\\\\":\\\\\\"RequestCountThreshold\\\\\\",\\\\\\"value\\\\\\":500,\\\\\\"yAxis\\\\\\":\\\\\\"right\\\\\\"}]},\\\\\\"title\\\\\\":\\\\\\"Target Requests\\\\\\"}},{\\\\\\"type\\\\\\":\\\\\\"metric\\\\\\",\\\\\\"x\\\\\\":12,\\\\\\"y\\\\\\":0,\\\\\\"width\\\\\\":12,\\\\\\"height\\\\\\":6,\\\\\\"properties\\\\\\":{\\\\\\"metrics\\\\\\":[[\\\\\\"AWS/ApplicationELB\\\\\\",\\\\\\"HTTPCode_ELB_4XX_Count\\\\\\",\\\\\\"LoadBalancer\\\\\\",\\\\\\"\${aws_alb.test_testPocketApp_applicationloadbalancer_alb_6EA5BF17.arn_suffix}\\\\\\",{\\\\\\"yAxis\\\\\\":\\\\\\"left\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#ff7f0e\\\\\\"}],[\\\\\\".\\\\\\",\\\\\\"RequestCount\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",{\\\\\\"yAxis\\\\\\":\\\\\\"right\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#1f77b4\\\\\\"}],[\\\\\\".\\\\\\",\\\\\\"HTTPCode_ELB_5XX_Count\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",{\\\\\\"color\\\\\\":\\\\\\"#d62728\\\\\\"}]],\\\\\\"view\\\\\\":\\\\\\"timeSeries\\\\\\",\\\\\\"stacked\\\\\\":false,\\\\\\"region\\\\\\":\\\\\\"us-east-1\\\\\\",\\\\\\"period\\\\\\":60,\\\\\\"stat\\\\\\":\\\\\\"Sum\\\\\\",\\\\\\"annotations\\\\\\":{\\\\\\"horizontal\\\\\\":[{\\\\\\"color\\\\\\":\\\\\\"#17becf\\\\\\",\\\\\\"label\\\\\\":\\\\\\"RequestCountThreshold\\\\\\",\\\\\\"value\\\\\\":500,\\\\\\"yAxis\\\\\\":\\\\\\"right\\\\\\"}]},\\\\\\"title\\\\\\":\\\\\\"ALB Requests\\\\\\"}},{\\\\\\"type\\\\\\":\\\\\\"metric\\\\\\",\\\\\\"x\\\\\\":12,\\\\\\"y\\\\\\":6,\\\\\\"width\\\\\\":12,\\\\\\"height\\\\\\":6,\\\\\\"properties\\\\\\":{\\\\\\"metrics\\\\\\":[[\\\\\\"AWS/ApplicationELB\\\\\\",\\\\\\"TargetResponseTime\\\\\\",\\\\\\"LoadBalancer\\\\\\",\\\\\\"\${aws_alb.test_testPocketApp_applicationloadbalancer_alb_6EA5BF17.arn_suffix}\\\\\\",{\\\\\\"label\\\\\\":\\\\\\"Average\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#aec7e8\\\\\\"}],[\\\\\\"...\\\\\\",{\\\\\\"stat\\\\\\":\\\\\\"p95\\\\\\",\\\\\\"label\\\\\\":\\\\\\"p95\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#ffbb78\\\\\\"}],[\\\\\\"...\\\\\\",{\\\\\\"stat\\\\\\":\\\\\\"p99\\\\\\",\\\\\\"label\\\\\\":\\\\\\"p99\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#98df8a\\\\\\"}]],\\\\\\"view\\\\\\":\\\\\\"timeSeries\\\\\\",\\\\\\"stacked\\\\\\":false,\\\\\\"region\\\\\\":\\\\\\"us-east-1\\\\\\",\\\\\\"stat\\\\\\":\\\\\\"Average\\\\\\",\\\\\\"period\\\\\\":60}},{\\\\\\"type\\\\\\":\\\\\\"metric\\\\\\",\\\\\\"x\\\\\\":0,\\\\\\"y\\\\\\":6,\\\\\\"width\\\\\\":12,\\\\\\"height\\\\\\":6,\\\\\\"properties\\\\\\":{\\\\\\"metrics\\\\\\":[[\\\\\\"ECS/ContainerInsights\\\\\\",\\\\\\"RunningTaskCount\\\\\\",\\\\\\"ServiceName\\\\\\",\\\\\\"testapp-\\\\\\",\\\\\\"ClusterName\\\\\\",\\\\\\"testapp-\\\\\\",{\\\\\\"yAxis\\\\\\":\\\\\\"right\\\\\\",\\\\\\"stat\\\\\\":\\\\\\"Sum\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#c49c94\\\\\\"}],[\\\\\\"AWS/ECS\\\\\\",\\\\\\"CPUUtilization\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",{\\\\\\"color\\\\\\":\\\\\\"#f7b6d2\\\\\\"}],[\\\\\\".\\\\\\",\\\\\\"MemoryUtilization\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",{\\\\\\"color\\\\\\":\\\\\\"#c7c7c7\\\\\\"}]],\\\\\\"view\\\\\\":\\\\\\"timeSeries\\\\\\",\\\\\\"stacked\\\\\\":false,\\\\\\"region\\\\\\":\\\\\\"us-east-1\\\\\\",\\\\\\"stat\\\\\\":\\\\\\"Average\\\\\\",\\\\\\"period\\\\\\":60,\\\\\\"annotations\\\\\\":{\\\\\\"horizontal\\\\\\":[{\\\\\\"color\\\\\\":\\\\\\"#e377c2\\\\\\",\\\\\\"label\\\\\\":\\\\\\"CPU scale out\\\\\\",\\\\\\"value\\\\\\":45},{\\\\\\"color\\\\\\":\\\\\\"#c5b0d5\\\\\\",\\\\\\"label\\\\\\":\\\\\\"CPU scale in\\\\\\",\\\\\\"value\\\\\\":30}]},\\\\\\"title\\\\\\":\\\\\\"Service Load\\\\\\"}}]}\\",
-        \\"dashboard_name\\": \\"testapp--ALBDashboard\\",
+        \\"dashboard_body\\": \\"{\\\\\\"widgets\\\\\\":[{\\\\\\"type\\\\\\":\\\\\\"metric\\\\\\",\\\\\\"x\\\\\\":0,\\\\\\"y\\\\\\":0,\\\\\\"width\\\\\\":12,\\\\\\"height\\\\\\":6,\\\\\\"properties\\\\\\":{\\\\\\"metrics\\\\\\":[[\\\\\\"AWS/ApplicationELB\\\\\\",\\\\\\"HTTPCode_Target_4XX_Count\\\\\\",\\\\\\"LoadBalancer\\\\\\",\\\\\\"\${aws_alb.test_testPocketApp_applicationloadbalancer_alb_6EA5BF17.arn_suffix}\\\\\\",{\\\\\\"yAxis\\\\\\":\\\\\\"left\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#ff7f0e\\\\\\"}],[\\\\\\".\\\\\\",\\\\\\"RequestCount\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",{\\\\\\"yAxis\\\\\\":\\\\\\"right\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#1f77b4\\\\\\"}],[\\\\\\".\\\\\\",\\\\\\"HTTPCode_Target_5XX_Count\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",{\\\\\\"color\\\\\\":\\\\\\"#d62728\\\\\\"}],[\\\\\\".\\\\\\",\\\\\\"HTTPCode_Target_2XX_Count\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",{\\\\\\"yAxis\\\\\\":\\\\\\"right\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#2ca02c\\\\\\"}]],\\\\\\"view\\\\\\":\\\\\\"timeSeries\\\\\\",\\\\\\"stacked\\\\\\":false,\\\\\\"region\\\\\\":\\\\\\"us-east-1\\\\\\",\\\\\\"period\\\\\\":60,\\\\\\"stat\\\\\\":\\\\\\"Sum\\\\\\",\\\\\\"annotations\\\\\\":{\\\\\\"horizontal\\\\\\":[{\\\\\\"color\\\\\\":\\\\\\"#17becf\\\\\\",\\\\\\"label\\\\\\":\\\\\\"RequestCountThreshold\\\\\\",\\\\\\"value\\\\\\":500,\\\\\\"yAxis\\\\\\":\\\\\\"right\\\\\\"}]},\\\\\\"title\\\\\\":\\\\\\"Target Requests\\\\\\"}},{\\\\\\"type\\\\\\":\\\\\\"metric\\\\\\",\\\\\\"x\\\\\\":12,\\\\\\"y\\\\\\":0,\\\\\\"width\\\\\\":12,\\\\\\"height\\\\\\":6,\\\\\\"properties\\\\\\":{\\\\\\"metrics\\\\\\":[[\\\\\\"AWS/ApplicationELB\\\\\\",\\\\\\"HTTPCode_ELB_4XX_Count\\\\\\",\\\\\\"LoadBalancer\\\\\\",\\\\\\"\${aws_alb.test_testPocketApp_applicationloadbalancer_alb_6EA5BF17.arn_suffix}\\\\\\",{\\\\\\"yAxis\\\\\\":\\\\\\"left\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#ff7f0e\\\\\\"}],[\\\\\\".\\\\\\",\\\\\\"RequestCount\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",{\\\\\\"yAxis\\\\\\":\\\\\\"right\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#1f77b4\\\\\\"}],[\\\\\\".\\\\\\",\\\\\\"HTTPCode_ELB_5XX_Count\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",{\\\\\\"color\\\\\\":\\\\\\"#d62728\\\\\\"}]],\\\\\\"view\\\\\\":\\\\\\"timeSeries\\\\\\",\\\\\\"stacked\\\\\\":false,\\\\\\"region\\\\\\":\\\\\\"us-east-1\\\\\\",\\\\\\"period\\\\\\":60,\\\\\\"stat\\\\\\":\\\\\\"Sum\\\\\\",\\\\\\"annotations\\\\\\":{\\\\\\"horizontal\\\\\\":[{\\\\\\"color\\\\\\":\\\\\\"#17becf\\\\\\",\\\\\\"label\\\\\\":\\\\\\"RequestCountThreshold\\\\\\",\\\\\\"value\\\\\\":500,\\\\\\"yAxis\\\\\\":\\\\\\"right\\\\\\"}]},\\\\\\"title\\\\\\":\\\\\\"ALB Requests\\\\\\"}},{\\\\\\"type\\\\\\":\\\\\\"metric\\\\\\",\\\\\\"x\\\\\\":12,\\\\\\"y\\\\\\":6,\\\\\\"width\\\\\\":12,\\\\\\"height\\\\\\":6,\\\\\\"properties\\\\\\":{\\\\\\"metrics\\\\\\":[[\\\\\\"AWS/ApplicationELB\\\\\\",\\\\\\"TargetResponseTime\\\\\\",\\\\\\"LoadBalancer\\\\\\",\\\\\\"\${aws_alb.test_testPocketApp_applicationloadbalancer_alb_6EA5BF17.arn_suffix}\\\\\\",{\\\\\\"label\\\\\\":\\\\\\"Average\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#aec7e8\\\\\\"}],[\\\\\\"...\\\\\\",{\\\\\\"stat\\\\\\":\\\\\\"p95\\\\\\",\\\\\\"label\\\\\\":\\\\\\"p95\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#ffbb78\\\\\\"}],[\\\\\\"...\\\\\\",{\\\\\\"stat\\\\\\":\\\\\\"p99\\\\\\",\\\\\\"label\\\\\\":\\\\\\"p99\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#98df8a\\\\\\"}]],\\\\\\"view\\\\\\":\\\\\\"timeSeries\\\\\\",\\\\\\"stacked\\\\\\":false,\\\\\\"region\\\\\\":\\\\\\"us-east-1\\\\\\",\\\\\\"stat\\\\\\":\\\\\\"Average\\\\\\",\\\\\\"period\\\\\\":60}},{\\\\\\"type\\\\\\":\\\\\\"metric\\\\\\",\\\\\\"x\\\\\\":0,\\\\\\"y\\\\\\":6,\\\\\\"width\\\\\\":12,\\\\\\"height\\\\\\":6,\\\\\\"properties\\\\\\":{\\\\\\"metrics\\\\\\":[[\\\\\\"ECS/ContainerInsights\\\\\\",\\\\\\"RunningTaskCount\\\\\\",\\\\\\"ServiceName\\\\\\",\\\\\\"testapp\\\\\\",\\\\\\"ClusterName\\\\\\",\\\\\\"\${aws_ecs_cluster.test_testPocketApp_ecscluster_CE90B54F.arn}\\\\\\",{\\\\\\"yAxis\\\\\\":\\\\\\"right\\\\\\",\\\\\\"stat\\\\\\":\\\\\\"Sum\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#c49c94\\\\\\"}],[\\\\\\"AWS/ECS\\\\\\",\\\\\\"CPUUtilization\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",{\\\\\\"color\\\\\\":\\\\\\"#f7b6d2\\\\\\"}],[\\\\\\".\\\\\\",\\\\\\"MemoryUtilization\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",{\\\\\\"color\\\\\\":\\\\\\"#c7c7c7\\\\\\"}]],\\\\\\"view\\\\\\":\\\\\\"timeSeries\\\\\\",\\\\\\"stacked\\\\\\":false,\\\\\\"region\\\\\\":\\\\\\"us-east-1\\\\\\",\\\\\\"stat\\\\\\":\\\\\\"Average\\\\\\",\\\\\\"period\\\\\\":60,\\\\\\"annotations\\\\\\":{\\\\\\"horizontal\\\\\\":[{\\\\\\"color\\\\\\":\\\\\\"#e377c2\\\\\\",\\\\\\"label\\\\\\":\\\\\\"CPU scale out\\\\\\",\\\\\\"value\\\\\\":45},{\\\\\\"color\\\\\\":\\\\\\"#c5b0d5\\\\\\",\\\\\\"label\\\\\\":\\\\\\"CPU scale in\\\\\\",\\\\\\"value\\\\\\":30}]},\\\\\\"title\\\\\\":\\\\\\"Service Load\\\\\\"}}]}\\",
+        \\"dashboard_name\\": \\"testapp-ALBDashboard\\",
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/testPocketApp/cloudwatch-dashboard\\",
@@ -3762,7 +4186,7 @@ exports[`PocketALBApplication renders an application with modified container def
               \\"cloudwatch:DeleteAlarms\\"
             ],
             \\"resources\\": [
-              \\"arn:aws:cloudwatch:*:*:alarm:/testapp-*\\"
+              \\"arn:aws:cloudwatch:*:*:alarm:/testapp*\\"
             ]
           },
           {
@@ -3772,7 +4196,7 @@ exports[`PocketALBApplication renders an application with modified container def
               \\"ecs:UpdateService\\"
             ],
             \\"resources\\": [
-              \\"arn:aws:ecs:*:*:service/testapp-*\\"
+              \\"arn:aws:ecs:*:*:service/testapp*\\"
             ]
           }
         ],
@@ -3905,9 +4329,9 @@ exports[`PocketALBApplication renders an application with modified container def
             \\"self\\": null
           }
         ],
-        \\"name_prefix\\": \\"testapp--HTTP/S Security Group\\",
+        \\"name_prefix\\": \\"testapp-HTTP/S Security Group\\",
         \\"tags\\": {
-          \\"Name\\": \\"testapp--HTTP/S Security Group\\"
+          \\"Name\\": \\"testapp-HTTP/S Security Group\\"
         },
         \\"vpc_id\\": \\"\${data.aws_vpc.test_testPocketApp_pocketvpc_40AC0971.id}\\",
         \\"lifecycle\\": {
@@ -3952,7 +4376,7 @@ exports[`PocketALBApplication renders an application with modified container def
             \\"self\\": false
           }
         ],
-        \\"name_prefix\\": \\"testapp--ECSSecurityGroup\\",
+        \\"name_prefix\\": \\"testapp-ECSSecurityGroup\\",
         \\"vpc_id\\": \\"\${data.aws_vpc.test_testPocketApp_pocketvpc_40AC0971.id}\\",
         \\"lifecycle\\": {
           \\"create_before_destroy\\": true
@@ -4016,7 +4440,7 @@ exports[`PocketALBApplication renders an application with modified container def
     },
     \\"aws_ecs_cluster\\": {
       \\"test_testPocketApp_ecscluster_CE90B54F\\": {
-        \\"name\\": \\"testapp-\\",
+        \\"name\\": \\"testapp\\",
         \\"setting\\": [
           {
             \\"name\\": \\"containerInsights\\",
@@ -4093,7 +4517,7 @@ exports[`PocketALBApplication renders an application with modified container def
     },
     \\"aws_ecr_repository\\": {
       \\"test_testPocketApp_ecsservice_ecrxraydaemon_ecrrepo_04FC4DEC\\": {
-        \\"name\\": \\"testapp--xray-daemon\\",
+        \\"name\\": \\"testapp-xray-daemon\\",
         \\"image_scanning_configuration\\": [
           {
             \\"scan_on_push\\": true
@@ -4110,7 +4534,7 @@ exports[`PocketALBApplication renders an application with modified container def
     \\"aws_ecr_lifecycle_policy\\": {
       \\"test_testPocketApp_ecsservice_ecrxraydaemon_ecrrepolifecyclepolicy_8DF87844\\": {
         \\"policy\\": \\"{\\\\\\"rules\\\\\\":[{\\\\\\"rulePriority\\\\\\":1,\\\\\\"description\\\\\\":\\\\\\"expire old images\\\\\\",\\\\\\"selection\\\\\\":{\\\\\\"tagStatus\\\\\\":\\\\\\"any\\\\\\",\\\\\\"countType\\\\\\":\\\\\\"imageCountMoreThan\\\\\\",\\\\\\"countNumber\\\\\\":800},\\\\\\"action\\\\\\":{\\\\\\"type\\\\\\":\\\\\\"expire\\\\\\"}}]}\\",
-        \\"repository\\": \\"testapp--xray-daemon\\",
+        \\"repository\\": \\"testapp-xray-daemon\\",
         \\"depends_on\\": [
           \\"aws_ecr_repository.test_testPocketApp_ecsservice_ecrxraydaemon_ecrrepo_04FC4DEC\\"
         ],
@@ -4124,7 +4548,7 @@ exports[`PocketALBApplication renders an application with modified container def
     },
     \\"aws_cloudwatch_log_group\\": {
       \\"test_testPocketApp_ecsservice_ecsxraydaemon_01F44ECB\\": {
-        \\"name_prefix\\": \\"/ecs/testapp-/xray-daemon\\",
+        \\"name_prefix\\": \\"/ecs/testapp/xray-daemon\\",
         \\"retention_in_days\\": 30,
         \\"//\\": {
           \\"metadata\\": {
@@ -4137,7 +4561,7 @@ exports[`PocketALBApplication renders an application with modified container def
     \\"aws_iam_role\\": {
       \\"test_testPocketApp_ecsservice_ecsiam_ecsexecutionrole_670A7AD5\\": {
         \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.test_testPocketApp_ecsservice_ecsiam_ecstaskassume_A392A140.json}\\",
-        \\"name\\": \\"testapp--TaskExecutionRole\\",
+        \\"name\\": \\"testapp-TaskExecutionRole\\",
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/testPocketApp/ecs_service/ecs-iam/ecs-execution-role\\",
@@ -4147,7 +4571,7 @@ exports[`PocketALBApplication renders an application with modified container def
       },
       \\"test_testPocketApp_ecsservice_ecsiam_ecstaskrole_E41363D4\\": {
         \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.test_testPocketApp_ecsservice_ecsiam_ecstaskassume_A392A140.json}\\",
-        \\"name\\": \\"testapp--TaskRole\\",
+        \\"name\\": \\"testapp-TaskRole\\",
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/testPocketApp/ecs_service/ecs-iam/ecs-task-role\\",
@@ -4157,7 +4581,7 @@ exports[`PocketALBApplication renders an application with modified container def
       },
       \\"test_testPocketApp_autoscaling_autoscalingrole_7AF03E02\\": {
         \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.test_testPocketApp_autoscaling_autoscalingassume_6CD4F67B.json}\\",
-        \\"name\\": \\"testapp--AutoScalingRole\\",
+        \\"name\\": \\"testapp-AutoScalingRole\\",
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/testPocketApp/autoscaling/autoscaling_role\\",
@@ -4171,7 +4595,7 @@ exports[`PocketALBApplication renders an application with modified container def
         \\"container_definitions\\": \\"[{  \\\\\\"dnsSearchDomains\\\\\\": null,  \\\\\\"environmentFiles\\\\\\": null,  \\\\\\"logConfiguration\\\\\\": {    \\\\\\"logDriver\\\\\\": \\\\\\"awslogs\\\\\\",    \\\\\\"secretOptions\\\\\\": [],    \\\\\\"options\\\\\\": {      \\\\\\"awslogs-group\\\\\\": \\\\\\"\${aws_cloudwatch_log_group.test_testPocketApp_ecsservice_ecsxraydaemon_01F44ECB.name}\\\\\\",      \\\\\\"awslogs-region\\\\\\": \\\\\\"us-east-1\\\\\\",      \\\\\\"awslogs-stream-prefix\\\\\\": \\\\\\"ecs\\\\\\"    }  },  \\\\\\"entryPoint\\\\\\": null,  \\\\\\"portMappings\\\\\\": [    {      \\\\\\"hostPort\\\\\\": 0,      \\\\\\"protocol\\\\\\": \\\\\\"udp\\\\\\",      \\\\\\"containerPort\\\\\\": 2000    }  ],    \\\\\\"linuxParameters\\\\\\": null,  \\\\\\"cpu\\\\\\": 10,  \\\\\\"environment\\\\\\": [],  \\\\\\"resourceRequirements\\\\\\": null,  \\\\\\"ulimits\\\\\\": null,  \\\\\\"repositoryCredentials\\\\\\": null,  \\\\\\"dnsServers\\\\\\": null,  \\\\\\"mountPoints\\\\\\": [],  \\\\\\"workingDirectory\\\\\\": null,  \\\\\\"secrets\\\\\\": null,  \\\\\\"dockerSecurityOptions\\\\\\": null,  \\\\\\"memory\\\\\\": null,  \\\\\\"memoryReservation\\\\\\": 50,  \\\\\\"volumesFrom\\\\\\": [],  \\\\\\"stopTimeout\\\\\\": null,  \\\\\\"image\\\\\\": \\\\\\"\${aws_ecr_repository.test_testPocketApp_ecsservice_ecrxraydaemon_ecrrepo_04FC4DEC.repository_url}:latest\\\\\\",  \\\\\\"startTimeout\\\\\\": null,  \\\\\\"firelensConfiguration\\\\\\": null,  \\\\\\"dependsOn\\\\\\": null,  \\\\\\"disableNetworking\\\\\\": null,  \\\\\\"interactive\\\\\\": null,  \\\\\\"healthCheck\\\\\\": null,  \\\\\\"essential\\\\\\": true,  \\\\\\"links\\\\\\": null,  \\\\\\"hostname\\\\\\": null,  \\\\\\"extraHosts\\\\\\": null,  \\\\\\"pseudoTerminal\\\\\\": null,  \\\\\\"user\\\\\\": null,  \\\\\\"readonlyRootFilesystem\\\\\\": false,  \\\\\\"dockerLabels\\\\\\": null,  \\\\\\"systemControls\\\\\\": null,  \\\\\\"privileged\\\\\\": null,  \\\\\\"name\\\\\\": \\\\\\"xray-daemon\\\\\\"}]\\",
         \\"cpu\\": \\"512\\",
         \\"execution_role_arn\\": \\"\${aws_iam_role.test_testPocketApp_ecsservice_ecsiam_ecsexecutionrole_670A7AD5.arn}\\",
-        \\"family\\": \\"testapp-\\",
+        \\"family\\": \\"testapp\\",
         \\"memory\\": \\"2048\\",
         \\"network_mode\\": \\"awsvpc\\",
         \\"requires_compatibilities\\": [
@@ -4258,7 +4682,7 @@ exports[`PocketALBApplication renders an application with modified container def
         \\"deployment_minimum_healthy_percent\\": 100,
         \\"desired_count\\": 2,
         \\"launch_type\\": \\"FARGATE\\",
-        \\"name\\": \\"testapp-\\",
+        \\"name\\": \\"testapp\\",
         \\"propagate_tags\\": \\"SERVICE\\",
         \\"task_definition\\": \\"\${aws_ecs_task_definition.test_testPocketApp_ecsservice_ecstask_A752DB7C.arn}\\",
         \\"deployment_controller\\": [
@@ -4302,7 +4726,7 @@ exports[`PocketALBApplication renders an application with modified container def
     },
     \\"aws_iam_role_policy\\": {
       \\"test_testPocketApp_autoscaling_autoscalingrolepolicy_74F4D9D4\\": {
-        \\"name\\": \\"testapp--AutoScalingPolicy\\",
+        \\"name\\": \\"testapp-AutoScalingPolicy\\",
         \\"policy\\": \\"\${data.aws_iam_policy_document.test_testPocketApp_autoscaling_rolepolicy_38FC9EBD.json}\\",
         \\"role\\": \\"\${aws_iam_role.test_testPocketApp_autoscaling_autoscalingrole_7AF03E02.id}\\",
         \\"//\\": {
@@ -4317,7 +4741,7 @@ exports[`PocketALBApplication renders an application with modified container def
       \\"test_testPocketApp_autoscaling_autoscalingtarget_6206F84C\\": {
         \\"max_capacity\\": 2,
         \\"min_capacity\\": 1,
-        \\"resource_id\\": \\"service/testapp-/testapp-\\",
+        \\"resource_id\\": \\"service/testapp/testapp\\",
         \\"role_arn\\": \\"\${aws_iam_role.test_testPocketApp_autoscaling_autoscalingrole_7AF03E02.arn}\\",
         \\"scalable_dimension\\": \\"ecs:service:DesiredCount\\",
         \\"service_namespace\\": \\"ecs\\",
@@ -4331,9 +4755,9 @@ exports[`PocketALBApplication renders an application with modified container def
     },
     \\"aws_appautoscaling_policy\\": {
       \\"test_testPocketApp_autoscaling_scaleoutpolicy_65809B71\\": {
-        \\"name\\": \\"testapp--ScaleOutPolicy\\",
+        \\"name\\": \\"testapp-ScaleOutPolicy\\",
         \\"policy_type\\": \\"StepScaling\\",
-        \\"resource_id\\": \\"service/testapp-/testapp-\\",
+        \\"resource_id\\": \\"service/testapp/testapp\\",
         \\"scalable_dimension\\": \\"ecs:service:DesiredCount\\",
         \\"service_namespace\\": \\"ecs\\",
         \\"step_scaling_policy_configuration\\": [
@@ -4360,9 +4784,9 @@ exports[`PocketALBApplication renders an application with modified container def
         }
       },
       \\"test_testPocketApp_autoscaling_scaleinpolicy_79053E73\\": {
-        \\"name\\": \\"testapp--ScaleInPolicy\\",
+        \\"name\\": \\"testapp-ScaleInPolicy\\",
         \\"policy_type\\": \\"StepScaling\\",
-        \\"resource_id\\": \\"service/testapp-/testapp-\\",
+        \\"resource_id\\": \\"service/testapp/testapp\\",
         \\"scalable_dimension\\": \\"ecs:service:DesiredCount\\",
         \\"service_namespace\\": \\"ecs\\",
         \\"step_scaling_policy_configuration\\": [
@@ -4395,11 +4819,11 @@ exports[`PocketALBApplication renders an application with modified container def
           \\"\${aws_appautoscaling_policy.test_testPocketApp_autoscaling_scaleoutpolicy_65809B71.arn}\\"
         ],
         \\"alarm_description\\": \\"Alarm to add capacity if CPU is high\\",
-        \\"alarm_name\\": \\"testapp- Service High CPU\\",
+        \\"alarm_name\\": \\"testapp Service High CPU\\",
         \\"comparison_operator\\": \\"GreaterThanThreshold\\",
         \\"dimensions\\": {
-          \\"ClusterName\\": \\"testapp-\\",
-          \\"ServiceName\\": \\"testapp-\\"
+          \\"ClusterName\\": \\"testapp\\",
+          \\"ServiceName\\": \\"testapp\\"
         },
         \\"evaluation_periods\\": 2,
         \\"metric_name\\": \\"CPUUtilization\\",
@@ -4420,11 +4844,11 @@ exports[`PocketALBApplication renders an application with modified container def
           \\"\${aws_appautoscaling_policy.test_testPocketApp_autoscaling_scaleinpolicy_79053E73.arn}\\"
         ],
         \\"alarm_description\\": \\"Alarm to reduce capacity if container CPU is low\\",
-        \\"alarm_name\\": \\"testapp- Service Low CPU\\",
+        \\"alarm_name\\": \\"testapp Service Low CPU\\",
         \\"comparison_operator\\": \\"LessThanThreshold\\",
         \\"dimensions\\": {
-          \\"ClusterName\\": \\"testapp-\\",
-          \\"ServiceName\\": \\"testapp-\\"
+          \\"ClusterName\\": \\"testapp\\",
+          \\"ServiceName\\": \\"testapp\\"
         },
         \\"evaluation_periods\\": 2,
         \\"metric_name\\": \\"CPUUtilization\\",
@@ -4439,12 +4863,112 @@ exports[`PocketALBApplication renders an application with modified container def
             \\"uniqueId\\": \\"test_testPocketApp_autoscaling_scaleinalarm_5B889D45\\"
           }
         }
+      },
+      \\"test_testPocketApp_testappalarmhttp5xxerrorrate_65E69F72\\": {
+        \\"alarm_actions\\": [],
+        \\"alarm_description\\": \\"Percentage of 5xx responses exceeds threshold\\",
+        \\"alarm_name\\": \\"testapp-testapp-Alarm-HTTP5xxErrorRate\\",
+        \\"comparison_operator\\": \\"GreaterThanOrEqualToThreshold\\",
+        \\"evaluation_periods\\": 5,
+        \\"insufficient_data_actions\\": [],
+        \\"ok_actions\\": [],
+        \\"threshold\\": 5,
+        \\"metric_query\\": [
+          {
+            \\"id\\": \\"requests\\",
+            \\"metric\\": [
+              {
+                \\"metric_name\\": \\"RequestCount\\",
+                \\"namespace\\": \\"AWS/ApplicationELB\\",
+                \\"period\\": 60,
+                \\"stat\\": \\"Sum\\",
+                \\"unit\\": \\"Count\\",
+                \\"dimensions\\": {
+                  \\"LoadBalancer\\": \\"\${aws_alb.test_testPocketApp_applicationloadbalancer_alb_6EA5BF17.arn_suffix}\\"
+                }
+              }
+            ]
+          },
+          {
+            \\"id\\": \\"errors\\",
+            \\"metric\\": [
+              {
+                \\"metric_name\\": \\"HTTPCode_ELB_5XX_Count\\",
+                \\"namespace\\": \\"AWS/ApplicationELB\\",
+                \\"period\\": 60,
+                \\"stat\\": \\"Sum\\",
+                \\"unit\\": \\"Count\\",
+                \\"dimensions\\": {
+                  \\"LoadBalancer\\": \\"\${aws_alb.test_testPocketApp_applicationloadbalancer_alb_6EA5BF17.arn_suffix}\\"
+                }
+              }
+            ]
+          },
+          {
+            \\"id\\": \\"expression\\",
+            \\"expression\\": \\"errors/requests*100\\",
+            \\"label\\": \\"HTTP 5xx Error Rate\\",
+            \\"return_data\\": true
+          }
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/testapp-alarm-http5xxerrorrate\\",
+            \\"uniqueId\\": \\"test_testPocketApp_testappalarmhttp5xxerrorrate_65E69F72\\"
+          }
+        }
+      },
+      \\"test_testPocketApp_testappalarmhttpresponsetime_1AA1AB0A\\": {
+        \\"alarm_actions\\": [],
+        \\"alarm_description\\": \\"Average HTTP response time exceeds threshold\\",
+        \\"alarm_name\\": \\"testapp-testapp-Alarm-HTTPResponseTime\\",
+        \\"comparison_operator\\": \\"GreaterThanThreshold\\",
+        \\"dimensions\\": {
+          \\"LoadBalancer\\": \\"\${aws_alb.test_testPocketApp_applicationloadbalancer_alb_6EA5BF17.arn_suffix}\\"
+        },
+        \\"evaluation_periods\\": 1,
+        \\"insufficient_data_actions\\": [],
+        \\"metric_name\\": \\"TargetResponseTime\\",
+        \\"namespace\\": \\"AWS/ApplicationELB\\",
+        \\"ok_actions\\": [],
+        \\"period\\": 300,
+        \\"statistic\\": \\"Average\\",
+        \\"threshold\\": 300,
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/testapp-alarm-httpresponsetime\\",
+            \\"uniqueId\\": \\"test_testPocketApp_testappalarmhttpresponsetime_1AA1AB0A\\"
+          }
+        }
+      },
+      \\"test_testPocketApp_testappalarmhttprequestcount_2E762128\\": {
+        \\"alarm_actions\\": [],
+        \\"alarm_description\\": \\"Total HTTP request count exceeds threshold\\",
+        \\"alarm_name\\": \\"testapp-testapp-Alarm-HTTPRequestCount\\",
+        \\"comparison_operator\\": \\"GreaterThanThreshold\\",
+        \\"dimensions\\": {
+          \\"LoadBalancer\\": \\"\${aws_alb.test_testPocketApp_applicationloadbalancer_alb_6EA5BF17.arn_suffix}\\"
+        },
+        \\"evaluation_periods\\": 1,
+        \\"insufficient_data_actions\\": [],
+        \\"metric_name\\": \\"RequestCount\\",
+        \\"namespace\\": \\"AWS/ApplicationELB\\",
+        \\"ok_actions\\": [],
+        \\"period\\": 300,
+        \\"statistic\\": \\"Sum\\",
+        \\"threshold\\": 500,
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/testapp-alarm-httprequestcount\\",
+            \\"uniqueId\\": \\"test_testPocketApp_testappalarmhttprequestcount_2E762128\\"
+          }
+        }
       }
     },
     \\"aws_cloudwatch_dashboard\\": {
       \\"test_testPocketApp_cloudwatchdashboard_8824C28A\\": {
-        \\"dashboard_body\\": \\"{\\\\\\"widgets\\\\\\":[{\\\\\\"type\\\\\\":\\\\\\"metric\\\\\\",\\\\\\"x\\\\\\":0,\\\\\\"y\\\\\\":0,\\\\\\"width\\\\\\":12,\\\\\\"height\\\\\\":6,\\\\\\"properties\\\\\\":{\\\\\\"metrics\\\\\\":[[\\\\\\"AWS/ApplicationELB\\\\\\",\\\\\\"HTTPCode_Target_4XX_Count\\\\\\",\\\\\\"LoadBalancer\\\\\\",\\\\\\"\${aws_alb.test_testPocketApp_applicationloadbalancer_alb_6EA5BF17.arn_suffix}\\\\\\",{\\\\\\"yAxis\\\\\\":\\\\\\"left\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#ff7f0e\\\\\\"}],[\\\\\\".\\\\\\",\\\\\\"RequestCount\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",{\\\\\\"yAxis\\\\\\":\\\\\\"right\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#1f77b4\\\\\\"}],[\\\\\\".\\\\\\",\\\\\\"HTTPCode_Target_5XX_Count\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",{\\\\\\"color\\\\\\":\\\\\\"#d62728\\\\\\"}],[\\\\\\".\\\\\\",\\\\\\"HTTPCode_Target_2XX_Count\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",{\\\\\\"yAxis\\\\\\":\\\\\\"right\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#2ca02c\\\\\\"}]],\\\\\\"view\\\\\\":\\\\\\"timeSeries\\\\\\",\\\\\\"stacked\\\\\\":false,\\\\\\"region\\\\\\":\\\\\\"us-east-1\\\\\\",\\\\\\"period\\\\\\":60,\\\\\\"stat\\\\\\":\\\\\\"Sum\\\\\\",\\\\\\"annotations\\\\\\":{\\\\\\"horizontal\\\\\\":[{\\\\\\"color\\\\\\":\\\\\\"#17becf\\\\\\",\\\\\\"label\\\\\\":\\\\\\"RequestCountThreshold\\\\\\",\\\\\\"value\\\\\\":500,\\\\\\"yAxis\\\\\\":\\\\\\"right\\\\\\"}]},\\\\\\"title\\\\\\":\\\\\\"Target Requests\\\\\\"}},{\\\\\\"type\\\\\\":\\\\\\"metric\\\\\\",\\\\\\"x\\\\\\":12,\\\\\\"y\\\\\\":0,\\\\\\"width\\\\\\":12,\\\\\\"height\\\\\\":6,\\\\\\"properties\\\\\\":{\\\\\\"metrics\\\\\\":[[\\\\\\"AWS/ApplicationELB\\\\\\",\\\\\\"HTTPCode_ELB_4XX_Count\\\\\\",\\\\\\"LoadBalancer\\\\\\",\\\\\\"\${aws_alb.test_testPocketApp_applicationloadbalancer_alb_6EA5BF17.arn_suffix}\\\\\\",{\\\\\\"yAxis\\\\\\":\\\\\\"left\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#ff7f0e\\\\\\"}],[\\\\\\".\\\\\\",\\\\\\"RequestCount\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",{\\\\\\"yAxis\\\\\\":\\\\\\"right\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#1f77b4\\\\\\"}],[\\\\\\".\\\\\\",\\\\\\"HTTPCode_ELB_5XX_Count\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",{\\\\\\"color\\\\\\":\\\\\\"#d62728\\\\\\"}]],\\\\\\"view\\\\\\":\\\\\\"timeSeries\\\\\\",\\\\\\"stacked\\\\\\":false,\\\\\\"region\\\\\\":\\\\\\"us-east-1\\\\\\",\\\\\\"period\\\\\\":60,\\\\\\"stat\\\\\\":\\\\\\"Sum\\\\\\",\\\\\\"annotations\\\\\\":{\\\\\\"horizontal\\\\\\":[{\\\\\\"color\\\\\\":\\\\\\"#17becf\\\\\\",\\\\\\"label\\\\\\":\\\\\\"RequestCountThreshold\\\\\\",\\\\\\"value\\\\\\":500,\\\\\\"yAxis\\\\\\":\\\\\\"right\\\\\\"}]},\\\\\\"title\\\\\\":\\\\\\"ALB Requests\\\\\\"}},{\\\\\\"type\\\\\\":\\\\\\"metric\\\\\\",\\\\\\"x\\\\\\":12,\\\\\\"y\\\\\\":6,\\\\\\"width\\\\\\":12,\\\\\\"height\\\\\\":6,\\\\\\"properties\\\\\\":{\\\\\\"metrics\\\\\\":[[\\\\\\"AWS/ApplicationELB\\\\\\",\\\\\\"TargetResponseTime\\\\\\",\\\\\\"LoadBalancer\\\\\\",\\\\\\"\${aws_alb.test_testPocketApp_applicationloadbalancer_alb_6EA5BF17.arn_suffix}\\\\\\",{\\\\\\"label\\\\\\":\\\\\\"Average\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#aec7e8\\\\\\"}],[\\\\\\"...\\\\\\",{\\\\\\"stat\\\\\\":\\\\\\"p95\\\\\\",\\\\\\"label\\\\\\":\\\\\\"p95\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#ffbb78\\\\\\"}],[\\\\\\"...\\\\\\",{\\\\\\"stat\\\\\\":\\\\\\"p99\\\\\\",\\\\\\"label\\\\\\":\\\\\\"p99\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#98df8a\\\\\\"}]],\\\\\\"view\\\\\\":\\\\\\"timeSeries\\\\\\",\\\\\\"stacked\\\\\\":false,\\\\\\"region\\\\\\":\\\\\\"us-east-1\\\\\\",\\\\\\"stat\\\\\\":\\\\\\"Average\\\\\\",\\\\\\"period\\\\\\":60}},{\\\\\\"type\\\\\\":\\\\\\"metric\\\\\\",\\\\\\"x\\\\\\":0,\\\\\\"y\\\\\\":6,\\\\\\"width\\\\\\":12,\\\\\\"height\\\\\\":6,\\\\\\"properties\\\\\\":{\\\\\\"metrics\\\\\\":[[\\\\\\"ECS/ContainerInsights\\\\\\",\\\\\\"RunningTaskCount\\\\\\",\\\\\\"ServiceName\\\\\\",\\\\\\"testapp-\\\\\\",\\\\\\"ClusterName\\\\\\",\\\\\\"testapp-\\\\\\",{\\\\\\"yAxis\\\\\\":\\\\\\"right\\\\\\",\\\\\\"stat\\\\\\":\\\\\\"Sum\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#c49c94\\\\\\"}],[\\\\\\"AWS/ECS\\\\\\",\\\\\\"CPUUtilization\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",{\\\\\\"color\\\\\\":\\\\\\"#f7b6d2\\\\\\"}],[\\\\\\".\\\\\\",\\\\\\"MemoryUtilization\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",{\\\\\\"color\\\\\\":\\\\\\"#c7c7c7\\\\\\"}]],\\\\\\"view\\\\\\":\\\\\\"timeSeries\\\\\\",\\\\\\"stacked\\\\\\":false,\\\\\\"region\\\\\\":\\\\\\"us-east-1\\\\\\",\\\\\\"stat\\\\\\":\\\\\\"Average\\\\\\",\\\\\\"period\\\\\\":60,\\\\\\"annotations\\\\\\":{\\\\\\"horizontal\\\\\\":[{\\\\\\"color\\\\\\":\\\\\\"#e377c2\\\\\\",\\\\\\"label\\\\\\":\\\\\\"CPU scale out\\\\\\",\\\\\\"value\\\\\\":45},{\\\\\\"color\\\\\\":\\\\\\"#c5b0d5\\\\\\",\\\\\\"label\\\\\\":\\\\\\"CPU scale in\\\\\\",\\\\\\"value\\\\\\":30}]},\\\\\\"title\\\\\\":\\\\\\"Service Load\\\\\\"}}]}\\",
-        \\"dashboard_name\\": \\"testapp--ALBDashboard\\",
+        \\"dashboard_body\\": \\"{\\\\\\"widgets\\\\\\":[{\\\\\\"type\\\\\\":\\\\\\"metric\\\\\\",\\\\\\"x\\\\\\":0,\\\\\\"y\\\\\\":0,\\\\\\"width\\\\\\":12,\\\\\\"height\\\\\\":6,\\\\\\"properties\\\\\\":{\\\\\\"metrics\\\\\\":[[\\\\\\"AWS/ApplicationELB\\\\\\",\\\\\\"HTTPCode_Target_4XX_Count\\\\\\",\\\\\\"LoadBalancer\\\\\\",\\\\\\"\${aws_alb.test_testPocketApp_applicationloadbalancer_alb_6EA5BF17.arn_suffix}\\\\\\",{\\\\\\"yAxis\\\\\\":\\\\\\"left\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#ff7f0e\\\\\\"}],[\\\\\\".\\\\\\",\\\\\\"RequestCount\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",{\\\\\\"yAxis\\\\\\":\\\\\\"right\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#1f77b4\\\\\\"}],[\\\\\\".\\\\\\",\\\\\\"HTTPCode_Target_5XX_Count\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",{\\\\\\"color\\\\\\":\\\\\\"#d62728\\\\\\"}],[\\\\\\".\\\\\\",\\\\\\"HTTPCode_Target_2XX_Count\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",{\\\\\\"yAxis\\\\\\":\\\\\\"right\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#2ca02c\\\\\\"}]],\\\\\\"view\\\\\\":\\\\\\"timeSeries\\\\\\",\\\\\\"stacked\\\\\\":false,\\\\\\"region\\\\\\":\\\\\\"us-east-1\\\\\\",\\\\\\"period\\\\\\":60,\\\\\\"stat\\\\\\":\\\\\\"Sum\\\\\\",\\\\\\"annotations\\\\\\":{\\\\\\"horizontal\\\\\\":[{\\\\\\"color\\\\\\":\\\\\\"#17becf\\\\\\",\\\\\\"label\\\\\\":\\\\\\"RequestCountThreshold\\\\\\",\\\\\\"value\\\\\\":500,\\\\\\"yAxis\\\\\\":\\\\\\"right\\\\\\"}]},\\\\\\"title\\\\\\":\\\\\\"Target Requests\\\\\\"}},{\\\\\\"type\\\\\\":\\\\\\"metric\\\\\\",\\\\\\"x\\\\\\":12,\\\\\\"y\\\\\\":0,\\\\\\"width\\\\\\":12,\\\\\\"height\\\\\\":6,\\\\\\"properties\\\\\\":{\\\\\\"metrics\\\\\\":[[\\\\\\"AWS/ApplicationELB\\\\\\",\\\\\\"HTTPCode_ELB_4XX_Count\\\\\\",\\\\\\"LoadBalancer\\\\\\",\\\\\\"\${aws_alb.test_testPocketApp_applicationloadbalancer_alb_6EA5BF17.arn_suffix}\\\\\\",{\\\\\\"yAxis\\\\\\":\\\\\\"left\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#ff7f0e\\\\\\"}],[\\\\\\".\\\\\\",\\\\\\"RequestCount\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",{\\\\\\"yAxis\\\\\\":\\\\\\"right\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#1f77b4\\\\\\"}],[\\\\\\".\\\\\\",\\\\\\"HTTPCode_ELB_5XX_Count\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",{\\\\\\"color\\\\\\":\\\\\\"#d62728\\\\\\"}]],\\\\\\"view\\\\\\":\\\\\\"timeSeries\\\\\\",\\\\\\"stacked\\\\\\":false,\\\\\\"region\\\\\\":\\\\\\"us-east-1\\\\\\",\\\\\\"period\\\\\\":60,\\\\\\"stat\\\\\\":\\\\\\"Sum\\\\\\",\\\\\\"annotations\\\\\\":{\\\\\\"horizontal\\\\\\":[{\\\\\\"color\\\\\\":\\\\\\"#17becf\\\\\\",\\\\\\"label\\\\\\":\\\\\\"RequestCountThreshold\\\\\\",\\\\\\"value\\\\\\":500,\\\\\\"yAxis\\\\\\":\\\\\\"right\\\\\\"}]},\\\\\\"title\\\\\\":\\\\\\"ALB Requests\\\\\\"}},{\\\\\\"type\\\\\\":\\\\\\"metric\\\\\\",\\\\\\"x\\\\\\":12,\\\\\\"y\\\\\\":6,\\\\\\"width\\\\\\":12,\\\\\\"height\\\\\\":6,\\\\\\"properties\\\\\\":{\\\\\\"metrics\\\\\\":[[\\\\\\"AWS/ApplicationELB\\\\\\",\\\\\\"TargetResponseTime\\\\\\",\\\\\\"LoadBalancer\\\\\\",\\\\\\"\${aws_alb.test_testPocketApp_applicationloadbalancer_alb_6EA5BF17.arn_suffix}\\\\\\",{\\\\\\"label\\\\\\":\\\\\\"Average\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#aec7e8\\\\\\"}],[\\\\\\"...\\\\\\",{\\\\\\"stat\\\\\\":\\\\\\"p95\\\\\\",\\\\\\"label\\\\\\":\\\\\\"p95\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#ffbb78\\\\\\"}],[\\\\\\"...\\\\\\",{\\\\\\"stat\\\\\\":\\\\\\"p99\\\\\\",\\\\\\"label\\\\\\":\\\\\\"p99\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#98df8a\\\\\\"}]],\\\\\\"view\\\\\\":\\\\\\"timeSeries\\\\\\",\\\\\\"stacked\\\\\\":false,\\\\\\"region\\\\\\":\\\\\\"us-east-1\\\\\\",\\\\\\"stat\\\\\\":\\\\\\"Average\\\\\\",\\\\\\"period\\\\\\":60}},{\\\\\\"type\\\\\\":\\\\\\"metric\\\\\\",\\\\\\"x\\\\\\":0,\\\\\\"y\\\\\\":6,\\\\\\"width\\\\\\":12,\\\\\\"height\\\\\\":6,\\\\\\"properties\\\\\\":{\\\\\\"metrics\\\\\\":[[\\\\\\"ECS/ContainerInsights\\\\\\",\\\\\\"RunningTaskCount\\\\\\",\\\\\\"ServiceName\\\\\\",\\\\\\"testapp\\\\\\",\\\\\\"ClusterName\\\\\\",\\\\\\"\${aws_ecs_cluster.test_testPocketApp_ecscluster_CE90B54F.arn}\\\\\\",{\\\\\\"yAxis\\\\\\":\\\\\\"right\\\\\\",\\\\\\"stat\\\\\\":\\\\\\"Sum\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#c49c94\\\\\\"}],[\\\\\\"AWS/ECS\\\\\\",\\\\\\"CPUUtilization\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",{\\\\\\"color\\\\\\":\\\\\\"#f7b6d2\\\\\\"}],[\\\\\\".\\\\\\",\\\\\\"MemoryUtilization\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",{\\\\\\"color\\\\\\":\\\\\\"#c7c7c7\\\\\\"}]],\\\\\\"view\\\\\\":\\\\\\"timeSeries\\\\\\",\\\\\\"stacked\\\\\\":false,\\\\\\"region\\\\\\":\\\\\\"us-east-1\\\\\\",\\\\\\"stat\\\\\\":\\\\\\"Average\\\\\\",\\\\\\"period\\\\\\":60,\\\\\\"annotations\\\\\\":{\\\\\\"horizontal\\\\\\":[{\\\\\\"color\\\\\\":\\\\\\"#e377c2\\\\\\",\\\\\\"label\\\\\\":\\\\\\"CPU scale out\\\\\\",\\\\\\"value\\\\\\":45},{\\\\\\"color\\\\\\":\\\\\\"#c5b0d5\\\\\\",\\\\\\"label\\\\\\":\\\\\\"CPU scale in\\\\\\",\\\\\\"value\\\\\\":30}]},\\\\\\"title\\\\\\":\\\\\\"Service Load\\\\\\"}}]}\\",
+        \\"dashboard_name\\": \\"testapp-ALBDashboard\\",
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/testPocketApp/cloudwatch-dashboard\\",
@@ -4671,7 +5195,7 @@ exports[`PocketALBApplication renders an external application 1`] = `
               \\"cloudwatch:DeleteAlarms\\"
             ],
             \\"resources\\": [
-              \\"arn:aws:cloudwatch:*:*:alarm:/testapp-*\\"
+              \\"arn:aws:cloudwatch:*:*:alarm:/testapp*\\"
             ]
           },
           {
@@ -4681,7 +5205,7 @@ exports[`PocketALBApplication renders an external application 1`] = `
               \\"ecs:UpdateService\\"
             ],
             \\"resources\\": [
-              \\"arn:aws:ecs:*:*:service/testapp-*\\"
+              \\"arn:aws:ecs:*:*:service/testapp*\\"
             ]
           }
         ],
@@ -4861,9 +5385,9 @@ exports[`PocketALBApplication renders an external application 1`] = `
             \\"self\\": null
           }
         ],
-        \\"name_prefix\\": \\"testapp--HTTP/S Security Group\\",
+        \\"name_prefix\\": \\"testapp-HTTP/S Security Group\\",
         \\"tags\\": {
-          \\"Name\\": \\"testapp--HTTP/S Security Group\\"
+          \\"Name\\": \\"testapp-HTTP/S Security Group\\"
         },
         \\"vpc_id\\": \\"\${data.aws_vpc.test_testPocketApp_pocketvpc_40AC0971.id}\\",
         \\"lifecycle\\": {
@@ -4908,7 +5432,7 @@ exports[`PocketALBApplication renders an external application 1`] = `
             \\"self\\": false
           }
         ],
-        \\"name_prefix\\": \\"testapp--ECSSecurityGroup\\",
+        \\"name_prefix\\": \\"testapp-ECSSecurityGroup\\",
         \\"vpc_id\\": \\"\${data.aws_vpc.test_testPocketApp_pocketvpc_40AC0971.id}\\",
         \\"lifecycle\\": {
           \\"create_before_destroy\\": true
@@ -5086,7 +5610,7 @@ exports[`PocketALBApplication renders an external application 1`] = `
     },
     \\"aws_ecs_cluster\\": {
       \\"test_testPocketApp_ecscluster_CE90B54F\\": {
-        \\"name\\": \\"testapp-\\",
+        \\"name\\": \\"testapp\\",
         \\"setting\\": [
           {
             \\"name\\": \\"containerInsights\\",
@@ -5164,7 +5688,7 @@ exports[`PocketALBApplication renders an external application 1`] = `
     \\"aws_iam_role\\": {
       \\"test_testPocketApp_ecsservice_ecsiam_ecsexecutionrole_670A7AD5\\": {
         \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.test_testPocketApp_ecsservice_ecsiam_ecstaskassume_A392A140.json}\\",
-        \\"name\\": \\"testapp--TaskExecutionRole\\",
+        \\"name\\": \\"testapp-TaskExecutionRole\\",
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/testPocketApp/ecs_service/ecs-iam/ecs-execution-role\\",
@@ -5174,7 +5698,7 @@ exports[`PocketALBApplication renders an external application 1`] = `
       },
       \\"test_testPocketApp_ecsservice_ecsiam_ecstaskrole_E41363D4\\": {
         \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.test_testPocketApp_ecsservice_ecsiam_ecstaskassume_A392A140.json}\\",
-        \\"name\\": \\"testapp--TaskRole\\",
+        \\"name\\": \\"testapp-TaskRole\\",
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/testPocketApp/ecs_service/ecs-iam/ecs-task-role\\",
@@ -5184,7 +5708,7 @@ exports[`PocketALBApplication renders an external application 1`] = `
       },
       \\"test_testPocketApp_autoscaling_autoscalingrole_7AF03E02\\": {
         \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.test_testPocketApp_autoscaling_autoscalingassume_6CD4F67B.json}\\",
-        \\"name\\": \\"testapp--AutoScalingRole\\",
+        \\"name\\": \\"testapp-AutoScalingRole\\",
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/testPocketApp/autoscaling/autoscaling_role\\",
@@ -5198,7 +5722,7 @@ exports[`PocketALBApplication renders an external application 1`] = `
         \\"container_definitions\\": \\"[]\\",
         \\"cpu\\": \\"512\\",
         \\"execution_role_arn\\": \\"\${aws_iam_role.test_testPocketApp_ecsservice_ecsiam_ecsexecutionrole_670A7AD5.arn}\\",
-        \\"family\\": \\"testapp-\\",
+        \\"family\\": \\"testapp\\",
         \\"memory\\": \\"2048\\",
         \\"network_mode\\": \\"awsvpc\\",
         \\"requires_compatibilities\\": [
@@ -5283,7 +5807,7 @@ exports[`PocketALBApplication renders an external application 1`] = `
         \\"deployment_minimum_healthy_percent\\": 100,
         \\"desired_count\\": 2,
         \\"launch_type\\": \\"FARGATE\\",
-        \\"name\\": \\"testapp-\\",
+        \\"name\\": \\"testapp\\",
         \\"propagate_tags\\": \\"SERVICE\\",
         \\"task_definition\\": \\"\${aws_ecs_task_definition.test_testPocketApp_ecsservice_ecstask_A752DB7C.arn}\\",
         \\"deployment_controller\\": [
@@ -5326,7 +5850,7 @@ exports[`PocketALBApplication renders an external application 1`] = `
     },
     \\"aws_iam_role_policy\\": {
       \\"test_testPocketApp_autoscaling_autoscalingrolepolicy_74F4D9D4\\": {
-        \\"name\\": \\"testapp--AutoScalingPolicy\\",
+        \\"name\\": \\"testapp-AutoScalingPolicy\\",
         \\"policy\\": \\"\${data.aws_iam_policy_document.test_testPocketApp_autoscaling_rolepolicy_38FC9EBD.json}\\",
         \\"role\\": \\"\${aws_iam_role.test_testPocketApp_autoscaling_autoscalingrole_7AF03E02.id}\\",
         \\"//\\": {
@@ -5341,7 +5865,7 @@ exports[`PocketALBApplication renders an external application 1`] = `
       \\"test_testPocketApp_autoscaling_autoscalingtarget_6206F84C\\": {
         \\"max_capacity\\": 2,
         \\"min_capacity\\": 1,
-        \\"resource_id\\": \\"service/testapp-/testapp-\\",
+        \\"resource_id\\": \\"service/testapp/testapp\\",
         \\"role_arn\\": \\"\${aws_iam_role.test_testPocketApp_autoscaling_autoscalingrole_7AF03E02.arn}\\",
         \\"scalable_dimension\\": \\"ecs:service:DesiredCount\\",
         \\"service_namespace\\": \\"ecs\\",
@@ -5355,9 +5879,9 @@ exports[`PocketALBApplication renders an external application 1`] = `
     },
     \\"aws_appautoscaling_policy\\": {
       \\"test_testPocketApp_autoscaling_scaleoutpolicy_65809B71\\": {
-        \\"name\\": \\"testapp--ScaleOutPolicy\\",
+        \\"name\\": \\"testapp-ScaleOutPolicy\\",
         \\"policy_type\\": \\"StepScaling\\",
-        \\"resource_id\\": \\"service/testapp-/testapp-\\",
+        \\"resource_id\\": \\"service/testapp/testapp\\",
         \\"scalable_dimension\\": \\"ecs:service:DesiredCount\\",
         \\"service_namespace\\": \\"ecs\\",
         \\"step_scaling_policy_configuration\\": [
@@ -5384,9 +5908,9 @@ exports[`PocketALBApplication renders an external application 1`] = `
         }
       },
       \\"test_testPocketApp_autoscaling_scaleinpolicy_79053E73\\": {
-        \\"name\\": \\"testapp--ScaleInPolicy\\",
+        \\"name\\": \\"testapp-ScaleInPolicy\\",
         \\"policy_type\\": \\"StepScaling\\",
-        \\"resource_id\\": \\"service/testapp-/testapp-\\",
+        \\"resource_id\\": \\"service/testapp/testapp\\",
         \\"scalable_dimension\\": \\"ecs:service:DesiredCount\\",
         \\"service_namespace\\": \\"ecs\\",
         \\"step_scaling_policy_configuration\\": [
@@ -5419,11 +5943,11 @@ exports[`PocketALBApplication renders an external application 1`] = `
           \\"\${aws_appautoscaling_policy.test_testPocketApp_autoscaling_scaleoutpolicy_65809B71.arn}\\"
         ],
         \\"alarm_description\\": \\"Alarm to add capacity if CPU is high\\",
-        \\"alarm_name\\": \\"testapp- Service High CPU\\",
+        \\"alarm_name\\": \\"testapp Service High CPU\\",
         \\"comparison_operator\\": \\"GreaterThanThreshold\\",
         \\"dimensions\\": {
-          \\"ClusterName\\": \\"testapp-\\",
-          \\"ServiceName\\": \\"testapp-\\"
+          \\"ClusterName\\": \\"testapp\\",
+          \\"ServiceName\\": \\"testapp\\"
         },
         \\"evaluation_periods\\": 2,
         \\"metric_name\\": \\"CPUUtilization\\",
@@ -5444,11 +5968,11 @@ exports[`PocketALBApplication renders an external application 1`] = `
           \\"\${aws_appautoscaling_policy.test_testPocketApp_autoscaling_scaleinpolicy_79053E73.arn}\\"
         ],
         \\"alarm_description\\": \\"Alarm to reduce capacity if container CPU is low\\",
-        \\"alarm_name\\": \\"testapp- Service Low CPU\\",
+        \\"alarm_name\\": \\"testapp Service Low CPU\\",
         \\"comparison_operator\\": \\"LessThanThreshold\\",
         \\"dimensions\\": {
-          \\"ClusterName\\": \\"testapp-\\",
-          \\"ServiceName\\": \\"testapp-\\"
+          \\"ClusterName\\": \\"testapp\\",
+          \\"ServiceName\\": \\"testapp\\"
         },
         \\"evaluation_periods\\": 2,
         \\"metric_name\\": \\"CPUUtilization\\",
@@ -5463,12 +5987,112 @@ exports[`PocketALBApplication renders an external application 1`] = `
             \\"uniqueId\\": \\"test_testPocketApp_autoscaling_scaleinalarm_5B889D45\\"
           }
         }
+      },
+      \\"test_testPocketApp_testappalarmhttp5xxerrorrate_65E69F72\\": {
+        \\"alarm_actions\\": [],
+        \\"alarm_description\\": \\"Percentage of 5xx responses exceeds threshold\\",
+        \\"alarm_name\\": \\"testapp-testapp-Alarm-HTTP5xxErrorRate\\",
+        \\"comparison_operator\\": \\"GreaterThanOrEqualToThreshold\\",
+        \\"evaluation_periods\\": 5,
+        \\"insufficient_data_actions\\": [],
+        \\"ok_actions\\": [],
+        \\"threshold\\": 5,
+        \\"metric_query\\": [
+          {
+            \\"id\\": \\"requests\\",
+            \\"metric\\": [
+              {
+                \\"metric_name\\": \\"RequestCount\\",
+                \\"namespace\\": \\"AWS/ApplicationELB\\",
+                \\"period\\": 60,
+                \\"stat\\": \\"Sum\\",
+                \\"unit\\": \\"Count\\",
+                \\"dimensions\\": {
+                  \\"LoadBalancer\\": \\"\${aws_alb.test_testPocketApp_applicationloadbalancer_alb_6EA5BF17.arn_suffix}\\"
+                }
+              }
+            ]
+          },
+          {
+            \\"id\\": \\"errors\\",
+            \\"metric\\": [
+              {
+                \\"metric_name\\": \\"HTTPCode_ELB_5XX_Count\\",
+                \\"namespace\\": \\"AWS/ApplicationELB\\",
+                \\"period\\": 60,
+                \\"stat\\": \\"Sum\\",
+                \\"unit\\": \\"Count\\",
+                \\"dimensions\\": {
+                  \\"LoadBalancer\\": \\"\${aws_alb.test_testPocketApp_applicationloadbalancer_alb_6EA5BF17.arn_suffix}\\"
+                }
+              }
+            ]
+          },
+          {
+            \\"id\\": \\"expression\\",
+            \\"expression\\": \\"errors/requests*100\\",
+            \\"label\\": \\"HTTP 5xx Error Rate\\",
+            \\"return_data\\": true
+          }
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/testapp-alarm-http5xxerrorrate\\",
+            \\"uniqueId\\": \\"test_testPocketApp_testappalarmhttp5xxerrorrate_65E69F72\\"
+          }
+        }
+      },
+      \\"test_testPocketApp_testappalarmhttpresponsetime_1AA1AB0A\\": {
+        \\"alarm_actions\\": [],
+        \\"alarm_description\\": \\"Average HTTP response time exceeds threshold\\",
+        \\"alarm_name\\": \\"testapp-testapp-Alarm-HTTPResponseTime\\",
+        \\"comparison_operator\\": \\"GreaterThanThreshold\\",
+        \\"dimensions\\": {
+          \\"LoadBalancer\\": \\"\${aws_alb.test_testPocketApp_applicationloadbalancer_alb_6EA5BF17.arn_suffix}\\"
+        },
+        \\"evaluation_periods\\": 1,
+        \\"insufficient_data_actions\\": [],
+        \\"metric_name\\": \\"TargetResponseTime\\",
+        \\"namespace\\": \\"AWS/ApplicationELB\\",
+        \\"ok_actions\\": [],
+        \\"period\\": 300,
+        \\"statistic\\": \\"Average\\",
+        \\"threshold\\": 300,
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/testapp-alarm-httpresponsetime\\",
+            \\"uniqueId\\": \\"test_testPocketApp_testappalarmhttpresponsetime_1AA1AB0A\\"
+          }
+        }
+      },
+      \\"test_testPocketApp_testappalarmhttprequestcount_2E762128\\": {
+        \\"alarm_actions\\": [],
+        \\"alarm_description\\": \\"Total HTTP request count exceeds threshold\\",
+        \\"alarm_name\\": \\"testapp-testapp-Alarm-HTTPRequestCount\\",
+        \\"comparison_operator\\": \\"GreaterThanThreshold\\",
+        \\"dimensions\\": {
+          \\"LoadBalancer\\": \\"\${aws_alb.test_testPocketApp_applicationloadbalancer_alb_6EA5BF17.arn_suffix}\\"
+        },
+        \\"evaluation_periods\\": 1,
+        \\"insufficient_data_actions\\": [],
+        \\"metric_name\\": \\"RequestCount\\",
+        \\"namespace\\": \\"AWS/ApplicationELB\\",
+        \\"ok_actions\\": [],
+        \\"period\\": 300,
+        \\"statistic\\": \\"Sum\\",
+        \\"threshold\\": 500,
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/testapp-alarm-httprequestcount\\",
+            \\"uniqueId\\": \\"test_testPocketApp_testappalarmhttprequestcount_2E762128\\"
+          }
+        }
       }
     },
     \\"aws_cloudwatch_dashboard\\": {
       \\"test_testPocketApp_cloudwatchdashboard_8824C28A\\": {
-        \\"dashboard_body\\": \\"{\\\\\\"widgets\\\\\\":[{\\\\\\"type\\\\\\":\\\\\\"metric\\\\\\",\\\\\\"x\\\\\\":0,\\\\\\"y\\\\\\":0,\\\\\\"width\\\\\\":12,\\\\\\"height\\\\\\":6,\\\\\\"properties\\\\\\":{\\\\\\"metrics\\\\\\":[[\\\\\\"AWS/ApplicationELB\\\\\\",\\\\\\"HTTPCode_Target_4XX_Count\\\\\\",\\\\\\"LoadBalancer\\\\\\",\\\\\\"\${aws_alb.test_testPocketApp_applicationloadbalancer_alb_6EA5BF17.arn_suffix}\\\\\\",{\\\\\\"yAxis\\\\\\":\\\\\\"left\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#ff7f0e\\\\\\"}],[\\\\\\".\\\\\\",\\\\\\"RequestCount\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",{\\\\\\"yAxis\\\\\\":\\\\\\"right\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#1f77b4\\\\\\"}],[\\\\\\".\\\\\\",\\\\\\"HTTPCode_Target_5XX_Count\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",{\\\\\\"color\\\\\\":\\\\\\"#d62728\\\\\\"}],[\\\\\\".\\\\\\",\\\\\\"HTTPCode_Target_2XX_Count\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",{\\\\\\"yAxis\\\\\\":\\\\\\"right\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#2ca02c\\\\\\"}]],\\\\\\"view\\\\\\":\\\\\\"timeSeries\\\\\\",\\\\\\"stacked\\\\\\":false,\\\\\\"region\\\\\\":\\\\\\"us-east-1\\\\\\",\\\\\\"period\\\\\\":60,\\\\\\"stat\\\\\\":\\\\\\"Sum\\\\\\",\\\\\\"annotations\\\\\\":{\\\\\\"horizontal\\\\\\":[{\\\\\\"color\\\\\\":\\\\\\"#17becf\\\\\\",\\\\\\"label\\\\\\":\\\\\\"RequestCountThreshold\\\\\\",\\\\\\"value\\\\\\":500,\\\\\\"yAxis\\\\\\":\\\\\\"right\\\\\\"}]},\\\\\\"title\\\\\\":\\\\\\"Target Requests\\\\\\"}},{\\\\\\"type\\\\\\":\\\\\\"metric\\\\\\",\\\\\\"x\\\\\\":12,\\\\\\"y\\\\\\":0,\\\\\\"width\\\\\\":12,\\\\\\"height\\\\\\":6,\\\\\\"properties\\\\\\":{\\\\\\"metrics\\\\\\":[[\\\\\\"AWS/ApplicationELB\\\\\\",\\\\\\"HTTPCode_ELB_4XX_Count\\\\\\",\\\\\\"LoadBalancer\\\\\\",\\\\\\"\${aws_alb.test_testPocketApp_applicationloadbalancer_alb_6EA5BF17.arn_suffix}\\\\\\",{\\\\\\"yAxis\\\\\\":\\\\\\"left\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#ff7f0e\\\\\\"}],[\\\\\\".\\\\\\",\\\\\\"RequestCount\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",{\\\\\\"yAxis\\\\\\":\\\\\\"right\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#1f77b4\\\\\\"}],[\\\\\\".\\\\\\",\\\\\\"HTTPCode_ELB_5XX_Count\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",{\\\\\\"color\\\\\\":\\\\\\"#d62728\\\\\\"}]],\\\\\\"view\\\\\\":\\\\\\"timeSeries\\\\\\",\\\\\\"stacked\\\\\\":false,\\\\\\"region\\\\\\":\\\\\\"us-east-1\\\\\\",\\\\\\"period\\\\\\":60,\\\\\\"stat\\\\\\":\\\\\\"Sum\\\\\\",\\\\\\"annotations\\\\\\":{\\\\\\"horizontal\\\\\\":[{\\\\\\"color\\\\\\":\\\\\\"#17becf\\\\\\",\\\\\\"label\\\\\\":\\\\\\"RequestCountThreshold\\\\\\",\\\\\\"value\\\\\\":500,\\\\\\"yAxis\\\\\\":\\\\\\"right\\\\\\"}]},\\\\\\"title\\\\\\":\\\\\\"ALB Requests\\\\\\"}},{\\\\\\"type\\\\\\":\\\\\\"metric\\\\\\",\\\\\\"x\\\\\\":12,\\\\\\"y\\\\\\":6,\\\\\\"width\\\\\\":12,\\\\\\"height\\\\\\":6,\\\\\\"properties\\\\\\":{\\\\\\"metrics\\\\\\":[[\\\\\\"AWS/ApplicationELB\\\\\\",\\\\\\"TargetResponseTime\\\\\\",\\\\\\"LoadBalancer\\\\\\",\\\\\\"\${aws_alb.test_testPocketApp_applicationloadbalancer_alb_6EA5BF17.arn_suffix}\\\\\\",{\\\\\\"label\\\\\\":\\\\\\"Average\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#aec7e8\\\\\\"}],[\\\\\\"...\\\\\\",{\\\\\\"stat\\\\\\":\\\\\\"p95\\\\\\",\\\\\\"label\\\\\\":\\\\\\"p95\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#ffbb78\\\\\\"}],[\\\\\\"...\\\\\\",{\\\\\\"stat\\\\\\":\\\\\\"p99\\\\\\",\\\\\\"label\\\\\\":\\\\\\"p99\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#98df8a\\\\\\"}]],\\\\\\"view\\\\\\":\\\\\\"timeSeries\\\\\\",\\\\\\"stacked\\\\\\":false,\\\\\\"region\\\\\\":\\\\\\"us-east-1\\\\\\",\\\\\\"stat\\\\\\":\\\\\\"Average\\\\\\",\\\\\\"period\\\\\\":60}},{\\\\\\"type\\\\\\":\\\\\\"metric\\\\\\",\\\\\\"x\\\\\\":0,\\\\\\"y\\\\\\":6,\\\\\\"width\\\\\\":12,\\\\\\"height\\\\\\":6,\\\\\\"properties\\\\\\":{\\\\\\"metrics\\\\\\":[[\\\\\\"ECS/ContainerInsights\\\\\\",\\\\\\"RunningTaskCount\\\\\\",\\\\\\"ServiceName\\\\\\",\\\\\\"testapp-\\\\\\",\\\\\\"ClusterName\\\\\\",\\\\\\"testapp-\\\\\\",{\\\\\\"yAxis\\\\\\":\\\\\\"right\\\\\\",\\\\\\"stat\\\\\\":\\\\\\"Sum\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#c49c94\\\\\\"}],[\\\\\\"AWS/ECS\\\\\\",\\\\\\"CPUUtilization\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",{\\\\\\"color\\\\\\":\\\\\\"#f7b6d2\\\\\\"}],[\\\\\\".\\\\\\",\\\\\\"MemoryUtilization\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",{\\\\\\"color\\\\\\":\\\\\\"#c7c7c7\\\\\\"}]],\\\\\\"view\\\\\\":\\\\\\"timeSeries\\\\\\",\\\\\\"stacked\\\\\\":false,\\\\\\"region\\\\\\":\\\\\\"us-east-1\\\\\\",\\\\\\"stat\\\\\\":\\\\\\"Average\\\\\\",\\\\\\"period\\\\\\":60,\\\\\\"annotations\\\\\\":{\\\\\\"horizontal\\\\\\":[{\\\\\\"color\\\\\\":\\\\\\"#e377c2\\\\\\",\\\\\\"label\\\\\\":\\\\\\"CPU scale out\\\\\\",\\\\\\"value\\\\\\":45},{\\\\\\"color\\\\\\":\\\\\\"#c5b0d5\\\\\\",\\\\\\"label\\\\\\":\\\\\\"CPU scale in\\\\\\",\\\\\\"value\\\\\\":30}]},\\\\\\"title\\\\\\":\\\\\\"Service Load\\\\\\"}}]}\\",
-        \\"dashboard_name\\": \\"testapp--ALBDashboard\\",
+        \\"dashboard_body\\": \\"{\\\\\\"widgets\\\\\\":[{\\\\\\"type\\\\\\":\\\\\\"metric\\\\\\",\\\\\\"x\\\\\\":0,\\\\\\"y\\\\\\":0,\\\\\\"width\\\\\\":12,\\\\\\"height\\\\\\":6,\\\\\\"properties\\\\\\":{\\\\\\"metrics\\\\\\":[[\\\\\\"AWS/ApplicationELB\\\\\\",\\\\\\"HTTPCode_Target_4XX_Count\\\\\\",\\\\\\"LoadBalancer\\\\\\",\\\\\\"\${aws_alb.test_testPocketApp_applicationloadbalancer_alb_6EA5BF17.arn_suffix}\\\\\\",{\\\\\\"yAxis\\\\\\":\\\\\\"left\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#ff7f0e\\\\\\"}],[\\\\\\".\\\\\\",\\\\\\"RequestCount\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",{\\\\\\"yAxis\\\\\\":\\\\\\"right\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#1f77b4\\\\\\"}],[\\\\\\".\\\\\\",\\\\\\"HTTPCode_Target_5XX_Count\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",{\\\\\\"color\\\\\\":\\\\\\"#d62728\\\\\\"}],[\\\\\\".\\\\\\",\\\\\\"HTTPCode_Target_2XX_Count\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",{\\\\\\"yAxis\\\\\\":\\\\\\"right\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#2ca02c\\\\\\"}]],\\\\\\"view\\\\\\":\\\\\\"timeSeries\\\\\\",\\\\\\"stacked\\\\\\":false,\\\\\\"region\\\\\\":\\\\\\"us-east-1\\\\\\",\\\\\\"period\\\\\\":60,\\\\\\"stat\\\\\\":\\\\\\"Sum\\\\\\",\\\\\\"annotations\\\\\\":{\\\\\\"horizontal\\\\\\":[{\\\\\\"color\\\\\\":\\\\\\"#17becf\\\\\\",\\\\\\"label\\\\\\":\\\\\\"RequestCountThreshold\\\\\\",\\\\\\"value\\\\\\":500,\\\\\\"yAxis\\\\\\":\\\\\\"right\\\\\\"}]},\\\\\\"title\\\\\\":\\\\\\"Target Requests\\\\\\"}},{\\\\\\"type\\\\\\":\\\\\\"metric\\\\\\",\\\\\\"x\\\\\\":12,\\\\\\"y\\\\\\":0,\\\\\\"width\\\\\\":12,\\\\\\"height\\\\\\":6,\\\\\\"properties\\\\\\":{\\\\\\"metrics\\\\\\":[[\\\\\\"AWS/ApplicationELB\\\\\\",\\\\\\"HTTPCode_ELB_4XX_Count\\\\\\",\\\\\\"LoadBalancer\\\\\\",\\\\\\"\${aws_alb.test_testPocketApp_applicationloadbalancer_alb_6EA5BF17.arn_suffix}\\\\\\",{\\\\\\"yAxis\\\\\\":\\\\\\"left\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#ff7f0e\\\\\\"}],[\\\\\\".\\\\\\",\\\\\\"RequestCount\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",{\\\\\\"yAxis\\\\\\":\\\\\\"right\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#1f77b4\\\\\\"}],[\\\\\\".\\\\\\",\\\\\\"HTTPCode_ELB_5XX_Count\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",{\\\\\\"color\\\\\\":\\\\\\"#d62728\\\\\\"}]],\\\\\\"view\\\\\\":\\\\\\"timeSeries\\\\\\",\\\\\\"stacked\\\\\\":false,\\\\\\"region\\\\\\":\\\\\\"us-east-1\\\\\\",\\\\\\"period\\\\\\":60,\\\\\\"stat\\\\\\":\\\\\\"Sum\\\\\\",\\\\\\"annotations\\\\\\":{\\\\\\"horizontal\\\\\\":[{\\\\\\"color\\\\\\":\\\\\\"#17becf\\\\\\",\\\\\\"label\\\\\\":\\\\\\"RequestCountThreshold\\\\\\",\\\\\\"value\\\\\\":500,\\\\\\"yAxis\\\\\\":\\\\\\"right\\\\\\"}]},\\\\\\"title\\\\\\":\\\\\\"ALB Requests\\\\\\"}},{\\\\\\"type\\\\\\":\\\\\\"metric\\\\\\",\\\\\\"x\\\\\\":12,\\\\\\"y\\\\\\":6,\\\\\\"width\\\\\\":12,\\\\\\"height\\\\\\":6,\\\\\\"properties\\\\\\":{\\\\\\"metrics\\\\\\":[[\\\\\\"AWS/ApplicationELB\\\\\\",\\\\\\"TargetResponseTime\\\\\\",\\\\\\"LoadBalancer\\\\\\",\\\\\\"\${aws_alb.test_testPocketApp_applicationloadbalancer_alb_6EA5BF17.arn_suffix}\\\\\\",{\\\\\\"label\\\\\\":\\\\\\"Average\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#aec7e8\\\\\\"}],[\\\\\\"...\\\\\\",{\\\\\\"stat\\\\\\":\\\\\\"p95\\\\\\",\\\\\\"label\\\\\\":\\\\\\"p95\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#ffbb78\\\\\\"}],[\\\\\\"...\\\\\\",{\\\\\\"stat\\\\\\":\\\\\\"p99\\\\\\",\\\\\\"label\\\\\\":\\\\\\"p99\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#98df8a\\\\\\"}]],\\\\\\"view\\\\\\":\\\\\\"timeSeries\\\\\\",\\\\\\"stacked\\\\\\":false,\\\\\\"region\\\\\\":\\\\\\"us-east-1\\\\\\",\\\\\\"stat\\\\\\":\\\\\\"Average\\\\\\",\\\\\\"period\\\\\\":60}},{\\\\\\"type\\\\\\":\\\\\\"metric\\\\\\",\\\\\\"x\\\\\\":0,\\\\\\"y\\\\\\":6,\\\\\\"width\\\\\\":12,\\\\\\"height\\\\\\":6,\\\\\\"properties\\\\\\":{\\\\\\"metrics\\\\\\":[[\\\\\\"ECS/ContainerInsights\\\\\\",\\\\\\"RunningTaskCount\\\\\\",\\\\\\"ServiceName\\\\\\",\\\\\\"testapp\\\\\\",\\\\\\"ClusterName\\\\\\",\\\\\\"\${aws_ecs_cluster.test_testPocketApp_ecscluster_CE90B54F.arn}\\\\\\",{\\\\\\"yAxis\\\\\\":\\\\\\"right\\\\\\",\\\\\\"stat\\\\\\":\\\\\\"Sum\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#c49c94\\\\\\"}],[\\\\\\"AWS/ECS\\\\\\",\\\\\\"CPUUtilization\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",{\\\\\\"color\\\\\\":\\\\\\"#f7b6d2\\\\\\"}],[\\\\\\".\\\\\\",\\\\\\"MemoryUtilization\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",{\\\\\\"color\\\\\\":\\\\\\"#c7c7c7\\\\\\"}]],\\\\\\"view\\\\\\":\\\\\\"timeSeries\\\\\\",\\\\\\"stacked\\\\\\":false,\\\\\\"region\\\\\\":\\\\\\"us-east-1\\\\\\",\\\\\\"stat\\\\\\":\\\\\\"Average\\\\\\",\\\\\\"period\\\\\\":60,\\\\\\"annotations\\\\\\":{\\\\\\"horizontal\\\\\\":[{\\\\\\"color\\\\\\":\\\\\\"#e377c2\\\\\\",\\\\\\"label\\\\\\":\\\\\\"CPU scale out\\\\\\",\\\\\\"value\\\\\\":45},{\\\\\\"color\\\\\\":\\\\\\"#c5b0d5\\\\\\",\\\\\\"label\\\\\\":\\\\\\"CPU scale in\\\\\\",\\\\\\"value\\\\\\":30}]},\\\\\\"title\\\\\\":\\\\\\"Service Load\\\\\\"}}]}\\",
+        \\"dashboard_name\\": \\"testapp-ALBDashboard\\",
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/testPocketApp/cloudwatch-dashboard\\",
@@ -5695,7 +6319,7 @@ exports[`PocketALBApplication renders an internal application 1`] = `
               \\"cloudwatch:DeleteAlarms\\"
             ],
             \\"resources\\": [
-              \\"arn:aws:cloudwatch:*:*:alarm:/testapp-*\\"
+              \\"arn:aws:cloudwatch:*:*:alarm:/testapp*\\"
             ]
           },
           {
@@ -5705,7 +6329,7 @@ exports[`PocketALBApplication renders an internal application 1`] = `
               \\"ecs:UpdateService\\"
             ],
             \\"resources\\": [
-              \\"arn:aws:ecs:*:*:service/testapp-*\\"
+              \\"arn:aws:ecs:*:*:service/testapp*\\"
             ]
           }
         ],
@@ -5838,9 +6462,9 @@ exports[`PocketALBApplication renders an internal application 1`] = `
             \\"self\\": null
           }
         ],
-        \\"name_prefix\\": \\"testapp--HTTP/S Security Group\\",
+        \\"name_prefix\\": \\"testapp-HTTP/S Security Group\\",
         \\"tags\\": {
-          \\"Name\\": \\"testapp--HTTP/S Security Group\\"
+          \\"Name\\": \\"testapp-HTTP/S Security Group\\"
         },
         \\"vpc_id\\": \\"\${data.aws_vpc.test_testPocketApp_pocketvpc_40AC0971.id}\\",
         \\"lifecycle\\": {
@@ -5885,7 +6509,7 @@ exports[`PocketALBApplication renders an internal application 1`] = `
             \\"self\\": false
           }
         ],
-        \\"name_prefix\\": \\"testapp--ECSSecurityGroup\\",
+        \\"name_prefix\\": \\"testapp-ECSSecurityGroup\\",
         \\"vpc_id\\": \\"\${data.aws_vpc.test_testPocketApp_pocketvpc_40AC0971.id}\\",
         \\"lifecycle\\": {
           \\"create_before_destroy\\": true
@@ -5949,7 +6573,7 @@ exports[`PocketALBApplication renders an internal application 1`] = `
     },
     \\"aws_ecs_cluster\\": {
       \\"test_testPocketApp_ecscluster_CE90B54F\\": {
-        \\"name\\": \\"testapp-\\",
+        \\"name\\": \\"testapp\\",
         \\"setting\\": [
           {
             \\"name\\": \\"containerInsights\\",
@@ -6027,7 +6651,7 @@ exports[`PocketALBApplication renders an internal application 1`] = `
     \\"aws_iam_role\\": {
       \\"test_testPocketApp_ecsservice_ecsiam_ecsexecutionrole_670A7AD5\\": {
         \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.test_testPocketApp_ecsservice_ecsiam_ecstaskassume_A392A140.json}\\",
-        \\"name\\": \\"testapp--TaskExecutionRole\\",
+        \\"name\\": \\"testapp-TaskExecutionRole\\",
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/testPocketApp/ecs_service/ecs-iam/ecs-execution-role\\",
@@ -6037,7 +6661,7 @@ exports[`PocketALBApplication renders an internal application 1`] = `
       },
       \\"test_testPocketApp_ecsservice_ecsiam_ecstaskrole_E41363D4\\": {
         \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.test_testPocketApp_ecsservice_ecsiam_ecstaskassume_A392A140.json}\\",
-        \\"name\\": \\"testapp--TaskRole\\",
+        \\"name\\": \\"testapp-TaskRole\\",
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/testPocketApp/ecs_service/ecs-iam/ecs-task-role\\",
@@ -6047,7 +6671,7 @@ exports[`PocketALBApplication renders an internal application 1`] = `
       },
       \\"test_testPocketApp_autoscaling_autoscalingrole_7AF03E02\\": {
         \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.test_testPocketApp_autoscaling_autoscalingassume_6CD4F67B.json}\\",
-        \\"name\\": \\"testapp--AutoScalingRole\\",
+        \\"name\\": \\"testapp-AutoScalingRole\\",
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/testPocketApp/autoscaling/autoscaling_role\\",
@@ -6061,7 +6685,7 @@ exports[`PocketALBApplication renders an internal application 1`] = `
         \\"container_definitions\\": \\"[]\\",
         \\"cpu\\": \\"512\\",
         \\"execution_role_arn\\": \\"\${aws_iam_role.test_testPocketApp_ecsservice_ecsiam_ecsexecutionrole_670A7AD5.arn}\\",
-        \\"family\\": \\"testapp-\\",
+        \\"family\\": \\"testapp\\",
         \\"memory\\": \\"2048\\",
         \\"network_mode\\": \\"awsvpc\\",
         \\"requires_compatibilities\\": [
@@ -6146,7 +6770,7 @@ exports[`PocketALBApplication renders an internal application 1`] = `
         \\"deployment_minimum_healthy_percent\\": 100,
         \\"desired_count\\": 2,
         \\"launch_type\\": \\"FARGATE\\",
-        \\"name\\": \\"testapp-\\",
+        \\"name\\": \\"testapp\\",
         \\"propagate_tags\\": \\"SERVICE\\",
         \\"task_definition\\": \\"\${aws_ecs_task_definition.test_testPocketApp_ecsservice_ecstask_A752DB7C.arn}\\",
         \\"deployment_controller\\": [
@@ -6189,7 +6813,7 @@ exports[`PocketALBApplication renders an internal application 1`] = `
     },
     \\"aws_iam_role_policy\\": {
       \\"test_testPocketApp_autoscaling_autoscalingrolepolicy_74F4D9D4\\": {
-        \\"name\\": \\"testapp--AutoScalingPolicy\\",
+        \\"name\\": \\"testapp-AutoScalingPolicy\\",
         \\"policy\\": \\"\${data.aws_iam_policy_document.test_testPocketApp_autoscaling_rolepolicy_38FC9EBD.json}\\",
         \\"role\\": \\"\${aws_iam_role.test_testPocketApp_autoscaling_autoscalingrole_7AF03E02.id}\\",
         \\"//\\": {
@@ -6204,7 +6828,7 @@ exports[`PocketALBApplication renders an internal application 1`] = `
       \\"test_testPocketApp_autoscaling_autoscalingtarget_6206F84C\\": {
         \\"max_capacity\\": 2,
         \\"min_capacity\\": 1,
-        \\"resource_id\\": \\"service/testapp-/testapp-\\",
+        \\"resource_id\\": \\"service/testapp/testapp\\",
         \\"role_arn\\": \\"\${aws_iam_role.test_testPocketApp_autoscaling_autoscalingrole_7AF03E02.arn}\\",
         \\"scalable_dimension\\": \\"ecs:service:DesiredCount\\",
         \\"service_namespace\\": \\"ecs\\",
@@ -6218,9 +6842,9 @@ exports[`PocketALBApplication renders an internal application 1`] = `
     },
     \\"aws_appautoscaling_policy\\": {
       \\"test_testPocketApp_autoscaling_scaleoutpolicy_65809B71\\": {
-        \\"name\\": \\"testapp--ScaleOutPolicy\\",
+        \\"name\\": \\"testapp-ScaleOutPolicy\\",
         \\"policy_type\\": \\"StepScaling\\",
-        \\"resource_id\\": \\"service/testapp-/testapp-\\",
+        \\"resource_id\\": \\"service/testapp/testapp\\",
         \\"scalable_dimension\\": \\"ecs:service:DesiredCount\\",
         \\"service_namespace\\": \\"ecs\\",
         \\"step_scaling_policy_configuration\\": [
@@ -6247,9 +6871,9 @@ exports[`PocketALBApplication renders an internal application 1`] = `
         }
       },
       \\"test_testPocketApp_autoscaling_scaleinpolicy_79053E73\\": {
-        \\"name\\": \\"testapp--ScaleInPolicy\\",
+        \\"name\\": \\"testapp-ScaleInPolicy\\",
         \\"policy_type\\": \\"StepScaling\\",
-        \\"resource_id\\": \\"service/testapp-/testapp-\\",
+        \\"resource_id\\": \\"service/testapp/testapp\\",
         \\"scalable_dimension\\": \\"ecs:service:DesiredCount\\",
         \\"service_namespace\\": \\"ecs\\",
         \\"step_scaling_policy_configuration\\": [
@@ -6282,11 +6906,11 @@ exports[`PocketALBApplication renders an internal application 1`] = `
           \\"\${aws_appautoscaling_policy.test_testPocketApp_autoscaling_scaleoutpolicy_65809B71.arn}\\"
         ],
         \\"alarm_description\\": \\"Alarm to add capacity if CPU is high\\",
-        \\"alarm_name\\": \\"testapp- Service High CPU\\",
+        \\"alarm_name\\": \\"testapp Service High CPU\\",
         \\"comparison_operator\\": \\"GreaterThanThreshold\\",
         \\"dimensions\\": {
-          \\"ClusterName\\": \\"testapp-\\",
-          \\"ServiceName\\": \\"testapp-\\"
+          \\"ClusterName\\": \\"testapp\\",
+          \\"ServiceName\\": \\"testapp\\"
         },
         \\"evaluation_periods\\": 2,
         \\"metric_name\\": \\"CPUUtilization\\",
@@ -6307,11 +6931,11 @@ exports[`PocketALBApplication renders an internal application 1`] = `
           \\"\${aws_appautoscaling_policy.test_testPocketApp_autoscaling_scaleinpolicy_79053E73.arn}\\"
         ],
         \\"alarm_description\\": \\"Alarm to reduce capacity if container CPU is low\\",
-        \\"alarm_name\\": \\"testapp- Service Low CPU\\",
+        \\"alarm_name\\": \\"testapp Service Low CPU\\",
         \\"comparison_operator\\": \\"LessThanThreshold\\",
         \\"dimensions\\": {
-          \\"ClusterName\\": \\"testapp-\\",
-          \\"ServiceName\\": \\"testapp-\\"
+          \\"ClusterName\\": \\"testapp\\",
+          \\"ServiceName\\": \\"testapp\\"
         },
         \\"evaluation_periods\\": 2,
         \\"metric_name\\": \\"CPUUtilization\\",
@@ -6326,12 +6950,112 @@ exports[`PocketALBApplication renders an internal application 1`] = `
             \\"uniqueId\\": \\"test_testPocketApp_autoscaling_scaleinalarm_5B889D45\\"
           }
         }
+      },
+      \\"test_testPocketApp_testappalarmhttp5xxerrorrate_65E69F72\\": {
+        \\"alarm_actions\\": [],
+        \\"alarm_description\\": \\"Percentage of 5xx responses exceeds threshold\\",
+        \\"alarm_name\\": \\"testapp-testapp-Alarm-HTTP5xxErrorRate\\",
+        \\"comparison_operator\\": \\"GreaterThanOrEqualToThreshold\\",
+        \\"evaluation_periods\\": 5,
+        \\"insufficient_data_actions\\": [],
+        \\"ok_actions\\": [],
+        \\"threshold\\": 5,
+        \\"metric_query\\": [
+          {
+            \\"id\\": \\"requests\\",
+            \\"metric\\": [
+              {
+                \\"metric_name\\": \\"RequestCount\\",
+                \\"namespace\\": \\"AWS/ApplicationELB\\",
+                \\"period\\": 60,
+                \\"stat\\": \\"Sum\\",
+                \\"unit\\": \\"Count\\",
+                \\"dimensions\\": {
+                  \\"LoadBalancer\\": \\"\${aws_alb.test_testPocketApp_applicationloadbalancer_alb_6EA5BF17.arn_suffix}\\"
+                }
+              }
+            ]
+          },
+          {
+            \\"id\\": \\"errors\\",
+            \\"metric\\": [
+              {
+                \\"metric_name\\": \\"HTTPCode_ELB_5XX_Count\\",
+                \\"namespace\\": \\"AWS/ApplicationELB\\",
+                \\"period\\": 60,
+                \\"stat\\": \\"Sum\\",
+                \\"unit\\": \\"Count\\",
+                \\"dimensions\\": {
+                  \\"LoadBalancer\\": \\"\${aws_alb.test_testPocketApp_applicationloadbalancer_alb_6EA5BF17.arn_suffix}\\"
+                }
+              }
+            ]
+          },
+          {
+            \\"id\\": \\"expression\\",
+            \\"expression\\": \\"errors/requests*100\\",
+            \\"label\\": \\"HTTP 5xx Error Rate\\",
+            \\"return_data\\": true
+          }
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/testapp-alarm-http5xxerrorrate\\",
+            \\"uniqueId\\": \\"test_testPocketApp_testappalarmhttp5xxerrorrate_65E69F72\\"
+          }
+        }
+      },
+      \\"test_testPocketApp_testappalarmhttpresponsetime_1AA1AB0A\\": {
+        \\"alarm_actions\\": [],
+        \\"alarm_description\\": \\"Average HTTP response time exceeds threshold\\",
+        \\"alarm_name\\": \\"testapp-testapp-Alarm-HTTPResponseTime\\",
+        \\"comparison_operator\\": \\"GreaterThanThreshold\\",
+        \\"dimensions\\": {
+          \\"LoadBalancer\\": \\"\${aws_alb.test_testPocketApp_applicationloadbalancer_alb_6EA5BF17.arn_suffix}\\"
+        },
+        \\"evaluation_periods\\": 1,
+        \\"insufficient_data_actions\\": [],
+        \\"metric_name\\": \\"TargetResponseTime\\",
+        \\"namespace\\": \\"AWS/ApplicationELB\\",
+        \\"ok_actions\\": [],
+        \\"period\\": 300,
+        \\"statistic\\": \\"Average\\",
+        \\"threshold\\": 300,
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/testapp-alarm-httpresponsetime\\",
+            \\"uniqueId\\": \\"test_testPocketApp_testappalarmhttpresponsetime_1AA1AB0A\\"
+          }
+        }
+      },
+      \\"test_testPocketApp_testappalarmhttprequestcount_2E762128\\": {
+        \\"alarm_actions\\": [],
+        \\"alarm_description\\": \\"Total HTTP request count exceeds threshold\\",
+        \\"alarm_name\\": \\"testapp-testapp-Alarm-HTTPRequestCount\\",
+        \\"comparison_operator\\": \\"GreaterThanThreshold\\",
+        \\"dimensions\\": {
+          \\"LoadBalancer\\": \\"\${aws_alb.test_testPocketApp_applicationloadbalancer_alb_6EA5BF17.arn_suffix}\\"
+        },
+        \\"evaluation_periods\\": 1,
+        \\"insufficient_data_actions\\": [],
+        \\"metric_name\\": \\"RequestCount\\",
+        \\"namespace\\": \\"AWS/ApplicationELB\\",
+        \\"ok_actions\\": [],
+        \\"period\\": 300,
+        \\"statistic\\": \\"Sum\\",
+        \\"threshold\\": 500,
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/testapp-alarm-httprequestcount\\",
+            \\"uniqueId\\": \\"test_testPocketApp_testappalarmhttprequestcount_2E762128\\"
+          }
+        }
       }
     },
     \\"aws_cloudwatch_dashboard\\": {
       \\"test_testPocketApp_cloudwatchdashboard_8824C28A\\": {
-        \\"dashboard_body\\": \\"{\\\\\\"widgets\\\\\\":[{\\\\\\"type\\\\\\":\\\\\\"metric\\\\\\",\\\\\\"x\\\\\\":0,\\\\\\"y\\\\\\":0,\\\\\\"width\\\\\\":12,\\\\\\"height\\\\\\":6,\\\\\\"properties\\\\\\":{\\\\\\"metrics\\\\\\":[[\\\\\\"AWS/ApplicationELB\\\\\\",\\\\\\"HTTPCode_Target_4XX_Count\\\\\\",\\\\\\"LoadBalancer\\\\\\",\\\\\\"\${aws_alb.test_testPocketApp_applicationloadbalancer_alb_6EA5BF17.arn_suffix}\\\\\\",{\\\\\\"yAxis\\\\\\":\\\\\\"left\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#ff7f0e\\\\\\"}],[\\\\\\".\\\\\\",\\\\\\"RequestCount\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",{\\\\\\"yAxis\\\\\\":\\\\\\"right\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#1f77b4\\\\\\"}],[\\\\\\".\\\\\\",\\\\\\"HTTPCode_Target_5XX_Count\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",{\\\\\\"color\\\\\\":\\\\\\"#d62728\\\\\\"}],[\\\\\\".\\\\\\",\\\\\\"HTTPCode_Target_2XX_Count\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",{\\\\\\"yAxis\\\\\\":\\\\\\"right\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#2ca02c\\\\\\"}]],\\\\\\"view\\\\\\":\\\\\\"timeSeries\\\\\\",\\\\\\"stacked\\\\\\":false,\\\\\\"region\\\\\\":\\\\\\"us-east-1\\\\\\",\\\\\\"period\\\\\\":60,\\\\\\"stat\\\\\\":\\\\\\"Sum\\\\\\",\\\\\\"annotations\\\\\\":{\\\\\\"horizontal\\\\\\":[{\\\\\\"color\\\\\\":\\\\\\"#17becf\\\\\\",\\\\\\"label\\\\\\":\\\\\\"RequestCountThreshold\\\\\\",\\\\\\"value\\\\\\":500,\\\\\\"yAxis\\\\\\":\\\\\\"right\\\\\\"}]},\\\\\\"title\\\\\\":\\\\\\"Target Requests\\\\\\"}},{\\\\\\"type\\\\\\":\\\\\\"metric\\\\\\",\\\\\\"x\\\\\\":12,\\\\\\"y\\\\\\":0,\\\\\\"width\\\\\\":12,\\\\\\"height\\\\\\":6,\\\\\\"properties\\\\\\":{\\\\\\"metrics\\\\\\":[[\\\\\\"AWS/ApplicationELB\\\\\\",\\\\\\"HTTPCode_ELB_4XX_Count\\\\\\",\\\\\\"LoadBalancer\\\\\\",\\\\\\"\${aws_alb.test_testPocketApp_applicationloadbalancer_alb_6EA5BF17.arn_suffix}\\\\\\",{\\\\\\"yAxis\\\\\\":\\\\\\"left\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#ff7f0e\\\\\\"}],[\\\\\\".\\\\\\",\\\\\\"RequestCount\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",{\\\\\\"yAxis\\\\\\":\\\\\\"right\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#1f77b4\\\\\\"}],[\\\\\\".\\\\\\",\\\\\\"HTTPCode_ELB_5XX_Count\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",{\\\\\\"color\\\\\\":\\\\\\"#d62728\\\\\\"}]],\\\\\\"view\\\\\\":\\\\\\"timeSeries\\\\\\",\\\\\\"stacked\\\\\\":false,\\\\\\"region\\\\\\":\\\\\\"us-east-1\\\\\\",\\\\\\"period\\\\\\":60,\\\\\\"stat\\\\\\":\\\\\\"Sum\\\\\\",\\\\\\"annotations\\\\\\":{\\\\\\"horizontal\\\\\\":[{\\\\\\"color\\\\\\":\\\\\\"#17becf\\\\\\",\\\\\\"label\\\\\\":\\\\\\"RequestCountThreshold\\\\\\",\\\\\\"value\\\\\\":500,\\\\\\"yAxis\\\\\\":\\\\\\"right\\\\\\"}]},\\\\\\"title\\\\\\":\\\\\\"ALB Requests\\\\\\"}},{\\\\\\"type\\\\\\":\\\\\\"metric\\\\\\",\\\\\\"x\\\\\\":12,\\\\\\"y\\\\\\":6,\\\\\\"width\\\\\\":12,\\\\\\"height\\\\\\":6,\\\\\\"properties\\\\\\":{\\\\\\"metrics\\\\\\":[[\\\\\\"AWS/ApplicationELB\\\\\\",\\\\\\"TargetResponseTime\\\\\\",\\\\\\"LoadBalancer\\\\\\",\\\\\\"\${aws_alb.test_testPocketApp_applicationloadbalancer_alb_6EA5BF17.arn_suffix}\\\\\\",{\\\\\\"label\\\\\\":\\\\\\"Average\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#aec7e8\\\\\\"}],[\\\\\\"...\\\\\\",{\\\\\\"stat\\\\\\":\\\\\\"p95\\\\\\",\\\\\\"label\\\\\\":\\\\\\"p95\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#ffbb78\\\\\\"}],[\\\\\\"...\\\\\\",{\\\\\\"stat\\\\\\":\\\\\\"p99\\\\\\",\\\\\\"label\\\\\\":\\\\\\"p99\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#98df8a\\\\\\"}]],\\\\\\"view\\\\\\":\\\\\\"timeSeries\\\\\\",\\\\\\"stacked\\\\\\":false,\\\\\\"region\\\\\\":\\\\\\"us-east-1\\\\\\",\\\\\\"stat\\\\\\":\\\\\\"Average\\\\\\",\\\\\\"period\\\\\\":60}},{\\\\\\"type\\\\\\":\\\\\\"metric\\\\\\",\\\\\\"x\\\\\\":0,\\\\\\"y\\\\\\":6,\\\\\\"width\\\\\\":12,\\\\\\"height\\\\\\":6,\\\\\\"properties\\\\\\":{\\\\\\"metrics\\\\\\":[[\\\\\\"ECS/ContainerInsights\\\\\\",\\\\\\"RunningTaskCount\\\\\\",\\\\\\"ServiceName\\\\\\",\\\\\\"testapp-\\\\\\",\\\\\\"ClusterName\\\\\\",\\\\\\"testapp-\\\\\\",{\\\\\\"yAxis\\\\\\":\\\\\\"right\\\\\\",\\\\\\"stat\\\\\\":\\\\\\"Sum\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#c49c94\\\\\\"}],[\\\\\\"AWS/ECS\\\\\\",\\\\\\"CPUUtilization\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",{\\\\\\"color\\\\\\":\\\\\\"#f7b6d2\\\\\\"}],[\\\\\\".\\\\\\",\\\\\\"MemoryUtilization\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",{\\\\\\"color\\\\\\":\\\\\\"#c7c7c7\\\\\\"}]],\\\\\\"view\\\\\\":\\\\\\"timeSeries\\\\\\",\\\\\\"stacked\\\\\\":false,\\\\\\"region\\\\\\":\\\\\\"us-east-1\\\\\\",\\\\\\"stat\\\\\\":\\\\\\"Average\\\\\\",\\\\\\"period\\\\\\":60,\\\\\\"annotations\\\\\\":{\\\\\\"horizontal\\\\\\":[{\\\\\\"color\\\\\\":\\\\\\"#e377c2\\\\\\",\\\\\\"label\\\\\\":\\\\\\"CPU scale out\\\\\\",\\\\\\"value\\\\\\":45},{\\\\\\"color\\\\\\":\\\\\\"#c5b0d5\\\\\\",\\\\\\"label\\\\\\":\\\\\\"CPU scale in\\\\\\",\\\\\\"value\\\\\\":30}]},\\\\\\"title\\\\\\":\\\\\\"Service Load\\\\\\"}}]}\\",
-        \\"dashboard_name\\": \\"testapp--ALBDashboard\\",
+        \\"dashboard_body\\": \\"{\\\\\\"widgets\\\\\\":[{\\\\\\"type\\\\\\":\\\\\\"metric\\\\\\",\\\\\\"x\\\\\\":0,\\\\\\"y\\\\\\":0,\\\\\\"width\\\\\\":12,\\\\\\"height\\\\\\":6,\\\\\\"properties\\\\\\":{\\\\\\"metrics\\\\\\":[[\\\\\\"AWS/ApplicationELB\\\\\\",\\\\\\"HTTPCode_Target_4XX_Count\\\\\\",\\\\\\"LoadBalancer\\\\\\",\\\\\\"\${aws_alb.test_testPocketApp_applicationloadbalancer_alb_6EA5BF17.arn_suffix}\\\\\\",{\\\\\\"yAxis\\\\\\":\\\\\\"left\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#ff7f0e\\\\\\"}],[\\\\\\".\\\\\\",\\\\\\"RequestCount\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",{\\\\\\"yAxis\\\\\\":\\\\\\"right\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#1f77b4\\\\\\"}],[\\\\\\".\\\\\\",\\\\\\"HTTPCode_Target_5XX_Count\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",{\\\\\\"color\\\\\\":\\\\\\"#d62728\\\\\\"}],[\\\\\\".\\\\\\",\\\\\\"HTTPCode_Target_2XX_Count\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",{\\\\\\"yAxis\\\\\\":\\\\\\"right\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#2ca02c\\\\\\"}]],\\\\\\"view\\\\\\":\\\\\\"timeSeries\\\\\\",\\\\\\"stacked\\\\\\":false,\\\\\\"region\\\\\\":\\\\\\"us-east-1\\\\\\",\\\\\\"period\\\\\\":60,\\\\\\"stat\\\\\\":\\\\\\"Sum\\\\\\",\\\\\\"annotations\\\\\\":{\\\\\\"horizontal\\\\\\":[{\\\\\\"color\\\\\\":\\\\\\"#17becf\\\\\\",\\\\\\"label\\\\\\":\\\\\\"RequestCountThreshold\\\\\\",\\\\\\"value\\\\\\":500,\\\\\\"yAxis\\\\\\":\\\\\\"right\\\\\\"}]},\\\\\\"title\\\\\\":\\\\\\"Target Requests\\\\\\"}},{\\\\\\"type\\\\\\":\\\\\\"metric\\\\\\",\\\\\\"x\\\\\\":12,\\\\\\"y\\\\\\":0,\\\\\\"width\\\\\\":12,\\\\\\"height\\\\\\":6,\\\\\\"properties\\\\\\":{\\\\\\"metrics\\\\\\":[[\\\\\\"AWS/ApplicationELB\\\\\\",\\\\\\"HTTPCode_ELB_4XX_Count\\\\\\",\\\\\\"LoadBalancer\\\\\\",\\\\\\"\${aws_alb.test_testPocketApp_applicationloadbalancer_alb_6EA5BF17.arn_suffix}\\\\\\",{\\\\\\"yAxis\\\\\\":\\\\\\"left\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#ff7f0e\\\\\\"}],[\\\\\\".\\\\\\",\\\\\\"RequestCount\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",{\\\\\\"yAxis\\\\\\":\\\\\\"right\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#1f77b4\\\\\\"}],[\\\\\\".\\\\\\",\\\\\\"HTTPCode_ELB_5XX_Count\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",{\\\\\\"color\\\\\\":\\\\\\"#d62728\\\\\\"}]],\\\\\\"view\\\\\\":\\\\\\"timeSeries\\\\\\",\\\\\\"stacked\\\\\\":false,\\\\\\"region\\\\\\":\\\\\\"us-east-1\\\\\\",\\\\\\"period\\\\\\":60,\\\\\\"stat\\\\\\":\\\\\\"Sum\\\\\\",\\\\\\"annotations\\\\\\":{\\\\\\"horizontal\\\\\\":[{\\\\\\"color\\\\\\":\\\\\\"#17becf\\\\\\",\\\\\\"label\\\\\\":\\\\\\"RequestCountThreshold\\\\\\",\\\\\\"value\\\\\\":500,\\\\\\"yAxis\\\\\\":\\\\\\"right\\\\\\"}]},\\\\\\"title\\\\\\":\\\\\\"ALB Requests\\\\\\"}},{\\\\\\"type\\\\\\":\\\\\\"metric\\\\\\",\\\\\\"x\\\\\\":12,\\\\\\"y\\\\\\":6,\\\\\\"width\\\\\\":12,\\\\\\"height\\\\\\":6,\\\\\\"properties\\\\\\":{\\\\\\"metrics\\\\\\":[[\\\\\\"AWS/ApplicationELB\\\\\\",\\\\\\"TargetResponseTime\\\\\\",\\\\\\"LoadBalancer\\\\\\",\\\\\\"\${aws_alb.test_testPocketApp_applicationloadbalancer_alb_6EA5BF17.arn_suffix}\\\\\\",{\\\\\\"label\\\\\\":\\\\\\"Average\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#aec7e8\\\\\\"}],[\\\\\\"...\\\\\\",{\\\\\\"stat\\\\\\":\\\\\\"p95\\\\\\",\\\\\\"label\\\\\\":\\\\\\"p95\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#ffbb78\\\\\\"}],[\\\\\\"...\\\\\\",{\\\\\\"stat\\\\\\":\\\\\\"p99\\\\\\",\\\\\\"label\\\\\\":\\\\\\"p99\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#98df8a\\\\\\"}]],\\\\\\"view\\\\\\":\\\\\\"timeSeries\\\\\\",\\\\\\"stacked\\\\\\":false,\\\\\\"region\\\\\\":\\\\\\"us-east-1\\\\\\",\\\\\\"stat\\\\\\":\\\\\\"Average\\\\\\",\\\\\\"period\\\\\\":60}},{\\\\\\"type\\\\\\":\\\\\\"metric\\\\\\",\\\\\\"x\\\\\\":0,\\\\\\"y\\\\\\":6,\\\\\\"width\\\\\\":12,\\\\\\"height\\\\\\":6,\\\\\\"properties\\\\\\":{\\\\\\"metrics\\\\\\":[[\\\\\\"ECS/ContainerInsights\\\\\\",\\\\\\"RunningTaskCount\\\\\\",\\\\\\"ServiceName\\\\\\",\\\\\\"testapp\\\\\\",\\\\\\"ClusterName\\\\\\",\\\\\\"\${aws_ecs_cluster.test_testPocketApp_ecscluster_CE90B54F.arn}\\\\\\",{\\\\\\"yAxis\\\\\\":\\\\\\"right\\\\\\",\\\\\\"stat\\\\\\":\\\\\\"Sum\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#c49c94\\\\\\"}],[\\\\\\"AWS/ECS\\\\\\",\\\\\\"CPUUtilization\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",{\\\\\\"color\\\\\\":\\\\\\"#f7b6d2\\\\\\"}],[\\\\\\".\\\\\\",\\\\\\"MemoryUtilization\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",{\\\\\\"color\\\\\\":\\\\\\"#c7c7c7\\\\\\"}]],\\\\\\"view\\\\\\":\\\\\\"timeSeries\\\\\\",\\\\\\"stacked\\\\\\":false,\\\\\\"region\\\\\\":\\\\\\"us-east-1\\\\\\",\\\\\\"stat\\\\\\":\\\\\\"Average\\\\\\",\\\\\\"period\\\\\\":60,\\\\\\"annotations\\\\\\":{\\\\\\"horizontal\\\\\\":[{\\\\\\"color\\\\\\":\\\\\\"#e377c2\\\\\\",\\\\\\"label\\\\\\":\\\\\\"CPU scale out\\\\\\",\\\\\\"value\\\\\\":45},{\\\\\\"color\\\\\\":\\\\\\"#c5b0d5\\\\\\",\\\\\\"label\\\\\\":\\\\\\"CPU scale in\\\\\\",\\\\\\"value\\\\\\":30}]},\\\\\\"title\\\\\\":\\\\\\"Service Load\\\\\\"}}]}\\",
+        \\"dashboard_name\\": \\"testapp-ALBDashboard\\",
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/testPocketApp/cloudwatch-dashboard\\",
@@ -6558,7 +7282,7 @@ exports[`PocketALBApplication renders an internal application with tags 1`] = `
               \\"cloudwatch:DeleteAlarms\\"
             ],
             \\"resources\\": [
-              \\"arn:aws:cloudwatch:*:*:alarm:/testapp-*\\"
+              \\"arn:aws:cloudwatch:*:*:alarm:/testapp*\\"
             ]
           },
           {
@@ -6568,7 +7292,7 @@ exports[`PocketALBApplication renders an internal application with tags 1`] = `
               \\"ecs:UpdateService\\"
             ],
             \\"resources\\": [
-              \\"arn:aws:ecs:*:*:service/testapp-*\\"
+              \\"arn:aws:ecs:*:*:service/testapp*\\"
             ]
           }
         ],
@@ -6705,11 +7429,11 @@ exports[`PocketALBApplication renders an internal application with tags 1`] = `
             \\"self\\": null
           }
         ],
-        \\"name_prefix\\": \\"testapp--HTTP/S Security Group\\",
+        \\"name_prefix\\": \\"testapp-HTTP/S Security Group\\",
         \\"tags\\": {
           \\"name\\": \\"thedude\\",
           \\"hobby\\": \\"bowling\\",
-          \\"Name\\": \\"testapp--HTTP/S Security Group\\"
+          \\"Name\\": \\"testapp-HTTP/S Security Group\\"
         },
         \\"vpc_id\\": \\"\${data.aws_vpc.test_testPocketApp_pocketvpc_40AC0971.id}\\",
         \\"lifecycle\\": {
@@ -6754,7 +7478,7 @@ exports[`PocketALBApplication renders an internal application with tags 1`] = `
             \\"self\\": false
           }
         ],
-        \\"name_prefix\\": \\"testapp--ECSSecurityGroup\\",
+        \\"name_prefix\\": \\"testapp-ECSSecurityGroup\\",
         \\"tags\\": {
           \\"name\\": \\"thedude\\",
           \\"hobby\\": \\"bowling\\"
@@ -6830,7 +7554,7 @@ exports[`PocketALBApplication renders an internal application with tags 1`] = `
     },
     \\"aws_ecs_cluster\\": {
       \\"test_testPocketApp_ecscluster_CE90B54F\\": {
-        \\"name\\": \\"testapp-\\",
+        \\"name\\": \\"testapp\\",
         \\"tags\\": {
           \\"name\\": \\"thedude\\",
           \\"hobby\\": \\"bowling\\"
@@ -6912,7 +7636,7 @@ exports[`PocketALBApplication renders an internal application with tags 1`] = `
     \\"aws_iam_role\\": {
       \\"test_testPocketApp_ecsservice_ecsiam_ecsexecutionrole_670A7AD5\\": {
         \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.test_testPocketApp_ecsservice_ecsiam_ecstaskassume_A392A140.json}\\",
-        \\"name\\": \\"testapp--TaskExecutionRole\\",
+        \\"name\\": \\"testapp-TaskExecutionRole\\",
         \\"tags\\": {
           \\"name\\": \\"thedude\\",
           \\"hobby\\": \\"bowling\\"
@@ -6926,7 +7650,7 @@ exports[`PocketALBApplication renders an internal application with tags 1`] = `
       },
       \\"test_testPocketApp_ecsservice_ecsiam_ecstaskrole_E41363D4\\": {
         \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.test_testPocketApp_ecsservice_ecsiam_ecstaskassume_A392A140.json}\\",
-        \\"name\\": \\"testapp--TaskRole\\",
+        \\"name\\": \\"testapp-TaskRole\\",
         \\"tags\\": {
           \\"name\\": \\"thedude\\",
           \\"hobby\\": \\"bowling\\"
@@ -6940,7 +7664,7 @@ exports[`PocketALBApplication renders an internal application with tags 1`] = `
       },
       \\"test_testPocketApp_autoscaling_autoscalingrole_7AF03E02\\": {
         \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.test_testPocketApp_autoscaling_autoscalingassume_6CD4F67B.json}\\",
-        \\"name\\": \\"testapp--AutoScalingRole\\",
+        \\"name\\": \\"testapp-AutoScalingRole\\",
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/testPocketApp/autoscaling/autoscaling_role\\",
@@ -6954,7 +7678,7 @@ exports[`PocketALBApplication renders an internal application with tags 1`] = `
         \\"container_definitions\\": \\"[]\\",
         \\"cpu\\": \\"512\\",
         \\"execution_role_arn\\": \\"\${aws_iam_role.test_testPocketApp_ecsservice_ecsiam_ecsexecutionrole_670A7AD5.arn}\\",
-        \\"family\\": \\"testapp-\\",
+        \\"family\\": \\"testapp\\",
         \\"memory\\": \\"2048\\",
         \\"network_mode\\": \\"awsvpc\\",
         \\"requires_compatibilities\\": [
@@ -7045,7 +7769,7 @@ exports[`PocketALBApplication renders an internal application with tags 1`] = `
         \\"deployment_minimum_healthy_percent\\": 100,
         \\"desired_count\\": 2,
         \\"launch_type\\": \\"FARGATE\\",
-        \\"name\\": \\"testapp-\\",
+        \\"name\\": \\"testapp\\",
         \\"propagate_tags\\": \\"SERVICE\\",
         \\"tags\\": {
           \\"name\\": \\"thedude\\",
@@ -7092,7 +7816,7 @@ exports[`PocketALBApplication renders an internal application with tags 1`] = `
     },
     \\"aws_iam_role_policy\\": {
       \\"test_testPocketApp_autoscaling_autoscalingrolepolicy_74F4D9D4\\": {
-        \\"name\\": \\"testapp--AutoScalingPolicy\\",
+        \\"name\\": \\"testapp-AutoScalingPolicy\\",
         \\"policy\\": \\"\${data.aws_iam_policy_document.test_testPocketApp_autoscaling_rolepolicy_38FC9EBD.json}\\",
         \\"role\\": \\"\${aws_iam_role.test_testPocketApp_autoscaling_autoscalingrole_7AF03E02.id}\\",
         \\"//\\": {
@@ -7107,7 +7831,7 @@ exports[`PocketALBApplication renders an internal application with tags 1`] = `
       \\"test_testPocketApp_autoscaling_autoscalingtarget_6206F84C\\": {
         \\"max_capacity\\": 2,
         \\"min_capacity\\": 1,
-        \\"resource_id\\": \\"service/testapp-/testapp-\\",
+        \\"resource_id\\": \\"service/testapp/testapp\\",
         \\"role_arn\\": \\"\${aws_iam_role.test_testPocketApp_autoscaling_autoscalingrole_7AF03E02.arn}\\",
         \\"scalable_dimension\\": \\"ecs:service:DesiredCount\\",
         \\"service_namespace\\": \\"ecs\\",
@@ -7121,9 +7845,9 @@ exports[`PocketALBApplication renders an internal application with tags 1`] = `
     },
     \\"aws_appautoscaling_policy\\": {
       \\"test_testPocketApp_autoscaling_scaleoutpolicy_65809B71\\": {
-        \\"name\\": \\"testapp--ScaleOutPolicy\\",
+        \\"name\\": \\"testapp-ScaleOutPolicy\\",
         \\"policy_type\\": \\"StepScaling\\",
-        \\"resource_id\\": \\"service/testapp-/testapp-\\",
+        \\"resource_id\\": \\"service/testapp/testapp\\",
         \\"scalable_dimension\\": \\"ecs:service:DesiredCount\\",
         \\"service_namespace\\": \\"ecs\\",
         \\"step_scaling_policy_configuration\\": [
@@ -7150,9 +7874,9 @@ exports[`PocketALBApplication renders an internal application with tags 1`] = `
         }
       },
       \\"test_testPocketApp_autoscaling_scaleinpolicy_79053E73\\": {
-        \\"name\\": \\"testapp--ScaleInPolicy\\",
+        \\"name\\": \\"testapp-ScaleInPolicy\\",
         \\"policy_type\\": \\"StepScaling\\",
-        \\"resource_id\\": \\"service/testapp-/testapp-\\",
+        \\"resource_id\\": \\"service/testapp/testapp\\",
         \\"scalable_dimension\\": \\"ecs:service:DesiredCount\\",
         \\"service_namespace\\": \\"ecs\\",
         \\"step_scaling_policy_configuration\\": [
@@ -7185,11 +7909,11 @@ exports[`PocketALBApplication renders an internal application with tags 1`] = `
           \\"\${aws_appautoscaling_policy.test_testPocketApp_autoscaling_scaleoutpolicy_65809B71.arn}\\"
         ],
         \\"alarm_description\\": \\"Alarm to add capacity if CPU is high\\",
-        \\"alarm_name\\": \\"testapp- Service High CPU\\",
+        \\"alarm_name\\": \\"testapp Service High CPU\\",
         \\"comparison_operator\\": \\"GreaterThanThreshold\\",
         \\"dimensions\\": {
-          \\"ClusterName\\": \\"testapp-\\",
-          \\"ServiceName\\": \\"testapp-\\"
+          \\"ClusterName\\": \\"testapp\\",
+          \\"ServiceName\\": \\"testapp\\"
         },
         \\"evaluation_periods\\": 2,
         \\"metric_name\\": \\"CPUUtilization\\",
@@ -7214,11 +7938,11 @@ exports[`PocketALBApplication renders an internal application with tags 1`] = `
           \\"\${aws_appautoscaling_policy.test_testPocketApp_autoscaling_scaleinpolicy_79053E73.arn}\\"
         ],
         \\"alarm_description\\": \\"Alarm to reduce capacity if container CPU is low\\",
-        \\"alarm_name\\": \\"testapp- Service Low CPU\\",
+        \\"alarm_name\\": \\"testapp Service Low CPU\\",
         \\"comparison_operator\\": \\"LessThanThreshold\\",
         \\"dimensions\\": {
-          \\"ClusterName\\": \\"testapp-\\",
-          \\"ServiceName\\": \\"testapp-\\"
+          \\"ClusterName\\": \\"testapp\\",
+          \\"ServiceName\\": \\"testapp\\"
         },
         \\"evaluation_periods\\": 2,
         \\"metric_name\\": \\"CPUUtilization\\",
@@ -7237,12 +7961,124 @@ exports[`PocketALBApplication renders an internal application with tags 1`] = `
             \\"uniqueId\\": \\"test_testPocketApp_autoscaling_scaleinalarm_5B889D45\\"
           }
         }
+      },
+      \\"test_testPocketApp_testappalarmhttp5xxerrorrate_65E69F72\\": {
+        \\"alarm_actions\\": [],
+        \\"alarm_description\\": \\"Percentage of 5xx responses exceeds threshold\\",
+        \\"alarm_name\\": \\"testapp-testapp-Alarm-HTTP5xxErrorRate\\",
+        \\"comparison_operator\\": \\"GreaterThanOrEqualToThreshold\\",
+        \\"evaluation_periods\\": 5,
+        \\"insufficient_data_actions\\": [],
+        \\"ok_actions\\": [],
+        \\"tags\\": {
+          \\"name\\": \\"thedude\\",
+          \\"hobby\\": \\"bowling\\"
+        },
+        \\"threshold\\": 5,
+        \\"metric_query\\": [
+          {
+            \\"id\\": \\"requests\\",
+            \\"metric\\": [
+              {
+                \\"metric_name\\": \\"RequestCount\\",
+                \\"namespace\\": \\"AWS/ApplicationELB\\",
+                \\"period\\": 60,
+                \\"stat\\": \\"Sum\\",
+                \\"unit\\": \\"Count\\",
+                \\"dimensions\\": {
+                  \\"LoadBalancer\\": \\"\${aws_alb.test_testPocketApp_applicationloadbalancer_alb_6EA5BF17.arn_suffix}\\"
+                }
+              }
+            ]
+          },
+          {
+            \\"id\\": \\"errors\\",
+            \\"metric\\": [
+              {
+                \\"metric_name\\": \\"HTTPCode_ELB_5XX_Count\\",
+                \\"namespace\\": \\"AWS/ApplicationELB\\",
+                \\"period\\": 60,
+                \\"stat\\": \\"Sum\\",
+                \\"unit\\": \\"Count\\",
+                \\"dimensions\\": {
+                  \\"LoadBalancer\\": \\"\${aws_alb.test_testPocketApp_applicationloadbalancer_alb_6EA5BF17.arn_suffix}\\"
+                }
+              }
+            ]
+          },
+          {
+            \\"id\\": \\"expression\\",
+            \\"expression\\": \\"errors/requests*100\\",
+            \\"label\\": \\"HTTP 5xx Error Rate\\",
+            \\"return_data\\": true
+          }
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/testapp-alarm-http5xxerrorrate\\",
+            \\"uniqueId\\": \\"test_testPocketApp_testappalarmhttp5xxerrorrate_65E69F72\\"
+          }
+        }
+      },
+      \\"test_testPocketApp_testappalarmhttpresponsetime_1AA1AB0A\\": {
+        \\"alarm_actions\\": [],
+        \\"alarm_description\\": \\"Average HTTP response time exceeds threshold\\",
+        \\"alarm_name\\": \\"testapp-testapp-Alarm-HTTPResponseTime\\",
+        \\"comparison_operator\\": \\"GreaterThanThreshold\\",
+        \\"dimensions\\": {
+          \\"LoadBalancer\\": \\"\${aws_alb.test_testPocketApp_applicationloadbalancer_alb_6EA5BF17.arn_suffix}\\"
+        },
+        \\"evaluation_periods\\": 1,
+        \\"insufficient_data_actions\\": [],
+        \\"metric_name\\": \\"TargetResponseTime\\",
+        \\"namespace\\": \\"AWS/ApplicationELB\\",
+        \\"ok_actions\\": [],
+        \\"period\\": 300,
+        \\"statistic\\": \\"Average\\",
+        \\"tags\\": {
+          \\"name\\": \\"thedude\\",
+          \\"hobby\\": \\"bowling\\"
+        },
+        \\"threshold\\": 300,
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/testapp-alarm-httpresponsetime\\",
+            \\"uniqueId\\": \\"test_testPocketApp_testappalarmhttpresponsetime_1AA1AB0A\\"
+          }
+        }
+      },
+      \\"test_testPocketApp_testappalarmhttprequestcount_2E762128\\": {
+        \\"alarm_actions\\": [],
+        \\"alarm_description\\": \\"Total HTTP request count exceeds threshold\\",
+        \\"alarm_name\\": \\"testapp-testapp-Alarm-HTTPRequestCount\\",
+        \\"comparison_operator\\": \\"GreaterThanThreshold\\",
+        \\"dimensions\\": {
+          \\"LoadBalancer\\": \\"\${aws_alb.test_testPocketApp_applicationloadbalancer_alb_6EA5BF17.arn_suffix}\\"
+        },
+        \\"evaluation_periods\\": 1,
+        \\"insufficient_data_actions\\": [],
+        \\"metric_name\\": \\"RequestCount\\",
+        \\"namespace\\": \\"AWS/ApplicationELB\\",
+        \\"ok_actions\\": [],
+        \\"period\\": 300,
+        \\"statistic\\": \\"Sum\\",
+        \\"tags\\": {
+          \\"name\\": \\"thedude\\",
+          \\"hobby\\": \\"bowling\\"
+        },
+        \\"threshold\\": 500,
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testPocketApp/testapp-alarm-httprequestcount\\",
+            \\"uniqueId\\": \\"test_testPocketApp_testappalarmhttprequestcount_2E762128\\"
+          }
+        }
       }
     },
     \\"aws_cloudwatch_dashboard\\": {
       \\"test_testPocketApp_cloudwatchdashboard_8824C28A\\": {
-        \\"dashboard_body\\": \\"{\\\\\\"widgets\\\\\\":[{\\\\\\"type\\\\\\":\\\\\\"metric\\\\\\",\\\\\\"x\\\\\\":0,\\\\\\"y\\\\\\":0,\\\\\\"width\\\\\\":12,\\\\\\"height\\\\\\":6,\\\\\\"properties\\\\\\":{\\\\\\"metrics\\\\\\":[[\\\\\\"AWS/ApplicationELB\\\\\\",\\\\\\"HTTPCode_Target_4XX_Count\\\\\\",\\\\\\"LoadBalancer\\\\\\",\\\\\\"\${aws_alb.test_testPocketApp_applicationloadbalancer_alb_6EA5BF17.arn_suffix}\\\\\\",{\\\\\\"yAxis\\\\\\":\\\\\\"left\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#ff7f0e\\\\\\"}],[\\\\\\".\\\\\\",\\\\\\"RequestCount\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",{\\\\\\"yAxis\\\\\\":\\\\\\"right\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#1f77b4\\\\\\"}],[\\\\\\".\\\\\\",\\\\\\"HTTPCode_Target_5XX_Count\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",{\\\\\\"color\\\\\\":\\\\\\"#d62728\\\\\\"}],[\\\\\\".\\\\\\",\\\\\\"HTTPCode_Target_2XX_Count\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",{\\\\\\"yAxis\\\\\\":\\\\\\"right\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#2ca02c\\\\\\"}]],\\\\\\"view\\\\\\":\\\\\\"timeSeries\\\\\\",\\\\\\"stacked\\\\\\":false,\\\\\\"region\\\\\\":\\\\\\"us-east-1\\\\\\",\\\\\\"period\\\\\\":60,\\\\\\"stat\\\\\\":\\\\\\"Sum\\\\\\",\\\\\\"annotations\\\\\\":{\\\\\\"horizontal\\\\\\":[{\\\\\\"color\\\\\\":\\\\\\"#17becf\\\\\\",\\\\\\"label\\\\\\":\\\\\\"RequestCountThreshold\\\\\\",\\\\\\"value\\\\\\":500,\\\\\\"yAxis\\\\\\":\\\\\\"right\\\\\\"}]},\\\\\\"title\\\\\\":\\\\\\"Target Requests\\\\\\"}},{\\\\\\"type\\\\\\":\\\\\\"metric\\\\\\",\\\\\\"x\\\\\\":12,\\\\\\"y\\\\\\":0,\\\\\\"width\\\\\\":12,\\\\\\"height\\\\\\":6,\\\\\\"properties\\\\\\":{\\\\\\"metrics\\\\\\":[[\\\\\\"AWS/ApplicationELB\\\\\\",\\\\\\"HTTPCode_ELB_4XX_Count\\\\\\",\\\\\\"LoadBalancer\\\\\\",\\\\\\"\${aws_alb.test_testPocketApp_applicationloadbalancer_alb_6EA5BF17.arn_suffix}\\\\\\",{\\\\\\"yAxis\\\\\\":\\\\\\"left\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#ff7f0e\\\\\\"}],[\\\\\\".\\\\\\",\\\\\\"RequestCount\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",{\\\\\\"yAxis\\\\\\":\\\\\\"right\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#1f77b4\\\\\\"}],[\\\\\\".\\\\\\",\\\\\\"HTTPCode_ELB_5XX_Count\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",{\\\\\\"color\\\\\\":\\\\\\"#d62728\\\\\\"}]],\\\\\\"view\\\\\\":\\\\\\"timeSeries\\\\\\",\\\\\\"stacked\\\\\\":false,\\\\\\"region\\\\\\":\\\\\\"us-east-1\\\\\\",\\\\\\"period\\\\\\":60,\\\\\\"stat\\\\\\":\\\\\\"Sum\\\\\\",\\\\\\"annotations\\\\\\":{\\\\\\"horizontal\\\\\\":[{\\\\\\"color\\\\\\":\\\\\\"#17becf\\\\\\",\\\\\\"label\\\\\\":\\\\\\"RequestCountThreshold\\\\\\",\\\\\\"value\\\\\\":500,\\\\\\"yAxis\\\\\\":\\\\\\"right\\\\\\"}]},\\\\\\"title\\\\\\":\\\\\\"ALB Requests\\\\\\"}},{\\\\\\"type\\\\\\":\\\\\\"metric\\\\\\",\\\\\\"x\\\\\\":12,\\\\\\"y\\\\\\":6,\\\\\\"width\\\\\\":12,\\\\\\"height\\\\\\":6,\\\\\\"properties\\\\\\":{\\\\\\"metrics\\\\\\":[[\\\\\\"AWS/ApplicationELB\\\\\\",\\\\\\"TargetResponseTime\\\\\\",\\\\\\"LoadBalancer\\\\\\",\\\\\\"\${aws_alb.test_testPocketApp_applicationloadbalancer_alb_6EA5BF17.arn_suffix}\\\\\\",{\\\\\\"label\\\\\\":\\\\\\"Average\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#aec7e8\\\\\\"}],[\\\\\\"...\\\\\\",{\\\\\\"stat\\\\\\":\\\\\\"p95\\\\\\",\\\\\\"label\\\\\\":\\\\\\"p95\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#ffbb78\\\\\\"}],[\\\\\\"...\\\\\\",{\\\\\\"stat\\\\\\":\\\\\\"p99\\\\\\",\\\\\\"label\\\\\\":\\\\\\"p99\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#98df8a\\\\\\"}]],\\\\\\"view\\\\\\":\\\\\\"timeSeries\\\\\\",\\\\\\"stacked\\\\\\":false,\\\\\\"region\\\\\\":\\\\\\"us-east-1\\\\\\",\\\\\\"stat\\\\\\":\\\\\\"Average\\\\\\",\\\\\\"period\\\\\\":60}},{\\\\\\"type\\\\\\":\\\\\\"metric\\\\\\",\\\\\\"x\\\\\\":0,\\\\\\"y\\\\\\":6,\\\\\\"width\\\\\\":12,\\\\\\"height\\\\\\":6,\\\\\\"properties\\\\\\":{\\\\\\"metrics\\\\\\":[[\\\\\\"ECS/ContainerInsights\\\\\\",\\\\\\"RunningTaskCount\\\\\\",\\\\\\"ServiceName\\\\\\",\\\\\\"testapp-\\\\\\",\\\\\\"ClusterName\\\\\\",\\\\\\"testapp-\\\\\\",{\\\\\\"yAxis\\\\\\":\\\\\\"right\\\\\\",\\\\\\"stat\\\\\\":\\\\\\"Sum\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#c49c94\\\\\\"}],[\\\\\\"AWS/ECS\\\\\\",\\\\\\"CPUUtilization\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",{\\\\\\"color\\\\\\":\\\\\\"#f7b6d2\\\\\\"}],[\\\\\\".\\\\\\",\\\\\\"MemoryUtilization\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",{\\\\\\"color\\\\\\":\\\\\\"#c7c7c7\\\\\\"}]],\\\\\\"view\\\\\\":\\\\\\"timeSeries\\\\\\",\\\\\\"stacked\\\\\\":false,\\\\\\"region\\\\\\":\\\\\\"us-east-1\\\\\\",\\\\\\"stat\\\\\\":\\\\\\"Average\\\\\\",\\\\\\"period\\\\\\":60,\\\\\\"annotations\\\\\\":{\\\\\\"horizontal\\\\\\":[{\\\\\\"color\\\\\\":\\\\\\"#e377c2\\\\\\",\\\\\\"label\\\\\\":\\\\\\"CPU scale out\\\\\\",\\\\\\"value\\\\\\":45},{\\\\\\"color\\\\\\":\\\\\\"#c5b0d5\\\\\\",\\\\\\"label\\\\\\":\\\\\\"CPU scale in\\\\\\",\\\\\\"value\\\\\\":30}]},\\\\\\"title\\\\\\":\\\\\\"Service Load\\\\\\"}}]}\\",
-        \\"dashboard_name\\": \\"testapp--ALBDashboard\\",
+        \\"dashboard_body\\": \\"{\\\\\\"widgets\\\\\\":[{\\\\\\"type\\\\\\":\\\\\\"metric\\\\\\",\\\\\\"x\\\\\\":0,\\\\\\"y\\\\\\":0,\\\\\\"width\\\\\\":12,\\\\\\"height\\\\\\":6,\\\\\\"properties\\\\\\":{\\\\\\"metrics\\\\\\":[[\\\\\\"AWS/ApplicationELB\\\\\\",\\\\\\"HTTPCode_Target_4XX_Count\\\\\\",\\\\\\"LoadBalancer\\\\\\",\\\\\\"\${aws_alb.test_testPocketApp_applicationloadbalancer_alb_6EA5BF17.arn_suffix}\\\\\\",{\\\\\\"yAxis\\\\\\":\\\\\\"left\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#ff7f0e\\\\\\"}],[\\\\\\".\\\\\\",\\\\\\"RequestCount\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",{\\\\\\"yAxis\\\\\\":\\\\\\"right\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#1f77b4\\\\\\"}],[\\\\\\".\\\\\\",\\\\\\"HTTPCode_Target_5XX_Count\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",{\\\\\\"color\\\\\\":\\\\\\"#d62728\\\\\\"}],[\\\\\\".\\\\\\",\\\\\\"HTTPCode_Target_2XX_Count\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",{\\\\\\"yAxis\\\\\\":\\\\\\"right\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#2ca02c\\\\\\"}]],\\\\\\"view\\\\\\":\\\\\\"timeSeries\\\\\\",\\\\\\"stacked\\\\\\":false,\\\\\\"region\\\\\\":\\\\\\"us-east-1\\\\\\",\\\\\\"period\\\\\\":60,\\\\\\"stat\\\\\\":\\\\\\"Sum\\\\\\",\\\\\\"annotations\\\\\\":{\\\\\\"horizontal\\\\\\":[{\\\\\\"color\\\\\\":\\\\\\"#17becf\\\\\\",\\\\\\"label\\\\\\":\\\\\\"RequestCountThreshold\\\\\\",\\\\\\"value\\\\\\":500,\\\\\\"yAxis\\\\\\":\\\\\\"right\\\\\\"}]},\\\\\\"title\\\\\\":\\\\\\"Target Requests\\\\\\"}},{\\\\\\"type\\\\\\":\\\\\\"metric\\\\\\",\\\\\\"x\\\\\\":12,\\\\\\"y\\\\\\":0,\\\\\\"width\\\\\\":12,\\\\\\"height\\\\\\":6,\\\\\\"properties\\\\\\":{\\\\\\"metrics\\\\\\":[[\\\\\\"AWS/ApplicationELB\\\\\\",\\\\\\"HTTPCode_ELB_4XX_Count\\\\\\",\\\\\\"LoadBalancer\\\\\\",\\\\\\"\${aws_alb.test_testPocketApp_applicationloadbalancer_alb_6EA5BF17.arn_suffix}\\\\\\",{\\\\\\"yAxis\\\\\\":\\\\\\"left\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#ff7f0e\\\\\\"}],[\\\\\\".\\\\\\",\\\\\\"RequestCount\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",{\\\\\\"yAxis\\\\\\":\\\\\\"right\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#1f77b4\\\\\\"}],[\\\\\\".\\\\\\",\\\\\\"HTTPCode_ELB_5XX_Count\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",{\\\\\\"color\\\\\\":\\\\\\"#d62728\\\\\\"}]],\\\\\\"view\\\\\\":\\\\\\"timeSeries\\\\\\",\\\\\\"stacked\\\\\\":false,\\\\\\"region\\\\\\":\\\\\\"us-east-1\\\\\\",\\\\\\"period\\\\\\":60,\\\\\\"stat\\\\\\":\\\\\\"Sum\\\\\\",\\\\\\"annotations\\\\\\":{\\\\\\"horizontal\\\\\\":[{\\\\\\"color\\\\\\":\\\\\\"#17becf\\\\\\",\\\\\\"label\\\\\\":\\\\\\"RequestCountThreshold\\\\\\",\\\\\\"value\\\\\\":500,\\\\\\"yAxis\\\\\\":\\\\\\"right\\\\\\"}]},\\\\\\"title\\\\\\":\\\\\\"ALB Requests\\\\\\"}},{\\\\\\"type\\\\\\":\\\\\\"metric\\\\\\",\\\\\\"x\\\\\\":12,\\\\\\"y\\\\\\":6,\\\\\\"width\\\\\\":12,\\\\\\"height\\\\\\":6,\\\\\\"properties\\\\\\":{\\\\\\"metrics\\\\\\":[[\\\\\\"AWS/ApplicationELB\\\\\\",\\\\\\"TargetResponseTime\\\\\\",\\\\\\"LoadBalancer\\\\\\",\\\\\\"\${aws_alb.test_testPocketApp_applicationloadbalancer_alb_6EA5BF17.arn_suffix}\\\\\\",{\\\\\\"label\\\\\\":\\\\\\"Average\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#aec7e8\\\\\\"}],[\\\\\\"...\\\\\\",{\\\\\\"stat\\\\\\":\\\\\\"p95\\\\\\",\\\\\\"label\\\\\\":\\\\\\"p95\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#ffbb78\\\\\\"}],[\\\\\\"...\\\\\\",{\\\\\\"stat\\\\\\":\\\\\\"p99\\\\\\",\\\\\\"label\\\\\\":\\\\\\"p99\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#98df8a\\\\\\"}]],\\\\\\"view\\\\\\":\\\\\\"timeSeries\\\\\\",\\\\\\"stacked\\\\\\":false,\\\\\\"region\\\\\\":\\\\\\"us-east-1\\\\\\",\\\\\\"stat\\\\\\":\\\\\\"Average\\\\\\",\\\\\\"period\\\\\\":60}},{\\\\\\"type\\\\\\":\\\\\\"metric\\\\\\",\\\\\\"x\\\\\\":0,\\\\\\"y\\\\\\":6,\\\\\\"width\\\\\\":12,\\\\\\"height\\\\\\":6,\\\\\\"properties\\\\\\":{\\\\\\"metrics\\\\\\":[[\\\\\\"ECS/ContainerInsights\\\\\\",\\\\\\"RunningTaskCount\\\\\\",\\\\\\"ServiceName\\\\\\",\\\\\\"testapp\\\\\\",\\\\\\"ClusterName\\\\\\",\\\\\\"\${aws_ecs_cluster.test_testPocketApp_ecscluster_CE90B54F.arn}\\\\\\",{\\\\\\"yAxis\\\\\\":\\\\\\"right\\\\\\",\\\\\\"stat\\\\\\":\\\\\\"Sum\\\\\\",\\\\\\"color\\\\\\":\\\\\\"#c49c94\\\\\\"}],[\\\\\\"AWS/ECS\\\\\\",\\\\\\"CPUUtilization\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",{\\\\\\"color\\\\\\":\\\\\\"#f7b6d2\\\\\\"}],[\\\\\\".\\\\\\",\\\\\\"MemoryUtilization\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",\\\\\\".\\\\\\",{\\\\\\"color\\\\\\":\\\\\\"#c7c7c7\\\\\\"}]],\\\\\\"view\\\\\\":\\\\\\"timeSeries\\\\\\",\\\\\\"stacked\\\\\\":false,\\\\\\"region\\\\\\":\\\\\\"us-east-1\\\\\\",\\\\\\"stat\\\\\\":\\\\\\"Average\\\\\\",\\\\\\"period\\\\\\":60,\\\\\\"annotations\\\\\\":{\\\\\\"horizontal\\\\\\":[{\\\\\\"color\\\\\\":\\\\\\"#e377c2\\\\\\",\\\\\\"label\\\\\\":\\\\\\"CPU scale out\\\\\\",\\\\\\"value\\\\\\":45},{\\\\\\"color\\\\\\":\\\\\\"#c5b0d5\\\\\\",\\\\\\"label\\\\\\":\\\\\\"CPU scale in\\\\\\",\\\\\\"value\\\\\\":30}]},\\\\\\"title\\\\\\":\\\\\\"Service Load\\\\\\"}}]}\\",
+        \\"dashboard_name\\": \\"testapp-ALBDashboard\\",
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/testPocketApp/cloudwatch-dashboard\\",
