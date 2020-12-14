@@ -27,7 +27,7 @@ export interface PocketPagerDutyProps {
 
 export enum PAGERDUTY_SERVICE_URGENCY {
   CRITICAL = 'Critical',
-  NON_CRITICAL = 'Mon-Critical',
+  NON_CRITICAL = 'Non-Critical',
 }
 
 export class PocketPagerDuty extends Resource {
