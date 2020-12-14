@@ -104,7 +104,7 @@ export class PocketPagerDuty extends Resource {
     topic: SnsTopic,
     integration: ServiceIntegration,
     urgency: PAGERDUTY_SERVICE_URGENCY
-  ) {
+  ): SnsTopicSubscription {
     return new SnsTopicSubscription(
       this,
       `alarm-${urgency.toLowerCase()}-subscription`,
@@ -121,7 +121,7 @@ export class PocketPagerDuty extends Resource {
     );
   }
 
-  private createSnsTopic(urgency: PAGERDUTY_SERVICE_URGENCY) {
+  private createSnsTopic(urgency: PAGERDUTY_SERVICE_URGENCY): SnsTopic {
     return new SnsTopic(this, `alarm-${urgency.toLowerCase()}-topic`, {
       name: `${this.config.prefix}-Infrastructure-Alarm-${urgency}`,
       tags: this.config.sns?.topic?.tags ?? {},
@@ -132,7 +132,7 @@ export class PocketPagerDuty extends Resource {
     vendor: DataPagerdutyVendor,
     service: Service,
     urgency: PAGERDUTY_SERVICE_URGENCY
-  ) {
+  ): ServiceIntegration {
     return new ServiceIntegration(
       this,
       `${vendor.name}-${urgency.toLowerCase()}`,
@@ -145,7 +145,7 @@ export class PocketPagerDuty extends Resource {
     );
   }
 
-  private createService(urgency: PAGERDUTY_SERVICE_URGENCY) {
+  private createService(urgency: PAGERDUTY_SERVICE_URGENCY): Service {
     const serviceConfig = this.config.service;
 
     return new Service(this, `pagerduty-${urgency.toLowerCase()}`, {
@@ -172,7 +172,7 @@ export class PocketPagerDuty extends Resource {
     });
   }
 
-  private getVendor(name: string) {
+  private getVendor(name: string): DataPagerdutyVendor {
     return new DataPagerdutyVendor(this, name.toLowerCase(), {
       name,
     });
