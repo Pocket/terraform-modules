@@ -10,7 +10,7 @@ exports[`renders an ECR with tags 1`] = `
   },
   \\"resource\\": {
     \\"aws_ecr_repository\\": {
-      \\"test_testECR_ecrrepo_CC5FEBA3\\": {
+      \\"testECR_ecr-repo_E42B68DA\\": {
         \\"name\\": \\"bowling\\",
         \\"tags\\": {
           \\"name\\": \\"rug\\",
@@ -24,22 +24,22 @@ exports[`renders an ECR with tags 1`] = `
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/testECR/ecr-repo\\",
-            \\"uniqueId\\": \\"test_testECR_ecrrepo_CC5FEBA3\\"
+            \\"uniqueId\\": \\"testECR_ecr-repo_E42B68DA\\"
           }
         }
       }
     },
     \\"aws_ecr_lifecycle_policy\\": {
-      \\"test_testECR_ecrrepolifecyclepolicy_03E252E4\\": {
+      \\"testECR_ecr-repo-lifecyclepolicy_4B354AF7\\": {
         \\"policy\\": \\"{\\\\\\"rules\\\\\\":[{\\\\\\"rulePriority\\\\\\":1,\\\\\\"description\\\\\\":\\\\\\"expire old images\\\\\\",\\\\\\"selection\\\\\\":{\\\\\\"tagStatus\\\\\\":\\\\\\"any\\\\\\",\\\\\\"countType\\\\\\":\\\\\\"imageCountMoreThan\\\\\\",\\\\\\"countNumber\\\\\\":800},\\\\\\"action\\\\\\":{\\\\\\"type\\\\\\":\\\\\\"expire\\\\\\"}}]}\\",
-        \\"repository\\": \\"bowling\\",
+        \\"repository\\": \\"\${aws_ecr_repository.testECR_ecr-repo_E42B68DA.name}\\",
         \\"depends_on\\": [
-          \\"aws_ecr_repository.test_testECR_ecrrepo_CC5FEBA3\\"
+          \\"aws_ecr_repository.testECR_ecr-repo_E42B68DA\\"
         ],
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/testECR/ecr-repo-lifecyclepolicy\\",
-            \\"uniqueId\\": \\"test_testECR_ecrrepolifecyclepolicy_03E252E4\\"
+            \\"uniqueId\\": \\"testECR_ecr-repo-lifecyclepolicy_4B354AF7\\"
           }
         }
       }
@@ -58,7 +58,7 @@ exports[`renders an ECR without tags 1`] = `
   },
   \\"resource\\": {
     \\"aws_ecr_repository\\": {
-      \\"test_testECR_ecrrepo_CC5FEBA3\\": {
+      \\"testECR_ecr-repo_E42B68DA\\": {
         \\"name\\": \\"bowling\\",
         \\"image_scanning_configuration\\": [
           {
@@ -68,22 +68,22 @@ exports[`renders an ECR without tags 1`] = `
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/testECR/ecr-repo\\",
-            \\"uniqueId\\": \\"test_testECR_ecrrepo_CC5FEBA3\\"
+            \\"uniqueId\\": \\"testECR_ecr-repo_E42B68DA\\"
           }
         }
       }
     },
     \\"aws_ecr_lifecycle_policy\\": {
-      \\"test_testECR_ecrrepolifecyclepolicy_03E252E4\\": {
+      \\"testECR_ecr-repo-lifecyclepolicy_4B354AF7\\": {
         \\"policy\\": \\"{\\\\\\"rules\\\\\\":[{\\\\\\"rulePriority\\\\\\":1,\\\\\\"description\\\\\\":\\\\\\"expire old images\\\\\\",\\\\\\"selection\\\\\\":{\\\\\\"tagStatus\\\\\\":\\\\\\"any\\\\\\",\\\\\\"countType\\\\\\":\\\\\\"imageCountMoreThan\\\\\\",\\\\\\"countNumber\\\\\\":800},\\\\\\"action\\\\\\":{\\\\\\"type\\\\\\":\\\\\\"expire\\\\\\"}}]}\\",
-        \\"repository\\": \\"bowling\\",
+        \\"repository\\": \\"\${aws_ecr_repository.testECR_ecr-repo_E42B68DA.name}\\",
         \\"depends_on\\": [
-          \\"aws_ecr_repository.test_testECR_ecrrepo_CC5FEBA3\\"
+          \\"aws_ecr_repository.testECR_ecr-repo_E42B68DA\\"
         ],
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/testECR/ecr-repo-lifecyclepolicy\\",
-            \\"uniqueId\\": \\"test_testECR_ecrrepolifecyclepolicy_03E252E4\\"
+            \\"uniqueId\\": \\"testECR_ecr-repo-lifecyclepolicy_4B354AF7\\"
           }
         }
       }

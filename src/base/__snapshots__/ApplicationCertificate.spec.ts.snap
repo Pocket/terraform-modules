@@ -10,7 +10,7 @@ exports[`renders a cert with a zone domain 1`] = `
   },
   \\"resource\\": {
     \\"aws_acm_certificate\\": {
-      \\"test_testCert_certificate_7873C49D\\": {
+      \\"testCert_certificate_3EDC39B5\\": {
         \\"domain_name\\": \\"dev.gobowling.info\\",
         \\"validation_method\\": \\"DNS\\",
         \\"lifecycle\\": {
@@ -19,45 +19,45 @@ exports[`renders a cert with a zone domain 1`] = `
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/testCert/certificate\\",
-            \\"uniqueId\\": \\"test_testCert_certificate_7873C49D\\"
+            \\"uniqueId\\": \\"testCert_certificate_3EDC39B5\\"
           }
         }
       }
     },
     \\"aws_route53_record\\": {
-      \\"test_testCert_certificaterecord_6E221F0E\\": {
-        \\"name\\": \\"\${tolist(aws_acm_certificate.test_testCert_certificate_7873C49D.domain_validation_options)[0].resource_record_name}\\",
+      \\"testCert_certificate_record_93AF392D\\": {
+        \\"name\\": \\"\${tolist(aws_acm_certificate.testCert_certificate_3EDC39B5.domain_validation_options)[0].resource_record_name}\\",
         \\"records\\": [
-          \\"\${tolist(aws_acm_certificate.test_testCert_certificate_7873C49D.domain_validation_options)[0].resource_record_value}\\"
+          \\"\${tolist(aws_acm_certificate.testCert_certificate_3EDC39B5.domain_validation_options)[0].resource_record_value}\\"
         ],
         \\"ttl\\": 60,
-        \\"type\\": \\"\${tolist(aws_acm_certificate.test_testCert_certificate_7873C49D.domain_validation_options)[0].resource_record_type}\\",
+        \\"type\\": \\"\${tolist(aws_acm_certificate.testCert_certificate_3EDC39B5.domain_validation_options)[0].resource_record_type}\\",
         \\"zone_id\\": \\"gobowling.info\\",
         \\"depends_on\\": [
-          \\"aws_acm_certificate.test_testCert_certificate_7873C49D\\"
+          \\"aws_acm_certificate.testCert_certificate_3EDC39B5\\"
         ],
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/testCert/certificate_record\\",
-            \\"uniqueId\\": \\"test_testCert_certificaterecord_6E221F0E\\"
+            \\"uniqueId\\": \\"testCert_certificate_record_93AF392D\\"
           }
         }
       }
     },
     \\"aws_acm_certificate_validation\\": {
-      \\"test_testCert_certificatevalidation_BAC3E388\\": {
-        \\"certificate_arn\\": \\"\${aws_acm_certificate.test_testCert_certificate_7873C49D.arn}\\",
+      \\"testCert_certificate_validation_80E8BDA3\\": {
+        \\"certificate_arn\\": \\"\${aws_acm_certificate.testCert_certificate_3EDC39B5.arn}\\",
         \\"validation_record_fqdns\\": [
-          \\"\${aws_route53_record.test_testCert_certificaterecord_6E221F0E.fqdn}\\"
+          \\"\${aws_route53_record.testCert_certificate_record_93AF392D.fqdn}\\"
         ],
         \\"depends_on\\": [
-          \\"aws_route53_record.test_testCert_certificaterecord_6E221F0E\\",
-          \\"aws_acm_certificate.test_testCert_certificate_7873C49D\\"
+          \\"aws_route53_record.testCert_certificate_record_93AF392D\\",
+          \\"aws_acm_certificate.testCert_certificate_3EDC39B5\\"
         ],
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/testCert/certificate_validation\\",
-            \\"uniqueId\\": \\"test_testCert_certificatevalidation_BAC3E388\\"
+            \\"uniqueId\\": \\"testCert_certificate_validation_80E8BDA3\\"
           }
         }
       }
@@ -76,7 +76,7 @@ exports[`renders a cert with a zone id 1`] = `
   },
   \\"resource\\": {
     \\"aws_acm_certificate\\": {
-      \\"test_testCert_certificate_7873C49D\\": {
+      \\"testCert_certificate_3EDC39B5\\": {
         \\"domain_name\\": \\"dev.gobowling.info\\",
         \\"validation_method\\": \\"DNS\\",
         \\"lifecycle\\": {
@@ -85,45 +85,45 @@ exports[`renders a cert with a zone id 1`] = `
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/testCert/certificate\\",
-            \\"uniqueId\\": \\"test_testCert_certificate_7873C49D\\"
+            \\"uniqueId\\": \\"testCert_certificate_3EDC39B5\\"
           }
         }
       }
     },
     \\"aws_route53_record\\": {
-      \\"test_testCert_certificaterecord_6E221F0E\\": {
-        \\"name\\": \\"\${tolist(aws_acm_certificate.test_testCert_certificate_7873C49D.domain_validation_options)[0].resource_record_name}\\",
+      \\"testCert_certificate_record_93AF392D\\": {
+        \\"name\\": \\"\${tolist(aws_acm_certificate.testCert_certificate_3EDC39B5.domain_validation_options)[0].resource_record_name}\\",
         \\"records\\": [
-          \\"\${tolist(aws_acm_certificate.test_testCert_certificate_7873C49D.domain_validation_options)[0].resource_record_value}\\"
+          \\"\${tolist(aws_acm_certificate.testCert_certificate_3EDC39B5.domain_validation_options)[0].resource_record_value}\\"
         ],
         \\"ttl\\": 60,
-        \\"type\\": \\"\${tolist(aws_acm_certificate.test_testCert_certificate_7873C49D.domain_validation_options)[0].resource_record_type}\\",
+        \\"type\\": \\"\${tolist(aws_acm_certificate.testCert_certificate_3EDC39B5.domain_validation_options)[0].resource_record_type}\\",
         \\"zone_id\\": \\"malibu\\",
         \\"depends_on\\": [
-          \\"aws_acm_certificate.test_testCert_certificate_7873C49D\\"
+          \\"aws_acm_certificate.testCert_certificate_3EDC39B5\\"
         ],
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/testCert/certificate_record\\",
-            \\"uniqueId\\": \\"test_testCert_certificaterecord_6E221F0E\\"
+            \\"uniqueId\\": \\"testCert_certificate_record_93AF392D\\"
           }
         }
       }
     },
     \\"aws_acm_certificate_validation\\": {
-      \\"test_testCert_certificatevalidation_BAC3E388\\": {
-        \\"certificate_arn\\": \\"\${aws_acm_certificate.test_testCert_certificate_7873C49D.arn}\\",
+      \\"testCert_certificate_validation_80E8BDA3\\": {
+        \\"certificate_arn\\": \\"\${aws_acm_certificate.testCert_certificate_3EDC39B5.arn}\\",
         \\"validation_record_fqdns\\": [
-          \\"\${aws_route53_record.test_testCert_certificaterecord_6E221F0E.fqdn}\\"
+          \\"\${aws_route53_record.testCert_certificate_record_93AF392D.fqdn}\\"
         ],
         \\"depends_on\\": [
-          \\"aws_route53_record.test_testCert_certificaterecord_6E221F0E\\",
-          \\"aws_acm_certificate.test_testCert_certificate_7873C49D\\"
+          \\"aws_route53_record.testCert_certificate_record_93AF392D\\",
+          \\"aws_acm_certificate.testCert_certificate_3EDC39B5\\"
         ],
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/testCert/certificate_validation\\",
-            \\"uniqueId\\": \\"test_testCert_certificatevalidation_BAC3E388\\"
+            \\"uniqueId\\": \\"testCert_certificate_validation_80E8BDA3\\"
           }
         }
       }
@@ -142,7 +142,7 @@ exports[`renders a cert with tags 1`] = `
   },
   \\"resource\\": {
     \\"aws_acm_certificate\\": {
-      \\"test_testCert_certificate_7873C49D\\": {
+      \\"testCert_certificate_3EDC39B5\\": {
         \\"domain_name\\": \\"dev.gobowling.info\\",
         \\"tags\\": {
           \\"name\\": \\"thedude\\",
@@ -155,45 +155,45 @@ exports[`renders a cert with tags 1`] = `
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/testCert/certificate\\",
-            \\"uniqueId\\": \\"test_testCert_certificate_7873C49D\\"
+            \\"uniqueId\\": \\"testCert_certificate_3EDC39B5\\"
           }
         }
       }
     },
     \\"aws_route53_record\\": {
-      \\"test_testCert_certificaterecord_6E221F0E\\": {
-        \\"name\\": \\"\${tolist(aws_acm_certificate.test_testCert_certificate_7873C49D.domain_validation_options)[0].resource_record_name}\\",
+      \\"testCert_certificate_record_93AF392D\\": {
+        \\"name\\": \\"\${tolist(aws_acm_certificate.testCert_certificate_3EDC39B5.domain_validation_options)[0].resource_record_name}\\",
         \\"records\\": [
-          \\"\${tolist(aws_acm_certificate.test_testCert_certificate_7873C49D.domain_validation_options)[0].resource_record_value}\\"
+          \\"\${tolist(aws_acm_certificate.testCert_certificate_3EDC39B5.domain_validation_options)[0].resource_record_value}\\"
         ],
         \\"ttl\\": 60,
-        \\"type\\": \\"\${tolist(aws_acm_certificate.test_testCert_certificate_7873C49D.domain_validation_options)[0].resource_record_type}\\",
+        \\"type\\": \\"\${tolist(aws_acm_certificate.testCert_certificate_3EDC39B5.domain_validation_options)[0].resource_record_type}\\",
         \\"zone_id\\": \\"gobowling.info\\",
         \\"depends_on\\": [
-          \\"aws_acm_certificate.test_testCert_certificate_7873C49D\\"
+          \\"aws_acm_certificate.testCert_certificate_3EDC39B5\\"
         ],
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/testCert/certificate_record\\",
-            \\"uniqueId\\": \\"test_testCert_certificaterecord_6E221F0E\\"
+            \\"uniqueId\\": \\"testCert_certificate_record_93AF392D\\"
           }
         }
       }
     },
     \\"aws_acm_certificate_validation\\": {
-      \\"test_testCert_certificatevalidation_BAC3E388\\": {
-        \\"certificate_arn\\": \\"\${aws_acm_certificate.test_testCert_certificate_7873C49D.arn}\\",
+      \\"testCert_certificate_validation_80E8BDA3\\": {
+        \\"certificate_arn\\": \\"\${aws_acm_certificate.testCert_certificate_3EDC39B5.arn}\\",
         \\"validation_record_fqdns\\": [
-          \\"\${aws_route53_record.test_testCert_certificaterecord_6E221F0E.fqdn}\\"
+          \\"\${aws_route53_record.testCert_certificate_record_93AF392D.fqdn}\\"
         ],
         \\"depends_on\\": [
-          \\"aws_route53_record.test_testCert_certificaterecord_6E221F0E\\",
-          \\"aws_acm_certificate.test_testCert_certificate_7873C49D\\"
+          \\"aws_route53_record.testCert_certificate_record_93AF392D\\",
+          \\"aws_acm_certificate.testCert_certificate_3EDC39B5\\"
         ],
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/testCert/certificate_validation\\",
-            \\"uniqueId\\": \\"test_testCert_certificatevalidation_BAC3E388\\"
+            \\"uniqueId\\": \\"testCert_certificate_validation_80E8BDA3\\"
           }
         }
       }
