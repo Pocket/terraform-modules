@@ -51,7 +51,7 @@ exports[`renders a versioned lambda 1`] = `
       \\"test-versioned-lambda_execution-role-policy_B3568235\\": {
         \\"name\\": \\"Test-Lambda-ExecutionRolePolicy\\",
         \\"policy\\": \\"\${data.aws_iam_policy_document.test-versioned-lambda_execution-policy-document_BA37CD4D.json}\\",
-        \\"role\\": \\"Test-Lambda-ExecutionRole\\",
+        \\"role\\": \\"\${aws_iam_role.test-versioned-lambda_execution-role_068103E3.name}\\",
         \\"depends_on\\": [
           \\"aws_iam_role.test-versioned-lambda_execution-role_068103E3\\"
         ],
@@ -65,7 +65,7 @@ exports[`renders a versioned lambda 1`] = `
     },
     \\"aws_lambda_function\\": {
       \\"test-versioned-lambda_D818669D\\": {
-        \\"filename\\": \\"index.py.zip\\",
+        \\"filename\\": \\"\${data.archive_file.test-versioned-lambda_lambda-default-file_E2490368.output_path}\\",
         \\"function_name\\": \\"Test-Lambda-Function\\",
         \\"handler\\": \\"index.handler\\",
         \\"publish\\": true,
@@ -90,7 +90,7 @@ exports[`renders a versioned lambda 1`] = `
     },
     \\"aws_cloudwatch_log_group\\": {
       \\"test-versioned-lambda_log-group_CB8A67E7\\": {
-        \\"name\\": \\"/aws/lambda/Test-Lambda-Function\\",
+        \\"name\\": \\"/aws/lambda/\${aws_lambda_function.test-versioned-lambda_D818669D.function_name}\\",
         \\"retention_in_days\\": 14,
         \\"depends_on\\": [
           \\"aws_lambda_function.test-versioned-lambda_D818669D\\"
@@ -105,7 +105,7 @@ exports[`renders a versioned lambda 1`] = `
     },
     \\"aws_lambda_alias\\": {
       \\"test-versioned-lambda_alias_60AF9CE1\\": {
-        \\"function_name\\": \\"Test-Lambda-Function\\",
+        \\"function_name\\": \\"\${aws_lambda_function.test-versioned-lambda_D818669D.function_name}\\",
         \\"function_version\\": \\"\${split(\\\\\\":\\\\\\", aws_lambda_function.test-versioned-lambda_D818669D.qualified_arn)[7]}\\",
         \\"name\\": \\"DEPLOYED\\",
         \\"depends_on\\": [
@@ -131,10 +131,10 @@ exports[`renders a versioned lambda 1`] = `
         \\"version\\": \\"2012-10-17\\",
         \\"statement\\": [
           {
-            \\"effect\\": \\"Allow\\",
             \\"actions\\": [
               \\"sts:AssumeRole\\"
             ],
+            \\"effect\\": \\"Allow\\",
             \\"principals\\": [
               {
                 \\"identifiers\\": [
@@ -156,13 +156,13 @@ exports[`renders a versioned lambda 1`] = `
         \\"version\\": \\"2012-10-17\\",
         \\"statement\\": [
           {
-            \\"effect\\": \\"Allow\\",
             \\"actions\\": [
               \\"logs:CreateLogGroup\\",
               \\"logs:CreateLogStream\\",
               \\"logs:PutLogEvents\\",
               \\"logs:DescribeLogStreams\\"
             ],
+            \\"effect\\": \\"Allow\\",
             \\"resources\\": [
               \\"arn:aws:logs:*:*:*\\"
             ]
@@ -249,7 +249,7 @@ exports[`renders a versioned lambda with description 1`] = `
       \\"test-versioned-lambda_execution-role-policy_B3568235\\": {
         \\"name\\": \\"Test-Lambda-ExecutionRolePolicy\\",
         \\"policy\\": \\"\${data.aws_iam_policy_document.test-versioned-lambda_execution-policy-document_BA37CD4D.json}\\",
-        \\"role\\": \\"Test-Lambda-ExecutionRole\\",
+        \\"role\\": \\"\${aws_iam_role.test-versioned-lambda_execution-role_068103E3.name}\\",
         \\"depends_on\\": [
           \\"aws_iam_role.test-versioned-lambda_execution-role_068103E3\\"
         ],
@@ -263,7 +263,7 @@ exports[`renders a versioned lambda with description 1`] = `
     },
     \\"aws_lambda_function\\": {
       \\"test-versioned-lambda_D818669D\\": {
-        \\"filename\\": \\"index.py.zip\\",
+        \\"filename\\": \\"\${data.archive_file.test-versioned-lambda_lambda-default-file_E2490368.output_path}\\",
         \\"function_name\\": \\"Test-Lambda-Function\\",
         \\"handler\\": \\"index.handler\\",
         \\"publish\\": true,
@@ -288,7 +288,7 @@ exports[`renders a versioned lambda with description 1`] = `
     },
     \\"aws_cloudwatch_log_group\\": {
       \\"test-versioned-lambda_log-group_CB8A67E7\\": {
-        \\"name\\": \\"/aws/lambda/Test-Lambda-Function\\",
+        \\"name\\": \\"/aws/lambda/\${aws_lambda_function.test-versioned-lambda_D818669D.function_name}\\",
         \\"retention_in_days\\": 14,
         \\"depends_on\\": [
           \\"aws_lambda_function.test-versioned-lambda_D818669D\\"
@@ -303,7 +303,7 @@ exports[`renders a versioned lambda with description 1`] = `
     },
     \\"aws_lambda_alias\\": {
       \\"test-versioned-lambda_alias_60AF9CE1\\": {
-        \\"function_name\\": \\"Test-Lambda-Function\\",
+        \\"function_name\\": \\"\${aws_lambda_function.test-versioned-lambda_D818669D.function_name}\\",
         \\"function_version\\": \\"\${split(\\\\\\":\\\\\\", aws_lambda_function.test-versioned-lambda_D818669D.qualified_arn)[7]}\\",
         \\"name\\": \\"DEPLOYED\\",
         \\"depends_on\\": [
@@ -329,10 +329,10 @@ exports[`renders a versioned lambda with description 1`] = `
         \\"version\\": \\"2012-10-17\\",
         \\"statement\\": [
           {
-            \\"effect\\": \\"Allow\\",
             \\"actions\\": [
               \\"sts:AssumeRole\\"
             ],
+            \\"effect\\": \\"Allow\\",
             \\"principals\\": [
               {
                 \\"identifiers\\": [
@@ -354,13 +354,13 @@ exports[`renders a versioned lambda with description 1`] = `
         \\"version\\": \\"2012-10-17\\",
         \\"statement\\": [
           {
-            \\"effect\\": \\"Allow\\",
             \\"actions\\": [
               \\"logs:CreateLogGroup\\",
               \\"logs:CreateLogStream\\",
               \\"logs:PutLogEvents\\",
               \\"logs:DescribeLogStreams\\"
             ],
+            \\"effect\\": \\"Allow\\",
             \\"resources\\": [
               \\"arn:aws:logs:*:*:*\\"
             ]
@@ -447,7 +447,7 @@ exports[`renders a versioned lambda with environment variables 1`] = `
       \\"test-versioned-lambda_execution-role-policy_B3568235\\": {
         \\"name\\": \\"Test-Lambda-ExecutionRolePolicy\\",
         \\"policy\\": \\"\${data.aws_iam_policy_document.test-versioned-lambda_execution-policy-document_BA37CD4D.json}\\",
-        \\"role\\": \\"Test-Lambda-ExecutionRole\\",
+        \\"role\\": \\"\${aws_iam_role.test-versioned-lambda_execution-role_068103E3.name}\\",
         \\"depends_on\\": [
           \\"aws_iam_role.test-versioned-lambda_execution-role_068103E3\\"
         ],
@@ -461,7 +461,7 @@ exports[`renders a versioned lambda with environment variables 1`] = `
     },
     \\"aws_lambda_function\\": {
       \\"test-versioned-lambda_D818669D\\": {
-        \\"filename\\": \\"index.py.zip\\",
+        \\"filename\\": \\"\${data.archive_file.test-versioned-lambda_lambda-default-file_E2490368.output_path}\\",
         \\"function_name\\": \\"Test-Lambda-Function\\",
         \\"handler\\": \\"index.handler\\",
         \\"publish\\": true,
@@ -494,7 +494,7 @@ exports[`renders a versioned lambda with environment variables 1`] = `
     },
     \\"aws_cloudwatch_log_group\\": {
       \\"test-versioned-lambda_log-group_CB8A67E7\\": {
-        \\"name\\": \\"/aws/lambda/Test-Lambda-Function\\",
+        \\"name\\": \\"/aws/lambda/\${aws_lambda_function.test-versioned-lambda_D818669D.function_name}\\",
         \\"retention_in_days\\": 14,
         \\"depends_on\\": [
           \\"aws_lambda_function.test-versioned-lambda_D818669D\\"
@@ -509,7 +509,7 @@ exports[`renders a versioned lambda with environment variables 1`] = `
     },
     \\"aws_lambda_alias\\": {
       \\"test-versioned-lambda_alias_60AF9CE1\\": {
-        \\"function_name\\": \\"Test-Lambda-Function\\",
+        \\"function_name\\": \\"\${aws_lambda_function.test-versioned-lambda_D818669D.function_name}\\",
         \\"function_version\\": \\"\${split(\\\\\\":\\\\\\", aws_lambda_function.test-versioned-lambda_D818669D.qualified_arn)[7]}\\",
         \\"name\\": \\"DEPLOYED\\",
         \\"depends_on\\": [
@@ -535,10 +535,10 @@ exports[`renders a versioned lambda with environment variables 1`] = `
         \\"version\\": \\"2012-10-17\\",
         \\"statement\\": [
           {
-            \\"effect\\": \\"Allow\\",
             \\"actions\\": [
               \\"sts:AssumeRole\\"
             ],
+            \\"effect\\": \\"Allow\\",
             \\"principals\\": [
               {
                 \\"identifiers\\": [
@@ -560,13 +560,13 @@ exports[`renders a versioned lambda with environment variables 1`] = `
         \\"version\\": \\"2012-10-17\\",
         \\"statement\\": [
           {
-            \\"effect\\": \\"Allow\\",
             \\"actions\\": [
               \\"logs:CreateLogGroup\\",
               \\"logs:CreateLogStream\\",
               \\"logs:PutLogEvents\\",
               \\"logs:DescribeLogStreams\\"
             ],
+            \\"effect\\": \\"Allow\\",
             \\"resources\\": [
               \\"arn:aws:logs:*:*:*\\"
             ]
@@ -653,7 +653,7 @@ exports[`renders a versioned lambda with execution policy statements 1`] = `
       \\"test-versioned-lambda_execution-role-policy_B3568235\\": {
         \\"name\\": \\"Test-Lambda-ExecutionRolePolicy\\",
         \\"policy\\": \\"\${data.aws_iam_policy_document.test-versioned-lambda_execution-policy-document_BA37CD4D.json}\\",
-        \\"role\\": \\"Test-Lambda-ExecutionRole\\",
+        \\"role\\": \\"\${aws_iam_role.test-versioned-lambda_execution-role_068103E3.name}\\",
         \\"depends_on\\": [
           \\"aws_iam_role.test-versioned-lambda_execution-role_068103E3\\"
         ],
@@ -667,7 +667,7 @@ exports[`renders a versioned lambda with execution policy statements 1`] = `
     },
     \\"aws_lambda_function\\": {
       \\"test-versioned-lambda_D818669D\\": {
-        \\"filename\\": \\"index.py.zip\\",
+        \\"filename\\": \\"\${data.archive_file.test-versioned-lambda_lambda-default-file_E2490368.output_path}\\",
         \\"function_name\\": \\"Test-Lambda-Function\\",
         \\"handler\\": \\"index.handler\\",
         \\"publish\\": true,
@@ -692,7 +692,7 @@ exports[`renders a versioned lambda with execution policy statements 1`] = `
     },
     \\"aws_cloudwatch_log_group\\": {
       \\"test-versioned-lambda_log-group_CB8A67E7\\": {
-        \\"name\\": \\"/aws/lambda/Test-Lambda-Function\\",
+        \\"name\\": \\"/aws/lambda/\${aws_lambda_function.test-versioned-lambda_D818669D.function_name}\\",
         \\"retention_in_days\\": 14,
         \\"depends_on\\": [
           \\"aws_lambda_function.test-versioned-lambda_D818669D\\"
@@ -707,7 +707,7 @@ exports[`renders a versioned lambda with execution policy statements 1`] = `
     },
     \\"aws_lambda_alias\\": {
       \\"test-versioned-lambda_alias_60AF9CE1\\": {
-        \\"function_name\\": \\"Test-Lambda-Function\\",
+        \\"function_name\\": \\"\${aws_lambda_function.test-versioned-lambda_D818669D.function_name}\\",
         \\"function_version\\": \\"\${split(\\\\\\":\\\\\\", aws_lambda_function.test-versioned-lambda_D818669D.qualified_arn)[7]}\\",
         \\"name\\": \\"DEPLOYED\\",
         \\"depends_on\\": [
@@ -733,10 +733,10 @@ exports[`renders a versioned lambda with execution policy statements 1`] = `
         \\"version\\": \\"2012-10-17\\",
         \\"statement\\": [
           {
-            \\"effect\\": \\"Allow\\",
             \\"actions\\": [
               \\"sts:AssumeRole\\"
             ],
+            \\"effect\\": \\"Allow\\",
             \\"principals\\": [
               {
                 \\"identifiers\\": [
@@ -758,22 +758,22 @@ exports[`renders a versioned lambda with execution policy statements 1`] = `
         \\"version\\": \\"2012-10-17\\",
         \\"statement\\": [
           {
-            \\"effect\\": \\"Allow\\",
             \\"actions\\": [
               \\"logs:CreateLogGroup\\",
               \\"logs:CreateLogStream\\",
               \\"logs:PutLogEvents\\",
               \\"logs:DescribeLogStreams\\"
             ],
+            \\"effect\\": \\"Allow\\",
             \\"resources\\": [
               \\"arn:aws:logs:*:*:*\\"
             ]
           },
           {
-            \\"effect\\": \\"Allow\\",
             \\"actions\\": [
               \\"*\\"
             ],
+            \\"effect\\": \\"Allow\\",
             \\"resources\\": [
               \\"*\\"
             ]
@@ -860,7 +860,7 @@ exports[`renders a versioned lambda with log retention 1`] = `
       \\"test-versioned-lambda_execution-role-policy_B3568235\\": {
         \\"name\\": \\"Test-Lambda-ExecutionRolePolicy\\",
         \\"policy\\": \\"\${data.aws_iam_policy_document.test-versioned-lambda_execution-policy-document_BA37CD4D.json}\\",
-        \\"role\\": \\"Test-Lambda-ExecutionRole\\",
+        \\"role\\": \\"\${aws_iam_role.test-versioned-lambda_execution-role_068103E3.name}\\",
         \\"depends_on\\": [
           \\"aws_iam_role.test-versioned-lambda_execution-role_068103E3\\"
         ],
@@ -874,7 +874,7 @@ exports[`renders a versioned lambda with log retention 1`] = `
     },
     \\"aws_lambda_function\\": {
       \\"test-versioned-lambda_D818669D\\": {
-        \\"filename\\": \\"index.py.zip\\",
+        \\"filename\\": \\"\${data.archive_file.test-versioned-lambda_lambda-default-file_E2490368.output_path}\\",
         \\"function_name\\": \\"Test-Lambda-Function\\",
         \\"handler\\": \\"index.handler\\",
         \\"publish\\": true,
@@ -899,7 +899,7 @@ exports[`renders a versioned lambda with log retention 1`] = `
     },
     \\"aws_cloudwatch_log_group\\": {
       \\"test-versioned-lambda_log-group_CB8A67E7\\": {
-        \\"name\\": \\"/aws/lambda/Test-Lambda-Function\\",
+        \\"name\\": \\"/aws/lambda/\${aws_lambda_function.test-versioned-lambda_D818669D.function_name}\\",
         \\"retention_in_days\\": 10,
         \\"depends_on\\": [
           \\"aws_lambda_function.test-versioned-lambda_D818669D\\"
@@ -914,7 +914,7 @@ exports[`renders a versioned lambda with log retention 1`] = `
     },
     \\"aws_lambda_alias\\": {
       \\"test-versioned-lambda_alias_60AF9CE1\\": {
-        \\"function_name\\": \\"Test-Lambda-Function\\",
+        \\"function_name\\": \\"\${aws_lambda_function.test-versioned-lambda_D818669D.function_name}\\",
         \\"function_version\\": \\"\${split(\\\\\\":\\\\\\", aws_lambda_function.test-versioned-lambda_D818669D.qualified_arn)[7]}\\",
         \\"name\\": \\"DEPLOYED\\",
         \\"depends_on\\": [
@@ -940,10 +940,10 @@ exports[`renders a versioned lambda with log retention 1`] = `
         \\"version\\": \\"2012-10-17\\",
         \\"statement\\": [
           {
-            \\"effect\\": \\"Allow\\",
             \\"actions\\": [
               \\"sts:AssumeRole\\"
             ],
+            \\"effect\\": \\"Allow\\",
             \\"principals\\": [
               {
                 \\"identifiers\\": [
@@ -965,13 +965,13 @@ exports[`renders a versioned lambda with log retention 1`] = `
         \\"version\\": \\"2012-10-17\\",
         \\"statement\\": [
           {
-            \\"effect\\": \\"Allow\\",
             \\"actions\\": [
               \\"logs:CreateLogGroup\\",
               \\"logs:CreateLogStream\\",
               \\"logs:PutLogEvents\\",
               \\"logs:DescribeLogStreams\\"
             ],
+            \\"effect\\": \\"Allow\\",
             \\"resources\\": [
               \\"arn:aws:logs:*:*:*\\"
             ]
@@ -1058,7 +1058,7 @@ exports[`renders a versioned lambda with publish ignored 1`] = `
       \\"test-versioned-lambda_execution-role-policy_B3568235\\": {
         \\"name\\": \\"Test-Lambda-ExecutionRolePolicy\\",
         \\"policy\\": \\"\${data.aws_iam_policy_document.test-versioned-lambda_execution-policy-document_BA37CD4D.json}\\",
-        \\"role\\": \\"Test-Lambda-ExecutionRole\\",
+        \\"role\\": \\"\${aws_iam_role.test-versioned-lambda_execution-role_068103E3.name}\\",
         \\"depends_on\\": [
           \\"aws_iam_role.test-versioned-lambda_execution-role_068103E3\\"
         ],
@@ -1072,7 +1072,7 @@ exports[`renders a versioned lambda with publish ignored 1`] = `
     },
     \\"aws_lambda_function\\": {
       \\"test-versioned-lambda_D818669D\\": {
-        \\"filename\\": \\"index.py.zip\\",
+        \\"filename\\": \\"\${data.archive_file.test-versioned-lambda_lambda-default-file_E2490368.output_path}\\",
         \\"function_name\\": \\"Test-Lambda-Function\\",
         \\"handler\\": \\"index.handler\\",
         \\"publish\\": true,
@@ -1098,7 +1098,7 @@ exports[`renders a versioned lambda with publish ignored 1`] = `
     },
     \\"aws_cloudwatch_log_group\\": {
       \\"test-versioned-lambda_log-group_CB8A67E7\\": {
-        \\"name\\": \\"/aws/lambda/Test-Lambda-Function\\",
+        \\"name\\": \\"/aws/lambda/\${aws_lambda_function.test-versioned-lambda_D818669D.function_name}\\",
         \\"retention_in_days\\": 14,
         \\"depends_on\\": [
           \\"aws_lambda_function.test-versioned-lambda_D818669D\\"
@@ -1113,7 +1113,7 @@ exports[`renders a versioned lambda with publish ignored 1`] = `
     },
     \\"aws_lambda_alias\\": {
       \\"test-versioned-lambda_alias_60AF9CE1\\": {
-        \\"function_name\\": \\"Test-Lambda-Function\\",
+        \\"function_name\\": \\"\${aws_lambda_function.test-versioned-lambda_D818669D.function_name}\\",
         \\"function_version\\": \\"\${split(\\\\\\":\\\\\\", aws_lambda_function.test-versioned-lambda_D818669D.qualified_arn)[7]}\\",
         \\"name\\": \\"DEPLOYED\\",
         \\"depends_on\\": [
@@ -1139,10 +1139,10 @@ exports[`renders a versioned lambda with publish ignored 1`] = `
         \\"version\\": \\"2012-10-17\\",
         \\"statement\\": [
           {
-            \\"effect\\": \\"Allow\\",
             \\"actions\\": [
               \\"sts:AssumeRole\\"
             ],
+            \\"effect\\": \\"Allow\\",
             \\"principals\\": [
               {
                 \\"identifiers\\": [
@@ -1164,13 +1164,13 @@ exports[`renders a versioned lambda with publish ignored 1`] = `
         \\"version\\": \\"2012-10-17\\",
         \\"statement\\": [
           {
-            \\"effect\\": \\"Allow\\",
             \\"actions\\": [
               \\"logs:CreateLogGroup\\",
               \\"logs:CreateLogStream\\",
               \\"logs:PutLogEvents\\",
               \\"logs:DescribeLogStreams\\"
             ],
+            \\"effect\\": \\"Allow\\",
             \\"resources\\": [
               \\"arn:aws:logs:*:*:*\\"
             ]
@@ -1257,7 +1257,7 @@ exports[`renders a versioned lambda with s3 bucket 1`] = `
       \\"test-versioned-lambda_execution-role-policy_B3568235\\": {
         \\"name\\": \\"Test-Lambda-ExecutionRolePolicy\\",
         \\"policy\\": \\"\${data.aws_iam_policy_document.test-versioned-lambda_execution-policy-document_BA37CD4D.json}\\",
-        \\"role\\": \\"Test-Lambda-ExecutionRole\\",
+        \\"role\\": \\"\${aws_iam_role.test-versioned-lambda_execution-role_068103E3.name}\\",
         \\"depends_on\\": [
           \\"aws_iam_role.test-versioned-lambda_execution-role_068103E3\\"
         ],
@@ -1271,7 +1271,7 @@ exports[`renders a versioned lambda with s3 bucket 1`] = `
     },
     \\"aws_lambda_function\\": {
       \\"test-versioned-lambda_D818669D\\": {
-        \\"filename\\": \\"index.py.zip\\",
+        \\"filename\\": \\"\${data.archive_file.test-versioned-lambda_lambda-default-file_E2490368.output_path}\\",
         \\"function_name\\": \\"Test-Lambda-Function\\",
         \\"handler\\": \\"index.handler\\",
         \\"publish\\": true,
@@ -1296,7 +1296,7 @@ exports[`renders a versioned lambda with s3 bucket 1`] = `
     },
     \\"aws_cloudwatch_log_group\\": {
       \\"test-versioned-lambda_log-group_CB8A67E7\\": {
-        \\"name\\": \\"/aws/lambda/Test-Lambda-Function\\",
+        \\"name\\": \\"/aws/lambda/\${aws_lambda_function.test-versioned-lambda_D818669D.function_name}\\",
         \\"retention_in_days\\": 14,
         \\"depends_on\\": [
           \\"aws_lambda_function.test-versioned-lambda_D818669D\\"
@@ -1311,7 +1311,7 @@ exports[`renders a versioned lambda with s3 bucket 1`] = `
     },
     \\"aws_lambda_alias\\": {
       \\"test-versioned-lambda_alias_60AF9CE1\\": {
-        \\"function_name\\": \\"Test-Lambda-Function\\",
+        \\"function_name\\": \\"\${aws_lambda_function.test-versioned-lambda_D818669D.function_name}\\",
         \\"function_version\\": \\"\${split(\\\\\\":\\\\\\", aws_lambda_function.test-versioned-lambda_D818669D.qualified_arn)[7]}\\",
         \\"name\\": \\"DEPLOYED\\",
         \\"depends_on\\": [
@@ -1337,10 +1337,10 @@ exports[`renders a versioned lambda with s3 bucket 1`] = `
         \\"version\\": \\"2012-10-17\\",
         \\"statement\\": [
           {
-            \\"effect\\": \\"Allow\\",
             \\"actions\\": [
               \\"sts:AssumeRole\\"
             ],
+            \\"effect\\": \\"Allow\\",
             \\"principals\\": [
               {
                 \\"identifiers\\": [
@@ -1362,13 +1362,13 @@ exports[`renders a versioned lambda with s3 bucket 1`] = `
         \\"version\\": \\"2012-10-17\\",
         \\"statement\\": [
           {
-            \\"effect\\": \\"Allow\\",
             \\"actions\\": [
               \\"logs:CreateLogGroup\\",
               \\"logs:CreateLogStream\\",
               \\"logs:PutLogEvents\\",
               \\"logs:DescribeLogStreams\\"
             ],
+            \\"effect\\": \\"Allow\\",
             \\"resources\\": [
               \\"arn:aws:logs:*:*:*\\"
             ]
@@ -1459,7 +1459,7 @@ exports[`renders a versioned lambda with tags 1`] = `
       \\"test-versioned-lambda_execution-role-policy_B3568235\\": {
         \\"name\\": \\"Test-Lambda-ExecutionRolePolicy\\",
         \\"policy\\": \\"\${data.aws_iam_policy_document.test-versioned-lambda_execution-policy-document_BA37CD4D.json}\\",
-        \\"role\\": \\"Test-Lambda-ExecutionRole\\",
+        \\"role\\": \\"\${aws_iam_role.test-versioned-lambda_execution-role_068103E3.name}\\",
         \\"depends_on\\": [
           \\"aws_iam_role.test-versioned-lambda_execution-role_068103E3\\"
         ],
@@ -1473,7 +1473,7 @@ exports[`renders a versioned lambda with tags 1`] = `
     },
     \\"aws_lambda_function\\": {
       \\"test-versioned-lambda_D818669D\\": {
-        \\"filename\\": \\"index.py.zip\\",
+        \\"filename\\": \\"\${data.archive_file.test-versioned-lambda_lambda-default-file_E2490368.output_path}\\",
         \\"function_name\\": \\"Test-Lambda-Function\\",
         \\"handler\\": \\"index.handler\\",
         \\"publish\\": true,
@@ -1502,7 +1502,7 @@ exports[`renders a versioned lambda with tags 1`] = `
     },
     \\"aws_cloudwatch_log_group\\": {
       \\"test-versioned-lambda_log-group_CB8A67E7\\": {
-        \\"name\\": \\"/aws/lambda/Test-Lambda-Function\\",
+        \\"name\\": \\"/aws/lambda/\${aws_lambda_function.test-versioned-lambda_D818669D.function_name}\\",
         \\"retention_in_days\\": 14,
         \\"depends_on\\": [
           \\"aws_lambda_function.test-versioned-lambda_D818669D\\"
@@ -1517,7 +1517,7 @@ exports[`renders a versioned lambda with tags 1`] = `
     },
     \\"aws_lambda_alias\\": {
       \\"test-versioned-lambda_alias_60AF9CE1\\": {
-        \\"function_name\\": \\"Test-Lambda-Function\\",
+        \\"function_name\\": \\"\${aws_lambda_function.test-versioned-lambda_D818669D.function_name}\\",
         \\"function_version\\": \\"\${split(\\\\\\":\\\\\\", aws_lambda_function.test-versioned-lambda_D818669D.qualified_arn)[7]}\\",
         \\"name\\": \\"DEPLOYED\\",
         \\"depends_on\\": [
@@ -1543,10 +1543,10 @@ exports[`renders a versioned lambda with tags 1`] = `
         \\"version\\": \\"2012-10-17\\",
         \\"statement\\": [
           {
-            \\"effect\\": \\"Allow\\",
             \\"actions\\": [
               \\"sts:AssumeRole\\"
             ],
+            \\"effect\\": \\"Allow\\",
             \\"principals\\": [
               {
                 \\"identifiers\\": [
@@ -1568,13 +1568,13 @@ exports[`renders a versioned lambda with tags 1`] = `
         \\"version\\": \\"2012-10-17\\",
         \\"statement\\": [
           {
-            \\"effect\\": \\"Allow\\",
             \\"actions\\": [
               \\"logs:CreateLogGroup\\",
               \\"logs:CreateLogStream\\",
               \\"logs:PutLogEvents\\",
               \\"logs:DescribeLogStreams\\"
             ],
+            \\"effect\\": \\"Allow\\",
             \\"resources\\": [
               \\"arn:aws:logs:*:*:*\\"
             ]
@@ -1661,7 +1661,7 @@ exports[`renders a versioned lambda with timeout 1`] = `
       \\"test-versioned-lambda_execution-role-policy_B3568235\\": {
         \\"name\\": \\"Test-Lambda-ExecutionRolePolicy\\",
         \\"policy\\": \\"\${data.aws_iam_policy_document.test-versioned-lambda_execution-policy-document_BA37CD4D.json}\\",
-        \\"role\\": \\"Test-Lambda-ExecutionRole\\",
+        \\"role\\": \\"\${aws_iam_role.test-versioned-lambda_execution-role_068103E3.name}\\",
         \\"depends_on\\": [
           \\"aws_iam_role.test-versioned-lambda_execution-role_068103E3\\"
         ],
@@ -1675,7 +1675,7 @@ exports[`renders a versioned lambda with timeout 1`] = `
     },
     \\"aws_lambda_function\\": {
       \\"test-versioned-lambda_D818669D\\": {
-        \\"filename\\": \\"index.py.zip\\",
+        \\"filename\\": \\"\${data.archive_file.test-versioned-lambda_lambda-default-file_E2490368.output_path}\\",
         \\"function_name\\": \\"Test-Lambda-Function\\",
         \\"handler\\": \\"index.handler\\",
         \\"publish\\": true,
@@ -1700,7 +1700,7 @@ exports[`renders a versioned lambda with timeout 1`] = `
     },
     \\"aws_cloudwatch_log_group\\": {
       \\"test-versioned-lambda_log-group_CB8A67E7\\": {
-        \\"name\\": \\"/aws/lambda/Test-Lambda-Function\\",
+        \\"name\\": \\"/aws/lambda/\${aws_lambda_function.test-versioned-lambda_D818669D.function_name}\\",
         \\"retention_in_days\\": 14,
         \\"depends_on\\": [
           \\"aws_lambda_function.test-versioned-lambda_D818669D\\"
@@ -1715,7 +1715,7 @@ exports[`renders a versioned lambda with timeout 1`] = `
     },
     \\"aws_lambda_alias\\": {
       \\"test-versioned-lambda_alias_60AF9CE1\\": {
-        \\"function_name\\": \\"Test-Lambda-Function\\",
+        \\"function_name\\": \\"\${aws_lambda_function.test-versioned-lambda_D818669D.function_name}\\",
         \\"function_version\\": \\"\${split(\\\\\\":\\\\\\", aws_lambda_function.test-versioned-lambda_D818669D.qualified_arn)[7]}\\",
         \\"name\\": \\"DEPLOYED\\",
         \\"depends_on\\": [
@@ -1741,10 +1741,10 @@ exports[`renders a versioned lambda with timeout 1`] = `
         \\"version\\": \\"2012-10-17\\",
         \\"statement\\": [
           {
-            \\"effect\\": \\"Allow\\",
             \\"actions\\": [
               \\"sts:AssumeRole\\"
             ],
+            \\"effect\\": \\"Allow\\",
             \\"principals\\": [
               {
                 \\"identifiers\\": [
@@ -1766,13 +1766,13 @@ exports[`renders a versioned lambda with timeout 1`] = `
         \\"version\\": \\"2012-10-17\\",
         \\"statement\\": [
           {
-            \\"effect\\": \\"Allow\\",
             \\"actions\\": [
               \\"logs:CreateLogGroup\\",
               \\"logs:CreateLogStream\\",
               \\"logs:PutLogEvents\\",
               \\"logs:DescribeLogStreams\\"
             ],
+            \\"effect\\": \\"Allow\\",
             \\"resources\\": [
               \\"arn:aws:logs:*:*:*\\"
             ]
@@ -1859,7 +1859,7 @@ exports[`renders a versioned lambda with vpc 1`] = `
       \\"test-versioned-lambda_execution-role-policy_B3568235\\": {
         \\"name\\": \\"Test-Lambda-ExecutionRolePolicy\\",
         \\"policy\\": \\"\${data.aws_iam_policy_document.test-versioned-lambda_execution-policy-document_BA37CD4D.json}\\",
-        \\"role\\": \\"Test-Lambda-ExecutionRole\\",
+        \\"role\\": \\"\${aws_iam_role.test-versioned-lambda_execution-role_068103E3.name}\\",
         \\"depends_on\\": [
           \\"aws_iam_role.test-versioned-lambda_execution-role_068103E3\\"
         ],
@@ -1873,7 +1873,7 @@ exports[`renders a versioned lambda with vpc 1`] = `
     },
     \\"aws_lambda_function\\": {
       \\"test-versioned-lambda_D818669D\\": {
-        \\"filename\\": \\"index.py.zip\\",
+        \\"filename\\": \\"\${data.archive_file.test-versioned-lambda_lambda-default-file_E2490368.output_path}\\",
         \\"function_name\\": \\"Test-Lambda-Function\\",
         \\"handler\\": \\"index.handler\\",
         \\"publish\\": true,
@@ -1883,13 +1883,13 @@ exports[`renders a versioned lambda with vpc 1`] = `
         \\"timeout\\": 5,
         \\"vpc_config\\": [
           {
-            \\"subnetIds\\": [
-              \\"1\\",
-              \\"2\\"
-            ],
-            \\"securityGroupIds\\": [
+            \\"security_group_ids\\": [
               \\"sec1\\",
               \\"sec2\\"
+            ],
+            \\"subnet_ids\\": [
+              \\"1\\",
+              \\"2\\"
             ]
           }
         ],
@@ -1909,7 +1909,7 @@ exports[`renders a versioned lambda with vpc 1`] = `
     },
     \\"aws_cloudwatch_log_group\\": {
       \\"test-versioned-lambda_log-group_CB8A67E7\\": {
-        \\"name\\": \\"/aws/lambda/Test-Lambda-Function\\",
+        \\"name\\": \\"/aws/lambda/\${aws_lambda_function.test-versioned-lambda_D818669D.function_name}\\",
         \\"retention_in_days\\": 14,
         \\"depends_on\\": [
           \\"aws_lambda_function.test-versioned-lambda_D818669D\\"
@@ -1924,7 +1924,7 @@ exports[`renders a versioned lambda with vpc 1`] = `
     },
     \\"aws_lambda_alias\\": {
       \\"test-versioned-lambda_alias_60AF9CE1\\": {
-        \\"function_name\\": \\"Test-Lambda-Function\\",
+        \\"function_name\\": \\"\${aws_lambda_function.test-versioned-lambda_D818669D.function_name}\\",
         \\"function_version\\": \\"\${split(\\\\\\":\\\\\\", aws_lambda_function.test-versioned-lambda_D818669D.qualified_arn)[7]}\\",
         \\"name\\": \\"DEPLOYED\\",
         \\"depends_on\\": [
@@ -1950,10 +1950,10 @@ exports[`renders a versioned lambda with vpc 1`] = `
         \\"version\\": \\"2012-10-17\\",
         \\"statement\\": [
           {
-            \\"effect\\": \\"Allow\\",
             \\"actions\\": [
               \\"sts:AssumeRole\\"
             ],
+            \\"effect\\": \\"Allow\\",
             \\"principals\\": [
               {
                 \\"identifiers\\": [
@@ -1975,19 +1975,18 @@ exports[`renders a versioned lambda with vpc 1`] = `
         \\"version\\": \\"2012-10-17\\",
         \\"statement\\": [
           {
-            \\"effect\\": \\"Allow\\",
             \\"actions\\": [
               \\"logs:CreateLogGroup\\",
               \\"logs:CreateLogStream\\",
               \\"logs:PutLogEvents\\",
               \\"logs:DescribeLogStreams\\"
             ],
+            \\"effect\\": \\"Allow\\",
             \\"resources\\": [
               \\"arn:aws:logs:*:*:*\\"
             ]
           },
           {
-            \\"effect\\": \\"Allow\\",
             \\"actions\\": [
               \\"ec2:DescribeNetworkInterfaces\\",
               \\"ec2:CreateNetworkInterface\\",
@@ -1995,6 +1994,7 @@ exports[`renders a versioned lambda with vpc 1`] = `
               \\"ec2:DescribeInstances\\",
               \\"ec2:AttachNetworkInterface\\"
             ],
+            \\"effect\\": \\"Allow\\",
             \\"resources\\": [
               \\"*\\"
             ]

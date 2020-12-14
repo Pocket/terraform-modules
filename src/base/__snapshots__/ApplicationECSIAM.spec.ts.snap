@@ -14,10 +14,10 @@ exports[`renders ECS IAM with minimal config 1`] = `
         \\"version\\": \\"2012-10-17\\",
         \\"statement\\": [
           {
-            \\"effect\\": \\"Allow\\",
             \\"actions\\": [
               \\"sts:AssumeRole\\"
             ],
+            \\"effect\\": \\"Allow\\",
             \\"principals\\": [
               {
                 \\"identifiers\\": [
@@ -90,10 +90,10 @@ exports[`renders ECS IAM with tags 1`] = `
         \\"version\\": \\"2012-10-17\\",
         \\"statement\\": [
           {
-            \\"effect\\": \\"Allow\\",
             \\"actions\\": [
               \\"sts:AssumeRole\\"
             ],
+            \\"effect\\": \\"Allow\\",
             \\"principals\\": [
               {
                 \\"identifiers\\": [

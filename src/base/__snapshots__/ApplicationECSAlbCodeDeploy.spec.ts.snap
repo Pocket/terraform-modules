@@ -13,10 +13,10 @@ exports[`renders a CodeDeploy with a sns 1`] = `
       \\"testCodeDeploy_codedeploy_assume_role_E9FEDA7F\\": {
         \\"statement\\": [
           {
-            \\"effect\\": \\"Allow\\",
             \\"actions\\": [
               \\"sts:AssumeRole\\"
             ],
+            \\"effect\\": \\"Allow\\",
             \\"principals\\": [
               {
                 \\"identifiers\\": [
@@ -72,7 +72,7 @@ exports[`renders a CodeDeploy with a sns 1`] = `
     \\"aws_iam_role_policy_attachment\\": {
       \\"testCodeDeploy_ecs_codedeploy_role_attachment_0C2B6B97\\": {
         \\"policy_arn\\": \\"arn:aws:iam::aws:policy/AWSCodeDeployRoleForECS\\",
-        \\"role\\": \\"Test-Dev-ECSCodeDeployRole\\",
+        \\"role\\": \\"\${aws_iam_role.testCodeDeploy_ecs_code_deploy_role_EF679F94.name}\\",
         \\"depends_on\\": [
           \\"aws_iam_role.testCodeDeploy_ecs_code_deploy_role_EF679F94\\"
         ],
@@ -104,8 +104,8 @@ exports[`renders a CodeDeploy with a sns 1`] = `
           \\"codedeploy-application-deployment-succeeded\\",
           \\"codedeploy-application-deployment-started\\"
         ],
-        \\"name\\": \\"Test-Dev-ECS\\",
-        \\"resource\\": \\"arn:aws:codedeploy:\${data.aws_region.testCodeDeploy_current_region_B8533BBF.name}:\${data.aws_caller_identity.testCodeDeploy_current_account_0C0AC491.account_id}:application:Test-Dev-ECS\\",
+        \\"name\\": \\"\${aws_codedeploy_app.testCodeDeploy_ecs_code_deploy_C4535318.name}\\",
+        \\"resource\\": \\"arn:aws:codedeploy:\${data.aws_region.testCodeDeploy_current_region_B8533BBF.name}:\${data.aws_caller_identity.testCodeDeploy_current_account_0C0AC491.account_id}:application:\${aws_codedeploy_app.testCodeDeploy_ecs_code_deploy_C4535318.name}\\",
         \\"target\\": [
           {
             \\"address\\": \\"notify-me\\"
@@ -121,7 +121,7 @@ exports[`renders a CodeDeploy with a sns 1`] = `
     },
     \\"aws_codedeploy_deployment_group\\": {
       \\"testCodeDeploy_ecs_codedeploy_deployment_group_F092EC5E\\": {
-        \\"app_name\\": \\"Test-Dev-ECS\\",
+        \\"app_name\\": \\"\${aws_codedeploy_app.testCodeDeploy_ecs_code_deploy_C4535318.name}\\",
         \\"deployment_config_name\\": \\"CodeDeployDefault.ECSAllAtOnce\\",
         \\"deployment_group_name\\": \\"Test-Dev-ECS\\",
         \\"service_role_arn\\": \\"\${aws_iam_role.testCodeDeploy_ecs_code_deploy_role_EF679F94.arn}\\",
@@ -135,43 +135,43 @@ exports[`renders a CodeDeploy with a sns 1`] = `
         ],
         \\"blue_green_deployment_config\\": [
           {
-            \\"deploymentReadyOption\\": [
+            \\"deployment_ready_option\\": [
               {
-                \\"actionOnTimeout\\": \\"CONTINUE_DEPLOYMENT\\"
+                \\"action_on_timeout\\": \\"CONTINUE_DEPLOYMENT\\"
               }
             ],
-            \\"terminateBlueInstancesOnDeploymentSuccess\\": [
+            \\"terminate_blue_instances_on_deployment_success\\": [
               {
                 \\"action\\": \\"TERMINATE\\",
-                \\"terminationWaitTimeInMinutes\\": 5
+                \\"termination_wait_time_in_minutes\\": 5
               }
             ]
           }
         ],
         \\"deployment_style\\": [
           {
-            \\"deploymentOption\\": \\"WITH_TRAFFIC_CONTROL\\",
-            \\"deploymentType\\": \\"BLUE_GREEN\\"
+            \\"deployment_option\\": \\"WITH_TRAFFIC_CONTROL\\",
+            \\"deployment_type\\": \\"BLUE_GREEN\\"
           }
         ],
         \\"ecs_service\\": [
           {
-            \\"clusterName\\": \\"cluster\\",
-            \\"serviceName\\": \\"theService\\"
+            \\"cluster_name\\": \\"cluster\\",
+            \\"service_name\\": \\"theService\\"
           }
         ],
         \\"load_balancer_info\\": [
           {
-            \\"targetGroupPairInfo\\": [
+            \\"target_group_pair_info\\": [
               {
-                \\"prodTrafficRoute\\": [
+                \\"prod_traffic_route\\": [
                   {
-                    \\"listenerArns\\": [
+                    \\"listener_arns\\": [
                       \\"listen-to-me\\"
                     ]
                   }
                 ],
-                \\"targetGroup\\": [
+                \\"target_group\\": [
                   {
                     \\"name\\": \\"target-1\\"
                   },
@@ -208,10 +208,10 @@ exports[`renders a CodeDeploy with tags 1`] = `
       \\"testCodeDeploy_codedeploy_assume_role_E9FEDA7F\\": {
         \\"statement\\": [
           {
-            \\"effect\\": \\"Allow\\",
             \\"actions\\": [
               \\"sts:AssumeRole\\"
             ],
+            \\"effect\\": \\"Allow\\",
             \\"principals\\": [
               {
                 \\"identifiers\\": [
@@ -267,7 +267,7 @@ exports[`renders a CodeDeploy with tags 1`] = `
     \\"aws_iam_role_policy_attachment\\": {
       \\"testCodeDeploy_ecs_codedeploy_role_attachment_0C2B6B97\\": {
         \\"policy_arn\\": \\"arn:aws:iam::aws:policy/AWSCodeDeployRoleForECS\\",
-        \\"role\\": \\"Test-Dev-ECSCodeDeployRole\\",
+        \\"role\\": \\"\${aws_iam_role.testCodeDeploy_ecs_code_deploy_role_EF679F94.name}\\",
         \\"depends_on\\": [
           \\"aws_iam_role.testCodeDeploy_ecs_code_deploy_role_EF679F94\\"
         ],
@@ -299,8 +299,8 @@ exports[`renders a CodeDeploy with tags 1`] = `
           \\"codedeploy-application-deployment-succeeded\\",
           \\"codedeploy-application-deployment-started\\"
         ],
-        \\"name\\": \\"Test-Dev-ECS\\",
-        \\"resource\\": \\"arn:aws:codedeploy:\${data.aws_region.testCodeDeploy_current_region_B8533BBF.name}:\${data.aws_caller_identity.testCodeDeploy_current_account_0C0AC491.account_id}:application:Test-Dev-ECS\\",
+        \\"name\\": \\"\${aws_codedeploy_app.testCodeDeploy_ecs_code_deploy_C4535318.name}\\",
+        \\"resource\\": \\"arn:aws:codedeploy:\${data.aws_region.testCodeDeploy_current_region_B8533BBF.name}:\${data.aws_caller_identity.testCodeDeploy_current_account_0C0AC491.account_id}:application:\${aws_codedeploy_app.testCodeDeploy_ecs_code_deploy_C4535318.name}\\",
         \\"target\\": [
           {
             \\"address\\": \\"notify-me\\"
@@ -316,7 +316,7 @@ exports[`renders a CodeDeploy with tags 1`] = `
     },
     \\"aws_codedeploy_deployment_group\\": {
       \\"testCodeDeploy_ecs_codedeploy_deployment_group_F092EC5E\\": {
-        \\"app_name\\": \\"Test-Dev-ECS\\",
+        \\"app_name\\": \\"\${aws_codedeploy_app.testCodeDeploy_ecs_code_deploy_C4535318.name}\\",
         \\"deployment_config_name\\": \\"CodeDeployDefault.ECSAllAtOnce\\",
         \\"deployment_group_name\\": \\"Test-Dev-ECS\\",
         \\"service_role_arn\\": \\"\${aws_iam_role.testCodeDeploy_ecs_code_deploy_role_EF679F94.arn}\\",
@@ -330,43 +330,43 @@ exports[`renders a CodeDeploy with tags 1`] = `
         ],
         \\"blue_green_deployment_config\\": [
           {
-            \\"deploymentReadyOption\\": [
+            \\"deployment_ready_option\\": [
               {
-                \\"actionOnTimeout\\": \\"CONTINUE_DEPLOYMENT\\"
+                \\"action_on_timeout\\": \\"CONTINUE_DEPLOYMENT\\"
               }
             ],
-            \\"terminateBlueInstancesOnDeploymentSuccess\\": [
+            \\"terminate_blue_instances_on_deployment_success\\": [
               {
                 \\"action\\": \\"TERMINATE\\",
-                \\"terminationWaitTimeInMinutes\\": 5
+                \\"termination_wait_time_in_minutes\\": 5
               }
             ]
           }
         ],
         \\"deployment_style\\": [
           {
-            \\"deploymentOption\\": \\"WITH_TRAFFIC_CONTROL\\",
-            \\"deploymentType\\": \\"BLUE_GREEN\\"
+            \\"deployment_option\\": \\"WITH_TRAFFIC_CONTROL\\",
+            \\"deployment_type\\": \\"BLUE_GREEN\\"
           }
         ],
         \\"ecs_service\\": [
           {
-            \\"clusterName\\": \\"cluster\\",
-            \\"serviceName\\": \\"theService\\"
+            \\"cluster_name\\": \\"cluster\\",
+            \\"service_name\\": \\"theService\\"
           }
         ],
         \\"load_balancer_info\\": [
           {
-            \\"targetGroupPairInfo\\": [
+            \\"target_group_pair_info\\": [
               {
-                \\"prodTrafficRoute\\": [
+                \\"prod_traffic_route\\": [
                   {
-                    \\"listenerArns\\": [
+                    \\"listener_arns\\": [
                       \\"listen-to-me\\"
                     ]
                   }
                 ],
-                \\"targetGroup\\": [
+                \\"target_group\\": [
                   {
                     \\"name\\": \\"target-1\\"
                   },
@@ -403,10 +403,10 @@ exports[`renders a CodeDeploy without a sns 1`] = `
       \\"testCodeDeploy_codedeploy_assume_role_E9FEDA7F\\": {
         \\"statement\\": [
           {
-            \\"effect\\": \\"Allow\\",
             \\"actions\\": [
               \\"sts:AssumeRole\\"
             ],
+            \\"effect\\": \\"Allow\\",
             \\"principals\\": [
               {
                 \\"identifiers\\": [
@@ -442,7 +442,7 @@ exports[`renders a CodeDeploy without a sns 1`] = `
     \\"aws_iam_role_policy_attachment\\": {
       \\"testCodeDeploy_ecs_codedeploy_role_attachment_0C2B6B97\\": {
         \\"policy_arn\\": \\"arn:aws:iam::aws:policy/AWSCodeDeployRoleForECS\\",
-        \\"role\\": \\"Test-Dev-ECSCodeDeployRole\\",
+        \\"role\\": \\"\${aws_iam_role.testCodeDeploy_ecs_code_deploy_role_EF679F94.name}\\",
         \\"depends_on\\": [
           \\"aws_iam_role.testCodeDeploy_ecs_code_deploy_role_EF679F94\\"
         ],
@@ -468,7 +468,7 @@ exports[`renders a CodeDeploy without a sns 1`] = `
     },
     \\"aws_codedeploy_deployment_group\\": {
       \\"testCodeDeploy_ecs_codedeploy_deployment_group_F092EC5E\\": {
-        \\"app_name\\": \\"Test-Dev-ECS\\",
+        \\"app_name\\": \\"\${aws_codedeploy_app.testCodeDeploy_ecs_code_deploy_C4535318.name}\\",
         \\"deployment_config_name\\": \\"CodeDeployDefault.ECSAllAtOnce\\",
         \\"deployment_group_name\\": \\"Test-Dev-ECS\\",
         \\"service_role_arn\\": \\"\${aws_iam_role.testCodeDeploy_ecs_code_deploy_role_EF679F94.arn}\\",
@@ -482,43 +482,43 @@ exports[`renders a CodeDeploy without a sns 1`] = `
         ],
         \\"blue_green_deployment_config\\": [
           {
-            \\"deploymentReadyOption\\": [
+            \\"deployment_ready_option\\": [
               {
-                \\"actionOnTimeout\\": \\"CONTINUE_DEPLOYMENT\\"
+                \\"action_on_timeout\\": \\"CONTINUE_DEPLOYMENT\\"
               }
             ],
-            \\"terminateBlueInstancesOnDeploymentSuccess\\": [
+            \\"terminate_blue_instances_on_deployment_success\\": [
               {
                 \\"action\\": \\"TERMINATE\\",
-                \\"terminationWaitTimeInMinutes\\": 5
+                \\"termination_wait_time_in_minutes\\": 5
               }
             ]
           }
         ],
         \\"deployment_style\\": [
           {
-            \\"deploymentOption\\": \\"WITH_TRAFFIC_CONTROL\\",
-            \\"deploymentType\\": \\"BLUE_GREEN\\"
+            \\"deployment_option\\": \\"WITH_TRAFFIC_CONTROL\\",
+            \\"deployment_type\\": \\"BLUE_GREEN\\"
           }
         ],
         \\"ecs_service\\": [
           {
-            \\"clusterName\\": \\"cluster\\",
-            \\"serviceName\\": \\"theService\\"
+            \\"cluster_name\\": \\"cluster\\",
+            \\"service_name\\": \\"theService\\"
           }
         ],
         \\"load_balancer_info\\": [
           {
-            \\"targetGroupPairInfo\\": [
+            \\"target_group_pair_info\\": [
               {
-                \\"prodTrafficRoute\\": [
+                \\"prod_traffic_route\\": [
                   {
-                    \\"listenerArns\\": [
+                    \\"listener_arns\\": [
                       \\"listen-to-me\\"
                     ]
                   }
                 ],
-                \\"targetGroup\\": [
+                \\"target_group\\": [
                   {
                     \\"name\\": \\"target-1\\"
                   },

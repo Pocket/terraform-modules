@@ -18,7 +18,7 @@ exports[`renders an ECR with tags 1`] = `
         },
         \\"image_scanning_configuration\\": [
           {
-            \\"scanOnPush\\": true
+            \\"scan_on_push\\": true
           }
         ],
         \\"//\\": {
@@ -32,7 +32,7 @@ exports[`renders an ECR with tags 1`] = `
     \\"aws_ecr_lifecycle_policy\\": {
       \\"testECR_ecr-repo-lifecyclepolicy_4B354AF7\\": {
         \\"policy\\": \\"{\\\\\\"rules\\\\\\":[{\\\\\\"rulePriority\\\\\\":1,\\\\\\"description\\\\\\":\\\\\\"expire old images\\\\\\",\\\\\\"selection\\\\\\":{\\\\\\"tagStatus\\\\\\":\\\\\\"any\\\\\\",\\\\\\"countType\\\\\\":\\\\\\"imageCountMoreThan\\\\\\",\\\\\\"countNumber\\\\\\":800},\\\\\\"action\\\\\\":{\\\\\\"type\\\\\\":\\\\\\"expire\\\\\\"}}]}\\",
-        \\"repository\\": \\"bowling\\",
+        \\"repository\\": \\"\${aws_ecr_repository.testECR_ecr-repo_E42B68DA.name}\\",
         \\"depends_on\\": [
           \\"aws_ecr_repository.testECR_ecr-repo_E42B68DA\\"
         ],
@@ -62,7 +62,7 @@ exports[`renders an ECR without tags 1`] = `
         \\"name\\": \\"bowling\\",
         \\"image_scanning_configuration\\": [
           {
-            \\"scanOnPush\\": true
+            \\"scan_on_push\\": true
           }
         ],
         \\"//\\": {
@@ -76,7 +76,7 @@ exports[`renders an ECR without tags 1`] = `
     \\"aws_ecr_lifecycle_policy\\": {
       \\"testECR_ecr-repo-lifecyclepolicy_4B354AF7\\": {
         \\"policy\\": \\"{\\\\\\"rules\\\\\\":[{\\\\\\"rulePriority\\\\\\":1,\\\\\\"description\\\\\\":\\\\\\"expire old images\\\\\\",\\\\\\"selection\\\\\\":{\\\\\\"tagStatus\\\\\\":\\\\\\"any\\\\\\",\\\\\\"countType\\\\\\":\\\\\\"imageCountMoreThan\\\\\\",\\\\\\"countNumber\\\\\\":800},\\\\\\"action\\\\\\":{\\\\\\"type\\\\\\":\\\\\\"expire\\\\\\"}}]}\\",
-        \\"repository\\": \\"bowling\\",
+        \\"repository\\": \\"\${aws_ecr_repository.testECR_ecr-repo_E42B68DA.name}\\",
         \\"depends_on\\": [
           \\"aws_ecr_repository.testECR_ecr-repo_E42B68DA\\"
         ],

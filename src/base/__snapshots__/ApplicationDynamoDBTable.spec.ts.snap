@@ -117,7 +117,7 @@ exports[`renders dynamo db table with read and write capacity 1`] = `
     \\"aws_iam_role_policy_attachment\\": {
       \\"testDynamoDBTable_ReadCapacity_role_attachment_3C0829C2\\": {
         \\"policy_arn\\": \\"\${aws_iam_policy.testDynamoDBTable_ReadCapacity_autoscaling_policy_52DA6649.arn}\\",
-        \\"role\\": \\"abides--ReadCapacity-AutoScalingRole\\",
+        \\"role\\": \\"\${aws_iam_role.testDynamoDBTable_ReadCapacity_role_2B9645BB.name}\\",
         \\"depends_on\\": [
           \\"aws_iam_role.testDynamoDBTable_ReadCapacity_role_2B9645BB\\",
           \\"aws_iam_policy.testDynamoDBTable_ReadCapacity_autoscaling_policy_52DA6649\\"
@@ -131,7 +131,7 @@ exports[`renders dynamo db table with read and write capacity 1`] = `
       },
       \\"testDynamoDBTable_WriteCapacity_role_attachment_8ABB9833\\": {
         \\"policy_arn\\": \\"\${aws_iam_policy.testDynamoDBTable_WriteCapacity_autoscaling_policy_9632CE60.arn}\\",
-        \\"role\\": \\"abides--WriteCapacity-AutoScalingRole\\",
+        \\"role\\": \\"\${aws_iam_role.testDynamoDBTable_WriteCapacity_role_4BB8E3F1.name}\\",
         \\"depends_on\\": [
           \\"aws_iam_role.testDynamoDBTable_WriteCapacity_role_4BB8E3F1\\",
           \\"aws_iam_policy.testDynamoDBTable_WriteCapacity_autoscaling_policy_9632CE60\\"
@@ -148,7 +148,7 @@ exports[`renders dynamo db table with read and write capacity 1`] = `
       \\"testDynamoDBTable_ReadCapacity_target_EA652E50\\": {
         \\"max_capacity\\": 10,
         \\"min_capacity\\": 3,
-        \\"resource_id\\": \\"table/abides-\\",
+        \\"resource_id\\": \\"table/\${aws_dynamodb_table.testDynamoDBTable_dynamodb_table_A3DD49A4.name}\\",
         \\"role_arn\\": \\"\${aws_iam_role.testDynamoDBTable_ReadCapacity_role_2B9645BB.arn}\\",
         \\"scalable_dimension\\": \\"dynamodb:table:ReadCapacityUnits\\",
         \\"service_namespace\\": \\"dynamodb\\",
@@ -165,7 +165,7 @@ exports[`renders dynamo db table with read and write capacity 1`] = `
       \\"testDynamoDBTable_WriteCapacity_target_A0A91883\\": {
         \\"max_capacity\\": 10,
         \\"min_capacity\\": 3,
-        \\"resource_id\\": \\"table/abides-\\",
+        \\"resource_id\\": \\"table/\${aws_dynamodb_table.testDynamoDBTable_dynamodb_table_A3DD49A4.name}\\",
         \\"role_arn\\": \\"\${aws_iam_role.testDynamoDBTable_WriteCapacity_role_4BB8E3F1.arn}\\",
         \\"scalable_dimension\\": \\"dynamodb:table:WriteCapacityUnits\\",
         \\"service_namespace\\": \\"dynamodb\\",
@@ -182,19 +182,19 @@ exports[`renders dynamo db table with read and write capacity 1`] = `
     },
     \\"aws_appautoscaling_policy\\": {
       \\"testDynamoDBTable_ReadCapacity_policy_483DAAAE\\": {
-        \\"name\\": \\"DynamoDBReadCapacityUtilization:table/abides-\\",
+        \\"name\\": \\"DynamoDBReadCapacityUtilization:\${aws_appautoscaling_target.testDynamoDBTable_ReadCapacity_target_EA652E50.resource_id}\\",
         \\"policy_type\\": \\"TargetTrackingScaling\\",
-        \\"resource_id\\": \\"table/abides-\\",
-        \\"scalable_dimension\\": \\"dynamodb:table:ReadCapacityUnits\\",
-        \\"service_namespace\\": \\"dynamodb\\",
+        \\"resource_id\\": \\"\${aws_appautoscaling_target.testDynamoDBTable_ReadCapacity_target_EA652E50.resource_id}\\",
+        \\"scalable_dimension\\": \\"\${aws_appautoscaling_target.testDynamoDBTable_ReadCapacity_target_EA652E50.scalable_dimension}\\",
+        \\"service_namespace\\": \\"\${aws_appautoscaling_target.testDynamoDBTable_ReadCapacity_target_EA652E50.service_namespace}\\",
         \\"target_tracking_scaling_policy_configuration\\": [
           {
-            \\"predefinedMetricSpecification\\": [
+            \\"target_value\\": 1,
+            \\"predefined_metric_specification\\": [
               {
-                \\"predefinedMetricType\\": \\"DynamoDBReadCapacityUtilization\\"
+                \\"predefined_metric_type\\": \\"DynamoDBReadCapacityUtilization\\"
               }
-            ],
-            \\"targetValue\\": 1
+            ]
           }
         ],
         \\"depends_on\\": [
@@ -209,19 +209,19 @@ exports[`renders dynamo db table with read and write capacity 1`] = `
         }
       },
       \\"testDynamoDBTable_WriteCapacity_policy_22F852F1\\": {
-        \\"name\\": \\"DynamoDBWriteCapacityUtilization:table/abides-\\",
+        \\"name\\": \\"DynamoDBWriteCapacityUtilization:\${aws_appautoscaling_target.testDynamoDBTable_WriteCapacity_target_A0A91883.resource_id}\\",
         \\"policy_type\\": \\"TargetTrackingScaling\\",
-        \\"resource_id\\": \\"table/abides-\\",
-        \\"scalable_dimension\\": \\"dynamodb:table:WriteCapacityUnits\\",
-        \\"service_namespace\\": \\"dynamodb\\",
+        \\"resource_id\\": \\"\${aws_appautoscaling_target.testDynamoDBTable_WriteCapacity_target_A0A91883.resource_id}\\",
+        \\"scalable_dimension\\": \\"\${aws_appautoscaling_target.testDynamoDBTable_WriteCapacity_target_A0A91883.scalable_dimension}\\",
+        \\"service_namespace\\": \\"\${aws_appautoscaling_target.testDynamoDBTable_WriteCapacity_target_A0A91883.service_namespace}\\",
         \\"target_tracking_scaling_policy_configuration\\": [
           {
-            \\"predefinedMetricSpecification\\": [
+            \\"target_value\\": 1,
+            \\"predefined_metric_specification\\": [
               {
-                \\"predefinedMetricType\\": \\"DynamoDBWriteCapacityUtilization\\"
+                \\"predefined_metric_type\\": \\"DynamoDBWriteCapacityUtilization\\"
               }
-            ],
-            \\"targetValue\\": 1
+            ]
           }
         ],
         \\"depends_on\\": [
@@ -242,22 +242,22 @@ exports[`renders dynamo db table with read and write capacity 1`] = `
       \\"testDynamoDBTable_ReadCapacity_policy_document_EF789C68\\": {
         \\"statement\\": [
           {
-            \\"effect\\": \\"Allow\\",
             \\"actions\\": [
               \\"application-autoscaling:*\\",
               \\"cloudwatch:DescribeAlarms\\",
               \\"cloudwatch:PutMetricAlarm\\"
             ],
+            \\"effect\\": \\"Allow\\",
             \\"resources\\": [
               \\"*\\"
             ]
           },
           {
-            \\"effect\\": \\"Allow\\",
             \\"actions\\": [
               \\"dynamodb:DescribeTable\\",
               \\"dynamodb:UpdateTable\\"
             ],
+            \\"effect\\": \\"Allow\\",
             \\"resources\\": [
               \\"\${aws_dynamodb_table.testDynamoDBTable_dynamodb_table_A3DD49A4.arn}\\",
               \\"\${aws_dynamodb_table.testDynamoDBTable_dynamodb_table_A3DD49A4.arn}*\\"
@@ -274,16 +274,16 @@ exports[`renders dynamo db table with read and write capacity 1`] = `
       \\"testDynamoDBTable_ReadCapacity_assume_role_policy_document_54F698F0\\": {
         \\"statement\\": [
           {
-            \\"effect\\": \\"Allow\\",
             \\"actions\\": [
               \\"sts:AssumeRole\\"
             ],
+            \\"effect\\": \\"Allow\\",
             \\"principals\\": [
               {
-                \\"type\\": \\"Service\\",
                 \\"identifiers\\": [
                   \\"application-autoscaling.amazonaws.com\\"
-                ]
+                ],
+                \\"type\\": \\"Service\\"
               }
             ]
           }
@@ -298,22 +298,22 @@ exports[`renders dynamo db table with read and write capacity 1`] = `
       \\"testDynamoDBTable_WriteCapacity_policy_document_9032D023\\": {
         \\"statement\\": [
           {
-            \\"effect\\": \\"Allow\\",
             \\"actions\\": [
               \\"application-autoscaling:*\\",
               \\"cloudwatch:DescribeAlarms\\",
               \\"cloudwatch:PutMetricAlarm\\"
             ],
+            \\"effect\\": \\"Allow\\",
             \\"resources\\": [
               \\"*\\"
             ]
           },
           {
-            \\"effect\\": \\"Allow\\",
             \\"actions\\": [
               \\"dynamodb:DescribeTable\\",
               \\"dynamodb:UpdateTable\\"
             ],
+            \\"effect\\": \\"Allow\\",
             \\"resources\\": [
               \\"\${aws_dynamodb_table.testDynamoDBTable_dynamodb_table_A3DD49A4.arn}\\",
               \\"\${aws_dynamodb_table.testDynamoDBTable_dynamodb_table_A3DD49A4.arn}*\\"
@@ -330,16 +330,16 @@ exports[`renders dynamo db table with read and write capacity 1`] = `
       \\"testDynamoDBTable_WriteCapacity_assume_role_policy_document_5A7EA325\\": {
         \\"statement\\": [
           {
-            \\"effect\\": \\"Allow\\",
             \\"actions\\": [
               \\"sts:AssumeRole\\"
             ],
+            \\"effect\\": \\"Allow\\",
             \\"principals\\": [
               {
-                \\"type\\": \\"Service\\",
                 \\"identifiers\\": [
                   \\"application-autoscaling.amazonaws.com\\"
-                ]
+                ],
+                \\"type\\": \\"Service\\"
               }
             ]
           }
@@ -448,7 +448,7 @@ exports[`renders dynamo db table with read and write capacity and tags 1`] = `
     \\"aws_iam_role_policy_attachment\\": {
       \\"testDynamoDBTable_ReadCapacity_role_attachment_3C0829C2\\": {
         \\"policy_arn\\": \\"\${aws_iam_policy.testDynamoDBTable_ReadCapacity_autoscaling_policy_52DA6649.arn}\\",
-        \\"role\\": \\"abides--ReadCapacity-AutoScalingRole\\",
+        \\"role\\": \\"\${aws_iam_role.testDynamoDBTable_ReadCapacity_role_2B9645BB.name}\\",
         \\"depends_on\\": [
           \\"aws_iam_role.testDynamoDBTable_ReadCapacity_role_2B9645BB\\",
           \\"aws_iam_policy.testDynamoDBTable_ReadCapacity_autoscaling_policy_52DA6649\\"
@@ -462,7 +462,7 @@ exports[`renders dynamo db table with read and write capacity and tags 1`] = `
       },
       \\"testDynamoDBTable_WriteCapacity_role_attachment_8ABB9833\\": {
         \\"policy_arn\\": \\"\${aws_iam_policy.testDynamoDBTable_WriteCapacity_autoscaling_policy_9632CE60.arn}\\",
-        \\"role\\": \\"abides--WriteCapacity-AutoScalingRole\\",
+        \\"role\\": \\"\${aws_iam_role.testDynamoDBTable_WriteCapacity_role_4BB8E3F1.name}\\",
         \\"depends_on\\": [
           \\"aws_iam_role.testDynamoDBTable_WriteCapacity_role_4BB8E3F1\\",
           \\"aws_iam_policy.testDynamoDBTable_WriteCapacity_autoscaling_policy_9632CE60\\"
@@ -479,7 +479,7 @@ exports[`renders dynamo db table with read and write capacity and tags 1`] = `
       \\"testDynamoDBTable_ReadCapacity_target_EA652E50\\": {
         \\"max_capacity\\": 10,
         \\"min_capacity\\": 3,
-        \\"resource_id\\": \\"table/abides-\\",
+        \\"resource_id\\": \\"table/\${aws_dynamodb_table.testDynamoDBTable_dynamodb_table_A3DD49A4.name}\\",
         \\"role_arn\\": \\"\${aws_iam_role.testDynamoDBTable_ReadCapacity_role_2B9645BB.arn}\\",
         \\"scalable_dimension\\": \\"dynamodb:table:ReadCapacityUnits\\",
         \\"service_namespace\\": \\"dynamodb\\",
@@ -496,7 +496,7 @@ exports[`renders dynamo db table with read and write capacity and tags 1`] = `
       \\"testDynamoDBTable_WriteCapacity_target_A0A91883\\": {
         \\"max_capacity\\": 10,
         \\"min_capacity\\": 3,
-        \\"resource_id\\": \\"table/abides-\\",
+        \\"resource_id\\": \\"table/\${aws_dynamodb_table.testDynamoDBTable_dynamodb_table_A3DD49A4.name}\\",
         \\"role_arn\\": \\"\${aws_iam_role.testDynamoDBTable_WriteCapacity_role_4BB8E3F1.arn}\\",
         \\"scalable_dimension\\": \\"dynamodb:table:WriteCapacityUnits\\",
         \\"service_namespace\\": \\"dynamodb\\",
@@ -513,19 +513,19 @@ exports[`renders dynamo db table with read and write capacity and tags 1`] = `
     },
     \\"aws_appautoscaling_policy\\": {
       \\"testDynamoDBTable_ReadCapacity_policy_483DAAAE\\": {
-        \\"name\\": \\"DynamoDBReadCapacityUtilization:table/abides-\\",
+        \\"name\\": \\"DynamoDBReadCapacityUtilization:\${aws_appautoscaling_target.testDynamoDBTable_ReadCapacity_target_EA652E50.resource_id}\\",
         \\"policy_type\\": \\"TargetTrackingScaling\\",
-        \\"resource_id\\": \\"table/abides-\\",
-        \\"scalable_dimension\\": \\"dynamodb:table:ReadCapacityUnits\\",
-        \\"service_namespace\\": \\"dynamodb\\",
+        \\"resource_id\\": \\"\${aws_appautoscaling_target.testDynamoDBTable_ReadCapacity_target_EA652E50.resource_id}\\",
+        \\"scalable_dimension\\": \\"\${aws_appautoscaling_target.testDynamoDBTable_ReadCapacity_target_EA652E50.scalable_dimension}\\",
+        \\"service_namespace\\": \\"\${aws_appautoscaling_target.testDynamoDBTable_ReadCapacity_target_EA652E50.service_namespace}\\",
         \\"target_tracking_scaling_policy_configuration\\": [
           {
-            \\"predefinedMetricSpecification\\": [
+            \\"target_value\\": 1,
+            \\"predefined_metric_specification\\": [
               {
-                \\"predefinedMetricType\\": \\"DynamoDBReadCapacityUtilization\\"
+                \\"predefined_metric_type\\": \\"DynamoDBReadCapacityUtilization\\"
               }
-            ],
-            \\"targetValue\\": 1
+            ]
           }
         ],
         \\"depends_on\\": [
@@ -540,19 +540,19 @@ exports[`renders dynamo db table with read and write capacity and tags 1`] = `
         }
       },
       \\"testDynamoDBTable_WriteCapacity_policy_22F852F1\\": {
-        \\"name\\": \\"DynamoDBWriteCapacityUtilization:table/abides-\\",
+        \\"name\\": \\"DynamoDBWriteCapacityUtilization:\${aws_appautoscaling_target.testDynamoDBTable_WriteCapacity_target_A0A91883.resource_id}\\",
         \\"policy_type\\": \\"TargetTrackingScaling\\",
-        \\"resource_id\\": \\"table/abides-\\",
-        \\"scalable_dimension\\": \\"dynamodb:table:WriteCapacityUnits\\",
-        \\"service_namespace\\": \\"dynamodb\\",
+        \\"resource_id\\": \\"\${aws_appautoscaling_target.testDynamoDBTable_WriteCapacity_target_A0A91883.resource_id}\\",
+        \\"scalable_dimension\\": \\"\${aws_appautoscaling_target.testDynamoDBTable_WriteCapacity_target_A0A91883.scalable_dimension}\\",
+        \\"service_namespace\\": \\"\${aws_appautoscaling_target.testDynamoDBTable_WriteCapacity_target_A0A91883.service_namespace}\\",
         \\"target_tracking_scaling_policy_configuration\\": [
           {
-            \\"predefinedMetricSpecification\\": [
+            \\"target_value\\": 1,
+            \\"predefined_metric_specification\\": [
               {
-                \\"predefinedMetricType\\": \\"DynamoDBWriteCapacityUtilization\\"
+                \\"predefined_metric_type\\": \\"DynamoDBWriteCapacityUtilization\\"
               }
-            ],
-            \\"targetValue\\": 1
+            ]
           }
         ],
         \\"depends_on\\": [
@@ -573,22 +573,22 @@ exports[`renders dynamo db table with read and write capacity and tags 1`] = `
       \\"testDynamoDBTable_ReadCapacity_policy_document_EF789C68\\": {
         \\"statement\\": [
           {
-            \\"effect\\": \\"Allow\\",
             \\"actions\\": [
               \\"application-autoscaling:*\\",
               \\"cloudwatch:DescribeAlarms\\",
               \\"cloudwatch:PutMetricAlarm\\"
             ],
+            \\"effect\\": \\"Allow\\",
             \\"resources\\": [
               \\"*\\"
             ]
           },
           {
-            \\"effect\\": \\"Allow\\",
             \\"actions\\": [
               \\"dynamodb:DescribeTable\\",
               \\"dynamodb:UpdateTable\\"
             ],
+            \\"effect\\": \\"Allow\\",
             \\"resources\\": [
               \\"\${aws_dynamodb_table.testDynamoDBTable_dynamodb_table_A3DD49A4.arn}\\",
               \\"\${aws_dynamodb_table.testDynamoDBTable_dynamodb_table_A3DD49A4.arn}*\\"
@@ -605,16 +605,16 @@ exports[`renders dynamo db table with read and write capacity and tags 1`] = `
       \\"testDynamoDBTable_ReadCapacity_assume_role_policy_document_54F698F0\\": {
         \\"statement\\": [
           {
-            \\"effect\\": \\"Allow\\",
             \\"actions\\": [
               \\"sts:AssumeRole\\"
             ],
+            \\"effect\\": \\"Allow\\",
             \\"principals\\": [
               {
-                \\"type\\": \\"Service\\",
                 \\"identifiers\\": [
                   \\"application-autoscaling.amazonaws.com\\"
-                ]
+                ],
+                \\"type\\": \\"Service\\"
               }
             ]
           }
@@ -629,22 +629,22 @@ exports[`renders dynamo db table with read and write capacity and tags 1`] = `
       \\"testDynamoDBTable_WriteCapacity_policy_document_9032D023\\": {
         \\"statement\\": [
           {
-            \\"effect\\": \\"Allow\\",
             \\"actions\\": [
               \\"application-autoscaling:*\\",
               \\"cloudwatch:DescribeAlarms\\",
               \\"cloudwatch:PutMetricAlarm\\"
             ],
+            \\"effect\\": \\"Allow\\",
             \\"resources\\": [
               \\"*\\"
             ]
           },
           {
-            \\"effect\\": \\"Allow\\",
             \\"actions\\": [
               \\"dynamodb:DescribeTable\\",
               \\"dynamodb:UpdateTable\\"
             ],
+            \\"effect\\": \\"Allow\\",
             \\"resources\\": [
               \\"\${aws_dynamodb_table.testDynamoDBTable_dynamodb_table_A3DD49A4.arn}\\",
               \\"\${aws_dynamodb_table.testDynamoDBTable_dynamodb_table_A3DD49A4.arn}*\\"
@@ -661,16 +661,16 @@ exports[`renders dynamo db table with read and write capacity and tags 1`] = `
       \\"testDynamoDBTable_WriteCapacity_assume_role_policy_document_5A7EA325\\": {
         \\"statement\\": [
           {
-            \\"effect\\": \\"Allow\\",
             \\"actions\\": [
               \\"sts:AssumeRole\\"
             ],
+            \\"effect\\": \\"Allow\\",
             \\"principals\\": [
               {
-                \\"type\\": \\"Service\\",
                 \\"identifiers\\": [
                   \\"application-autoscaling.amazonaws.com\\"
-                ]
+                ],
+                \\"type\\": \\"Service\\"
               }
             ]
           }
@@ -747,7 +747,7 @@ exports[`renders dynamo db table with read capacity 1`] = `
     \\"aws_iam_role_policy_attachment\\": {
       \\"testDynamoDBTable_ReadCapacity_role_attachment_3C0829C2\\": {
         \\"policy_arn\\": \\"\${aws_iam_policy.testDynamoDBTable_ReadCapacity_autoscaling_policy_52DA6649.arn}\\",
-        \\"role\\": \\"abides--ReadCapacity-AutoScalingRole\\",
+        \\"role\\": \\"\${aws_iam_role.testDynamoDBTable_ReadCapacity_role_2B9645BB.name}\\",
         \\"depends_on\\": [
           \\"aws_iam_role.testDynamoDBTable_ReadCapacity_role_2B9645BB\\",
           \\"aws_iam_policy.testDynamoDBTable_ReadCapacity_autoscaling_policy_52DA6649\\"
@@ -764,7 +764,7 @@ exports[`renders dynamo db table with read capacity 1`] = `
       \\"testDynamoDBTable_ReadCapacity_target_EA652E50\\": {
         \\"max_capacity\\": 10,
         \\"min_capacity\\": 3,
-        \\"resource_id\\": \\"table/abides-\\",
+        \\"resource_id\\": \\"table/\${aws_dynamodb_table.testDynamoDBTable_dynamodb_table_A3DD49A4.name}\\",
         \\"role_arn\\": \\"\${aws_iam_role.testDynamoDBTable_ReadCapacity_role_2B9645BB.arn}\\",
         \\"scalable_dimension\\": \\"dynamodb:table:ReadCapacityUnits\\",
         \\"service_namespace\\": \\"dynamodb\\",
@@ -781,19 +781,19 @@ exports[`renders dynamo db table with read capacity 1`] = `
     },
     \\"aws_appautoscaling_policy\\": {
       \\"testDynamoDBTable_ReadCapacity_policy_483DAAAE\\": {
-        \\"name\\": \\"DynamoDBReadCapacityUtilization:table/abides-\\",
+        \\"name\\": \\"DynamoDBReadCapacityUtilization:\${aws_appautoscaling_target.testDynamoDBTable_ReadCapacity_target_EA652E50.resource_id}\\",
         \\"policy_type\\": \\"TargetTrackingScaling\\",
-        \\"resource_id\\": \\"table/abides-\\",
-        \\"scalable_dimension\\": \\"dynamodb:table:ReadCapacityUnits\\",
-        \\"service_namespace\\": \\"dynamodb\\",
+        \\"resource_id\\": \\"\${aws_appautoscaling_target.testDynamoDBTable_ReadCapacity_target_EA652E50.resource_id}\\",
+        \\"scalable_dimension\\": \\"\${aws_appautoscaling_target.testDynamoDBTable_ReadCapacity_target_EA652E50.scalable_dimension}\\",
+        \\"service_namespace\\": \\"\${aws_appautoscaling_target.testDynamoDBTable_ReadCapacity_target_EA652E50.service_namespace}\\",
         \\"target_tracking_scaling_policy_configuration\\": [
           {
-            \\"predefinedMetricSpecification\\": [
+            \\"target_value\\": 1,
+            \\"predefined_metric_specification\\": [
               {
-                \\"predefinedMetricType\\": \\"DynamoDBReadCapacityUtilization\\"
+                \\"predefined_metric_type\\": \\"DynamoDBReadCapacityUtilization\\"
               }
-            ],
-            \\"targetValue\\": 1
+            ]
           }
         ],
         \\"depends_on\\": [
@@ -814,22 +814,22 @@ exports[`renders dynamo db table with read capacity 1`] = `
       \\"testDynamoDBTable_ReadCapacity_policy_document_EF789C68\\": {
         \\"statement\\": [
           {
-            \\"effect\\": \\"Allow\\",
             \\"actions\\": [
               \\"application-autoscaling:*\\",
               \\"cloudwatch:DescribeAlarms\\",
               \\"cloudwatch:PutMetricAlarm\\"
             ],
+            \\"effect\\": \\"Allow\\",
             \\"resources\\": [
               \\"*\\"
             ]
           },
           {
-            \\"effect\\": \\"Allow\\",
             \\"actions\\": [
               \\"dynamodb:DescribeTable\\",
               \\"dynamodb:UpdateTable\\"
             ],
+            \\"effect\\": \\"Allow\\",
             \\"resources\\": [
               \\"\${aws_dynamodb_table.testDynamoDBTable_dynamodb_table_A3DD49A4.arn}\\",
               \\"\${aws_dynamodb_table.testDynamoDBTable_dynamodb_table_A3DD49A4.arn}*\\"
@@ -846,16 +846,16 @@ exports[`renders dynamo db table with read capacity 1`] = `
       \\"testDynamoDBTable_ReadCapacity_assume_role_policy_document_54F698F0\\": {
         \\"statement\\": [
           {
-            \\"effect\\": \\"Allow\\",
             \\"actions\\": [
               \\"sts:AssumeRole\\"
             ],
+            \\"effect\\": \\"Allow\\",
             \\"principals\\": [
               {
-                \\"type\\": \\"Service\\",
                 \\"identifiers\\": [
                   \\"application-autoscaling.amazonaws.com\\"
-                ]
+                ],
+                \\"type\\": \\"Service\\"
               }
             ]
           }
@@ -952,7 +952,7 @@ exports[`renders dynamo db table with write capacity 1`] = `
     \\"aws_iam_role_policy_attachment\\": {
       \\"testDynamoDBTable_ReadCapacity_role_attachment_3C0829C2\\": {
         \\"policy_arn\\": \\"\${aws_iam_policy.testDynamoDBTable_ReadCapacity_autoscaling_policy_52DA6649.arn}\\",
-        \\"role\\": \\"abides--ReadCapacity-AutoScalingRole\\",
+        \\"role\\": \\"\${aws_iam_role.testDynamoDBTable_ReadCapacity_role_2B9645BB.name}\\",
         \\"depends_on\\": [
           \\"aws_iam_role.testDynamoDBTable_ReadCapacity_role_2B9645BB\\",
           \\"aws_iam_policy.testDynamoDBTable_ReadCapacity_autoscaling_policy_52DA6649\\"
@@ -966,7 +966,7 @@ exports[`renders dynamo db table with write capacity 1`] = `
       },
       \\"testDynamoDBTable_WriteCapacity_role_attachment_8ABB9833\\": {
         \\"policy_arn\\": \\"\${aws_iam_policy.testDynamoDBTable_WriteCapacity_autoscaling_policy_9632CE60.arn}\\",
-        \\"role\\": \\"abides--WriteCapacity-AutoScalingRole\\",
+        \\"role\\": \\"\${aws_iam_role.testDynamoDBTable_WriteCapacity_role_4BB8E3F1.name}\\",
         \\"depends_on\\": [
           \\"aws_iam_role.testDynamoDBTable_WriteCapacity_role_4BB8E3F1\\",
           \\"aws_iam_policy.testDynamoDBTable_WriteCapacity_autoscaling_policy_9632CE60\\"
@@ -983,7 +983,7 @@ exports[`renders dynamo db table with write capacity 1`] = `
       \\"testDynamoDBTable_ReadCapacity_target_EA652E50\\": {
         \\"max_capacity\\": 10,
         \\"min_capacity\\": 3,
-        \\"resource_id\\": \\"table/abides-\\",
+        \\"resource_id\\": \\"table/\${aws_dynamodb_table.testDynamoDBTable_dynamodb_table_A3DD49A4.name}\\",
         \\"role_arn\\": \\"\${aws_iam_role.testDynamoDBTable_ReadCapacity_role_2B9645BB.arn}\\",
         \\"scalable_dimension\\": \\"dynamodb:table:ReadCapacityUnits\\",
         \\"service_namespace\\": \\"dynamodb\\",
@@ -1000,7 +1000,7 @@ exports[`renders dynamo db table with write capacity 1`] = `
       \\"testDynamoDBTable_WriteCapacity_target_A0A91883\\": {
         \\"max_capacity\\": 10,
         \\"min_capacity\\": 3,
-        \\"resource_id\\": \\"table/abides-\\",
+        \\"resource_id\\": \\"table/\${aws_dynamodb_table.testDynamoDBTable_dynamodb_table_A3DD49A4.name}\\",
         \\"role_arn\\": \\"\${aws_iam_role.testDynamoDBTable_WriteCapacity_role_4BB8E3F1.arn}\\",
         \\"scalable_dimension\\": \\"dynamodb:table:WriteCapacityUnits\\",
         \\"service_namespace\\": \\"dynamodb\\",
@@ -1017,19 +1017,19 @@ exports[`renders dynamo db table with write capacity 1`] = `
     },
     \\"aws_appautoscaling_policy\\": {
       \\"testDynamoDBTable_ReadCapacity_policy_483DAAAE\\": {
-        \\"name\\": \\"DynamoDBReadCapacityUtilization:table/abides-\\",
+        \\"name\\": \\"DynamoDBReadCapacityUtilization:\${aws_appautoscaling_target.testDynamoDBTable_ReadCapacity_target_EA652E50.resource_id}\\",
         \\"policy_type\\": \\"TargetTrackingScaling\\",
-        \\"resource_id\\": \\"table/abides-\\",
-        \\"scalable_dimension\\": \\"dynamodb:table:ReadCapacityUnits\\",
-        \\"service_namespace\\": \\"dynamodb\\",
+        \\"resource_id\\": \\"\${aws_appautoscaling_target.testDynamoDBTable_ReadCapacity_target_EA652E50.resource_id}\\",
+        \\"scalable_dimension\\": \\"\${aws_appautoscaling_target.testDynamoDBTable_ReadCapacity_target_EA652E50.scalable_dimension}\\",
+        \\"service_namespace\\": \\"\${aws_appautoscaling_target.testDynamoDBTable_ReadCapacity_target_EA652E50.service_namespace}\\",
         \\"target_tracking_scaling_policy_configuration\\": [
           {
-            \\"predefinedMetricSpecification\\": [
+            \\"target_value\\": 1,
+            \\"predefined_metric_specification\\": [
               {
-                \\"predefinedMetricType\\": \\"DynamoDBReadCapacityUtilization\\"
+                \\"predefined_metric_type\\": \\"DynamoDBReadCapacityUtilization\\"
               }
-            ],
-            \\"targetValue\\": 1
+            ]
           }
         ],
         \\"depends_on\\": [
@@ -1044,19 +1044,19 @@ exports[`renders dynamo db table with write capacity 1`] = `
         }
       },
       \\"testDynamoDBTable_WriteCapacity_policy_22F852F1\\": {
-        \\"name\\": \\"DynamoDBWriteCapacityUtilization:table/abides-\\",
+        \\"name\\": \\"DynamoDBWriteCapacityUtilization:\${aws_appautoscaling_target.testDynamoDBTable_WriteCapacity_target_A0A91883.resource_id}\\",
         \\"policy_type\\": \\"TargetTrackingScaling\\",
-        \\"resource_id\\": \\"table/abides-\\",
-        \\"scalable_dimension\\": \\"dynamodb:table:WriteCapacityUnits\\",
-        \\"service_namespace\\": \\"dynamodb\\",
+        \\"resource_id\\": \\"\${aws_appautoscaling_target.testDynamoDBTable_WriteCapacity_target_A0A91883.resource_id}\\",
+        \\"scalable_dimension\\": \\"\${aws_appautoscaling_target.testDynamoDBTable_WriteCapacity_target_A0A91883.scalable_dimension}\\",
+        \\"service_namespace\\": \\"\${aws_appautoscaling_target.testDynamoDBTable_WriteCapacity_target_A0A91883.service_namespace}\\",
         \\"target_tracking_scaling_policy_configuration\\": [
           {
-            \\"predefinedMetricSpecification\\": [
+            \\"target_value\\": 1,
+            \\"predefined_metric_specification\\": [
               {
-                \\"predefinedMetricType\\": \\"DynamoDBWriteCapacityUtilization\\"
+                \\"predefined_metric_type\\": \\"DynamoDBWriteCapacityUtilization\\"
               }
-            ],
-            \\"targetValue\\": 1
+            ]
           }
         ],
         \\"depends_on\\": [
@@ -1077,22 +1077,22 @@ exports[`renders dynamo db table with write capacity 1`] = `
       \\"testDynamoDBTable_ReadCapacity_policy_document_EF789C68\\": {
         \\"statement\\": [
           {
-            \\"effect\\": \\"Allow\\",
             \\"actions\\": [
               \\"application-autoscaling:*\\",
               \\"cloudwatch:DescribeAlarms\\",
               \\"cloudwatch:PutMetricAlarm\\"
             ],
+            \\"effect\\": \\"Allow\\",
             \\"resources\\": [
               \\"*\\"
             ]
           },
           {
-            \\"effect\\": \\"Allow\\",
             \\"actions\\": [
               \\"dynamodb:DescribeTable\\",
               \\"dynamodb:UpdateTable\\"
             ],
+            \\"effect\\": \\"Allow\\",
             \\"resources\\": [
               \\"\${aws_dynamodb_table.testDynamoDBTable_dynamodb_table_A3DD49A4.arn}\\",
               \\"\${aws_dynamodb_table.testDynamoDBTable_dynamodb_table_A3DD49A4.arn}*\\"
@@ -1109,16 +1109,16 @@ exports[`renders dynamo db table with write capacity 1`] = `
       \\"testDynamoDBTable_ReadCapacity_assume_role_policy_document_54F698F0\\": {
         \\"statement\\": [
           {
-            \\"effect\\": \\"Allow\\",
             \\"actions\\": [
               \\"sts:AssumeRole\\"
             ],
+            \\"effect\\": \\"Allow\\",
             \\"principals\\": [
               {
-                \\"type\\": \\"Service\\",
                 \\"identifiers\\": [
                   \\"application-autoscaling.amazonaws.com\\"
-                ]
+                ],
+                \\"type\\": \\"Service\\"
               }
             ]
           }
@@ -1133,22 +1133,22 @@ exports[`renders dynamo db table with write capacity 1`] = `
       \\"testDynamoDBTable_WriteCapacity_policy_document_9032D023\\": {
         \\"statement\\": [
           {
-            \\"effect\\": \\"Allow\\",
             \\"actions\\": [
               \\"application-autoscaling:*\\",
               \\"cloudwatch:DescribeAlarms\\",
               \\"cloudwatch:PutMetricAlarm\\"
             ],
+            \\"effect\\": \\"Allow\\",
             \\"resources\\": [
               \\"*\\"
             ]
           },
           {
-            \\"effect\\": \\"Allow\\",
             \\"actions\\": [
               \\"dynamodb:DescribeTable\\",
               \\"dynamodb:UpdateTable\\"
             ],
+            \\"effect\\": \\"Allow\\",
             \\"resources\\": [
               \\"\${aws_dynamodb_table.testDynamoDBTable_dynamodb_table_A3DD49A4.arn}\\",
               \\"\${aws_dynamodb_table.testDynamoDBTable_dynamodb_table_A3DD49A4.arn}*\\"
@@ -1165,16 +1165,16 @@ exports[`renders dynamo db table with write capacity 1`] = `
       \\"testDynamoDBTable_WriteCapacity_assume_role_policy_document_5A7EA325\\": {
         \\"statement\\": [
           {
-            \\"effect\\": \\"Allow\\",
             \\"actions\\": [
               \\"sts:AssumeRole\\"
             ],
+            \\"effect\\": \\"Allow\\",
             \\"principals\\": [
               {
-                \\"type\\": \\"Service\\",
                 \\"identifiers\\": [
                   \\"application-autoscaling.amazonaws.com\\"
-                ]
+                ],
+                \\"type\\": \\"Service\\"
               }
             ]
           }

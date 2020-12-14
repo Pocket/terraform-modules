@@ -36,7 +36,7 @@ exports[`renders a lambda code deploy app 1`] = `
     \\"aws_iam_role_policy_attachment\\": {
       \\"test-lambda-code-deploy_code-deploy-policy-attachment_84E423E0\\": {
         \\"policy_arn\\": \\"arn:aws:iam::aws:policy/service-role/AWSCodeDeployRoleForLambda\\",
-        \\"role\\": \\"Test-Lambda-Code-Deploy-CodeDeployRole\\",
+        \\"role\\": \\"\${aws_iam_role.test-lambda-code-deploy_code-deploy-role_9DA8B07C.name}\\",
         \\"depends_on\\": [
           \\"aws_iam_role.test-lambda-code-deploy_code-deploy-role_9DA8B07C\\"
         ],
@@ -50,9 +50,9 @@ exports[`renders a lambda code deploy app 1`] = `
     },
     \\"aws_codedeploy_deployment_group\\": {
       \\"test-lambda-code-deploy_code-deployment-group_3F73EBCE\\": {
-        \\"app_name\\": \\"Test-Lambda-Code-Deploy-Lambda\\",
+        \\"app_name\\": \\"\${aws_codedeploy_app.test-lambda-code-deploy_code-deploy-app_A7640CFE.name}\\",
         \\"deployment_config_name\\": \\"CodeDeployDefault.LambdaAllAtOnce\\",
-        \\"deployment_group_name\\": \\"Test-Lambda-Code-Deploy-Lambda\\",
+        \\"deployment_group_name\\": \\"\${aws_codedeploy_app.test-lambda-code-deploy_code-deploy-app_A7640CFE.name}\\",
         \\"service_role_arn\\": \\"\${aws_iam_role.test-lambda-code-deploy_code-deploy-role_9DA8B07C.arn}\\",
         \\"auto_rollback_configuration\\": [
           {
@@ -64,8 +64,8 @@ exports[`renders a lambda code deploy app 1`] = `
         ],
         \\"deployment_style\\": [
           {
-            \\"deploymentType\\": \\"BLUE_GREEN\\",
-            \\"deploymentOption\\": \\"WITH_TRAFFIC_CONTROL\\"
+            \\"deployment_option\\": \\"WITH_TRAFFIC_CONTROL\\",
+            \\"deployment_type\\": \\"BLUE_GREEN\\"
           }
         ],
         \\"depends_on\\": [
@@ -85,10 +85,10 @@ exports[`renders a lambda code deploy app 1`] = `
       \\"test-lambda-code-deploy_code-deploy-assume-role-policy-document_484EBB89\\": {
         \\"statement\\": [
           {
-            \\"effect\\": \\"Allow\\",
             \\"actions\\": [
               \\"sts:AssumeRole\\"
             ],
+            \\"effect\\": \\"Allow\\",
             \\"principals\\": [
               {
                 \\"identifiers\\": [
@@ -147,7 +147,7 @@ exports[`renders a lambda code deploy app with sns topic arn 1`] = `
     \\"aws_iam_role_policy_attachment\\": {
       \\"test-lambda-code-deploy_code-deploy-policy-attachment_84E423E0\\": {
         \\"policy_arn\\": \\"arn:aws:iam::aws:policy/service-role/AWSCodeDeployRoleForLambda\\",
-        \\"role\\": \\"Test-Lambda-Code-Deploy-CodeDeployRole\\",
+        \\"role\\": \\"\${aws_iam_role.test-lambda-code-deploy_code-deploy-role_9DA8B07C.name}\\",
         \\"depends_on\\": [
           \\"aws_iam_role.test-lambda-code-deploy_code-deploy-role_9DA8B07C\\"
         ],
@@ -161,9 +161,9 @@ exports[`renders a lambda code deploy app with sns topic arn 1`] = `
     },
     \\"aws_codedeploy_deployment_group\\": {
       \\"test-lambda-code-deploy_code-deployment-group_3F73EBCE\\": {
-        \\"app_name\\": \\"Test-Lambda-Code-Deploy-Lambda\\",
+        \\"app_name\\": \\"\${aws_codedeploy_app.test-lambda-code-deploy_code-deploy-app_A7640CFE.name}\\",
         \\"deployment_config_name\\": \\"CodeDeployDefault.LambdaAllAtOnce\\",
-        \\"deployment_group_name\\": \\"Test-Lambda-Code-Deploy-Lambda\\",
+        \\"deployment_group_name\\": \\"\${aws_codedeploy_app.test-lambda-code-deploy_code-deploy-app_A7640CFE.name}\\",
         \\"service_role_arn\\": \\"\${aws_iam_role.test-lambda-code-deploy_code-deploy-role_9DA8B07C.arn}\\",
         \\"auto_rollback_configuration\\": [
           {
@@ -175,8 +175,8 @@ exports[`renders a lambda code deploy app with sns topic arn 1`] = `
         ],
         \\"deployment_style\\": [
           {
-            \\"deploymentType\\": \\"BLUE_GREEN\\",
-            \\"deploymentOption\\": \\"WITH_TRAFFIC_CONTROL\\"
+            \\"deployment_option\\": \\"WITH_TRAFFIC_CONTROL\\",
+            \\"deployment_type\\": \\"BLUE_GREEN\\"
           }
         ],
         \\"depends_on\\": [
@@ -196,8 +196,8 @@ exports[`renders a lambda code deploy app with sns topic arn 1`] = `
         \\"event_type_ids\\": [
           \\"codedeploy-application-deployment-failed\\"
         ],
-        \\"name\\": \\"Test-Lambda-Code-Deploy-Lambda\\",
-        \\"resource\\": \\"arn:aws:codedeploy:us-east-1:123:application:Test-Lambda-Code-Deploy-Lambda\\",
+        \\"name\\": \\"\${aws_codedeploy_app.test-lambda-code-deploy_code-deploy-app_A7640CFE.name}\\",
+        \\"resource\\": \\"arn:aws:codedeploy:us-east-1:123:application:\${aws_codedeploy_app.test-lambda-code-deploy_code-deploy-app_A7640CFE.name}\\",
         \\"target\\": [
           {
             \\"address\\": \\"test:deploy-topic:arn\\"
@@ -217,10 +217,10 @@ exports[`renders a lambda code deploy app with sns topic arn 1`] = `
       \\"test-lambda-code-deploy_code-deploy-assume-role-policy-document_484EBB89\\": {
         \\"statement\\": [
           {
-            \\"effect\\": \\"Allow\\",
             \\"actions\\": [
               \\"sts:AssumeRole\\"
             ],
+            \\"effect\\": \\"Allow\\",
             \\"principals\\": [
               {
                 \\"identifiers\\": [
@@ -279,7 +279,7 @@ exports[`renders a lambda code deploy app with sns topic arn and detail type 1`]
     \\"aws_iam_role_policy_attachment\\": {
       \\"test-lambda-code-deploy_code-deploy-policy-attachment_84E423E0\\": {
         \\"policy_arn\\": \\"arn:aws:iam::aws:policy/service-role/AWSCodeDeployRoleForLambda\\",
-        \\"role\\": \\"Test-Lambda-Code-Deploy-CodeDeployRole\\",
+        \\"role\\": \\"\${aws_iam_role.test-lambda-code-deploy_code-deploy-role_9DA8B07C.name}\\",
         \\"depends_on\\": [
           \\"aws_iam_role.test-lambda-code-deploy_code-deploy-role_9DA8B07C\\"
         ],
@@ -293,9 +293,9 @@ exports[`renders a lambda code deploy app with sns topic arn and detail type 1`]
     },
     \\"aws_codedeploy_deployment_group\\": {
       \\"test-lambda-code-deploy_code-deployment-group_3F73EBCE\\": {
-        \\"app_name\\": \\"Test-Lambda-Code-Deploy-Lambda\\",
+        \\"app_name\\": \\"\${aws_codedeploy_app.test-lambda-code-deploy_code-deploy-app_A7640CFE.name}\\",
         \\"deployment_config_name\\": \\"CodeDeployDefault.LambdaAllAtOnce\\",
-        \\"deployment_group_name\\": \\"Test-Lambda-Code-Deploy-Lambda\\",
+        \\"deployment_group_name\\": \\"\${aws_codedeploy_app.test-lambda-code-deploy_code-deploy-app_A7640CFE.name}\\",
         \\"service_role_arn\\": \\"\${aws_iam_role.test-lambda-code-deploy_code-deploy-role_9DA8B07C.arn}\\",
         \\"auto_rollback_configuration\\": [
           {
@@ -307,8 +307,8 @@ exports[`renders a lambda code deploy app with sns topic arn and detail type 1`]
         ],
         \\"deployment_style\\": [
           {
-            \\"deploymentType\\": \\"BLUE_GREEN\\",
-            \\"deploymentOption\\": \\"WITH_TRAFFIC_CONTROL\\"
+            \\"deployment_option\\": \\"WITH_TRAFFIC_CONTROL\\",
+            \\"deployment_type\\": \\"BLUE_GREEN\\"
           }
         ],
         \\"depends_on\\": [
@@ -328,8 +328,8 @@ exports[`renders a lambda code deploy app with sns topic arn and detail type 1`]
         \\"event_type_ids\\": [
           \\"codedeploy-application-deployment-failed\\"
         ],
-        \\"name\\": \\"Test-Lambda-Code-Deploy-Lambda\\",
-        \\"resource\\": \\"arn:aws:codedeploy:us-east-1:123:application:Test-Lambda-Code-Deploy-Lambda\\",
+        \\"name\\": \\"\${aws_codedeploy_app.test-lambda-code-deploy_code-deploy-app_A7640CFE.name}\\",
+        \\"resource\\": \\"arn:aws:codedeploy:us-east-1:123:application:\${aws_codedeploy_app.test-lambda-code-deploy_code-deploy-app_A7640CFE.name}\\",
         \\"target\\": [
           {
             \\"address\\": \\"test:deploy-topic:arn\\"
@@ -349,10 +349,10 @@ exports[`renders a lambda code deploy app with sns topic arn and detail type 1`]
       \\"test-lambda-code-deploy_code-deploy-assume-role-policy-document_484EBB89\\": {
         \\"statement\\": [
           {
-            \\"effect\\": \\"Allow\\",
             \\"actions\\": [
               \\"sts:AssumeRole\\"
             ],
+            \\"effect\\": \\"Allow\\",
             \\"principals\\": [
               {
                 \\"identifiers\\": [

@@ -89,7 +89,7 @@ exports[`renders an event bridge with sqs target 1`] = `
     \\"aws_cloudwatch_event_target\\": {
       \\"test-event-bridge-rule_event-bridge-target_5807E31B\\": {
         \\"arn\\": \\"\${aws_sqs_queue.test-queue.arn}\\",
-        \\"rule\\": \\"Test-EventBridge-Rule\\",
+        \\"rule\\": \\"\${aws_cloudwatch_event_rule.test-event-bridge-rule_DA4F2E87.name}\\",
         \\"target_id\\": \\"sqs\\",
         \\"depends_on\\": [
           \\"aws_sqs_queue.test-queue\\",

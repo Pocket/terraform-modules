@@ -24,17 +24,16 @@ exports[`AppliationECSService renders an ECS service with full container definit
         \\"description\\": \\"Internal ECS Security Group (Managed by Terraform)\\",
         \\"egress\\": [
           {
-            \\"fromPort\\": 0,
-            \\"protocol\\": \\"-1\\",
-            \\"toPort\\": 0,
-            \\"cidrBlocks\\": [
+            \\"cidr_blocks\\": [
               \\"0.0.0.0/0\\"
             ],
             \\"description\\": \\"required\\",
-            \\"ipv6CidrBlocks\\": [],
-            \\"prefixListIds\\": [],
-            \\"securityGroups\\": [],
-            \\"self\\": false
+            \\"from_port\\": 0,
+            \\"ipv6_cidr_blocks\\": [],
+            \\"prefix_list_ids\\": [],
+            \\"protocol\\": \\"-1\\",
+            \\"security_groups\\": [],
+            \\"to_port\\": 0
           }
         ],
         \\"ingress\\": [],
@@ -124,7 +123,7 @@ exports[`AppliationECSService renders an ECS service with full container definit
         \\"load_balancer\\": [],
         \\"network_configuration\\": [
           {
-            \\"securityGroups\\": [
+            \\"security_groups\\": [
               \\"\${aws_security_group.testECSService_ecs_security_group_67979722.id}\\"
             ],
             \\"subnets\\": [
@@ -156,10 +155,10 @@ exports[`AppliationECSService renders an ECS service with full container definit
         \\"version\\": \\"2012-10-17\\",
         \\"statement\\": [
           {
-            \\"effect\\": \\"Allow\\",
             \\"actions\\": [
               \\"sts:AssumeRole\\"
             ],
+            \\"effect\\": \\"Allow\\",
             \\"principals\\": [
               {
                 \\"identifiers\\": [
@@ -206,32 +205,30 @@ exports[`AppliationECSService renders an ECS service with full container definit
         \\"description\\": \\"Internal ECS Security Group (Managed by Terraform)\\",
         \\"egress\\": [
           {
-            \\"fromPort\\": 0,
-            \\"protocol\\": \\"-1\\",
-            \\"toPort\\": 0,
-            \\"cidrBlocks\\": [
+            \\"cidr_blocks\\": [
               \\"0.0.0.0/0\\"
             ],
             \\"description\\": \\"required\\",
-            \\"ipv6CidrBlocks\\": [],
-            \\"prefixListIds\\": [],
-            \\"securityGroups\\": [],
-            \\"self\\": false
+            \\"from_port\\": 0,
+            \\"ipv6_cidr_blocks\\": [],
+            \\"prefix_list_ids\\": [],
+            \\"protocol\\": \\"-1\\",
+            \\"security_groups\\": [],
+            \\"to_port\\": 0
           }
         ],
         \\"ingress\\": [
           {
-            \\"fromPort\\": 80,
+            \\"cidr_blocks\\": [],
+            \\"description\\": \\"required\\",
+            \\"from_port\\": 80,
+            \\"ipv6_cidr_blocks\\": [],
+            \\"prefix_list_ids\\": [],
             \\"protocol\\": \\"TCP\\",
-            \\"toPort\\": 3000,
-            \\"securityGroups\\": [
+            \\"security_groups\\": [
               \\"strike\\"
             ],
-            \\"description\\": \\"required\\",
-            \\"cidrBlocks\\": [],
-            \\"ipv6CidrBlocks\\": [],
-            \\"prefixListIds\\": [],
-            \\"self\\": false
+            \\"to_port\\": 3000
           }
         ],
         \\"name_prefix\\": \\"abides-dev-ECSSecurityGroup\\",
@@ -315,11 +312,11 @@ exports[`AppliationECSService renders an ECS service with full container definit
         \\"vpc_id\\": \\"myhouse\\",
         \\"health_check\\": [
           {
+            \\"healthy_threshold\\": 5,
             \\"interval\\": 15,
             \\"path\\": \\"/health\\",
             \\"protocol\\": \\"HTTP\\",
-            \\"healthyThreshold\\": 5,
-            \\"unhealthyThreshold\\": 3
+            \\"unhealthy_threshold\\": 3
           }
         ],
         \\"//\\": {
@@ -336,13 +333,13 @@ exports[`AppliationECSService renders an ECS service with full container definit
         \\"priority\\": 1,
         \\"action\\": [
           {
-            \\"type\\": \\"forward\\",
-            \\"targetGroupArn\\": \\"\${aws_alb_target_group.testECSService_blue_target_group_ecs_target_group_AB8F309D.arn}\\"
+            \\"target_group_arn\\": \\"\${aws_alb_target_group.testECSService_blue_target_group_ecs_target_group_AB8F309D.arn}\\",
+            \\"type\\": \\"forward\\"
           }
         ],
         \\"condition\\": [
           {
-            \\"pathPattern\\": [
+            \\"path_pattern\\": [
               {
                 \\"values\\": [
                   \\"*\\"
@@ -381,14 +378,14 @@ exports[`AppliationECSService renders an ECS service with full container definit
         ],
         \\"load_balancer\\": [
           {
-            \\"containerName\\": \\"runme\\",
-            \\"containerPort\\": 3000,
-            \\"targetGroupArn\\": \\"\${aws_alb_target_group.testECSService_blue_target_group_ecs_target_group_AB8F309D.arn}\\"
+            \\"container_name\\": \\"runme\\",
+            \\"container_port\\": 3000,
+            \\"target_group_arn\\": \\"\${aws_alb_target_group.testECSService_blue_target_group_ecs_target_group_AB8F309D.arn}\\"
           }
         ],
         \\"network_configuration\\": [
           {
-            \\"securityGroups\\": [
+            \\"security_groups\\": [
               \\"\${aws_security_group.testECSService_ecs_security_group_67979722.id}\\"
             ],
             \\"subnets\\": [
@@ -422,10 +419,10 @@ exports[`AppliationECSService renders an ECS service with full container definit
         \\"version\\": \\"2012-10-17\\",
         \\"statement\\": [
           {
-            \\"effect\\": \\"Allow\\",
             \\"actions\\": [
               \\"sts:AssumeRole\\"
             ],
+            \\"effect\\": \\"Allow\\",
             \\"principals\\": [
               {
                 \\"identifiers\\": [
@@ -472,17 +469,16 @@ exports[`AppliationECSService renders an ECS service with minimal config 1`] = `
         \\"description\\": \\"Internal ECS Security Group (Managed by Terraform)\\",
         \\"egress\\": [
           {
-            \\"fromPort\\": 0,
-            \\"protocol\\": \\"-1\\",
-            \\"toPort\\": 0,
-            \\"cidrBlocks\\": [
+            \\"cidr_blocks\\": [
               \\"0.0.0.0/0\\"
             ],
             \\"description\\": \\"required\\",
-            \\"ipv6CidrBlocks\\": [],
-            \\"prefixListIds\\": [],
-            \\"securityGroups\\": [],
-            \\"self\\": false
+            \\"from_port\\": 0,
+            \\"ipv6_cidr_blocks\\": [],
+            \\"prefix_list_ids\\": [],
+            \\"protocol\\": \\"-1\\",
+            \\"security_groups\\": [],
+            \\"to_port\\": 0
           }
         ],
         \\"ingress\\": [],
@@ -572,7 +568,7 @@ exports[`AppliationECSService renders an ECS service with minimal config 1`] = `
         \\"load_balancer\\": [],
         \\"network_configuration\\": [
           {
-            \\"securityGroups\\": [
+            \\"security_groups\\": [
               \\"\${aws_security_group.testECSService_ecs_security_group_67979722.id}\\"
             ],
             \\"subnets\\": [
@@ -603,10 +599,10 @@ exports[`AppliationECSService renders an ECS service with minimal config 1`] = `
         \\"version\\": \\"2012-10-17\\",
         \\"statement\\": [
           {
-            \\"effect\\": \\"Allow\\",
             \\"actions\\": [
               \\"sts:AssumeRole\\"
             ],
+            \\"effect\\": \\"Allow\\",
             \\"principals\\": [
               {
                 \\"identifiers\\": [
@@ -653,17 +649,16 @@ exports[`AppliationECSService renders an ECS service without a log group contain
         \\"description\\": \\"Internal ECS Security Group (Managed by Terraform)\\",
         \\"egress\\": [
           {
-            \\"fromPort\\": 0,
-            \\"protocol\\": \\"-1\\",
-            \\"toPort\\": 0,
-            \\"cidrBlocks\\": [
+            \\"cidr_blocks\\": [
               \\"0.0.0.0/0\\"
             ],
             \\"description\\": \\"required\\",
-            \\"ipv6CidrBlocks\\": [],
-            \\"prefixListIds\\": [],
-            \\"securityGroups\\": [],
-            \\"self\\": false
+            \\"from_port\\": 0,
+            \\"ipv6_cidr_blocks\\": [],
+            \\"prefix_list_ids\\": [],
+            \\"protocol\\": \\"-1\\",
+            \\"security_groups\\": [],
+            \\"to_port\\": 0
           }
         ],
         \\"ingress\\": [],
@@ -765,7 +760,7 @@ exports[`AppliationECSService renders an ECS service without a log group contain
         \\"load_balancer\\": [],
         \\"network_configuration\\": [
           {
-            \\"securityGroups\\": [
+            \\"security_groups\\": [
               \\"\${aws_security_group.testECSService_ecs_security_group_67979722.id}\\"
             ],
             \\"subnets\\": [
@@ -797,10 +792,10 @@ exports[`AppliationECSService renders an ECS service without a log group contain
         \\"version\\": \\"2012-10-17\\",
         \\"statement\\": [
           {
-            \\"effect\\": \\"Allow\\",
             \\"actions\\": [
               \\"sts:AssumeRole\\"
             ],
+            \\"effect\\": \\"Allow\\",
             \\"principals\\": [
               {
                 \\"identifiers\\": [
@@ -847,17 +842,16 @@ exports[`AppliationECSService renders an ECS service without an image container 
         \\"description\\": \\"Internal ECS Security Group (Managed by Terraform)\\",
         \\"egress\\": [
           {
-            \\"fromPort\\": 0,
-            \\"protocol\\": \\"-1\\",
-            \\"toPort\\": 0,
-            \\"cidrBlocks\\": [
+            \\"cidr_blocks\\": [
               \\"0.0.0.0/0\\"
             ],
             \\"description\\": \\"required\\",
-            \\"ipv6CidrBlocks\\": [],
-            \\"prefixListIds\\": [],
-            \\"securityGroups\\": [],
-            \\"self\\": false
+            \\"from_port\\": 0,
+            \\"ipv6_cidr_blocks\\": [],
+            \\"prefix_list_ids\\": [],
+            \\"protocol\\": \\"-1\\",
+            \\"security_groups\\": [],
+            \\"to_port\\": 0
           }
         ],
         \\"ingress\\": [],
@@ -879,7 +873,7 @@ exports[`AppliationECSService renders an ECS service without an image container 
         \\"name\\": \\"abides-dev-lebowski\\",
         \\"image_scanning_configuration\\": [
           {
-            \\"scanOnPush\\": true
+            \\"scan_on_push\\": true
           }
         ],
         \\"//\\": {
@@ -893,7 +887,7 @@ exports[`AppliationECSService renders an ECS service without an image container 
     \\"aws_ecr_lifecycle_policy\\": {
       \\"testECSService_ecr-lebowski_ecr-repo-lifecyclepolicy_19C9732F\\": {
         \\"policy\\": \\"{\\\\\\"rules\\\\\\":[{\\\\\\"rulePriority\\\\\\":1,\\\\\\"description\\\\\\":\\\\\\"expire old images\\\\\\",\\\\\\"selection\\\\\\":{\\\\\\"tagStatus\\\\\\":\\\\\\"any\\\\\\",\\\\\\"countType\\\\\\":\\\\\\"imageCountMoreThan\\\\\\",\\\\\\"countNumber\\\\\\":800},\\\\\\"action\\\\\\":{\\\\\\"type\\\\\\":\\\\\\"expire\\\\\\"}}]}\\",
-        \\"repository\\": \\"abides-dev-lebowski\\",
+        \\"repository\\": \\"\${aws_ecr_repository.testECSService_ecr-lebowski_ecr-repo_6D07DF86.name}\\",
         \\"depends_on\\": [
           \\"aws_ecr_repository.testECSService_ecr-lebowski_ecr-repo_6D07DF86\\"
         ],
@@ -980,7 +974,7 @@ exports[`AppliationECSService renders an ECS service without an image container 
         \\"load_balancer\\": [],
         \\"network_configuration\\": [
           {
-            \\"securityGroups\\": [
+            \\"security_groups\\": [
               \\"\${aws_security_group.testECSService_ecs_security_group_67979722.id}\\"
             ],
             \\"subnets\\": [
@@ -1014,10 +1008,10 @@ exports[`AppliationECSService renders an ECS service without an image container 
         \\"version\\": \\"2012-10-17\\",
         \\"statement\\": [
           {
-            \\"effect\\": \\"Allow\\",
             \\"actions\\": [
               \\"sts:AssumeRole\\"
             ],
+            \\"effect\\": \\"Allow\\",
             \\"principals\\": [
               {
                 \\"identifiers\\": [

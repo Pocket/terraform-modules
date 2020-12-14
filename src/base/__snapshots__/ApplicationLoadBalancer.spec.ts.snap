@@ -14,48 +14,45 @@ exports[`renders an ALB with tags 1`] = `
         \\"description\\": \\"External security group  (Managed by Terraform)\\",
         \\"egress\\": [
           {
-            \\"fromPort\\": 0,
-            \\"protocol\\": \\"-1\\",
-            \\"toPort\\": 0,
-            \\"cidrBlocks\\": [
+            \\"cidr_blocks\\": [
               \\"0.0.0.0/0\\"
             ],
             \\"description\\": null,
-            \\"ipv6CidrBlocks\\": [],
-            \\"prefixListIds\\": [],
-            \\"securityGroups\\": [],
-            \\"self\\": null,
+            \\"from_port\\": 0,
             \\"ipv6_cidr_blocks\\": null,
             \\"prefix_list_ids\\": null,
-            \\"security_groups\\": null
+            \\"protocol\\": \\"-1\\",
+            \\"security_groups\\": null,
+            \\"self\\": null,
+            \\"to_port\\": 0
           }
         ],
         \\"ingress\\": [
           {
-            \\"fromPort\\": 443,
-            \\"toPort\\": 443,
-            \\"protocol\\": \\"TCP\\",
-            \\"cidrBlocks\\": [
+            \\"cidr_blocks\\": [
               \\"0.0.0.0/0\\"
             ],
             \\"description\\": null,
+            \\"from_port\\": 443,
             \\"ipv6_cidr_blocks\\": null,
             \\"prefix_list_ids\\": null,
+            \\"protocol\\": \\"TCP\\",
             \\"security_groups\\": null,
-            \\"self\\": null
+            \\"self\\": null,
+            \\"to_port\\": 443
           },
           {
-            \\"fromPort\\": 80,
-            \\"toPort\\": 80,
-            \\"protocol\\": \\"TCP\\",
-            \\"cidrBlocks\\": [
+            \\"cidr_blocks\\": [
               \\"0.0.0.0/0\\"
             ],
             \\"description\\": null,
+            \\"from_port\\": 80,
             \\"ipv6_cidr_blocks\\": null,
             \\"prefix_list_ids\\": null,
+            \\"protocol\\": \\"TCP\\",
             \\"security_groups\\": null,
-            \\"self\\": null
+            \\"self\\": null,
+            \\"to_port\\": 80
           }
         ],
         \\"name_prefix\\": \\"test--HTTP/S Security Group\\",
@@ -117,48 +114,45 @@ exports[`renders an ALB without tags 1`] = `
         \\"description\\": \\"External security group  (Managed by Terraform)\\",
         \\"egress\\": [
           {
-            \\"fromPort\\": 0,
-            \\"protocol\\": \\"-1\\",
-            \\"toPort\\": 0,
-            \\"cidrBlocks\\": [
+            \\"cidr_blocks\\": [
               \\"0.0.0.0/0\\"
             ],
             \\"description\\": null,
-            \\"ipv6CidrBlocks\\": [],
-            \\"prefixListIds\\": [],
-            \\"securityGroups\\": [],
-            \\"self\\": null,
+            \\"from_port\\": 0,
             \\"ipv6_cidr_blocks\\": null,
             \\"prefix_list_ids\\": null,
-            \\"security_groups\\": null
+            \\"protocol\\": \\"-1\\",
+            \\"security_groups\\": null,
+            \\"self\\": null,
+            \\"to_port\\": 0
           }
         ],
         \\"ingress\\": [
           {
-            \\"fromPort\\": 443,
-            \\"toPort\\": 443,
-            \\"protocol\\": \\"TCP\\",
-            \\"cidrBlocks\\": [
+            \\"cidr_blocks\\": [
               \\"0.0.0.0/0\\"
             ],
             \\"description\\": null,
+            \\"from_port\\": 443,
             \\"ipv6_cidr_blocks\\": null,
             \\"prefix_list_ids\\": null,
+            \\"protocol\\": \\"TCP\\",
             \\"security_groups\\": null,
-            \\"self\\": null
+            \\"self\\": null,
+            \\"to_port\\": 443
           },
           {
-            \\"fromPort\\": 80,
-            \\"toPort\\": 80,
-            \\"protocol\\": \\"TCP\\",
-            \\"cidrBlocks\\": [
+            \\"cidr_blocks\\": [
               \\"0.0.0.0/0\\"
             ],
             \\"description\\": null,
+            \\"from_port\\": 80,
             \\"ipv6_cidr_blocks\\": null,
             \\"prefix_list_ids\\": null,
+            \\"protocol\\": \\"TCP\\",
             \\"security_groups\\": null,
-            \\"self\\": null
+            \\"self\\": null,
+            \\"to_port\\": 80
           }
         ],
         \\"name_prefix\\": \\"test--HTTP/S Security Group\\",
