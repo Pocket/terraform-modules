@@ -10,7 +10,7 @@ exports[`renders a Target Group with tags 1`] = `
   },
   \\"resource\\": {
     \\"aws_alb_target_group\\": {
-      \\"test_testTargetGroup_ecstargetgroup_009DDF12\\": {
+      \\"testTargetGroup_ecs_target_group_A0C76C7F\\": {
         \\"deregistration_delay\\": 120,
         \\"name_prefix\\": \\"A1BC\\",
         \\"port\\": 80,
@@ -26,14 +26,14 @@ exports[`renders a Target Group with tags 1`] = `
             \\"interval\\": 15,
             \\"path\\": \\"/\\",
             \\"protocol\\": \\"HTTP\\",
-            \\"healthy_threshold\\": 5,
-            \\"unhealthy_threshold\\": 3
+            \\"healthyThreshold\\": 5,
+            \\"unhealthyThreshold\\": 3
           }
         ],
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/testTargetGroup/ecs_target_group\\",
-            \\"uniqueId\\": \\"test_testTargetGroup_ecstargetgroup_009DDF12\\"
+            \\"uniqueId\\": \\"testTargetGroup_ecs_target_group_A0C76C7F\\"
           }
         }
       }
@@ -52,7 +52,7 @@ exports[`renders a Target Group without tags 1`] = `
   },
   \\"resource\\": {
     \\"aws_alb_target_group\\": {
-      \\"test_testTargetGroup_ecstargetgroup_009DDF12\\": {
+      \\"testTargetGroup_ecs_target_group_A0C76C7F\\": {
         \\"deregistration_delay\\": 120,
         \\"name_prefix\\": \\"ABC\\",
         \\"port\\": 80,
@@ -64,14 +64,14 @@ exports[`renders a Target Group without tags 1`] = `
             \\"interval\\": 15,
             \\"path\\": \\"/\\",
             \\"protocol\\": \\"HTTP\\",
-            \\"healthy_threshold\\": 5,
-            \\"unhealthy_threshold\\": 3
+            \\"healthyThreshold\\": 5,
+            \\"unhealthyThreshold\\": 3
           }
         ],
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/testTargetGroup/ecs_target_group\\",
-            \\"uniqueId\\": \\"test_testTargetGroup_ecstargetgroup_009DDF12\\"
+            \\"uniqueId\\": \\"testTargetGroup_ecs_target_group_A0C76C7F\\"
           }
         }
       }

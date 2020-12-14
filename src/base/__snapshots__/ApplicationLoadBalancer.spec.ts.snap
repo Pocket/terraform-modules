@@ -10,29 +10,32 @@ exports[`renders an ALB with tags 1`] = `
   },
   \\"resource\\": {
     \\"aws_security_group\\": {
-      \\"test_testALB_albsecuritygroup_4D3A87C7\\": {
+      \\"testALB_alb_security_group_57C45F23\\": {
         \\"description\\": \\"External security group  (Managed by Terraform)\\",
         \\"egress\\": [
           {
-            \\"from_port\\": 0,
+            \\"fromPort\\": 0,
             \\"protocol\\": \\"-1\\",
-            \\"to_port\\": 0,
-            \\"cidr_blocks\\": [
+            \\"toPort\\": 0,
+            \\"cidrBlocks\\": [
               \\"0.0.0.0/0\\"
             ],
             \\"description\\": null,
+            \\"ipv6CidrBlocks\\": [],
+            \\"prefixListIds\\": [],
+            \\"securityGroups\\": [],
+            \\"self\\": null,
             \\"ipv6_cidr_blocks\\": null,
             \\"prefix_list_ids\\": null,
-            \\"security_groups\\": null,
-            \\"self\\": null
+            \\"security_groups\\": null
           }
         ],
         \\"ingress\\": [
           {
-            \\"from_port\\": 443,
-            \\"to_port\\": 443,
+            \\"fromPort\\": 443,
+            \\"toPort\\": 443,
             \\"protocol\\": \\"TCP\\",
-            \\"cidr_blocks\\": [
+            \\"cidrBlocks\\": [
               \\"0.0.0.0/0\\"
             ],
             \\"description\\": null,
@@ -42,10 +45,10 @@ exports[`renders an ALB with tags 1`] = `
             \\"self\\": null
           },
           {
-            \\"from_port\\": 80,
-            \\"to_port\\": 80,
+            \\"fromPort\\": 80,
+            \\"toPort\\": 80,
             \\"protocol\\": \\"TCP\\",
-            \\"cidr_blocks\\": [
+            \\"cidrBlocks\\": [
               \\"0.0.0.0/0\\"
             ],
             \\"description\\": null,
@@ -68,17 +71,17 @@ exports[`renders an ALB with tags 1`] = `
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/testALB/alb_security_group\\",
-            \\"uniqueId\\": \\"test_testALB_albsecuritygroup_4D3A87C7\\"
+            \\"uniqueId\\": \\"testALB_alb_security_group_57C45F23\\"
           }
         }
       }
     },
     \\"aws_alb\\": {
-      \\"test_testALB_alb_99CD74CC\\": {
+      \\"testALB_alb_F6B33218\\": {
         \\"internal\\": false,
         \\"name_prefix\\": \\"TEST\\",
         \\"security_groups\\": [
-          \\"\${aws_security_group.test_testALB_albsecuritygroup_4D3A87C7.id}\\"
+          \\"\${aws_security_group.testALB_alb_security_group_57C45F23.id}\\"
         ],
         \\"subnets\\": [
           \\"a\\",
@@ -91,7 +94,7 @@ exports[`renders an ALB with tags 1`] = `
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/testALB/alb\\",
-            \\"uniqueId\\": \\"test_testALB_alb_99CD74CC\\"
+            \\"uniqueId\\": \\"testALB_alb_F6B33218\\"
           }
         }
       }
@@ -110,29 +113,32 @@ exports[`renders an ALB without tags 1`] = `
   },
   \\"resource\\": {
     \\"aws_security_group\\": {
-      \\"test_testALB_albsecuritygroup_4D3A87C7\\": {
+      \\"testALB_alb_security_group_57C45F23\\": {
         \\"description\\": \\"External security group  (Managed by Terraform)\\",
         \\"egress\\": [
           {
-            \\"from_port\\": 0,
+            \\"fromPort\\": 0,
             \\"protocol\\": \\"-1\\",
-            \\"to_port\\": 0,
-            \\"cidr_blocks\\": [
+            \\"toPort\\": 0,
+            \\"cidrBlocks\\": [
               \\"0.0.0.0/0\\"
             ],
             \\"description\\": null,
+            \\"ipv6CidrBlocks\\": [],
+            \\"prefixListIds\\": [],
+            \\"securityGroups\\": [],
+            \\"self\\": null,
             \\"ipv6_cidr_blocks\\": null,
             \\"prefix_list_ids\\": null,
-            \\"security_groups\\": null,
-            \\"self\\": null
+            \\"security_groups\\": null
           }
         ],
         \\"ingress\\": [
           {
-            \\"from_port\\": 443,
-            \\"to_port\\": 443,
+            \\"fromPort\\": 443,
+            \\"toPort\\": 443,
             \\"protocol\\": \\"TCP\\",
-            \\"cidr_blocks\\": [
+            \\"cidrBlocks\\": [
               \\"0.0.0.0/0\\"
             ],
             \\"description\\": null,
@@ -142,10 +148,10 @@ exports[`renders an ALB without tags 1`] = `
             \\"self\\": null
           },
           {
-            \\"from_port\\": 80,
-            \\"to_port\\": 80,
+            \\"fromPort\\": 80,
+            \\"toPort\\": 80,
             \\"protocol\\": \\"TCP\\",
-            \\"cidr_blocks\\": [
+            \\"cidrBlocks\\": [
               \\"0.0.0.0/0\\"
             ],
             \\"description\\": null,
@@ -166,17 +172,17 @@ exports[`renders an ALB without tags 1`] = `
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/testALB/alb_security_group\\",
-            \\"uniqueId\\": \\"test_testALB_albsecuritygroup_4D3A87C7\\"
+            \\"uniqueId\\": \\"testALB_alb_security_group_57C45F23\\"
           }
         }
       }
     },
     \\"aws_alb\\": {
-      \\"test_testALB_alb_99CD74CC\\": {
+      \\"testALB_alb_F6B33218\\": {
         \\"internal\\": false,
         \\"name_prefix\\": \\"TEST\\",
         \\"security_groups\\": [
-          \\"\${aws_security_group.test_testALB_albsecuritygroup_4D3A87C7.id}\\"
+          \\"\${aws_security_group.testALB_alb_security_group_57C45F23.id}\\"
         ],
         \\"subnets\\": [
           \\"a\\",
@@ -185,7 +191,7 @@ exports[`renders an ALB without tags 1`] = `
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/testALB/alb\\",
-            \\"uniqueId\\": \\"test_testALB_alb_99CD74CC\\"
+            \\"uniqueId\\": \\"testALB_alb_F6B33218\\"
           }
         }
       }
