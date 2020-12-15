@@ -735,6 +735,11 @@ export class PocketALBApplication extends Resource {
 
   private createCloudwatchAlarms(): void {
     const alarmsConfig = this.config.alarms;
+    const evaluationPeriods = {
+      http5xxError: alarmsConfig?.http5xxError?.evaluationPeriods ?? 5,
+      httpLatency: alarmsConfig?.httpLatency?.evaluationPeriods ?? 1,
+      httpRequestCount: alarmsConfig?.httpRequestCount?.evaluationPeriods ?? 1,
+    };
 
     const defaultAlarms: CloudwatchMetricAlarmConfig[] = [
       {
@@ -774,8 +779,10 @@ export class PocketALBApplication extends Resource {
           },
         ],
         comparisonOperator: 'GreaterThanOrEqualToThreshold',
-        evaluationPeriods: alarmsConfig?.http5xxError?.evaluationPeriods ?? 5,
-        datapointsToAlarm: alarmsConfig?.http5xxError?.datapointsToAlarm ?? 1,
+        evaluationPeriods: evaluationPeriods.http5xxError,
+        datapointsToAlarm:
+          alarmsConfig?.http5xxError?.datapointsToAlarm ??
+          evaluationPeriods.http5xxError,
         threshold: alarmsConfig?.http5xxError?.threshold ?? 5,
         insufficientDataActions: [],
         alarmActions: alarmsConfig?.http5xxError?.actions ?? [],
@@ -789,8 +796,10 @@ export class PocketALBApplication extends Resource {
         metricName: 'TargetResponseTime',
         dimensions: { LoadBalancer: this.alb.alb.arnSuffix },
         period: alarmsConfig?.httpLatency?.period ?? 300,
-        evaluationPeriods: alarmsConfig?.httpLatency?.evaluationPeriods ?? 1,
-        datapointsToAlarm: alarmsConfig?.httpLatency?.datapointsToAlarm ?? 1,
+        evaluationPeriods: evaluationPeriods.httpLatency,
+        datapointsToAlarm:
+          alarmsConfig?.httpLatency?.datapointsToAlarm ??
+          evaluationPeriods.httpLatency,
         statistic: 'Average',
         comparisonOperator: 'GreaterThanThreshold',
         threshold: alarmsConfig?.httpLatency?.threshold ?? 300,
@@ -806,10 +815,10 @@ export class PocketALBApplication extends Resource {
         metricName: 'RequestCount',
         dimensions: { LoadBalancer: this.alb.alb.arnSuffix },
         period: alarmsConfig?.httpRequestCount?.period ?? 300,
-        evaluationPeriods:
-          alarmsConfig?.httpRequestCount?.evaluationPeriods ?? 1,
+        evaluationPeriods: evaluationPeriods.httpRequestCount,
         datapointsToAlarm:
-          alarmsConfig?.httpRequestCount?.datapointsToAlarm ?? 1,
+          alarmsConfig?.httpRequestCount?.datapointsToAlarm ??
+          evaluationPeriods.httpRequestCount,
         statistic: 'Sum',
         comparisonOperator: 'GreaterThanThreshold',
         threshold: alarmsConfig?.httpRequestCount?.threshold ?? 500,
