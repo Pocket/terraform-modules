@@ -738,8 +738,7 @@ export class PocketALBApplication extends Resource {
     const evaluationPeriods = {
       http5xxError: alarmsConfig?.http5xxError?.evaluationPeriods ?? 5,
       httpLatency: alarmsConfig?.httpLatency?.evaluationPeriods ?? 1,
-      httpRequestCount:
-        alarmsConfig?.httpRequestCount?.evaluationPeriods ?? 500,
+      httpRequestCount: alarmsConfig?.httpRequestCount?.evaluationPeriods ?? 1,
     };
 
     const defaultAlarms: CloudwatchMetricAlarmConfig[] = [
