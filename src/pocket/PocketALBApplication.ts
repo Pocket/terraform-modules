@@ -54,14 +54,23 @@ export interface PocketALBApplicationProps {
   alarms?: {
     http5xxError?: {
       threshold?: number;
+      period?: number;
+      evaluationPeriods?: number;
+      dataPointsToAlarm?: number;
       actions?: string[];
     };
     httpLatency?: {
       threshold?: number;
+      period?: number;
+      evaluationPeriods?: number;
+      dataPointsToAlarm?: number;
       actions?: string[];
     };
     httpRequestCount?: {
       threshold?: number;
+      period?: number;
+      evaluationPeriods?: number;
+      dataPointsToAlarm?: number;
       actions?: string[];
     };
     customAlarms?: CloudwatchMetricAlarmConfig[];
@@ -686,6 +695,8 @@ export class PocketALBApplication extends Resource {
   }
 
   private createCloudwatchAlarms(): void {
+    const alarmsConfig = this.config.alarms;
+
     const defaultAlarms: CloudwatchMetricAlarmConfig[] = [
       {
         alarmName: `${this.config.prefix}-Alarm-HTTP5xxErrorRate`,
@@ -696,7 +707,7 @@ export class PocketALBApplication extends Resource {
               {
                 metricName: 'RequestCount',
                 namespace: 'AWS/ApplicationELB',
-                period: 60,
+                period: alarmsConfig?.http5xxError?.period ?? 60,
                 stat: 'Sum',
                 unit: 'Count',
                 dimensions: { LoadBalancer: this.alb.alb.arnSuffix },
@@ -709,7 +720,7 @@ export class PocketALBApplication extends Resource {
               {
                 metricName: 'HTTPCode_ELB_5XX_Count',
                 namespace: 'AWS/ApplicationELB',
-                period: 60,
+                period: alarmsConfig?.http5xxError?.period ?? 60,
                 stat: 'Sum',
                 unit: 'Count',
                 dimensions: { LoadBalancer: this.alb.alb.arnSuffix },
@@ -724,11 +735,12 @@ export class PocketALBApplication extends Resource {
           },
         ],
         comparisonOperator: 'GreaterThanOrEqualToThreshold',
-        evaluationPeriods: 5,
-        threshold: this.config.alarms?.http5xxError?.threshold ?? 5,
+        evaluationPeriods: alarmsConfig?.http5xxError?.evaluationPeriods ?? 5,
+        datapointsToAlarm: alarmsConfig?.http5xxError?.dataPointsToAlarm ?? 1,
+        threshold: alarmsConfig?.http5xxError?.threshold ?? 5,
         insufficientDataActions: [],
-        alarmActions: this.config.alarms?.http5xxError?.actions ?? [],
-        okActions: this.config.alarms?.http5xxError?.actions ?? [],
+        alarmActions: alarmsConfig?.http5xxError?.actions ?? [],
+        okActions: alarmsConfig?.http5xxError?.actions ?? [],
         tags: this.config.tags,
         alarmDescription: 'Percentage of 5xx responses exceeds threshold',
       },
@@ -737,15 +749,16 @@ export class PocketALBApplication extends Resource {
         namespace: 'AWS/ApplicationELB',
         metricName: 'TargetResponseTime',
         dimensions: { LoadBalancer: this.alb.alb.arnSuffix },
-        period: 300,
-        evaluationPeriods: 1,
+        period: alarmsConfig?.httpLatency?.period ?? 300,
+        evaluationPeriods: alarmsConfig?.httpLatency?.evaluationPeriods ?? 1,
+        datapointsToAlarm: alarmsConfig?.httpLatency?.dataPointsToAlarm ?? 1,
         statistic: 'Average',
         comparisonOperator: 'GreaterThanThreshold',
-        threshold: this.config.alarms?.httpLatency?.threshold ?? 300,
+        threshold: alarmsConfig?.httpLatency?.threshold ?? 300,
         alarmDescription: 'Average HTTP response time exceeds threshold',
         insufficientDataActions: [],
-        alarmActions: this.config.alarms?.httpLatency?.actions ?? [],
-        okActions: this.config.alarms?.httpLatency?.actions ?? [],
+        alarmActions: alarmsConfig?.httpLatency?.actions ?? [],
+        okActions: alarmsConfig?.httpLatency?.actions ?? [],
         tags: this.config.tags,
       },
       {
@@ -753,21 +766,24 @@ export class PocketALBApplication extends Resource {
         namespace: 'AWS/ApplicationELB',
         metricName: 'RequestCount',
         dimensions: { LoadBalancer: this.alb.alb.arnSuffix },
-        period: 300,
-        evaluationPeriods: 1,
+        period: alarmsConfig?.httpRequestCount?.period ?? 300,
+        evaluationPeriods:
+          alarmsConfig?.httpRequestCount?.evaluationPeriods ?? 1,
+        datapointsToAlarm:
+          alarmsConfig?.httpRequestCount?.dataPointsToAlarm ?? 1,
         statistic: 'Sum',
         comparisonOperator: 'GreaterThanThreshold',
-        threshold: this.config.alarms?.httpRequestCount?.threshold ?? 500,
+        threshold: alarmsConfig?.httpRequestCount?.threshold ?? 500,
         alarmDescription: 'Total HTTP request count exceeds threshold',
         insufficientDataActions: [],
-        alarmActions: this.config.alarms?.httpLatency?.actions ?? [],
-        okActions: this.config.alarms?.httpLatency?.actions ?? [],
+        alarmActions: alarmsConfig?.httpLatency?.actions ?? [],
+        okActions: alarmsConfig?.httpLatency?.actions ?? [],
         tags: this.config.tags,
       },
     ];
 
-    if (this.config.alarms?.customAlarms) {
-      defaultAlarms.push(...this.config.alarms.customAlarms);
+    if (alarmsConfig?.customAlarms) {
+      defaultAlarms.push(...alarmsConfig.customAlarms);
     }
 
     this.createAlarms(defaultAlarms);
