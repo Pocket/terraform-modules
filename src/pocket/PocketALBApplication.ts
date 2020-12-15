@@ -56,21 +56,21 @@ export interface PocketALBApplicationProps {
       threshold?: number;
       period?: number;
       evaluationPeriods?: number;
-      dataPointsToAlarm?: number;
+      datapointsToAlarm?: number;
       actions?: string[];
     };
     httpLatency?: {
       threshold?: number;
       period?: number;
       evaluationPeriods?: number;
-      dataPointsToAlarm?: number;
+      datapointsToAlarm?: number;
       actions?: string[];
     };
     httpRequestCount?: {
       threshold?: number;
       period?: number;
       evaluationPeriods?: number;
-      dataPointsToAlarm?: number;
+      datapointsToAlarm?: number;
       actions?: string[];
     };
     customAlarms?: CloudwatchMetricAlarmConfig[];
@@ -147,6 +147,45 @@ export class PocketALBApplication extends Resource {
    * @private
    */
   private static validateConfig(
+    config: PocketALBApplicationProps
+  ): PocketALBApplicationProps {
+    config = PocketALBApplication.validateCachedALB(config);
+
+    PocketALBApplication.validateAlarmsConfig(config.alarms);
+
+    return config;
+  }
+
+  private static validateAlarmsConfig(
+    config: PocketALBApplicationProps['alarms']
+  ): void {
+    if (!config) return;
+
+    const alarmsToValidate = {
+      http5xxError: 'HTTP 5xx Error',
+      httpLatency: 'HTTP Latency',
+      httpRequestCount: 'HTTP Request Count',
+    };
+
+    const errorMessage =
+      'DatapointsToAlarm must be less than or equal to EvaluationPeriods';
+
+    Object.keys(alarmsToValidate).forEach((key) => {
+      if (
+        config[key]?.datapointsToAlarm > (config[key]?.evaluationPeriods ?? 1)
+      ) {
+        throw new Error(`${alarmsToValidate[key]} Alarm: ${errorMessage}`);
+      }
+    });
+
+    config.customAlarms?.forEach((alarm: CloudwatchMetricAlarmConfig) => {
+      if (alarm.datapointsToAlarm > alarm.evaluationPeriods) {
+        throw new Error(`${alarm.alarmName}: ${errorMessage}`);
+      }
+    });
+  }
+
+  private static validateCachedALB(
     config: PocketALBApplicationProps
   ): PocketALBApplicationProps {
     if (config.cdn === undefined) {
@@ -699,7 +738,7 @@ export class PocketALBApplication extends Resource {
 
     const defaultAlarms: CloudwatchMetricAlarmConfig[] = [
       {
-        alarmName: `${this.config.prefix}-Alarm-HTTP5xxErrorRate`,
+        alarmName: 'Alarm-HTTP5xxErrorRate',
         metricQuery: [
           {
             id: 'requests',
@@ -736,7 +775,7 @@ export class PocketALBApplication extends Resource {
         ],
         comparisonOperator: 'GreaterThanOrEqualToThreshold',
         evaluationPeriods: alarmsConfig?.http5xxError?.evaluationPeriods ?? 5,
-        datapointsToAlarm: alarmsConfig?.http5xxError?.dataPointsToAlarm ?? 1,
+        datapointsToAlarm: alarmsConfig?.http5xxError?.datapointsToAlarm ?? 1,
         threshold: alarmsConfig?.http5xxError?.threshold ?? 5,
         insufficientDataActions: [],
         alarmActions: alarmsConfig?.http5xxError?.actions ?? [],
@@ -745,13 +784,13 @@ export class PocketALBApplication extends Resource {
         alarmDescription: 'Percentage of 5xx responses exceeds threshold',
       },
       {
-        alarmName: `${this.config.prefix}-Alarm-HTTPResponseTime`,
+        alarmName: 'Alarm-HTTPResponseTime',
         namespace: 'AWS/ApplicationELB',
         metricName: 'TargetResponseTime',
         dimensions: { LoadBalancer: this.alb.alb.arnSuffix },
         period: alarmsConfig?.httpLatency?.period ?? 300,
         evaluationPeriods: alarmsConfig?.httpLatency?.evaluationPeriods ?? 1,
-        datapointsToAlarm: alarmsConfig?.httpLatency?.dataPointsToAlarm ?? 1,
+        datapointsToAlarm: alarmsConfig?.httpLatency?.datapointsToAlarm ?? 1,
         statistic: 'Average',
         comparisonOperator: 'GreaterThanThreshold',
         threshold: alarmsConfig?.httpLatency?.threshold ?? 300,
@@ -762,7 +801,7 @@ export class PocketALBApplication extends Resource {
         tags: this.config.tags,
       },
       {
-        alarmName: `${this.config.prefix}-Alarm-HTTPRequestCount`,
+        alarmName: 'Alarm-HTTPRequestCount',
         namespace: 'AWS/ApplicationELB',
         metricName: 'RequestCount',
         dimensions: { LoadBalancer: this.alb.alb.arnSuffix },
@@ -770,7 +809,7 @@ export class PocketALBApplication extends Resource {
         evaluationPeriods:
           alarmsConfig?.httpRequestCount?.evaluationPeriods ?? 1,
         datapointsToAlarm:
-          alarmsConfig?.httpRequestCount?.dataPointsToAlarm ?? 1,
+          alarmsConfig?.httpRequestCount?.datapointsToAlarm ?? 1,
         statistic: 'Sum',
         comparisonOperator: 'GreaterThanThreshold',
         threshold: alarmsConfig?.httpRequestCount?.threshold ?? 500,
