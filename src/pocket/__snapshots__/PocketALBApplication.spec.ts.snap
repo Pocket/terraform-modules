@@ -930,11 +930,11 @@ exports[`PocketALBApplication renders an application custom default alarms 1`] =
         \\"alarm_description\\": \\"Total HTTP request count exceeds threshold\\",
         \\"alarm_name\\": \\"testapp-Alarm-HTTPRequestCount\\",
         \\"comparison_operator\\": \\"GreaterThanThreshold\\",
-        \\"datapoints_to_alarm\\": 500,
+        \\"datapoints_to_alarm\\": 1,
         \\"dimensions\\": {
           \\"LoadBalancer\\": \\"\${aws_alb.testPocketApp_application_load_balancer_alb_D538DEEE.arn_suffix}\\"
         },
-        \\"evaluation_periods\\": 500,
+        \\"evaluation_periods\\": 1,
         \\"insufficient_data_actions\\": [],
         \\"metric_name\\": \\"RequestCount\\",
         \\"namespace\\": \\"AWS/ApplicationELB\\",
@@ -1971,11 +1971,11 @@ exports[`PocketALBApplication renders an application with autoscaling group and 
         \\"alarm_description\\": \\"Total HTTP request count exceeds threshold\\",
         \\"alarm_name\\": \\"testapp-Alarm-HTTPRequestCount\\",
         \\"comparison_operator\\": \\"GreaterThanThreshold\\",
-        \\"datapoints_to_alarm\\": 500,
+        \\"datapoints_to_alarm\\": 1,
         \\"dimensions\\": {
           \\"LoadBalancer\\": \\"\${aws_alb.testPocketApp_application_load_balancer_alb_D538DEEE.arn_suffix}\\"
         },
-        \\"evaluation_periods\\": 500,
+        \\"evaluation_periods\\": 1,
         \\"insufficient_data_actions\\": [],
         \\"metric_name\\": \\"RequestCount\\",
         \\"namespace\\": \\"AWS/ApplicationELB\\",
@@ -2941,11 +2941,11 @@ exports[`PocketALBApplication renders an application with custom task sizes 1`] 
         \\"alarm_description\\": \\"Total HTTP request count exceeds threshold\\",
         \\"alarm_name\\": \\"testapp-Alarm-HTTPRequestCount\\",
         \\"comparison_operator\\": \\"GreaterThanThreshold\\",
-        \\"datapoints_to_alarm\\": 500,
+        \\"datapoints_to_alarm\\": 1,
         \\"dimensions\\": {
           \\"LoadBalancer\\": \\"\${aws_alb.testPocketApp_application_load_balancer_alb_D538DEEE.arn_suffix}\\"
         },
-        \\"evaluation_periods\\": 500,
+        \\"evaluation_periods\\": 1,
         \\"insufficient_data_actions\\": [],
         \\"metric_name\\": \\"RequestCount\\",
         \\"namespace\\": \\"AWS/ApplicationELB\\",
@@ -3963,11 +3963,11 @@ exports[`PocketALBApplication renders an application with default autoscaling gr
         \\"alarm_description\\": \\"Total HTTP request count exceeds threshold\\",
         \\"alarm_name\\": \\"testapp-Alarm-HTTPRequestCount\\",
         \\"comparison_operator\\": \\"GreaterThanThreshold\\",
-        \\"datapoints_to_alarm\\": 500,
+        \\"datapoints_to_alarm\\": 1,
         \\"dimensions\\": {
           \\"LoadBalancer\\": \\"\${aws_alb.testPocketApp_application_load_balancer_alb_D538DEEE.arn_suffix}\\"
         },
-        \\"evaluation_periods\\": 500,
+        \\"evaluation_periods\\": 1,
         \\"insufficient_data_actions\\": [],
         \\"metric_name\\": \\"RequestCount\\",
         \\"namespace\\": \\"AWS/ApplicationELB\\",
@@ -4933,11 +4933,11 @@ exports[`PocketALBApplication renders an application with minimal config 1`] = `
         \\"alarm_description\\": \\"Total HTTP request count exceeds threshold\\",
         \\"alarm_name\\": \\"testapp-Alarm-HTTPRequestCount\\",
         \\"comparison_operator\\": \\"GreaterThanThreshold\\",
-        \\"datapoints_to_alarm\\": 500,
+        \\"datapoints_to_alarm\\": 1,
         \\"dimensions\\": {
           \\"LoadBalancer\\": \\"\${aws_alb.testPocketApp_application_load_balancer_alb_D538DEEE.arn_suffix}\\"
         },
-        \\"evaluation_periods\\": 500,
+        \\"evaluation_periods\\": 1,
         \\"insufficient_data_actions\\": [],
         \\"metric_name\\": \\"RequestCount\\",
         \\"namespace\\": \\"AWS/ApplicationELB\\",
@@ -5945,11 +5945,11 @@ exports[`PocketALBApplication renders an application with modified container def
         \\"alarm_description\\": \\"Total HTTP request count exceeds threshold\\",
         \\"alarm_name\\": \\"testapp-Alarm-HTTPRequestCount\\",
         \\"comparison_operator\\": \\"GreaterThanThreshold\\",
-        \\"datapoints_to_alarm\\": 500,
+        \\"datapoints_to_alarm\\": 1,
         \\"dimensions\\": {
           \\"LoadBalancer\\": \\"\${aws_alb.testPocketApp_application_load_balancer_alb_D538DEEE.arn_suffix}\\"
         },
-        \\"evaluation_periods\\": 500,
+        \\"evaluation_periods\\": 1,
         \\"insufficient_data_actions\\": [],
         \\"metric_name\\": \\"RequestCount\\",
         \\"namespace\\": \\"AWS/ApplicationELB\\",
@@ -7072,11 +7072,11 @@ exports[`PocketALBApplication renders an external application 1`] = `
         \\"alarm_description\\": \\"Total HTTP request count exceeds threshold\\",
         \\"alarm_name\\": \\"testapp-Alarm-HTTPRequestCount\\",
         \\"comparison_operator\\": \\"GreaterThanThreshold\\",
-        \\"datapoints_to_alarm\\": 500,
+        \\"datapoints_to_alarm\\": 1,
         \\"dimensions\\": {
           \\"LoadBalancer\\": \\"\${aws_alb.testPocketApp_application_load_balancer_alb_D538DEEE.arn_suffix}\\"
         },
-        \\"evaluation_periods\\": 500,
+        \\"evaluation_periods\\": 1,
         \\"insufficient_data_actions\\": [],
         \\"metric_name\\": \\"RequestCount\\",
         \\"namespace\\": \\"AWS/ApplicationELB\\",
@@ -8038,11 +8038,11 @@ exports[`PocketALBApplication renders an internal application 1`] = `
         \\"alarm_description\\": \\"Total HTTP request count exceeds threshold\\",
         \\"alarm_name\\": \\"testapp-Alarm-HTTPRequestCount\\",
         \\"comparison_operator\\": \\"GreaterThanThreshold\\",
-        \\"datapoints_to_alarm\\": 500,
+        \\"datapoints_to_alarm\\": 1,
         \\"dimensions\\": {
           \\"LoadBalancer\\": \\"\${aws_alb.testPocketApp_application_load_balancer_alb_D538DEEE.arn_suffix}\\"
         },
-        \\"evaluation_periods\\": 500,
+        \\"evaluation_periods\\": 1,
         \\"insufficient_data_actions\\": [],
         \\"metric_name\\": \\"RequestCount\\",
         \\"namespace\\": \\"AWS/ApplicationELB\\",
@@ -9060,11 +9060,11 @@ exports[`PocketALBApplication renders an internal application with tags 1`] = `
         \\"alarm_description\\": \\"Total HTTP request count exceeds threshold\\",
         \\"alarm_name\\": \\"testapp-Alarm-HTTPRequestCount\\",
         \\"comparison_operator\\": \\"GreaterThanThreshold\\",
-        \\"datapoints_to_alarm\\": 500,
+        \\"datapoints_to_alarm\\": 1,
         \\"dimensions\\": {
           \\"LoadBalancer\\": \\"\${aws_alb.testPocketApp_application_load_balancer_alb_D538DEEE.arn_suffix}\\"
         },
-        \\"evaluation_periods\\": 500,
+        \\"evaluation_periods\\": 1,
         \\"insufficient_data_actions\\": [],
         \\"metric_name\\": \\"RequestCount\\",
         \\"namespace\\": \\"AWS/ApplicationELB\\",
