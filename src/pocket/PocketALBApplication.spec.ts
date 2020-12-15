@@ -164,4 +164,115 @@ describe('PocketALBApplication', () => {
 
     expect(Testing.synth(stack)).toMatchSnapshot();
   });
+
+  it('renders an application custom default alarms', () => {
+    const app = Testing.app();
+    const stack = new TerraformStack(app, 'test');
+
+    const alarmConfig = {
+      ...BASE_CONFIG,
+      alarms: {
+        customAlarms: [
+          {
+            alarmName: `Alarm-Custom`,
+            namespace: 'TM/Alarm',
+            metricName: 'Custom',
+            dimensions: { Test: 'Alarm' },
+            period: 300,
+            statistic: 'Sum',
+            comparisonOperator: 'GreaterThanThreshold',
+            threshold: 500,
+            evaluationPeriods: 1,
+          },
+        ],
+      },
+    };
+
+    new PocketALBApplication(stack, 'testPocketApp', alarmConfig);
+
+    expect(Testing.synth(stack)).toMatchSnapshot();
+  });
+
+  it('validates http 5xx alarm config', () => {
+    const app = Testing.app();
+    const stack = new TerraformStack(app, 'test');
+
+    const alarmConfig = {
+      ...BASE_CONFIG,
+      alarms: {
+        http5xxError: {
+          datapointsToAlarm: 2,
+        },
+      },
+    };
+
+    expect(
+      () => new PocketALBApplication(stack, 'testPocketApp', alarmConfig)
+    ).toThrow(Error);
+  });
+
+  it('validates http latency alarm config', () => {
+    const app = Testing.app();
+    const stack = new TerraformStack(app, 'test');
+
+    const alarmConfig = {
+      ...BASE_CONFIG,
+      alarms: {
+        httpLatency: {
+          datapointsToAlarm: 2,
+        },
+      },
+    };
+
+    expect(
+      () => new PocketALBApplication(stack, 'testPocketApp', alarmConfig)
+    ).toThrow(Error);
+  });
+
+  it('validates http request count alarm config', () => {
+    const app = Testing.app();
+    const stack = new TerraformStack(app, 'test');
+
+    const alarmConfig = {
+      ...BASE_CONFIG,
+      alarms: {
+        httpRequestCount: {
+          datapointsToAlarm: 2,
+        },
+      },
+    };
+
+    expect(
+      () => new PocketALBApplication(stack, 'testPocketApp', alarmConfig)
+    ).toThrow(Error);
+  });
+
+  it('validates custom alarms config', () => {
+    const app = Testing.app();
+    const stack = new TerraformStack(app, 'test');
+
+    const alarmConfig = {
+      ...BASE_CONFIG,
+      alarms: {
+        customAlarms: [
+          {
+            alarmName: `Test-Alarm-Custom`,
+            namespace: 'TM/Alarm',
+            metricName: 'Custom',
+            dimensions: { Test: 'Alarm' },
+            period: 300,
+            statistic: 'Sum',
+            comparisonOperator: 'GreaterThanThreshold',
+            threshold: 500,
+            evaluationPeriods: 1,
+            datapointsToAlarm: 2,
+          },
+        ],
+      },
+    };
+
+    expect(
+      () => new PocketALBApplication(stack, 'testPocketApp', alarmConfig)
+    ).toThrow(Error);
+  });
 });
