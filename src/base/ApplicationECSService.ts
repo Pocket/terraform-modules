@@ -265,7 +265,7 @@ export class ApplicationECSService extends Resource {
       },
     ];
 
-    return new SecurityGroup(this, `ecs_security_group`, {
+    const securityGroup = new SecurityGroup(this, `ecs_security_group`, {
       namePrefix: `${this.config.prefix}-ECSSecurityGroup`,
       description: 'Internal ECS Security Group (Managed by Terraform)',
       vpcId: this.config.vpcId,
@@ -276,6 +276,13 @@ export class ApplicationECSService extends Resource {
         createBeforeDestroy: true,
       },
     });
+
+    // the following are included due to a bug
+    // https://github.com/hashicorp/terraform-cdk/issues/223
+    securityGroup.addOverride('ingress.0.self', null);
+    securityGroup.addOverride('egress.0.self', null);
+
+    return securityGroup;
   }
 
   /**

@@ -33,10 +33,15 @@ exports[`AppliationECSService renders an ECS service with full container definit
             \\"prefix_list_ids\\": [],
             \\"protocol\\": \\"-1\\",
             \\"security_groups\\": [],
+            \\"self\\": null,
             \\"to_port\\": 0
           }
         ],
-        \\"ingress\\": [],
+        \\"ingress\\": [
+          {
+            \\"self\\": null
+          }
+        ],
         \\"name_prefix\\": \\"abides-dev-ECSSecurityGroup\\",
         \\"vpc_id\\": \\"myhouse\\",
         \\"lifecycle\\": {
@@ -214,6 +219,7 @@ exports[`AppliationECSService renders an ECS service with full container definit
             \\"prefix_list_ids\\": [],
             \\"protocol\\": \\"-1\\",
             \\"security_groups\\": [],
+            \\"self\\": null,
             \\"to_port\\": 0
           }
         ],
@@ -228,6 +234,7 @@ exports[`AppliationECSService renders an ECS service with full container definit
             \\"security_groups\\": [
               \\"strike\\"
             ],
+            \\"self\\": null,
             \\"to_port\\": 3000
           }
         ],
@@ -478,10 +485,15 @@ exports[`AppliationECSService renders an ECS service with minimal config 1`] = `
             \\"prefix_list_ids\\": [],
             \\"protocol\\": \\"-1\\",
             \\"security_groups\\": [],
+            \\"self\\": null,
             \\"to_port\\": 0
           }
         ],
-        \\"ingress\\": [],
+        \\"ingress\\": [
+          {
+            \\"self\\": null
+          }
+        ],
         \\"name_prefix\\": \\"abides-dev-ECSSecurityGroup\\",
         \\"vpc_id\\": \\"myhouse\\",
         \\"lifecycle\\": {
@@ -658,10 +670,15 @@ exports[`AppliationECSService renders an ECS service without a log group contain
             \\"prefix_list_ids\\": [],
             \\"protocol\\": \\"-1\\",
             \\"security_groups\\": [],
+            \\"self\\": null,
             \\"to_port\\": 0
           }
         ],
-        \\"ingress\\": [],
+        \\"ingress\\": [
+          {
+            \\"self\\": null
+          }
+        ],
         \\"name_prefix\\": \\"abides-dev-ECSSecurityGroup\\",
         \\"vpc_id\\": \\"myhouse\\",
         \\"lifecycle\\": {
@@ -851,10 +868,15 @@ exports[`AppliationECSService renders an ECS service without an image container 
             \\"prefix_list_ids\\": [],
             \\"protocol\\": \\"-1\\",
             \\"security_groups\\": [],
+            \\"self\\": null,
             \\"to_port\\": 0
           }
         ],
-        \\"ingress\\": [],
+        \\"ingress\\": [
+          {
+            \\"self\\": null
+          }
+        ],
         \\"name_prefix\\": \\"abides-dev-ECSSecurityGroup\\",
         \\"vpc_id\\": \\"myhouse\\",
         \\"lifecycle\\": {

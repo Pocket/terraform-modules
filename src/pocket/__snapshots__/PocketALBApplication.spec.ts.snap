@@ -391,6 +391,7 @@ exports[`PocketALBApplication renders an application with autoscaling group and 
             \\"prefix_list_ids\\": [],
             \\"protocol\\": \\"-1\\",
             \\"security_groups\\": [],
+            \\"self\\": null,
             \\"to_port\\": 0
           }
         ],
@@ -405,6 +406,7 @@ exports[`PocketALBApplication renders an application with autoscaling group and 
             \\"security_groups\\": [
               \\"\${aws_security_group.testPocketApp_application_load_balancer_alb_security_group_91A27046.id}\\"
             ],
+            \\"self\\": null,
             \\"to_port\\": 8675309
           }
         ],
@@ -897,6 +899,7 @@ exports[`PocketALBApplication renders an application with autoscaling group and 
         \\"alarm_description\\": \\"Percentage of 5xx responses exceeds threshold\\",
         \\"alarm_name\\": \\"testapp-testapp-Alarm-HTTP5xxErrorRate\\",
         \\"comparison_operator\\": \\"GreaterThanOrEqualToThreshold\\",
+        \\"datapoints_to_alarm\\": 1,
         \\"evaluation_periods\\": 5,
         \\"insufficient_data_actions\\": [],
         \\"ok_actions\\": [],
@@ -955,6 +958,7 @@ exports[`PocketALBApplication renders an application with autoscaling group and 
         \\"alarm_description\\": \\"Average HTTP response time exceeds threshold\\",
         \\"alarm_name\\": \\"testapp-testapp-Alarm-HTTPResponseTime\\",
         \\"comparison_operator\\": \\"GreaterThanThreshold\\",
+        \\"datapoints_to_alarm\\": 1,
         \\"dimensions\\": {
           \\"LoadBalancer\\": \\"\${aws_alb.testPocketApp_application_load_balancer_alb_D538DEEE.arn_suffix}\\"
         },
@@ -982,6 +986,7 @@ exports[`PocketALBApplication renders an application with autoscaling group and 
         \\"alarm_description\\": \\"Total HTTP request count exceeds threshold\\",
         \\"alarm_name\\": \\"testapp-testapp-Alarm-HTTPRequestCount\\",
         \\"comparison_operator\\": \\"GreaterThanThreshold\\",
+        \\"datapoints_to_alarm\\": 1,
         \\"dimensions\\": {
           \\"LoadBalancer\\": \\"\${aws_alb.testPocketApp_application_load_balancer_alb_D538DEEE.arn_suffix}\\"
         },
@@ -1406,6 +1411,7 @@ exports[`PocketALBApplication renders an application with custom task sizes 1`] 
             \\"prefix_list_ids\\": [],
             \\"protocol\\": \\"-1\\",
             \\"security_groups\\": [],
+            \\"self\\": null,
             \\"to_port\\": 0
           }
         ],
@@ -1420,6 +1426,7 @@ exports[`PocketALBApplication renders an application with custom task sizes 1`] 
             \\"security_groups\\": [
               \\"\${aws_security_group.testPocketApp_application_load_balancer_alb_security_group_91A27046.id}\\"
             ],
+            \\"self\\": null,
             \\"to_port\\": 8675309
           }
         ],
@@ -1870,6 +1877,7 @@ exports[`PocketALBApplication renders an application with custom task sizes 1`] 
         \\"alarm_description\\": \\"Percentage of 5xx responses exceeds threshold\\",
         \\"alarm_name\\": \\"testapp-testapp-Alarm-HTTP5xxErrorRate\\",
         \\"comparison_operator\\": \\"GreaterThanOrEqualToThreshold\\",
+        \\"datapoints_to_alarm\\": 1,
         \\"evaluation_periods\\": 5,
         \\"insufficient_data_actions\\": [],
         \\"ok_actions\\": [],
@@ -1924,6 +1932,7 @@ exports[`PocketALBApplication renders an application with custom task sizes 1`] 
         \\"alarm_description\\": \\"Average HTTP response time exceeds threshold\\",
         \\"alarm_name\\": \\"testapp-testapp-Alarm-HTTPResponseTime\\",
         \\"comparison_operator\\": \\"GreaterThanThreshold\\",
+        \\"datapoints_to_alarm\\": 1,
         \\"dimensions\\": {
           \\"LoadBalancer\\": \\"\${aws_alb.testPocketApp_application_load_balancer_alb_D538DEEE.arn_suffix}\\"
         },
@@ -1947,6 +1956,7 @@ exports[`PocketALBApplication renders an application with custom task sizes 1`] 
         \\"alarm_description\\": \\"Total HTTP request count exceeds threshold\\",
         \\"alarm_name\\": \\"testapp-testapp-Alarm-HTTPRequestCount\\",
         \\"comparison_operator\\": \\"GreaterThanThreshold\\",
+        \\"datapoints_to_alarm\\": 1,
         \\"dimensions\\": {
           \\"LoadBalancer\\": \\"\${aws_alb.testPocketApp_application_load_balancer_alb_D538DEEE.arn_suffix}\\"
         },
@@ -2373,6 +2383,7 @@ exports[`PocketALBApplication renders an application with default autoscaling gr
             \\"prefix_list_ids\\": [],
             \\"protocol\\": \\"-1\\",
             \\"security_groups\\": [],
+            \\"self\\": null,
             \\"to_port\\": 0
           }
         ],
@@ -2387,6 +2398,7 @@ exports[`PocketALBApplication renders an application with default autoscaling gr
             \\"security_groups\\": [
               \\"\${aws_security_group.testPocketApp_application_load_balancer_alb_security_group_91A27046.id}\\"
             ],
+            \\"self\\": null,
             \\"to_port\\": 8675309
           }
         ],
@@ -2879,6 +2891,7 @@ exports[`PocketALBApplication renders an application with default autoscaling gr
         \\"alarm_description\\": \\"Percentage of 5xx responses exceeds threshold\\",
         \\"alarm_name\\": \\"testapp-testapp-Alarm-HTTP5xxErrorRate\\",
         \\"comparison_operator\\": \\"GreaterThanOrEqualToThreshold\\",
+        \\"datapoints_to_alarm\\": 1,
         \\"evaluation_periods\\": 5,
         \\"insufficient_data_actions\\": [],
         \\"ok_actions\\": [],
@@ -2937,6 +2950,7 @@ exports[`PocketALBApplication renders an application with default autoscaling gr
         \\"alarm_description\\": \\"Average HTTP response time exceeds threshold\\",
         \\"alarm_name\\": \\"testapp-testapp-Alarm-HTTPResponseTime\\",
         \\"comparison_operator\\": \\"GreaterThanThreshold\\",
+        \\"datapoints_to_alarm\\": 1,
         \\"dimensions\\": {
           \\"LoadBalancer\\": \\"\${aws_alb.testPocketApp_application_load_balancer_alb_D538DEEE.arn_suffix}\\"
         },
@@ -2964,6 +2978,7 @@ exports[`PocketALBApplication renders an application with default autoscaling gr
         \\"alarm_description\\": \\"Total HTTP request count exceeds threshold\\",
         \\"alarm_name\\": \\"testapp-testapp-Alarm-HTTPRequestCount\\",
         \\"comparison_operator\\": \\"GreaterThanThreshold\\",
+        \\"datapoints_to_alarm\\": 1,
         \\"dimensions\\": {
           \\"LoadBalancer\\": \\"\${aws_alb.testPocketApp_application_load_balancer_alb_D538DEEE.arn_suffix}\\"
         },
@@ -3388,6 +3403,7 @@ exports[`PocketALBApplication renders an application with minimal config 1`] = `
             \\"prefix_list_ids\\": [],
             \\"protocol\\": \\"-1\\",
             \\"security_groups\\": [],
+            \\"self\\": null,
             \\"to_port\\": 0
           }
         ],
@@ -3402,6 +3418,7 @@ exports[`PocketALBApplication renders an application with minimal config 1`] = `
             \\"security_groups\\": [
               \\"\${aws_security_group.testPocketApp_application_load_balancer_alb_security_group_91A27046.id}\\"
             ],
+            \\"self\\": null,
             \\"to_port\\": 8675309
           }
         ],
@@ -3852,6 +3869,7 @@ exports[`PocketALBApplication renders an application with minimal config 1`] = `
         \\"alarm_description\\": \\"Percentage of 5xx responses exceeds threshold\\",
         \\"alarm_name\\": \\"testapp-testapp-Alarm-HTTP5xxErrorRate\\",
         \\"comparison_operator\\": \\"GreaterThanOrEqualToThreshold\\",
+        \\"datapoints_to_alarm\\": 1,
         \\"evaluation_periods\\": 5,
         \\"insufficient_data_actions\\": [],
         \\"ok_actions\\": [],
@@ -3906,6 +3924,7 @@ exports[`PocketALBApplication renders an application with minimal config 1`] = `
         \\"alarm_description\\": \\"Average HTTP response time exceeds threshold\\",
         \\"alarm_name\\": \\"testapp-testapp-Alarm-HTTPResponseTime\\",
         \\"comparison_operator\\": \\"GreaterThanThreshold\\",
+        \\"datapoints_to_alarm\\": 1,
         \\"dimensions\\": {
           \\"LoadBalancer\\": \\"\${aws_alb.testPocketApp_application_load_balancer_alb_D538DEEE.arn_suffix}\\"
         },
@@ -3929,6 +3948,7 @@ exports[`PocketALBApplication renders an application with minimal config 1`] = `
         \\"alarm_description\\": \\"Total HTTP request count exceeds threshold\\",
         \\"alarm_name\\": \\"testapp-testapp-Alarm-HTTPRequestCount\\",
         \\"comparison_operator\\": \\"GreaterThanThreshold\\",
+        \\"datapoints_to_alarm\\": 1,
         \\"dimensions\\": {
           \\"LoadBalancer\\": \\"\${aws_alb.testPocketApp_application_load_balancer_alb_D538DEEE.arn_suffix}\\"
         },
@@ -4349,6 +4369,7 @@ exports[`PocketALBApplication renders an application with modified container def
             \\"prefix_list_ids\\": [],
             \\"protocol\\": \\"-1\\",
             \\"security_groups\\": [],
+            \\"self\\": null,
             \\"to_port\\": 0
           }
         ],
@@ -4363,6 +4384,7 @@ exports[`PocketALBApplication renders an application with modified container def
             \\"security_groups\\": [
               \\"\${aws_security_group.testPocketApp_application_load_balancer_alb_security_group_91A27046.id}\\"
             ],
+            \\"self\\": null,
             \\"to_port\\": 8675309
           }
         ],
@@ -4859,6 +4881,7 @@ exports[`PocketALBApplication renders an application with modified container def
         \\"alarm_description\\": \\"Percentage of 5xx responses exceeds threshold\\",
         \\"alarm_name\\": \\"testapp-testapp-Alarm-HTTP5xxErrorRate\\",
         \\"comparison_operator\\": \\"GreaterThanOrEqualToThreshold\\",
+        \\"datapoints_to_alarm\\": 1,
         \\"evaluation_periods\\": 5,
         \\"insufficient_data_actions\\": [],
         \\"ok_actions\\": [],
@@ -4913,6 +4936,7 @@ exports[`PocketALBApplication renders an application with modified container def
         \\"alarm_description\\": \\"Average HTTP response time exceeds threshold\\",
         \\"alarm_name\\": \\"testapp-testapp-Alarm-HTTPResponseTime\\",
         \\"comparison_operator\\": \\"GreaterThanThreshold\\",
+        \\"datapoints_to_alarm\\": 1,
         \\"dimensions\\": {
           \\"LoadBalancer\\": \\"\${aws_alb.testPocketApp_application_load_balancer_alb_D538DEEE.arn_suffix}\\"
         },
@@ -4936,6 +4960,7 @@ exports[`PocketALBApplication renders an application with modified container def
         \\"alarm_description\\": \\"Total HTTP request count exceeds threshold\\",
         \\"alarm_name\\": \\"testapp-testapp-Alarm-HTTPRequestCount\\",
         \\"comparison_operator\\": \\"GreaterThanThreshold\\",
+        \\"datapoints_to_alarm\\": 1,
         \\"dimensions\\": {
           \\"LoadBalancer\\": \\"\${aws_alb.testPocketApp_application_load_balancer_alb_D538DEEE.arn_suffix}\\"
         },
@@ -5403,6 +5428,7 @@ exports[`PocketALBApplication renders an external application 1`] = `
             \\"prefix_list_ids\\": [],
             \\"protocol\\": \\"-1\\",
             \\"security_groups\\": [],
+            \\"self\\": null,
             \\"to_port\\": 0
           }
         ],
@@ -5417,6 +5443,7 @@ exports[`PocketALBApplication renders an external application 1`] = `
             \\"security_groups\\": [
               \\"\${aws_security_group.testPocketApp_application_load_balancer_alb_security_group_91A27046.id}\\"
             ],
+            \\"self\\": null,
             \\"to_port\\": 8675309
           }
         ],
@@ -5981,6 +6008,7 @@ exports[`PocketALBApplication renders an external application 1`] = `
         \\"alarm_description\\": \\"Percentage of 5xx responses exceeds threshold\\",
         \\"alarm_name\\": \\"testapp-testapp-Alarm-HTTP5xxErrorRate\\",
         \\"comparison_operator\\": \\"GreaterThanOrEqualToThreshold\\",
+        \\"datapoints_to_alarm\\": 1,
         \\"evaluation_periods\\": 5,
         \\"insufficient_data_actions\\": [],
         \\"ok_actions\\": [],
@@ -6035,6 +6063,7 @@ exports[`PocketALBApplication renders an external application 1`] = `
         \\"alarm_description\\": \\"Average HTTP response time exceeds threshold\\",
         \\"alarm_name\\": \\"testapp-testapp-Alarm-HTTPResponseTime\\",
         \\"comparison_operator\\": \\"GreaterThanThreshold\\",
+        \\"datapoints_to_alarm\\": 1,
         \\"dimensions\\": {
           \\"LoadBalancer\\": \\"\${aws_alb.testPocketApp_application_load_balancer_alb_D538DEEE.arn_suffix}\\"
         },
@@ -6058,6 +6087,7 @@ exports[`PocketALBApplication renders an external application 1`] = `
         \\"alarm_description\\": \\"Total HTTP request count exceeds threshold\\",
         \\"alarm_name\\": \\"testapp-testapp-Alarm-HTTPRequestCount\\",
         \\"comparison_operator\\": \\"GreaterThanThreshold\\",
+        \\"datapoints_to_alarm\\": 1,
         \\"dimensions\\": {
           \\"LoadBalancer\\": \\"\${aws_alb.testPocketApp_application_load_balancer_alb_D538DEEE.arn_suffix}\\"
         },
@@ -6478,6 +6508,7 @@ exports[`PocketALBApplication renders an internal application 1`] = `
             \\"prefix_list_ids\\": [],
             \\"protocol\\": \\"-1\\",
             \\"security_groups\\": [],
+            \\"self\\": null,
             \\"to_port\\": 0
           }
         ],
@@ -6492,6 +6523,7 @@ exports[`PocketALBApplication renders an internal application 1`] = `
             \\"security_groups\\": [
               \\"\${aws_security_group.testPocketApp_application_load_balancer_alb_security_group_91A27046.id}\\"
             ],
+            \\"self\\": null,
             \\"to_port\\": 8675309
           }
         ],
@@ -6942,6 +6974,7 @@ exports[`PocketALBApplication renders an internal application 1`] = `
         \\"alarm_description\\": \\"Percentage of 5xx responses exceeds threshold\\",
         \\"alarm_name\\": \\"testapp-testapp-Alarm-HTTP5xxErrorRate\\",
         \\"comparison_operator\\": \\"GreaterThanOrEqualToThreshold\\",
+        \\"datapoints_to_alarm\\": 1,
         \\"evaluation_periods\\": 5,
         \\"insufficient_data_actions\\": [],
         \\"ok_actions\\": [],
@@ -6996,6 +7029,7 @@ exports[`PocketALBApplication renders an internal application 1`] = `
         \\"alarm_description\\": \\"Average HTTP response time exceeds threshold\\",
         \\"alarm_name\\": \\"testapp-testapp-Alarm-HTTPResponseTime\\",
         \\"comparison_operator\\": \\"GreaterThanThreshold\\",
+        \\"datapoints_to_alarm\\": 1,
         \\"dimensions\\": {
           \\"LoadBalancer\\": \\"\${aws_alb.testPocketApp_application_load_balancer_alb_D538DEEE.arn_suffix}\\"
         },
@@ -7019,6 +7053,7 @@ exports[`PocketALBApplication renders an internal application 1`] = `
         \\"alarm_description\\": \\"Total HTTP request count exceeds threshold\\",
         \\"alarm_name\\": \\"testapp-testapp-Alarm-HTTPRequestCount\\",
         \\"comparison_operator\\": \\"GreaterThanThreshold\\",
+        \\"datapoints_to_alarm\\": 1,
         \\"dimensions\\": {
           \\"LoadBalancer\\": \\"\${aws_alb.testPocketApp_application_load_balancer_alb_D538DEEE.arn_suffix}\\"
         },
@@ -7445,6 +7480,7 @@ exports[`PocketALBApplication renders an internal application with tags 1`] = `
             \\"prefix_list_ids\\": [],
             \\"protocol\\": \\"-1\\",
             \\"security_groups\\": [],
+            \\"self\\": null,
             \\"to_port\\": 0
           }
         ],
@@ -7459,6 +7495,7 @@ exports[`PocketALBApplication renders an internal application with tags 1`] = `
             \\"security_groups\\": [
               \\"\${aws_security_group.testPocketApp_application_load_balancer_alb_security_group_91A27046.id}\\"
             ],
+            \\"self\\": null,
             \\"to_port\\": 8675309
           }
         ],
@@ -7951,6 +7988,7 @@ exports[`PocketALBApplication renders an internal application with tags 1`] = `
         \\"alarm_description\\": \\"Percentage of 5xx responses exceeds threshold\\",
         \\"alarm_name\\": \\"testapp-testapp-Alarm-HTTP5xxErrorRate\\",
         \\"comparison_operator\\": \\"GreaterThanOrEqualToThreshold\\",
+        \\"datapoints_to_alarm\\": 1,
         \\"evaluation_periods\\": 5,
         \\"insufficient_data_actions\\": [],
         \\"ok_actions\\": [],
@@ -8009,6 +8047,7 @@ exports[`PocketALBApplication renders an internal application with tags 1`] = `
         \\"alarm_description\\": \\"Average HTTP response time exceeds threshold\\",
         \\"alarm_name\\": \\"testapp-testapp-Alarm-HTTPResponseTime\\",
         \\"comparison_operator\\": \\"GreaterThanThreshold\\",
+        \\"datapoints_to_alarm\\": 1,
         \\"dimensions\\": {
           \\"LoadBalancer\\": \\"\${aws_alb.testPocketApp_application_load_balancer_alb_D538DEEE.arn_suffix}\\"
         },
@@ -8036,6 +8075,7 @@ exports[`PocketALBApplication renders an internal application with tags 1`] = `
         \\"alarm_description\\": \\"Total HTTP request count exceeds threshold\\",
         \\"alarm_name\\": \\"testapp-testapp-Alarm-HTTPRequestCount\\",
         \\"comparison_operator\\": \\"GreaterThanThreshold\\",
+        \\"datapoints_to_alarm\\": 1,
         \\"dimensions\\": {
           \\"LoadBalancer\\": \\"\${aws_alb.testPocketApp_application_load_balancer_alb_D538DEEE.arn_suffix}\\"
         },

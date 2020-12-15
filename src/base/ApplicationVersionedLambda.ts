@@ -87,15 +87,12 @@ export class ApplicationVersionedLambda extends Resource {
         ].filter((v: string) => v),
       },
       tags: this.config.tags,
+      environment: this.config.environment
+        ? [{ variables: this.config.environment }]
+        : undefined,
     };
 
     const lambda = new LambdaFunction(this, 'lambda', lambdaConfig);
-
-    if (this.config.environment) {
-      lambda.addOverride('environment', [
-        { variables: this.config.environment },
-      ]);
-    }
 
     new CloudwatchLogGroup(this, 'log-group', {
       name: `/aws/lambda/${lambda.functionName}`,
