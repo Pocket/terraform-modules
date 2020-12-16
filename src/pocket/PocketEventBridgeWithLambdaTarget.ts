@@ -89,7 +89,7 @@ export class PocketEventBridgeWithLambdaTarget extends Resource {
 
   private static validateConfig(
     config: PocketEventBridgeWithLambdaTargetProps
-  ) {
+  ): void {
     if (!config.lambda.alarms) return;
 
     const alarms = {
@@ -115,7 +115,7 @@ export class PocketEventBridgeWithLambdaTarget extends Resource {
     });
   }
 
-  private createLambdaAlarms(lambda: ApplicationVersionedLambda) {
+  private createLambdaAlarms(lambda: ApplicationVersionedLambda): void {
     const alarmsConfig = this.config.lambda.alarms;
 
     if (alarmsConfig.invocations) {
@@ -139,14 +139,14 @@ export class PocketEventBridgeWithLambdaTarget extends Resource {
     }
   }
 
-  private createLambdaDurationAlarm(lambda: ApplicationVersionedLambda) {
+  private createLambdaDurationAlarm(lambda: ApplicationVersionedLambda): void {
     this.createLambdaAlarm(lambda, {
       metricName: 'Duration',
       props: this.config.lambda.alarms.duration,
     });
   }
 
-  private createLambdaThrottlesAlarm(lambda: ApplicationVersionedLambda) {
+  private createLambdaThrottlesAlarm(lambda: ApplicationVersionedLambda): void {
     this.createLambdaAlarm(lambda, {
       metricName: 'Throttles',
       props: this.config.lambda.alarms.throttles,
@@ -155,21 +155,23 @@ export class PocketEventBridgeWithLambdaTarget extends Resource {
 
   private createLambdaConcurrentExecutionsAlarm(
     lambda: ApplicationVersionedLambda
-  ) {
+  ): void {
     this.createLambdaAlarm(lambda, {
       metricName: 'ConcurrentExecutions',
       props: this.config.lambda.alarms.concurrentExecutions,
     });
   }
 
-  private createLambdaErrorsAlarm(lambda: ApplicationVersionedLambda) {
+  private createLambdaErrorsAlarm(lambda: ApplicationVersionedLambda): void {
     this.createLambdaAlarm(lambda, {
       metricName: 'Errors',
       props: this.config.lambda.alarms.errors,
     });
   }
 
-  private createLambdaInvocationsAlarm(lambda: ApplicationVersionedLambda) {
+  private createLambdaInvocationsAlarm(
+    lambda: ApplicationVersionedLambda
+  ): void {
     this.createLambdaAlarm(lambda, {
       metricName: 'Invocations',
       props: this.config.lambda.alarms.invocations,
@@ -182,7 +184,7 @@ export class PocketEventBridgeWithLambdaTarget extends Resource {
       metricName: string;
       props: PocketEventBridgeWithLambdaTargetDefaultAlarmProps;
     }
-  ) {
+  ): void {
     const props = config.props;
     const defaultEvaluationPeriods = 1;
 
@@ -210,7 +212,7 @@ export class PocketEventBridgeWithLambdaTarget extends Resource {
     });
   }
 
-  private createLambdaCodeDeploy() {
+  private createLambdaCodeDeploy(): void {
     const lambdaConfig = this.config.lambda;
 
     new ApplicationLambdaCodeDeploy(this, 'lambda-code-deploy', {
@@ -225,7 +227,7 @@ export class PocketEventBridgeWithLambdaTarget extends Resource {
   private createLambdaEventRuleResourcePermission(
     lambda: ApplicationVersionedLambda,
     eventBridgeRule: ApplicationEventBridgeRule
-  ) {
+  ): void {
     new LambdaPermission(this, 'lambda-permission', {
       action: 'lambda:InvokeFunction',
       functionName: lambda.versionedLambda.functionName,
@@ -236,7 +238,9 @@ export class PocketEventBridgeWithLambdaTarget extends Resource {
     });
   }
 
-  private createEventBridgeRule(lambda: ApplicationVersionedLambda) {
+  private createEventBridgeRule(
+    lambda: ApplicationVersionedLambda
+  ): ApplicationEventBridgeRule {
     const eventRuleConfig = this.config.eventRule;
 
     return new ApplicationEventBridgeRule(this, 'event-bridge-rule', {
@@ -253,7 +257,7 @@ export class PocketEventBridgeWithLambdaTarget extends Resource {
     });
   }
 
-  private createVersionedLambda() {
+  private createVersionedLambda(): ApplicationVersionedLambda {
     const lambdaConfig = this.config.lambda;
 
     return new ApplicationVersionedLambda(this, 'lambda', {
