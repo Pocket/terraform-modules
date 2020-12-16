@@ -118,63 +118,21 @@ export class PocketEventBridgeWithLambdaTarget extends Resource {
   private createLambdaAlarms(lambda: ApplicationVersionedLambda): void {
     const alarmsConfig = this.config.lambda.alarms;
 
-    if (alarmsConfig.invocations) {
-      this.createLambdaInvocationsAlarm(lambda);
-    }
+    const alarms = {
+      invocations: 'Invocations',
+      errors: 'Errors',
+      concurrentExecutions: 'ConcurrentExecutions',
+      throttles: 'Throttles',
+      duration: 'Duration',
+    };
 
-    if (alarmsConfig.errors) {
-      this.createLambdaErrorsAlarm(lambda);
-    }
-
-    if (alarmsConfig.concurrentExecutions) {
-      this.createLambdaConcurrentExecutionsAlarm(lambda);
-    }
-
-    if (alarmsConfig.throttles) {
-      this.createLambdaThrottlesAlarm(lambda);
-    }
-
-    if (alarmsConfig.duration) {
-      this.createLambdaDurationAlarm(lambda);
-    }
-  }
-
-  private createLambdaDurationAlarm(lambda: ApplicationVersionedLambda): void {
-    this.createLambdaAlarm(lambda, {
-      metricName: 'Duration',
-      props: this.config.lambda.alarms.duration,
-    });
-  }
-
-  private createLambdaThrottlesAlarm(lambda: ApplicationVersionedLambda): void {
-    this.createLambdaAlarm(lambda, {
-      metricName: 'Throttles',
-      props: this.config.lambda.alarms.throttles,
-    });
-  }
-
-  private createLambdaConcurrentExecutionsAlarm(
-    lambda: ApplicationVersionedLambda
-  ): void {
-    this.createLambdaAlarm(lambda, {
-      metricName: 'ConcurrentExecutions',
-      props: this.config.lambda.alarms.concurrentExecutions,
-    });
-  }
-
-  private createLambdaErrorsAlarm(lambda: ApplicationVersionedLambda): void {
-    this.createLambdaAlarm(lambda, {
-      metricName: 'Errors',
-      props: this.config.lambda.alarms.errors,
-    });
-  }
-
-  private createLambdaInvocationsAlarm(
-    lambda: ApplicationVersionedLambda
-  ): void {
-    this.createLambdaAlarm(lambda, {
-      metricName: 'Invocations',
-      props: this.config.lambda.alarms.invocations,
+    Object.keys(alarms).forEach((name) => {
+      if (alarmsConfig[name]) {
+        this.createLambdaAlarm(lambda, {
+          metricName: alarms[name],
+          props: this.config.lambda.alarms[name],
+        });
+      }
     });
   }
 
