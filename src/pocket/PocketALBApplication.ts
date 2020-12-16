@@ -21,6 +21,14 @@ import {
 } from '..';
 import { PocketVPC } from './PocketVPC';
 
+export interface PocketALBApplicationAlarmProps {
+  threshold?: number;
+  period?: number;
+  evaluationPeriods?: number;
+  datapointsToAlarm?: number;
+  actions?: string[];
+}
+
 export interface PocketALBApplicationProps {
   prefix: string;
   alb6CharacterPrefix: string;
@@ -52,27 +60,9 @@ export interface PocketALBApplicationProps {
     scaleOutThreshold?: number;
   };
   alarms?: {
-    http5xxError?: {
-      threshold?: number;
-      period?: number;
-      evaluationPeriods?: number;
-      datapointsToAlarm?: number;
-      actions?: string[];
-    };
-    httpLatency?: {
-      threshold?: number;
-      period?: number;
-      evaluationPeriods?: number;
-      datapointsToAlarm?: number;
-      actions?: string[];
-    };
-    httpRequestCount?: {
-      threshold?: number;
-      period?: number;
-      evaluationPeriods?: number;
-      datapointsToAlarm?: number;
-      actions?: string[];
-    };
+    http5xxError?: PocketALBApplicationAlarmProps;
+    httpLatency?: PocketALBApplicationAlarmProps;
+    httpRequestCount?: PocketALBApplicationAlarmProps;
     customAlarms?: CloudwatchMetricAlarmConfig[];
   };
 }
@@ -839,46 +829,9 @@ export class PocketALBApplication extends Resource {
 
   private createAlarms(alarms: CloudwatchMetricAlarmConfig[]): void {
     alarms.forEach((alarmConfig) => {
-      // Deep copy the alarm configurations to a new object to enable deletion of properties since they are
-      // readonly on the original objects interface
-      const alarmConfigCopy = JSON.parse(JSON.stringify(alarmConfig));
-
-      // Delete the dimensions properties from the copied config
-      // We have to delete the dimensions before overriding the them later
-      // because simply overriding the value does not produce the
-      // desired terraform JSON, see below
-      // \\"dimensions\\": {
-      //    \\"load_balancer\\": \\"test_alb\\"
-      //    \\"LoadBalancer\\": \\"test_alb\\"
-      // }
-      delete alarmConfigCopy.dimensions;
-      alarmConfigCopy.metricQuery?.forEach((query) => {
-        query.metric?.forEach((metric) => delete metric.dimensions);
-      });
-
-      // Create the alarm using the copied config that excludes the dimensions properties
-      const alarm = new CloudwatchMetricAlarm(
-        this,
-        alarmConfig.alarmName.toLowerCase(),
-        {
-          ...alarmConfigCopy,
-          alarmName: `${this.config.prefix}-${alarmConfig.alarmName}`,
-        }
-      );
-
-      // Use the escape hatch to add dimensions if any from the original config
-      if (alarmConfig.dimensions) {
-        alarm.addOverride(`dimensions`, alarmConfig.dimensions);
-      }
-      alarmConfig.metricQuery?.forEach((query, metricQueryIndex) => {
-        query.metric?.forEach((metric, metricIndex) => {
-          if (metric.dimensions) {
-            alarm.addOverride(
-              `metric_query.${metricQueryIndex}.metric.${metricIndex}.dimensions`,
-              metric.dimensions
-            );
-          }
-        });
+      new CloudwatchMetricAlarm(this, alarmConfig.alarmName.toLowerCase(), {
+        ...alarmConfig,
+        alarmName: `${this.config.prefix}-${alarmConfig.alarmName}`,
       });
     });
   }

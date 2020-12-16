@@ -151,7 +151,7 @@ export class ApplicationAutoscaling extends Resource {
       }
     );
 
-    const scaleOutAlarm = new CloudwatchMetricAlarm(this, `scale_out_alarm`, {
+    new CloudwatchMetricAlarm(this, `scale_out_alarm`, {
       alarmName: `${config.prefix} Service High CPU`,
       alarmDescription: 'Alarm to add capacity if CPU is high',
       comparisonOperator: 'GreaterThanThreshold',
@@ -162,24 +162,15 @@ export class ApplicationAutoscaling extends Resource {
       namespace: 'AWS/ECS',
       metricName: 'CPUUtilization',
       treatMissingData: 'notBreaching',
-      dimensions: {},
+      dimensions: {
+        ClusterName: config.ecsClusterName,
+        ServiceName: config.ecsServiceName,
+      },
       alarmActions: [applicationScaleOut.arn],
       tags: config.tags,
     });
 
-    // This override is related to CDK bug: https://github.com/hashicorp/terraform-cdk/issues/235
-    // CDK does not respect the case of keys and causing
-    // wrong synthesizing. For dimensions it will be:
-    // { cluster_name: 'testapp-', service_name: 'testapp-' }
-    // instead of:
-    // { ClusterName: 'testapp-', ServiceName: 'testapp-' }
-
-    scaleOutAlarm.addOverride('dimensions', {
-      ClusterName: config.ecsClusterName,
-      ServiceName: config.ecsServiceName,
-    });
-
-    const scaleInAlarm = new CloudwatchMetricAlarm(this, `scale_in_alarm`, {
+    new CloudwatchMetricAlarm(this, `scale_in_alarm`, {
       alarmName: `${config.prefix} Service Low CPU`,
       alarmDescription: 'Alarm to reduce capacity if container CPU is low',
       comparisonOperator: 'LessThanThreshold',
@@ -190,15 +181,12 @@ export class ApplicationAutoscaling extends Resource {
       namespace: 'AWS/ECS',
       metricName: 'CPUUtilization',
       treatMissingData: 'notBreaching',
-      dimensions: {},
+      dimensions: {
+        ClusterName: config.ecsClusterName,
+        ServiceName: config.ecsServiceName,
+      },
       alarmActions: [applicationScaleIn.arn],
       tags: config.tags,
-    });
-
-    // This override is related to CDK bug: https://github.com/hashicorp/terraform-cdk/issues/235
-    scaleInAlarm.addOverride('dimensions', {
-      ClusterName: config.ecsClusterName,
-      ServiceName: config.ecsServiceName,
     });
   }
 }
