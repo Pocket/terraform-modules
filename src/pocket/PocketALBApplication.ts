@@ -124,7 +124,7 @@ export class PocketALBApplication extends Resource {
     this.createCloudwatchDashboard(
       alb.alb.arnSuffix,
       ecsService.ecs.service.name,
-      ecsService.ecs.service.cluster
+      ecsService.cluster.cluster.name
     );
 
     this.createCloudwatchAlarms();
