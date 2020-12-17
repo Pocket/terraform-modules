@@ -28,6 +28,7 @@ export interface PocketEventBridgeWithLambdaTargetDefaultAlarmProps {
     | 'LessThanThreshold';
   alarmDescription?: string;
   actions?: string[];
+  treatMissingData?: 'missing' | 'notBreaching' | 'breaching' | 'ignore';
 }
 
 export interface PocketEventBridgeWithLambdaTargetProps {
@@ -167,6 +168,7 @@ export class PocketEventBridgeWithLambdaTarget extends Resource {
       alarmActions: props.actions ?? [],
       okActions: props.actions ?? [],
       tags: this.config.tags,
+      treatMissingData: props.treatMissingData ?? 'missing',
     });
   }
 
