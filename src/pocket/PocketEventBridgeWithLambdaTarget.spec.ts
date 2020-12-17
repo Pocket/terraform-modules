@@ -238,6 +238,27 @@ test('renders an event bridge and lambda target with alarms', () => {
   expect(Testing.synth(stack)).toMatchSnapshot();
 });
 
+test('it can treat missing data as breaching', () => {
+  const app = Testing.app();
+  const stack = new TerraformStack(app, 'test');
+
+  new PocketEventBridgeWithLambdaTarget(stack, 'test-event-bridge-lambda', {
+    ...config,
+    lambda: {
+      ...config.lambda,
+      alarms: {
+        invocations: {
+          period: 60,
+          threshold: 1,
+          treatMissingData: 'breaching',
+        },
+      },
+    },
+  });
+
+  expect(Testing.synth(stack)).toMatchSnapshot();
+});
+
 const testAlarmValidation = (alarmType: string) => {
   const app = Testing.app();
   const stack = new TerraformStack(app, 'test');
