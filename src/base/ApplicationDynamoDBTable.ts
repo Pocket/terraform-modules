@@ -5,6 +5,7 @@ import {
   DataAwsIamPolicyDocument,
   DynamodbTable,
   DynamodbTableConfig,
+  DynamodbTableGlobalSecondaryIndex,
   IamPolicy,
   IamRole,
   IamRolePolicyAttachment,
@@ -68,6 +69,7 @@ export class ApplicationDynamoDBTable extends Resource {
         config.readCapacity,
         this.dynamodb,
         ApplicationDynamoDBTableCapacityType.Read,
+        config.tableConfig.globalSecondaryIndex,
         config.tags
       );
     }
@@ -79,6 +81,7 @@ export class ApplicationDynamoDBTable extends Resource {
         config.writeCapacity,
         this.dynamodb,
         ApplicationDynamoDBTableCapacityType.Write,
+        config.tableConfig.globalSecondaryIndex,
         config.tags
       );
     }
@@ -100,29 +103,32 @@ export class ApplicationDynamoDBTable extends Resource {
     config: ApplicationDynamoDBTableAutoScaleProps,
     dynamoDB: DynamodbTable,
     capacityType: ApplicationDynamoDBTableCapacityType,
+    globalSecondaryIndexes: DynamodbTableGlobalSecondaryIndex[],
     tags?: { [key: string]: string }
   ): void {
+    const roleArn = ApplicationDynamoDBTable.createAutoScalingRole(
+      scope,
+      capacityType,
+      prefix,
+      dynamoDB.arn,
+      tags
+    );
+
     const targetTracking = new AppautoscalingTarget(
       scope,
-      `${capacityType}_target`,
+      `${capacityType}_table_target`,
       {
         maxCapacity: config.max,
         minCapacity: config.min,
         resourceId: `table/${dynamoDB.name}`,
         scalableDimension: `dynamodb:table:${capacityType}Units`,
-        roleArn: ApplicationDynamoDBTable.createAutoScalingRole(
-          scope,
-          capacityType,
-          prefix,
-          dynamoDB.arn,
-          tags
-        ),
+        roleArn: roleArn,
         serviceNamespace: 'dynamodb',
         dependsOn: [dynamoDB],
       }
     );
 
-    new AppautoscalingPolicy(scope, `${capacityType}_policy`, {
+    new AppautoscalingPolicy(scope, `${capacityType}_table_policy`, {
       name: `DynamoDB${capacityType}Utilization:${targetTracking.resourceId}`,
       policyType: 'TargetTrackingScaling',
       resourceId: targetTracking.resourceId,
@@ -140,6 +146,52 @@ export class ApplicationDynamoDBTable extends Resource {
       ],
       dependsOn: [targetTracking, dynamoDB],
     });
+
+    // TODO: do we want to assume that all global secondary indexes get a scaling policy?
+    if (globalSecondaryIndexes.length) {
+      globalSecondaryIndexes.forEach((gsIndex) => {
+        // min capacity is defined by the global secondary index
+        // max capacity is inherited from the table auto scaling config
+        // TODO: is this a good forced/default behavior?
+        const minCapacity =
+          capacityType === ApplicationDynamoDBTableCapacityType.Read
+            ? gsIndex.readCapacity
+            : gsIndex.writeCapacity;
+
+        const indexTargetTracking = new AppautoscalingTarget(
+          scope,
+          `${capacityType}_index_target`,
+          {
+            maxCapacity: config.max,
+            minCapacity: minCapacity,
+            resourceId: `table/${dynamoDB.name}/index/${gsIndex.name}`,
+            scalableDimension: `dynamodb:index:${capacityType}Units`,
+            roleArn: roleArn,
+            serviceNamespace: 'dynamodb',
+            dependsOn: [dynamoDB],
+          }
+        );
+
+        new AppautoscalingPolicy(scope, `${capacityType}_index_policy`, {
+          name: `DynamoDB${capacityType}Utilization:${targetTracking.resourceId}`,
+          policyType: 'TargetTrackingScaling',
+          resourceId: indexTargetTracking.resourceId,
+          scalableDimension: indexTargetTracking.scalableDimension,
+          serviceNamespace: indexTargetTracking.serviceNamespace,
+          targetTrackingScalingPolicyConfiguration: [
+            {
+              predefinedMetricSpecification: [
+                {
+                  predefinedMetricType: `DynamoDB${capacityType}Utilization`,
+                },
+              ],
+              targetValue: config.tracking,
+            },
+          ],
+          dependsOn: [indexTargetTracking, dynamoDB],
+        });
+      });
+    }
   }
 
   /**
@@ -177,7 +229,7 @@ export class ApplicationDynamoDBTable extends Resource {
             {
               effect: 'Allow',
               actions: ['dynamodb:DescribeTable', 'dynamodb:UpdateTable'],
-              resources: [dynamoDBARN, `${dynamoDBARN}*`],
+              resources: [dynamoDBARN, `${dynamoDBARN}*`], // 🏚
             },
           ],
         }
