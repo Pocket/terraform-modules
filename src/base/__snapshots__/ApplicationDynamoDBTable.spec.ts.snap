@@ -33,12 +33,6 @@ exports[`renders dynamo db table global secondary indexes 1`] = `
             \\"write_capacity\\": 5
           }
         ],
-        \\"lifecycle\\": {
-          \\"ignore_changes\\": [
-            \\"read_capacity\\",
-            \\"write_capacity\\"
-          ]
-        },
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/testDynamoDBTable/dynamodb_table\\",
@@ -137,9 +131,6 @@ exports[`renders dynamo db table global secondary indexes 1`] = `
         \\"role_arn\\": \\"\${aws_iam_role.testDynamoDBTable_ReadCapacity_role_2B9645BB.arn}\\",
         \\"scalable_dimension\\": \\"dynamodb:table:ReadCapacityUnits\\",
         \\"service_namespace\\": \\"dynamodb\\",
-        \\"depends_on\\": [
-          \\"aws_dynamodb_table.testDynamoDBTable_dynamodb_table_A3DD49A4\\"
-        ],
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/testDynamoDBTable/ReadCapacity_table_target\\",
@@ -154,9 +145,6 @@ exports[`renders dynamo db table global secondary indexes 1`] = `
         \\"role_arn\\": \\"\${aws_iam_role.testDynamoDBTable_ReadCapacity_role_2B9645BB.arn}\\",
         \\"scalable_dimension\\": \\"dynamodb:index:ReadCapacityUnits\\",
         \\"service_namespace\\": \\"dynamodb\\",
-        \\"depends_on\\": [
-          \\"aws_dynamodb_table.testDynamoDBTable_dynamodb_table_A3DD49A4\\"
-        ],
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/testDynamoDBTable/ReadCapacity_index_target\\",
@@ -171,9 +159,6 @@ exports[`renders dynamo db table global secondary indexes 1`] = `
         \\"role_arn\\": \\"\${aws_iam_role.testDynamoDBTable_WriteCapacity_role_4BB8E3F1.arn}\\",
         \\"scalable_dimension\\": \\"dynamodb:table:WriteCapacityUnits\\",
         \\"service_namespace\\": \\"dynamodb\\",
-        \\"depends_on\\": [
-          \\"aws_dynamodb_table.testDynamoDBTable_dynamodb_table_A3DD49A4\\"
-        ],
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/testDynamoDBTable/WriteCapacity_table_target\\",
@@ -188,9 +173,6 @@ exports[`renders dynamo db table global secondary indexes 1`] = `
         \\"role_arn\\": \\"\${aws_iam_role.testDynamoDBTable_WriteCapacity_role_4BB8E3F1.arn}\\",
         \\"scalable_dimension\\": \\"dynamodb:index:WriteCapacityUnits\\",
         \\"service_namespace\\": \\"dynamodb\\",
-        \\"depends_on\\": [
-          \\"aws_dynamodb_table.testDynamoDBTable_dynamodb_table_A3DD49A4\\"
-        ],
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/testDynamoDBTable/WriteCapacity_index_target\\",
@@ -216,10 +198,6 @@ exports[`renders dynamo db table global secondary indexes 1`] = `
             ]
           }
         ],
-        \\"depends_on\\": [
-          \\"aws_appautoscaling_target.testDynamoDBTable_ReadCapacity_table_target_CD047ED1\\",
-          \\"aws_dynamodb_table.testDynamoDBTable_dynamodb_table_A3DD49A4\\"
-        ],
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/testDynamoDBTable/ReadCapacity_table_policy\\",
@@ -228,7 +206,7 @@ exports[`renders dynamo db table global secondary indexes 1`] = `
         }
       },
       \\"testDynamoDBTable_ReadCapacity_index_policy_7812D8A1\\": {
-        \\"name\\": \\"DynamoDBReadCapacityUtilization:\${aws_appautoscaling_target.testDynamoDBTable_ReadCapacity_table_target_CD047ED1.resource_id}\\",
+        \\"name\\": \\"DynamoDBReadCapacityUtilization:\${aws_appautoscaling_target.testDynamoDBTable_ReadCapacity_index_target_7D04C4D2.resource_id}\\",
         \\"policy_type\\": \\"TargetTrackingScaling\\",
         \\"resource_id\\": \\"\${aws_appautoscaling_target.testDynamoDBTable_ReadCapacity_index_target_7D04C4D2.resource_id}\\",
         \\"scalable_dimension\\": \\"\${aws_appautoscaling_target.testDynamoDBTable_ReadCapacity_index_target_7D04C4D2.scalable_dimension}\\",
@@ -242,10 +220,6 @@ exports[`renders dynamo db table global secondary indexes 1`] = `
               }
             ]
           }
-        ],
-        \\"depends_on\\": [
-          \\"aws_appautoscaling_target.testDynamoDBTable_ReadCapacity_index_target_7D04C4D2\\",
-          \\"aws_dynamodb_table.testDynamoDBTable_dynamodb_table_A3DD49A4\\"
         ],
         \\"//\\": {
           \\"metadata\\": {
@@ -270,10 +244,6 @@ exports[`renders dynamo db table global secondary indexes 1`] = `
             ]
           }
         ],
-        \\"depends_on\\": [
-          \\"aws_appautoscaling_target.testDynamoDBTable_WriteCapacity_table_target_78393F1E\\",
-          \\"aws_dynamodb_table.testDynamoDBTable_dynamodb_table_A3DD49A4\\"
-        ],
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/testDynamoDBTable/WriteCapacity_table_policy\\",
@@ -282,7 +252,7 @@ exports[`renders dynamo db table global secondary indexes 1`] = `
         }
       },
       \\"testDynamoDBTable_WriteCapacity_index_policy_1159C70C\\": {
-        \\"name\\": \\"DynamoDBWriteCapacityUtilization:\${aws_appautoscaling_target.testDynamoDBTable_WriteCapacity_table_target_78393F1E.resource_id}\\",
+        \\"name\\": \\"DynamoDBWriteCapacityUtilization:\${aws_appautoscaling_target.testDynamoDBTable_WriteCapacity_index_target_0024C83F.resource_id}\\",
         \\"policy_type\\": \\"TargetTrackingScaling\\",
         \\"resource_id\\": \\"\${aws_appautoscaling_target.testDynamoDBTable_WriteCapacity_index_target_0024C83F.resource_id}\\",
         \\"scalable_dimension\\": \\"\${aws_appautoscaling_target.testDynamoDBTable_WriteCapacity_index_target_0024C83F.scalable_dimension}\\",
@@ -296,10 +266,6 @@ exports[`renders dynamo db table global secondary indexes 1`] = `
               }
             ]
           }
-        ],
-        \\"depends_on\\": [
-          \\"aws_appautoscaling_target.testDynamoDBTable_WriteCapacity_index_target_0024C83F\\",
-          \\"aws_dynamodb_table.testDynamoDBTable_dynamodb_table_A3DD49A4\\"
         ],
         \\"//\\": {
           \\"metadata\\": {
@@ -449,12 +415,6 @@ exports[`renders dynamo db table with minimal config 1`] = `
           }
         ],
         \\"global_secondary_index\\": [],
-        \\"lifecycle\\": {
-          \\"ignore_changes\\": [
-            \\"read_capacity\\",
-            \\"write_capacity\\"
-          ]
-        },
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/testDynamoDBTable/dynamodb_table\\",
@@ -487,12 +447,6 @@ exports[`renders dynamo db table with read and write capacity 1`] = `
           }
         ],
         \\"global_secondary_index\\": [],
-        \\"lifecycle\\": {
-          \\"ignore_changes\\": [
-            \\"read_capacity\\",
-            \\"write_capacity\\"
-          ]
-        },
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/testDynamoDBTable/dynamodb_table\\",
@@ -583,9 +537,6 @@ exports[`renders dynamo db table with read and write capacity 1`] = `
         \\"role_arn\\": \\"\${aws_iam_role.testDynamoDBTable_ReadCapacity_role_2B9645BB.arn}\\",
         \\"scalable_dimension\\": \\"dynamodb:table:ReadCapacityUnits\\",
         \\"service_namespace\\": \\"dynamodb\\",
-        \\"depends_on\\": [
-          \\"aws_dynamodb_table.testDynamoDBTable_dynamodb_table_A3DD49A4\\"
-        ],
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/testDynamoDBTable/ReadCapacity_table_target\\",
@@ -600,9 +551,6 @@ exports[`renders dynamo db table with read and write capacity 1`] = `
         \\"role_arn\\": \\"\${aws_iam_role.testDynamoDBTable_WriteCapacity_role_4BB8E3F1.arn}\\",
         \\"scalable_dimension\\": \\"dynamodb:table:WriteCapacityUnits\\",
         \\"service_namespace\\": \\"dynamodb\\",
-        \\"depends_on\\": [
-          \\"aws_dynamodb_table.testDynamoDBTable_dynamodb_table_A3DD49A4\\"
-        ],
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/testDynamoDBTable/WriteCapacity_table_target\\",
@@ -628,10 +576,6 @@ exports[`renders dynamo db table with read and write capacity 1`] = `
             ]
           }
         ],
-        \\"depends_on\\": [
-          \\"aws_appautoscaling_target.testDynamoDBTable_ReadCapacity_table_target_CD047ED1\\",
-          \\"aws_dynamodb_table.testDynamoDBTable_dynamodb_table_A3DD49A4\\"
-        ],
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/testDynamoDBTable/ReadCapacity_table_policy\\",
@@ -654,10 +598,6 @@ exports[`renders dynamo db table with read and write capacity 1`] = `
               }
             ]
           }
-        ],
-        \\"depends_on\\": [
-          \\"aws_appautoscaling_target.testDynamoDBTable_WriteCapacity_table_target_78393F1E\\",
-          \\"aws_dynamodb_table.testDynamoDBTable_dynamodb_table_A3DD49A4\\"
         ],
         \\"//\\": {
           \\"metadata\\": {
@@ -811,12 +751,6 @@ exports[`renders dynamo db table with read and write capacity and tags 1`] = `
           }
         ],
         \\"global_secondary_index\\": [],
-        \\"lifecycle\\": {
-          \\"ignore_changes\\": [
-            \\"read_capacity\\",
-            \\"write_capacity\\"
-          ]
-        },
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/testDynamoDBTable/dynamodb_table\\",
@@ -915,9 +849,6 @@ exports[`renders dynamo db table with read and write capacity and tags 1`] = `
         \\"role_arn\\": \\"\${aws_iam_role.testDynamoDBTable_ReadCapacity_role_2B9645BB.arn}\\",
         \\"scalable_dimension\\": \\"dynamodb:table:ReadCapacityUnits\\",
         \\"service_namespace\\": \\"dynamodb\\",
-        \\"depends_on\\": [
-          \\"aws_dynamodb_table.testDynamoDBTable_dynamodb_table_A3DD49A4\\"
-        ],
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/testDynamoDBTable/ReadCapacity_table_target\\",
@@ -932,9 +863,6 @@ exports[`renders dynamo db table with read and write capacity and tags 1`] = `
         \\"role_arn\\": \\"\${aws_iam_role.testDynamoDBTable_WriteCapacity_role_4BB8E3F1.arn}\\",
         \\"scalable_dimension\\": \\"dynamodb:table:WriteCapacityUnits\\",
         \\"service_namespace\\": \\"dynamodb\\",
-        \\"depends_on\\": [
-          \\"aws_dynamodb_table.testDynamoDBTable_dynamodb_table_A3DD49A4\\"
-        ],
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/testDynamoDBTable/WriteCapacity_table_target\\",
@@ -960,10 +888,6 @@ exports[`renders dynamo db table with read and write capacity and tags 1`] = `
             ]
           }
         ],
-        \\"depends_on\\": [
-          \\"aws_appautoscaling_target.testDynamoDBTable_ReadCapacity_table_target_CD047ED1\\",
-          \\"aws_dynamodb_table.testDynamoDBTable_dynamodb_table_A3DD49A4\\"
-        ],
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/testDynamoDBTable/ReadCapacity_table_policy\\",
@@ -986,10 +910,6 @@ exports[`renders dynamo db table with read and write capacity and tags 1`] = `
               }
             ]
           }
-        ],
-        \\"depends_on\\": [
-          \\"aws_appautoscaling_target.testDynamoDBTable_WriteCapacity_table_target_78393F1E\\",
-          \\"aws_dynamodb_table.testDynamoDBTable_dynamodb_table_A3DD49A4\\"
         ],
         \\"//\\": {
           \\"metadata\\": {
@@ -1139,12 +1059,6 @@ exports[`renders dynamo db table with read capacity 1`] = `
           }
         ],
         \\"global_secondary_index\\": [],
-        \\"lifecycle\\": {
-          \\"ignore_changes\\": [
-            \\"read_capacity\\",
-            \\"write_capacity\\"
-          ]
-        },
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/testDynamoDBTable/dynamodb_table\\",
@@ -1201,9 +1115,6 @@ exports[`renders dynamo db table with read capacity 1`] = `
         \\"role_arn\\": \\"\${aws_iam_role.testDynamoDBTable_ReadCapacity_role_2B9645BB.arn}\\",
         \\"scalable_dimension\\": \\"dynamodb:table:ReadCapacityUnits\\",
         \\"service_namespace\\": \\"dynamodb\\",
-        \\"depends_on\\": [
-          \\"aws_dynamodb_table.testDynamoDBTable_dynamodb_table_A3DD49A4\\"
-        ],
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/testDynamoDBTable/ReadCapacity_table_target\\",
@@ -1228,10 +1139,6 @@ exports[`renders dynamo db table with read capacity 1`] = `
               }
             ]
           }
-        ],
-        \\"depends_on\\": [
-          \\"aws_appautoscaling_target.testDynamoDBTable_ReadCapacity_table_target_CD047ED1\\",
-          \\"aws_dynamodb_table.testDynamoDBTable_dynamodb_table_A3DD49A4\\"
         ],
         \\"//\\": {
           \\"metadata\\": {
@@ -1325,12 +1232,6 @@ exports[`renders dynamo db table with write capacity 1`] = `
           }
         ],
         \\"global_secondary_index\\": [],
-        \\"lifecycle\\": {
-          \\"ignore_changes\\": [
-            \\"read_capacity\\",
-            \\"write_capacity\\"
-          ]
-        },
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/testDynamoDBTable/dynamodb_table\\",
@@ -1421,9 +1322,6 @@ exports[`renders dynamo db table with write capacity 1`] = `
         \\"role_arn\\": \\"\${aws_iam_role.testDynamoDBTable_ReadCapacity_role_2B9645BB.arn}\\",
         \\"scalable_dimension\\": \\"dynamodb:table:ReadCapacityUnits\\",
         \\"service_namespace\\": \\"dynamodb\\",
-        \\"depends_on\\": [
-          \\"aws_dynamodb_table.testDynamoDBTable_dynamodb_table_A3DD49A4\\"
-        ],
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/testDynamoDBTable/ReadCapacity_table_target\\",
@@ -1438,9 +1336,6 @@ exports[`renders dynamo db table with write capacity 1`] = `
         \\"role_arn\\": \\"\${aws_iam_role.testDynamoDBTable_WriteCapacity_role_4BB8E3F1.arn}\\",
         \\"scalable_dimension\\": \\"dynamodb:table:WriteCapacityUnits\\",
         \\"service_namespace\\": \\"dynamodb\\",
-        \\"depends_on\\": [
-          \\"aws_dynamodb_table.testDynamoDBTable_dynamodb_table_A3DD49A4\\"
-        ],
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/testDynamoDBTable/WriteCapacity_table_target\\",
@@ -1466,10 +1361,6 @@ exports[`renders dynamo db table with write capacity 1`] = `
             ]
           }
         ],
-        \\"depends_on\\": [
-          \\"aws_appautoscaling_target.testDynamoDBTable_ReadCapacity_table_target_CD047ED1\\",
-          \\"aws_dynamodb_table.testDynamoDBTable_dynamodb_table_A3DD49A4\\"
-        ],
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/testDynamoDBTable/ReadCapacity_table_policy\\",
@@ -1492,10 +1383,6 @@ exports[`renders dynamo db table with write capacity 1`] = `
               }
             ]
           }
-        ],
-        \\"depends_on\\": [
-          \\"aws_appautoscaling_target.testDynamoDBTable_WriteCapacity_table_target_78393F1E\\",
-          \\"aws_dynamodb_table.testDynamoDBTable_dynamodb_table_A3DD49A4\\"
         ],
         \\"//\\": {
           \\"metadata\\": {

@@ -57,9 +57,11 @@ export class ApplicationDynamoDBTable extends Resource {
       ...config.tableConfig,
       tags: config.tags,
       name: config.prefix,
-      lifecycle: {
-        ignoreChanges: ['read_capacity', 'write_capacity'],
-      },
+      // TODO: lifecycle doesn't appear to be supported by the interface anymore
+      // is this okay? can we drop this?
+      //lifecycle: {
+      //  ignoreChanges: ['read_capacity', 'write_capacity'],
+      //},
     });
 
     if (config.readCapacity) {
@@ -114,21 +116,99 @@ export class ApplicationDynamoDBTable extends Resource {
       tags
     );
 
+    // create an auto scaling policy for the table
+    ApplicationDynamoDBTable.createAutoScalingPolicy(
+      scope,
+      roleArn,
+      'table',
+      capacityType,
+      config.min,
+      config.max,
+      config.tracking,
+      dynamoDB.name
+    );
+
+    // create an auto scaling policy for each global secondary index
+    if (globalSecondaryIndexes.length) {
+      globalSecondaryIndexes.forEach((gsIndex) => {
+        // min capacity is defined by the global secondary index
+        // max capacity is inherited from the table auto scaling config
+        // TODO: if we want this to be configurabe per index, we'll need to extend the third-party interface
+        const minCapacity =
+          capacityType === ApplicationDynamoDBTableCapacityType.Read
+            ? gsIndex.readCapacity
+            : gsIndex.writeCapacity;
+
+        // create an auto scaling policy for each index
+        ApplicationDynamoDBTable.createAutoScalingPolicy(
+          scope,
+          roleArn,
+          'index',
+          capacityType,
+          minCapacity,
+          config.max,
+          config.tracking,
+          dynamoDB.name,
+          gsIndex.name
+        );
+      });
+    }
+  }
+
+  /**
+   * sets up autoscaling policy for a table or an index
+   * @param scope
+   * @param roleArn
+   * @param policyTarget
+   * @param capacityType
+   * @param minCapacity
+   * @param maxCapacity
+   * @param tracking
+   * @param tableName
+   * @param indexName
+   * @private
+   */
+  private static createAutoScalingPolicy(
+    scope: Construct,
+    roleArn: string,
+    policyTarget: 'table' | 'index',
+    capacityType: ApplicationDynamoDBTableCapacityType,
+    minCapacity: number,
+    maxCapacity: number,
+    tracking: number,
+    tableName: string,
+    indexName?: string
+  ): void {
+    let resourceId = `table/${tableName}`;
+
+    // if we're targeting an index, the resource id must reflect that
+    if (policyTarget === 'index') {
+      if (indexName) {
+        resourceId += `/index/${indexName}`;
+      } else {
+        throw new Error(
+          'you must specify an indexName when creating an index auto scaling policy'
+        );
+      }
+    }
+
     const targetTracking = new AppautoscalingTarget(
       scope,
-      `${capacityType}_table_target`,
+      `${capacityType}_${policyTarget}_target`,
       {
-        maxCapacity: config.max,
-        minCapacity: config.min,
-        resourceId: `table/${dynamoDB.name}`,
-        scalableDimension: `dynamodb:table:${capacityType}Units`,
+        maxCapacity,
+        minCapacity,
+        resourceId,
+        scalableDimension: `dynamodb:${policyTarget}:${capacityType}Units`,
         roleArn: roleArn,
         serviceNamespace: 'dynamodb',
-        dependsOn: [dynamoDB],
+        // TODO: the interface doesn't seem to support dependsOn any longer
+        // can we drop this?
+        //dependsOn: [dynamoDB],
       }
     );
 
-    new AppautoscalingPolicy(scope, `${capacityType}_table_policy`, {
+    new AppautoscalingPolicy(scope, `${capacityType}_${policyTarget}_policy`, {
       name: `DynamoDB${capacityType}Utilization:${targetTracking.resourceId}`,
       policyType: 'TargetTrackingScaling',
       resourceId: targetTracking.resourceId,
@@ -141,57 +221,13 @@ export class ApplicationDynamoDBTable extends Resource {
               predefinedMetricType: `DynamoDB${capacityType}Utilization`,
             },
           ],
-          targetValue: config.tracking,
+          targetValue: tracking,
         },
       ],
-      dependsOn: [targetTracking, dynamoDB],
+      // TODO: the interface doesn't seem to support dependsOn any longer
+      // can we drop this?
+      //dependsOn: [targetTracking, dynamoDB],
     });
-
-    // TODO: do we want to assume that all global secondary indexes get a scaling policy?
-    if (globalSecondaryIndexes.length) {
-      globalSecondaryIndexes.forEach((gsIndex) => {
-        // min capacity is defined by the global secondary index
-        // max capacity is inherited from the table auto scaling config
-        // TODO: is this a good forced/default behavior?
-        const minCapacity =
-          capacityType === ApplicationDynamoDBTableCapacityType.Read
-            ? gsIndex.readCapacity
-            : gsIndex.writeCapacity;
-
-        const indexTargetTracking = new AppautoscalingTarget(
-          scope,
-          `${capacityType}_index_target`,
-          {
-            maxCapacity: config.max,
-            minCapacity: minCapacity,
-            resourceId: `table/${dynamoDB.name}/index/${gsIndex.name}`,
-            scalableDimension: `dynamodb:index:${capacityType}Units`,
-            roleArn: roleArn,
-            serviceNamespace: 'dynamodb',
-            dependsOn: [dynamoDB],
-          }
-        );
-
-        new AppautoscalingPolicy(scope, `${capacityType}_index_policy`, {
-          name: `DynamoDB${capacityType}Utilization:${targetTracking.resourceId}`,
-          policyType: 'TargetTrackingScaling',
-          resourceId: indexTargetTracking.resourceId,
-          scalableDimension: indexTargetTracking.scalableDimension,
-          serviceNamespace: indexTargetTracking.serviceNamespace,
-          targetTrackingScalingPolicyConfiguration: [
-            {
-              predefinedMetricSpecification: [
-                {
-                  predefinedMetricType: `DynamoDB${capacityType}Utilization`,
-                },
-              ],
-              targetValue: config.tracking,
-            },
-          ],
-          dependsOn: [indexTargetTracking, dynamoDB],
-        });
-      });
-    }
   }
 
   /**
