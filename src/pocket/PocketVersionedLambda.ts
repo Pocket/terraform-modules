@@ -13,7 +13,7 @@ import {
 } from '../../.gen/providers/aws';
 import { ApplicationLambdaCodeDeploy } from '../base/ApplicationLambdaCodeDeploy';
 
-export interface PocketEventBridgeWithLambdaTargetDefaultAlarmProps {
+export interface PocketVersionedLambdaDefaultAlarmProps {
   threshold: number;
   period: number;
   evaluationPeriods?: number;
@@ -31,7 +31,7 @@ export interface PocketEventBridgeWithLambdaTargetDefaultAlarmProps {
   treatMissingData?: 'missing' | 'notBreaching' | 'breaching' | 'ignore';
 }
 
-export interface PocketEventBridgeWithLambdaTargetProps {
+export interface PocketVersionedLambdaProps {
   name: string;
   lambda: {
     description?: string;
@@ -50,47 +50,39 @@ export interface PocketEventBridgeWithLambdaTargetProps {
       accountId: string;
     };
     alarms?: {
-      invocations?: PocketEventBridgeWithLambdaTargetDefaultAlarmProps;
-      errors?: PocketEventBridgeWithLambdaTargetDefaultAlarmProps;
-      concurrentExecutions?: PocketEventBridgeWithLambdaTargetDefaultAlarmProps;
-      throttles?: PocketEventBridgeWithLambdaTargetDefaultAlarmProps;
-      duration?: PocketEventBridgeWithLambdaTargetDefaultAlarmProps;
+      invocations?: PocketVersionedLambdaDefaultAlarmProps;
+      errors?: PocketVersionedLambdaDefaultAlarmProps;
+      concurrentExecutions?: PocketVersionedLambdaDefaultAlarmProps;
+      throttles?: PocketVersionedLambdaDefaultAlarmProps;
+      duration?: PocketVersionedLambdaDefaultAlarmProps;
     };
-  };
-  eventRule: {
-    description?: string;
-    eventBusName?: string;
-    pattern: { [key: string]: any };
   };
   tags?: { [key: string]: string };
 }
 
-export class PocketEventBridgeWithLambdaTarget extends Resource {
+export class PocketVersionedLambda extends Resource {
+  public readonly lambda: ApplicationVersionedLambda;
   constructor(
     scope: Construct,
     name: string,
-    private readonly config: PocketEventBridgeWithLambdaTargetProps
+    protected readonly config: PocketVersionedLambdaProps
   ) {
     super(scope, name);
 
-    PocketEventBridgeWithLambdaTarget.validateConfig(config);
+    PocketVersionedLambda.validateConfig(config);
 
-    const lambda = this.createVersionedLambda();
-    const eventBridgeRule = this.createEventBridgeRule(lambda);
-    this.createLambdaEventRuleResourcePermission(lambda, eventBridgeRule);
+    this.lambda = this.createVersionedLambda();
 
     if (config.lambda.codeDeploy) {
       this.createLambdaCodeDeploy();
     }
 
     if (config.lambda.alarms) {
-      this.createLambdaAlarms(lambda);
+      this.createLambdaAlarms(this.lambda);
     }
   }
 
-  private static validateConfig(
-    config: PocketEventBridgeWithLambdaTargetProps
-  ): void {
+  private static validateConfig(config: PocketVersionedLambdaProps): void {
     if (!config.lambda.alarms) return;
 
     const alarms = {
@@ -141,7 +133,7 @@ export class PocketEventBridgeWithLambdaTarget extends Resource {
     lambda: ApplicationVersionedLambda,
     config: {
       metricName: string;
-      props: PocketEventBridgeWithLambdaTargetDefaultAlarmProps;
+      props: PocketVersionedLambdaDefaultAlarmProps;
     }
   ): void {
     const props = config.props;
@@ -181,39 +173,6 @@ export class PocketEventBridgeWithLambdaTarget extends Resource {
       detailType: lambdaConfig.codeDeploy.detailType,
       region: lambdaConfig.codeDeploy.region,
       accountId: lambdaConfig.codeDeploy.accountId,
-    });
-  }
-
-  private createLambdaEventRuleResourcePermission(
-    lambda: ApplicationVersionedLambda,
-    eventBridgeRule: ApplicationEventBridgeRule
-  ): void {
-    new LambdaPermission(this, 'lambda-permission', {
-      action: 'lambda:InvokeFunction',
-      functionName: lambda.versionedLambda.functionName,
-      qualifier: lambda.versionedLambda.name,
-      principal: 'events.amazonaws.com',
-      sourceArn: eventBridgeRule.rule.arn,
-      dependsOn: [lambda.versionedLambda, eventBridgeRule.rule],
-    });
-  }
-
-  private createEventBridgeRule(
-    lambda: ApplicationVersionedLambda
-  ): ApplicationEventBridgeRule {
-    const eventRuleConfig = this.config.eventRule;
-
-    return new ApplicationEventBridgeRule(this, 'event-bridge-rule', {
-      name: this.config.name,
-      description: eventRuleConfig.description,
-      eventBusName: eventRuleConfig.eventBusName,
-      eventPattern: eventRuleConfig.pattern,
-      target: {
-        targetId: 'lambda',
-        arn: lambda.versionedLambda.arn,
-        dependsOn: lambda.versionedLambda,
-      },
-      tags: this.config.tags,
     });
   }
 
