@@ -4,7 +4,6 @@ import {
   PocketSQSWithLambdaTarget,
   PocketSQSWithLambdaTargetProps,
 } from './PocketSQSWithLambdaTarget';
-import { ApplicationSQSQueue } from '../base/ApplicationSQSQueue';
 
 const config: PocketSQSWithLambdaTargetProps = {
   name: 'test-sqs-lambda',

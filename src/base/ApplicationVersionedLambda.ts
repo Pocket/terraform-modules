@@ -6,7 +6,6 @@ import {
   DataAwsIamPolicyDocumentStatement,
   IamPolicy,
   IamRole,
-  IamRolePolicy,
   IamRolePolicyAttachment,
   LambdaAlias,
   LambdaFunction,
