@@ -1,7 +1,6 @@
 import { Resource } from 'cdktf';
 import { Construct } from 'constructs';
 import { SqsQueue } from '../../.gen/providers/aws';
-import { PocketVersionedLambdaProps } from '../pocket/PocketVersionedLambda';
 
 export interface ApplicationSQSQueueProps {
   /**

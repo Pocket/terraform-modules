@@ -9,7 +9,12 @@ import {
   ApplicationSQSQueueProps,
 } from '../base/ApplicationSQSQueue';
 import { ApplicationVersionedLambda } from '../base/ApplicationVersionedLambda';
-import { LambdaEventSourceMapping } from '../../.gen/providers/aws';
+import {
+  DataAwsIamPolicyDocument,
+  IamRole,
+  IamRolePolicy,
+  LambdaEventSourceMapping,
+} from '../../.gen/providers/aws';
 
 export interface PocketSQSWithLambdaTargetProps
   extends PocketVersionedLambdaProps {
@@ -40,6 +45,10 @@ export class PocketSQSWithLambdaTarget extends PocketVersionedLambda {
       name: `${config.name}-Queue`,
       tags: config.tags,
     });
+    this.createSQSExecutionPolicyOnLambda(
+      this.lambda.lambdaExecutionRole,
+      this.sqsQueue
+    );
     this.createEventSourceMapping(this.lambda, this.sqsQueue, config);
   }
 
@@ -62,6 +71,38 @@ export class PocketSQSWithLambdaTarget extends PocketVersionedLambda {
       eventSourceArn: sqsQueue.sqsQueue.arn,
       functionName: lambda.versionedLambda.arn,
       batchSize: config.batchSize,
+    });
+  }
+
+  /**
+   * Allow the Lambda to access the sqs queue
+   * @param executionRole
+   * @param sqsQueue
+   * @private
+   */
+  private createSQSExecutionPolicyOnLambda(
+    executionRole: IamRole,
+    sqsQueue: ApplicationSQSQueue
+  ): IamRolePolicy {
+    return new IamRolePolicy(this, 'execution-role-policy', {
+      name: `${this.config.name}-ExecutionRolePolicy`,
+      policy: new DataAwsIamPolicyDocument(this, `sqs_lambda_policy`, {
+        statement: [
+          {
+            effect: 'Allow',
+            actions: [
+              'sqs:SendMessage',
+              'sqs:ReceiveMessage',
+              'sqs:DeleteMessage',
+              'sqs:GetQueueAttributes',
+              'sqs:ChangeMessageVisibility',
+            ],
+            resources: [sqsQueue.sqsQueue.arn],
+          },
+        ],
+      }).json,
+      role: executionRole.name,
+      dependsOn: [executionRole],
     });
   }
 }
