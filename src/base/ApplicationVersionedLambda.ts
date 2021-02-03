@@ -4,8 +4,10 @@ import {
   CloudwatchLogGroup,
   DataAwsIamPolicyDocument,
   DataAwsIamPolicyDocumentStatement,
+  IamPolicy,
   IamRole,
   IamRolePolicy,
+  IamRolePolicyAttachment,
   LambdaAlias,
   LambdaFunction,
   LambdaFunctionConfig,
@@ -62,11 +64,15 @@ export class ApplicationVersionedLambda extends Resource {
       assumeRolePolicy: this.getLambdaAssumePolicyDocument(),
     });
 
-    new IamRolePolicy(this, 'execution-role-policy', {
+    const executionPolicy = new IamPolicy(this, 'execution-policy', {
       name: `${this.config.name}-ExecutionRolePolicy`,
       policy: this.getLambdaExecutionPolicyDocument(),
+    });
+
+    new IamRolePolicyAttachment(this, 'execution-role-policy-attachment', {
       role: this.lambdaExecutionRole.name,
-      dependsOn: [this.lambdaExecutionRole],
+      policyArn: executionPolicy.arn,
+      dependsOn: [this.lambdaExecutionRole, executionPolicy],
     });
 
     const defaultLambda = this.getDefaultLambda();

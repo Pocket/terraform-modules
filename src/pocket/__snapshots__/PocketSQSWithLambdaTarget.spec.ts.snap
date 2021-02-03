@@ -47,32 +47,57 @@ exports[`renders a plain sqs queue and lambda target 1`] = `
         }
       }
     },
-    \\"aws_iam_role_policy\\": {
-      \\"test-sqs-lambda_execution-role-policy_D44139EE\\": {
+    \\"aws_iam_policy\\": {
+      \\"test-sqs-lambda_execution-policy_ED32F1C0\\": {
         \\"name\\": \\"test-sqs-lambda-ExecutionRolePolicy\\",
         \\"policy\\": \\"\${data.aws_iam_policy_document.test-sqs-lambda_execution-policy-document_2C5F0106.json}\\",
-        \\"role\\": \\"\${aws_iam_role.test-sqs-lambda_execution-role_7323CCD9.name}\\",
-        \\"depends_on\\": [
-          \\"aws_iam_role.test-sqs-lambda_execution-role_7323CCD9\\"
-        ],
         \\"//\\": {
           \\"metadata\\": {
-            \\"path\\": \\"test/test-sqs-lambda/lambda/execution-role-policy\\",
-            \\"uniqueId\\": \\"test-sqs-lambda_execution-role-policy_D44139EE\\"
+            \\"path\\": \\"test/test-sqs-lambda/lambda/execution-policy\\",
+            \\"uniqueId\\": \\"test-sqs-lambda_execution-policy_ED32F1C0\\"
           }
         }
       },
-      \\"test-sqs-lambda_execution-role-policy_6884A311\\": {
-        \\"name\\": \\"test-sqs-lambda-ExecutionRolePolicy\\",
-        \\"policy\\": \\"\${data.aws_iam_policy_document.test-sqs-lambda_sqs_lambda_policy_A192F6F3.json}\\",
-        \\"role\\": \\"\${aws_iam_role.test-sqs-lambda_execution-role_7323CCD9.name}\\",
+      \\"test-sqs-lambda_sqs-policy_E98CC69F\\": {
+        \\"name\\": \\"test-sqs-lambda-LambdaSQSPolicy\\",
+        \\"policy\\": \\"\${data.aws_iam_policy_document.test-sqs-lambda_lambda_sqs_policy_3C63A136.json}\\",
         \\"depends_on\\": [
           \\"aws_iam_role.test-sqs-lambda_execution-role_7323CCD9\\"
         ],
         \\"//\\": {
           \\"metadata\\": {
-            \\"path\\": \\"test/test-sqs-lambda/execution-role-policy\\",
-            \\"uniqueId\\": \\"test-sqs-lambda_execution-role-policy_6884A311\\"
+            \\"path\\": \\"test/test-sqs-lambda/sqs-policy\\",
+            \\"uniqueId\\": \\"test-sqs-lambda_sqs-policy_E98CC69F\\"
+          }
+        }
+      }
+    },
+    \\"aws_iam_role_policy_attachment\\": {
+      \\"test-sqs-lambda_execution-role-policy-attachment_45759A7F\\": {
+        \\"policy_arn\\": \\"\${aws_iam_policy.test-sqs-lambda_execution-policy_ED32F1C0.arn}\\",
+        \\"role\\": \\"\${aws_iam_role.test-sqs-lambda_execution-role_7323CCD9.name}\\",
+        \\"depends_on\\": [
+          \\"aws_iam_role.test-sqs-lambda_execution-role_7323CCD9\\",
+          \\"aws_iam_policy.test-sqs-lambda_execution-policy_ED32F1C0\\"
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-sqs-lambda/lambda/execution-role-policy-attachment\\",
+            \\"uniqueId\\": \\"test-sqs-lambda_execution-role-policy-attachment_45759A7F\\"
+          }
+        }
+      },
+      \\"test-sqs-lambda_execution-role-policy-attachment_CA21C309\\": {
+        \\"policy_arn\\": \\"\${aws_iam_policy.test-sqs-lambda_sqs-policy_E98CC69F.arn}\\",
+        \\"role\\": \\"\${aws_iam_role.test-sqs-lambda_execution-role_7323CCD9.name}\\",
+        \\"depends_on\\": [
+          \\"aws_iam_role.test-sqs-lambda_execution-role_7323CCD9\\",
+          \\"aws_iam_policy.test-sqs-lambda_sqs-policy_E98CC69F\\"
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-sqs-lambda/execution-role-policy-attachment\\",
+            \\"uniqueId\\": \\"test-sqs-lambda_execution-role-policy-attachment_CA21C309\\"
           }
         }
       }
@@ -213,7 +238,7 @@ exports[`renders a plain sqs queue and lambda target 1`] = `
           }
         }
       },
-      \\"test-sqs-lambda_sqs_lambda_policy_A192F6F3\\": {
+      \\"test-sqs-lambda_lambda_sqs_policy_3C63A136\\": {
         \\"statement\\": [
           {
             \\"actions\\": [
@@ -231,8 +256,8 @@ exports[`renders a plain sqs queue and lambda target 1`] = `
         ],
         \\"//\\": {
           \\"metadata\\": {
-            \\"path\\": \\"test/test-sqs-lambda/sqs_lambda_policy\\",
-            \\"uniqueId\\": \\"test-sqs-lambda_sqs_lambda_policy_A192F6F3\\"
+            \\"path\\": \\"test/test-sqs-lambda/lambda_sqs_policy\\",
+            \\"uniqueId\\": \\"test-sqs-lambda_lambda_sqs_policy_3C63A136\\"
           }
         }
       }
@@ -306,32 +331,57 @@ exports[`renders a plain sqs queue with a deadletter and lambda target 1`] = `
         }
       }
     },
-    \\"aws_iam_role_policy\\": {
-      \\"test-sqs-lambda_execution-role-policy_D44139EE\\": {
+    \\"aws_iam_policy\\": {
+      \\"test-sqs-lambda_execution-policy_ED32F1C0\\": {
         \\"name\\": \\"test-sqs-lambda-ExecutionRolePolicy\\",
         \\"policy\\": \\"\${data.aws_iam_policy_document.test-sqs-lambda_execution-policy-document_2C5F0106.json}\\",
-        \\"role\\": \\"\${aws_iam_role.test-sqs-lambda_execution-role_7323CCD9.name}\\",
-        \\"depends_on\\": [
-          \\"aws_iam_role.test-sqs-lambda_execution-role_7323CCD9\\"
-        ],
         \\"//\\": {
           \\"metadata\\": {
-            \\"path\\": \\"test/test-sqs-lambda/lambda/execution-role-policy\\",
-            \\"uniqueId\\": \\"test-sqs-lambda_execution-role-policy_D44139EE\\"
+            \\"path\\": \\"test/test-sqs-lambda/lambda/execution-policy\\",
+            \\"uniqueId\\": \\"test-sqs-lambda_execution-policy_ED32F1C0\\"
           }
         }
       },
-      \\"test-sqs-lambda_execution-role-policy_6884A311\\": {
-        \\"name\\": \\"test-sqs-lambda-ExecutionRolePolicy\\",
-        \\"policy\\": \\"\${data.aws_iam_policy_document.test-sqs-lambda_sqs_lambda_policy_A192F6F3.json}\\",
-        \\"role\\": \\"\${aws_iam_role.test-sqs-lambda_execution-role_7323CCD9.name}\\",
+      \\"test-sqs-lambda_sqs-policy_E98CC69F\\": {
+        \\"name\\": \\"test-sqs-lambda-LambdaSQSPolicy\\",
+        \\"policy\\": \\"\${data.aws_iam_policy_document.test-sqs-lambda_lambda_sqs_policy_3C63A136.json}\\",
         \\"depends_on\\": [
           \\"aws_iam_role.test-sqs-lambda_execution-role_7323CCD9\\"
         ],
         \\"//\\": {
           \\"metadata\\": {
-            \\"path\\": \\"test/test-sqs-lambda/execution-role-policy\\",
-            \\"uniqueId\\": \\"test-sqs-lambda_execution-role-policy_6884A311\\"
+            \\"path\\": \\"test/test-sqs-lambda/sqs-policy\\",
+            \\"uniqueId\\": \\"test-sqs-lambda_sqs-policy_E98CC69F\\"
+          }
+        }
+      }
+    },
+    \\"aws_iam_role_policy_attachment\\": {
+      \\"test-sqs-lambda_execution-role-policy-attachment_45759A7F\\": {
+        \\"policy_arn\\": \\"\${aws_iam_policy.test-sqs-lambda_execution-policy_ED32F1C0.arn}\\",
+        \\"role\\": \\"\${aws_iam_role.test-sqs-lambda_execution-role_7323CCD9.name}\\",
+        \\"depends_on\\": [
+          \\"aws_iam_role.test-sqs-lambda_execution-role_7323CCD9\\",
+          \\"aws_iam_policy.test-sqs-lambda_execution-policy_ED32F1C0\\"
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-sqs-lambda/lambda/execution-role-policy-attachment\\",
+            \\"uniqueId\\": \\"test-sqs-lambda_execution-role-policy-attachment_45759A7F\\"
+          }
+        }
+      },
+      \\"test-sqs-lambda_execution-role-policy-attachment_CA21C309\\": {
+        \\"policy_arn\\": \\"\${aws_iam_policy.test-sqs-lambda_sqs-policy_E98CC69F.arn}\\",
+        \\"role\\": \\"\${aws_iam_role.test-sqs-lambda_execution-role_7323CCD9.name}\\",
+        \\"depends_on\\": [
+          \\"aws_iam_role.test-sqs-lambda_execution-role_7323CCD9\\",
+          \\"aws_iam_policy.test-sqs-lambda_sqs-policy_E98CC69F\\"
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-sqs-lambda/execution-role-policy-attachment\\",
+            \\"uniqueId\\": \\"test-sqs-lambda_execution-role-policy-attachment_CA21C309\\"
           }
         }
       }
@@ -483,7 +533,7 @@ exports[`renders a plain sqs queue with a deadletter and lambda target 1`] = `
           }
         }
       },
-      \\"test-sqs-lambda_sqs_lambda_policy_A192F6F3\\": {
+      \\"test-sqs-lambda_lambda_sqs_policy_3C63A136\\": {
         \\"statement\\": [
           {
             \\"actions\\": [
@@ -501,8 +551,8 @@ exports[`renders a plain sqs queue with a deadletter and lambda target 1`] = `
         ],
         \\"//\\": {
           \\"metadata\\": {
-            \\"path\\": \\"test/test-sqs-lambda/sqs_lambda_policy\\",
-            \\"uniqueId\\": \\"test-sqs-lambda_sqs_lambda_policy_A192F6F3\\"
+            \\"path\\": \\"test/test-sqs-lambda/lambda_sqs_policy\\",
+            \\"uniqueId\\": \\"test-sqs-lambda_lambda_sqs_policy_3C63A136\\"
           }
         }
       }
@@ -576,32 +626,57 @@ exports[`renders a plain sqs queue with a deadletter and lambda target 2`] = `
         }
       }
     },
-    \\"aws_iam_role_policy\\": {
-      \\"test-sqs-lambda_execution-role-policy_D44139EE\\": {
+    \\"aws_iam_policy\\": {
+      \\"test-sqs-lambda_execution-policy_ED32F1C0\\": {
         \\"name\\": \\"test-sqs-lambda-ExecutionRolePolicy\\",
         \\"policy\\": \\"\${data.aws_iam_policy_document.test-sqs-lambda_execution-policy-document_2C5F0106.json}\\",
-        \\"role\\": \\"\${aws_iam_role.test-sqs-lambda_execution-role_7323CCD9.name}\\",
-        \\"depends_on\\": [
-          \\"aws_iam_role.test-sqs-lambda_execution-role_7323CCD9\\"
-        ],
         \\"//\\": {
           \\"metadata\\": {
-            \\"path\\": \\"test/test-sqs-lambda/lambda/execution-role-policy\\",
-            \\"uniqueId\\": \\"test-sqs-lambda_execution-role-policy_D44139EE\\"
+            \\"path\\": \\"test/test-sqs-lambda/lambda/execution-policy\\",
+            \\"uniqueId\\": \\"test-sqs-lambda_execution-policy_ED32F1C0\\"
           }
         }
       },
-      \\"test-sqs-lambda_execution-role-policy_6884A311\\": {
-        \\"name\\": \\"test-sqs-lambda-ExecutionRolePolicy\\",
-        \\"policy\\": \\"\${data.aws_iam_policy_document.test-sqs-lambda_sqs_lambda_policy_A192F6F3.json}\\",
-        \\"role\\": \\"\${aws_iam_role.test-sqs-lambda_execution-role_7323CCD9.name}\\",
+      \\"test-sqs-lambda_sqs-policy_E98CC69F\\": {
+        \\"name\\": \\"test-sqs-lambda-LambdaSQSPolicy\\",
+        \\"policy\\": \\"\${data.aws_iam_policy_document.test-sqs-lambda_lambda_sqs_policy_3C63A136.json}\\",
         \\"depends_on\\": [
           \\"aws_iam_role.test-sqs-lambda_execution-role_7323CCD9\\"
         ],
         \\"//\\": {
           \\"metadata\\": {
-            \\"path\\": \\"test/test-sqs-lambda/execution-role-policy\\",
-            \\"uniqueId\\": \\"test-sqs-lambda_execution-role-policy_6884A311\\"
+            \\"path\\": \\"test/test-sqs-lambda/sqs-policy\\",
+            \\"uniqueId\\": \\"test-sqs-lambda_sqs-policy_E98CC69F\\"
+          }
+        }
+      }
+    },
+    \\"aws_iam_role_policy_attachment\\": {
+      \\"test-sqs-lambda_execution-role-policy-attachment_45759A7F\\": {
+        \\"policy_arn\\": \\"\${aws_iam_policy.test-sqs-lambda_execution-policy_ED32F1C0.arn}\\",
+        \\"role\\": \\"\${aws_iam_role.test-sqs-lambda_execution-role_7323CCD9.name}\\",
+        \\"depends_on\\": [
+          \\"aws_iam_role.test-sqs-lambda_execution-role_7323CCD9\\",
+          \\"aws_iam_policy.test-sqs-lambda_execution-policy_ED32F1C0\\"
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-sqs-lambda/lambda/execution-role-policy-attachment\\",
+            \\"uniqueId\\": \\"test-sqs-lambda_execution-role-policy-attachment_45759A7F\\"
+          }
+        }
+      },
+      \\"test-sqs-lambda_execution-role-policy-attachment_CA21C309\\": {
+        \\"policy_arn\\": \\"\${aws_iam_policy.test-sqs-lambda_sqs-policy_E98CC69F.arn}\\",
+        \\"role\\": \\"\${aws_iam_role.test-sqs-lambda_execution-role_7323CCD9.name}\\",
+        \\"depends_on\\": [
+          \\"aws_iam_role.test-sqs-lambda_execution-role_7323CCD9\\",
+          \\"aws_iam_policy.test-sqs-lambda_sqs-policy_E98CC69F\\"
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-sqs-lambda/execution-role-policy-attachment\\",
+            \\"uniqueId\\": \\"test-sqs-lambda_execution-role-policy-attachment_CA21C309\\"
           }
         }
       }
@@ -753,7 +828,7 @@ exports[`renders a plain sqs queue with a deadletter and lambda target 2`] = `
           }
         }
       },
-      \\"test-sqs-lambda_sqs_lambda_policy_A192F6F3\\": {
+      \\"test-sqs-lambda_lambda_sqs_policy_3C63A136\\": {
         \\"statement\\": [
           {
             \\"actions\\": [
@@ -771,8 +846,8 @@ exports[`renders a plain sqs queue with a deadletter and lambda target 2`] = `
         ],
         \\"//\\": {
           \\"metadata\\": {
-            \\"path\\": \\"test/test-sqs-lambda/sqs_lambda_policy\\",
-            \\"uniqueId\\": \\"test-sqs-lambda_sqs_lambda_policy_A192F6F3\\"
+            \\"path\\": \\"test/test-sqs-lambda/lambda_sqs_policy\\",
+            \\"uniqueId\\": \\"test-sqs-lambda_lambda_sqs_policy_3C63A136\\"
           }
         }
       }

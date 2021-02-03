@@ -47,18 +47,30 @@ exports[`renders an event bridge and lambda target with event bus name 1`] = `
         }
       }
     },
-    \\"aws_iam_role_policy\\": {
-      \\"test-event-bridge-lambda_execution-role-policy_2830D73D\\": {
+    \\"aws_iam_policy\\": {
+      \\"test-event-bridge-lambda_execution-policy_F6422B9B\\": {
         \\"name\\": \\"test-event-bridge-lambda-ExecutionRolePolicy\\",
         \\"policy\\": \\"\${data.aws_iam_policy_document.test-event-bridge-lambda_execution-policy-document_0A3C0E28.json}\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/lambda/execution-policy\\",
+            \\"uniqueId\\": \\"test-event-bridge-lambda_execution-policy_F6422B9B\\"
+          }
+        }
+      }
+    },
+    \\"aws_iam_role_policy_attachment\\": {
+      \\"test-event-bridge-lambda_execution-role-policy-attachment_2614BB3C\\": {
+        \\"policy_arn\\": \\"\${aws_iam_policy.test-event-bridge-lambda_execution-policy_F6422B9B.arn}\\",
         \\"role\\": \\"\${aws_iam_role.test-event-bridge-lambda_execution-role_7936A26A.name}\\",
         \\"depends_on\\": [
-          \\"aws_iam_role.test-event-bridge-lambda_execution-role_7936A26A\\"
+          \\"aws_iam_role.test-event-bridge-lambda_execution-role_7936A26A\\",
+          \\"aws_iam_policy.test-event-bridge-lambda_execution-policy_F6422B9B\\"
         ],
         \\"//\\": {
           \\"metadata\\": {
-            \\"path\\": \\"test/test-event-bridge-lambda/lambda/execution-role-policy\\",
-            \\"uniqueId\\": \\"test-event-bridge-lambda_execution-role-policy_2830D73D\\"
+            \\"path\\": \\"test/test-event-bridge-lambda/lambda/execution-role-policy-attachment\\",
+            \\"uniqueId\\": \\"test-event-bridge-lambda_execution-role-policy-attachment_2614BB3C\\"
           }
         }
       }
@@ -294,18 +306,30 @@ exports[`renders an event bridge and lambda target with rule description 1`] = `
         }
       }
     },
-    \\"aws_iam_role_policy\\": {
-      \\"test-event-bridge-lambda_execution-role-policy_2830D73D\\": {
+    \\"aws_iam_policy\\": {
+      \\"test-event-bridge-lambda_execution-policy_F6422B9B\\": {
         \\"name\\": \\"test-event-bridge-lambda-ExecutionRolePolicy\\",
         \\"policy\\": \\"\${data.aws_iam_policy_document.test-event-bridge-lambda_execution-policy-document_0A3C0E28.json}\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-event-bridge-lambda/lambda/execution-policy\\",
+            \\"uniqueId\\": \\"test-event-bridge-lambda_execution-policy_F6422B9B\\"
+          }
+        }
+      }
+    },
+    \\"aws_iam_role_policy_attachment\\": {
+      \\"test-event-bridge-lambda_execution-role-policy-attachment_2614BB3C\\": {
+        \\"policy_arn\\": \\"\${aws_iam_policy.test-event-bridge-lambda_execution-policy_F6422B9B.arn}\\",
         \\"role\\": \\"\${aws_iam_role.test-event-bridge-lambda_execution-role_7936A26A.name}\\",
         \\"depends_on\\": [
-          \\"aws_iam_role.test-event-bridge-lambda_execution-role_7936A26A\\"
+          \\"aws_iam_role.test-event-bridge-lambda_execution-role_7936A26A\\",
+          \\"aws_iam_policy.test-event-bridge-lambda_execution-policy_F6422B9B\\"
         ],
         \\"//\\": {
           \\"metadata\\": {
-            \\"path\\": \\"test/test-event-bridge-lambda/lambda/execution-role-policy\\",
-            \\"uniqueId\\": \\"test-event-bridge-lambda_execution-role-policy_2830D73D\\"
+            \\"path\\": \\"test/test-event-bridge-lambda/lambda/execution-role-policy-attachment\\",
+            \\"uniqueId\\": \\"test-event-bridge-lambda_execution-role-policy-attachment_2614BB3C\\"
           }
         }
       }

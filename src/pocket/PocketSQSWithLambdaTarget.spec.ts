@@ -4,6 +4,7 @@ import {
   PocketSQSWithLambdaTarget,
   PocketSQSWithLambdaTargetProps,
 } from './PocketSQSWithLambdaTarget';
+import { ApplicationSQSQueue } from '../base/ApplicationSQSQueue';
 
 const config: PocketSQSWithLambdaTargetProps = {
   name: 'test-sqs-lambda',
@@ -50,4 +51,37 @@ test('renders a plain sqs queue with a deadletter and lambda target', () => {
   });
 
   expect(Testing.synth(stack)).toMatchSnapshot();
+});
+
+test('validates batch config errors if no batch window', () => {
+  const app = Testing.app();
+  const stack = new TerraformStack(app, 'test');
+
+  expect(
+    () =>
+      new PocketSQSWithLambdaTarget(stack, 'test-sqs-lambda', {
+        ...config,
+        sqsQueue: {
+          maxReceiveCount: 3,
+        },
+        batchSize: 20,
+      })
+  ).toThrow(Error);
+});
+
+test('validates batch config errors if batch window is less then 1', () => {
+  const app = Testing.app();
+  const stack = new TerraformStack(app, 'test');
+
+  expect(
+    () =>
+      new PocketSQSWithLambdaTarget(stack, 'test-sqs-lambda', {
+        ...config,
+        sqsQueue: {
+          maxReceiveCount: 3,
+        },
+        batchSize: 20,
+        batchWindow: 0,
+      })
+  ).toThrow(Error);
 });
