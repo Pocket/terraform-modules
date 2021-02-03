@@ -36,6 +36,38 @@ export interface ApplicationSQSQueueProps {
 }
 
 /**
+ * Defines the validations that we need to perform against our configuration.
+ * These values are taken from https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/sqs_queue
+ */
+const validations: {
+  [key: string]: {
+    min: number;
+    max: number;
+  };
+} = {
+  visibilityTimeoutSeconds: {
+    min: 0,
+    max: 43200,
+  },
+  messageRetentionSeconds: {
+    min: 60,
+    max: 43200,
+  },
+  maxMessageSize: {
+    min: 1024,
+    max: 262144,
+  },
+  delaySeconds: {
+    min: 0,
+    max: 900,
+  },
+  receiveWaitTimeSeconds: {
+    min: 0,
+    max: 20,
+  },
+};
+
+/**
  * Creates an SQS Queue with a dead letter queue
  */
 export class ApplicationSQSQueue extends Resource {
@@ -58,51 +90,18 @@ export class ApplicationSQSQueue extends Resource {
    * @private
    */
   private static validateConfig(config: ApplicationSQSQueueProps): void {
-    if (
-      config.visibilityTimeoutSeconds &&
-      (config.visibilityTimeoutSeconds < 0 ||
-        config.visibilityTimeoutSeconds > 43200)
-    ) {
-      throw new Error(
-        'Visibility timeout can not be greater then 43200 or less then 0'
-      );
-    }
+    for (const [key, valueToValidate] of Object.entries(config)) {
+      if (!(key in validations)) {
+        // The key value does not exist in the validations constant so no need to validate it
+        continue;
+      }
 
-    if (
-      config.messageRetentionSeconds &&
-      (config.messageRetentionSeconds > 43200 ||
-        config.messageRetentionSeconds < 60)
-    ) {
-      throw new Error(
-        'Message retention can not be greater then 1209600 or less then 60'
-      );
-    }
-
-    if (
-      config.maxMessageSize &&
-      (config.maxMessageSize > 262144 || config.maxMessageSize < 1024)
-    ) {
-      throw new Error(
-        'Message size can not be greater then 262144 or less then 1024'
-      );
-    }
-
-    if (
-      config.delaySeconds &&
-      (config.delaySeconds > 900 || config.delaySeconds < 0)
-    ) {
-      throw new Error(
-        'Delay seconds can not be greater then 900 or less then 0'
-      );
-    }
-
-    if (
-      config.receiveWaitTimeSeconds &&
-      (config.receiveWaitTimeSeconds > 20 || config.receiveWaitTimeSeconds < 0)
-    ) {
-      throw new Error(
-        'Receive wait time can not be greater then 20 or less then 0'
-      );
+      const { min, max } = validations[key];
+      if (valueToValidate < min || valueToValidate > max) {
+        throw new Error(
+          `${key} can not be greater then ${max} or less then ${min}`
+        );
+      }
     }
   }
 

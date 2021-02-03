@@ -38,20 +38,6 @@ test('renders a plain sqs queue with a deadletter and lambda target', () => {
   expect(Testing.synth(stack)).toMatchSnapshot();
 });
 
-test('renders a plain sqs queue with a deadletter and lambda target', () => {
-  const app = Testing.app();
-  const stack = new TerraformStack(app, 'test');
-
-  new PocketSQSWithLambdaTarget(stack, 'test-sqs-lambda', {
-    ...config,
-    sqsQueue: {
-      maxReceiveCount: 3,
-    },
-  });
-
-  expect(Testing.synth(stack)).toMatchSnapshot();
-});
-
 test('validates batch config errors if no batch window', () => {
   const app = Testing.app();
   const stack = new TerraformStack(app, 'test');

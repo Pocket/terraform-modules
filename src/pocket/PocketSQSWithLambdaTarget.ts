@@ -67,6 +67,7 @@ export class PocketSQSWithLambdaTarget extends PocketVersionedLambda {
 
   /**
    * Validates the event source mapping config.
+   * These values are defined by aws here: https://docs.aws.amazon.com/lambda/latest/dg/with-sqs.html
    * @param config
    * @private
    */
