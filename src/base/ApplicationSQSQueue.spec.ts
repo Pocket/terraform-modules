@@ -3,7 +3,6 @@ import {
   ApplicationSQSQueue,
   ApplicationSQSQueueProps,
 } from './ApplicationSQSQueue';
-import { PocketVersionedLambda } from '../pocket/PocketVersionedLambda';
 
 test('renders an sqs queue without tags', () => {
   const app = Testing.app();
