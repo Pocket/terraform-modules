@@ -1,6 +1,7 @@
 import { Resource } from 'cdktf';
 import { Construct } from 'constructs';
 import { SqsQueue } from '../../.gen/providers/aws';
+import { PocketVersionedLambdaProps } from '../pocket/PocketVersionedLambda';
 
 export interface ApplicationSQSQueueProps {
   /**
@@ -20,6 +21,7 @@ export interface ApplicationSQSQueueProps {
   maxMessageSize?: number;
   delaySeconds?: number;
   visibilityTimeoutSeconds?: number;
+  receiveWaitTimeSeconds?: number;
 
   tags?: { [key: string]: string };
 }
@@ -36,7 +38,63 @@ export class ApplicationSQSQueue extends Resource {
     config: ApplicationSQSQueueProps
   ) {
     super(scope, name);
+    ApplicationSQSQueue.validateConfig(config);
     this.sqsQueue = this.createSQSQueue(config);
+  }
+
+  /**
+   * Validates the config against the values defined in:
+   * https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/sqs_queue
+   * @param config
+   * @private
+   */
+  private static validateConfig(config: ApplicationSQSQueueProps): void {
+    if (
+      config.visibilityTimeoutSeconds &&
+      (config.visibilityTimeoutSeconds < 0 ||
+        config.visibilityTimeoutSeconds > 43200)
+    ) {
+      throw new Error(
+        'Visibility timeout can not be greater then 43200 or less then 0'
+      );
+    }
+
+    if (
+      config.messageRetentionSeconds &&
+      (config.messageRetentionSeconds > 43200 ||
+        config.messageRetentionSeconds < 60)
+    ) {
+      throw new Error(
+        'Message retention can not be greater then 1209600 or less then 60'
+      );
+    }
+
+    if (
+      config.maxMessageSize &&
+      (config.maxMessageSize > 262144 || config.maxMessageSize < 1024)
+    ) {
+      throw new Error(
+        'Message size can not be greater then 262144 or less then 1024'
+      );
+    }
+
+    if (
+      config.delaySeconds &&
+      (config.delaySeconds > 900 || config.delaySeconds < 0)
+    ) {
+      throw new Error(
+        'Delay seconds can not be greater then 900 or less then 0'
+      );
+    }
+
+    if (
+      config.receiveWaitTimeSeconds &&
+      (config.receiveWaitTimeSeconds > 20 || config.receiveWaitTimeSeconds < 0)
+    ) {
+      throw new Error(
+        'Receive wait time can not be greater then 20 or less then 0'
+      );
+    }
   }
 
   private createSQSQueue(config: ApplicationSQSQueueProps) {
@@ -59,7 +117,7 @@ export class ApplicationSQSQueue extends Resource {
       });
     }
 
-    return new SqsQueue(this, `sqs_queue`, config);
+    return new SqsQueue(this, `sqs_queue`, sqsConfig);
   }
 
   /**

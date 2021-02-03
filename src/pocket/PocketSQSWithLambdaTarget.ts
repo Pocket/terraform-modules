@@ -13,7 +13,13 @@ import { LambdaEventSourceMapping } from '../../.gen/providers/aws';
 
 export interface PocketSQSWithLambdaTargetProps
   extends PocketVersionedLambdaProps {
-  sqsQueue: ApplicationSQSQueueProps;
+  sqsQueue?: {
+    messageRetentionSeconds?: number;
+    maxReceiveCount?: number;
+    maxMessageSize?: number;
+    delaySeconds?: number;
+    visibilityTimeoutSeconds?: number;
+  };
   batchSize?: number;
 }
 
@@ -31,9 +37,10 @@ export class PocketSQSWithLambdaTarget extends PocketVersionedLambda {
     super(scope, name, config);
     this.sqsQueue = this.createSqsQueue({
       ...config.sqsQueue,
+      name: `${config.name}-Queue`,
       tags: config.tags,
     });
-    this.createEventSourceMapping(this.lambda, this.sqsQueue);
+    this.createEventSourceMapping(this.lambda, this.sqsQueue, config);
   }
 
   /**
@@ -48,11 +55,13 @@ export class PocketSQSWithLambdaTarget extends PocketVersionedLambda {
 
   private createEventSourceMapping(
     lambda: ApplicationVersionedLambda,
-    sqsQueue: ApplicationSQSQueue
+    sqsQueue: ApplicationSQSQueue,
+    config: PocketSQSWithLambdaTargetProps
   ) {
     return new LambdaEventSourceMapping(this, `lambda_event_source_mapping`, {
       eventSourceArn: sqsQueue.sqsQueue.arn,
       functionName: lambda.versionedLambda.arn,
+      batchSize: config.batchSize,
     });
   }
 }
