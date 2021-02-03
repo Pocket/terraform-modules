@@ -11,17 +11,27 @@ export interface ApplicationSQSQueueProps {
    * The number of seconds Amazon SQS retains a message.
    */
   messageRetentionSeconds?: number;
-
   /**
    * How many times a message can be received before it goes to a dead letter queue
    * If not set or set to 0 this will instead max messages constantly retry
    */
   maxReceiveCount?: number;
+  /**
+   * Max size the SQS message can be. In Bytes
+   */
   maxMessageSize?: number;
+  /**
+   * How long should a message wait before its allowed to be visible to a worker
+   */
   delaySeconds?: number;
+  /**
+   * Once a message is being worked on, how long can the worker hold it.
+   */
   visibilityTimeoutSeconds?: number;
+  /**
+   * How long should a worker be allowed to long poll
+   */
   receiveWaitTimeSeconds?: number;
-
   tags?: { [key: string]: string };
 }
 
