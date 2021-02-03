@@ -16,6 +16,9 @@ export interface PocketEventBridgeWithLambdaTargetProps
   };
 }
 
+/**
+ * Extends the base pocket versioned lambda class to add an event bridge based trigger on top of the lambda
+ */
 export class PocketEventBridgeWithLambdaTarget extends PocketVersionedLambda {
   constructor(
     scope: Construct,
@@ -28,6 +31,12 @@ export class PocketEventBridgeWithLambdaTarget extends PocketVersionedLambda {
     this.createLambdaEventRuleResourcePermission(this.lambda, eventBridgeRule);
   }
 
+  /**
+   * Creates the approriate permission to allow aws events to invoke lambda
+   * @param lambda
+   * @param eventBridgeRule
+   * @private
+   */
   private createLambdaEventRuleResourcePermission(
     lambda: ApplicationVersionedLambda,
     eventBridgeRule: ApplicationEventBridgeRule
@@ -42,6 +51,11 @@ export class PocketEventBridgeWithLambdaTarget extends PocketVersionedLambda {
     });
   }
 
+  /**
+   * Creates the actual rule for event bridge to trigger the lambda
+   * @param lambda
+   * @private
+   */
   private createEventBridgeRule(
     lambda: ApplicationVersionedLambda
   ): ApplicationEventBridgeRule {

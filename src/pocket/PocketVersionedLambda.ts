@@ -1,6 +1,5 @@
 import { Resource } from 'cdktf';
 import { Construct } from 'constructs';
-import { ApplicationEventBridgeRule } from '../base/ApplicationEventBridgeRule';
 import {
   ApplicationVersionedLambda,
   LAMBDA_RUNTIMES,
@@ -9,7 +8,6 @@ import {
   CloudwatchMetricAlarm,
   DataAwsIamPolicyDocumentStatement,
   LambdaFunctionVpcConfig,
-  LambdaPermission,
 } from '../../.gen/providers/aws';
 import { ApplicationLambdaCodeDeploy } from '../base/ApplicationLambdaCodeDeploy';
 
