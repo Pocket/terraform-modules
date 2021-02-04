@@ -1,0 +1,81 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders an sqs queue with max message size 1`] = `
+"{
+  \\"//\\": {
+    \\"metadata\\": {
+      \\"version\\": \\"stubbed\\",
+      \\"stackName\\": \\"test\\"
+    }
+  },
+  \\"resource\\": {
+    \\"aws_sqs_queue\\": {
+      \\"testSQS_sqs_queue_B45AAD64\\": {
+        \\"fifo_queue\\": false,
+        \\"max_message_size\\": 86753,
+        \\"name\\": \\"TEST\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testSQS/sqs_queue\\",
+            \\"uniqueId\\": \\"testSQS_sqs_queue_B45AAD64\\"
+          }
+        }
+      }
+    }
+  }
+}"
+`;
+
+exports[`renders an sqs queue with tags 1`] = `
+"{
+  \\"//\\": {
+    \\"metadata\\": {
+      \\"version\\": \\"stubbed\\",
+      \\"stackName\\": \\"test\\"
+    }
+  },
+  \\"resource\\": {
+    \\"aws_sqs_queue\\": {
+      \\"testSQS_sqs_queue_B45AAD64\\": {
+        \\"fifo_queue\\": false,
+        \\"name\\": \\"TEST\\",
+        \\"tags\\": {
+          \\"test\\": \\"123\\",
+          \\"environment\\": \\"prod\\"
+        },
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testSQS/sqs_queue\\",
+            \\"uniqueId\\": \\"testSQS_sqs_queue_B45AAD64\\"
+          }
+        }
+      }
+    }
+  }
+}"
+`;
+
+exports[`renders an sqs queue without tags 1`] = `
+"{
+  \\"//\\": {
+    \\"metadata\\": {
+      \\"version\\": \\"stubbed\\",
+      \\"stackName\\": \\"test\\"
+    }
+  },
+  \\"resource\\": {
+    \\"aws_sqs_queue\\": {
+      \\"testSQS_sqs_queue_B45AAD64\\": {
+        \\"fifo_queue\\": false,
+        \\"name\\": \\"TEST\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testSQS/sqs_queue\\",
+            \\"uniqueId\\": \\"testSQS_sqs_queue_B45AAD64\\"
+          }
+        }
+      }
+    }
+  }
+}"
+`;
