@@ -4,8 +4,9 @@ import {
   CloudwatchLogGroup,
   DataAwsIamPolicyDocument,
   DataAwsIamPolicyDocumentStatement,
+  IamPolicy,
   IamRole,
-  IamRolePolicy,
+  IamRolePolicyAttachment,
   LambdaAlias,
   LambdaFunction,
   LambdaFunctionConfig,
@@ -43,6 +44,7 @@ const DEFAULT_RETENTION = 14;
 
 export class ApplicationVersionedLambda extends Resource {
   public readonly versionedLambda: LambdaAlias;
+  public lambdaExecutionRole: IamRole;
 
   constructor(
     scope: Construct,
@@ -56,16 +58,20 @@ export class ApplicationVersionedLambda extends Resource {
   }
 
   private createLambdaFunction() {
-    const executionRole = new IamRole(this, 'execution-role', {
+    this.lambdaExecutionRole = new IamRole(this, 'execution-role', {
       name: `${this.config.name}-ExecutionRole`,
       assumeRolePolicy: this.getLambdaAssumePolicyDocument(),
     });
 
-    new IamRolePolicy(this, 'execution-role-policy', {
+    const executionPolicy = new IamPolicy(this, 'execution-policy', {
       name: `${this.config.name}-ExecutionRolePolicy`,
       policy: this.getLambdaExecutionPolicyDocument(),
-      role: executionRole.name,
-      dependsOn: [executionRole],
+    });
+
+    new IamRolePolicyAttachment(this, 'execution-role-policy-attachment', {
+      role: this.lambdaExecutionRole.name,
+      policyArn: executionPolicy.arn,
+      dependsOn: [this.lambdaExecutionRole, executionPolicy],
     });
 
     const defaultLambda = this.getDefaultLambda();
@@ -76,7 +82,7 @@ export class ApplicationVersionedLambda extends Resource {
       runtime: this.config.runtime,
       timeout: this.config.timeout ?? DEFAULT_TIMEOUT,
       sourceCodeHash: defaultLambda.outputBase64Sha256,
-      role: executionRole.arn,
+      role: this.lambdaExecutionRole.arn,
       vpcConfig: [this.config.vpcConfig],
       publish: true,
       lifecycle: {
