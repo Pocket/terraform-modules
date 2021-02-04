@@ -57,11 +57,6 @@ export class ApplicationDynamoDBTable extends Resource {
       ...config.tableConfig,
       tags: config.tags,
       name: config.prefix,
-      // TODO: lifecycle doesn't appear to be supported by the interface anymore
-      // is this okay? can we drop this?
-      //lifecycle: {
-      //  ignoreChanges: ['read_capacity', 'write_capacity'],
-      //},
     });
 
     if (config.readCapacity) {
@@ -96,6 +91,7 @@ export class ApplicationDynamoDBTable extends Resource {
    * @param config
    * @param dynamoDB
    * @param capacityType
+   * @param globalSecondaryIndexes
    * @param tags
    * @private
    */
@@ -125,7 +121,7 @@ export class ApplicationDynamoDBTable extends Resource {
       config.min,
       config.max,
       config.tracking,
-      dynamoDB.name
+      dynamoDB
     );
 
     // create an auto scaling policy for each global secondary index
@@ -148,7 +144,7 @@ export class ApplicationDynamoDBTable extends Resource {
           minCapacity,
           config.max,
           config.tracking,
-          dynamoDB.name,
+          dynamoDB,
           gsIndex.name
         );
       });
@@ -164,7 +160,7 @@ export class ApplicationDynamoDBTable extends Resource {
    * @param minCapacity
    * @param maxCapacity
    * @param tracking
-   * @param tableName
+   * @param dynamoDB
    * @param indexName
    * @private
    */
@@ -176,10 +172,10 @@ export class ApplicationDynamoDBTable extends Resource {
     minCapacity: number,
     maxCapacity: number,
     tracking: number,
-    tableName: string,
+    dynamoDB: DynamodbTable,
     indexName?: string
   ): void {
-    let resourceId = `table/${tableName}`;
+    let resourceId = `table/${dynamoDB.name}`;
 
     // if we're targeting an index, the resource id must reflect that
     if (policyTarget === 'index') {
@@ -202,9 +198,7 @@ export class ApplicationDynamoDBTable extends Resource {
         scalableDimension: `dynamodb:${policyTarget}:${capacityType}Units`,
         roleArn: roleArn,
         serviceNamespace: 'dynamodb',
-        // TODO: the interface doesn't seem to support dependsOn any longer
-        // can we drop this?
-        //dependsOn: [dynamoDB],
+        dependsOn: [dynamoDB],
       }
     );
 
@@ -224,9 +218,7 @@ export class ApplicationDynamoDBTable extends Resource {
           targetValue: tracking,
         },
       ],
-      // TODO: the interface doesn't seem to support dependsOn any longer
-      // can we drop this?
-      //dependsOn: [targetTracking, dynamoDB],
+      dependsOn: [targetTracking, dynamoDB],
     });
   }
 
