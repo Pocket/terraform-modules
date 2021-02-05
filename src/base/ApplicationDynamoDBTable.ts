@@ -57,6 +57,9 @@ export class ApplicationDynamoDBTable extends Resource {
       ...config.tableConfig,
       tags: config.tags,
       name: config.prefix,
+      lifecycle: {
+        ignoreChanges: ['read_capacity', 'write_capacity'],
+      },
     });
 
     if (config.readCapacity) {

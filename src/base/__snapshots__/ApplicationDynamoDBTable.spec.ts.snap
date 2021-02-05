@@ -33,6 +33,12 @@ exports[`renders dynamo db table global secondary indexes 1`] = `
             \\"write_capacity\\": 5
           }
         ],
+        \\"lifecycle\\": {
+          \\"ignore_changes\\": [
+            \\"read_capacity\\",
+            \\"write_capacity\\"
+          ]
+        },
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/testDynamoDBTable/dynamodb_table\\",
@@ -464,6 +470,12 @@ exports[`renders dynamo db table with 2 global secondary indexes 1`] = `
             \\"write_capacity\\": 10
           }
         ],
+        \\"lifecycle\\": {
+          \\"ignore_changes\\": [
+            \\"read_capacity\\",
+            \\"write_capacity\\"
+          ]
+        },
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/testDynamoDBTable/dynamodb_table\\",
@@ -962,6 +974,12 @@ exports[`renders dynamo db table with minimal config 1`] = `
           }
         ],
         \\"global_secondary_index\\": [],
+        \\"lifecycle\\": {
+          \\"ignore_changes\\": [
+            \\"read_capacity\\",
+            \\"write_capacity\\"
+          ]
+        },
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/testDynamoDBTable/dynamodb_table\\",
@@ -994,6 +1012,12 @@ exports[`renders dynamo db table with read and write capacity 1`] = `
           }
         ],
         \\"global_secondary_index\\": [],
+        \\"lifecycle\\": {
+          \\"ignore_changes\\": [
+            \\"read_capacity\\",
+            \\"write_capacity\\"
+          ]
+        },
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/testDynamoDBTable/dynamodb_table\\",
@@ -1312,6 +1336,12 @@ exports[`renders dynamo db table with read and write capacity and tags 1`] = `
           }
         ],
         \\"global_secondary_index\\": [],
+        \\"lifecycle\\": {
+          \\"ignore_changes\\": [
+            \\"read_capacity\\",
+            \\"write_capacity\\"
+          ]
+        },
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/testDynamoDBTable/dynamodb_table\\",
@@ -1634,6 +1664,12 @@ exports[`renders dynamo db table with read capacity 1`] = `
           }
         ],
         \\"global_secondary_index\\": [],
+        \\"lifecycle\\": {
+          \\"ignore_changes\\": [
+            \\"read_capacity\\",
+            \\"write_capacity\\"
+          ]
+        },
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/testDynamoDBTable/dynamodb_table\\",
@@ -1814,6 +1850,12 @@ exports[`renders dynamo db table with write capacity 1`] = `
           }
         ],
         \\"global_secondary_index\\": [],
+        \\"lifecycle\\": {
+          \\"ignore_changes\\": [
+            \\"read_capacity\\",
+            \\"write_capacity\\"
+          ]
+        },
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/testDynamoDBTable/dynamodb_table\\",
