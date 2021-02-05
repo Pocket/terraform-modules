@@ -188,9 +188,13 @@ export class ApplicationDynamoDBTable extends Resource {
       }
     }
 
+    const constructPrefix = `${
+      indexName ? indexName : dynamoDB.name
+    }_${capacityType}_${policyTarget}`;
+
     const targetTracking = new AppautoscalingTarget(
       scope,
-      `${capacityType}_${policyTarget}_target`,
+      `${constructPrefix}_target`,
       {
         maxCapacity,
         minCapacity,
@@ -202,7 +206,7 @@ export class ApplicationDynamoDBTable extends Resource {
       }
     );
 
-    new AppautoscalingPolicy(scope, `${capacityType}_${policyTarget}_policy`, {
+    new AppautoscalingPolicy(scope, `${constructPrefix}_policy`, {
       name: `DynamoDB${capacityType}Utilization:${targetTracking.resourceId}`,
       policyType: 'TargetTrackingScaling',
       resourceId: targetTracking.resourceId,

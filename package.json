@@ -10,6 +10,7 @@
   "scripts": {
     "get": "cdktf get",
     "build": "rm -rf dist && npm run get && tsc",
+    "build:dev": "npm run build && NODE_ENV=development npm run synth",
     "synth": "cdktf synth",
     "compile": "tsc --pretty",
     "watch": "tsc -w",
