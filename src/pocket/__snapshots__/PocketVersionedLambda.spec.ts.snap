@@ -178,7 +178,8 @@ exports[`it can treat missing data as breaching 1`] = `
             \\"principals\\": [
               {
                 \\"identifiers\\": [
-                  \\"lambda.amazonaws.com\\"
+                  \\"lambda.amazonaws.com\\",
+                  \\"edgelambda.amazonaws.com\\"
                 ],
                 \\"type\\": \\"Service\\"
               }
@@ -388,7 +389,8 @@ exports[`renders a lambda target 1`] = `
             \\"principals\\": [
               {
                 \\"identifiers\\": [
-                  \\"lambda.amazonaws.com\\"
+                  \\"lambda.amazonaws.com\\",
+                  \\"edgelambda.amazonaws.com\\"
                 ],
                 \\"type\\": \\"Service\\"
               }
@@ -606,7 +608,8 @@ exports[`renders a lambda target with tags 1`] = `
             \\"principals\\": [
               {
                 \\"identifiers\\": [
-                  \\"lambda.amazonaws.com\\"
+                  \\"lambda.amazonaws.com\\",
+                  \\"edgelambda.amazonaws.com\\"
                 ],
                 \\"type\\": \\"Service\\"
               }
@@ -948,7 +951,8 @@ exports[`renders a lambda with alarms 1`] = `
             \\"principals\\": [
               {
                 \\"identifiers\\": [
-                  \\"lambda.amazonaws.com\\"
+                  \\"lambda.amazonaws.com\\",
+                  \\"edgelambda.amazonaws.com\\"
                 ],
                 \\"type\\": \\"Service\\"
               }
@@ -1246,7 +1250,8 @@ exports[`renders a lambda with code deploy 1`] = `
             \\"principals\\": [
               {
                 \\"identifiers\\": [
-                  \\"lambda.amazonaws.com\\"
+                  \\"lambda.amazonaws.com\\",
+                  \\"edgelambda.amazonaws.com\\"
                 ],
                 \\"type\\": \\"Service\\"
               }
@@ -1488,7 +1493,8 @@ exports[`renders a lambda with environment variables 1`] = `
             \\"principals\\": [
               {
                 \\"identifiers\\": [
-                  \\"lambda.amazonaws.com\\"
+                  \\"lambda.amazonaws.com\\",
+                  \\"edgelambda.amazonaws.com\\"
                 ],
                 \\"type\\": \\"Service\\"
               }
@@ -1698,7 +1704,8 @@ exports[`renders a lambda with execution policy 1`] = `
             \\"principals\\": [
               {
                 \\"identifiers\\": [
-                  \\"lambda.amazonaws.com\\"
+                  \\"lambda.amazonaws.com\\",
+                  \\"edgelambda.amazonaws.com\\"
                 ],
                 \\"type\\": \\"Service\\"
               }
@@ -1917,7 +1924,8 @@ exports[`renders a lambda with lambda description 1`] = `
             \\"principals\\": [
               {
                 \\"identifiers\\": [
-                  \\"lambda.amazonaws.com\\"
+                  \\"lambda.amazonaws.com\\",
+                  \\"edgelambda.amazonaws.com\\"
                 ],
                 \\"type\\": \\"Service\\"
               }
@@ -2127,7 +2135,8 @@ exports[`renders a lambda with log retention 1`] = `
             \\"principals\\": [
               {
                 \\"identifiers\\": [
-                  \\"lambda.amazonaws.com\\"
+                  \\"lambda.amazonaws.com\\",
+                  \\"edgelambda.amazonaws.com\\"
                 ],
                 \\"type\\": \\"Service\\"
               }
@@ -2337,7 +2346,8 @@ exports[`renders a lambda with s3 bucket 1`] = `
             \\"principals\\": [
               {
                 \\"identifiers\\": [
-                  \\"lambda.amazonaws.com\\"
+                  \\"lambda.amazonaws.com\\",
+                  \\"edgelambda.amazonaws.com\\"
                 ],
                 \\"type\\": \\"Service\\"
               }
@@ -2547,7 +2557,8 @@ exports[`renders a lambda with timeout 1`] = `
             \\"principals\\": [
               {
                 \\"identifiers\\": [
-                  \\"lambda.amazonaws.com\\"
+                  \\"lambda.amazonaws.com\\",
+                  \\"edgelambda.amazonaws.com\\"
                 ],
                 \\"type\\": \\"Service\\"
               }
@@ -2768,7 +2779,8 @@ exports[`renders a lambda with vpc config 1`] = `
             \\"principals\\": [
               {
                 \\"identifiers\\": [
-                  \\"lambda.amazonaws.com\\"
+                  \\"lambda.amazonaws.com\\",
+                  \\"edgelambda.amazonaws.com\\"
                 ],
                 \\"type\\": \\"Service\\"
               }
