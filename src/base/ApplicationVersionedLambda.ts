@@ -141,7 +141,7 @@ export class ApplicationVersionedLambda extends Resource {
           actions: ['sts:AssumeRole'],
           principals: [
             {
-              identifiers: ['lambda.amazonaws.com'],
+              identifiers: ['lambda.amazonaws.com', 'edgelambda.amazonaws.com'],
               type: 'Service',
             },
           ],

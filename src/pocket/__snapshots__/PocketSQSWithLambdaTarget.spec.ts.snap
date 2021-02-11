@@ -201,7 +201,8 @@ exports[`renders a plain sqs queue and lambda target 1`] = `
             \\"principals\\": [
               {
                 \\"identifiers\\": [
-                  \\"lambda.amazonaws.com\\"
+                  \\"lambda.amazonaws.com\\",
+                  \\"edgelambda.amazonaws.com\\"
                 ],
                 \\"type\\": \\"Service\\"
               }
@@ -496,7 +497,8 @@ exports[`renders a plain sqs queue with a deadletter and lambda target 1`] = `
             \\"principals\\": [
               {
                 \\"identifiers\\": [
-                  \\"lambda.amazonaws.com\\"
+                  \\"lambda.amazonaws.com\\",
+                  \\"edgelambda.amazonaws.com\\"
                 ],
                 \\"type\\": \\"Service\\"
               }

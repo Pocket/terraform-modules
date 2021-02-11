@@ -150,7 +150,8 @@ exports[`renders a versioned lambda 1`] = `
             \\"principals\\": [
               {
                 \\"identifiers\\": [
-                  \\"lambda.amazonaws.com\\"
+                  \\"lambda.amazonaws.com\\",
+                  \\"edgelambda.amazonaws.com\\"
                 ],
                 \\"type\\": \\"Service\\"
               }
@@ -360,7 +361,8 @@ exports[`renders a versioned lambda with description 1`] = `
             \\"principals\\": [
               {
                 \\"identifiers\\": [
-                  \\"lambda.amazonaws.com\\"
+                  \\"lambda.amazonaws.com\\",
+                  \\"edgelambda.amazonaws.com\\"
                 ],
                 \\"type\\": \\"Service\\"
               }
@@ -578,7 +580,8 @@ exports[`renders a versioned lambda with environment variables 1`] = `
             \\"principals\\": [
               {
                 \\"identifiers\\": [
-                  \\"lambda.amazonaws.com\\"
+                  \\"lambda.amazonaws.com\\",
+                  \\"edgelambda.amazonaws.com\\"
                 ],
                 \\"type\\": \\"Service\\"
               }
@@ -788,7 +791,8 @@ exports[`renders a versioned lambda with execution policy statements 1`] = `
             \\"principals\\": [
               {
                 \\"identifiers\\": [
-                  \\"lambda.amazonaws.com\\"
+                  \\"lambda.amazonaws.com\\",
+                  \\"edgelambda.amazonaws.com\\"
                 ],
                 \\"type\\": \\"Service\\"
               }
@@ -1007,7 +1011,8 @@ exports[`renders a versioned lambda with log retention 1`] = `
             \\"principals\\": [
               {
                 \\"identifiers\\": [
-                  \\"lambda.amazonaws.com\\"
+                  \\"lambda.amazonaws.com\\",
+                  \\"edgelambda.amazonaws.com\\"
                 ],
                 \\"type\\": \\"Service\\"
               }
@@ -1218,7 +1223,8 @@ exports[`renders a versioned lambda with publish ignored 1`] = `
             \\"principals\\": [
               {
                 \\"identifiers\\": [
-                  \\"lambda.amazonaws.com\\"
+                  \\"lambda.amazonaws.com\\",
+                  \\"edgelambda.amazonaws.com\\"
                 ],
                 \\"type\\": \\"Service\\"
               }
@@ -1428,7 +1434,8 @@ exports[`renders a versioned lambda with s3 bucket 1`] = `
             \\"principals\\": [
               {
                 \\"identifiers\\": [
-                  \\"lambda.amazonaws.com\\"
+                  \\"lambda.amazonaws.com\\",
+                  \\"edgelambda.amazonaws.com\\"
                 ],
                 \\"type\\": \\"Service\\"
               }
@@ -1646,7 +1653,8 @@ exports[`renders a versioned lambda with tags 1`] = `
             \\"principals\\": [
               {
                 \\"identifiers\\": [
-                  \\"lambda.amazonaws.com\\"
+                  \\"lambda.amazonaws.com\\",
+                  \\"edgelambda.amazonaws.com\\"
                 ],
                 \\"type\\": \\"Service\\"
               }
@@ -1856,7 +1864,8 @@ exports[`renders a versioned lambda with timeout 1`] = `
             \\"principals\\": [
               {
                 \\"identifiers\\": [
-                  \\"lambda.amazonaws.com\\"
+                  \\"lambda.amazonaws.com\\",
+                  \\"edgelambda.amazonaws.com\\"
                 ],
                 \\"type\\": \\"Service\\"
               }
@@ -2077,7 +2086,8 @@ exports[`renders a versioned lambda with vpc 1`] = `
             \\"principals\\": [
               {
                 \\"identifiers\\": [
-                  \\"lambda.amazonaws.com\\"
+                  \\"lambda.amazonaws.com\\",
+                  \\"edgelambda.amazonaws.com\\"
                 ],
                 \\"type\\": \\"Service\\"
               }

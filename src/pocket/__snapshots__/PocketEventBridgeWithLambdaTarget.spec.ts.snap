@@ -199,7 +199,8 @@ exports[`renders an event bridge and lambda target with event bus name 1`] = `
             \\"principals\\": [
               {
                 \\"identifiers\\": [
-                  \\"lambda.amazonaws.com\\"
+                  \\"lambda.amazonaws.com\\",
+                  \\"edgelambda.amazonaws.com\\"
                 ],
                 \\"type\\": \\"Service\\"
               }
@@ -459,7 +460,8 @@ exports[`renders an event bridge and lambda target with rule description 1`] = `
             \\"principals\\": [
               {
                 \\"identifiers\\": [
-                  \\"lambda.amazonaws.com\\"
+                  \\"lambda.amazonaws.com\\",
+                  \\"edgelambda.amazonaws.com\\"
                 ],
                 \\"type\\": \\"Service\\"
               }
