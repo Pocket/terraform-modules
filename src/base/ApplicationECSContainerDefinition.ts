@@ -41,7 +41,7 @@ export const JSON_TEMPLATE = `
   "dependsOn": null,
   "disableNetworking": null,
   "interactive": null,
-  "healthCheck": null,
+  "healthCheck": [[HEALTH_CHECK]],
   "essential": true,
   "links": null,
   "hostname": null,
@@ -65,6 +65,14 @@ interface SecretEnvironmentVariable {
   valueFrom: string;
 }
 
+interface HealthcheckVariable {
+  command: string[];
+  interval: number;
+  retries: number;
+  startPeriod: number;
+  timeout: number;
+}
+
 export interface ApplicationECSContainerDefinitionProps {
   containerImage?: string;
   logGroup?: string;
@@ -78,6 +86,7 @@ export interface ApplicationECSContainerDefinitionProps {
   memoryReservation?: number;
   protocol?: string;
   cpu?: number;
+  healthCheck?: HealthcheckVariable;
 }
 
 export function buildDefinitionJSON(
@@ -141,6 +150,21 @@ export function buildDefinitionJSON(
     '[[PROTOCOL]]',
     config.protocol ?? 'tcp'
   );
+
+  if (config.healthCheck) {
+    templateInstance = templateInstance.replace(
+      '[[HEALTH_CHECK]]',
+      JSON.stringify({
+        command: config.healthCheck.command,
+        interval: config.healthCheck.interval,
+        retries: config.healthCheck.retries,
+        startPeriod: config.healthCheck.startPeriod,
+        timeout: config.healthCheck.timeout,
+      })
+    );
+  } else {
+    templateInstance = templateInstance.replace('[[HEALTH_CHECK]]', 'null');
+  }
 
   // strip out whitespace and newlines and return
   return templateInstance.replace(/\n/g, '');
