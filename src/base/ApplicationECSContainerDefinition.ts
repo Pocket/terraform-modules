@@ -151,18 +151,20 @@ export function buildDefinitionJSON(
     config.protocol ?? 'tcp'
   );
 
-  templateInstance = templateInstance.replace(
-    '[[HEALTH_CHECK]]',
-    config.healthCheck
-      ? JSON.stringify({
-          command: config.healthCheck.command,
-          interval: config.healthCheck.interval,
-          retries: config.healthCheck.retries,
-          startPeriod: config.healthCheck.startPeriod,
-          timeout: config.healthCheck.timeout,
+  if (config.healthCheck) {
+    templateInstance = templateInstance.replace(
+      '[[HEALTH_CHECK]]',
+      JSON.stringify({
+        command: config.healthCheck.command,
+        interval: config.healthCheck.interval,
+        retries: config.healthCheck.retries,
+        startPeriod: config.healthCheck.startPeriod,
+        timeout: config.healthCheck.timeout,
       })
-      : 'null'
-  );
+    );
+  } else {
+    templateInstance = templateInstance.replace('[[HEALTH_CHECK]]', 'null');
+  }
 
   // strip out whitespace and newlines and return
   return templateInstance.replace(/\n/g, '');
