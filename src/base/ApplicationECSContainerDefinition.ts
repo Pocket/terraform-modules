@@ -155,11 +155,11 @@ export function buildDefinitionJSON(
     '[[HEALTH_CHECK]]',
     config.healthCheck
       ? JSON.stringify({
-        command: config.healthCheck.command,
-        interval: config.healthCheck.interval,
-        retries: config.healthCheck.retries,
-        startPeriod: config.healthCheck.startPeriod,
-        timeout: config.healthCheck.timeout,
+          command: config.healthCheck.command,
+          interval: config.healthCheck.interval,
+          retries: config.healthCheck.retries,
+          startPeriod: config.healthCheck.startPeriod,
+          timeout: config.healthCheck.timeout,
       })
       : 'null'
   );
