@@ -79,6 +79,30 @@ describe('ApplicationECSContainerDefinition', () => {
       expect(result).to.contain(`"command": ["go to in-n-out","go bowling"]`);
     });
 
+    it('builds JSON with a healthcheck', () => {
+      config.healthCheck = {
+        command: [
+          'CMD-SHELL',
+          'curl -f "http://127.0.0.1:8000/pulse" || exit 1',
+        ],
+        timeout: 5,
+        startPeriod: 0,
+        interval: 30,
+        retries: 2,
+      };
+
+      const result = buildDefinitionJSON(config);
+
+      expect(result).to.contain(
+        `"healthCheck": {` +
+          `"command":["CMD-SHELL","curl -f \\"http://127.0.0.1:8000/pulse\\" || exit 1"],` +
+          `"interval":30,` +
+          `"retries":2,` +
+          `"startPeriod":0,` +
+          `"timeout":5}`
+      );
+    });
+
     it('builds JSON without repository credentials', () => {
       config.repositoryCredentialsParam = undefined;
 
