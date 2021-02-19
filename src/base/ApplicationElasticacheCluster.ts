@@ -171,6 +171,8 @@ export class ApplicationElasticacheCluster extends Resource {
         tags: config.tags,
       }
     );
+    // @ts-ignore: https://github.com/hashicorp/terraform-cdk/issues/282
+    securityGroup.addOverride('ingress.0.self', null);
 
     const subnetGroup = new ElasticacheSubnetGroup(
       scope,
