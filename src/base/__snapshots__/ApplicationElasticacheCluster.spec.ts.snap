@@ -41,6 +41,7 @@ exports[`renders memcached with minimal config 1`] = `
             \\"prefix_list_ids\\": null,
             \\"protocol\\": \\"tcp\\",
             \\"security_groups\\": [],
+            \\"self\\": null,
             \\"to_port\\": 11211
           }
         ],
@@ -139,6 +140,7 @@ exports[`renders memcached with node change 1`] = `
             \\"prefix_list_ids\\": null,
             \\"protocol\\": \\"tcp\\",
             \\"security_groups\\": [],
+            \\"self\\": null,
             \\"to_port\\": 11211
           }
         ],
@@ -237,6 +239,7 @@ exports[`renders memcached with tags 1`] = `
             \\"prefix_list_ids\\": null,
             \\"protocol\\": \\"tcp\\",
             \\"security_groups\\": [],
+            \\"self\\": null,
             \\"to_port\\": 11211
           }
         ],
@@ -343,6 +346,7 @@ exports[`renders redis with minimal config 1`] = `
             \\"prefix_list_ids\\": null,
             \\"protocol\\": \\"tcp\\",
             \\"security_groups\\": [],
+            \\"self\\": null,
             \\"to_port\\": 6379
           }
         ],
