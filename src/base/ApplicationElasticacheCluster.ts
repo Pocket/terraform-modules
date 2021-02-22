@@ -4,7 +4,6 @@ import {
   ElasticacheCluster,
   ElasticacheSubnetGroup,
   SecurityGroup,
-  ElasticacheClusterConfig,
 } from '../../.gen/providers/aws';
 import { Construct } from 'constructs';
 
@@ -12,11 +11,6 @@ export enum ApplicationElasticacheEngine {
   MEMCACHED = 'memcached',
   REDIS = 'redis',
 }
-
-/**
- * Creates a types that allows us to write to readonly amazon types when we are conditionaly building configs
- */
-type Writeable<T> = { -readonly [P in keyof T]: T[P] };
 
 export interface ApplicationElasticacheClusterProps {
   prefix: string;
