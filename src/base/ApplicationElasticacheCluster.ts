@@ -4,6 +4,7 @@ import {
   ElasticacheCluster,
   ElasticacheSubnetGroup,
   SecurityGroup,
+  ElasticacheClusterConfig,
 } from '../../.gen/providers/aws';
 import { Construct } from 'constructs';
 
@@ -11,6 +12,11 @@ export enum ApplicationElasticacheEngine {
   MEMCACHED = 'memcached',
   REDIS = 'redis',
 }
+
+/**
+ * Creates a types that allows us to write to readonly amazon types when we are conditionaly building configs
+ */
+type Writeable<T> = { -readonly [P in keyof T]: T[P] };
 
 export interface ApplicationElasticacheClusterProps {
   prefix: string;
@@ -43,7 +49,7 @@ const DEFAULT_CONFIG = {
  * Generates an elasticache cluster with the desired engine
  */
 export class ApplicationElasticacheCluster extends Resource {
-  public elasticacheClister: ElasticacheCluster;
+  public elasticacheCluster: ElasticacheCluster;
 
   constructor(
     scope: Construct,
@@ -67,7 +73,7 @@ export class ApplicationElasticacheCluster extends Resource {
       ],
     });
 
-    this.elasticacheClister = ApplicationElasticacheCluster.createElasticacheCluster(
+    this.elasticacheCluster = ApplicationElasticacheCluster.createElasticacheCluster(
       this,
       vpc,
       config
