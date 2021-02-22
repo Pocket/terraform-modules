@@ -43,7 +43,7 @@ const DEFAULT_CONFIG = {
  * Generates an elasticache cluster with the desired engine
  */
 export class ApplicationElasticacheCluster extends Resource {
-  public elasticacheClister: ElasticacheCluster;
+  public elasticacheCluster: ElasticacheCluster;
 
   constructor(
     scope: Construct,
@@ -67,7 +67,7 @@ export class ApplicationElasticacheCluster extends Resource {
       ],
     });
 
-    this.elasticacheClister = ApplicationElasticacheCluster.createElasticacheCluster(
+    this.elasticacheCluster = ApplicationElasticacheCluster.createElasticacheCluster(
       this,
       vpc,
       config
