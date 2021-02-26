@@ -1,7 +1,6 @@
 import { Resource } from 'cdktf';
 import {
   DataAwsVpc,
-  ElasticacheCluster,
   ElasticacheSubnetGroup,
   SecurityGroup,
 } from '../../.gen/providers/aws';
@@ -17,7 +16,6 @@ export interface ApplicationElasticacheClusterProps {
   vpcId: string;
   subnetIds: string[];
   allowedIngressSecurityGroupIds: string[];
-  engine: ApplicationElasticacheEngine;
   node?: {
     /**
      * This is the size as defined here:https://aws.amazon.com/elasticache/pricing
@@ -32,33 +30,25 @@ export interface ApplicationElasticacheClusterProps {
   tags?: { [key: string]: string };
 }
 
-const DEFAULT_CONFIG = {
-  node: {
-    size: 'cache.t2.micro',
-    count: 2,
-  },
-};
-
 /**
  * Generates an elasticache cluster with the desired engine
  */
-export class ApplicationElasticacheCluster extends Resource {
-  public elasticacheCluster: ElasticacheCluster;
-
-  constructor(
-    scope: Construct,
-    name: string,
-    config: ApplicationElasticacheClusterProps
-  ) {
+export abstract class ApplicationElasticacheCluster extends Resource {
+  protected constructor(scope: Construct, name: string) {
     super(scope, name);
+  }
 
-    // use default config, but update any user-provided values
-    config = {
-      ...DEFAULT_CONFIG,
-      ...config,
-    };
-
-    const vpc = new DataAwsVpc(this, `vpc`, {
+  /**
+   * Gets a VPC
+   * @param scope
+   * @param config
+   * @protected
+   */
+  protected static getVpc(
+    scope: Construct,
+    config: ApplicationElasticacheClusterProps
+  ): DataAwsVpc {
+    return new DataAwsVpc(scope, `vpc`, {
       filter: [
         {
           name: 'vpc-id',
@@ -66,12 +56,6 @@ export class ApplicationElasticacheCluster extends Resource {
         },
       ],
     });
-
-    this.elasticacheCluster = ApplicationElasticacheCluster.createElasticacheCluster(
-      this,
-      vpc,
-      config
-    );
   }
 
   /**
@@ -79,7 +63,7 @@ export class ApplicationElasticacheCluster extends Resource {
    * @param engine
    * @private
    */
-  private static getPortForEngine(
+  protected static getPortForEngine(
     engine: ApplicationElasticacheEngine
   ): number {
     switch (engine) {
@@ -95,7 +79,7 @@ export class ApplicationElasticacheCluster extends Resource {
    * @param engine
    * @private
    */
-  private static getParameterGroupForEngine(
+  protected static getParameterGroupForEngine(
     engine: ApplicationElasticacheEngine
   ): string {
     switch (engine) {
@@ -111,7 +95,7 @@ export class ApplicationElasticacheCluster extends Resource {
    * @param engine
    * @private
    */
-  private static getEngineVersionForEngine(
+  protected static getEngineVersionForEngine(
     engine: ApplicationElasticacheEngine
   ): string {
     switch (engine) {
@@ -123,17 +107,19 @@ export class ApplicationElasticacheCluster extends Resource {
   }
 
   /**
-   * Creates the elasticache cluster to be used
+   * Create a security group and a subnet group for Elasticache
    * @param scope
-   * @param vpc
    * @param config
-   * @private
+   * @param vpc
+   * @param port
+   * @protected
    */
-  private static createElasticacheCluster(
+  protected static createSecurityGroupAndSubnet(
     scope: Construct,
+    config: ApplicationElasticacheClusterProps,
     vpc: DataAwsVpc,
-    config: ApplicationElasticacheClusterProps
-  ) {
+    port: number
+  ): { securityGroup: SecurityGroup; subnetGroup: ElasticacheSubnetGroup } {
     const securityGroup = new SecurityGroup(
       scope,
       'elasticache_security_group',
@@ -143,12 +129,8 @@ export class ApplicationElasticacheCluster extends Resource {
         vpcId: vpc.id,
         ingress: [
           {
-            fromPort: ApplicationElasticacheCluster.getPortForEngine(
-              config.engine
-            ),
-            toPort: ApplicationElasticacheCluster.getPortForEngine(
-              config.engine
-            ),
+            fromPort: port,
+            toPort: port,
             protocol: 'tcp',
 
             //If we have a ingress security group it takes precedence
@@ -182,24 +164,6 @@ export class ApplicationElasticacheCluster extends Resource {
         subnetIds: config.subnetIds,
       }
     );
-
-    return new ElasticacheCluster(scope, `elasticache_cluster`, {
-      clusterId: config.prefix.toLowerCase(),
-      engine: config.engine.toString(),
-      nodeType: config.node.size,
-      numCacheNodes: config.node.count,
-      parameterGroupName: ApplicationElasticacheCluster.getParameterGroupForEngine(
-        config.engine
-      ),
-      port: ApplicationElasticacheCluster.getPortForEngine(config.engine),
-      engineVersion: ApplicationElasticacheCluster.getEngineVersionForEngine(
-        config.engine
-      ),
-      subnetGroupName: subnetGroup.name,
-      securityGroupIds: [securityGroup.id],
-      tags: config.tags,
-      applyImmediately: true,
-      dependsOn: [subnetGroup, securityGroup],
-    });
+    return { securityGroup, subnetGroup };
   }
 }

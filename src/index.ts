@@ -18,4 +18,5 @@ export * from './base/ApplicationECSIAM';
 export * from './base/ApplicationECSAlbCodeDeploy';
 export * from './base/ApplicationTargetGroup';
 export * from './base/ApplicationAutoscaling';
-export * from './base/ApplicationElasticacheCluster';
+export * from './base/ApplicationMemcache';
+export * from './base/ApplicationRedis';
