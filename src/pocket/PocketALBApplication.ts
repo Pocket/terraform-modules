@@ -2,11 +2,14 @@ import { Resource } from 'cdktf';
 import {
   AlbListener,
   CloudfrontDistribution,
-  Route53Record,
   CloudwatchDashboard,
+  CloudwatchMetricAlarm,
+  CloudwatchMetricAlarmConfig,
+  Route53Record,
 } from '../../.gen/providers/aws';
 import { Construct } from 'constructs';
 import {
+  ApplicationAutoscaling,
   ApplicationBaseDNS,
   ApplicationCertificate,
   ApplicationECSCluster,
@@ -15,9 +18,16 @@ import {
   ApplicationECSService,
   ApplicationECSServiceProps,
   ApplicationLoadBalancer,
-  ApplicationAutoscaling,
 } from '..';
 import { PocketVPC } from './PocketVPC';
+
+export interface PocketALBApplicationAlarmProps {
+  threshold?: number;
+  period?: number;
+  evaluationPeriods?: number;
+  datapointsToAlarm?: number;
+  actions?: string[];
+}
 
 export interface PocketALBApplicationProps {
   prefix: string;
@@ -49,6 +59,18 @@ export interface PocketALBApplicationProps {
     scaleInThreshold?: number;
     scaleOutThreshold?: number;
   };
+  alarms?: {
+    http5xxError?: PocketALBApplicationAlarmProps;
+    httpLatency?: PocketALBApplicationAlarmProps;
+    httpRequestCount?: PocketALBApplicationAlarmProps;
+    customAlarms?: CloudwatchMetricAlarmConfig[];
+  };
+}
+
+interface CreateALBReturn {
+  alb: ApplicationLoadBalancer;
+  albRecord: Route53Record;
+  albCertificate: ApplicationCertificate;
 }
 
 // can export if we need to use outside of this module
@@ -57,13 +79,15 @@ const DEFAULT_AUTOSCALING_CONFIG = {
   scaleInThreshold: 30,
   targetMinCapacity: 1,
   targetMaxCapacity: 2,
-  stepScaleInAdjustment: 1,
+  stepScaleInAdjustment: -1,
   stepScaleOutAdjustment: 2,
 };
 
 export class PocketALBApplication extends Resource {
   public readonly alb: ApplicationLoadBalancer;
   public readonly baseDNS: ApplicationBaseDNS;
+  private readonly config: PocketALBApplicationProps;
+  private readonly pocketVPC: PocketVPC;
 
   constructor(
     scope: Construct,
@@ -72,15 +96,15 @@ export class PocketALBApplication extends Resource {
   ) {
     super(scope, name);
 
-    config = PocketALBApplication.validateConfig(config);
+    this.config = PocketALBApplication.validateConfig(config);
 
     // use default auto-scaling config, but update any user-provided values
-    config.autoscalingConfig = {
+    this.config.autoscalingConfig = {
       ...DEFAULT_AUTOSCALING_CONFIG,
       ...config.autoscalingConfig,
     };
 
-    const pocketVPC = new PocketVPC(this, `pocket_vpc`);
+    this.pocketVPC = new PocketVPC(this, `pocket_vpc`);
 
     //Setup the Base DNS stack for our application which includes a hosted SubZone
     this.baseDNS = new ApplicationBaseDNS(this, `base_dns`, {
@@ -88,31 +112,22 @@ export class PocketALBApplication extends Resource {
       tags: config.tags,
     });
 
-    const { alb, albRecord, albCertificate } = this.createALB(
-      config,
-      pocketVPC
-    );
+    const { alb, albRecord, albCertificate } = this.createALB();
     this.alb = alb;
 
     if (config.cdn) {
-      this.createCDN(config, albRecord);
+      this.createCDN(albRecord);
     }
 
-    const ecsService = this.createECSService(
-      config,
-      pocketVPC,
-      alb,
-      albCertificate
-    );
+    const ecsService = this.createECSService(alb, albCertificate);
 
     this.createCloudwatchDashboard(
       alb.alb.arnSuffix,
       ecsService.ecs.service.name,
-      ecsService.ecs.service.cluster,
-      config.autoscalingConfig.scaleOutThreshold,
-      config.autoscalingConfig.scaleInThreshold,
-      config.prefix
+      ecsService.cluster.cluster.name
     );
+
+    this.createCloudwatchAlarms();
   }
 
   /**
@@ -122,6 +137,45 @@ export class PocketALBApplication extends Resource {
    * @private
    */
   private static validateConfig(
+    config: PocketALBApplicationProps
+  ): PocketALBApplicationProps {
+    config = PocketALBApplication.validateCachedALB(config);
+
+    PocketALBApplication.validateAlarmsConfig(config.alarms);
+
+    return config;
+  }
+
+  private static validateAlarmsConfig(
+    config: PocketALBApplicationProps['alarms']
+  ): void {
+    if (!config) return;
+
+    const alarmsToValidate = {
+      http5xxError: 'HTTP 5xx Error',
+      httpLatency: 'HTTP Latency',
+      httpRequestCount: 'HTTP Request Count',
+    };
+
+    const errorMessage =
+      'DatapointsToAlarm must be less than or equal to EvaluationPeriods';
+
+    Object.keys(alarmsToValidate).forEach((key) => {
+      if (
+        config[key]?.datapointsToAlarm > (config[key]?.evaluationPeriods ?? 1)
+      ) {
+        throw new Error(`${alarmsToValidate[key]} Alarm: ${errorMessage}`);
+      }
+    });
+
+    config.customAlarms?.forEach((alarm: CloudwatchMetricAlarmConfig) => {
+      if (alarm.datapointsToAlarm > alarm.evaluationPeriods) {
+        throw new Error(`${alarm.alarmName}: ${errorMessage}`);
+      }
+    });
+  }
+
+  private static validateCachedALB(
     config: PocketALBApplicationProps
   ): PocketALBApplicationProps {
     if (config.cdn === undefined) {
@@ -143,35 +197,26 @@ export class PocketALBApplication extends Resource {
 
   /**
    * Creates the ALB stack and certificates
-   * @param config
-   * @param pocketVPC
    * @private
    */
-  private createALB(
-    config: PocketALBApplicationProps,
-    pocketVPC: PocketVPC
-  ): {
-    alb: ApplicationLoadBalancer;
-    albRecord: Route53Record;
-    albCertificate: ApplicationCertificate;
-  } {
+  private createALB(): CreateALBReturn {
     //Create our application Load Balancer
     const alb = new ApplicationLoadBalancer(this, `application_load_balancer`, {
-      vpcId: pocketVPC.vpc.id,
-      prefix: config.prefix,
-      alb6CharacterPrefix: config.alb6CharacterPrefix,
-      subnetIds: config.internal
-        ? pocketVPC.privateSubnetIds
-        : pocketVPC.publicSubnetIds,
-      internal: config.internal,
-      tags: config.tags,
+      vpcId: this.pocketVPC.vpc.id,
+      prefix: this.config.prefix,
+      alb6CharacterPrefix: this.config.alb6CharacterPrefix,
+      subnetIds: this.config.internal
+        ? this.pocketVPC.privateSubnetIds
+        : this.pocketVPC.publicSubnetIds,
+      internal: this.config.internal,
+      tags: this.config.tags,
     });
 
     //When the app uses a CDN we set the ALB to be direct.app-domain
     //Then the CDN is our main app.
-    const albDomainName = config.cdn
-      ? `direct.${config.domain}`
-      : config.domain;
+    const albDomainName = this.config.cdn
+      ? `direct.${this.config.domain}`
+      : this.config.domain;
 
     //Sets up the record for the ALB.
     const albRecord = new Route53Record(this, `alb_record`, {
@@ -200,7 +245,7 @@ export class PocketALBApplication extends Resource {
     const albCertificate = new ApplicationCertificate(this, `alb_certificate`, {
       zoneId: this.baseDNS.zoneId,
       domain: albDomainName,
-      tags: config.tags,
+      tags: this.config.tags,
     });
 
     return {
@@ -213,28 +258,24 @@ export class PocketALBApplication extends Resource {
   /**
    * Create the CDN if the ALB is backed by one.
    *
-   * @param config
    * @param albRecord
    * @private
    */
-  private createCDN(
-    config: PocketALBApplicationProps,
-    albRecord: Route53Record
-  ): void {
+  private createCDN(albRecord: Route53Record): void {
     //Create the certificate for the CDN
     const cdnCertificate = new ApplicationCertificate(this, `cdn_certificate`, {
       zoneId: this.baseDNS.zoneId,
-      domain: config.domain,
-      tags: config.tags,
+      domain: this.config.domain,
+      tags: this.config.tags,
     });
 
     //Create the CDN
     const cdn = new CloudfrontDistribution(this, `cloudfront_distribution`, {
-      comment: `CDN for direct.${config.domain}`,
+      comment: `CDN for direct.${this.config.domain}`,
       enabled: true,
-      aliases: [config.domain],
+      aliases: [this.config.domain],
       priceClass: 'PriceClass_200',
-      tags: config.tags,
+      tags: this.config.tags,
       origin: [
         {
           domainName: albRecord.fqdn,
@@ -297,7 +338,7 @@ export class PocketALBApplication extends Resource {
 
     //When cached the CDN must point to the Load Balancer
     new Route53Record(this, `cdn_record`, {
-      name: config.domain,
+      name: this.config.domain,
       type: 'A',
       zoneId: this.baseDNS.zoneId,
       weightedRoutingPolicy: [
@@ -321,21 +362,17 @@ export class PocketALBApplication extends Resource {
 
   /**
    * Create the ECS service and attach it to the ALB
-   * @param config
-   * @param pocketVPC
    * @param alb
    * @param albCertificate
    * @private
    */
   private createECSService(
-    config: PocketALBApplicationProps,
-    pocketVPC: PocketVPC,
     alb: ApplicationLoadBalancer,
     albCertificate: ApplicationCertificate
-  ): { ecs: ApplicationECSService } {
+  ): { ecs: ApplicationECSService; cluster: ApplicationECSCluster } {
     const ecsCluster = new ApplicationECSCluster(this, 'ecs_cluster', {
-      prefix: config.prefix,
-      tags: config.tags,
+      prefix: this.config.prefix,
+      tags: this.config.tags,
     });
 
     new AlbListener(this, 'listener_http', {
@@ -376,30 +413,30 @@ export class PocketALBApplication extends Resource {
     });
 
     let ecsConfig: ApplicationECSServiceProps = {
-      prefix: config.prefix,
-      shortName: config.alb6CharacterPrefix,
+      prefix: this.config.prefix,
+      shortName: this.config.alb6CharacterPrefix,
       ecsClusterArn: ecsCluster.cluster.arn,
       ecsClusterName: ecsCluster.cluster.name,
-      useCodeDeploy: config.codeDeploy.useCodeDeploy,
-      codeDeploySnsNotificationTopicArn:
-        config.codeDeploy.snsNotificationTopicArn,
+      useCodeDeploy: this.config.codeDeploy.useCodeDeploy,
+      codeDeploySnsNotificationTopicArn: this.config.codeDeploy
+        .snsNotificationTopicArn,
       albConfig: {
-        containerPort: config.exposedContainer.port,
-        containerName: config.exposedContainer.name,
-        healthCheckPath: config.exposedContainer.healthCheckPath,
+        containerPort: this.config.exposedContainer.port,
+        containerName: this.config.exposedContainer.name,
+        healthCheckPath: this.config.exposedContainer.healthCheckPath,
         listenerArn: httpsListener.arn,
         albSecurityGroupId: alb.securityGroup.id,
       },
-      vpcId: pocketVPC.vpc.id,
-      containerConfigs: config.containerConfigs,
-      privateSubnetIds: pocketVPC.privateSubnetIds,
-      ecsIamConfig: config.ecsIamConfig,
-      tags: config.tags,
+      vpcId: this.pocketVPC.vpc.id,
+      containerConfigs: this.config.containerConfigs,
+      privateSubnetIds: this.pocketVPC.privateSubnetIds,
+      ecsIamConfig: this.config.ecsIamConfig,
+      tags: this.config.tags,
     };
 
-    if (config.taskSize) {
+    if (this.config.taskSize) {
       ecsConfig = {
-        ...config.taskSize,
+        ...this.config.taskSize,
         ...ecsConfig,
       };
     }
@@ -411,21 +448,24 @@ export class PocketALBApplication extends Resource {
     );
 
     new ApplicationAutoscaling(this, 'autoscaling', {
-      prefix: config.prefix,
-      targetMinCapacity: config.autoscalingConfig.targetMinCapacity,
-      targetMaxCapacity: config.autoscalingConfig.targetMaxCapacity,
+      prefix: this.config.prefix,
+      targetMinCapacity: this.config.autoscalingConfig.targetMinCapacity,
+      targetMaxCapacity: this.config.autoscalingConfig.targetMaxCapacity,
       ecsClusterName: ecsCluster.cluster.name,
       ecsServiceName: ecsService.service.name,
       scalableDimension: 'ecs:service:DesiredCount',
-      stepScaleInAdjustment: config.autoscalingConfig.stepScaleInAdjustment,
-      stepScaleOutAdjustment: config.autoscalingConfig.stepScaleOutAdjustment,
-      scaleInThreshold: config.autoscalingConfig.scaleInThreshold,
-      scaleOutThreshold: config.autoscalingConfig.scaleOutThreshold,
-      tags: config.tags,
+      stepScaleInAdjustment: this.config.autoscalingConfig
+        .stepScaleInAdjustment,
+      stepScaleOutAdjustment: this.config.autoscalingConfig
+        .stepScaleOutAdjustment,
+      scaleInThreshold: this.config.autoscalingConfig.scaleInThreshold,
+      scaleOutThreshold: this.config.autoscalingConfig.scaleOutThreshold,
+      tags: this.config.tags,
     });
 
     return {
       ecs: ecsService,
+      cluster: ecsCluster,
     };
   }
 
@@ -435,17 +475,11 @@ export class PocketALBApplication extends Resource {
    * @param albArnSuffix
    * @param ecsServiceName
    * @param ecsServiceClusterName
-   * @param scaleOutThreshold
-   * @param scaleInThreshold
-   * @param prefix
    */
   private createCloudwatchDashboard(
     albArnSuffix: string,
     ecsServiceName: string,
-    ecsServiceClusterName: string,
-    scaleOutThreshold: number,
-    scaleInThreshold: number,
-    prefix: string
+    ecsServiceClusterName: string
   ): CloudwatchDashboard {
     // don't love having this big ol' JSON object here, but it is the simplest way to achieve the result
     const dashboardJSON = {
@@ -508,7 +542,64 @@ export class PocketALBApplication extends Resource {
                 {
                   color: '#17becf',
                   label: 'RequestCountThreshold',
-                  value: 3,
+                  value: this.config.alarms?.httpRequestCount?.threshold ?? 500,
+                  yAxis: 'right',
+                },
+              ],
+            },
+            title: 'Target Requests',
+          },
+        },
+        {
+          type: 'metric',
+          x: 12,
+          y: 0,
+          width: 12,
+          height: 6,
+          properties: {
+            metrics: [
+              [
+                'AWS/ApplicationELB',
+                'HTTPCode_ELB_4XX_Count',
+                'LoadBalancer',
+                albArnSuffix,
+                {
+                  yAxis: 'left',
+                  color: '#ff7f0e',
+                },
+              ],
+              [
+                '.',
+                'RequestCount',
+                '.',
+                '.',
+                {
+                  yAxis: 'right',
+                  color: '#1f77b4',
+                },
+              ],
+              [
+                '.',
+                'HTTPCode_ELB_5XX_Count',
+                '.',
+                '.',
+                {
+                  color: '#d62728',
+                },
+              ],
+            ],
+            view: 'timeSeries',
+            stacked: false,
+            region: 'us-east-1',
+            period: 60,
+            stat: 'Sum',
+            annotations: {
+              horizontal: [
+                {
+                  color: '#17becf',
+                  label: 'RequestCountThreshold',
+                  value: this.config.alarms?.httpRequestCount?.threshold ?? 500,
+                  yAxis: 'right',
                 },
               ],
             },
@@ -518,7 +609,7 @@ export class PocketALBApplication extends Resource {
         {
           type: 'metric',
           x: 12,
-          y: 0,
+          y: 6,
           width: 12,
           height: 6,
           properties: {
@@ -579,8 +670,8 @@ export class PocketALBApplication extends Resource {
                 },
               ],
               [
-                '.',
-                'CpuUtilized',
+                'AWS/ECS',
+                'CPUUtilization',
                 '.',
                 '.',
                 '.',
@@ -591,7 +682,7 @@ export class PocketALBApplication extends Resource {
               ],
               [
                 '.',
-                'MemoryUtilized',
+                'MemoryUtilization',
                 '.',
                 '.',
                 '.',
@@ -611,12 +702,12 @@ export class PocketALBApplication extends Resource {
                 {
                   color: '#e377c2',
                   label: 'CPU scale out',
-                  value: scaleOutThreshold,
+                  value: this.config.autoscalingConfig.scaleOutThreshold,
                 },
                 {
                   color: '#c5b0d5',
                   label: 'CPU scale in',
-                  value: scaleInThreshold,
+                  value: this.config.autoscalingConfig.scaleInThreshold,
                 },
               ],
             },
@@ -627,8 +718,121 @@ export class PocketALBApplication extends Resource {
     };
 
     return new CloudwatchDashboard(this, 'cloudwatch-dashboard', {
-      dashboardName: `${prefix}-ALBDashboard`,
+      dashboardName: `${this.config.prefix}-ALBDashboard`,
       dashboardBody: JSON.stringify(dashboardJSON),
+    });
+  }
+
+  private createCloudwatchAlarms(): void {
+    const alarmsConfig = this.config.alarms;
+    const evaluationPeriods = {
+      http5xxError: alarmsConfig?.http5xxError?.evaluationPeriods ?? 5,
+      httpLatency: alarmsConfig?.httpLatency?.evaluationPeriods ?? 1,
+      httpRequestCount: alarmsConfig?.httpRequestCount?.evaluationPeriods ?? 1,
+    };
+
+    const defaultAlarms: CloudwatchMetricAlarmConfig[] = [
+      {
+        alarmName: 'Alarm-HTTP5xxErrorRate',
+        metricQuery: [
+          {
+            id: 'requests',
+            metric: [
+              {
+                metricName: 'RequestCount',
+                namespace: 'AWS/ApplicationELB',
+                period: alarmsConfig?.http5xxError?.period ?? 60,
+                stat: 'Sum',
+                unit: 'Count',
+                dimensions: { LoadBalancer: this.alb.alb.arnSuffix },
+              },
+            ],
+          },
+          {
+            id: 'errors',
+            metric: [
+              {
+                metricName: 'HTTPCode_ELB_5XX_Count',
+                namespace: 'AWS/ApplicationELB',
+                period: alarmsConfig?.http5xxError?.period ?? 60,
+                stat: 'Sum',
+                unit: 'Count',
+                dimensions: { LoadBalancer: this.alb.alb.arnSuffix },
+              },
+            ],
+          },
+          {
+            id: 'expression',
+            expression: 'errors/requests*100',
+            label: 'HTTP 5xx Error Rate',
+            returnData: true,
+          },
+        ],
+        comparisonOperator: 'GreaterThanOrEqualToThreshold',
+        evaluationPeriods: evaluationPeriods.http5xxError,
+        datapointsToAlarm:
+          alarmsConfig?.http5xxError?.datapointsToAlarm ??
+          evaluationPeriods.http5xxError,
+        threshold: alarmsConfig?.http5xxError?.threshold ?? 5,
+        insufficientDataActions: [],
+        alarmActions: alarmsConfig?.http5xxError?.actions ?? [],
+        okActions: alarmsConfig?.http5xxError?.actions ?? [],
+        tags: this.config.tags,
+        alarmDescription: 'Percentage of 5xx responses exceeds threshold',
+      },
+      {
+        alarmName: 'Alarm-HTTPResponseTime',
+        namespace: 'AWS/ApplicationELB',
+        metricName: 'TargetResponseTime',
+        dimensions: { LoadBalancer: this.alb.alb.arnSuffix },
+        period: alarmsConfig?.httpLatency?.period ?? 300,
+        evaluationPeriods: evaluationPeriods.httpLatency,
+        datapointsToAlarm:
+          alarmsConfig?.httpLatency?.datapointsToAlarm ??
+          evaluationPeriods.httpLatency,
+        statistic: 'Average',
+        comparisonOperator: 'GreaterThanThreshold',
+        threshold: alarmsConfig?.httpLatency?.threshold ?? 300,
+        alarmDescription: 'Average HTTP response time exceeds threshold',
+        insufficientDataActions: [],
+        alarmActions: alarmsConfig?.httpLatency?.actions ?? [],
+        okActions: alarmsConfig?.httpLatency?.actions ?? [],
+        tags: this.config.tags,
+      },
+      {
+        alarmName: 'Alarm-HTTPRequestCount',
+        namespace: 'AWS/ApplicationELB',
+        metricName: 'RequestCount',
+        dimensions: { LoadBalancer: this.alb.alb.arnSuffix },
+        period: alarmsConfig?.httpRequestCount?.period ?? 300,
+        evaluationPeriods: evaluationPeriods.httpRequestCount,
+        datapointsToAlarm:
+          alarmsConfig?.httpRequestCount?.datapointsToAlarm ??
+          evaluationPeriods.httpRequestCount,
+        statistic: 'Sum',
+        comparisonOperator: 'GreaterThanThreshold',
+        threshold: alarmsConfig?.httpRequestCount?.threshold ?? 500,
+        alarmDescription: 'Total HTTP request count exceeds threshold',
+        insufficientDataActions: [],
+        alarmActions: alarmsConfig?.httpLatency?.actions ?? [],
+        okActions: alarmsConfig?.httpLatency?.actions ?? [],
+        tags: this.config.tags,
+      },
+    ];
+
+    if (alarmsConfig?.customAlarms) {
+      defaultAlarms.push(...alarmsConfig.customAlarms);
+    }
+
+    this.createAlarms(defaultAlarms);
+  }
+
+  private createAlarms(alarms: CloudwatchMetricAlarmConfig[]): void {
+    alarms.forEach((alarmConfig) => {
+      new CloudwatchMetricAlarm(this, alarmConfig.alarmName.toLowerCase(), {
+        ...alarmConfig,
+        alarmName: `${this.config.prefix}-${alarmConfig.alarmName}`,
+      });
     });
   }
 }

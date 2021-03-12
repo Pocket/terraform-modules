@@ -1,0 +1,962 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders a Pocket PagerDuty for critical and non-critical actions 1`] = `
+"{
+  \\"//\\": {
+    \\"metadata\\": {
+      \\"version\\": \\"stubbed\\",
+      \\"stackName\\": \\"test\\"
+    }
+  },
+  \\"data\\": {
+    \\"pagerduty_vendor\\": {
+      \\"test-pagerduty_sentry_896D6C2C\\": {
+        \\"name\\": \\"Sentry\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-pagerduty/sentry\\",
+            \\"uniqueId\\": \\"test-pagerduty_sentry_896D6C2C\\"
+          }
+        }
+      },
+      \\"test-pagerduty_cloudwatch_8824B7B3\\": {
+        \\"name\\": \\"Cloudwatch\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-pagerduty/cloudwatch\\",
+            \\"uniqueId\\": \\"test-pagerduty_cloudwatch_8824B7B3\\"
+          }
+        }
+      }
+    }
+  },
+  \\"resource\\": {
+    \\"pagerduty_service\\": {
+      \\"test-pagerduty_pagerduty-critical_3EB714BD\\": {
+        \\"acknowledgement_timeout\\": \\"600\\",
+        \\"alert_creation\\": \\"create_incidents\\",
+        \\"auto_resolve_timeout\\": \\"14400\\",
+        \\"description\\": \\"PagerDuty Critical\\",
+        \\"escalation_policy\\": \\"critical-id\\",
+        \\"name\\": \\"Test-Env-PagerDuty-Critical\\",
+        \\"incident_urgency_rule\\": [
+          {
+            \\"type\\": \\"constant\\",
+            \\"urgency\\": \\"high\\"
+          }
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-pagerduty/pagerduty-critical\\",
+            \\"uniqueId\\": \\"test-pagerduty_pagerduty-critical_3EB714BD\\"
+          }
+        }
+      },
+      \\"test-pagerduty_pagerduty-non-critical_BBC21A2B\\": {
+        \\"acknowledgement_timeout\\": \\"600\\",
+        \\"alert_creation\\": \\"create_incidents\\",
+        \\"auto_resolve_timeout\\": \\"14400\\",
+        \\"description\\": \\"PagerDuty Non-Critical\\",
+        \\"escalation_policy\\": \\"non-critical-id\\",
+        \\"name\\": \\"Test-Env-PagerDuty-Non-Critical\\",
+        \\"incident_urgency_rule\\": [
+          {
+            \\"type\\": \\"constant\\",
+            \\"urgency\\": \\"low\\"
+          }
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-pagerduty/pagerduty-non-critical\\",
+            \\"uniqueId\\": \\"test-pagerduty_pagerduty-non-critical_BBC21A2B\\"
+          }
+        }
+      }
+    },
+    \\"pagerduty_service_integration\\": {
+      \\"test-pagerduty_datapagerduty_vendortest-pagerduty_sentry_896D6C2Cname-critical_77066D1B\\": {
+        \\"name\\": \\"\${data.pagerduty_vendor.test-pagerduty_sentry_896D6C2C.name}\\",
+        \\"service\\": \\"\${pagerduty_service.test-pagerduty_pagerduty-critical_3EB714BD.id}\\",
+        \\"vendor\\": \\"\${data.pagerduty_vendor.test-pagerduty_sentry_896D6C2C.id}\\",
+        \\"depends_on\\": [
+          \\"pagerduty_service.test-pagerduty_pagerduty-critical_3EB714BD\\"
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-pagerduty/\${data.pagerduty_vendor.test-pagerduty_sentry_896D6C2C.name}-critical\\",
+            \\"uniqueId\\": \\"test-pagerduty_datapagerduty_vendortest-pagerduty_sentry_896D6C2Cname-critical_77066D1B\\"
+          }
+        }
+      },
+      \\"test-pagerduty_datapagerduty_vendortest-pagerduty_sentry_896D6C2Cname-non-critical_983B52F6\\": {
+        \\"name\\": \\"\${data.pagerduty_vendor.test-pagerduty_sentry_896D6C2C.name}\\",
+        \\"service\\": \\"\${pagerduty_service.test-pagerduty_pagerduty-non-critical_BBC21A2B.id}\\",
+        \\"vendor\\": \\"\${data.pagerduty_vendor.test-pagerduty_sentry_896D6C2C.id}\\",
+        \\"depends_on\\": [
+          \\"pagerduty_service.test-pagerduty_pagerduty-non-critical_BBC21A2B\\"
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-pagerduty/\${data.pagerduty_vendor.test-pagerduty_sentry_896D6C2C.name}-non-critical\\",
+            \\"uniqueId\\": \\"test-pagerduty_datapagerduty_vendortest-pagerduty_sentry_896D6C2Cname-non-critical_983B52F6\\"
+          }
+        }
+      },
+      \\"test-pagerduty_datapagerduty_vendortest-pagerduty_cloudwatch_8824B7B3name-critical_AB659B1C\\": {
+        \\"name\\": \\"\${data.pagerduty_vendor.test-pagerduty_cloudwatch_8824B7B3.name}\\",
+        \\"service\\": \\"\${pagerduty_service.test-pagerduty_pagerduty-critical_3EB714BD.id}\\",
+        \\"vendor\\": \\"\${data.pagerduty_vendor.test-pagerduty_cloudwatch_8824B7B3.id}\\",
+        \\"depends_on\\": [
+          \\"pagerduty_service.test-pagerduty_pagerduty-critical_3EB714BD\\"
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-pagerduty/\${data.pagerduty_vendor.test-pagerduty_cloudwatch_8824B7B3.name}-critical\\",
+            \\"uniqueId\\": \\"test-pagerduty_datapagerduty_vendortest-pagerduty_cloudwatch_8824B7B3name-critical_AB659B1C\\"
+          }
+        }
+      },
+      \\"test-pagerduty_datapagerduty_vendortest-pagerduty_cloudwatch_8824B7B3name-non-critical_088AF802\\": {
+        \\"name\\": \\"\${data.pagerduty_vendor.test-pagerduty_cloudwatch_8824B7B3.name}\\",
+        \\"service\\": \\"\${pagerduty_service.test-pagerduty_pagerduty-non-critical_BBC21A2B.id}\\",
+        \\"vendor\\": \\"\${data.pagerduty_vendor.test-pagerduty_cloudwatch_8824B7B3.id}\\",
+        \\"depends_on\\": [
+          \\"pagerduty_service.test-pagerduty_pagerduty-non-critical_BBC21A2B\\"
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-pagerduty/\${data.pagerduty_vendor.test-pagerduty_cloudwatch_8824B7B3.name}-non-critical\\",
+            \\"uniqueId\\": \\"test-pagerduty_datapagerduty_vendortest-pagerduty_cloudwatch_8824B7B3name-non-critical_088AF802\\"
+          }
+        }
+      }
+    },
+    \\"aws_sns_topic\\": {
+      \\"test-pagerduty_alarm-critical-topic_5B8FEE8D\\": {
+        \\"name\\": \\"Test-Env-Infrastructure-Alarm-Critical\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-pagerduty/alarm-critical-topic\\",
+            \\"uniqueId\\": \\"test-pagerduty_alarm-critical-topic_5B8FEE8D\\"
+          }
+        }
+      },
+      \\"test-pagerduty_alarm-non-critical-topic_3FD65796\\": {
+        \\"name\\": \\"Test-Env-Infrastructure-Alarm-Non-Critical\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-pagerduty/alarm-non-critical-topic\\",
+            \\"uniqueId\\": \\"test-pagerduty_alarm-non-critical-topic_3FD65796\\"
+          }
+        }
+      }
+    },
+    \\"aws_sns_topic_subscription\\": {
+      \\"test-pagerduty_alarm-critical-subscription_ABC78F4F\\": {
+        \\"confirmation_timeout_in_minutes\\": 2,
+        \\"endpoint\\": \\"https://events.pagerduty.com/integration/\${pagerduty_service_integration.test-pagerduty_datapagerduty_vendortest-pagerduty_cloudwatch_8824B7B3name-critical_AB659B1C.integration_key}/enqueue\\",
+        \\"endpoint_auto_confirms\\": true,
+        \\"protocol\\": \\"https\\",
+        \\"topic_arn\\": \\"\${aws_sns_topic.test-pagerduty_alarm-critical-topic_5B8FEE8D.arn}\\",
+        \\"depends_on\\": [
+          \\"aws_sns_topic.test-pagerduty_alarm-critical-topic_5B8FEE8D\\",
+          \\"pagerduty_service_integration.test-pagerduty_datapagerduty_vendortest-pagerduty_cloudwatch_8824B7B3name-critical_AB659B1C\\"
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-pagerduty/alarm-critical-subscription\\",
+            \\"uniqueId\\": \\"test-pagerduty_alarm-critical-subscription_ABC78F4F\\"
+          }
+        }
+      },
+      \\"test-pagerduty_alarm-non-critical-subscription_D80993D9\\": {
+        \\"confirmation_timeout_in_minutes\\": 2,
+        \\"endpoint\\": \\"https://events.pagerduty.com/integration/\${pagerduty_service_integration.test-pagerduty_datapagerduty_vendortest-pagerduty_cloudwatch_8824B7B3name-non-critical_088AF802.integration_key}/enqueue\\",
+        \\"endpoint_auto_confirms\\": true,
+        \\"protocol\\": \\"https\\",
+        \\"topic_arn\\": \\"\${aws_sns_topic.test-pagerduty_alarm-non-critical-topic_3FD65796.arn}\\",
+        \\"depends_on\\": [
+          \\"aws_sns_topic.test-pagerduty_alarm-non-critical-topic_3FD65796\\",
+          \\"pagerduty_service_integration.test-pagerduty_datapagerduty_vendortest-pagerduty_cloudwatch_8824B7B3name-non-critical_088AF802\\"
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-pagerduty/alarm-non-critical-subscription\\",
+            \\"uniqueId\\": \\"test-pagerduty_alarm-non-critical-subscription_D80993D9\\"
+          }
+        }
+      }
+    }
+  }
+}"
+`;
+
+exports[`renders a Pocket PagerDuty with custom acknowledgement timeout 1`] = `
+"{
+  \\"//\\": {
+    \\"metadata\\": {
+      \\"version\\": \\"stubbed\\",
+      \\"stackName\\": \\"test\\"
+    }
+  },
+  \\"data\\": {
+    \\"pagerduty_vendor\\": {
+      \\"test-pagerduty_sentry_896D6C2C\\": {
+        \\"name\\": \\"Sentry\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-pagerduty/sentry\\",
+            \\"uniqueId\\": \\"test-pagerduty_sentry_896D6C2C\\"
+          }
+        }
+      },
+      \\"test-pagerduty_cloudwatch_8824B7B3\\": {
+        \\"name\\": \\"Cloudwatch\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-pagerduty/cloudwatch\\",
+            \\"uniqueId\\": \\"test-pagerduty_cloudwatch_8824B7B3\\"
+          }
+        }
+      }
+    }
+  },
+  \\"resource\\": {
+    \\"pagerduty_service\\": {
+      \\"test-pagerduty_pagerduty-critical_3EB714BD\\": {
+        \\"acknowledgement_timeout\\": \\"100\\",
+        \\"alert_creation\\": \\"create_incidents\\",
+        \\"auto_resolve_timeout\\": \\"14400\\",
+        \\"description\\": \\"PagerDuty Critical\\",
+        \\"escalation_policy\\": \\"critical-id\\",
+        \\"name\\": \\"Test-Env-PagerDuty-Critical\\",
+        \\"incident_urgency_rule\\": [
+          {
+            \\"type\\": \\"constant\\",
+            \\"urgency\\": \\"high\\"
+          }
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-pagerduty/pagerduty-critical\\",
+            \\"uniqueId\\": \\"test-pagerduty_pagerduty-critical_3EB714BD\\"
+          }
+        }
+      },
+      \\"test-pagerduty_pagerduty-non-critical_BBC21A2B\\": {
+        \\"acknowledgement_timeout\\": \\"100\\",
+        \\"alert_creation\\": \\"create_incidents\\",
+        \\"auto_resolve_timeout\\": \\"14400\\",
+        \\"description\\": \\"PagerDuty Non-Critical\\",
+        \\"escalation_policy\\": \\"non-critical-id\\",
+        \\"name\\": \\"Test-Env-PagerDuty-Non-Critical\\",
+        \\"incident_urgency_rule\\": [
+          {
+            \\"type\\": \\"constant\\",
+            \\"urgency\\": \\"low\\"
+          }
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-pagerduty/pagerduty-non-critical\\",
+            \\"uniqueId\\": \\"test-pagerduty_pagerduty-non-critical_BBC21A2B\\"
+          }
+        }
+      }
+    },
+    \\"pagerduty_service_integration\\": {
+      \\"test-pagerduty_datapagerduty_vendortest-pagerduty_sentry_896D6C2Cname-critical_77066D1B\\": {
+        \\"name\\": \\"\${data.pagerduty_vendor.test-pagerduty_sentry_896D6C2C.name}\\",
+        \\"service\\": \\"\${pagerduty_service.test-pagerduty_pagerduty-critical_3EB714BD.id}\\",
+        \\"vendor\\": \\"\${data.pagerduty_vendor.test-pagerduty_sentry_896D6C2C.id}\\",
+        \\"depends_on\\": [
+          \\"pagerduty_service.test-pagerduty_pagerduty-critical_3EB714BD\\"
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-pagerduty/\${data.pagerduty_vendor.test-pagerduty_sentry_896D6C2C.name}-critical\\",
+            \\"uniqueId\\": \\"test-pagerduty_datapagerduty_vendortest-pagerduty_sentry_896D6C2Cname-critical_77066D1B\\"
+          }
+        }
+      },
+      \\"test-pagerduty_datapagerduty_vendortest-pagerduty_sentry_896D6C2Cname-non-critical_983B52F6\\": {
+        \\"name\\": \\"\${data.pagerduty_vendor.test-pagerduty_sentry_896D6C2C.name}\\",
+        \\"service\\": \\"\${pagerduty_service.test-pagerduty_pagerduty-non-critical_BBC21A2B.id}\\",
+        \\"vendor\\": \\"\${data.pagerduty_vendor.test-pagerduty_sentry_896D6C2C.id}\\",
+        \\"depends_on\\": [
+          \\"pagerduty_service.test-pagerduty_pagerduty-non-critical_BBC21A2B\\"
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-pagerduty/\${data.pagerduty_vendor.test-pagerduty_sentry_896D6C2C.name}-non-critical\\",
+            \\"uniqueId\\": \\"test-pagerduty_datapagerduty_vendortest-pagerduty_sentry_896D6C2Cname-non-critical_983B52F6\\"
+          }
+        }
+      },
+      \\"test-pagerduty_datapagerduty_vendortest-pagerduty_cloudwatch_8824B7B3name-critical_AB659B1C\\": {
+        \\"name\\": \\"\${data.pagerduty_vendor.test-pagerduty_cloudwatch_8824B7B3.name}\\",
+        \\"service\\": \\"\${pagerduty_service.test-pagerduty_pagerduty-critical_3EB714BD.id}\\",
+        \\"vendor\\": \\"\${data.pagerduty_vendor.test-pagerduty_cloudwatch_8824B7B3.id}\\",
+        \\"depends_on\\": [
+          \\"pagerduty_service.test-pagerduty_pagerduty-critical_3EB714BD\\"
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-pagerduty/\${data.pagerduty_vendor.test-pagerduty_cloudwatch_8824B7B3.name}-critical\\",
+            \\"uniqueId\\": \\"test-pagerduty_datapagerduty_vendortest-pagerduty_cloudwatch_8824B7B3name-critical_AB659B1C\\"
+          }
+        }
+      },
+      \\"test-pagerduty_datapagerduty_vendortest-pagerduty_cloudwatch_8824B7B3name-non-critical_088AF802\\": {
+        \\"name\\": \\"\${data.pagerduty_vendor.test-pagerduty_cloudwatch_8824B7B3.name}\\",
+        \\"service\\": \\"\${pagerduty_service.test-pagerduty_pagerduty-non-critical_BBC21A2B.id}\\",
+        \\"vendor\\": \\"\${data.pagerduty_vendor.test-pagerduty_cloudwatch_8824B7B3.id}\\",
+        \\"depends_on\\": [
+          \\"pagerduty_service.test-pagerduty_pagerduty-non-critical_BBC21A2B\\"
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-pagerduty/\${data.pagerduty_vendor.test-pagerduty_cloudwatch_8824B7B3.name}-non-critical\\",
+            \\"uniqueId\\": \\"test-pagerduty_datapagerduty_vendortest-pagerduty_cloudwatch_8824B7B3name-non-critical_088AF802\\"
+          }
+        }
+      }
+    },
+    \\"aws_sns_topic\\": {
+      \\"test-pagerduty_alarm-critical-topic_5B8FEE8D\\": {
+        \\"name\\": \\"Test-Env-Infrastructure-Alarm-Critical\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-pagerduty/alarm-critical-topic\\",
+            \\"uniqueId\\": \\"test-pagerduty_alarm-critical-topic_5B8FEE8D\\"
+          }
+        }
+      },
+      \\"test-pagerduty_alarm-non-critical-topic_3FD65796\\": {
+        \\"name\\": \\"Test-Env-Infrastructure-Alarm-Non-Critical\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-pagerduty/alarm-non-critical-topic\\",
+            \\"uniqueId\\": \\"test-pagerduty_alarm-non-critical-topic_3FD65796\\"
+          }
+        }
+      }
+    },
+    \\"aws_sns_topic_subscription\\": {
+      \\"test-pagerduty_alarm-critical-subscription_ABC78F4F\\": {
+        \\"confirmation_timeout_in_minutes\\": 2,
+        \\"endpoint\\": \\"https://events.pagerduty.com/integration/\${pagerduty_service_integration.test-pagerduty_datapagerduty_vendortest-pagerduty_cloudwatch_8824B7B3name-critical_AB659B1C.integration_key}/enqueue\\",
+        \\"endpoint_auto_confirms\\": true,
+        \\"protocol\\": \\"https\\",
+        \\"topic_arn\\": \\"\${aws_sns_topic.test-pagerduty_alarm-critical-topic_5B8FEE8D.arn}\\",
+        \\"depends_on\\": [
+          \\"aws_sns_topic.test-pagerduty_alarm-critical-topic_5B8FEE8D\\",
+          \\"pagerduty_service_integration.test-pagerduty_datapagerduty_vendortest-pagerduty_cloudwatch_8824B7B3name-critical_AB659B1C\\"
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-pagerduty/alarm-critical-subscription\\",
+            \\"uniqueId\\": \\"test-pagerduty_alarm-critical-subscription_ABC78F4F\\"
+          }
+        }
+      },
+      \\"test-pagerduty_alarm-non-critical-subscription_D80993D9\\": {
+        \\"confirmation_timeout_in_minutes\\": 2,
+        \\"endpoint\\": \\"https://events.pagerduty.com/integration/\${pagerduty_service_integration.test-pagerduty_datapagerduty_vendortest-pagerduty_cloudwatch_8824B7B3name-non-critical_088AF802.integration_key}/enqueue\\",
+        \\"endpoint_auto_confirms\\": true,
+        \\"protocol\\": \\"https\\",
+        \\"topic_arn\\": \\"\${aws_sns_topic.test-pagerduty_alarm-non-critical-topic_3FD65796.arn}\\",
+        \\"depends_on\\": [
+          \\"aws_sns_topic.test-pagerduty_alarm-non-critical-topic_3FD65796\\",
+          \\"pagerduty_service_integration.test-pagerduty_datapagerduty_vendortest-pagerduty_cloudwatch_8824B7B3name-non-critical_088AF802\\"
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-pagerduty/alarm-non-critical-subscription\\",
+            \\"uniqueId\\": \\"test-pagerduty_alarm-non-critical-subscription_D80993D9\\"
+          }
+        }
+      }
+    }
+  }
+}"
+`;
+
+exports[`renders a Pocket PagerDuty with custom auto resolve timeout 1`] = `
+"{
+  \\"//\\": {
+    \\"metadata\\": {
+      \\"version\\": \\"stubbed\\",
+      \\"stackName\\": \\"test\\"
+    }
+  },
+  \\"data\\": {
+    \\"pagerduty_vendor\\": {
+      \\"test-pagerduty_sentry_896D6C2C\\": {
+        \\"name\\": \\"Sentry\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-pagerduty/sentry\\",
+            \\"uniqueId\\": \\"test-pagerduty_sentry_896D6C2C\\"
+          }
+        }
+      },
+      \\"test-pagerduty_cloudwatch_8824B7B3\\": {
+        \\"name\\": \\"Cloudwatch\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-pagerduty/cloudwatch\\",
+            \\"uniqueId\\": \\"test-pagerduty_cloudwatch_8824B7B3\\"
+          }
+        }
+      }
+    }
+  },
+  \\"resource\\": {
+    \\"pagerduty_service\\": {
+      \\"test-pagerduty_pagerduty-critical_3EB714BD\\": {
+        \\"acknowledgement_timeout\\": \\"600\\",
+        \\"alert_creation\\": \\"create_incidents\\",
+        \\"auto_resolve_timeout\\": \\"4\\",
+        \\"description\\": \\"PagerDuty Critical\\",
+        \\"escalation_policy\\": \\"critical-id\\",
+        \\"name\\": \\"Test-Env-PagerDuty-Critical\\",
+        \\"incident_urgency_rule\\": [
+          {
+            \\"type\\": \\"constant\\",
+            \\"urgency\\": \\"high\\"
+          }
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-pagerduty/pagerduty-critical\\",
+            \\"uniqueId\\": \\"test-pagerduty_pagerduty-critical_3EB714BD\\"
+          }
+        }
+      },
+      \\"test-pagerduty_pagerduty-non-critical_BBC21A2B\\": {
+        \\"acknowledgement_timeout\\": \\"600\\",
+        \\"alert_creation\\": \\"create_incidents\\",
+        \\"auto_resolve_timeout\\": \\"4\\",
+        \\"description\\": \\"PagerDuty Non-Critical\\",
+        \\"escalation_policy\\": \\"non-critical-id\\",
+        \\"name\\": \\"Test-Env-PagerDuty-Non-Critical\\",
+        \\"incident_urgency_rule\\": [
+          {
+            \\"type\\": \\"constant\\",
+            \\"urgency\\": \\"low\\"
+          }
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-pagerduty/pagerduty-non-critical\\",
+            \\"uniqueId\\": \\"test-pagerduty_pagerduty-non-critical_BBC21A2B\\"
+          }
+        }
+      }
+    },
+    \\"pagerduty_service_integration\\": {
+      \\"test-pagerduty_datapagerduty_vendortest-pagerduty_sentry_896D6C2Cname-critical_77066D1B\\": {
+        \\"name\\": \\"\${data.pagerduty_vendor.test-pagerduty_sentry_896D6C2C.name}\\",
+        \\"service\\": \\"\${pagerduty_service.test-pagerduty_pagerduty-critical_3EB714BD.id}\\",
+        \\"vendor\\": \\"\${data.pagerduty_vendor.test-pagerduty_sentry_896D6C2C.id}\\",
+        \\"depends_on\\": [
+          \\"pagerduty_service.test-pagerduty_pagerduty-critical_3EB714BD\\"
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-pagerduty/\${data.pagerduty_vendor.test-pagerduty_sentry_896D6C2C.name}-critical\\",
+            \\"uniqueId\\": \\"test-pagerduty_datapagerduty_vendortest-pagerduty_sentry_896D6C2Cname-critical_77066D1B\\"
+          }
+        }
+      },
+      \\"test-pagerduty_datapagerduty_vendortest-pagerduty_sentry_896D6C2Cname-non-critical_983B52F6\\": {
+        \\"name\\": \\"\${data.pagerduty_vendor.test-pagerduty_sentry_896D6C2C.name}\\",
+        \\"service\\": \\"\${pagerduty_service.test-pagerduty_pagerduty-non-critical_BBC21A2B.id}\\",
+        \\"vendor\\": \\"\${data.pagerduty_vendor.test-pagerduty_sentry_896D6C2C.id}\\",
+        \\"depends_on\\": [
+          \\"pagerduty_service.test-pagerduty_pagerduty-non-critical_BBC21A2B\\"
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-pagerduty/\${data.pagerduty_vendor.test-pagerduty_sentry_896D6C2C.name}-non-critical\\",
+            \\"uniqueId\\": \\"test-pagerduty_datapagerduty_vendortest-pagerduty_sentry_896D6C2Cname-non-critical_983B52F6\\"
+          }
+        }
+      },
+      \\"test-pagerduty_datapagerduty_vendortest-pagerduty_cloudwatch_8824B7B3name-critical_AB659B1C\\": {
+        \\"name\\": \\"\${data.pagerduty_vendor.test-pagerduty_cloudwatch_8824B7B3.name}\\",
+        \\"service\\": \\"\${pagerduty_service.test-pagerduty_pagerduty-critical_3EB714BD.id}\\",
+        \\"vendor\\": \\"\${data.pagerduty_vendor.test-pagerduty_cloudwatch_8824B7B3.id}\\",
+        \\"depends_on\\": [
+          \\"pagerduty_service.test-pagerduty_pagerduty-critical_3EB714BD\\"
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-pagerduty/\${data.pagerduty_vendor.test-pagerduty_cloudwatch_8824B7B3.name}-critical\\",
+            \\"uniqueId\\": \\"test-pagerduty_datapagerduty_vendortest-pagerduty_cloudwatch_8824B7B3name-critical_AB659B1C\\"
+          }
+        }
+      },
+      \\"test-pagerduty_datapagerduty_vendortest-pagerduty_cloudwatch_8824B7B3name-non-critical_088AF802\\": {
+        \\"name\\": \\"\${data.pagerduty_vendor.test-pagerduty_cloudwatch_8824B7B3.name}\\",
+        \\"service\\": \\"\${pagerduty_service.test-pagerduty_pagerduty-non-critical_BBC21A2B.id}\\",
+        \\"vendor\\": \\"\${data.pagerduty_vendor.test-pagerduty_cloudwatch_8824B7B3.id}\\",
+        \\"depends_on\\": [
+          \\"pagerduty_service.test-pagerduty_pagerduty-non-critical_BBC21A2B\\"
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-pagerduty/\${data.pagerduty_vendor.test-pagerduty_cloudwatch_8824B7B3.name}-non-critical\\",
+            \\"uniqueId\\": \\"test-pagerduty_datapagerduty_vendortest-pagerduty_cloudwatch_8824B7B3name-non-critical_088AF802\\"
+          }
+        }
+      }
+    },
+    \\"aws_sns_topic\\": {
+      \\"test-pagerduty_alarm-critical-topic_5B8FEE8D\\": {
+        \\"name\\": \\"Test-Env-Infrastructure-Alarm-Critical\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-pagerduty/alarm-critical-topic\\",
+            \\"uniqueId\\": \\"test-pagerduty_alarm-critical-topic_5B8FEE8D\\"
+          }
+        }
+      },
+      \\"test-pagerduty_alarm-non-critical-topic_3FD65796\\": {
+        \\"name\\": \\"Test-Env-Infrastructure-Alarm-Non-Critical\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-pagerduty/alarm-non-critical-topic\\",
+            \\"uniqueId\\": \\"test-pagerduty_alarm-non-critical-topic_3FD65796\\"
+          }
+        }
+      }
+    },
+    \\"aws_sns_topic_subscription\\": {
+      \\"test-pagerduty_alarm-critical-subscription_ABC78F4F\\": {
+        \\"confirmation_timeout_in_minutes\\": 2,
+        \\"endpoint\\": \\"https://events.pagerduty.com/integration/\${pagerduty_service_integration.test-pagerduty_datapagerduty_vendortest-pagerduty_cloudwatch_8824B7B3name-critical_AB659B1C.integration_key}/enqueue\\",
+        \\"endpoint_auto_confirms\\": true,
+        \\"protocol\\": \\"https\\",
+        \\"topic_arn\\": \\"\${aws_sns_topic.test-pagerduty_alarm-critical-topic_5B8FEE8D.arn}\\",
+        \\"depends_on\\": [
+          \\"aws_sns_topic.test-pagerduty_alarm-critical-topic_5B8FEE8D\\",
+          \\"pagerduty_service_integration.test-pagerduty_datapagerduty_vendortest-pagerduty_cloudwatch_8824B7B3name-critical_AB659B1C\\"
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-pagerduty/alarm-critical-subscription\\",
+            \\"uniqueId\\": \\"test-pagerduty_alarm-critical-subscription_ABC78F4F\\"
+          }
+        }
+      },
+      \\"test-pagerduty_alarm-non-critical-subscription_D80993D9\\": {
+        \\"confirmation_timeout_in_minutes\\": 2,
+        \\"endpoint\\": \\"https://events.pagerduty.com/integration/\${pagerduty_service_integration.test-pagerduty_datapagerduty_vendortest-pagerduty_cloudwatch_8824B7B3name-non-critical_088AF802.integration_key}/enqueue\\",
+        \\"endpoint_auto_confirms\\": true,
+        \\"protocol\\": \\"https\\",
+        \\"topic_arn\\": \\"\${aws_sns_topic.test-pagerduty_alarm-non-critical-topic_3FD65796.arn}\\",
+        \\"depends_on\\": [
+          \\"aws_sns_topic.test-pagerduty_alarm-non-critical-topic_3FD65796\\",
+          \\"pagerduty_service_integration.test-pagerduty_datapagerduty_vendortest-pagerduty_cloudwatch_8824B7B3name-non-critical_088AF802\\"
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-pagerduty/alarm-non-critical-subscription\\",
+            \\"uniqueId\\": \\"test-pagerduty_alarm-non-critical-subscription_D80993D9\\"
+          }
+        }
+      }
+    }
+  }
+}"
+`;
+
+exports[`renders a Pocket PagerDuty with custom sns topic subscription confirmation timeout in minutes 1`] = `
+"{
+  \\"//\\": {
+    \\"metadata\\": {
+      \\"version\\": \\"stubbed\\",
+      \\"stackName\\": \\"test\\"
+    }
+  },
+  \\"data\\": {
+    \\"pagerduty_vendor\\": {
+      \\"test-pagerduty_sentry_896D6C2C\\": {
+        \\"name\\": \\"Sentry\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-pagerduty/sentry\\",
+            \\"uniqueId\\": \\"test-pagerduty_sentry_896D6C2C\\"
+          }
+        }
+      },
+      \\"test-pagerduty_cloudwatch_8824B7B3\\": {
+        \\"name\\": \\"Cloudwatch\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-pagerduty/cloudwatch\\",
+            \\"uniqueId\\": \\"test-pagerduty_cloudwatch_8824B7B3\\"
+          }
+        }
+      }
+    }
+  },
+  \\"resource\\": {
+    \\"pagerduty_service\\": {
+      \\"test-pagerduty_pagerduty-critical_3EB714BD\\": {
+        \\"acknowledgement_timeout\\": \\"600\\",
+        \\"alert_creation\\": \\"create_incidents\\",
+        \\"auto_resolve_timeout\\": \\"14400\\",
+        \\"description\\": \\"PagerDuty Critical\\",
+        \\"escalation_policy\\": \\"critical-id\\",
+        \\"name\\": \\"Test-Env-PagerDuty-Critical\\",
+        \\"incident_urgency_rule\\": [
+          {
+            \\"type\\": \\"constant\\",
+            \\"urgency\\": \\"high\\"
+          }
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-pagerduty/pagerduty-critical\\",
+            \\"uniqueId\\": \\"test-pagerduty_pagerduty-critical_3EB714BD\\"
+          }
+        }
+      },
+      \\"test-pagerduty_pagerduty-non-critical_BBC21A2B\\": {
+        \\"acknowledgement_timeout\\": \\"600\\",
+        \\"alert_creation\\": \\"create_incidents\\",
+        \\"auto_resolve_timeout\\": \\"14400\\",
+        \\"description\\": \\"PagerDuty Non-Critical\\",
+        \\"escalation_policy\\": \\"non-critical-id\\",
+        \\"name\\": \\"Test-Env-PagerDuty-Non-Critical\\",
+        \\"incident_urgency_rule\\": [
+          {
+            \\"type\\": \\"constant\\",
+            \\"urgency\\": \\"low\\"
+          }
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-pagerduty/pagerduty-non-critical\\",
+            \\"uniqueId\\": \\"test-pagerduty_pagerduty-non-critical_BBC21A2B\\"
+          }
+        }
+      }
+    },
+    \\"pagerduty_service_integration\\": {
+      \\"test-pagerduty_datapagerduty_vendortest-pagerduty_sentry_896D6C2Cname-critical_77066D1B\\": {
+        \\"name\\": \\"\${data.pagerduty_vendor.test-pagerduty_sentry_896D6C2C.name}\\",
+        \\"service\\": \\"\${pagerduty_service.test-pagerduty_pagerduty-critical_3EB714BD.id}\\",
+        \\"vendor\\": \\"\${data.pagerduty_vendor.test-pagerduty_sentry_896D6C2C.id}\\",
+        \\"depends_on\\": [
+          \\"pagerduty_service.test-pagerduty_pagerduty-critical_3EB714BD\\"
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-pagerduty/\${data.pagerduty_vendor.test-pagerduty_sentry_896D6C2C.name}-critical\\",
+            \\"uniqueId\\": \\"test-pagerduty_datapagerduty_vendortest-pagerduty_sentry_896D6C2Cname-critical_77066D1B\\"
+          }
+        }
+      },
+      \\"test-pagerduty_datapagerduty_vendortest-pagerduty_sentry_896D6C2Cname-non-critical_983B52F6\\": {
+        \\"name\\": \\"\${data.pagerduty_vendor.test-pagerduty_sentry_896D6C2C.name}\\",
+        \\"service\\": \\"\${pagerduty_service.test-pagerduty_pagerduty-non-critical_BBC21A2B.id}\\",
+        \\"vendor\\": \\"\${data.pagerduty_vendor.test-pagerduty_sentry_896D6C2C.id}\\",
+        \\"depends_on\\": [
+          \\"pagerduty_service.test-pagerduty_pagerduty-non-critical_BBC21A2B\\"
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-pagerduty/\${data.pagerduty_vendor.test-pagerduty_sentry_896D6C2C.name}-non-critical\\",
+            \\"uniqueId\\": \\"test-pagerduty_datapagerduty_vendortest-pagerduty_sentry_896D6C2Cname-non-critical_983B52F6\\"
+          }
+        }
+      },
+      \\"test-pagerduty_datapagerduty_vendortest-pagerduty_cloudwatch_8824B7B3name-critical_AB659B1C\\": {
+        \\"name\\": \\"\${data.pagerduty_vendor.test-pagerduty_cloudwatch_8824B7B3.name}\\",
+        \\"service\\": \\"\${pagerduty_service.test-pagerduty_pagerduty-critical_3EB714BD.id}\\",
+        \\"vendor\\": \\"\${data.pagerduty_vendor.test-pagerduty_cloudwatch_8824B7B3.id}\\",
+        \\"depends_on\\": [
+          \\"pagerduty_service.test-pagerduty_pagerduty-critical_3EB714BD\\"
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-pagerduty/\${data.pagerduty_vendor.test-pagerduty_cloudwatch_8824B7B3.name}-critical\\",
+            \\"uniqueId\\": \\"test-pagerduty_datapagerduty_vendortest-pagerduty_cloudwatch_8824B7B3name-critical_AB659B1C\\"
+          }
+        }
+      },
+      \\"test-pagerduty_datapagerduty_vendortest-pagerduty_cloudwatch_8824B7B3name-non-critical_088AF802\\": {
+        \\"name\\": \\"\${data.pagerduty_vendor.test-pagerduty_cloudwatch_8824B7B3.name}\\",
+        \\"service\\": \\"\${pagerduty_service.test-pagerduty_pagerduty-non-critical_BBC21A2B.id}\\",
+        \\"vendor\\": \\"\${data.pagerduty_vendor.test-pagerduty_cloudwatch_8824B7B3.id}\\",
+        \\"depends_on\\": [
+          \\"pagerduty_service.test-pagerduty_pagerduty-non-critical_BBC21A2B\\"
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-pagerduty/\${data.pagerduty_vendor.test-pagerduty_cloudwatch_8824B7B3.name}-non-critical\\",
+            \\"uniqueId\\": \\"test-pagerduty_datapagerduty_vendortest-pagerduty_cloudwatch_8824B7B3name-non-critical_088AF802\\"
+          }
+        }
+      }
+    },
+    \\"aws_sns_topic\\": {
+      \\"test-pagerduty_alarm-critical-topic_5B8FEE8D\\": {
+        \\"name\\": \\"Test-Env-Infrastructure-Alarm-Critical\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-pagerduty/alarm-critical-topic\\",
+            \\"uniqueId\\": \\"test-pagerduty_alarm-critical-topic_5B8FEE8D\\"
+          }
+        }
+      },
+      \\"test-pagerduty_alarm-non-critical-topic_3FD65796\\": {
+        \\"name\\": \\"Test-Env-Infrastructure-Alarm-Non-Critical\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-pagerduty/alarm-non-critical-topic\\",
+            \\"uniqueId\\": \\"test-pagerduty_alarm-non-critical-topic_3FD65796\\"
+          }
+        }
+      }
+    },
+    \\"aws_sns_topic_subscription\\": {
+      \\"test-pagerduty_alarm-critical-subscription_ABC78F4F\\": {
+        \\"confirmation_timeout_in_minutes\\": 10,
+        \\"endpoint\\": \\"https://events.pagerduty.com/integration/\${pagerduty_service_integration.test-pagerduty_datapagerduty_vendortest-pagerduty_cloudwatch_8824B7B3name-critical_AB659B1C.integration_key}/enqueue\\",
+        \\"endpoint_auto_confirms\\": true,
+        \\"protocol\\": \\"https\\",
+        \\"topic_arn\\": \\"\${aws_sns_topic.test-pagerduty_alarm-critical-topic_5B8FEE8D.arn}\\",
+        \\"depends_on\\": [
+          \\"aws_sns_topic.test-pagerduty_alarm-critical-topic_5B8FEE8D\\",
+          \\"pagerduty_service_integration.test-pagerduty_datapagerduty_vendortest-pagerduty_cloudwatch_8824B7B3name-critical_AB659B1C\\"
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-pagerduty/alarm-critical-subscription\\",
+            \\"uniqueId\\": \\"test-pagerduty_alarm-critical-subscription_ABC78F4F\\"
+          }
+        }
+      },
+      \\"test-pagerduty_alarm-non-critical-subscription_D80993D9\\": {
+        \\"confirmation_timeout_in_minutes\\": 10,
+        \\"endpoint\\": \\"https://events.pagerduty.com/integration/\${pagerduty_service_integration.test-pagerduty_datapagerduty_vendortest-pagerduty_cloudwatch_8824B7B3name-non-critical_088AF802.integration_key}/enqueue\\",
+        \\"endpoint_auto_confirms\\": true,
+        \\"protocol\\": \\"https\\",
+        \\"topic_arn\\": \\"\${aws_sns_topic.test-pagerduty_alarm-non-critical-topic_3FD65796.arn}\\",
+        \\"depends_on\\": [
+          \\"aws_sns_topic.test-pagerduty_alarm-non-critical-topic_3FD65796\\",
+          \\"pagerduty_service_integration.test-pagerduty_datapagerduty_vendortest-pagerduty_cloudwatch_8824B7B3name-non-critical_088AF802\\"
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-pagerduty/alarm-non-critical-subscription\\",
+            \\"uniqueId\\": \\"test-pagerduty_alarm-non-critical-subscription_D80993D9\\"
+          }
+        }
+      }
+    }
+  }
+}"
+`;
+
+exports[`renders a Pocket PagerDuty with sns topic tags 1`] = `
+"{
+  \\"//\\": {
+    \\"metadata\\": {
+      \\"version\\": \\"stubbed\\",
+      \\"stackName\\": \\"test\\"
+    }
+  },
+  \\"data\\": {
+    \\"pagerduty_vendor\\": {
+      \\"test-pagerduty_sentry_896D6C2C\\": {
+        \\"name\\": \\"Sentry\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-pagerduty/sentry\\",
+            \\"uniqueId\\": \\"test-pagerduty_sentry_896D6C2C\\"
+          }
+        }
+      },
+      \\"test-pagerduty_cloudwatch_8824B7B3\\": {
+        \\"name\\": \\"Cloudwatch\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-pagerduty/cloudwatch\\",
+            \\"uniqueId\\": \\"test-pagerduty_cloudwatch_8824B7B3\\"
+          }
+        }
+      }
+    }
+  },
+  \\"resource\\": {
+    \\"pagerduty_service\\": {
+      \\"test-pagerduty_pagerduty-critical_3EB714BD\\": {
+        \\"acknowledgement_timeout\\": \\"600\\",
+        \\"alert_creation\\": \\"create_incidents\\",
+        \\"auto_resolve_timeout\\": \\"14400\\",
+        \\"description\\": \\"PagerDuty Critical\\",
+        \\"escalation_policy\\": \\"critical-id\\",
+        \\"name\\": \\"Test-Env-PagerDuty-Critical\\",
+        \\"incident_urgency_rule\\": [
+          {
+            \\"type\\": \\"constant\\",
+            \\"urgency\\": \\"high\\"
+          }
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-pagerduty/pagerduty-critical\\",
+            \\"uniqueId\\": \\"test-pagerduty_pagerduty-critical_3EB714BD\\"
+          }
+        }
+      },
+      \\"test-pagerduty_pagerduty-non-critical_BBC21A2B\\": {
+        \\"acknowledgement_timeout\\": \\"600\\",
+        \\"alert_creation\\": \\"create_incidents\\",
+        \\"auto_resolve_timeout\\": \\"14400\\",
+        \\"description\\": \\"PagerDuty Non-Critical\\",
+        \\"escalation_policy\\": \\"non-critical-id\\",
+        \\"name\\": \\"Test-Env-PagerDuty-Non-Critical\\",
+        \\"incident_urgency_rule\\": [
+          {
+            \\"type\\": \\"constant\\",
+            \\"urgency\\": \\"low\\"
+          }
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-pagerduty/pagerduty-non-critical\\",
+            \\"uniqueId\\": \\"test-pagerduty_pagerduty-non-critical_BBC21A2B\\"
+          }
+        }
+      }
+    },
+    \\"pagerduty_service_integration\\": {
+      \\"test-pagerduty_datapagerduty_vendortest-pagerduty_sentry_896D6C2Cname-critical_77066D1B\\": {
+        \\"name\\": \\"\${data.pagerduty_vendor.test-pagerduty_sentry_896D6C2C.name}\\",
+        \\"service\\": \\"\${pagerduty_service.test-pagerduty_pagerduty-critical_3EB714BD.id}\\",
+        \\"vendor\\": \\"\${data.pagerduty_vendor.test-pagerduty_sentry_896D6C2C.id}\\",
+        \\"depends_on\\": [
+          \\"pagerduty_service.test-pagerduty_pagerduty-critical_3EB714BD\\"
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-pagerduty/\${data.pagerduty_vendor.test-pagerduty_sentry_896D6C2C.name}-critical\\",
+            \\"uniqueId\\": \\"test-pagerduty_datapagerduty_vendortest-pagerduty_sentry_896D6C2Cname-critical_77066D1B\\"
+          }
+        }
+      },
+      \\"test-pagerduty_datapagerduty_vendortest-pagerduty_sentry_896D6C2Cname-non-critical_983B52F6\\": {
+        \\"name\\": \\"\${data.pagerduty_vendor.test-pagerduty_sentry_896D6C2C.name}\\",
+        \\"service\\": \\"\${pagerduty_service.test-pagerduty_pagerduty-non-critical_BBC21A2B.id}\\",
+        \\"vendor\\": \\"\${data.pagerduty_vendor.test-pagerduty_sentry_896D6C2C.id}\\",
+        \\"depends_on\\": [
+          \\"pagerduty_service.test-pagerduty_pagerduty-non-critical_BBC21A2B\\"
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-pagerduty/\${data.pagerduty_vendor.test-pagerduty_sentry_896D6C2C.name}-non-critical\\",
+            \\"uniqueId\\": \\"test-pagerduty_datapagerduty_vendortest-pagerduty_sentry_896D6C2Cname-non-critical_983B52F6\\"
+          }
+        }
+      },
+      \\"test-pagerduty_datapagerduty_vendortest-pagerduty_cloudwatch_8824B7B3name-critical_AB659B1C\\": {
+        \\"name\\": \\"\${data.pagerduty_vendor.test-pagerduty_cloudwatch_8824B7B3.name}\\",
+        \\"service\\": \\"\${pagerduty_service.test-pagerduty_pagerduty-critical_3EB714BD.id}\\",
+        \\"vendor\\": \\"\${data.pagerduty_vendor.test-pagerduty_cloudwatch_8824B7B3.id}\\",
+        \\"depends_on\\": [
+          \\"pagerduty_service.test-pagerduty_pagerduty-critical_3EB714BD\\"
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-pagerduty/\${data.pagerduty_vendor.test-pagerduty_cloudwatch_8824B7B3.name}-critical\\",
+            \\"uniqueId\\": \\"test-pagerduty_datapagerduty_vendortest-pagerduty_cloudwatch_8824B7B3name-critical_AB659B1C\\"
+          }
+        }
+      },
+      \\"test-pagerduty_datapagerduty_vendortest-pagerduty_cloudwatch_8824B7B3name-non-critical_088AF802\\": {
+        \\"name\\": \\"\${data.pagerduty_vendor.test-pagerduty_cloudwatch_8824B7B3.name}\\",
+        \\"service\\": \\"\${pagerduty_service.test-pagerduty_pagerduty-non-critical_BBC21A2B.id}\\",
+        \\"vendor\\": \\"\${data.pagerduty_vendor.test-pagerduty_cloudwatch_8824B7B3.id}\\",
+        \\"depends_on\\": [
+          \\"pagerduty_service.test-pagerduty_pagerduty-non-critical_BBC21A2B\\"
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-pagerduty/\${data.pagerduty_vendor.test-pagerduty_cloudwatch_8824B7B3.name}-non-critical\\",
+            \\"uniqueId\\": \\"test-pagerduty_datapagerduty_vendortest-pagerduty_cloudwatch_8824B7B3name-non-critical_088AF802\\"
+          }
+        }
+      }
+    },
+    \\"aws_sns_topic\\": {
+      \\"test-pagerduty_alarm-critical-topic_5B8FEE8D\\": {
+        \\"name\\": \\"Test-Env-Infrastructure-Alarm-Critical\\",
+        \\"tags\\": {
+          \\"Test\\": \\"Topic\\"
+        },
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-pagerduty/alarm-critical-topic\\",
+            \\"uniqueId\\": \\"test-pagerduty_alarm-critical-topic_5B8FEE8D\\"
+          }
+        }
+      },
+      \\"test-pagerduty_alarm-non-critical-topic_3FD65796\\": {
+        \\"name\\": \\"Test-Env-Infrastructure-Alarm-Non-Critical\\",
+        \\"tags\\": {
+          \\"Test\\": \\"Topic\\"
+        },
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-pagerduty/alarm-non-critical-topic\\",
+            \\"uniqueId\\": \\"test-pagerduty_alarm-non-critical-topic_3FD65796\\"
+          }
+        }
+      }
+    },
+    \\"aws_sns_topic_subscription\\": {
+      \\"test-pagerduty_alarm-critical-subscription_ABC78F4F\\": {
+        \\"confirmation_timeout_in_minutes\\": 2,
+        \\"endpoint\\": \\"https://events.pagerduty.com/integration/\${pagerduty_service_integration.test-pagerduty_datapagerduty_vendortest-pagerduty_cloudwatch_8824B7B3name-critical_AB659B1C.integration_key}/enqueue\\",
+        \\"endpoint_auto_confirms\\": true,
+        \\"protocol\\": \\"https\\",
+        \\"topic_arn\\": \\"\${aws_sns_topic.test-pagerduty_alarm-critical-topic_5B8FEE8D.arn}\\",
+        \\"depends_on\\": [
+          \\"aws_sns_topic.test-pagerduty_alarm-critical-topic_5B8FEE8D\\",
+          \\"pagerduty_service_integration.test-pagerduty_datapagerduty_vendortest-pagerduty_cloudwatch_8824B7B3name-critical_AB659B1C\\"
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-pagerduty/alarm-critical-subscription\\",
+            \\"uniqueId\\": \\"test-pagerduty_alarm-critical-subscription_ABC78F4F\\"
+          }
+        }
+      },
+      \\"test-pagerduty_alarm-non-critical-subscription_D80993D9\\": {
+        \\"confirmation_timeout_in_minutes\\": 2,
+        \\"endpoint\\": \\"https://events.pagerduty.com/integration/\${pagerduty_service_integration.test-pagerduty_datapagerduty_vendortest-pagerduty_cloudwatch_8824B7B3name-non-critical_088AF802.integration_key}/enqueue\\",
+        \\"endpoint_auto_confirms\\": true,
+        \\"protocol\\": \\"https\\",
+        \\"topic_arn\\": \\"\${aws_sns_topic.test-pagerduty_alarm-non-critical-topic_3FD65796.arn}\\",
+        \\"depends_on\\": [
+          \\"aws_sns_topic.test-pagerduty_alarm-non-critical-topic_3FD65796\\",
+          \\"pagerduty_service_integration.test-pagerduty_datapagerduty_vendortest-pagerduty_cloudwatch_8824B7B3name-non-critical_088AF802\\"
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-pagerduty/alarm-non-critical-subscription\\",
+            \\"uniqueId\\": \\"test-pagerduty_alarm-non-critical-subscription_D80993D9\\"
+          }
+        }
+      }
+    }
+  }
+}"
+`;

@@ -10,7 +10,7 @@ exports[`renders base DNS with tags 1`] = `
   },
   \\"resource\\": {
     \\"aws_route53_zone\\": {
-      \\"test_testDNS_subhostedzone_26FA9DF6\\": {
+      \\"testDNS_subhosted_zone_0D42EC63\\": {
         \\"name\\": \\"dev.gobowling.info\\",
         \\"tags\\": {
           \\"name\\": \\"thedude\\",
@@ -19,22 +19,22 @@ exports[`renders base DNS with tags 1`] = `
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/testDNS/subhosted_zone\\",
-            \\"uniqueId\\": \\"test_testDNS_subhostedzone_26FA9DF6\\"
+            \\"uniqueId\\": \\"testDNS_subhosted_zone_0D42EC63\\"
           }
         }
       }
     },
     \\"aws_route53_record\\": {
-      \\"test_testDNS_subhostedzonens_99962D0F\\": {
+      \\"testDNS_subhosted_zone_ns_5F02B4AB\\": {
         \\"name\\": \\"dev.gobowling.info\\",
-        \\"records\\": \\"\${aws_route53_zone.test_testDNS_subhostedzone_26FA9DF6.name_servers}\\",
+        \\"records\\": \\"\${aws_route53_zone.testDNS_subhosted_zone_0D42EC63.name_servers}\\",
         \\"ttl\\": 86400,
         \\"type\\": \\"NS\\",
-        \\"zone_id\\": \\"\${data.aws_route53_zone.test_testDNSmainhostedzone_B9A30055.zone_id}\\",
+        \\"zone_id\\": \\"\${data.aws_route53_zone.testDNS_main_hosted_zone.zone_id}\\",
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/testDNS/subhosted_zone_ns\\",
-            \\"uniqueId\\": \\"test_testDNS_subhostedzonens_99962D0F\\"
+            \\"uniqueId\\": \\"testDNS_subhosted_zone_ns_5F02B4AB\\"
           }
         }
       }
@@ -42,12 +42,12 @@ exports[`renders base DNS with tags 1`] = `
   },
   \\"data\\": {
     \\"aws_route53_zone\\": {
-      \\"test_testDNSmainhostedzone_B9A30055\\": {
+      \\"testDNS_main_hosted_zone\\": {
         \\"name\\": \\"gobowling.info\\",
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/testDNS_main_hosted_zone\\",
-            \\"uniqueId\\": \\"test_testDNSmainhostedzone_B9A30055\\"
+            \\"uniqueId\\": \\"testDNS_main_hosted_zone\\"
           }
         }
       }
@@ -66,27 +66,27 @@ exports[`renders base DNS without tags 1`] = `
   },
   \\"resource\\": {
     \\"aws_route53_zone\\": {
-      \\"test_testDNS_subhostedzone_26FA9DF6\\": {
+      \\"testDNS_subhosted_zone_0D42EC63\\": {
         \\"name\\": \\"dev.gobowling.info\\",
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/testDNS/subhosted_zone\\",
-            \\"uniqueId\\": \\"test_testDNS_subhostedzone_26FA9DF6\\"
+            \\"uniqueId\\": \\"testDNS_subhosted_zone_0D42EC63\\"
           }
         }
       }
     },
     \\"aws_route53_record\\": {
-      \\"test_testDNS_subhostedzonens_99962D0F\\": {
+      \\"testDNS_subhosted_zone_ns_5F02B4AB\\": {
         \\"name\\": \\"dev.gobowling.info\\",
-        \\"records\\": \\"\${aws_route53_zone.test_testDNS_subhostedzone_26FA9DF6.name_servers}\\",
+        \\"records\\": \\"\${aws_route53_zone.testDNS_subhosted_zone_0D42EC63.name_servers}\\",
         \\"ttl\\": 86400,
         \\"type\\": \\"NS\\",
-        \\"zone_id\\": \\"\${data.aws_route53_zone.test_testDNSmainhostedzone_B9A30055.zone_id}\\",
+        \\"zone_id\\": \\"\${data.aws_route53_zone.testDNS_main_hosted_zone.zone_id}\\",
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/testDNS/subhosted_zone_ns\\",
-            \\"uniqueId\\": \\"test_testDNS_subhostedzonens_99962D0F\\"
+            \\"uniqueId\\": \\"testDNS_subhosted_zone_ns_5F02B4AB\\"
           }
         }
       }
@@ -94,12 +94,12 @@ exports[`renders base DNS without tags 1`] = `
   },
   \\"data\\": {
     \\"aws_route53_zone\\": {
-      \\"test_testDNSmainhostedzone_B9A30055\\": {
+      \\"testDNS_main_hosted_zone\\": {
         \\"name\\": \\"gobowling.info\\",
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/testDNS_main_hosted_zone\\",
-            \\"uniqueId\\": \\"test_testDNSmainhostedzone_B9A30055\\"
+            \\"uniqueId\\": \\"testDNS_main_hosted_zone\\"
           }
         }
       }

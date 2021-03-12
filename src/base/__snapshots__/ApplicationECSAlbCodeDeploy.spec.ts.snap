@@ -10,13 +10,13 @@ exports[`renders a CodeDeploy with a sns 1`] = `
   },
   \\"data\\": {
     \\"aws_iam_policy_document\\": {
-      \\"test_testCodeDeploy_codedeployassumerole_0FACD16A\\": {
+      \\"testCodeDeploy_codedeploy_assume_role_E9FEDA7F\\": {
         \\"statement\\": [
           {
-            \\"effect\\": \\"Allow\\",
             \\"actions\\": [
               \\"sts:AssumeRole\\"
             ],
+            \\"effect\\": \\"Allow\\",
             \\"principals\\": [
               {
                 \\"identifiers\\": [
@@ -30,27 +30,27 @@ exports[`renders a CodeDeploy with a sns 1`] = `
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/testCodeDeploy/codedeploy_assume_role\\",
-            \\"uniqueId\\": \\"test_testCodeDeploy_codedeployassumerole_0FACD16A\\"
+            \\"uniqueId\\": \\"testCodeDeploy_codedeploy_assume_role_E9FEDA7F\\"
           }
         }
       }
     },
     \\"aws_region\\": {
-      \\"test_testCodeDeploy_currentregion_3129581C\\": {
+      \\"testCodeDeploy_current_region_B8533BBF\\": {
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/testCodeDeploy/current_region\\",
-            \\"uniqueId\\": \\"test_testCodeDeploy_currentregion_3129581C\\"
+            \\"uniqueId\\": \\"testCodeDeploy_current_region_B8533BBF\\"
           }
         }
       }
     },
     \\"aws_caller_identity\\": {
-      \\"test_testCodeDeploy_currentaccount_1E72CE97\\": {
+      \\"testCodeDeploy_current_account_0C0AC491\\": {
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/testCodeDeploy/current_account\\",
-            \\"uniqueId\\": \\"test_testCodeDeploy_currentaccount_1E72CE97\\"
+            \\"uniqueId\\": \\"testCodeDeploy_current_account_0C0AC491\\"
           }
         }
       }
@@ -58,54 +58,54 @@ exports[`renders a CodeDeploy with a sns 1`] = `
   },
   \\"resource\\": {
     \\"aws_iam_role\\": {
-      \\"test_testCodeDeploy_ecscodedeployrole_2889DBEE\\": {
-        \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.test_testCodeDeploy_codedeployassumerole_0FACD16A.json}\\",
+      \\"testCodeDeploy_ecs_code_deploy_role_EF679F94\\": {
+        \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.testCodeDeploy_codedeploy_assume_role_E9FEDA7F.json}\\",
         \\"name\\": \\"Test-Dev-ECSCodeDeployRole\\",
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/testCodeDeploy/ecs_code_deploy_role\\",
-            \\"uniqueId\\": \\"test_testCodeDeploy_ecscodedeployrole_2889DBEE\\"
+            \\"uniqueId\\": \\"testCodeDeploy_ecs_code_deploy_role_EF679F94\\"
           }
         }
       }
     },
     \\"aws_iam_role_policy_attachment\\": {
-      \\"test_testCodeDeploy_ecscodedeployroleattachment_522FBAA0\\": {
+      \\"testCodeDeploy_ecs_codedeploy_role_attachment_0C2B6B97\\": {
         \\"policy_arn\\": \\"arn:aws:iam::aws:policy/AWSCodeDeployRoleForECS\\",
-        \\"role\\": \\"Test-Dev-ECSCodeDeployRole\\",
+        \\"role\\": \\"\${aws_iam_role.testCodeDeploy_ecs_code_deploy_role_EF679F94.name}\\",
         \\"depends_on\\": [
-          \\"aws_iam_role.test_testCodeDeploy_ecscodedeployrole_2889DBEE\\"
+          \\"aws_iam_role.testCodeDeploy_ecs_code_deploy_role_EF679F94\\"
         ],
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/testCodeDeploy/ecs_codedeploy_role_attachment\\",
-            \\"uniqueId\\": \\"test_testCodeDeploy_ecscodedeployroleattachment_522FBAA0\\"
+            \\"uniqueId\\": \\"testCodeDeploy_ecs_codedeploy_role_attachment_0C2B6B97\\"
           }
         }
       }
     },
     \\"aws_codedeploy_app\\": {
-      \\"test_testCodeDeploy_ecscodedeploy_A30BA24D\\": {
+      \\"testCodeDeploy_ecs_code_deploy_C4535318\\": {
         \\"compute_platform\\": \\"ECS\\",
         \\"name\\": \\"Test-Dev-ECS\\",
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/testCodeDeploy/ecs_code_deploy\\",
-            \\"uniqueId\\": \\"test_testCodeDeploy_ecscodedeploy_A30BA24D\\"
+            \\"uniqueId\\": \\"testCodeDeploy_ecs_code_deploy_C4535318\\"
           }
         }
       }
     },
     \\"aws_codestarnotifications_notification_rule\\": {
-      \\"test_testCodeDeploy_ecscodedeploynotifications_2E05454F\\": {
+      \\"testCodeDeploy_ecs_codedeploy_notifications_7223DA1D\\": {
         \\"detail_type\\": \\"BASIC\\",
         \\"event_type_ids\\": [
           \\"codedeploy-application-deployment-failed\\",
           \\"codedeploy-application-deployment-succeeded\\",
           \\"codedeploy-application-deployment-started\\"
         ],
-        \\"name\\": \\"Test-Dev-ECS\\",
-        \\"resource\\": \\"arn:aws:codedeploy:\${data.aws_region.test_testCodeDeploy_currentregion_3129581C.name}:\${data.aws_caller_identity.test_testCodeDeploy_currentaccount_1E72CE97.account_id}:application:Test-Dev-ECS\\",
+        \\"name\\": \\"\${aws_codedeploy_app.testCodeDeploy_ecs_code_deploy_C4535318.name}\\",
+        \\"resource\\": \\"arn:aws:codedeploy:\${data.aws_region.testCodeDeploy_current_region_B8533BBF.name}:\${data.aws_caller_identity.testCodeDeploy_current_account_0C0AC491.account_id}:application:\${aws_codedeploy_app.testCodeDeploy_ecs_code_deploy_C4535318.name}\\",
         \\"target\\": [
           {
             \\"address\\": \\"notify-me\\"
@@ -114,17 +114,17 @@ exports[`renders a CodeDeploy with a sns 1`] = `
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/testCodeDeploy/ecs_codedeploy_notifications\\",
-            \\"uniqueId\\": \\"test_testCodeDeploy_ecscodedeploynotifications_2E05454F\\"
+            \\"uniqueId\\": \\"testCodeDeploy_ecs_codedeploy_notifications_7223DA1D\\"
           }
         }
       }
     },
     \\"aws_codedeploy_deployment_group\\": {
-      \\"test_testCodeDeploy_ecscodedeploydeploymentgroup_3BE18ACC\\": {
-        \\"app_name\\": \\"Test-Dev-ECS\\",
+      \\"testCodeDeploy_ecs_codedeploy_deployment_group_F092EC5E\\": {
+        \\"app_name\\": \\"\${aws_codedeploy_app.testCodeDeploy_ecs_code_deploy_C4535318.name}\\",
         \\"deployment_config_name\\": \\"CodeDeployDefault.ECSAllAtOnce\\",
         \\"deployment_group_name\\": \\"Test-Dev-ECS\\",
-        \\"service_role_arn\\": \\"\${aws_iam_role.test_testCodeDeploy_ecscodedeployrole_2889DBEE.arn}\\",
+        \\"service_role_arn\\": \\"\${aws_iam_role.testCodeDeploy_ecs_code_deploy_role_EF679F94.arn}\\",
         \\"auto_rollback_configuration\\": [
           {
             \\"enabled\\": true,
@@ -186,7 +186,7 @@ exports[`renders a CodeDeploy with a sns 1`] = `
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/testCodeDeploy/ecs_codedeploy_deployment_group\\",
-            \\"uniqueId\\": \\"test_testCodeDeploy_ecscodedeploydeploymentgroup_3BE18ACC\\"
+            \\"uniqueId\\": \\"testCodeDeploy_ecs_codedeploy_deployment_group_F092EC5E\\"
           }
         }
       }
@@ -205,13 +205,13 @@ exports[`renders a CodeDeploy with tags 1`] = `
   },
   \\"data\\": {
     \\"aws_iam_policy_document\\": {
-      \\"test_testCodeDeploy_codedeployassumerole_0FACD16A\\": {
+      \\"testCodeDeploy_codedeploy_assume_role_E9FEDA7F\\": {
         \\"statement\\": [
           {
-            \\"effect\\": \\"Allow\\",
             \\"actions\\": [
               \\"sts:AssumeRole\\"
             ],
+            \\"effect\\": \\"Allow\\",
             \\"principals\\": [
               {
                 \\"identifiers\\": [
@@ -225,27 +225,27 @@ exports[`renders a CodeDeploy with tags 1`] = `
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/testCodeDeploy/codedeploy_assume_role\\",
-            \\"uniqueId\\": \\"test_testCodeDeploy_codedeployassumerole_0FACD16A\\"
+            \\"uniqueId\\": \\"testCodeDeploy_codedeploy_assume_role_E9FEDA7F\\"
           }
         }
       }
     },
     \\"aws_region\\": {
-      \\"test_testCodeDeploy_currentregion_3129581C\\": {
+      \\"testCodeDeploy_current_region_B8533BBF\\": {
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/testCodeDeploy/current_region\\",
-            \\"uniqueId\\": \\"test_testCodeDeploy_currentregion_3129581C\\"
+            \\"uniqueId\\": \\"testCodeDeploy_current_region_B8533BBF\\"
           }
         }
       }
     },
     \\"aws_caller_identity\\": {
-      \\"test_testCodeDeploy_currentaccount_1E72CE97\\": {
+      \\"testCodeDeploy_current_account_0C0AC491\\": {
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/testCodeDeploy/current_account\\",
-            \\"uniqueId\\": \\"test_testCodeDeploy_currentaccount_1E72CE97\\"
+            \\"uniqueId\\": \\"testCodeDeploy_current_account_0C0AC491\\"
           }
         }
       }
@@ -253,54 +253,54 @@ exports[`renders a CodeDeploy with tags 1`] = `
   },
   \\"resource\\": {
     \\"aws_iam_role\\": {
-      \\"test_testCodeDeploy_ecscodedeployrole_2889DBEE\\": {
-        \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.test_testCodeDeploy_codedeployassumerole_0FACD16A.json}\\",
+      \\"testCodeDeploy_ecs_code_deploy_role_EF679F94\\": {
+        \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.testCodeDeploy_codedeploy_assume_role_E9FEDA7F.json}\\",
         \\"name\\": \\"Test-Dev-ECSCodeDeployRole\\",
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/testCodeDeploy/ecs_code_deploy_role\\",
-            \\"uniqueId\\": \\"test_testCodeDeploy_ecscodedeployrole_2889DBEE\\"
+            \\"uniqueId\\": \\"testCodeDeploy_ecs_code_deploy_role_EF679F94\\"
           }
         }
       }
     },
     \\"aws_iam_role_policy_attachment\\": {
-      \\"test_testCodeDeploy_ecscodedeployroleattachment_522FBAA0\\": {
+      \\"testCodeDeploy_ecs_codedeploy_role_attachment_0C2B6B97\\": {
         \\"policy_arn\\": \\"arn:aws:iam::aws:policy/AWSCodeDeployRoleForECS\\",
-        \\"role\\": \\"Test-Dev-ECSCodeDeployRole\\",
+        \\"role\\": \\"\${aws_iam_role.testCodeDeploy_ecs_code_deploy_role_EF679F94.name}\\",
         \\"depends_on\\": [
-          \\"aws_iam_role.test_testCodeDeploy_ecscodedeployrole_2889DBEE\\"
+          \\"aws_iam_role.testCodeDeploy_ecs_code_deploy_role_EF679F94\\"
         ],
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/testCodeDeploy/ecs_codedeploy_role_attachment\\",
-            \\"uniqueId\\": \\"test_testCodeDeploy_ecscodedeployroleattachment_522FBAA0\\"
+            \\"uniqueId\\": \\"testCodeDeploy_ecs_codedeploy_role_attachment_0C2B6B97\\"
           }
         }
       }
     },
     \\"aws_codedeploy_app\\": {
-      \\"test_testCodeDeploy_ecscodedeploy_A30BA24D\\": {
+      \\"testCodeDeploy_ecs_code_deploy_C4535318\\": {
         \\"compute_platform\\": \\"ECS\\",
         \\"name\\": \\"Test-Dev-ECS\\",
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/testCodeDeploy/ecs_code_deploy\\",
-            \\"uniqueId\\": \\"test_testCodeDeploy_ecscodedeploy_A30BA24D\\"
+            \\"uniqueId\\": \\"testCodeDeploy_ecs_code_deploy_C4535318\\"
           }
         }
       }
     },
     \\"aws_codestarnotifications_notification_rule\\": {
-      \\"test_testCodeDeploy_ecscodedeploynotifications_2E05454F\\": {
+      \\"testCodeDeploy_ecs_codedeploy_notifications_7223DA1D\\": {
         \\"detail_type\\": \\"BASIC\\",
         \\"event_type_ids\\": [
           \\"codedeploy-application-deployment-failed\\",
           \\"codedeploy-application-deployment-succeeded\\",
           \\"codedeploy-application-deployment-started\\"
         ],
-        \\"name\\": \\"Test-Dev-ECS\\",
-        \\"resource\\": \\"arn:aws:codedeploy:\${data.aws_region.test_testCodeDeploy_currentregion_3129581C.name}:\${data.aws_caller_identity.test_testCodeDeploy_currentaccount_1E72CE97.account_id}:application:Test-Dev-ECS\\",
+        \\"name\\": \\"\${aws_codedeploy_app.testCodeDeploy_ecs_code_deploy_C4535318.name}\\",
+        \\"resource\\": \\"arn:aws:codedeploy:\${data.aws_region.testCodeDeploy_current_region_B8533BBF.name}:\${data.aws_caller_identity.testCodeDeploy_current_account_0C0AC491.account_id}:application:\${aws_codedeploy_app.testCodeDeploy_ecs_code_deploy_C4535318.name}\\",
         \\"target\\": [
           {
             \\"address\\": \\"notify-me\\"
@@ -309,17 +309,17 @@ exports[`renders a CodeDeploy with tags 1`] = `
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/testCodeDeploy/ecs_codedeploy_notifications\\",
-            \\"uniqueId\\": \\"test_testCodeDeploy_ecscodedeploynotifications_2E05454F\\"
+            \\"uniqueId\\": \\"testCodeDeploy_ecs_codedeploy_notifications_7223DA1D\\"
           }
         }
       }
     },
     \\"aws_codedeploy_deployment_group\\": {
-      \\"test_testCodeDeploy_ecscodedeploydeploymentgroup_3BE18ACC\\": {
-        \\"app_name\\": \\"Test-Dev-ECS\\",
+      \\"testCodeDeploy_ecs_codedeploy_deployment_group_F092EC5E\\": {
+        \\"app_name\\": \\"\${aws_codedeploy_app.testCodeDeploy_ecs_code_deploy_C4535318.name}\\",
         \\"deployment_config_name\\": \\"CodeDeployDefault.ECSAllAtOnce\\",
         \\"deployment_group_name\\": \\"Test-Dev-ECS\\",
-        \\"service_role_arn\\": \\"\${aws_iam_role.test_testCodeDeploy_ecscodedeployrole_2889DBEE.arn}\\",
+        \\"service_role_arn\\": \\"\${aws_iam_role.testCodeDeploy_ecs_code_deploy_role_EF679F94.arn}\\",
         \\"auto_rollback_configuration\\": [
           {
             \\"enabled\\": true,
@@ -381,7 +381,7 @@ exports[`renders a CodeDeploy with tags 1`] = `
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/testCodeDeploy/ecs_codedeploy_deployment_group\\",
-            \\"uniqueId\\": \\"test_testCodeDeploy_ecscodedeploydeploymentgroup_3BE18ACC\\"
+            \\"uniqueId\\": \\"testCodeDeploy_ecs_codedeploy_deployment_group_F092EC5E\\"
           }
         }
       }
@@ -400,13 +400,13 @@ exports[`renders a CodeDeploy without a sns 1`] = `
   },
   \\"data\\": {
     \\"aws_iam_policy_document\\": {
-      \\"test_testCodeDeploy_codedeployassumerole_0FACD16A\\": {
+      \\"testCodeDeploy_codedeploy_assume_role_E9FEDA7F\\": {
         \\"statement\\": [
           {
-            \\"effect\\": \\"Allow\\",
             \\"actions\\": [
               \\"sts:AssumeRole\\"
             ],
+            \\"effect\\": \\"Allow\\",
             \\"principals\\": [
               {
                 \\"identifiers\\": [
@@ -420,7 +420,7 @@ exports[`renders a CodeDeploy without a sns 1`] = `
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/testCodeDeploy/codedeploy_assume_role\\",
-            \\"uniqueId\\": \\"test_testCodeDeploy_codedeployassumerole_0FACD16A\\"
+            \\"uniqueId\\": \\"testCodeDeploy_codedeploy_assume_role_E9FEDA7F\\"
           }
         }
       }
@@ -428,50 +428,50 @@ exports[`renders a CodeDeploy without a sns 1`] = `
   },
   \\"resource\\": {
     \\"aws_iam_role\\": {
-      \\"test_testCodeDeploy_ecscodedeployrole_2889DBEE\\": {
-        \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.test_testCodeDeploy_codedeployassumerole_0FACD16A.json}\\",
+      \\"testCodeDeploy_ecs_code_deploy_role_EF679F94\\": {
+        \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.testCodeDeploy_codedeploy_assume_role_E9FEDA7F.json}\\",
         \\"name\\": \\"Test-Dev-ECSCodeDeployRole\\",
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/testCodeDeploy/ecs_code_deploy_role\\",
-            \\"uniqueId\\": \\"test_testCodeDeploy_ecscodedeployrole_2889DBEE\\"
+            \\"uniqueId\\": \\"testCodeDeploy_ecs_code_deploy_role_EF679F94\\"
           }
         }
       }
     },
     \\"aws_iam_role_policy_attachment\\": {
-      \\"test_testCodeDeploy_ecscodedeployroleattachment_522FBAA0\\": {
+      \\"testCodeDeploy_ecs_codedeploy_role_attachment_0C2B6B97\\": {
         \\"policy_arn\\": \\"arn:aws:iam::aws:policy/AWSCodeDeployRoleForECS\\",
-        \\"role\\": \\"Test-Dev-ECSCodeDeployRole\\",
+        \\"role\\": \\"\${aws_iam_role.testCodeDeploy_ecs_code_deploy_role_EF679F94.name}\\",
         \\"depends_on\\": [
-          \\"aws_iam_role.test_testCodeDeploy_ecscodedeployrole_2889DBEE\\"
+          \\"aws_iam_role.testCodeDeploy_ecs_code_deploy_role_EF679F94\\"
         ],
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/testCodeDeploy/ecs_codedeploy_role_attachment\\",
-            \\"uniqueId\\": \\"test_testCodeDeploy_ecscodedeployroleattachment_522FBAA0\\"
+            \\"uniqueId\\": \\"testCodeDeploy_ecs_codedeploy_role_attachment_0C2B6B97\\"
           }
         }
       }
     },
     \\"aws_codedeploy_app\\": {
-      \\"test_testCodeDeploy_ecscodedeploy_A30BA24D\\": {
+      \\"testCodeDeploy_ecs_code_deploy_C4535318\\": {
         \\"compute_platform\\": \\"ECS\\",
         \\"name\\": \\"Test-Dev-ECS\\",
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/testCodeDeploy/ecs_code_deploy\\",
-            \\"uniqueId\\": \\"test_testCodeDeploy_ecscodedeploy_A30BA24D\\"
+            \\"uniqueId\\": \\"testCodeDeploy_ecs_code_deploy_C4535318\\"
           }
         }
       }
     },
     \\"aws_codedeploy_deployment_group\\": {
-      \\"test_testCodeDeploy_ecscodedeploydeploymentgroup_3BE18ACC\\": {
-        \\"app_name\\": \\"Test-Dev-ECS\\",
+      \\"testCodeDeploy_ecs_codedeploy_deployment_group_F092EC5E\\": {
+        \\"app_name\\": \\"\${aws_codedeploy_app.testCodeDeploy_ecs_code_deploy_C4535318.name}\\",
         \\"deployment_config_name\\": \\"CodeDeployDefault.ECSAllAtOnce\\",
         \\"deployment_group_name\\": \\"Test-Dev-ECS\\",
-        \\"service_role_arn\\": \\"\${aws_iam_role.test_testCodeDeploy_ecscodedeployrole_2889DBEE.arn}\\",
+        \\"service_role_arn\\": \\"\${aws_iam_role.testCodeDeploy_ecs_code_deploy_role_EF679F94.arn}\\",
         \\"auto_rollback_configuration\\": [
           {
             \\"enabled\\": true,
@@ -533,7 +533,7 @@ exports[`renders a CodeDeploy without a sns 1`] = `
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/testCodeDeploy/ecs_codedeploy_deployment_group\\",
-            \\"uniqueId\\": \\"test_testCodeDeploy_ecscodedeploydeploymentgroup_3BE18ACC\\"
+            \\"uniqueId\\": \\"testCodeDeploy_ecs_codedeploy_deployment_group_F092EC5E\\"
           }
         }
       }

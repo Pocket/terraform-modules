@@ -10,68 +10,80 @@ exports[`renders a versioned lambda 1`] = `
   },
   \\"resource\\": {
     \\"aws_s3_bucket\\": {
-      \\"test_testversionedlambda_codebucket_BC2D4650\\": {
+      \\"test-versioned-lambda_code-bucket_C658EE92\\": {
         \\"acl\\": \\"private\\",
         \\"bucket\\": \\"test-bucket\\",
         \\"force_destroy\\": true,
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/test-versioned-lambda/code-bucket\\",
-            \\"uniqueId\\": \\"test_testversionedlambda_codebucket_BC2D4650\\"
+            \\"uniqueId\\": \\"test-versioned-lambda_code-bucket_C658EE92\\"
           }
         }
       }
     },
     \\"aws_s3_bucket_public_access_block\\": {
-      \\"test_testversionedlambda_codebucketpublicaccessblock_5C6903BB\\": {
+      \\"test-versioned-lambda_code-bucket-public-access-block_9662548B\\": {
         \\"block_public_acls\\": true,
         \\"block_public_policy\\": true,
-        \\"bucket\\": \\"\${aws_s3_bucket.test_testversionedlambda_codebucket_BC2D4650.id}\\",
+        \\"bucket\\": \\"\${aws_s3_bucket.test-versioned-lambda_code-bucket_C658EE92.id}\\",
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/test-versioned-lambda/code-bucket-public-access-block\\",
-            \\"uniqueId\\": \\"test_testversionedlambda_codebucketpublicaccessblock_5C6903BB\\"
+            \\"uniqueId\\": \\"test-versioned-lambda_code-bucket-public-access-block_9662548B\\"
           }
         }
       }
     },
     \\"aws_iam_role\\": {
-      \\"test_testversionedlambda_executionrole_CA6543EB\\": {
-        \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.test_testversionedlambda_assumepolicydocument_5C55CB37.json}\\",
+      \\"test-versioned-lambda_execution-role_068103E3\\": {
+        \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.test-versioned-lambda_assume-policy-document_54E2E6E3.json}\\",
         \\"name\\": \\"Test-Lambda-ExecutionRole\\",
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/test-versioned-lambda/execution-role\\",
-            \\"uniqueId\\": \\"test_testversionedlambda_executionrole_CA6543EB\\"
+            \\"uniqueId\\": \\"test-versioned-lambda_execution-role_068103E3\\"
           }
         }
       }
     },
-    \\"aws_iam_role_policy\\": {
-      \\"test_testversionedlambda_executionrolepolicy_9C90B6CB\\": {
+    \\"aws_iam_policy\\": {
+      \\"test-versioned-lambda_execution-policy_A934214F\\": {
         \\"name\\": \\"Test-Lambda-ExecutionRolePolicy\\",
-        \\"policy\\": \\"\${data.aws_iam_policy_document.test_testversionedlambda_executionpolicydocument_6B2417EE.json}\\",
-        \\"role\\": \\"Test-Lambda-ExecutionRole\\",
+        \\"policy\\": \\"\${data.aws_iam_policy_document.test-versioned-lambda_execution-policy-document_BA37CD4D.json}\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-versioned-lambda/execution-policy\\",
+            \\"uniqueId\\": \\"test-versioned-lambda_execution-policy_A934214F\\"
+          }
+        }
+      }
+    },
+    \\"aws_iam_role_policy_attachment\\": {
+      \\"test-versioned-lambda_execution-role-policy-attachment_30E5BCA4\\": {
+        \\"policy_arn\\": \\"\${aws_iam_policy.test-versioned-lambda_execution-policy_A934214F.arn}\\",
+        \\"role\\": \\"\${aws_iam_role.test-versioned-lambda_execution-role_068103E3.name}\\",
         \\"depends_on\\": [
-          \\"aws_iam_role.test_testversionedlambda_executionrole_CA6543EB\\"
+          \\"aws_iam_role.test-versioned-lambda_execution-role_068103E3\\",
+          \\"aws_iam_policy.test-versioned-lambda_execution-policy_A934214F\\"
         ],
         \\"//\\": {
           \\"metadata\\": {
-            \\"path\\": \\"test/test-versioned-lambda/execution-role-policy\\",
-            \\"uniqueId\\": \\"test_testversionedlambda_executionrolepolicy_9C90B6CB\\"
+            \\"path\\": \\"test/test-versioned-lambda/execution-role-policy-attachment\\",
+            \\"uniqueId\\": \\"test-versioned-lambda_execution-role-policy-attachment_30E5BCA4\\"
           }
         }
       }
     },
     \\"aws_lambda_function\\": {
-      \\"test_testversionedlambda_F521A265\\": {
-        \\"filename\\": \\"index.py.zip\\",
+      \\"test-versioned-lambda_D818669D\\": {
+        \\"filename\\": \\"\${data.archive_file.test-versioned-lambda_lambda-default-file_E2490368.output_path}\\",
         \\"function_name\\": \\"Test-Lambda-Function\\",
         \\"handler\\": \\"index.handler\\",
         \\"publish\\": true,
-        \\"role\\": \\"\${aws_iam_role.test_testversionedlambda_executionrole_CA6543EB.arn}\\",
+        \\"role\\": \\"\${aws_iam_role.test-versioned-lambda_execution-role_068103E3.arn}\\",
         \\"runtime\\": \\"python3.8\\",
-        \\"source_code_hash\\": \\"\${data.archive_file.test_testversionedlambda_lambdadefaultfile_57465E51.output_base64sha256}\\",
+        \\"source_code_hash\\": \\"\${data.archive_file.test-versioned-lambda_lambda-default-file_E2490368.output_base64sha256}\\",
         \\"timeout\\": 5,
         \\"vpc_config\\": [],
         \\"lifecycle\\": {
@@ -83,33 +95,33 @@ exports[`renders a versioned lambda 1`] = `
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/test-versioned-lambda/lambda\\",
-            \\"uniqueId\\": \\"test_testversionedlambda_F521A265\\"
+            \\"uniqueId\\": \\"test-versioned-lambda_D818669D\\"
           }
         }
       }
     },
     \\"aws_cloudwatch_log_group\\": {
-      \\"test_testversionedlambda_loggroup_1EF2337F\\": {
-        \\"name\\": \\"/aws/lambda/Test-Lambda-Function\\",
+      \\"test-versioned-lambda_log-group_CB8A67E7\\": {
+        \\"name\\": \\"/aws/lambda/\${aws_lambda_function.test-versioned-lambda_D818669D.function_name}\\",
         \\"retention_in_days\\": 14,
         \\"depends_on\\": [
-          \\"aws_lambda_function.test_testversionedlambda_F521A265\\"
+          \\"aws_lambda_function.test-versioned-lambda_D818669D\\"
         ],
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/test-versioned-lambda/log-group\\",
-            \\"uniqueId\\": \\"test_testversionedlambda_loggroup_1EF2337F\\"
+            \\"uniqueId\\": \\"test-versioned-lambda_log-group_CB8A67E7\\"
           }
         }
       }
     },
     \\"aws_lambda_alias\\": {
-      \\"test_testversionedlambda_alias_2E9E2D0F\\": {
-        \\"function_name\\": \\"Test-Lambda-Function\\",
-        \\"function_version\\": \\"\${split(\\\\\\":\\\\\\", aws_lambda_function.test_testversionedlambda_F521A265.qualified_arn)[7]}\\",
+      \\"test-versioned-lambda_alias_60AF9CE1\\": {
+        \\"function_name\\": \\"\${aws_lambda_function.test-versioned-lambda_D818669D.function_name}\\",
+        \\"function_version\\": \\"\${split(\\\\\\":\\\\\\", aws_lambda_function.test-versioned-lambda_D818669D.qualified_arn)[7]}\\",
         \\"name\\": \\"DEPLOYED\\",
         \\"depends_on\\": [
-          \\"aws_lambda_function.test_testversionedlambda_F521A265\\"
+          \\"aws_lambda_function.test-versioned-lambda_D818669D\\"
         ],
         \\"lifecycle\\": {
           \\"ignore_changes\\": [
@@ -119,7 +131,7 @@ exports[`renders a versioned lambda 1`] = `
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/test-versioned-lambda/alias\\",
-            \\"uniqueId\\": \\"test_testversionedlambda_alias_2E9E2D0F\\"
+            \\"uniqueId\\": \\"test-versioned-lambda_alias_60AF9CE1\\"
           }
         }
       }
@@ -127,18 +139,19 @@ exports[`renders a versioned lambda 1`] = `
   },
   \\"data\\": {
     \\"aws_iam_policy_document\\": {
-      \\"test_testversionedlambda_assumepolicydocument_5C55CB37\\": {
+      \\"test-versioned-lambda_assume-policy-document_54E2E6E3\\": {
         \\"version\\": \\"2012-10-17\\",
         \\"statement\\": [
           {
-            \\"effect\\": \\"Allow\\",
             \\"actions\\": [
               \\"sts:AssumeRole\\"
             ],
+            \\"effect\\": \\"Allow\\",
             \\"principals\\": [
               {
                 \\"identifiers\\": [
-                  \\"lambda.amazonaws.com\\"
+                  \\"lambda.amazonaws.com\\",
+                  \\"edgelambda.amazonaws.com\\"
                 ],
                 \\"type\\": \\"Service\\"
               }
@@ -148,21 +161,21 @@ exports[`renders a versioned lambda 1`] = `
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/test-versioned-lambda/assume-policy-document\\",
-            \\"uniqueId\\": \\"test_testversionedlambda_assumepolicydocument_5C55CB37\\"
+            \\"uniqueId\\": \\"test-versioned-lambda_assume-policy-document_54E2E6E3\\"
           }
         }
       },
-      \\"test_testversionedlambda_executionpolicydocument_6B2417EE\\": {
+      \\"test-versioned-lambda_execution-policy-document_BA37CD4D\\": {
         \\"version\\": \\"2012-10-17\\",
         \\"statement\\": [
           {
-            \\"effect\\": \\"Allow\\",
             \\"actions\\": [
               \\"logs:CreateLogGroup\\",
               \\"logs:CreateLogStream\\",
               \\"logs:PutLogEvents\\",
               \\"logs:DescribeLogStreams\\"
             ],
+            \\"effect\\": \\"Allow\\",
             \\"resources\\": [
               \\"arn:aws:logs:*:*:*\\"
             ]
@@ -171,13 +184,13 @@ exports[`renders a versioned lambda 1`] = `
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/test-versioned-lambda/execution-policy-document\\",
-            \\"uniqueId\\": \\"test_testversionedlambda_executionpolicydocument_6B2417EE\\"
+            \\"uniqueId\\": \\"test-versioned-lambda_execution-policy-document_BA37CD4D\\"
           }
         }
       }
     },
     \\"archive_file\\": {
-      \\"test_testversionedlambda_lambdadefaultfile_57465E51\\": {
+      \\"test-versioned-lambda_lambda-default-file_E2490368\\": {
         \\"output_path\\": \\"index.py.zip\\",
         \\"type\\": \\"zip\\",
         \\"source\\": [
@@ -189,7 +202,7 @@ exports[`renders a versioned lambda 1`] = `
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/test-versioned-lambda/lambda-default-file\\",
-            \\"uniqueId\\": \\"test_testversionedlambda_lambdadefaultfile_57465E51\\"
+            \\"uniqueId\\": \\"test-versioned-lambda_lambda-default-file_E2490368\\"
           }
         }
       }
@@ -208,68 +221,80 @@ exports[`renders a versioned lambda with description 1`] = `
   },
   \\"resource\\": {
     \\"aws_s3_bucket\\": {
-      \\"test_testversionedlambda_codebucket_BC2D4650\\": {
+      \\"test-versioned-lambda_code-bucket_C658EE92\\": {
         \\"acl\\": \\"private\\",
         \\"bucket\\": \\"test-bucket\\",
         \\"force_destroy\\": true,
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/test-versioned-lambda/code-bucket\\",
-            \\"uniqueId\\": \\"test_testversionedlambda_codebucket_BC2D4650\\"
+            \\"uniqueId\\": \\"test-versioned-lambda_code-bucket_C658EE92\\"
           }
         }
       }
     },
     \\"aws_s3_bucket_public_access_block\\": {
-      \\"test_testversionedlambda_codebucketpublicaccessblock_5C6903BB\\": {
+      \\"test-versioned-lambda_code-bucket-public-access-block_9662548B\\": {
         \\"block_public_acls\\": true,
         \\"block_public_policy\\": true,
-        \\"bucket\\": \\"\${aws_s3_bucket.test_testversionedlambda_codebucket_BC2D4650.id}\\",
+        \\"bucket\\": \\"\${aws_s3_bucket.test-versioned-lambda_code-bucket_C658EE92.id}\\",
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/test-versioned-lambda/code-bucket-public-access-block\\",
-            \\"uniqueId\\": \\"test_testversionedlambda_codebucketpublicaccessblock_5C6903BB\\"
+            \\"uniqueId\\": \\"test-versioned-lambda_code-bucket-public-access-block_9662548B\\"
           }
         }
       }
     },
     \\"aws_iam_role\\": {
-      \\"test_testversionedlambda_executionrole_CA6543EB\\": {
-        \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.test_testversionedlambda_assumepolicydocument_5C55CB37.json}\\",
+      \\"test-versioned-lambda_execution-role_068103E3\\": {
+        \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.test-versioned-lambda_assume-policy-document_54E2E6E3.json}\\",
         \\"name\\": \\"Test-Lambda-ExecutionRole\\",
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/test-versioned-lambda/execution-role\\",
-            \\"uniqueId\\": \\"test_testversionedlambda_executionrole_CA6543EB\\"
+            \\"uniqueId\\": \\"test-versioned-lambda_execution-role_068103E3\\"
           }
         }
       }
     },
-    \\"aws_iam_role_policy\\": {
-      \\"test_testversionedlambda_executionrolepolicy_9C90B6CB\\": {
+    \\"aws_iam_policy\\": {
+      \\"test-versioned-lambda_execution-policy_A934214F\\": {
         \\"name\\": \\"Test-Lambda-ExecutionRolePolicy\\",
-        \\"policy\\": \\"\${data.aws_iam_policy_document.test_testversionedlambda_executionpolicydocument_6B2417EE.json}\\",
-        \\"role\\": \\"Test-Lambda-ExecutionRole\\",
+        \\"policy\\": \\"\${data.aws_iam_policy_document.test-versioned-lambda_execution-policy-document_BA37CD4D.json}\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-versioned-lambda/execution-policy\\",
+            \\"uniqueId\\": \\"test-versioned-lambda_execution-policy_A934214F\\"
+          }
+        }
+      }
+    },
+    \\"aws_iam_role_policy_attachment\\": {
+      \\"test-versioned-lambda_execution-role-policy-attachment_30E5BCA4\\": {
+        \\"policy_arn\\": \\"\${aws_iam_policy.test-versioned-lambda_execution-policy_A934214F.arn}\\",
+        \\"role\\": \\"\${aws_iam_role.test-versioned-lambda_execution-role_068103E3.name}\\",
         \\"depends_on\\": [
-          \\"aws_iam_role.test_testversionedlambda_executionrole_CA6543EB\\"
+          \\"aws_iam_role.test-versioned-lambda_execution-role_068103E3\\",
+          \\"aws_iam_policy.test-versioned-lambda_execution-policy_A934214F\\"
         ],
         \\"//\\": {
           \\"metadata\\": {
-            \\"path\\": \\"test/test-versioned-lambda/execution-role-policy\\",
-            \\"uniqueId\\": \\"test_testversionedlambda_executionrolepolicy_9C90B6CB\\"
+            \\"path\\": \\"test/test-versioned-lambda/execution-role-policy-attachment\\",
+            \\"uniqueId\\": \\"test-versioned-lambda_execution-role-policy-attachment_30E5BCA4\\"
           }
         }
       }
     },
     \\"aws_lambda_function\\": {
-      \\"test_testversionedlambda_F521A265\\": {
-        \\"filename\\": \\"index.py.zip\\",
+      \\"test-versioned-lambda_D818669D\\": {
+        \\"filename\\": \\"\${data.archive_file.test-versioned-lambda_lambda-default-file_E2490368.output_path}\\",
         \\"function_name\\": \\"Test-Lambda-Function\\",
         \\"handler\\": \\"index.handler\\",
         \\"publish\\": true,
-        \\"role\\": \\"\${aws_iam_role.test_testversionedlambda_executionrole_CA6543EB.arn}\\",
+        \\"role\\": \\"\${aws_iam_role.test-versioned-lambda_execution-role_068103E3.arn}\\",
         \\"runtime\\": \\"python3.8\\",
-        \\"source_code_hash\\": \\"\${data.archive_file.test_testversionedlambda_lambdadefaultfile_57465E51.output_base64sha256}\\",
+        \\"source_code_hash\\": \\"\${data.archive_file.test-versioned-lambda_lambda-default-file_E2490368.output_base64sha256}\\",
         \\"timeout\\": 5,
         \\"vpc_config\\": [],
         \\"lifecycle\\": {
@@ -281,33 +306,33 @@ exports[`renders a versioned lambda with description 1`] = `
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/test-versioned-lambda/lambda\\",
-            \\"uniqueId\\": \\"test_testversionedlambda_F521A265\\"
+            \\"uniqueId\\": \\"test-versioned-lambda_D818669D\\"
           }
         }
       }
     },
     \\"aws_cloudwatch_log_group\\": {
-      \\"test_testversionedlambda_loggroup_1EF2337F\\": {
-        \\"name\\": \\"/aws/lambda/Test-Lambda-Function\\",
+      \\"test-versioned-lambda_log-group_CB8A67E7\\": {
+        \\"name\\": \\"/aws/lambda/\${aws_lambda_function.test-versioned-lambda_D818669D.function_name}\\",
         \\"retention_in_days\\": 14,
         \\"depends_on\\": [
-          \\"aws_lambda_function.test_testversionedlambda_F521A265\\"
+          \\"aws_lambda_function.test-versioned-lambda_D818669D\\"
         ],
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/test-versioned-lambda/log-group\\",
-            \\"uniqueId\\": \\"test_testversionedlambda_loggroup_1EF2337F\\"
+            \\"uniqueId\\": \\"test-versioned-lambda_log-group_CB8A67E7\\"
           }
         }
       }
     },
     \\"aws_lambda_alias\\": {
-      \\"test_testversionedlambda_alias_2E9E2D0F\\": {
-        \\"function_name\\": \\"Test-Lambda-Function\\",
-        \\"function_version\\": \\"\${split(\\\\\\":\\\\\\", aws_lambda_function.test_testversionedlambda_F521A265.qualified_arn)[7]}\\",
+      \\"test-versioned-lambda_alias_60AF9CE1\\": {
+        \\"function_name\\": \\"\${aws_lambda_function.test-versioned-lambda_D818669D.function_name}\\",
+        \\"function_version\\": \\"\${split(\\\\\\":\\\\\\", aws_lambda_function.test-versioned-lambda_D818669D.qualified_arn)[7]}\\",
         \\"name\\": \\"DEPLOYED\\",
         \\"depends_on\\": [
-          \\"aws_lambda_function.test_testversionedlambda_F521A265\\"
+          \\"aws_lambda_function.test-versioned-lambda_D818669D\\"
         ],
         \\"lifecycle\\": {
           \\"ignore_changes\\": [
@@ -317,7 +342,7 @@ exports[`renders a versioned lambda with description 1`] = `
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/test-versioned-lambda/alias\\",
-            \\"uniqueId\\": \\"test_testversionedlambda_alias_2E9E2D0F\\"
+            \\"uniqueId\\": \\"test-versioned-lambda_alias_60AF9CE1\\"
           }
         }
       }
@@ -325,18 +350,19 @@ exports[`renders a versioned lambda with description 1`] = `
   },
   \\"data\\": {
     \\"aws_iam_policy_document\\": {
-      \\"test_testversionedlambda_assumepolicydocument_5C55CB37\\": {
+      \\"test-versioned-lambda_assume-policy-document_54E2E6E3\\": {
         \\"version\\": \\"2012-10-17\\",
         \\"statement\\": [
           {
-            \\"effect\\": \\"Allow\\",
             \\"actions\\": [
               \\"sts:AssumeRole\\"
             ],
+            \\"effect\\": \\"Allow\\",
             \\"principals\\": [
               {
                 \\"identifiers\\": [
-                  \\"lambda.amazonaws.com\\"
+                  \\"lambda.amazonaws.com\\",
+                  \\"edgelambda.amazonaws.com\\"
                 ],
                 \\"type\\": \\"Service\\"
               }
@@ -346,21 +372,21 @@ exports[`renders a versioned lambda with description 1`] = `
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/test-versioned-lambda/assume-policy-document\\",
-            \\"uniqueId\\": \\"test_testversionedlambda_assumepolicydocument_5C55CB37\\"
+            \\"uniqueId\\": \\"test-versioned-lambda_assume-policy-document_54E2E6E3\\"
           }
         }
       },
-      \\"test_testversionedlambda_executionpolicydocument_6B2417EE\\": {
+      \\"test-versioned-lambda_execution-policy-document_BA37CD4D\\": {
         \\"version\\": \\"2012-10-17\\",
         \\"statement\\": [
           {
-            \\"effect\\": \\"Allow\\",
             \\"actions\\": [
               \\"logs:CreateLogGroup\\",
               \\"logs:CreateLogStream\\",
               \\"logs:PutLogEvents\\",
               \\"logs:DescribeLogStreams\\"
             ],
+            \\"effect\\": \\"Allow\\",
             \\"resources\\": [
               \\"arn:aws:logs:*:*:*\\"
             ]
@@ -369,13 +395,13 @@ exports[`renders a versioned lambda with description 1`] = `
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/test-versioned-lambda/execution-policy-document\\",
-            \\"uniqueId\\": \\"test_testversionedlambda_executionpolicydocument_6B2417EE\\"
+            \\"uniqueId\\": \\"test-versioned-lambda_execution-policy-document_BA37CD4D\\"
           }
         }
       }
     },
     \\"archive_file\\": {
-      \\"test_testversionedlambda_lambdadefaultfile_57465E51\\": {
+      \\"test-versioned-lambda_lambda-default-file_E2490368\\": {
         \\"output_path\\": \\"index.py.zip\\",
         \\"type\\": \\"zip\\",
         \\"source\\": [
@@ -387,7 +413,7 @@ exports[`renders a versioned lambda with description 1`] = `
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/test-versioned-lambda/lambda-default-file\\",
-            \\"uniqueId\\": \\"test_testversionedlambda_lambdadefaultfile_57465E51\\"
+            \\"uniqueId\\": \\"test-versioned-lambda_lambda-default-file_E2490368\\"
           }
         }
       }
@@ -406,68 +432,80 @@ exports[`renders a versioned lambda with environment variables 1`] = `
   },
   \\"resource\\": {
     \\"aws_s3_bucket\\": {
-      \\"test_testversionedlambda_codebucket_BC2D4650\\": {
+      \\"test-versioned-lambda_code-bucket_C658EE92\\": {
         \\"acl\\": \\"private\\",
         \\"bucket\\": \\"test-bucket\\",
         \\"force_destroy\\": true,
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/test-versioned-lambda/code-bucket\\",
-            \\"uniqueId\\": \\"test_testversionedlambda_codebucket_BC2D4650\\"
+            \\"uniqueId\\": \\"test-versioned-lambda_code-bucket_C658EE92\\"
           }
         }
       }
     },
     \\"aws_s3_bucket_public_access_block\\": {
-      \\"test_testversionedlambda_codebucketpublicaccessblock_5C6903BB\\": {
+      \\"test-versioned-lambda_code-bucket-public-access-block_9662548B\\": {
         \\"block_public_acls\\": true,
         \\"block_public_policy\\": true,
-        \\"bucket\\": \\"\${aws_s3_bucket.test_testversionedlambda_codebucket_BC2D4650.id}\\",
+        \\"bucket\\": \\"\${aws_s3_bucket.test-versioned-lambda_code-bucket_C658EE92.id}\\",
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/test-versioned-lambda/code-bucket-public-access-block\\",
-            \\"uniqueId\\": \\"test_testversionedlambda_codebucketpublicaccessblock_5C6903BB\\"
+            \\"uniqueId\\": \\"test-versioned-lambda_code-bucket-public-access-block_9662548B\\"
           }
         }
       }
     },
     \\"aws_iam_role\\": {
-      \\"test_testversionedlambda_executionrole_CA6543EB\\": {
-        \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.test_testversionedlambda_assumepolicydocument_5C55CB37.json}\\",
+      \\"test-versioned-lambda_execution-role_068103E3\\": {
+        \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.test-versioned-lambda_assume-policy-document_54E2E6E3.json}\\",
         \\"name\\": \\"Test-Lambda-ExecutionRole\\",
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/test-versioned-lambda/execution-role\\",
-            \\"uniqueId\\": \\"test_testversionedlambda_executionrole_CA6543EB\\"
+            \\"uniqueId\\": \\"test-versioned-lambda_execution-role_068103E3\\"
           }
         }
       }
     },
-    \\"aws_iam_role_policy\\": {
-      \\"test_testversionedlambda_executionrolepolicy_9C90B6CB\\": {
+    \\"aws_iam_policy\\": {
+      \\"test-versioned-lambda_execution-policy_A934214F\\": {
         \\"name\\": \\"Test-Lambda-ExecutionRolePolicy\\",
-        \\"policy\\": \\"\${data.aws_iam_policy_document.test_testversionedlambda_executionpolicydocument_6B2417EE.json}\\",
-        \\"role\\": \\"Test-Lambda-ExecutionRole\\",
+        \\"policy\\": \\"\${data.aws_iam_policy_document.test-versioned-lambda_execution-policy-document_BA37CD4D.json}\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-versioned-lambda/execution-policy\\",
+            \\"uniqueId\\": \\"test-versioned-lambda_execution-policy_A934214F\\"
+          }
+        }
+      }
+    },
+    \\"aws_iam_role_policy_attachment\\": {
+      \\"test-versioned-lambda_execution-role-policy-attachment_30E5BCA4\\": {
+        \\"policy_arn\\": \\"\${aws_iam_policy.test-versioned-lambda_execution-policy_A934214F.arn}\\",
+        \\"role\\": \\"\${aws_iam_role.test-versioned-lambda_execution-role_068103E3.name}\\",
         \\"depends_on\\": [
-          \\"aws_iam_role.test_testversionedlambda_executionrole_CA6543EB\\"
+          \\"aws_iam_role.test-versioned-lambda_execution-role_068103E3\\",
+          \\"aws_iam_policy.test-versioned-lambda_execution-policy_A934214F\\"
         ],
         \\"//\\": {
           \\"metadata\\": {
-            \\"path\\": \\"test/test-versioned-lambda/execution-role-policy\\",
-            \\"uniqueId\\": \\"test_testversionedlambda_executionrolepolicy_9C90B6CB\\"
+            \\"path\\": \\"test/test-versioned-lambda/execution-role-policy-attachment\\",
+            \\"uniqueId\\": \\"test-versioned-lambda_execution-role-policy-attachment_30E5BCA4\\"
           }
         }
       }
     },
     \\"aws_lambda_function\\": {
-      \\"test_testversionedlambda_F521A265\\": {
-        \\"filename\\": \\"index.py.zip\\",
+      \\"test-versioned-lambda_D818669D\\": {
+        \\"filename\\": \\"\${data.archive_file.test-versioned-lambda_lambda-default-file_E2490368.output_path}\\",
         \\"function_name\\": \\"Test-Lambda-Function\\",
         \\"handler\\": \\"index.handler\\",
         \\"publish\\": true,
-        \\"role\\": \\"\${aws_iam_role.test_testversionedlambda_executionrole_CA6543EB.arn}\\",
+        \\"role\\": \\"\${aws_iam_role.test-versioned-lambda_execution-role_068103E3.arn}\\",
         \\"runtime\\": \\"python3.8\\",
-        \\"source_code_hash\\": \\"\${data.archive_file.test_testversionedlambda_lambdadefaultfile_57465E51.output_base64sha256}\\",
+        \\"source_code_hash\\": \\"\${data.archive_file.test-versioned-lambda_lambda-default-file_E2490368.output_base64sha256}\\",
         \\"timeout\\": 5,
         \\"environment\\": [
           {
@@ -487,33 +525,33 @@ exports[`renders a versioned lambda with environment variables 1`] = `
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/test-versioned-lambda/lambda\\",
-            \\"uniqueId\\": \\"test_testversionedlambda_F521A265\\"
+            \\"uniqueId\\": \\"test-versioned-lambda_D818669D\\"
           }
         }
       }
     },
     \\"aws_cloudwatch_log_group\\": {
-      \\"test_testversionedlambda_loggroup_1EF2337F\\": {
-        \\"name\\": \\"/aws/lambda/Test-Lambda-Function\\",
+      \\"test-versioned-lambda_log-group_CB8A67E7\\": {
+        \\"name\\": \\"/aws/lambda/\${aws_lambda_function.test-versioned-lambda_D818669D.function_name}\\",
         \\"retention_in_days\\": 14,
         \\"depends_on\\": [
-          \\"aws_lambda_function.test_testversionedlambda_F521A265\\"
+          \\"aws_lambda_function.test-versioned-lambda_D818669D\\"
         ],
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/test-versioned-lambda/log-group\\",
-            \\"uniqueId\\": \\"test_testversionedlambda_loggroup_1EF2337F\\"
+            \\"uniqueId\\": \\"test-versioned-lambda_log-group_CB8A67E7\\"
           }
         }
       }
     },
     \\"aws_lambda_alias\\": {
-      \\"test_testversionedlambda_alias_2E9E2D0F\\": {
-        \\"function_name\\": \\"Test-Lambda-Function\\",
-        \\"function_version\\": \\"\${split(\\\\\\":\\\\\\", aws_lambda_function.test_testversionedlambda_F521A265.qualified_arn)[7]}\\",
+      \\"test-versioned-lambda_alias_60AF9CE1\\": {
+        \\"function_name\\": \\"\${aws_lambda_function.test-versioned-lambda_D818669D.function_name}\\",
+        \\"function_version\\": \\"\${split(\\\\\\":\\\\\\", aws_lambda_function.test-versioned-lambda_D818669D.qualified_arn)[7]}\\",
         \\"name\\": \\"DEPLOYED\\",
         \\"depends_on\\": [
-          \\"aws_lambda_function.test_testversionedlambda_F521A265\\"
+          \\"aws_lambda_function.test-versioned-lambda_D818669D\\"
         ],
         \\"lifecycle\\": {
           \\"ignore_changes\\": [
@@ -523,7 +561,7 @@ exports[`renders a versioned lambda with environment variables 1`] = `
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/test-versioned-lambda/alias\\",
-            \\"uniqueId\\": \\"test_testversionedlambda_alias_2E9E2D0F\\"
+            \\"uniqueId\\": \\"test-versioned-lambda_alias_60AF9CE1\\"
           }
         }
       }
@@ -531,18 +569,19 @@ exports[`renders a versioned lambda with environment variables 1`] = `
   },
   \\"data\\": {
     \\"aws_iam_policy_document\\": {
-      \\"test_testversionedlambda_assumepolicydocument_5C55CB37\\": {
+      \\"test-versioned-lambda_assume-policy-document_54E2E6E3\\": {
         \\"version\\": \\"2012-10-17\\",
         \\"statement\\": [
           {
-            \\"effect\\": \\"Allow\\",
             \\"actions\\": [
               \\"sts:AssumeRole\\"
             ],
+            \\"effect\\": \\"Allow\\",
             \\"principals\\": [
               {
                 \\"identifiers\\": [
-                  \\"lambda.amazonaws.com\\"
+                  \\"lambda.amazonaws.com\\",
+                  \\"edgelambda.amazonaws.com\\"
                 ],
                 \\"type\\": \\"Service\\"
               }
@@ -552,21 +591,21 @@ exports[`renders a versioned lambda with environment variables 1`] = `
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/test-versioned-lambda/assume-policy-document\\",
-            \\"uniqueId\\": \\"test_testversionedlambda_assumepolicydocument_5C55CB37\\"
+            \\"uniqueId\\": \\"test-versioned-lambda_assume-policy-document_54E2E6E3\\"
           }
         }
       },
-      \\"test_testversionedlambda_executionpolicydocument_6B2417EE\\": {
+      \\"test-versioned-lambda_execution-policy-document_BA37CD4D\\": {
         \\"version\\": \\"2012-10-17\\",
         \\"statement\\": [
           {
-            \\"effect\\": \\"Allow\\",
             \\"actions\\": [
               \\"logs:CreateLogGroup\\",
               \\"logs:CreateLogStream\\",
               \\"logs:PutLogEvents\\",
               \\"logs:DescribeLogStreams\\"
             ],
+            \\"effect\\": \\"Allow\\",
             \\"resources\\": [
               \\"arn:aws:logs:*:*:*\\"
             ]
@@ -575,13 +614,13 @@ exports[`renders a versioned lambda with environment variables 1`] = `
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/test-versioned-lambda/execution-policy-document\\",
-            \\"uniqueId\\": \\"test_testversionedlambda_executionpolicydocument_6B2417EE\\"
+            \\"uniqueId\\": \\"test-versioned-lambda_execution-policy-document_BA37CD4D\\"
           }
         }
       }
     },
     \\"archive_file\\": {
-      \\"test_testversionedlambda_lambdadefaultfile_57465E51\\": {
+      \\"test-versioned-lambda_lambda-default-file_E2490368\\": {
         \\"output_path\\": \\"index.py.zip\\",
         \\"type\\": \\"zip\\",
         \\"source\\": [
@@ -593,7 +632,7 @@ exports[`renders a versioned lambda with environment variables 1`] = `
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/test-versioned-lambda/lambda-default-file\\",
-            \\"uniqueId\\": \\"test_testversionedlambda_lambdadefaultfile_57465E51\\"
+            \\"uniqueId\\": \\"test-versioned-lambda_lambda-default-file_E2490368\\"
           }
         }
       }
@@ -612,68 +651,80 @@ exports[`renders a versioned lambda with execution policy statements 1`] = `
   },
   \\"resource\\": {
     \\"aws_s3_bucket\\": {
-      \\"test_testversionedlambda_codebucket_BC2D4650\\": {
+      \\"test-versioned-lambda_code-bucket_C658EE92\\": {
         \\"acl\\": \\"private\\",
         \\"bucket\\": \\"test-bucket\\",
         \\"force_destroy\\": true,
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/test-versioned-lambda/code-bucket\\",
-            \\"uniqueId\\": \\"test_testversionedlambda_codebucket_BC2D4650\\"
+            \\"uniqueId\\": \\"test-versioned-lambda_code-bucket_C658EE92\\"
           }
         }
       }
     },
     \\"aws_s3_bucket_public_access_block\\": {
-      \\"test_testversionedlambda_codebucketpublicaccessblock_5C6903BB\\": {
+      \\"test-versioned-lambda_code-bucket-public-access-block_9662548B\\": {
         \\"block_public_acls\\": true,
         \\"block_public_policy\\": true,
-        \\"bucket\\": \\"\${aws_s3_bucket.test_testversionedlambda_codebucket_BC2D4650.id}\\",
+        \\"bucket\\": \\"\${aws_s3_bucket.test-versioned-lambda_code-bucket_C658EE92.id}\\",
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/test-versioned-lambda/code-bucket-public-access-block\\",
-            \\"uniqueId\\": \\"test_testversionedlambda_codebucketpublicaccessblock_5C6903BB\\"
+            \\"uniqueId\\": \\"test-versioned-lambda_code-bucket-public-access-block_9662548B\\"
           }
         }
       }
     },
     \\"aws_iam_role\\": {
-      \\"test_testversionedlambda_executionrole_CA6543EB\\": {
-        \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.test_testversionedlambda_assumepolicydocument_5C55CB37.json}\\",
+      \\"test-versioned-lambda_execution-role_068103E3\\": {
+        \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.test-versioned-lambda_assume-policy-document_54E2E6E3.json}\\",
         \\"name\\": \\"Test-Lambda-ExecutionRole\\",
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/test-versioned-lambda/execution-role\\",
-            \\"uniqueId\\": \\"test_testversionedlambda_executionrole_CA6543EB\\"
+            \\"uniqueId\\": \\"test-versioned-lambda_execution-role_068103E3\\"
           }
         }
       }
     },
-    \\"aws_iam_role_policy\\": {
-      \\"test_testversionedlambda_executionrolepolicy_9C90B6CB\\": {
+    \\"aws_iam_policy\\": {
+      \\"test-versioned-lambda_execution-policy_A934214F\\": {
         \\"name\\": \\"Test-Lambda-ExecutionRolePolicy\\",
-        \\"policy\\": \\"\${data.aws_iam_policy_document.test_testversionedlambda_executionpolicydocument_6B2417EE.json}\\",
-        \\"role\\": \\"Test-Lambda-ExecutionRole\\",
+        \\"policy\\": \\"\${data.aws_iam_policy_document.test-versioned-lambda_execution-policy-document_BA37CD4D.json}\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-versioned-lambda/execution-policy\\",
+            \\"uniqueId\\": \\"test-versioned-lambda_execution-policy_A934214F\\"
+          }
+        }
+      }
+    },
+    \\"aws_iam_role_policy_attachment\\": {
+      \\"test-versioned-lambda_execution-role-policy-attachment_30E5BCA4\\": {
+        \\"policy_arn\\": \\"\${aws_iam_policy.test-versioned-lambda_execution-policy_A934214F.arn}\\",
+        \\"role\\": \\"\${aws_iam_role.test-versioned-lambda_execution-role_068103E3.name}\\",
         \\"depends_on\\": [
-          \\"aws_iam_role.test_testversionedlambda_executionrole_CA6543EB\\"
+          \\"aws_iam_role.test-versioned-lambda_execution-role_068103E3\\",
+          \\"aws_iam_policy.test-versioned-lambda_execution-policy_A934214F\\"
         ],
         \\"//\\": {
           \\"metadata\\": {
-            \\"path\\": \\"test/test-versioned-lambda/execution-role-policy\\",
-            \\"uniqueId\\": \\"test_testversionedlambda_executionrolepolicy_9C90B6CB\\"
+            \\"path\\": \\"test/test-versioned-lambda/execution-role-policy-attachment\\",
+            \\"uniqueId\\": \\"test-versioned-lambda_execution-role-policy-attachment_30E5BCA4\\"
           }
         }
       }
     },
     \\"aws_lambda_function\\": {
-      \\"test_testversionedlambda_F521A265\\": {
-        \\"filename\\": \\"index.py.zip\\",
+      \\"test-versioned-lambda_D818669D\\": {
+        \\"filename\\": \\"\${data.archive_file.test-versioned-lambda_lambda-default-file_E2490368.output_path}\\",
         \\"function_name\\": \\"Test-Lambda-Function\\",
         \\"handler\\": \\"index.handler\\",
         \\"publish\\": true,
-        \\"role\\": \\"\${aws_iam_role.test_testversionedlambda_executionrole_CA6543EB.arn}\\",
+        \\"role\\": \\"\${aws_iam_role.test-versioned-lambda_execution-role_068103E3.arn}\\",
         \\"runtime\\": \\"python3.8\\",
-        \\"source_code_hash\\": \\"\${data.archive_file.test_testversionedlambda_lambdadefaultfile_57465E51.output_base64sha256}\\",
+        \\"source_code_hash\\": \\"\${data.archive_file.test-versioned-lambda_lambda-default-file_E2490368.output_base64sha256}\\",
         \\"timeout\\": 5,
         \\"vpc_config\\": [],
         \\"lifecycle\\": {
@@ -685,33 +736,33 @@ exports[`renders a versioned lambda with execution policy statements 1`] = `
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/test-versioned-lambda/lambda\\",
-            \\"uniqueId\\": \\"test_testversionedlambda_F521A265\\"
+            \\"uniqueId\\": \\"test-versioned-lambda_D818669D\\"
           }
         }
       }
     },
     \\"aws_cloudwatch_log_group\\": {
-      \\"test_testversionedlambda_loggroup_1EF2337F\\": {
-        \\"name\\": \\"/aws/lambda/Test-Lambda-Function\\",
+      \\"test-versioned-lambda_log-group_CB8A67E7\\": {
+        \\"name\\": \\"/aws/lambda/\${aws_lambda_function.test-versioned-lambda_D818669D.function_name}\\",
         \\"retention_in_days\\": 14,
         \\"depends_on\\": [
-          \\"aws_lambda_function.test_testversionedlambda_F521A265\\"
+          \\"aws_lambda_function.test-versioned-lambda_D818669D\\"
         ],
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/test-versioned-lambda/log-group\\",
-            \\"uniqueId\\": \\"test_testversionedlambda_loggroup_1EF2337F\\"
+            \\"uniqueId\\": \\"test-versioned-lambda_log-group_CB8A67E7\\"
           }
         }
       }
     },
     \\"aws_lambda_alias\\": {
-      \\"test_testversionedlambda_alias_2E9E2D0F\\": {
-        \\"function_name\\": \\"Test-Lambda-Function\\",
-        \\"function_version\\": \\"\${split(\\\\\\":\\\\\\", aws_lambda_function.test_testversionedlambda_F521A265.qualified_arn)[7]}\\",
+      \\"test-versioned-lambda_alias_60AF9CE1\\": {
+        \\"function_name\\": \\"\${aws_lambda_function.test-versioned-lambda_D818669D.function_name}\\",
+        \\"function_version\\": \\"\${split(\\\\\\":\\\\\\", aws_lambda_function.test-versioned-lambda_D818669D.qualified_arn)[7]}\\",
         \\"name\\": \\"DEPLOYED\\",
         \\"depends_on\\": [
-          \\"aws_lambda_function.test_testversionedlambda_F521A265\\"
+          \\"aws_lambda_function.test-versioned-lambda_D818669D\\"
         ],
         \\"lifecycle\\": {
           \\"ignore_changes\\": [
@@ -721,7 +772,7 @@ exports[`renders a versioned lambda with execution policy statements 1`] = `
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/test-versioned-lambda/alias\\",
-            \\"uniqueId\\": \\"test_testversionedlambda_alias_2E9E2D0F\\"
+            \\"uniqueId\\": \\"test-versioned-lambda_alias_60AF9CE1\\"
           }
         }
       }
@@ -729,18 +780,19 @@ exports[`renders a versioned lambda with execution policy statements 1`] = `
   },
   \\"data\\": {
     \\"aws_iam_policy_document\\": {
-      \\"test_testversionedlambda_assumepolicydocument_5C55CB37\\": {
+      \\"test-versioned-lambda_assume-policy-document_54E2E6E3\\": {
         \\"version\\": \\"2012-10-17\\",
         \\"statement\\": [
           {
-            \\"effect\\": \\"Allow\\",
             \\"actions\\": [
               \\"sts:AssumeRole\\"
             ],
+            \\"effect\\": \\"Allow\\",
             \\"principals\\": [
               {
                 \\"identifiers\\": [
-                  \\"lambda.amazonaws.com\\"
+                  \\"lambda.amazonaws.com\\",
+                  \\"edgelambda.amazonaws.com\\"
                 ],
                 \\"type\\": \\"Service\\"
               }
@@ -750,30 +802,30 @@ exports[`renders a versioned lambda with execution policy statements 1`] = `
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/test-versioned-lambda/assume-policy-document\\",
-            \\"uniqueId\\": \\"test_testversionedlambda_assumepolicydocument_5C55CB37\\"
+            \\"uniqueId\\": \\"test-versioned-lambda_assume-policy-document_54E2E6E3\\"
           }
         }
       },
-      \\"test_testversionedlambda_executionpolicydocument_6B2417EE\\": {
+      \\"test-versioned-lambda_execution-policy-document_BA37CD4D\\": {
         \\"version\\": \\"2012-10-17\\",
         \\"statement\\": [
           {
-            \\"effect\\": \\"Allow\\",
             \\"actions\\": [
               \\"logs:CreateLogGroup\\",
               \\"logs:CreateLogStream\\",
               \\"logs:PutLogEvents\\",
               \\"logs:DescribeLogStreams\\"
             ],
+            \\"effect\\": \\"Allow\\",
             \\"resources\\": [
               \\"arn:aws:logs:*:*:*\\"
             ]
           },
           {
-            \\"effect\\": \\"Allow\\",
             \\"actions\\": [
               \\"*\\"
             ],
+            \\"effect\\": \\"Allow\\",
             \\"resources\\": [
               \\"*\\"
             ]
@@ -782,13 +834,13 @@ exports[`renders a versioned lambda with execution policy statements 1`] = `
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/test-versioned-lambda/execution-policy-document\\",
-            \\"uniqueId\\": \\"test_testversionedlambda_executionpolicydocument_6B2417EE\\"
+            \\"uniqueId\\": \\"test-versioned-lambda_execution-policy-document_BA37CD4D\\"
           }
         }
       }
     },
     \\"archive_file\\": {
-      \\"test_testversionedlambda_lambdadefaultfile_57465E51\\": {
+      \\"test-versioned-lambda_lambda-default-file_E2490368\\": {
         \\"output_path\\": \\"index.py.zip\\",
         \\"type\\": \\"zip\\",
         \\"source\\": [
@@ -800,7 +852,7 @@ exports[`renders a versioned lambda with execution policy statements 1`] = `
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/test-versioned-lambda/lambda-default-file\\",
-            \\"uniqueId\\": \\"test_testversionedlambda_lambdadefaultfile_57465E51\\"
+            \\"uniqueId\\": \\"test-versioned-lambda_lambda-default-file_E2490368\\"
           }
         }
       }
@@ -819,68 +871,80 @@ exports[`renders a versioned lambda with log retention 1`] = `
   },
   \\"resource\\": {
     \\"aws_s3_bucket\\": {
-      \\"test_testversionedlambda_codebucket_BC2D4650\\": {
+      \\"test-versioned-lambda_code-bucket_C658EE92\\": {
         \\"acl\\": \\"private\\",
         \\"bucket\\": \\"test-bucket\\",
         \\"force_destroy\\": true,
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/test-versioned-lambda/code-bucket\\",
-            \\"uniqueId\\": \\"test_testversionedlambda_codebucket_BC2D4650\\"
+            \\"uniqueId\\": \\"test-versioned-lambda_code-bucket_C658EE92\\"
           }
         }
       }
     },
     \\"aws_s3_bucket_public_access_block\\": {
-      \\"test_testversionedlambda_codebucketpublicaccessblock_5C6903BB\\": {
+      \\"test-versioned-lambda_code-bucket-public-access-block_9662548B\\": {
         \\"block_public_acls\\": true,
         \\"block_public_policy\\": true,
-        \\"bucket\\": \\"\${aws_s3_bucket.test_testversionedlambda_codebucket_BC2D4650.id}\\",
+        \\"bucket\\": \\"\${aws_s3_bucket.test-versioned-lambda_code-bucket_C658EE92.id}\\",
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/test-versioned-lambda/code-bucket-public-access-block\\",
-            \\"uniqueId\\": \\"test_testversionedlambda_codebucketpublicaccessblock_5C6903BB\\"
+            \\"uniqueId\\": \\"test-versioned-lambda_code-bucket-public-access-block_9662548B\\"
           }
         }
       }
     },
     \\"aws_iam_role\\": {
-      \\"test_testversionedlambda_executionrole_CA6543EB\\": {
-        \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.test_testversionedlambda_assumepolicydocument_5C55CB37.json}\\",
+      \\"test-versioned-lambda_execution-role_068103E3\\": {
+        \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.test-versioned-lambda_assume-policy-document_54E2E6E3.json}\\",
         \\"name\\": \\"Test-Lambda-ExecutionRole\\",
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/test-versioned-lambda/execution-role\\",
-            \\"uniqueId\\": \\"test_testversionedlambda_executionrole_CA6543EB\\"
+            \\"uniqueId\\": \\"test-versioned-lambda_execution-role_068103E3\\"
           }
         }
       }
     },
-    \\"aws_iam_role_policy\\": {
-      \\"test_testversionedlambda_executionrolepolicy_9C90B6CB\\": {
+    \\"aws_iam_policy\\": {
+      \\"test-versioned-lambda_execution-policy_A934214F\\": {
         \\"name\\": \\"Test-Lambda-ExecutionRolePolicy\\",
-        \\"policy\\": \\"\${data.aws_iam_policy_document.test_testversionedlambda_executionpolicydocument_6B2417EE.json}\\",
-        \\"role\\": \\"Test-Lambda-ExecutionRole\\",
+        \\"policy\\": \\"\${data.aws_iam_policy_document.test-versioned-lambda_execution-policy-document_BA37CD4D.json}\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-versioned-lambda/execution-policy\\",
+            \\"uniqueId\\": \\"test-versioned-lambda_execution-policy_A934214F\\"
+          }
+        }
+      }
+    },
+    \\"aws_iam_role_policy_attachment\\": {
+      \\"test-versioned-lambda_execution-role-policy-attachment_30E5BCA4\\": {
+        \\"policy_arn\\": \\"\${aws_iam_policy.test-versioned-lambda_execution-policy_A934214F.arn}\\",
+        \\"role\\": \\"\${aws_iam_role.test-versioned-lambda_execution-role_068103E3.name}\\",
         \\"depends_on\\": [
-          \\"aws_iam_role.test_testversionedlambda_executionrole_CA6543EB\\"
+          \\"aws_iam_role.test-versioned-lambda_execution-role_068103E3\\",
+          \\"aws_iam_policy.test-versioned-lambda_execution-policy_A934214F\\"
         ],
         \\"//\\": {
           \\"metadata\\": {
-            \\"path\\": \\"test/test-versioned-lambda/execution-role-policy\\",
-            \\"uniqueId\\": \\"test_testversionedlambda_executionrolepolicy_9C90B6CB\\"
+            \\"path\\": \\"test/test-versioned-lambda/execution-role-policy-attachment\\",
+            \\"uniqueId\\": \\"test-versioned-lambda_execution-role-policy-attachment_30E5BCA4\\"
           }
         }
       }
     },
     \\"aws_lambda_function\\": {
-      \\"test_testversionedlambda_F521A265\\": {
-        \\"filename\\": \\"index.py.zip\\",
+      \\"test-versioned-lambda_D818669D\\": {
+        \\"filename\\": \\"\${data.archive_file.test-versioned-lambda_lambda-default-file_E2490368.output_path}\\",
         \\"function_name\\": \\"Test-Lambda-Function\\",
         \\"handler\\": \\"index.handler\\",
         \\"publish\\": true,
-        \\"role\\": \\"\${aws_iam_role.test_testversionedlambda_executionrole_CA6543EB.arn}\\",
+        \\"role\\": \\"\${aws_iam_role.test-versioned-lambda_execution-role_068103E3.arn}\\",
         \\"runtime\\": \\"python3.8\\",
-        \\"source_code_hash\\": \\"\${data.archive_file.test_testversionedlambda_lambdadefaultfile_57465E51.output_base64sha256}\\",
+        \\"source_code_hash\\": \\"\${data.archive_file.test-versioned-lambda_lambda-default-file_E2490368.output_base64sha256}\\",
         \\"timeout\\": 5,
         \\"vpc_config\\": [],
         \\"lifecycle\\": {
@@ -892,33 +956,33 @@ exports[`renders a versioned lambda with log retention 1`] = `
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/test-versioned-lambda/lambda\\",
-            \\"uniqueId\\": \\"test_testversionedlambda_F521A265\\"
+            \\"uniqueId\\": \\"test-versioned-lambda_D818669D\\"
           }
         }
       }
     },
     \\"aws_cloudwatch_log_group\\": {
-      \\"test_testversionedlambda_loggroup_1EF2337F\\": {
-        \\"name\\": \\"/aws/lambda/Test-Lambda-Function\\",
+      \\"test-versioned-lambda_log-group_CB8A67E7\\": {
+        \\"name\\": \\"/aws/lambda/\${aws_lambda_function.test-versioned-lambda_D818669D.function_name}\\",
         \\"retention_in_days\\": 10,
         \\"depends_on\\": [
-          \\"aws_lambda_function.test_testversionedlambda_F521A265\\"
+          \\"aws_lambda_function.test-versioned-lambda_D818669D\\"
         ],
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/test-versioned-lambda/log-group\\",
-            \\"uniqueId\\": \\"test_testversionedlambda_loggroup_1EF2337F\\"
+            \\"uniqueId\\": \\"test-versioned-lambda_log-group_CB8A67E7\\"
           }
         }
       }
     },
     \\"aws_lambda_alias\\": {
-      \\"test_testversionedlambda_alias_2E9E2D0F\\": {
-        \\"function_name\\": \\"Test-Lambda-Function\\",
-        \\"function_version\\": \\"\${split(\\\\\\":\\\\\\", aws_lambda_function.test_testversionedlambda_F521A265.qualified_arn)[7]}\\",
+      \\"test-versioned-lambda_alias_60AF9CE1\\": {
+        \\"function_name\\": \\"\${aws_lambda_function.test-versioned-lambda_D818669D.function_name}\\",
+        \\"function_version\\": \\"\${split(\\\\\\":\\\\\\", aws_lambda_function.test-versioned-lambda_D818669D.qualified_arn)[7]}\\",
         \\"name\\": \\"DEPLOYED\\",
         \\"depends_on\\": [
-          \\"aws_lambda_function.test_testversionedlambda_F521A265\\"
+          \\"aws_lambda_function.test-versioned-lambda_D818669D\\"
         ],
         \\"lifecycle\\": {
           \\"ignore_changes\\": [
@@ -928,7 +992,7 @@ exports[`renders a versioned lambda with log retention 1`] = `
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/test-versioned-lambda/alias\\",
-            \\"uniqueId\\": \\"test_testversionedlambda_alias_2E9E2D0F\\"
+            \\"uniqueId\\": \\"test-versioned-lambda_alias_60AF9CE1\\"
           }
         }
       }
@@ -936,18 +1000,19 @@ exports[`renders a versioned lambda with log retention 1`] = `
   },
   \\"data\\": {
     \\"aws_iam_policy_document\\": {
-      \\"test_testversionedlambda_assumepolicydocument_5C55CB37\\": {
+      \\"test-versioned-lambda_assume-policy-document_54E2E6E3\\": {
         \\"version\\": \\"2012-10-17\\",
         \\"statement\\": [
           {
-            \\"effect\\": \\"Allow\\",
             \\"actions\\": [
               \\"sts:AssumeRole\\"
             ],
+            \\"effect\\": \\"Allow\\",
             \\"principals\\": [
               {
                 \\"identifiers\\": [
-                  \\"lambda.amazonaws.com\\"
+                  \\"lambda.amazonaws.com\\",
+                  \\"edgelambda.amazonaws.com\\"
                 ],
                 \\"type\\": \\"Service\\"
               }
@@ -957,21 +1022,21 @@ exports[`renders a versioned lambda with log retention 1`] = `
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/test-versioned-lambda/assume-policy-document\\",
-            \\"uniqueId\\": \\"test_testversionedlambda_assumepolicydocument_5C55CB37\\"
+            \\"uniqueId\\": \\"test-versioned-lambda_assume-policy-document_54E2E6E3\\"
           }
         }
       },
-      \\"test_testversionedlambda_executionpolicydocument_6B2417EE\\": {
+      \\"test-versioned-lambda_execution-policy-document_BA37CD4D\\": {
         \\"version\\": \\"2012-10-17\\",
         \\"statement\\": [
           {
-            \\"effect\\": \\"Allow\\",
             \\"actions\\": [
               \\"logs:CreateLogGroup\\",
               \\"logs:CreateLogStream\\",
               \\"logs:PutLogEvents\\",
               \\"logs:DescribeLogStreams\\"
             ],
+            \\"effect\\": \\"Allow\\",
             \\"resources\\": [
               \\"arn:aws:logs:*:*:*\\"
             ]
@@ -980,13 +1045,13 @@ exports[`renders a versioned lambda with log retention 1`] = `
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/test-versioned-lambda/execution-policy-document\\",
-            \\"uniqueId\\": \\"test_testversionedlambda_executionpolicydocument_6B2417EE\\"
+            \\"uniqueId\\": \\"test-versioned-lambda_execution-policy-document_BA37CD4D\\"
           }
         }
       }
     },
     \\"archive_file\\": {
-      \\"test_testversionedlambda_lambdadefaultfile_57465E51\\": {
+      \\"test-versioned-lambda_lambda-default-file_E2490368\\": {
         \\"output_path\\": \\"index.py.zip\\",
         \\"type\\": \\"zip\\",
         \\"source\\": [
@@ -998,7 +1063,7 @@ exports[`renders a versioned lambda with log retention 1`] = `
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/test-versioned-lambda/lambda-default-file\\",
-            \\"uniqueId\\": \\"test_testversionedlambda_lambdadefaultfile_57465E51\\"
+            \\"uniqueId\\": \\"test-versioned-lambda_lambda-default-file_E2490368\\"
           }
         }
       }
@@ -1017,68 +1082,80 @@ exports[`renders a versioned lambda with publish ignored 1`] = `
   },
   \\"resource\\": {
     \\"aws_s3_bucket\\": {
-      \\"test_testversionedlambda_codebucket_BC2D4650\\": {
+      \\"test-versioned-lambda_code-bucket_C658EE92\\": {
         \\"acl\\": \\"private\\",
         \\"bucket\\": \\"test-bucket\\",
         \\"force_destroy\\": true,
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/test-versioned-lambda/code-bucket\\",
-            \\"uniqueId\\": \\"test_testversionedlambda_codebucket_BC2D4650\\"
+            \\"uniqueId\\": \\"test-versioned-lambda_code-bucket_C658EE92\\"
           }
         }
       }
     },
     \\"aws_s3_bucket_public_access_block\\": {
-      \\"test_testversionedlambda_codebucketpublicaccessblock_5C6903BB\\": {
+      \\"test-versioned-lambda_code-bucket-public-access-block_9662548B\\": {
         \\"block_public_acls\\": true,
         \\"block_public_policy\\": true,
-        \\"bucket\\": \\"\${aws_s3_bucket.test_testversionedlambda_codebucket_BC2D4650.id}\\",
+        \\"bucket\\": \\"\${aws_s3_bucket.test-versioned-lambda_code-bucket_C658EE92.id}\\",
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/test-versioned-lambda/code-bucket-public-access-block\\",
-            \\"uniqueId\\": \\"test_testversionedlambda_codebucketpublicaccessblock_5C6903BB\\"
+            \\"uniqueId\\": \\"test-versioned-lambda_code-bucket-public-access-block_9662548B\\"
           }
         }
       }
     },
     \\"aws_iam_role\\": {
-      \\"test_testversionedlambda_executionrole_CA6543EB\\": {
-        \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.test_testversionedlambda_assumepolicydocument_5C55CB37.json}\\",
+      \\"test-versioned-lambda_execution-role_068103E3\\": {
+        \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.test-versioned-lambda_assume-policy-document_54E2E6E3.json}\\",
         \\"name\\": \\"Test-Lambda-ExecutionRole\\",
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/test-versioned-lambda/execution-role\\",
-            \\"uniqueId\\": \\"test_testversionedlambda_executionrole_CA6543EB\\"
+            \\"uniqueId\\": \\"test-versioned-lambda_execution-role_068103E3\\"
           }
         }
       }
     },
-    \\"aws_iam_role_policy\\": {
-      \\"test_testversionedlambda_executionrolepolicy_9C90B6CB\\": {
+    \\"aws_iam_policy\\": {
+      \\"test-versioned-lambda_execution-policy_A934214F\\": {
         \\"name\\": \\"Test-Lambda-ExecutionRolePolicy\\",
-        \\"policy\\": \\"\${data.aws_iam_policy_document.test_testversionedlambda_executionpolicydocument_6B2417EE.json}\\",
-        \\"role\\": \\"Test-Lambda-ExecutionRole\\",
+        \\"policy\\": \\"\${data.aws_iam_policy_document.test-versioned-lambda_execution-policy-document_BA37CD4D.json}\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-versioned-lambda/execution-policy\\",
+            \\"uniqueId\\": \\"test-versioned-lambda_execution-policy_A934214F\\"
+          }
+        }
+      }
+    },
+    \\"aws_iam_role_policy_attachment\\": {
+      \\"test-versioned-lambda_execution-role-policy-attachment_30E5BCA4\\": {
+        \\"policy_arn\\": \\"\${aws_iam_policy.test-versioned-lambda_execution-policy_A934214F.arn}\\",
+        \\"role\\": \\"\${aws_iam_role.test-versioned-lambda_execution-role_068103E3.name}\\",
         \\"depends_on\\": [
-          \\"aws_iam_role.test_testversionedlambda_executionrole_CA6543EB\\"
+          \\"aws_iam_role.test-versioned-lambda_execution-role_068103E3\\",
+          \\"aws_iam_policy.test-versioned-lambda_execution-policy_A934214F\\"
         ],
         \\"//\\": {
           \\"metadata\\": {
-            \\"path\\": \\"test/test-versioned-lambda/execution-role-policy\\",
-            \\"uniqueId\\": \\"test_testversionedlambda_executionrolepolicy_9C90B6CB\\"
+            \\"path\\": \\"test/test-versioned-lambda/execution-role-policy-attachment\\",
+            \\"uniqueId\\": \\"test-versioned-lambda_execution-role-policy-attachment_30E5BCA4\\"
           }
         }
       }
     },
     \\"aws_lambda_function\\": {
-      \\"test_testversionedlambda_F521A265\\": {
-        \\"filename\\": \\"index.py.zip\\",
+      \\"test-versioned-lambda_D818669D\\": {
+        \\"filename\\": \\"\${data.archive_file.test-versioned-lambda_lambda-default-file_E2490368.output_path}\\",
         \\"function_name\\": \\"Test-Lambda-Function\\",
         \\"handler\\": \\"index.handler\\",
         \\"publish\\": true,
-        \\"role\\": \\"\${aws_iam_role.test_testversionedlambda_executionrole_CA6543EB.arn}\\",
+        \\"role\\": \\"\${aws_iam_role.test-versioned-lambda_execution-role_068103E3.arn}\\",
         \\"runtime\\": \\"python3.8\\",
-        \\"source_code_hash\\": \\"\${data.archive_file.test_testversionedlambda_lambdadefaultfile_57465E51.output_base64sha256}\\",
+        \\"source_code_hash\\": \\"\${data.archive_file.test-versioned-lambda_lambda-default-file_E2490368.output_base64sha256}\\",
         \\"timeout\\": 5,
         \\"vpc_config\\": [],
         \\"lifecycle\\": {
@@ -1091,33 +1168,33 @@ exports[`renders a versioned lambda with publish ignored 1`] = `
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/test-versioned-lambda/lambda\\",
-            \\"uniqueId\\": \\"test_testversionedlambda_F521A265\\"
+            \\"uniqueId\\": \\"test-versioned-lambda_D818669D\\"
           }
         }
       }
     },
     \\"aws_cloudwatch_log_group\\": {
-      \\"test_testversionedlambda_loggroup_1EF2337F\\": {
-        \\"name\\": \\"/aws/lambda/Test-Lambda-Function\\",
+      \\"test-versioned-lambda_log-group_CB8A67E7\\": {
+        \\"name\\": \\"/aws/lambda/\${aws_lambda_function.test-versioned-lambda_D818669D.function_name}\\",
         \\"retention_in_days\\": 14,
         \\"depends_on\\": [
-          \\"aws_lambda_function.test_testversionedlambda_F521A265\\"
+          \\"aws_lambda_function.test-versioned-lambda_D818669D\\"
         ],
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/test-versioned-lambda/log-group\\",
-            \\"uniqueId\\": \\"test_testversionedlambda_loggroup_1EF2337F\\"
+            \\"uniqueId\\": \\"test-versioned-lambda_log-group_CB8A67E7\\"
           }
         }
       }
     },
     \\"aws_lambda_alias\\": {
-      \\"test_testversionedlambda_alias_2E9E2D0F\\": {
-        \\"function_name\\": \\"Test-Lambda-Function\\",
-        \\"function_version\\": \\"\${split(\\\\\\":\\\\\\", aws_lambda_function.test_testversionedlambda_F521A265.qualified_arn)[7]}\\",
+      \\"test-versioned-lambda_alias_60AF9CE1\\": {
+        \\"function_name\\": \\"\${aws_lambda_function.test-versioned-lambda_D818669D.function_name}\\",
+        \\"function_version\\": \\"\${split(\\\\\\":\\\\\\", aws_lambda_function.test-versioned-lambda_D818669D.qualified_arn)[7]}\\",
         \\"name\\": \\"DEPLOYED\\",
         \\"depends_on\\": [
-          \\"aws_lambda_function.test_testversionedlambda_F521A265\\"
+          \\"aws_lambda_function.test-versioned-lambda_D818669D\\"
         ],
         \\"lifecycle\\": {
           \\"ignore_changes\\": [
@@ -1127,7 +1204,7 @@ exports[`renders a versioned lambda with publish ignored 1`] = `
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/test-versioned-lambda/alias\\",
-            \\"uniqueId\\": \\"test_testversionedlambda_alias_2E9E2D0F\\"
+            \\"uniqueId\\": \\"test-versioned-lambda_alias_60AF9CE1\\"
           }
         }
       }
@@ -1135,18 +1212,19 @@ exports[`renders a versioned lambda with publish ignored 1`] = `
   },
   \\"data\\": {
     \\"aws_iam_policy_document\\": {
-      \\"test_testversionedlambda_assumepolicydocument_5C55CB37\\": {
+      \\"test-versioned-lambda_assume-policy-document_54E2E6E3\\": {
         \\"version\\": \\"2012-10-17\\",
         \\"statement\\": [
           {
-            \\"effect\\": \\"Allow\\",
             \\"actions\\": [
               \\"sts:AssumeRole\\"
             ],
+            \\"effect\\": \\"Allow\\",
             \\"principals\\": [
               {
                 \\"identifiers\\": [
-                  \\"lambda.amazonaws.com\\"
+                  \\"lambda.amazonaws.com\\",
+                  \\"edgelambda.amazonaws.com\\"
                 ],
                 \\"type\\": \\"Service\\"
               }
@@ -1156,21 +1234,21 @@ exports[`renders a versioned lambda with publish ignored 1`] = `
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/test-versioned-lambda/assume-policy-document\\",
-            \\"uniqueId\\": \\"test_testversionedlambda_assumepolicydocument_5C55CB37\\"
+            \\"uniqueId\\": \\"test-versioned-lambda_assume-policy-document_54E2E6E3\\"
           }
         }
       },
-      \\"test_testversionedlambda_executionpolicydocument_6B2417EE\\": {
+      \\"test-versioned-lambda_execution-policy-document_BA37CD4D\\": {
         \\"version\\": \\"2012-10-17\\",
         \\"statement\\": [
           {
-            \\"effect\\": \\"Allow\\",
             \\"actions\\": [
               \\"logs:CreateLogGroup\\",
               \\"logs:CreateLogStream\\",
               \\"logs:PutLogEvents\\",
               \\"logs:DescribeLogStreams\\"
             ],
+            \\"effect\\": \\"Allow\\",
             \\"resources\\": [
               \\"arn:aws:logs:*:*:*\\"
             ]
@@ -1179,13 +1257,13 @@ exports[`renders a versioned lambda with publish ignored 1`] = `
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/test-versioned-lambda/execution-policy-document\\",
-            \\"uniqueId\\": \\"test_testversionedlambda_executionpolicydocument_6B2417EE\\"
+            \\"uniqueId\\": \\"test-versioned-lambda_execution-policy-document_BA37CD4D\\"
           }
         }
       }
     },
     \\"archive_file\\": {
-      \\"test_testversionedlambda_lambdadefaultfile_57465E51\\": {
+      \\"test-versioned-lambda_lambda-default-file_E2490368\\": {
         \\"output_path\\": \\"index.py.zip\\",
         \\"type\\": \\"zip\\",
         \\"source\\": [
@@ -1197,7 +1275,7 @@ exports[`renders a versioned lambda with publish ignored 1`] = `
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/test-versioned-lambda/lambda-default-file\\",
-            \\"uniqueId\\": \\"test_testversionedlambda_lambdadefaultfile_57465E51\\"
+            \\"uniqueId\\": \\"test-versioned-lambda_lambda-default-file_E2490368\\"
           }
         }
       }
@@ -1216,68 +1294,80 @@ exports[`renders a versioned lambda with s3 bucket 1`] = `
   },
   \\"resource\\": {
     \\"aws_s3_bucket\\": {
-      \\"test_testversionedlambda_codebucket_BC2D4650\\": {
+      \\"test-versioned-lambda_code-bucket_C658EE92\\": {
         \\"acl\\": \\"private\\",
         \\"bucket\\": \\"test-bucket\\",
         \\"force_destroy\\": true,
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/test-versioned-lambda/code-bucket\\",
-            \\"uniqueId\\": \\"test_testversionedlambda_codebucket_BC2D4650\\"
+            \\"uniqueId\\": \\"test-versioned-lambda_code-bucket_C658EE92\\"
           }
         }
       }
     },
     \\"aws_s3_bucket_public_access_block\\": {
-      \\"test_testversionedlambda_codebucketpublicaccessblock_5C6903BB\\": {
+      \\"test-versioned-lambda_code-bucket-public-access-block_9662548B\\": {
         \\"block_public_acls\\": true,
         \\"block_public_policy\\": true,
-        \\"bucket\\": \\"\${aws_s3_bucket.test_testversionedlambda_codebucket_BC2D4650.id}\\",
+        \\"bucket\\": \\"\${aws_s3_bucket.test-versioned-lambda_code-bucket_C658EE92.id}\\",
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/test-versioned-lambda/code-bucket-public-access-block\\",
-            \\"uniqueId\\": \\"test_testversionedlambda_codebucketpublicaccessblock_5C6903BB\\"
+            \\"uniqueId\\": \\"test-versioned-lambda_code-bucket-public-access-block_9662548B\\"
           }
         }
       }
     },
     \\"aws_iam_role\\": {
-      \\"test_testversionedlambda_executionrole_CA6543EB\\": {
-        \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.test_testversionedlambda_assumepolicydocument_5C55CB37.json}\\",
+      \\"test-versioned-lambda_execution-role_068103E3\\": {
+        \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.test-versioned-lambda_assume-policy-document_54E2E6E3.json}\\",
         \\"name\\": \\"Test-Lambda-ExecutionRole\\",
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/test-versioned-lambda/execution-role\\",
-            \\"uniqueId\\": \\"test_testversionedlambda_executionrole_CA6543EB\\"
+            \\"uniqueId\\": \\"test-versioned-lambda_execution-role_068103E3\\"
           }
         }
       }
     },
-    \\"aws_iam_role_policy\\": {
-      \\"test_testversionedlambda_executionrolepolicy_9C90B6CB\\": {
+    \\"aws_iam_policy\\": {
+      \\"test-versioned-lambda_execution-policy_A934214F\\": {
         \\"name\\": \\"Test-Lambda-ExecutionRolePolicy\\",
-        \\"policy\\": \\"\${data.aws_iam_policy_document.test_testversionedlambda_executionpolicydocument_6B2417EE.json}\\",
-        \\"role\\": \\"Test-Lambda-ExecutionRole\\",
+        \\"policy\\": \\"\${data.aws_iam_policy_document.test-versioned-lambda_execution-policy-document_BA37CD4D.json}\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-versioned-lambda/execution-policy\\",
+            \\"uniqueId\\": \\"test-versioned-lambda_execution-policy_A934214F\\"
+          }
+        }
+      }
+    },
+    \\"aws_iam_role_policy_attachment\\": {
+      \\"test-versioned-lambda_execution-role-policy-attachment_30E5BCA4\\": {
+        \\"policy_arn\\": \\"\${aws_iam_policy.test-versioned-lambda_execution-policy_A934214F.arn}\\",
+        \\"role\\": \\"\${aws_iam_role.test-versioned-lambda_execution-role_068103E3.name}\\",
         \\"depends_on\\": [
-          \\"aws_iam_role.test_testversionedlambda_executionrole_CA6543EB\\"
+          \\"aws_iam_role.test-versioned-lambda_execution-role_068103E3\\",
+          \\"aws_iam_policy.test-versioned-lambda_execution-policy_A934214F\\"
         ],
         \\"//\\": {
           \\"metadata\\": {
-            \\"path\\": \\"test/test-versioned-lambda/execution-role-policy\\",
-            \\"uniqueId\\": \\"test_testversionedlambda_executionrolepolicy_9C90B6CB\\"
+            \\"path\\": \\"test/test-versioned-lambda/execution-role-policy-attachment\\",
+            \\"uniqueId\\": \\"test-versioned-lambda_execution-role-policy-attachment_30E5BCA4\\"
           }
         }
       }
     },
     \\"aws_lambda_function\\": {
-      \\"test_testversionedlambda_F521A265\\": {
-        \\"filename\\": \\"index.py.zip\\",
+      \\"test-versioned-lambda_D818669D\\": {
+        \\"filename\\": \\"\${data.archive_file.test-versioned-lambda_lambda-default-file_E2490368.output_path}\\",
         \\"function_name\\": \\"Test-Lambda-Function\\",
         \\"handler\\": \\"index.handler\\",
         \\"publish\\": true,
-        \\"role\\": \\"\${aws_iam_role.test_testversionedlambda_executionrole_CA6543EB.arn}\\",
+        \\"role\\": \\"\${aws_iam_role.test-versioned-lambda_execution-role_068103E3.arn}\\",
         \\"runtime\\": \\"python3.8\\",
-        \\"source_code_hash\\": \\"\${data.archive_file.test_testversionedlambda_lambdadefaultfile_57465E51.output_base64sha256}\\",
+        \\"source_code_hash\\": \\"\${data.archive_file.test-versioned-lambda_lambda-default-file_E2490368.output_base64sha256}\\",
         \\"timeout\\": 5,
         \\"vpc_config\\": [],
         \\"lifecycle\\": {
@@ -1289,33 +1379,33 @@ exports[`renders a versioned lambda with s3 bucket 1`] = `
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/test-versioned-lambda/lambda\\",
-            \\"uniqueId\\": \\"test_testversionedlambda_F521A265\\"
+            \\"uniqueId\\": \\"test-versioned-lambda_D818669D\\"
           }
         }
       }
     },
     \\"aws_cloudwatch_log_group\\": {
-      \\"test_testversionedlambda_loggroup_1EF2337F\\": {
-        \\"name\\": \\"/aws/lambda/Test-Lambda-Function\\",
+      \\"test-versioned-lambda_log-group_CB8A67E7\\": {
+        \\"name\\": \\"/aws/lambda/\${aws_lambda_function.test-versioned-lambda_D818669D.function_name}\\",
         \\"retention_in_days\\": 14,
         \\"depends_on\\": [
-          \\"aws_lambda_function.test_testversionedlambda_F521A265\\"
+          \\"aws_lambda_function.test-versioned-lambda_D818669D\\"
         ],
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/test-versioned-lambda/log-group\\",
-            \\"uniqueId\\": \\"test_testversionedlambda_loggroup_1EF2337F\\"
+            \\"uniqueId\\": \\"test-versioned-lambda_log-group_CB8A67E7\\"
           }
         }
       }
     },
     \\"aws_lambda_alias\\": {
-      \\"test_testversionedlambda_alias_2E9E2D0F\\": {
-        \\"function_name\\": \\"Test-Lambda-Function\\",
-        \\"function_version\\": \\"\${split(\\\\\\":\\\\\\", aws_lambda_function.test_testversionedlambda_F521A265.qualified_arn)[7]}\\",
+      \\"test-versioned-lambda_alias_60AF9CE1\\": {
+        \\"function_name\\": \\"\${aws_lambda_function.test-versioned-lambda_D818669D.function_name}\\",
+        \\"function_version\\": \\"\${split(\\\\\\":\\\\\\", aws_lambda_function.test-versioned-lambda_D818669D.qualified_arn)[7]}\\",
         \\"name\\": \\"DEPLOYED\\",
         \\"depends_on\\": [
-          \\"aws_lambda_function.test_testversionedlambda_F521A265\\"
+          \\"aws_lambda_function.test-versioned-lambda_D818669D\\"
         ],
         \\"lifecycle\\": {
           \\"ignore_changes\\": [
@@ -1325,7 +1415,7 @@ exports[`renders a versioned lambda with s3 bucket 1`] = `
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/test-versioned-lambda/alias\\",
-            \\"uniqueId\\": \\"test_testversionedlambda_alias_2E9E2D0F\\"
+            \\"uniqueId\\": \\"test-versioned-lambda_alias_60AF9CE1\\"
           }
         }
       }
@@ -1333,18 +1423,19 @@ exports[`renders a versioned lambda with s3 bucket 1`] = `
   },
   \\"data\\": {
     \\"aws_iam_policy_document\\": {
-      \\"test_testversionedlambda_assumepolicydocument_5C55CB37\\": {
+      \\"test-versioned-lambda_assume-policy-document_54E2E6E3\\": {
         \\"version\\": \\"2012-10-17\\",
         \\"statement\\": [
           {
-            \\"effect\\": \\"Allow\\",
             \\"actions\\": [
               \\"sts:AssumeRole\\"
             ],
+            \\"effect\\": \\"Allow\\",
             \\"principals\\": [
               {
                 \\"identifiers\\": [
-                  \\"lambda.amazonaws.com\\"
+                  \\"lambda.amazonaws.com\\",
+                  \\"edgelambda.amazonaws.com\\"
                 ],
                 \\"type\\": \\"Service\\"
               }
@@ -1354,21 +1445,21 @@ exports[`renders a versioned lambda with s3 bucket 1`] = `
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/test-versioned-lambda/assume-policy-document\\",
-            \\"uniqueId\\": \\"test_testversionedlambda_assumepolicydocument_5C55CB37\\"
+            \\"uniqueId\\": \\"test-versioned-lambda_assume-policy-document_54E2E6E3\\"
           }
         }
       },
-      \\"test_testversionedlambda_executionpolicydocument_6B2417EE\\": {
+      \\"test-versioned-lambda_execution-policy-document_BA37CD4D\\": {
         \\"version\\": \\"2012-10-17\\",
         \\"statement\\": [
           {
-            \\"effect\\": \\"Allow\\",
             \\"actions\\": [
               \\"logs:CreateLogGroup\\",
               \\"logs:CreateLogStream\\",
               \\"logs:PutLogEvents\\",
               \\"logs:DescribeLogStreams\\"
             ],
+            \\"effect\\": \\"Allow\\",
             \\"resources\\": [
               \\"arn:aws:logs:*:*:*\\"
             ]
@@ -1377,13 +1468,13 @@ exports[`renders a versioned lambda with s3 bucket 1`] = `
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/test-versioned-lambda/execution-policy-document\\",
-            \\"uniqueId\\": \\"test_testversionedlambda_executionpolicydocument_6B2417EE\\"
+            \\"uniqueId\\": \\"test-versioned-lambda_execution-policy-document_BA37CD4D\\"
           }
         }
       }
     },
     \\"archive_file\\": {
-      \\"test_testversionedlambda_lambdadefaultfile_57465E51\\": {
+      \\"test-versioned-lambda_lambda-default-file_E2490368\\": {
         \\"output_path\\": \\"index.py.zip\\",
         \\"type\\": \\"zip\\",
         \\"source\\": [
@@ -1395,7 +1486,7 @@ exports[`renders a versioned lambda with s3 bucket 1`] = `
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/test-versioned-lambda/lambda-default-file\\",
-            \\"uniqueId\\": \\"test_testversionedlambda_lambdadefaultfile_57465E51\\"
+            \\"uniqueId\\": \\"test-versioned-lambda_lambda-default-file_E2490368\\"
           }
         }
       }
@@ -1414,7 +1505,7 @@ exports[`renders a versioned lambda with tags 1`] = `
   },
   \\"resource\\": {
     \\"aws_s3_bucket\\": {
-      \\"test_testversionedlambda_codebucket_BC2D4650\\": {
+      \\"test-versioned-lambda_code-bucket_C658EE92\\": {
         \\"acl\\": \\"private\\",
         \\"bucket\\": \\"test-bucket\\",
         \\"force_destroy\\": true,
@@ -1425,61 +1516,73 @@ exports[`renders a versioned lambda with tags 1`] = `
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/test-versioned-lambda/code-bucket\\",
-            \\"uniqueId\\": \\"test_testversionedlambda_codebucket_BC2D4650\\"
+            \\"uniqueId\\": \\"test-versioned-lambda_code-bucket_C658EE92\\"
           }
         }
       }
     },
     \\"aws_s3_bucket_public_access_block\\": {
-      \\"test_testversionedlambda_codebucketpublicaccessblock_5C6903BB\\": {
+      \\"test-versioned-lambda_code-bucket-public-access-block_9662548B\\": {
         \\"block_public_acls\\": true,
         \\"block_public_policy\\": true,
-        \\"bucket\\": \\"\${aws_s3_bucket.test_testversionedlambda_codebucket_BC2D4650.id}\\",
+        \\"bucket\\": \\"\${aws_s3_bucket.test-versioned-lambda_code-bucket_C658EE92.id}\\",
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/test-versioned-lambda/code-bucket-public-access-block\\",
-            \\"uniqueId\\": \\"test_testversionedlambda_codebucketpublicaccessblock_5C6903BB\\"
+            \\"uniqueId\\": \\"test-versioned-lambda_code-bucket-public-access-block_9662548B\\"
           }
         }
       }
     },
     \\"aws_iam_role\\": {
-      \\"test_testversionedlambda_executionrole_CA6543EB\\": {
-        \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.test_testversionedlambda_assumepolicydocument_5C55CB37.json}\\",
+      \\"test-versioned-lambda_execution-role_068103E3\\": {
+        \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.test-versioned-lambda_assume-policy-document_54E2E6E3.json}\\",
         \\"name\\": \\"Test-Lambda-ExecutionRole\\",
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/test-versioned-lambda/execution-role\\",
-            \\"uniqueId\\": \\"test_testversionedlambda_executionrole_CA6543EB\\"
+            \\"uniqueId\\": \\"test-versioned-lambda_execution-role_068103E3\\"
           }
         }
       }
     },
-    \\"aws_iam_role_policy\\": {
-      \\"test_testversionedlambda_executionrolepolicy_9C90B6CB\\": {
+    \\"aws_iam_policy\\": {
+      \\"test-versioned-lambda_execution-policy_A934214F\\": {
         \\"name\\": \\"Test-Lambda-ExecutionRolePolicy\\",
-        \\"policy\\": \\"\${data.aws_iam_policy_document.test_testversionedlambda_executionpolicydocument_6B2417EE.json}\\",
-        \\"role\\": \\"Test-Lambda-ExecutionRole\\",
+        \\"policy\\": \\"\${data.aws_iam_policy_document.test-versioned-lambda_execution-policy-document_BA37CD4D.json}\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-versioned-lambda/execution-policy\\",
+            \\"uniqueId\\": \\"test-versioned-lambda_execution-policy_A934214F\\"
+          }
+        }
+      }
+    },
+    \\"aws_iam_role_policy_attachment\\": {
+      \\"test-versioned-lambda_execution-role-policy-attachment_30E5BCA4\\": {
+        \\"policy_arn\\": \\"\${aws_iam_policy.test-versioned-lambda_execution-policy_A934214F.arn}\\",
+        \\"role\\": \\"\${aws_iam_role.test-versioned-lambda_execution-role_068103E3.name}\\",
         \\"depends_on\\": [
-          \\"aws_iam_role.test_testversionedlambda_executionrole_CA6543EB\\"
+          \\"aws_iam_role.test-versioned-lambda_execution-role_068103E3\\",
+          \\"aws_iam_policy.test-versioned-lambda_execution-policy_A934214F\\"
         ],
         \\"//\\": {
           \\"metadata\\": {
-            \\"path\\": \\"test/test-versioned-lambda/execution-role-policy\\",
-            \\"uniqueId\\": \\"test_testversionedlambda_executionrolepolicy_9C90B6CB\\"
+            \\"path\\": \\"test/test-versioned-lambda/execution-role-policy-attachment\\",
+            \\"uniqueId\\": \\"test-versioned-lambda_execution-role-policy-attachment_30E5BCA4\\"
           }
         }
       }
     },
     \\"aws_lambda_function\\": {
-      \\"test_testversionedlambda_F521A265\\": {
-        \\"filename\\": \\"index.py.zip\\",
+      \\"test-versioned-lambda_D818669D\\": {
+        \\"filename\\": \\"\${data.archive_file.test-versioned-lambda_lambda-default-file_E2490368.output_path}\\",
         \\"function_name\\": \\"Test-Lambda-Function\\",
         \\"handler\\": \\"index.handler\\",
         \\"publish\\": true,
-        \\"role\\": \\"\${aws_iam_role.test_testversionedlambda_executionrole_CA6543EB.arn}\\",
+        \\"role\\": \\"\${aws_iam_role.test-versioned-lambda_execution-role_068103E3.arn}\\",
         \\"runtime\\": \\"python3.8\\",
-        \\"source_code_hash\\": \\"\${data.archive_file.test_testversionedlambda_lambdadefaultfile_57465E51.output_base64sha256}\\",
+        \\"source_code_hash\\": \\"\${data.archive_file.test-versioned-lambda_lambda-default-file_E2490368.output_base64sha256}\\",
         \\"tags\\": {
           \\"my\\": \\"tag\\",
           \\"for\\": \\"test\\"
@@ -1495,33 +1598,33 @@ exports[`renders a versioned lambda with tags 1`] = `
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/test-versioned-lambda/lambda\\",
-            \\"uniqueId\\": \\"test_testversionedlambda_F521A265\\"
+            \\"uniqueId\\": \\"test-versioned-lambda_D818669D\\"
           }
         }
       }
     },
     \\"aws_cloudwatch_log_group\\": {
-      \\"test_testversionedlambda_loggroup_1EF2337F\\": {
-        \\"name\\": \\"/aws/lambda/Test-Lambda-Function\\",
+      \\"test-versioned-lambda_log-group_CB8A67E7\\": {
+        \\"name\\": \\"/aws/lambda/\${aws_lambda_function.test-versioned-lambda_D818669D.function_name}\\",
         \\"retention_in_days\\": 14,
         \\"depends_on\\": [
-          \\"aws_lambda_function.test_testversionedlambda_F521A265\\"
+          \\"aws_lambda_function.test-versioned-lambda_D818669D\\"
         ],
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/test-versioned-lambda/log-group\\",
-            \\"uniqueId\\": \\"test_testversionedlambda_loggroup_1EF2337F\\"
+            \\"uniqueId\\": \\"test-versioned-lambda_log-group_CB8A67E7\\"
           }
         }
       }
     },
     \\"aws_lambda_alias\\": {
-      \\"test_testversionedlambda_alias_2E9E2D0F\\": {
-        \\"function_name\\": \\"Test-Lambda-Function\\",
-        \\"function_version\\": \\"\${split(\\\\\\":\\\\\\", aws_lambda_function.test_testversionedlambda_F521A265.qualified_arn)[7]}\\",
+      \\"test-versioned-lambda_alias_60AF9CE1\\": {
+        \\"function_name\\": \\"\${aws_lambda_function.test-versioned-lambda_D818669D.function_name}\\",
+        \\"function_version\\": \\"\${split(\\\\\\":\\\\\\", aws_lambda_function.test-versioned-lambda_D818669D.qualified_arn)[7]}\\",
         \\"name\\": \\"DEPLOYED\\",
         \\"depends_on\\": [
-          \\"aws_lambda_function.test_testversionedlambda_F521A265\\"
+          \\"aws_lambda_function.test-versioned-lambda_D818669D\\"
         ],
         \\"lifecycle\\": {
           \\"ignore_changes\\": [
@@ -1531,7 +1634,7 @@ exports[`renders a versioned lambda with tags 1`] = `
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/test-versioned-lambda/alias\\",
-            \\"uniqueId\\": \\"test_testversionedlambda_alias_2E9E2D0F\\"
+            \\"uniqueId\\": \\"test-versioned-lambda_alias_60AF9CE1\\"
           }
         }
       }
@@ -1539,18 +1642,19 @@ exports[`renders a versioned lambda with tags 1`] = `
   },
   \\"data\\": {
     \\"aws_iam_policy_document\\": {
-      \\"test_testversionedlambda_assumepolicydocument_5C55CB37\\": {
+      \\"test-versioned-lambda_assume-policy-document_54E2E6E3\\": {
         \\"version\\": \\"2012-10-17\\",
         \\"statement\\": [
           {
-            \\"effect\\": \\"Allow\\",
             \\"actions\\": [
               \\"sts:AssumeRole\\"
             ],
+            \\"effect\\": \\"Allow\\",
             \\"principals\\": [
               {
                 \\"identifiers\\": [
-                  \\"lambda.amazonaws.com\\"
+                  \\"lambda.amazonaws.com\\",
+                  \\"edgelambda.amazonaws.com\\"
                 ],
                 \\"type\\": \\"Service\\"
               }
@@ -1560,21 +1664,21 @@ exports[`renders a versioned lambda with tags 1`] = `
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/test-versioned-lambda/assume-policy-document\\",
-            \\"uniqueId\\": \\"test_testversionedlambda_assumepolicydocument_5C55CB37\\"
+            \\"uniqueId\\": \\"test-versioned-lambda_assume-policy-document_54E2E6E3\\"
           }
         }
       },
-      \\"test_testversionedlambda_executionpolicydocument_6B2417EE\\": {
+      \\"test-versioned-lambda_execution-policy-document_BA37CD4D\\": {
         \\"version\\": \\"2012-10-17\\",
         \\"statement\\": [
           {
-            \\"effect\\": \\"Allow\\",
             \\"actions\\": [
               \\"logs:CreateLogGroup\\",
               \\"logs:CreateLogStream\\",
               \\"logs:PutLogEvents\\",
               \\"logs:DescribeLogStreams\\"
             ],
+            \\"effect\\": \\"Allow\\",
             \\"resources\\": [
               \\"arn:aws:logs:*:*:*\\"
             ]
@@ -1583,13 +1687,13 @@ exports[`renders a versioned lambda with tags 1`] = `
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/test-versioned-lambda/execution-policy-document\\",
-            \\"uniqueId\\": \\"test_testversionedlambda_executionpolicydocument_6B2417EE\\"
+            \\"uniqueId\\": \\"test-versioned-lambda_execution-policy-document_BA37CD4D\\"
           }
         }
       }
     },
     \\"archive_file\\": {
-      \\"test_testversionedlambda_lambdadefaultfile_57465E51\\": {
+      \\"test-versioned-lambda_lambda-default-file_E2490368\\": {
         \\"output_path\\": \\"index.py.zip\\",
         \\"type\\": \\"zip\\",
         \\"source\\": [
@@ -1601,7 +1705,7 @@ exports[`renders a versioned lambda with tags 1`] = `
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/test-versioned-lambda/lambda-default-file\\",
-            \\"uniqueId\\": \\"test_testversionedlambda_lambdadefaultfile_57465E51\\"
+            \\"uniqueId\\": \\"test-versioned-lambda_lambda-default-file_E2490368\\"
           }
         }
       }
@@ -1620,68 +1724,80 @@ exports[`renders a versioned lambda with timeout 1`] = `
   },
   \\"resource\\": {
     \\"aws_s3_bucket\\": {
-      \\"test_testversionedlambda_codebucket_BC2D4650\\": {
+      \\"test-versioned-lambda_code-bucket_C658EE92\\": {
         \\"acl\\": \\"private\\",
         \\"bucket\\": \\"test-bucket\\",
         \\"force_destroy\\": true,
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/test-versioned-lambda/code-bucket\\",
-            \\"uniqueId\\": \\"test_testversionedlambda_codebucket_BC2D4650\\"
+            \\"uniqueId\\": \\"test-versioned-lambda_code-bucket_C658EE92\\"
           }
         }
       }
     },
     \\"aws_s3_bucket_public_access_block\\": {
-      \\"test_testversionedlambda_codebucketpublicaccessblock_5C6903BB\\": {
+      \\"test-versioned-lambda_code-bucket-public-access-block_9662548B\\": {
         \\"block_public_acls\\": true,
         \\"block_public_policy\\": true,
-        \\"bucket\\": \\"\${aws_s3_bucket.test_testversionedlambda_codebucket_BC2D4650.id}\\",
+        \\"bucket\\": \\"\${aws_s3_bucket.test-versioned-lambda_code-bucket_C658EE92.id}\\",
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/test-versioned-lambda/code-bucket-public-access-block\\",
-            \\"uniqueId\\": \\"test_testversionedlambda_codebucketpublicaccessblock_5C6903BB\\"
+            \\"uniqueId\\": \\"test-versioned-lambda_code-bucket-public-access-block_9662548B\\"
           }
         }
       }
     },
     \\"aws_iam_role\\": {
-      \\"test_testversionedlambda_executionrole_CA6543EB\\": {
-        \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.test_testversionedlambda_assumepolicydocument_5C55CB37.json}\\",
+      \\"test-versioned-lambda_execution-role_068103E3\\": {
+        \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.test-versioned-lambda_assume-policy-document_54E2E6E3.json}\\",
         \\"name\\": \\"Test-Lambda-ExecutionRole\\",
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/test-versioned-lambda/execution-role\\",
-            \\"uniqueId\\": \\"test_testversionedlambda_executionrole_CA6543EB\\"
+            \\"uniqueId\\": \\"test-versioned-lambda_execution-role_068103E3\\"
           }
         }
       }
     },
-    \\"aws_iam_role_policy\\": {
-      \\"test_testversionedlambda_executionrolepolicy_9C90B6CB\\": {
+    \\"aws_iam_policy\\": {
+      \\"test-versioned-lambda_execution-policy_A934214F\\": {
         \\"name\\": \\"Test-Lambda-ExecutionRolePolicy\\",
-        \\"policy\\": \\"\${data.aws_iam_policy_document.test_testversionedlambda_executionpolicydocument_6B2417EE.json}\\",
-        \\"role\\": \\"Test-Lambda-ExecutionRole\\",
+        \\"policy\\": \\"\${data.aws_iam_policy_document.test-versioned-lambda_execution-policy-document_BA37CD4D.json}\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-versioned-lambda/execution-policy\\",
+            \\"uniqueId\\": \\"test-versioned-lambda_execution-policy_A934214F\\"
+          }
+        }
+      }
+    },
+    \\"aws_iam_role_policy_attachment\\": {
+      \\"test-versioned-lambda_execution-role-policy-attachment_30E5BCA4\\": {
+        \\"policy_arn\\": \\"\${aws_iam_policy.test-versioned-lambda_execution-policy_A934214F.arn}\\",
+        \\"role\\": \\"\${aws_iam_role.test-versioned-lambda_execution-role_068103E3.name}\\",
         \\"depends_on\\": [
-          \\"aws_iam_role.test_testversionedlambda_executionrole_CA6543EB\\"
+          \\"aws_iam_role.test-versioned-lambda_execution-role_068103E3\\",
+          \\"aws_iam_policy.test-versioned-lambda_execution-policy_A934214F\\"
         ],
         \\"//\\": {
           \\"metadata\\": {
-            \\"path\\": \\"test/test-versioned-lambda/execution-role-policy\\",
-            \\"uniqueId\\": \\"test_testversionedlambda_executionrolepolicy_9C90B6CB\\"
+            \\"path\\": \\"test/test-versioned-lambda/execution-role-policy-attachment\\",
+            \\"uniqueId\\": \\"test-versioned-lambda_execution-role-policy-attachment_30E5BCA4\\"
           }
         }
       }
     },
     \\"aws_lambda_function\\": {
-      \\"test_testversionedlambda_F521A265\\": {
-        \\"filename\\": \\"index.py.zip\\",
+      \\"test-versioned-lambda_D818669D\\": {
+        \\"filename\\": \\"\${data.archive_file.test-versioned-lambda_lambda-default-file_E2490368.output_path}\\",
         \\"function_name\\": \\"Test-Lambda-Function\\",
         \\"handler\\": \\"index.handler\\",
         \\"publish\\": true,
-        \\"role\\": \\"\${aws_iam_role.test_testversionedlambda_executionrole_CA6543EB.arn}\\",
+        \\"role\\": \\"\${aws_iam_role.test-versioned-lambda_execution-role_068103E3.arn}\\",
         \\"runtime\\": \\"python3.8\\",
-        \\"source_code_hash\\": \\"\${data.archive_file.test_testversionedlambda_lambdadefaultfile_57465E51.output_base64sha256}\\",
+        \\"source_code_hash\\": \\"\${data.archive_file.test-versioned-lambda_lambda-default-file_E2490368.output_base64sha256}\\",
         \\"timeout\\": 500,
         \\"vpc_config\\": [],
         \\"lifecycle\\": {
@@ -1693,33 +1809,33 @@ exports[`renders a versioned lambda with timeout 1`] = `
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/test-versioned-lambda/lambda\\",
-            \\"uniqueId\\": \\"test_testversionedlambda_F521A265\\"
+            \\"uniqueId\\": \\"test-versioned-lambda_D818669D\\"
           }
         }
       }
     },
     \\"aws_cloudwatch_log_group\\": {
-      \\"test_testversionedlambda_loggroup_1EF2337F\\": {
-        \\"name\\": \\"/aws/lambda/Test-Lambda-Function\\",
+      \\"test-versioned-lambda_log-group_CB8A67E7\\": {
+        \\"name\\": \\"/aws/lambda/\${aws_lambda_function.test-versioned-lambda_D818669D.function_name}\\",
         \\"retention_in_days\\": 14,
         \\"depends_on\\": [
-          \\"aws_lambda_function.test_testversionedlambda_F521A265\\"
+          \\"aws_lambda_function.test-versioned-lambda_D818669D\\"
         ],
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/test-versioned-lambda/log-group\\",
-            \\"uniqueId\\": \\"test_testversionedlambda_loggroup_1EF2337F\\"
+            \\"uniqueId\\": \\"test-versioned-lambda_log-group_CB8A67E7\\"
           }
         }
       }
     },
     \\"aws_lambda_alias\\": {
-      \\"test_testversionedlambda_alias_2E9E2D0F\\": {
-        \\"function_name\\": \\"Test-Lambda-Function\\",
-        \\"function_version\\": \\"\${split(\\\\\\":\\\\\\", aws_lambda_function.test_testversionedlambda_F521A265.qualified_arn)[7]}\\",
+      \\"test-versioned-lambda_alias_60AF9CE1\\": {
+        \\"function_name\\": \\"\${aws_lambda_function.test-versioned-lambda_D818669D.function_name}\\",
+        \\"function_version\\": \\"\${split(\\\\\\":\\\\\\", aws_lambda_function.test-versioned-lambda_D818669D.qualified_arn)[7]}\\",
         \\"name\\": \\"DEPLOYED\\",
         \\"depends_on\\": [
-          \\"aws_lambda_function.test_testversionedlambda_F521A265\\"
+          \\"aws_lambda_function.test-versioned-lambda_D818669D\\"
         ],
         \\"lifecycle\\": {
           \\"ignore_changes\\": [
@@ -1729,7 +1845,7 @@ exports[`renders a versioned lambda with timeout 1`] = `
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/test-versioned-lambda/alias\\",
-            \\"uniqueId\\": \\"test_testversionedlambda_alias_2E9E2D0F\\"
+            \\"uniqueId\\": \\"test-versioned-lambda_alias_60AF9CE1\\"
           }
         }
       }
@@ -1737,18 +1853,19 @@ exports[`renders a versioned lambda with timeout 1`] = `
   },
   \\"data\\": {
     \\"aws_iam_policy_document\\": {
-      \\"test_testversionedlambda_assumepolicydocument_5C55CB37\\": {
+      \\"test-versioned-lambda_assume-policy-document_54E2E6E3\\": {
         \\"version\\": \\"2012-10-17\\",
         \\"statement\\": [
           {
-            \\"effect\\": \\"Allow\\",
             \\"actions\\": [
               \\"sts:AssumeRole\\"
             ],
+            \\"effect\\": \\"Allow\\",
             \\"principals\\": [
               {
                 \\"identifiers\\": [
-                  \\"lambda.amazonaws.com\\"
+                  \\"lambda.amazonaws.com\\",
+                  \\"edgelambda.amazonaws.com\\"
                 ],
                 \\"type\\": \\"Service\\"
               }
@@ -1758,21 +1875,21 @@ exports[`renders a versioned lambda with timeout 1`] = `
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/test-versioned-lambda/assume-policy-document\\",
-            \\"uniqueId\\": \\"test_testversionedlambda_assumepolicydocument_5C55CB37\\"
+            \\"uniqueId\\": \\"test-versioned-lambda_assume-policy-document_54E2E6E3\\"
           }
         }
       },
-      \\"test_testversionedlambda_executionpolicydocument_6B2417EE\\": {
+      \\"test-versioned-lambda_execution-policy-document_BA37CD4D\\": {
         \\"version\\": \\"2012-10-17\\",
         \\"statement\\": [
           {
-            \\"effect\\": \\"Allow\\",
             \\"actions\\": [
               \\"logs:CreateLogGroup\\",
               \\"logs:CreateLogStream\\",
               \\"logs:PutLogEvents\\",
               \\"logs:DescribeLogStreams\\"
             ],
+            \\"effect\\": \\"Allow\\",
             \\"resources\\": [
               \\"arn:aws:logs:*:*:*\\"
             ]
@@ -1781,13 +1898,13 @@ exports[`renders a versioned lambda with timeout 1`] = `
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/test-versioned-lambda/execution-policy-document\\",
-            \\"uniqueId\\": \\"test_testversionedlambda_executionpolicydocument_6B2417EE\\"
+            \\"uniqueId\\": \\"test-versioned-lambda_execution-policy-document_BA37CD4D\\"
           }
         }
       }
     },
     \\"archive_file\\": {
-      \\"test_testversionedlambda_lambdadefaultfile_57465E51\\": {
+      \\"test-versioned-lambda_lambda-default-file_E2490368\\": {
         \\"output_path\\": \\"index.py.zip\\",
         \\"type\\": \\"zip\\",
         \\"source\\": [
@@ -1799,7 +1916,7 @@ exports[`renders a versioned lambda with timeout 1`] = `
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/test-versioned-lambda/lambda-default-file\\",
-            \\"uniqueId\\": \\"test_testversionedlambda_lambdadefaultfile_57465E51\\"
+            \\"uniqueId\\": \\"test-versioned-lambda_lambda-default-file_E2490368\\"
           }
         }
       }
@@ -1818,78 +1935,90 @@ exports[`renders a versioned lambda with vpc 1`] = `
   },
   \\"resource\\": {
     \\"aws_s3_bucket\\": {
-      \\"test_testversionedlambda_codebucket_BC2D4650\\": {
+      \\"test-versioned-lambda_code-bucket_C658EE92\\": {
         \\"acl\\": \\"private\\",
         \\"bucket\\": \\"test-bucket\\",
         \\"force_destroy\\": true,
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/test-versioned-lambda/code-bucket\\",
-            \\"uniqueId\\": \\"test_testversionedlambda_codebucket_BC2D4650\\"
+            \\"uniqueId\\": \\"test-versioned-lambda_code-bucket_C658EE92\\"
           }
         }
       }
     },
     \\"aws_s3_bucket_public_access_block\\": {
-      \\"test_testversionedlambda_codebucketpublicaccessblock_5C6903BB\\": {
+      \\"test-versioned-lambda_code-bucket-public-access-block_9662548B\\": {
         \\"block_public_acls\\": true,
         \\"block_public_policy\\": true,
-        \\"bucket\\": \\"\${aws_s3_bucket.test_testversionedlambda_codebucket_BC2D4650.id}\\",
+        \\"bucket\\": \\"\${aws_s3_bucket.test-versioned-lambda_code-bucket_C658EE92.id}\\",
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/test-versioned-lambda/code-bucket-public-access-block\\",
-            \\"uniqueId\\": \\"test_testversionedlambda_codebucketpublicaccessblock_5C6903BB\\"
+            \\"uniqueId\\": \\"test-versioned-lambda_code-bucket-public-access-block_9662548B\\"
           }
         }
       }
     },
     \\"aws_iam_role\\": {
-      \\"test_testversionedlambda_executionrole_CA6543EB\\": {
-        \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.test_testversionedlambda_assumepolicydocument_5C55CB37.json}\\",
+      \\"test-versioned-lambda_execution-role_068103E3\\": {
+        \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.test-versioned-lambda_assume-policy-document_54E2E6E3.json}\\",
         \\"name\\": \\"Test-Lambda-ExecutionRole\\",
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/test-versioned-lambda/execution-role\\",
-            \\"uniqueId\\": \\"test_testversionedlambda_executionrole_CA6543EB\\"
+            \\"uniqueId\\": \\"test-versioned-lambda_execution-role_068103E3\\"
           }
         }
       }
     },
-    \\"aws_iam_role_policy\\": {
-      \\"test_testversionedlambda_executionrolepolicy_9C90B6CB\\": {
+    \\"aws_iam_policy\\": {
+      \\"test-versioned-lambda_execution-policy_A934214F\\": {
         \\"name\\": \\"Test-Lambda-ExecutionRolePolicy\\",
-        \\"policy\\": \\"\${data.aws_iam_policy_document.test_testversionedlambda_executionpolicydocument_6B2417EE.json}\\",
-        \\"role\\": \\"Test-Lambda-ExecutionRole\\",
+        \\"policy\\": \\"\${data.aws_iam_policy_document.test-versioned-lambda_execution-policy-document_BA37CD4D.json}\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-versioned-lambda/execution-policy\\",
+            \\"uniqueId\\": \\"test-versioned-lambda_execution-policy_A934214F\\"
+          }
+        }
+      }
+    },
+    \\"aws_iam_role_policy_attachment\\": {
+      \\"test-versioned-lambda_execution-role-policy-attachment_30E5BCA4\\": {
+        \\"policy_arn\\": \\"\${aws_iam_policy.test-versioned-lambda_execution-policy_A934214F.arn}\\",
+        \\"role\\": \\"\${aws_iam_role.test-versioned-lambda_execution-role_068103E3.name}\\",
         \\"depends_on\\": [
-          \\"aws_iam_role.test_testversionedlambda_executionrole_CA6543EB\\"
+          \\"aws_iam_role.test-versioned-lambda_execution-role_068103E3\\",
+          \\"aws_iam_policy.test-versioned-lambda_execution-policy_A934214F\\"
         ],
         \\"//\\": {
           \\"metadata\\": {
-            \\"path\\": \\"test/test-versioned-lambda/execution-role-policy\\",
-            \\"uniqueId\\": \\"test_testversionedlambda_executionrolepolicy_9C90B6CB\\"
+            \\"path\\": \\"test/test-versioned-lambda/execution-role-policy-attachment\\",
+            \\"uniqueId\\": \\"test-versioned-lambda_execution-role-policy-attachment_30E5BCA4\\"
           }
         }
       }
     },
     \\"aws_lambda_function\\": {
-      \\"test_testversionedlambda_F521A265\\": {
-        \\"filename\\": \\"index.py.zip\\",
+      \\"test-versioned-lambda_D818669D\\": {
+        \\"filename\\": \\"\${data.archive_file.test-versioned-lambda_lambda-default-file_E2490368.output_path}\\",
         \\"function_name\\": \\"Test-Lambda-Function\\",
         \\"handler\\": \\"index.handler\\",
         \\"publish\\": true,
-        \\"role\\": \\"\${aws_iam_role.test_testversionedlambda_executionrole_CA6543EB.arn}\\",
+        \\"role\\": \\"\${aws_iam_role.test-versioned-lambda_execution-role_068103E3.arn}\\",
         \\"runtime\\": \\"python3.8\\",
-        \\"source_code_hash\\": \\"\${data.archive_file.test_testversionedlambda_lambdadefaultfile_57465E51.output_base64sha256}\\",
+        \\"source_code_hash\\": \\"\${data.archive_file.test-versioned-lambda_lambda-default-file_E2490368.output_base64sha256}\\",
         \\"timeout\\": 5,
         \\"vpc_config\\": [
           {
-            \\"subnet_ids\\": [
-              \\"1\\",
-              \\"2\\"
-            ],
             \\"security_group_ids\\": [
               \\"sec1\\",
               \\"sec2\\"
+            ],
+            \\"subnet_ids\\": [
+              \\"1\\",
+              \\"2\\"
             ]
           }
         ],
@@ -1902,33 +2031,33 @@ exports[`renders a versioned lambda with vpc 1`] = `
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/test-versioned-lambda/lambda\\",
-            \\"uniqueId\\": \\"test_testversionedlambda_F521A265\\"
+            \\"uniqueId\\": \\"test-versioned-lambda_D818669D\\"
           }
         }
       }
     },
     \\"aws_cloudwatch_log_group\\": {
-      \\"test_testversionedlambda_loggroup_1EF2337F\\": {
-        \\"name\\": \\"/aws/lambda/Test-Lambda-Function\\",
+      \\"test-versioned-lambda_log-group_CB8A67E7\\": {
+        \\"name\\": \\"/aws/lambda/\${aws_lambda_function.test-versioned-lambda_D818669D.function_name}\\",
         \\"retention_in_days\\": 14,
         \\"depends_on\\": [
-          \\"aws_lambda_function.test_testversionedlambda_F521A265\\"
+          \\"aws_lambda_function.test-versioned-lambda_D818669D\\"
         ],
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/test-versioned-lambda/log-group\\",
-            \\"uniqueId\\": \\"test_testversionedlambda_loggroup_1EF2337F\\"
+            \\"uniqueId\\": \\"test-versioned-lambda_log-group_CB8A67E7\\"
           }
         }
       }
     },
     \\"aws_lambda_alias\\": {
-      \\"test_testversionedlambda_alias_2E9E2D0F\\": {
-        \\"function_name\\": \\"Test-Lambda-Function\\",
-        \\"function_version\\": \\"\${split(\\\\\\":\\\\\\", aws_lambda_function.test_testversionedlambda_F521A265.qualified_arn)[7]}\\",
+      \\"test-versioned-lambda_alias_60AF9CE1\\": {
+        \\"function_name\\": \\"\${aws_lambda_function.test-versioned-lambda_D818669D.function_name}\\",
+        \\"function_version\\": \\"\${split(\\\\\\":\\\\\\", aws_lambda_function.test-versioned-lambda_D818669D.qualified_arn)[7]}\\",
         \\"name\\": \\"DEPLOYED\\",
         \\"depends_on\\": [
-          \\"aws_lambda_function.test_testversionedlambda_F521A265\\"
+          \\"aws_lambda_function.test-versioned-lambda_D818669D\\"
         ],
         \\"lifecycle\\": {
           \\"ignore_changes\\": [
@@ -1938,7 +2067,7 @@ exports[`renders a versioned lambda with vpc 1`] = `
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/test-versioned-lambda/alias\\",
-            \\"uniqueId\\": \\"test_testversionedlambda_alias_2E9E2D0F\\"
+            \\"uniqueId\\": \\"test-versioned-lambda_alias_60AF9CE1\\"
           }
         }
       }
@@ -1946,18 +2075,19 @@ exports[`renders a versioned lambda with vpc 1`] = `
   },
   \\"data\\": {
     \\"aws_iam_policy_document\\": {
-      \\"test_testversionedlambda_assumepolicydocument_5C55CB37\\": {
+      \\"test-versioned-lambda_assume-policy-document_54E2E6E3\\": {
         \\"version\\": \\"2012-10-17\\",
         \\"statement\\": [
           {
-            \\"effect\\": \\"Allow\\",
             \\"actions\\": [
               \\"sts:AssumeRole\\"
             ],
+            \\"effect\\": \\"Allow\\",
             \\"principals\\": [
               {
                 \\"identifiers\\": [
-                  \\"lambda.amazonaws.com\\"
+                  \\"lambda.amazonaws.com\\",
+                  \\"edgelambda.amazonaws.com\\"
                 ],
                 \\"type\\": \\"Service\\"
               }
@@ -1967,27 +2097,26 @@ exports[`renders a versioned lambda with vpc 1`] = `
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/test-versioned-lambda/assume-policy-document\\",
-            \\"uniqueId\\": \\"test_testversionedlambda_assumepolicydocument_5C55CB37\\"
+            \\"uniqueId\\": \\"test-versioned-lambda_assume-policy-document_54E2E6E3\\"
           }
         }
       },
-      \\"test_testversionedlambda_executionpolicydocument_6B2417EE\\": {
+      \\"test-versioned-lambda_execution-policy-document_BA37CD4D\\": {
         \\"version\\": \\"2012-10-17\\",
         \\"statement\\": [
           {
-            \\"effect\\": \\"Allow\\",
             \\"actions\\": [
               \\"logs:CreateLogGroup\\",
               \\"logs:CreateLogStream\\",
               \\"logs:PutLogEvents\\",
               \\"logs:DescribeLogStreams\\"
             ],
+            \\"effect\\": \\"Allow\\",
             \\"resources\\": [
               \\"arn:aws:logs:*:*:*\\"
             ]
           },
           {
-            \\"effect\\": \\"Allow\\",
             \\"actions\\": [
               \\"ec2:DescribeNetworkInterfaces\\",
               \\"ec2:CreateNetworkInterface\\",
@@ -1995,6 +2124,7 @@ exports[`renders a versioned lambda with vpc 1`] = `
               \\"ec2:DescribeInstances\\",
               \\"ec2:AttachNetworkInterface\\"
             ],
+            \\"effect\\": \\"Allow\\",
             \\"resources\\": [
               \\"*\\"
             ]
@@ -2003,13 +2133,13 @@ exports[`renders a versioned lambda with vpc 1`] = `
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/test-versioned-lambda/execution-policy-document\\",
-            \\"uniqueId\\": \\"test_testversionedlambda_executionpolicydocument_6B2417EE\\"
+            \\"uniqueId\\": \\"test-versioned-lambda_execution-policy-document_BA37CD4D\\"
           }
         }
       }
     },
     \\"archive_file\\": {
-      \\"test_testversionedlambda_lambdadefaultfile_57465E51\\": {
+      \\"test-versioned-lambda_lambda-default-file_E2490368\\": {
         \\"output_path\\": \\"index.py.zip\\",
         \\"type\\": \\"zip\\",
         \\"source\\": [
@@ -2021,7 +2151,7 @@ exports[`renders a versioned lambda with vpc 1`] = `
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/test-versioned-lambda/lambda-default-file\\",
-            \\"uniqueId\\": \\"test_testversionedlambda_lambdadefaultfile_57465E51\\"
+            \\"uniqueId\\": \\"test-versioned-lambda_lambda-default-file_E2490368\\"
           }
         }
       }

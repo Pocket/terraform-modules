@@ -1,80 +1,46 @@
-import { Resource } from 'cdktf';
 import { Construct } from 'constructs';
 import { ApplicationEventBridgeRule } from '../base/ApplicationEventBridgeRule';
+import { ApplicationVersionedLambda } from '../base/ApplicationVersionedLambda';
+import { LambdaPermission } from '../../.gen/providers/aws';
 import {
-  ApplicationVersionedLambda,
-  LAMBDA_RUNTIMES,
-} from '../base/ApplicationVersionedLambda';
-import {
-  DataAwsIamPolicyDocumentStatement,
-  LambdaFunctionVpcConfig,
-  LambdaPermission,
-} from '../../.gen/providers/aws';
-import { ApplicationLambdaCodeDeploy } from '../base/ApplicationLambdaCodeDeploy';
+  PocketVersionedLambda,
+  PocketVersionedLambdaProps,
+} from './PocketVersionedLambda';
 
-export interface PocketEventBridgeWithLambdaTargetProps {
-  name: string;
-  lambdaDescription?: string;
-  ruleDescription?: string;
-  eventBusName?: string;
-  eventPattern: { [key: string]: any };
-  runtime: LAMBDA_RUNTIMES;
-  handler: string;
-  timeout?: number;
-  environment?: { [key: string]: string };
-  vpcConfig?: LambdaFunctionVpcConfig;
-  executionPolicyStatements?: DataAwsIamPolicyDocumentStatement[];
-  logRetention?: number;
-  s3Bucket?: string;
-  tags?: { [key: string]: string };
-  codeDeploy?: {
-    deploySnsTopicArn?: string;
-    detailType?: 'BASIC' | 'FULL';
-    region: string;
-    accountId: string;
+export interface PocketEventBridgeWithLambdaTargetProps
+  extends PocketVersionedLambdaProps {
+  eventRule: {
+    description?: string;
+    eventBusName?: string;
+    pattern: { [key: string]: any };
   };
 }
 
-export class PocketEventBridgeWithLambdaTarget extends Resource {
+/**
+ * Extends the base pocket versioned lambda class to add an event bridge based trigger on top of the lambda
+ */
+export class PocketEventBridgeWithLambdaTarget extends PocketVersionedLambda {
   constructor(
     scope: Construct,
     name: string,
-    config: PocketEventBridgeWithLambdaTargetProps
+    protected readonly config: PocketEventBridgeWithLambdaTargetProps
   ) {
-    super(scope, name);
+    super(scope, name, config);
 
-    const lambda = new ApplicationVersionedLambda(this, 'lambda', {
-      name: config.name,
-      description: config.lambdaDescription,
-      runtime: config.runtime,
-      handler: config.handler,
-      timeout: config.timeout,
-      environment: config.environment,
-      vpcConfig: config.vpcConfig,
-      executionPolicyStatements: config.executionPolicyStatements,
-      logRetention: config.logRetention,
-      s3Bucket: config.s3Bucket ?? `pocket-${config.name.toLowerCase()}`,
-      tags: config.tags,
-      usesCodeDeploy: !!config.codeDeploy,
-    });
+    const eventBridgeRule = this.createEventBridgeRule(this.lambda);
+    this.createLambdaEventRuleResourcePermission(this.lambda, eventBridgeRule);
+  }
 
-    const eventBridgeRule = new ApplicationEventBridgeRule(
-      this,
-      'event-bridge-rule',
-      {
-        name: config.name,
-        description: config.ruleDescription,
-        eventBusName: config.eventBusName,
-        eventPattern: config.eventPattern,
-        target: {
-          targetId: 'lambda',
-          arn: lambda.versionedLambda.arn,
-          dependsOn: lambda.versionedLambda,
-        },
-        tags: config.tags,
-      }
-    );
-
+  /**
+   * Creates the approriate permission to allow aws events to invoke lambda
+   * @param lambda
+   * @param eventBridgeRule
+   * @private
+   */
+  private createLambdaEventRuleResourcePermission(
+    lambda: ApplicationVersionedLambda,
+    eventBridgeRule: ApplicationEventBridgeRule
+  ): void {
     new LambdaPermission(this, 'lambda-permission', {
       action: 'lambda:InvokeFunction',
       functionName: lambda.versionedLambda.functionName,
@@ -83,15 +49,29 @@ export class PocketEventBridgeWithLambdaTarget extends Resource {
       sourceArn: eventBridgeRule.rule.arn,
       dependsOn: [lambda.versionedLambda, eventBridgeRule.rule],
     });
+  }
 
-    if (config.codeDeploy) {
-      new ApplicationLambdaCodeDeploy(this, 'lambda-code-deploy', {
-        name: config.name,
-        deploySnsTopicArn: config.codeDeploy.deploySnsTopicArn,
-        detailType: config.codeDeploy.detailType,
-        region: config.codeDeploy.region,
-        accountId: config.codeDeploy.accountId,
-      });
-    }
+  /**
+   * Creates the actual rule for event bridge to trigger the lambda
+   * @param lambda
+   * @private
+   */
+  private createEventBridgeRule(
+    lambda: ApplicationVersionedLambda
+  ): ApplicationEventBridgeRule {
+    const eventRuleConfig = this.config.eventRule;
+
+    return new ApplicationEventBridgeRule(this, 'event-bridge-rule', {
+      name: this.config.name,
+      description: eventRuleConfig.description,
+      eventBusName: eventRuleConfig.eventBusName,
+      eventPattern: eventRuleConfig.pattern,
+      target: {
+        targetId: 'lambda',
+        arn: lambda.versionedLambda.arn,
+        dependsOn: lambda.versionedLambda,
+      },
+      tags: this.config.tags,
+    });
   }
 }

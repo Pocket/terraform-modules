@@ -5,6 +5,7 @@ import {
   DataAwsIamPolicyDocument,
   DynamodbTable,
   DynamodbTableConfig,
+  DynamodbTableGlobalSecondaryIndex,
   IamPolicy,
   IamRole,
   IamRolePolicyAttachment,
@@ -68,6 +69,7 @@ export class ApplicationDynamoDBTable extends Resource {
         config.readCapacity,
         this.dynamodb,
         ApplicationDynamoDBTableCapacityType.Read,
+        config.tableConfig.globalSecondaryIndex,
         config.tags
       );
     }
@@ -79,6 +81,7 @@ export class ApplicationDynamoDBTable extends Resource {
         config.writeCapacity,
         this.dynamodb,
         ApplicationDynamoDBTableCapacityType.Write,
+        config.tableConfig.globalSecondaryIndex,
         config.tags
       );
     }
@@ -91,6 +94,7 @@ export class ApplicationDynamoDBTable extends Resource {
    * @param config
    * @param dynamoDB
    * @param capacityType
+   * @param globalSecondaryIndexes
    * @param tags
    * @private
    */
@@ -100,29 +104,112 @@ export class ApplicationDynamoDBTable extends Resource {
     config: ApplicationDynamoDBTableAutoScaleProps,
     dynamoDB: DynamodbTable,
     capacityType: ApplicationDynamoDBTableCapacityType,
+    globalSecondaryIndexes: DynamodbTableGlobalSecondaryIndex[],
     tags?: { [key: string]: string }
   ): void {
+    const roleArn = ApplicationDynamoDBTable.createAutoScalingRole(
+      scope,
+      capacityType,
+      prefix,
+      dynamoDB.arn,
+      tags
+    );
+
+    // create an auto scaling policy for the table
+    ApplicationDynamoDBTable.createAutoScalingPolicy(
+      scope,
+      roleArn,
+      'table',
+      capacityType,
+      config.min,
+      config.max,
+      config.tracking,
+      dynamoDB
+    );
+
+    // create an auto scaling policy for each global secondary index
+    if (globalSecondaryIndexes.length) {
+      globalSecondaryIndexes.forEach((gsIndex) => {
+        // min capacity is defined by the global secondary index
+        // max capacity is inherited from the table auto scaling config
+        // TODO: if we want this to be configurabe per index, we'll need to extend the third-party interface
+        const minCapacity =
+          capacityType === ApplicationDynamoDBTableCapacityType.Read
+            ? gsIndex.readCapacity
+            : gsIndex.writeCapacity;
+
+        // create an auto scaling policy for each index
+        ApplicationDynamoDBTable.createAutoScalingPolicy(
+          scope,
+          roleArn,
+          'index',
+          capacityType,
+          minCapacity,
+          config.max,
+          config.tracking,
+          dynamoDB,
+          gsIndex.name
+        );
+      });
+    }
+  }
+
+  /**
+   * sets up autoscaling policy for a table or an index
+   * @param scope
+   * @param roleArn
+   * @param policyTarget
+   * @param capacityType
+   * @param minCapacity
+   * @param maxCapacity
+   * @param tracking
+   * @param dynamoDB
+   * @param indexName
+   * @private
+   */
+  private static createAutoScalingPolicy(
+    scope: Construct,
+    roleArn: string,
+    policyTarget: 'table' | 'index',
+    capacityType: ApplicationDynamoDBTableCapacityType,
+    minCapacity: number,
+    maxCapacity: number,
+    tracking: number,
+    dynamoDB: DynamodbTable,
+    indexName?: string
+  ): void {
+    let resourceId = `table/${dynamoDB.name}`;
+
+    // if we're targeting an index, the resource id must reflect that
+    if (policyTarget === 'index') {
+      if (indexName) {
+        resourceId += `/index/${indexName}`;
+      } else {
+        throw new Error(
+          'you must specify an indexName when creating an index auto scaling policy'
+        );
+      }
+    }
+
+    const constructPrefix = `${
+      indexName ? indexName : dynamoDB.name
+    }_${capacityType}_${policyTarget}`;
+
     const targetTracking = new AppautoscalingTarget(
       scope,
-      `${capacityType}_target`,
+      `${constructPrefix}_target`,
       {
-        maxCapacity: config.max,
-        minCapacity: config.min,
-        resourceId: `table/${dynamoDB.name}`,
-        scalableDimension: `dynamodb:table:${capacityType}Units`,
-        roleArn: ApplicationDynamoDBTable.createAutoScalingRole(
-          scope,
-          capacityType,
-          prefix,
-          dynamoDB.arn,
-          tags
-        ),
+        maxCapacity,
+        minCapacity,
+        resourceId,
+        scalableDimension: `dynamodb:${policyTarget}:${capacityType}Units`,
+        roleArn: roleArn,
         serviceNamespace: 'dynamodb',
         dependsOn: [dynamoDB],
       }
     );
 
-    new AppautoscalingPolicy(scope, `${capacityType}_policy`, {
+    new AppautoscalingPolicy(scope, `${constructPrefix}_policy`, {
       name: `DynamoDB${capacityType}Utilization:${targetTracking.resourceId}`,
       policyType: 'TargetTrackingScaling',
       resourceId: targetTracking.resourceId,
@@ -135,7 +222,7 @@ export class ApplicationDynamoDBTable extends Resource {
               predefinedMetricType: `DynamoDB${capacityType}Utilization`,
             },
           ],
-          targetValue: config.tracking,
+          targetValue: tracking,
         },
       ],
       dependsOn: [targetTracking, dynamoDB],
@@ -177,7 +264,7 @@ export class ApplicationDynamoDBTable extends Resource {
             {
               effect: 'Allow',
               actions: ['dynamodb:DescribeTable', 'dynamodb:UpdateTable'],
-              resources: [dynamoDBARN, `${dynamoDBARN}*`],
+              resources: [dynamoDBARN, `${dynamoDBARN}*`], // 🏚
             },
           ],
         }
