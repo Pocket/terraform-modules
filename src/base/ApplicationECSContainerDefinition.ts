@@ -21,7 +21,7 @@ export const JSON_TEMPLATE = `
   "ulimits": null,
   "repositoryCredentials": [[REPOSITORY_CREDENTIALS_PARAMETER]],
   "dnsServers": null,
-  "mountPoints": [],
+  "mountPoints": [[MOUNT_POINTS]],
   "workingDirectory": null,
   "secrets": [[SECRET_ENV_VARS]],
   "dockerSecurityOptions": null,
@@ -153,6 +153,11 @@ export function buildDefinitionJSON(
   templateInstance = templateInstance.replace(
     '[[HEALTH_CHECK]]',
     JSON.stringify(config.healthCheck ?? null)
+  );
+
+  templateInstance = templateInstance.replace(
+    '[[MOUNT_POINTS]]',
+    JSON.stringify(config.mountPoints ?? [])
   );
 
   // strip out whitespace and newlines and return
