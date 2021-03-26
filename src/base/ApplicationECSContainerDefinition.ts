@@ -67,6 +67,12 @@ interface HealthcheckVariable {
   timeout: number;
 }
 
+interface PortMapping {
+  containerPort: number;
+  hostPort: number;
+  protocol: string;
+}
+
 interface MountPoint {
   containerPath: string;
   readOnly: boolean;
@@ -76,8 +82,7 @@ interface MountPoint {
 export interface ApplicationECSContainerDefinitionProps {
   containerImage?: string;
   logGroup?: string;
-  hostPort?: number;
-  containerPort?: number;
+  portMappings?: PortMapping[];
   envVars?: EnvironmentVariable[];
   mountPoints?: MountPoint[];
   secretEnvVars?: SecretEnvironmentVariable[];
@@ -106,12 +111,8 @@ export function buildDefinitionJSON(
 
   templateInstance = templateInstance.replace('[[LOG_GROUP]]', config.logGroup);
   templateInstance = templateInstance.replace(
-    '[[HOST_PORT]]',
-    config.hostPort.toString()
-  );
-  templateInstance = templateInstance.replace(
-    '[[CONTAINER_PORT]]',
-    config.containerPort.toString()
+    '[[PORT_MAPPINGS]]',
+    JSON.stringify(config.portMappings ?? [])
   );
   templateInstance = templateInstance.replace(
     '[[CONTAINER_IMAGE]]',
