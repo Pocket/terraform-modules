@@ -6,7 +6,7 @@ export const JSON_TEMPLATE = `
     "logDriver": "awslogs",
     "secretOptions": [],
     "options": {
-      "awslogs-group": "[[LOG_GROUP]]",
+      "awslogs-group": [[LOG_GROUP]],
       "awslogs-region": "us-east-1",
       "awslogs-stream-prefix": "ecs"
     }
@@ -109,7 +109,10 @@ export function buildDefinitionJSON(
     templateInstance = templateInstance.replace('"command": [[COMMAND]],', '');
   }
 
-  templateInstance = templateInstance.replace('[[LOG_GROUP]]', config.logGroup);
+  templateInstance = templateInstance.replace(
+    '[[LOG_GROUP]]',
+    JSON.stringify(config.logGroup)
+  );
   templateInstance = templateInstance.replace(
     '[[PORT_MAPPINGS]]',
     JSON.stringify(config.portMappings ?? [])
