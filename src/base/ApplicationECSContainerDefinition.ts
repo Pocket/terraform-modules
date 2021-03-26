@@ -151,11 +151,6 @@ export function buildDefinitionJSON(
   );
 
   templateInstance = templateInstance.replace(
-    '[[PROTOCOL]]',
-    JSON.stringify(config.protocol ?? 'tcp')
-  );
-
-  templateInstance = templateInstance.replace(
     '[[HEALTH_CHECK]]',
     JSON.stringify(config.healthCheck ?? null)
   );
