@@ -12,13 +12,7 @@ export const JSON_TEMPLATE = `
     }
   },
   "entryPoint": null,
-  "portMappings": [
-    {
-      "hostPort": [[HOST_PORT]],
-      "protocol": "[[PROTOCOL]]",
-      "containerPort": [[CONTAINER_PORT]]
-    }
-  ],
+  "portMappings": [[PORT_MAPPINGS]],
   "command": [[COMMAND]],
   "linuxParameters": null,
   "cpu": [[CPU]],
@@ -35,7 +29,7 @@ export const JSON_TEMPLATE = `
   "memoryReservation": [[MEMORY_RESERVATION]],
   "volumesFrom": [],
   "stopTimeout": null,
-  "image": "[[CONTAINER_IMAGE]]",
+  "image": [[CONTAINER_IMAGE]],
   "startTimeout": null,
   "firelensConfiguration": null,
   "dependsOn": null,
@@ -52,7 +46,7 @@ export const JSON_TEMPLATE = `
   "dockerLabels": null,
   "systemControls": null,
   "privileged": null,
-  "name": "[[NAME]]"
+  "name": [[NAME]]
 }`;
 
 interface EnvironmentVariable {
@@ -73,12 +67,19 @@ interface HealthcheckVariable {
   timeout: number;
 }
 
+interface MountPoint {
+  containerPath: string;
+  readOnly: boolean;
+  sourceVolume: string;
+}
+
 export interface ApplicationECSContainerDefinitionProps {
   containerImage?: string;
   logGroup?: string;
-  hostPort: number;
-  containerPort: number;
+  hostPort?: number;
+  containerPort?: number;
   envVars?: EnvironmentVariable[];
+  mountPoints?: MountPoint[];
   secretEnvVars?: SecretEnvironmentVariable[];
   command?: string[];
   name: string;
@@ -94,16 +95,10 @@ export function buildDefinitionJSON(
 ): string {
   let templateInstance = JSON_TEMPLATE;
 
-  // env vars default is [], whereas secrets default is null. makes sense.
-  const envVarsValue = config.envVars ? JSON.stringify(config.envVars) : '[]';
-  const secretEnvVarsValue = config.secretEnvVars
-    ? JSON.stringify(config.secretEnvVars)
-    : 'null';
-
   if (config.command) {
     templateInstance = templateInstance.replace(
       '[[COMMAND]]',
-      '[' + config.command.map((c) => `"${c}"`).join(',') + ']'
+      JSON.stringify(config.command)
     );
   } else {
     templateInstance = templateInstance.replace('"command": [[COMMAND]],', '');
@@ -120,51 +115,50 @@ export function buildDefinitionJSON(
   );
   templateInstance = templateInstance.replace(
     '[[CONTAINER_IMAGE]]',
-    config.containerImage
+    JSON.stringify(config.containerImage)
   );
-  templateInstance = templateInstance.replace('[[NAME]]', config.name);
+  templateInstance = templateInstance.replace(
+    '[[NAME]]',
+    JSON.stringify(config.name)
+  );
   templateInstance = templateInstance.replace(
     '[[REPOSITORY_CREDENTIALS_PARAMETER]]',
-    config.repositoryCredentialsParam
-      ? `{"credentialsParameter": "${config.repositoryCredentialsParam}"}`
-      : 'null'
+    JSON.stringify(
+      config.repositoryCredentialsParam
+        ? { credentialsParameter: config.repositoryCredentialsParam }
+        : null
+    )
   );
 
-  templateInstance = templateInstance.replace('[[ENV_VARS]]', envVarsValue);
+  // env vars default is [], whereas secrets default is null. makes sense.
+  templateInstance = templateInstance.replace(
+    '[[ENV_VARS]]',
+    JSON.stringify(config.envVars ?? [])
+  );
   templateInstance = templateInstance.replace(
     '[[SECRET_ENV_VARS]]',
-    secretEnvVarsValue
+    JSON.stringify(config.secretEnvVars ?? null)
   );
 
   templateInstance = templateInstance.replace(
     '[[CPU]]',
-    config.cpu ? config.cpu.toString() : '0'
+    JSON.stringify(config.cpu ?? 0)
   );
 
   templateInstance = templateInstance.replace(
     '[[MEMORY_RESERVATION]]',
-    config.memoryReservation ? config.memoryReservation.toString() : 'null'
+    JSON.stringify(config.memoryReservation ?? null)
   );
 
   templateInstance = templateInstance.replace(
     '[[PROTOCOL]]',
-    config.protocol ?? 'tcp'
+    JSON.stringify(config.protocol ?? 'tcp')
   );
 
-  if (config.healthCheck) {
-    templateInstance = templateInstance.replace(
-      '[[HEALTH_CHECK]]',
-      JSON.stringify({
-        command: config.healthCheck.command,
-        interval: config.healthCheck.interval,
-        retries: config.healthCheck.retries,
-        startPeriod: config.healthCheck.startPeriod,
-        timeout: config.healthCheck.timeout,
-      })
-    );
-  } else {
-    templateInstance = templateInstance.replace('[[HEALTH_CHECK]]', 'null');
-  }
+  templateInstance = templateInstance.replace(
+    '[[HEALTH_CHECK]]',
+    JSON.stringify(config.healthCheck ?? null)
+  );
 
   // strip out whitespace and newlines and return
   return templateInstance.replace(/\n/g, '');
