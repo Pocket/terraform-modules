@@ -16,18 +16,22 @@ interface HealthcheckVariable {
   timeout: number;
 }
 
+interface PortMapping {
+  containerPort: number;
+  hostPort: number;
+  protocol?: string;
+}
+
 export interface ApplicationECSContainerDefinitionProps {
   containerImage?: string;
   logGroup?: string;
-  hostPort: number;
-  containerPort: number;
+  portMappings?: PortMapping[];
   envVars?: EnvironmentVariable[];
   secretEnvVars?: SecretEnvironmentVariable[];
   command?: string[];
   name: string;
   repositoryCredentialsParam?: string;
   memoryReservation?: number;
-  protocol?: string;
   cpu?: number;
   healthCheck?: HealthcheckVariable;
 }
@@ -48,13 +52,7 @@ export function buildDefinitionJSON(
       },
     },
     entryPoint: null,
-    portMappings: [
-      {
-        hostPort: config.hostPort,
-        protocol: config.protocol ?? 'tcp',
-        containerPort: config.containerPort,
-      },
-    ],
+    portMappings: config.portMappings ?? [],
     linuxParameters: null,
     cpu: config.cpu ?? 0,
     environment: config.envVars ?? [],
