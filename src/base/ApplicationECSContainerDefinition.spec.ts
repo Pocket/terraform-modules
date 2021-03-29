@@ -114,5 +114,24 @@ describe('ApplicationECSContainerDefinition', () => {
 
       expect(result).to.contain(`"repositoryCredentials":null,`);
     });
+
+    it('builds JSON with mountPoints', () => {
+      config.mountPoints = [
+        {
+          containerPath: '/"-".txt',
+          readOnly: true,
+          sourceVolume: '/[{}].txt',
+        },
+      ];
+
+      const result = buildDefinitionJSON(config);
+
+      expect(result).to.contain(
+        `"mountPoints":[{` +
+          `"containerPath":"/\\"-\\".txt",` +
+          `"readOnly":true,` +
+          `"sourceVolume":"/[{}].txt"}`
+      );
+    });
   });
 });

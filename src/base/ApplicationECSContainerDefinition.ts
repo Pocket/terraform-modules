@@ -22,6 +22,12 @@ interface PortMapping {
   protocol?: string;
 }
 
+interface MountPoint {
+  containerPath: string;
+  readOnly?: boolean;
+  sourceVolume: string;
+}
+
 export interface ApplicationECSContainerDefinitionProps {
   containerImage?: string;
   logGroup?: string;
@@ -34,6 +40,7 @@ export interface ApplicationECSContainerDefinitionProps {
   memoryReservation?: number;
   cpu?: number;
   healthCheck?: HealthcheckVariable;
+  mountPoints?: MountPoint[];
 }
 
 export function buildDefinitionJSON(
@@ -62,7 +69,7 @@ export function buildDefinitionJSON(
       ? { credentialsParameter: config.repositoryCredentialsParam }
       : null,
     dnsServers: null,
-    mountPoints: [],
+    mountPoints: config.mountPoints ?? [],
     workingDirectory: null,
     secrets: config.secretEnvVars ?? null, // env vars default is [], whereas secrets default is null. makes sense.
     dockerSecurityOptions: null,
