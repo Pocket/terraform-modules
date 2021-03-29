@@ -17,9 +17,9 @@ interface HealthcheckVariable {
 }
 
 interface PortMapping {
-  containerPort: number;
-  hostPort: number;
-  protocol: string;
+  containerPort?: number;
+  hostPort?: number;
+  protocol?: string;
 }
 
 interface MountPoint {
