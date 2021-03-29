@@ -12,8 +12,12 @@ describe('ApplicationECSContainerDefinition', () => {
       config = {
         containerImage: 'testImage',
         logGroup: 'bowlingGroup',
-        hostPort: 3000,
-        containerPort: 4000,
+        portMappings: [
+          {
+            hostPort: 3000,
+            containerPort: 4000,
+          },
+        ],
         name: 'lebowski',
         repositoryCredentialsParam: 'someArn',
       };
