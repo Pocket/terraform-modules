@@ -18,10 +18,9 @@ interface HealthcheckVariable {
 
 export interface ApplicationECSContainerDefinitionProps {
   containerImage?: string;
-  // Question: logGroup is optional, but the code below will not work if it's not set. Should it be made required?
   logGroup?: string;
-  hostPort?: number;
-  containerPort?: number;
+  hostPort: number;
+  containerPort: number;
   envVars?: EnvironmentVariable[];
   secretEnvVars?: SecretEnvironmentVariable[];
   command?: string[];
