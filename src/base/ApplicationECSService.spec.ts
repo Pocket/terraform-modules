@@ -46,8 +46,12 @@ describe('AppliationECSService', () => {
     BASE_CONFIG.lifecycleIgnoreChanges = ['bowling', 'donnie', 'autobahn'];
     BASE_CONFIG.containerConfigs = [
       {
-        containerPort: 3002,
-        hostPort: 3001,
+        portMappings: [
+          {
+            containerPort: 3002,
+            hostPort: 3001,
+          },
+        ],
         logGroup: 'test/log/group',
         containerImage: 'beverage-here/0.1',
         name: 'lebowski',
@@ -83,8 +87,12 @@ describe('AppliationECSService', () => {
     BASE_CONFIG.lifecycleIgnoreChanges = ['bowling', 'donnie', 'autobahn'];
     BASE_CONFIG.containerConfigs = [
       {
-        containerPort: 3002,
-        hostPort: 3001,
+        portMappings: [
+          {
+            containerPort: 3002,
+            hostPort: 3001,
+          },
+        ],
         containerImage: 'beverage-here/0.1',
         name: 'lebowski',
         repositoryCredentialsParam: 'someArn',
@@ -119,8 +127,12 @@ describe('AppliationECSService', () => {
     BASE_CONFIG.lifecycleIgnoreChanges = ['bowling', 'donnie', 'autobahn'];
     BASE_CONFIG.containerConfigs = [
       {
-        containerPort: 3002,
-        hostPort: 3001,
+        portMappings: [
+          {
+            containerPort: 3002,
+            hostPort: 3001,
+          },
+        ],
         logGroup: 'test/log/group',
         name: 'lebowski',
         repositoryCredentialsParam: 'someArn',
@@ -150,8 +162,12 @@ describe('AppliationECSService', () => {
 
     BASE_CONFIG.containerConfigs = [
       {
-        containerPort: 3002,
-        hostPort: 3001,
+        portMappings: [
+          {
+            containerPort: 3002,
+            hostPort: 3001,
+          },
+        ],
         logGroup: 'test/log/group',
         containerImage: 'beverage-here/0.1',
         name: 'lebowski',
