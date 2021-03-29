@@ -22,14 +22,14 @@ describe('ApplicationECSContainerDefinition', () => {
     it('builds JSON without env vars', () => {
       const result = buildDefinitionJSON(config);
 
-      expect(result).to.contain('"awslogs-group": "bowlingGroup"');
-      expect(result).to.contain('"hostPort": 3000');
-      expect(result).to.contain('"containerPort": 4000');
-      expect(result).to.contain('"image": "testImage"');
-      expect(result).to.contain('"name": "lebowski"');
-      expect(result).to.contain('"credentialsParameter": "someArn"');
-      expect(result).to.contain('"environment": []');
-      expect(result).to.contain('"secrets": null');
+      expect(result).to.contain('"awslogs-group":"bowlingGroup"');
+      expect(result).to.contain('"hostPort":3000');
+      expect(result).to.contain('"containerPort":4000');
+      expect(result).to.contain('"image":"testImage"');
+      expect(result).to.contain('"name":"lebowski"');
+      expect(result).to.contain('"credentialsParameter":"someArn"');
+      expect(result).to.contain('"environment":[]');
+      expect(result).to.contain('"secrets":null');
       expect(result).not.to.contain('"command":');
     });
 
@@ -48,7 +48,7 @@ describe('ApplicationECSContainerDefinition', () => {
       const result = buildDefinitionJSON(config);
 
       expect(result).to.contain(
-        `"environment": ${JSON.stringify(config.envVars)}`
+        `"environment":${JSON.stringify(config.envVars)}`
       );
     });
 
@@ -67,7 +67,7 @@ describe('ApplicationECSContainerDefinition', () => {
       const result = buildDefinitionJSON(config);
 
       expect(result).to.contain(
-        `"secrets": ${JSON.stringify(config.secretEnvVars)}`
+        `"secrets":${JSON.stringify(config.secretEnvVars)}`
       );
     });
 
@@ -76,7 +76,7 @@ describe('ApplicationECSContainerDefinition', () => {
 
       const result = buildDefinitionJSON(config);
 
-      expect(result).to.contain(`"command": ["go to in-n-out","go bowling"]`);
+      expect(result).to.contain(`"command":["go to in-n-out","go bowling"]`);
     });
 
     it('builds JSON with a healthcheck', () => {
@@ -85,16 +85,16 @@ describe('ApplicationECSContainerDefinition', () => {
           'CMD-SHELL',
           'curl -f "http://127.0.0.1:8000/pulse" || exit 1',
         ],
-        timeout: 5,
-        startPeriod: 0,
         interval: 30,
         retries: 2,
+        startPeriod: 0,
+        timeout: 5,
       };
 
       const result = buildDefinitionJSON(config);
 
       expect(result).to.contain(
-        `"healthCheck": {` +
+        `"healthCheck":{` +
           `"command":["CMD-SHELL","curl -f \\"http://127.0.0.1:8000/pulse\\" || exit 1"],` +
           `"interval":30,` +
           `"retries":2,` +
@@ -108,7 +108,7 @@ describe('ApplicationECSContainerDefinition', () => {
 
       const result = buildDefinitionJSON(config);
 
-      expect(result).to.contain(`"repositoryCredentials": null,`);
+      expect(result).to.contain(`"repositoryCredentials":null,`);
     });
   });
 });
