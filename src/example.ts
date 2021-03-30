@@ -26,8 +26,12 @@ class Example extends TerraformStack {
     const containerConfigBlue: ApplicationECSContainerDefinitionProps = {
       name: 'blueContainer',
       containerImage: 'bitnami/node-example:0.0.1',
-      hostPort: 3000,
-      containerPort: 3000,
+      portMappings: [
+        {
+          hostPort: 3000,
+          containerPort: 3000,
+        },
+      ],
       envVars: [
         {
           name: 'foo',

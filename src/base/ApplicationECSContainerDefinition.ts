@@ -16,20 +16,31 @@ interface HealthcheckVariable {
   timeout: number;
 }
 
+interface PortMapping {
+  containerPort: number;
+  hostPort: number;
+  protocol?: string;
+}
+
+interface MountPoint {
+  containerPath: string;
+  readOnly?: boolean;
+  sourceVolume: string;
+}
+
 export interface ApplicationECSContainerDefinitionProps {
   containerImage?: string;
   logGroup?: string;
-  hostPort: number;
-  containerPort: number;
+  portMappings?: PortMapping[];
   envVars?: EnvironmentVariable[];
   secretEnvVars?: SecretEnvironmentVariable[];
   command?: string[];
   name: string;
   repositoryCredentialsParam?: string;
   memoryReservation?: number;
-  protocol?: string;
   cpu?: number;
   healthCheck?: HealthcheckVariable;
+  mountPoints?: MountPoint[];
 }
 
 export function buildDefinitionJSON(
@@ -53,13 +64,7 @@ export function buildDefinitionJSON(
       },
     },
     entryPoint: null,
-    portMappings: [
-      {
-        hostPort: config.hostPort,
-        protocol: config.protocol ?? 'tcp',
-        containerPort: config.containerPort,
-      },
-    ],
+    portMappings: config.portMappings ?? [],
     linuxParameters: null,
     cpu: config.cpu ?? 0,
     environment: config.envVars ?? [],
@@ -69,7 +74,7 @@ export function buildDefinitionJSON(
       ? { credentialsParameter: config.repositoryCredentialsParam }
       : null,
     dnsServers: null,
-    mountPoints: [],
+    mountPoints: config.mountPoints ?? [],
     workingDirectory: null,
     secrets: config.secretEnvVars ?? null, // env vars default is [], whereas secrets default is null. makes sense.
     dockerSecurityOptions: null,

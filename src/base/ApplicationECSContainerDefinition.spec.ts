@@ -12,8 +12,12 @@ describe('ApplicationECSContainerDefinition', () => {
       config = {
         containerImage: 'testImage',
         logGroup: 'bowlingGroup',
-        hostPort: 3000,
-        containerPort: 4000,
+        portMappings: [
+          {
+            hostPort: 3000,
+            containerPort: 4000,
+          },
+        ],
         name: 'lebowski',
         repositoryCredentialsParam: 'someArn',
       };
@@ -109,6 +113,25 @@ describe('ApplicationECSContainerDefinition', () => {
       const result = buildDefinitionJSON(config);
 
       expect(result).to.contain(`"repositoryCredentials":null,`);
+    });
+
+    it('builds JSON with mountPoints', () => {
+      config.mountPoints = [
+        {
+          containerPath: '/"-".txt',
+          readOnly: true,
+          sourceVolume: '/[{}].txt',
+        },
+      ];
+
+      const result = buildDefinitionJSON(config);
+
+      expect(result).to.contain(
+        `"mountPoints":[{` +
+          `"containerPath":"/\\"-\\".txt",` +
+          `"readOnly":true,` +
+          `"sourceVolume":"/[{}].txt"}`
+      );
     });
   });
 });

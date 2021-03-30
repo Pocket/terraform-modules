@@ -152,9 +152,13 @@ describe('PocketALBApplication', () => {
     BASE_CONFIG.containerConfigs = [
       {
         name: 'xray-daemon',
-        hostPort: 0,
-        containerPort: 2000,
-        protocol: 'udp',
+        portMappings: [
+          {
+            hostPort: 0,
+            containerPort: 2000,
+            protocol: 'udp',
+          },
+        ],
         cpu: 10,
         memoryReservation: 50,
       },
