@@ -6,6 +6,7 @@ import {
   EcsServiceLoadBalancer,
   EcsServiceNetworkConfiguration,
   EcsTaskDefinition,
+  EcsTaskDefinitionVolume,
   SecurityGroup,
   SecurityGroupEgress,
   SecurityGroupIngress,
@@ -293,6 +294,8 @@ export class ApplicationECSService extends Resource {
     const ecrRepos: EcrRepository[] = [];
 
     const containerDefs = [];
+    // Set of unique volumes by volume name
+    const volumes: { [key: string]: EcsTaskDefinitionVolume } = {};
 
     // figure out if we need to create an ECR for each container definition
     // also build a container definition JSON for each container
@@ -321,6 +324,13 @@ export class ApplicationECSService extends Resource {
         def.logGroup = cloudwatch.name;
       }
 
+      if (def.mountPoints) {
+        def.mountPoints.forEach((mountPoint) => {
+          // We currently only set the volume names, but more configuration is available in EcsTaskDefinitionVolume.
+          volumes[mountPoint.sourceVolume] = { name: mountPoint.sourceVolume };
+        });
+      }
+
       containerDefs.push(buildDefinitionJSON(def));
     });
 
@@ -346,6 +356,7 @@ export class ApplicationECSService extends Resource {
       memory: this.config.memory.toString(),
       requiresCompatibilities: ['FARGATE'],
       networkMode: 'awsvpc',
+      volume: Object.values(volumes),
       tags: this.config.tags,
       dependsOn: ecrRepos,
     });
