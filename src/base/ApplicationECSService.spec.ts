@@ -199,4 +199,47 @@ describe('AppliationECSService', () => {
 
     expect(Testing.synth(stack)).toMatchSnapshot();
   });
+
+  it('renders an ECS service with mountPoints deduplicated in the task definition', () => {
+    const app = Testing.app();
+    const stack = new TerraformStack(app, 'test');
+
+    BASE_CONFIG.launchType = 'ROCKET';
+    BASE_CONFIG.containerConfigs = [
+      {
+        name: 'container1',
+      },
+      {
+        name: 'container2',
+        mountPoints: [
+          {
+            sourceVolume: 'src1',
+            containerPath: '/src1',
+          },
+          {
+            sourceVolume: 'src2',
+            containerPath: '/src2',
+          },
+        ],
+      },
+      {
+        name: 'container3',
+        mountPoints: [
+          {
+            sourceVolume: 'src1',
+            containerPath: '/src1',
+            readOnly: true,
+          },
+          {
+            sourceVolume: 'src3',
+            containerPath: '/src3',
+          },
+        ],
+      },
+    ];
+
+    new ApplicationECSService(stack, 'testECSService', BASE_CONFIG);
+
+    expect(Testing.synth(stack)).toMatchSnapshot();
+  });
 });
