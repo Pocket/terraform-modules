@@ -101,6 +101,7 @@ exports[`AppliationECSService renders an ECS service with full container definit
           \\"FARGATE\\"
         ],
         \\"task_role_arn\\": \\"\${aws_iam_role.testECSService_ecs-iam_ecs-task-role_83E10144.arn}\\",
+        \\"volume\\": [],
         \\"depends_on\\": [],
         \\"//\\": {
           \\"metadata\\": {
@@ -297,6 +298,7 @@ exports[`AppliationECSService renders an ECS service with full container definit
           \\"FARGATE\\"
         ],
         \\"task_role_arn\\": \\"\${aws_iam_role.testECSService_ecs-iam_ecs-task-role_83E10144.arn}\\",
+        \\"volume\\": [],
         \\"depends_on\\": [],
         \\"//\\": {
           \\"metadata\\": {
@@ -553,6 +555,7 @@ exports[`AppliationECSService renders an ECS service with minimal config 1`] = `
           \\"FARGATE\\"
         ],
         \\"task_role_arn\\": \\"\${aws_iam_role.testECSService_ecs-iam_ecs-task-role_83E10144.arn}\\",
+        \\"volume\\": [],
         \\"depends_on\\": [],
         \\"//\\": {
           \\"metadata\\": {
@@ -750,6 +753,7 @@ exports[`AppliationECSService renders an ECS service without a log group contain
           \\"FARGATE\\"
         ],
         \\"task_role_arn\\": \\"\${aws_iam_role.testECSService_ecs-iam_ecs-task-role_83E10144.arn}\\",
+        \\"volume\\": [],
         \\"depends_on\\": [],
         \\"//\\": {
           \\"metadata\\": {
@@ -967,6 +971,7 @@ exports[`AppliationECSService renders an ECS service without an image container 
           \\"FARGATE\\"
         ],
         \\"task_role_arn\\": \\"\${aws_iam_role.testECSService_ecs-iam_ecs-task-role_83E10144.arn}\\",
+        \\"volume\\": [],
         \\"depends_on\\": [
           \\"aws_ecr_repository.testECSService_ecr-lebowski_ecr-repo_6D07DF86\\"
         ],
