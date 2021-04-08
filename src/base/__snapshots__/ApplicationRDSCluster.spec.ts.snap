@@ -1,0 +1,105 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders a RDS cluster 1`] = `
+"{
+  \\"//\\": {
+    \\"metadata\\": {
+      \\"version\\": \\"stubbed\\",
+      \\"stackName\\": \\"test\\"
+    }
+  },
+  \\"data\\": {
+    \\"aws_vpc\\": {
+      \\"testRDSCluster_vpc_F47EEEFE\\": {
+        \\"filter\\": [
+          {
+            \\"name\\": \\"vpc-id\\",
+            \\"values\\": [
+              \\"rug\\"
+            ]
+          }
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testRDSCluster/vpc\\",
+            \\"uniqueId\\": \\"testRDSCluster_vpc_F47EEEFE\\"
+          }
+        }
+      }
+    }
+  },
+  \\"resource\\": {
+    \\"aws_security_group\\": {
+      \\"testRDSCluster_rds_security_group_4A9D257E\\": {
+        \\"description\\": \\"Managed by Terraform\\",
+        \\"ingress\\": [
+          {
+            \\"cidr_blocks\\": [
+              \\"\${data.aws_vpc.testRDSCluster_vpc_F47EEEFE.cidr_block}\\"
+            ],
+            \\"description\\": null,
+            \\"from_port\\": 3306,
+            \\"ipv6_cidr_blocks\\": null,
+            \\"prefix_list_ids\\": null,
+            \\"protocol\\": \\"tcp\\",
+            \\"security_groups\\": null,
+            \\"self\\": null,
+            \\"to_port\\": 3306
+          }
+        ],
+        \\"name_prefix\\": \\"bowling-\\",
+        \\"vpc_id\\": \\"\${data.aws_vpc.testRDSCluster_vpc_F47EEEFE.id}\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testRDSCluster/rds_security_group\\",
+            \\"uniqueId\\": \\"testRDSCluster_rds_security_group_4A9D257E\\"
+          }
+        }
+      }
+    },
+    \\"aws_db_subnet_group\\": {
+      \\"testRDSCluster_rds_subnet_group_88022457\\": {
+        \\"name_prefix\\": \\"bowling-\\",
+        \\"subnet_ids\\": [
+          \\"0\\",
+          \\"1\\"
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testRDSCluster/rds_subnet_group\\",
+            \\"uniqueId\\": \\"testRDSCluster_rds_subnet_group_88022457\\"
+          }
+        }
+      }
+    },
+    \\"aws_rds_cluster\\": {
+      \\"testRDSCluster_rds_cluster_B5FD08B5\\": {
+        \\"cluster_identifier_prefix\\": \\"bowling-\\",
+        \\"copy_tags_to_snapshot\\": true,
+        \\"database_name\\": \\"walter\\",
+        \\"db_subnet_group_name\\": \\"\${aws_db_subnet_group.testRDSCluster_rds_subnet_group_88022457.name}\\",
+        \\"master_password\\": \\"5b12f187a13523a5\\",
+        \\"master_username\\": \\"walter\\",
+        \\"tags\\": {
+          \\"whodis\\": \\"walter\\"
+        },
+        \\"vpc_security_group_ids\\": [
+          \\"\${aws_security_group.testRDSCluster_rds_security_group_4A9D257E.id}\\"
+        ],
+        \\"lifecycle\\": {
+          \\"ignore_changes\\": [
+            \\"master_username\\",
+            \\"master_password\\"
+          ]
+        },
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testRDSCluster/rds_cluster\\",
+            \\"uniqueId\\": \\"testRDSCluster_rds_cluster_B5FD08B5\\"
+          }
+        }
+      }
+    }
+  }
+}"
+`;

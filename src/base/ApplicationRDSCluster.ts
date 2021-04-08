@@ -17,15 +17,8 @@ import {
 import { Construct } from 'constructs';
 import { DataArchiveFile } from '../../.gen/providers/archive';
 import * as fs from 'fs';
-import cryptoRandomString from 'crypto-random-string';
-
-export interface ApplicationRDSClusterProps {
-  prefix: string;
-  vpcId: string;
-  subnetIds: string[];
-  rdsConfig: ApplicationRDSClusterConfig;
-  tags?: { [key: string]: string };
-}
+import crypto from 'crypto';
+import path from 'path';
 
 //Override the default rds config but remove the items that we set ourselves.
 export type ApplicationRDSClusterConfig = Omit<
@@ -37,7 +30,19 @@ export type ApplicationRDSClusterConfig = Omit<
   | 'copyTagsToSnapshot'
   | 'tags'
   | 'lifecycle'
->;
+> & {
+  // masterUsername is not a required field in the RdsClusterConfig type but is required for create an RDS cluster
+  masterUsername: string;
+  engine?: 'aurora' | 'aurora-mysql' | 'aurora-postgresql';
+};
+
+export interface ApplicationRDSClusterProps {
+  prefix: string;
+  vpcId: string;
+  subnetIds: string[];
+  rdsConfig: ApplicationRDSClusterConfig;
+  tags?: { [key: string]: string };
+}
 
 /**
  * Generates a rds cluster
@@ -97,7 +102,7 @@ export class ApplicationRDSCluster extends Resource {
       clusterIdentifierPrefix: config.prefix.toLowerCase(),
       tags: config.tags,
       copyTagsToSnapshot: true, //Why would we ever want this to false??
-      masterPassword: cryptoRandomString({ length: 15 }),
+      masterPassword: crypto.randomBytes(8).toString('hex'),
       vpcSecurityGroupIds: [securityGroup.id],
       dbSubnetGroupName: subnetGroup.name,
       lifecycle: {
@@ -107,7 +112,7 @@ export class ApplicationRDSCluster extends Resource {
 
     if (
       config.rdsConfig.engine == 'aurora' ||
-      config.rdsConfig.engine == 'mysql'
+      config.rdsConfig.engine == 'aurora-mysql'
     ) {
       //If the engine is mysql or aurora (mysql compatible) then create a secret rotator that we can manually run after terraform creation
       const { secretARN } = ApplicationRDSCluster.createMySqlSecretRotator(
@@ -143,7 +148,7 @@ export class ApplicationRDSCluster extends Resource {
   ): { secretARN: string } {
     //The example from AWS was in python, so we import it into archive
     const lambdaFile = fs.readFileSync(
-      './lambda_functions/single_mysql_rotation.py',
+      path.join(__dirname, 'lambda_functions/single_mysql_rotation.py'),
       'utf8'
     );
     const lambdaArchive = new DataArchiveFile(scope, `rotation_lambda_zip`, {
@@ -174,12 +179,45 @@ export class ApplicationRDSCluster extends Resource {
                   identifiers: ['lambda.amazonaws.com'],
                 },
               ],
-              resources: ['*'],
             },
           ],
         }
       ).json,
       tags,
+    });
+
+    const networkPermissionsPolicyDocument = new DataAwsIamPolicyDocument(
+      scope,
+      `lambda_network_policy_document`,
+      {
+        statement: [
+          {
+            sid: 'VPCENIpolicies',
+            actions: [
+              'ec2:DescribeNetworkInterfaces',
+              'ec2:CreateNetworkInterfaces',
+              'ec2:DeleteNetworkInterfaces',
+              'ec2:DescribeInstances',
+              'ec2:AttachNetworkInterface',
+            ],
+            resources: ['*'],
+          },
+        ],
+      }
+    );
+
+    const lambdaNetworkPermissionsPolicy = new IamPolicy(
+      scope,
+      `lambda_network_policy`,
+      {
+        namePrefix: `${prefix}-LambdaNetworkPolicy`,
+        policy: networkPermissionsPolicyDocument.json,
+      }
+    );
+
+    new IamRolePolicyAttachment(scope, `lambda_network_policy_attachment`, {
+      role: lambdaRole.name,
+      policyArn: lambdaNetworkPermissionsPolicy.arn,
     });
 
     //Create the rotation lambda
@@ -199,7 +237,7 @@ export class ApplicationRDSCluster extends Resource {
     });
 
     //Give secrets manager the permission to run the function
-    new LambdaPermission(scope, `rotation_lambda`, {
+    new LambdaPermission(scope, `rotation_lambda_permission`, {
       functionName: lambda.functionName,
       statementId: 'AllowExecutionSecretManager',
       action: 'lambda:InvokeFunction',
@@ -235,7 +273,7 @@ export class ApplicationRDSCluster extends Resource {
       {
         statement: [
           {
-            sid: 'Invoke Lambda',
+            sid: 'InvokeLambda',
             actions: [
               'lambda:GetFunction',
               'lambda:InvokeAsync',
@@ -244,27 +282,22 @@ export class ApplicationRDSCluster extends Resource {
             resources: [lambda.arn],
           },
           {
-            sid: 'Secrets Manager Admin',
+            sid: 'SecretsManagerAdmin',
             actions: ['secretsmanager:*'],
             resources: [secret.arn, `${secret.arn}*`],
-          },
-          {
-            sid: 'VPC ENI policies',
-            actions: [
-              'ec2:DescribeNetworkInterfaces',
-              'ec2:CreateNetworkInterfaces',
-              'ec2:DeleteNetworkInterfaces',
-            ],
-            resources: ['*'],
           },
         ],
       }
     );
 
-    const lambdaPolicy = new IamPolicy(scope, `rds_lambda_rotation_policy`, {
-      namePrefix: `${prefix}-LambdaRotation`,
-      policy: rdsLambdaRotationPolicyDocument.json,
-    });
+    const lambdaRotationPolicy = new IamPolicy(
+      scope,
+      `rds_lambda_rotation_policy`,
+      {
+        namePrefix: `${prefix}-LambdaRotation`,
+        policy: rdsLambdaRotationPolicyDocument.json,
+      }
+    );
 
     //Attach the rotation policy to the role
     new IamRolePolicyAttachment(
@@ -272,7 +305,7 @@ export class ApplicationRDSCluster extends Resource {
       `lambda_rotation_role_policy_attachment`,
       {
         role: lambdaRole.name,
-        policyArn: lambdaPolicy.arn,
+        policyArn: lambdaRotationPolicy.arn,
       }
     );
 
