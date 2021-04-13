@@ -42,7 +42,7 @@
     "constructs": "^3.0.4"
   },
   "dependencies": {
-    "crypto-random-string": "^3.3.0",
+    "crypto-random-string": "^4.0.0",
     "parse-domain": "^3.0.3"
   },
   "devDependencies": {
