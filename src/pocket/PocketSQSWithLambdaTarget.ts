@@ -15,26 +15,44 @@ import {
   IamRole,
   IamRolePolicyAttachment,
   LambdaEventSourceMapping,
+  DataAwsSqsQueue,
+  DataAwsSqsQueueConfig,
+  SqsQueue,
 } from '../../.gen/providers/aws';
 
 export interface PocketSQSWithLambdaTargetProps
   extends PocketVersionedLambdaProps {
-  sqsQueue?: {
-    messageRetentionSeconds?: number;
-    maxReceiveCount?: number;
-    maxMessageSize?: number;
-    delaySeconds?: number;
-    visibilityTimeoutSeconds?: number;
-  };
+  /**
+   * Set dataSqsQueue to use an existing SQS queue. If not provided, then a queue will be created.
+   */
+  dataSqsQueue?: DataAwsSqsQueueConfig;
+  /**
+   * Properties to configure the SQS queue that is created. Cannot be used in combination with dataSqsQueue.
+   */
+  sqsQueue?: PocketSQSProps;
   batchSize?: number;
   batchWindow?: number;
+}
+
+export interface PocketSQSProps {
+  messageRetentionSeconds?: number;
+  maxReceiveCount?: number;
+  maxMessageSize?: number;
+  delaySeconds?: number;
+  visibilityTimeoutSeconds?: number;
 }
 
 /**
  * Extends the base pocket versioned lambda class to add a sqs based trigger on top of the lambda
  */
 export class PocketSQSWithLambdaTarget extends PocketVersionedLambda {
+  /**
+   * If an sqsQueue is created, this is a reference to the SQS queue with a dead letter queue.
+   * It's undefined if an existing queue is used.
+   */
   public readonly sqsQueue: ApplicationSQSQueue;
+
+  private readonly sqsQueueResource: SqsQueue | DataAwsSqsQueue;
 
   constructor(
     scope: Construct,
@@ -43,16 +61,26 @@ export class PocketSQSWithLambdaTarget extends PocketVersionedLambda {
   ) {
     super(scope, name, config);
     PocketSQSWithLambdaTarget.validateEventSourceMappingConfig(config);
-    this.sqsQueue = this.createSqsQueue({
-      ...config.sqsQueue,
-      name: `${config.name}-Queue`,
-      tags: config.tags,
-    });
+
+    if (config.dataSqsQueue) {
+      this.sqsQueueResource = this.getExistingSqsQueue({
+        ...config.dataSqsQueue,
+      });
+    } else {
+      this.sqsQueue = this.createSqsQueue({
+        ...config.sqsQueue,
+        name: `${config.name}-Queue`,
+        tags: config.tags,
+      });
+      this.sqsQueueResource = this.sqsQueue.sqsQueue;
+    }
+
     this.createSQSExecutionPolicyOnLambda(
       this.lambda.lambdaExecutionRole,
-      this.sqsQueue
+      this.sqsQueueResource
     );
-    this.createEventSourceMapping(this.lambda, this.sqsQueue, config);
+
+    this.createEventSourceMapping(this.lambda, this.sqsQueueResource, config);
   }
 
   /**
@@ -63,6 +91,16 @@ export class PocketSQSWithLambdaTarget extends PocketVersionedLambda {
     sqsQueueConfig: ApplicationSQSQueueProps
   ): ApplicationSQSQueue {
     return new ApplicationSQSQueue(this, 'lambda_sqs_queue', sqsQueueConfig);
+  }
+
+  /**
+   * Creates the sqs queue to use with the lambda target
+   * @private
+   */
+  private getExistingSqsQueue(
+    sqsQueueConfig: DataAwsSqsQueueConfig
+  ): DataAwsSqsQueue {
+    return new DataAwsSqsQueue(this, 'lambda_sqs_queue', sqsQueueConfig);
   }
 
   /**
@@ -83,6 +121,12 @@ export class PocketSQSWithLambdaTarget extends PocketVersionedLambda {
         'Maximum batch window in seconds must be greater than 0 if maximum batch size is greater than 10'
       );
     }
+
+    if (config.dataSqsQueue && config.sqsQueue) {
+      throw new Error(
+        'dataSqsQueue and sqsQueue cannot be used simultaneously.'
+      );
+    }
   }
 
   /**
@@ -94,11 +138,11 @@ export class PocketSQSWithLambdaTarget extends PocketVersionedLambda {
    */
   private createEventSourceMapping(
     lambda: ApplicationVersionedLambda,
-    sqsQueue: ApplicationSQSQueue,
+    sqsQueue: SqsQueue | DataAwsSqsQueue,
     config: PocketSQSWithLambdaTargetProps
   ) {
     return new LambdaEventSourceMapping(this, `lambda_event_source_mapping`, {
-      eventSourceArn: sqsQueue.sqsQueue.arn,
+      eventSourceArn: sqsQueue.arn,
       functionName: lambda.versionedLambda.arn,
       batchSize: config.batchSize,
       maximumBatchingWindowInSeconds: config.batchWindow,
@@ -113,7 +157,7 @@ export class PocketSQSWithLambdaTarget extends PocketVersionedLambda {
    */
   private createSQSExecutionPolicyOnLambda(
     executionRole: IamRole,
-    sqsQueue: ApplicationSQSQueue
+    sqsQueue: SqsQueue | DataAwsSqsQueue
   ): IamRolePolicyAttachment {
     const lambdaSqsPolicy = new IamPolicy(this, 'sqs-policy', {
       name: `${this.config.name}-LambdaSQSPolicy`,
@@ -128,7 +172,7 @@ export class PocketSQSWithLambdaTarget extends PocketVersionedLambda {
               'sqs:GetQueueAttributes',
               'sqs:ChangeMessageVisibility',
             ],
-            resources: [sqsQueue.sqsQueue.arn],
+            resources: [sqsQueue.arn],
           },
         ],
       }).json,
