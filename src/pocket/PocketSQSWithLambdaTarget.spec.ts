@@ -70,3 +70,18 @@ test('validates batch config errors if batch window is less then 1', () => {
       })
   ).toThrow(Error);
 });
+
+test('renders a lambda triggered by an existing sqs queue', () => {
+  const app = Testing.app();
+  const stack = new TerraformStack(app, 'test');
+
+  new PocketSQSWithLambdaTarget(stack, 'test-sqs-lambda', {
+    ...config,
+    dataSqsQueue: {
+      name: 'my-existing-sqs',
+    },
+  });
+
+  const s = Testing.synth(stack);
+  expect(s).toMatchSnapshot();
+});
