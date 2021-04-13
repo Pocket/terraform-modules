@@ -93,7 +93,7 @@ exports[`renders a RDS cluster 1`] = `
         \\"copy_tags_to_snapshot\\": true,
         \\"database_name\\": \\"walter\\",
         \\"db_subnet_group_name\\": \\"\${aws_db_subnet_group.testRDSCluster_rds_subnet_group_88022457.name}\\",
-        \\"master_password\\": \\"30ed3bfe7d58e86a\\",
+        \\"master_password\\": \\"bowling\\",
         \\"master_username\\": \\"walter\\",
         \\"tags\\": {
           \\"whodis\\": \\"walter\\"

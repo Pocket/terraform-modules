@@ -11,6 +11,7 @@ test('renders a RDS cluster', () => {
     subnetIds: ['0', '1'],
     rdsConfig: {
       masterUsername: 'walter',
+      masterPassword: 'bowling',
       databaseName: 'walter',
     },
     tags: {

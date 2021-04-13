@@ -17,13 +17,13 @@ export type ApplicationRDSClusterConfig = Omit<
   | 'clusterIdentifierPrefix'
   | 'vpcSecurityGroupIds'
   | 'dbSubnetGroupName'
-  | 'masterPassword'
   | 'copyTagsToSnapshot'
   | 'tags'
   | 'lifecycle'
 > & {
   // masterUsername is not a required field in the RdsClusterConfig type but is required for create an RDS cluster
   masterUsername: string;
+  masterPassword?: string;
   engine?: 'aurora' | 'aurora-mysql' | 'aurora-postgresql';
 };
 
@@ -110,7 +110,9 @@ export class ApplicationRDSCluster extends Resource {
       clusterIdentifierPrefix: config.prefix.toLowerCase(),
       tags: config.tags,
       copyTagsToSnapshot: true, //Why would we ever want this to false??
-      masterPassword: crypto.randomBytes(8).toString('hex'),
+      masterPassword:
+        config.rdsConfig.masterPassword ??
+        crypto.randomBytes(8).toString('hex'),
       vpcSecurityGroupIds: [securityGroup.id],
       dbSubnetGroupName: subnetGroup.name,
       lifecycle: {
