@@ -93,7 +93,7 @@ exports[`renders a RDS cluster 1`] = `
         \\"copy_tags_to_snapshot\\": true,
         \\"database_name\\": \\"walter\\",
         \\"db_subnet_group_name\\": \\"\${aws_db_subnet_group.testRDSCluster_rds_subnet_group_88022457.name}\\",
-        \\"master_password\\": \\"34a06ba040b8d7a9\\",
+        \\"master_password\\": \\"30ed3bfe7d58e86a\\",
         \\"master_username\\": \\"walter\\",
         \\"tags\\": {
           \\"whodis\\": \\"walter\\"
@@ -133,7 +133,7 @@ exports[`renders a RDS cluster 1`] = `
     \\"aws_secretsmanager_secret_version\\": {
       \\"testRDSCluster_rds_secret_version_55C44893\\": {
         \\"secret_id\\": \\"\${aws_secretsmanager_secret.testRDSCluster_rds_secret_A2014138.id}\\",
-        \\"secret_string\\": \\"{\\\\\\"engine\\\\\\":\\\\\\"\${aws_rds_cluster.testRDSCluster_rds_cluster_B5FD08B5.engine}\\\\\\",\\\\\\"host\\\\\\":\\\\\\"\${aws_rds_cluster.testRDSCluster_rds_cluster_B5FD08B5.endpoint}\\\\\\",\\\\\\"username\\\\\\":\\\\\\"\${aws_rds_cluster.testRDSCluster_rds_cluster_B5FD08B5.master_username}\\\\\\",\\\\\\"password\\\\\\":\\\\\\"\${aws_rds_cluster.testRDSCluster_rds_cluster_B5FD08B5.master_password}\\\\\\",\\\\\\"dbname\\\\\\":\\\\\\"\${aws_rds_cluster.testRDSCluster_rds_cluster_B5FD08B5.database_name}\\\\\\",\\\\\\"port\\\\\\":-1.8881545897087498e+289}\\",
+        \\"secret_string\\": \\"{\\\\\\"engine\\\\\\":\\\\\\"\${aws_rds_cluster.testRDSCluster_rds_cluster_B5FD08B5.engine}\\\\\\",\\\\\\"host\\\\\\":\\\\\\"\${aws_rds_cluster.testRDSCluster_rds_cluster_B5FD08B5.endpoint}\\\\\\",\\\\\\"username\\\\\\":\\\\\\"\${aws_rds_cluster.testRDSCluster_rds_cluster_B5FD08B5.master_username}\\\\\\",\\\\\\"password\\\\\\":\\\\\\"\${aws_rds_cluster.testRDSCluster_rds_cluster_B5FD08B5.master_password}\\\\\\",\\\\\\"dbname\\\\\\":\\\\\\"\${aws_rds_cluster.testRDSCluster_rds_cluster_B5FD08B5.database_name}\\\\\\",\\\\\\"port\\\\\\":3306}\\",
         \\"depends_on\\": [
           \\"aws_secretsmanager_secret.testRDSCluster_rds_secret_A2014138\\"
         ],

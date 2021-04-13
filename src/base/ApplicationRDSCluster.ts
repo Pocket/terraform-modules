@@ -63,7 +63,8 @@ export class ApplicationRDSCluster extends Resource {
       ],
     });
 
-    const rdsPort = config.rdsConfig.engine.includes('postgresql')
+    // Set the default port for mysql/postgresql based on the engine value for RDS
+    const rdsPort = config.rdsConfig.engine?.includes('postgresql')
       ? 5432
       : 3306;
 
@@ -116,8 +117,6 @@ export class ApplicationRDSCluster extends Resource {
         ignoreChanges: ['master_username', 'master_password'],
       },
     });
-
-    console.log(this.rds);
 
     // Create secrets manager resource for the RDS
     // This value should be changed after initial creation
