@@ -1,13 +1,7 @@
 import { Resource } from 'cdktf';
 import {
-  DataAwsIamPolicyDocument,
   DataAwsVpc,
   DbSubnetGroup,
-  IamPolicy,
-  IamRole,
-  IamRolePolicyAttachment,
-  LambdaFunction,
-  LambdaPermission,
   RdsCluster,
   RdsClusterConfig,
   SecretsmanagerSecret,
@@ -15,10 +9,7 @@ import {
   SecurityGroup,
 } from '../../.gen/providers/aws';
 import { Construct } from 'constructs';
-import { DataArchiveFile } from '../../.gen/providers/archive';
-import * as fs from 'fs';
 import crypto from 'crypto';
-import path from 'path';
 
 //Override the default rds config but remove the items that we set ourselves.
 export type ApplicationRDSClusterConfig = Omit<
@@ -72,14 +63,18 @@ export class ApplicationRDSCluster extends Resource {
       ],
     });
 
+    const rdsPort = config.rdsConfig.engine.includes('postgresql')
+      ? 5432
+      : 3306;
+
     const securityGroup = new SecurityGroup(this, 'rds_security_group', {
       namePrefix: config.prefix,
       description: 'Managed by Terraform',
       vpcId: vpc.id,
       ingress: [
         {
-          fromPort: 3306,
-          toPort: 3306,
+          fromPort: rdsPort,
+          toPort: rdsPort,
           protocol: 'tcp',
           cidrBlocks: [vpc.cidrBlock],
           // the following are included due to a bug
@@ -88,6 +83,18 @@ export class ApplicationRDSCluster extends Resource {
           ipv6CidrBlocks: null,
           prefixListIds: null,
           securityGroups: null,
+        },
+      ],
+      egress: [
+        {
+          fromPort: 0,
+          protocol: '-1',
+          toPort: 0,
+          cidrBlocks: ['0.0.0.0/0'],
+          description: 'required',
+          ipv6CidrBlocks: [],
+          prefixListIds: [],
+          securityGroups: [],
         },
       ],
     });
@@ -110,204 +117,60 @@ export class ApplicationRDSCluster extends Resource {
       },
     });
 
-    if (
-      config.rdsConfig.engine == 'aurora' ||
-      config.rdsConfig.engine == 'aurora-mysql'
-    ) {
-      //If the engine is mysql or aurora (mysql compatible) then create a secret rotator that we can manually run after terraform creation
-      const { secretARN } = ApplicationRDSCluster.createMySqlSecretRotator(
-        this,
-        this.rds,
-        [securityGroup.id],
-        config.subnetIds,
-        config.prefix,
-        config.tags
-      );
-      this.secretARN = secretARN;
-    }
+    console.log(this.rds);
+
+    // Create secrets manager resource for the RDS
+    // This value should be changed after initial creation
+    const { secretARN } = ApplicationRDSCluster.createRdsSecret(
+      this,
+      this.rds,
+      rdsPort,
+      config.prefix,
+      config.tags
+    );
+
+    this.secretARN = secretARN;
   }
 
   /**
-   * Create a lambda that will rotate the master password of the database on demand
+   * Create an RDS secret
    *
    * @param scope
    * @param rds
-   * @param securityGroupIds
-   * @param subnetIds
+   * @param rdsPort
    * @param prefix
    * @param tags
    * @private
    */
-  private static createMySqlSecretRotator(
+  private static createRdsSecret(
     scope: Construct,
     rds: RdsCluster,
-    securityGroupIds: string[],
-    subnetIds: string[],
+    rdsPort: number,
     prefix: string,
     tags?: { [key: string]: string }
   ): { secretARN: string } {
-    //The example from AWS was in python, so we import it into archive
-    const lambdaFile = fs.readFileSync(
-      path.join(__dirname, 'lambda_functions/single_mysql_rotation.py'),
-      'utf8'
-    );
-    const lambdaArchive = new DataArchiveFile(scope, `rotation_lambda_zip`, {
-      type: 'zip',
-      outputPath: '/tmp/lambda_zip_inline.zip',
-      source: [
-        {
-          content: lambdaFile,
-          filename: 'index.py',
-        },
-      ],
-    });
-
-    //Create the role for the rotation lambda
-    const lambdaRole = new IamRole(scope, `rotation_lambda_role`, {
-      namePrefix: `${prefix}-LambdaRotationRole`,
-      assumeRolePolicy: new DataAwsIamPolicyDocument(
-        scope,
-        `lambda_rotation_assume_role_policy_document`,
-        {
-          statement: [
-            {
-              effect: 'Allow',
-              actions: ['sts:AssumeRole'],
-              principals: [
-                {
-                  type: 'Service',
-                  identifiers: ['lambda.amazonaws.com'],
-                },
-              ],
-            },
-          ],
-        }
-      ).json,
-      tags,
-    });
-
-    const networkPermissionsPolicyDocument = new DataAwsIamPolicyDocument(
-      scope,
-      `lambda_network_policy_document`,
-      {
-        statement: [
-          {
-            sid: 'VPCENIpolicies',
-            actions: [
-              'ec2:DescribeNetworkInterfaces',
-              'ec2:CreateNetworkInterfaces',
-              'ec2:DeleteNetworkInterfaces',
-              'ec2:DescribeInstances',
-              'ec2:AttachNetworkInterface',
-            ],
-            resources: ['*'],
-          },
-        ],
-      }
-    );
-
-    const lambdaNetworkPermissionsPolicy = new IamPolicy(
-      scope,
-      `lambda_network_policy`,
-      {
-        namePrefix: `${prefix}-LambdaNetworkPolicy`,
-        policy: networkPermissionsPolicyDocument.json,
-      }
-    );
-
-    new IamRolePolicyAttachment(scope, `lambda_network_policy_attachment`, {
-      role: lambdaRole.name,
-      policyArn: lambdaNetworkPermissionsPolicy.arn,
-    });
-
-    //Create the rotation lambda
-    const lambda = new LambdaFunction(scope, `rotation_lambda`, {
-      filename: lambdaArchive.outputPath,
-      functionName: `${rds.clusterIdentifier}-MainPasswordRotation`,
-      role: lambdaRole.arn,
-      handler: 'index.lambda_handler',
-      sourceCodeHash: lambdaArchive.outputBase64Sha256,
-      runtime: 'python3.7',
-      vpcConfig: [
-        {
-          securityGroupIds: securityGroupIds,
-          subnetIds: subnetIds,
-        },
-      ],
-    });
-
-    //Give secrets manager the permission to run the function
-    new LambdaPermission(scope, `rotation_lambda_permission`, {
-      functionName: lambda.functionName,
-      statementId: 'AllowExecutionSecretManager',
-      action: 'lambda:InvokeFunction',
-      principal: 'secretsmanager.amazonaws.com',
-    });
-
     //Create the secret
     const secret = new SecretsmanagerSecret(scope, `rds_secret`, {
       description: `Secret For ${rds.clusterIdentifier}`,
       name: `${prefix}/${rds.clusterIdentifier}`,
-      rotationLambdaArn: lambda.arn,
       //We dont auto rotate, because our apps dont have triggers to refresh yet.
       //This is mainly so we can rotate after we create the RDS.
+      dependsOn: [rds],
     });
 
     //Create the initial secret version
     new SecretsmanagerSecretVersion(scope, `rds_secret_version`, {
       secretId: secret.id,
       secretString: JSON.stringify({
-        engine: 'mysql',
+        engine: rds.engine,
         host: rds.endpoint,
         username: rds.masterUsername,
         password: rds.masterPassword,
         dbname: rds.databaseName,
-        port: rds.port,
+        port: rdsPort,
       }),
+      dependsOn: [secret],
     });
-
-    //Create our rotation policy
-    const rdsLambdaRotationPolicyDocument = new DataAwsIamPolicyDocument(
-      scope,
-      `rds_lambda_rotation_policy_document`,
-      {
-        statement: [
-          {
-            sid: 'InvokeLambda',
-            actions: [
-              'lambda:GetFunction',
-              'lambda:InvokeAsync',
-              'lambda:InvokeFunction',
-            ],
-            resources: [lambda.arn],
-          },
-          {
-            sid: 'SecretsManagerAdmin',
-            actions: ['secretsmanager:*'],
-            resources: [secret.arn, `${secret.arn}*`],
-          },
-        ],
-      }
-    );
-
-    const lambdaRotationPolicy = new IamPolicy(
-      scope,
-      `rds_lambda_rotation_policy`,
-      {
-        namePrefix: `${prefix}-LambdaRotation`,
-        policy: rdsLambdaRotationPolicyDocument.json,
-      }
-    );
-
-    //Attach the rotation policy to the role
-    new IamRolePolicyAttachment(
-      scope,
-      `lambda_rotation_role_policy_attachment`,
-      {
-        role: lambdaRole.name,
-        policyArn: lambdaRotationPolicy.arn,
-      }
-    );
 
     return { secretARN: secret.arn };
   }

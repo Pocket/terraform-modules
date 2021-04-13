@@ -9,9 +9,8 @@
   "license": "MPL-2.0",
   "scripts": {
     "get": "cdktf get",
-    "copy-lambda": "cp -r src/base/lambda_functions dist/src/base",
     "build": "rm -rf dist && npm run get && tsc",
-    "build:dev": "npm run build && npm run copy-lambda && NODE_ENV=development npm run synth",
+    "build:dev": "npm run build && NODE_ENV=development npm run synth",
     "synth": "cdktf synth",
     "compile": "tsc --pretty",
     "watch": "tsc -w",
