@@ -28,6 +28,11 @@ interface MountPoint {
   sourceVolume: string;
 }
 
+interface DependsOn {
+  containerName: string;
+  condition: 'START' | 'COMPLETE' | 'SUCCESS' | 'HEALTHY';
+}
+
 export interface ApplicationECSContainerDefinitionProps {
   containerImage?: string;
   logGroup?: string;
@@ -41,6 +46,7 @@ export interface ApplicationECSContainerDefinitionProps {
   cpu?: number;
   healthCheck?: HealthcheckVariable;
   mountPoints?: MountPoint[];
+  dependsOn?: DependsOn[];
 }
 
 export function buildDefinitionJSON(
@@ -85,7 +91,7 @@ export function buildDefinitionJSON(
     image: config.containerImage,
     startTimeout: null,
     firelensConfiguration: null,
-    dependsOn: null,
+    dependsOn: config.dependsOn ?? null,
     disableNetworking: null,
     interactive: null,
     healthCheck: config.healthCheck ?? null,
