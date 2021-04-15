@@ -30,7 +30,7 @@ test('renders a plain sqs queue with a deadletter and lambda target', () => {
 
   new PocketSQSWithLambdaTarget(stack, 'test-sqs-lambda', {
     ...config,
-    sqsQueue: {
+    configForNewSqsQueue: {
       maxReceiveCount: 3,
     },
   });
@@ -46,7 +46,7 @@ test('validates batch config errors if no batch window', () => {
     () =>
       new PocketSQSWithLambdaTarget(stack, 'test-sqs-lambda', {
         ...config,
-        sqsQueue: {
+        configForNewSqsQueue: {
           maxReceiveCount: 3,
         },
         batchSize: 20,
@@ -62,7 +62,7 @@ test('validates batch config errors if batch window is less then 1', () => {
     () =>
       new PocketSQSWithLambdaTarget(stack, 'test-sqs-lambda', {
         ...config,
-        sqsQueue: {
+        configForNewSqsQueue: {
           maxReceiveCount: 3,
         },
         batchSize: 20,
@@ -77,7 +77,7 @@ test('renders a lambda triggered by an existing sqs queue', () => {
 
   new PocketSQSWithLambdaTarget(stack, 'test-sqs-lambda', {
     ...config,
-    dataSqsQueue: {
+    configFromPreexistingSqsQueue: {
       name: 'my-existing-sqs',
     },
   });
