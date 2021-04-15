@@ -25,11 +25,11 @@ export interface PocketSQSWithLambdaTargetProps
   /**
    * Set dataSqsQueue to use an existing SQS queue. If not provided, then a queue will be created.
    */
-  dataSqsQueue?: DataAwsSqsQueueConfig;
+  configFromPreexistingSqsQueue?: DataAwsSqsQueueConfig;
   /**
    * Properties to configure the SQS queue that is created. Cannot be used in combination with dataSqsQueue.
    */
-  sqsQueue?: PocketSQSProps;
+  configForNewSqsQueue?: PocketSQSProps;
   batchSize?: number;
   batchWindow?: number;
 }
@@ -48,11 +48,12 @@ export interface PocketSQSProps {
 export class PocketSQSWithLambdaTarget extends PocketVersionedLambda {
   /**
    * If an sqsQueue is created, this is a reference to the SQS queue with a dead letter queue.
+   * (A dead letter queue is a queue for collecting messages about queue processes that failed).
    * It's undefined if an existing queue is used.
    */
-  public readonly sqsQueue: ApplicationSQSQueue;
+  public readonly newSqsQueue: ApplicationSQSQueue;
 
-  private readonly sqsQueueResource: SqsQueue | DataAwsSqsQueue;
+  private readonly currentSqsQueue: SqsQueue | DataAwsSqsQueue;
 
   constructor(
     scope: Construct,
@@ -62,25 +63,25 @@ export class PocketSQSWithLambdaTarget extends PocketVersionedLambda {
     super(scope, name, config);
     PocketSQSWithLambdaTarget.validateEventSourceMappingConfig(config);
 
-    if (config.dataSqsQueue) {
-      this.sqsQueueResource = this.getExistingSqsQueue({
-        ...config.dataSqsQueue,
+    if (config.configFromPreexistingSqsQueue) {
+      this.currentSqsQueue = this.getExistingSqsQueue({
+        ...config.configFromPreexistingSqsQueue,
       });
     } else {
-      this.sqsQueue = this.createSqsQueue({
-        ...config.sqsQueue,
+      this.newSqsQueue = this.createSqsQueue({
+        ...config.configForNewSqsQueue,
         name: `${config.name}-Queue`,
         tags: config.tags,
       });
-      this.sqsQueueResource = this.sqsQueue.sqsQueue;
+      this.currentSqsQueue = this.newSqsQueue.sqsQueue;
     }
 
     this.createSQSExecutionPolicyOnLambda(
       this.lambda.lambdaExecutionRole,
-      this.sqsQueueResource
+      this.currentSqsQueue
     );
 
-    this.createEventSourceMapping(this.lambda, this.sqsQueueResource, config);
+    this.createEventSourceMapping(this.lambda, this.currentSqsQueue, config);
   }
 
   /**
@@ -122,7 +123,7 @@ export class PocketSQSWithLambdaTarget extends PocketVersionedLambda {
       );
     }
 
-    if (config.dataSqsQueue && config.sqsQueue) {
+    if (config.configFromPreexistingSqsQueue && config.configForNewSqsQueue) {
       throw new Error(
         'dataSqsQueue and sqsQueue cannot be used simultaneously.'
       );
