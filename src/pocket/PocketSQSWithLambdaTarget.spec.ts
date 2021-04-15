@@ -77,7 +77,7 @@ test('renders a lambda triggered by an existing sqs queue', () => {
 
   new PocketSQSWithLambdaTarget(stack, 'test-sqs-lambda', {
     ...config,
-    dataSqsQueue: {
+    configFromPreexistingSqsQueue: {
       name: 'my-existing-sqs',
     },
   });
