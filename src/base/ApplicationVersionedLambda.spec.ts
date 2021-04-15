@@ -1,4 +1,4 @@
-import { Testing, TerraformStack } from 'cdktf';
+import { TerraformStack, Testing } from 'cdktf';
 import {
   ApplicationVersionedLambda,
   ApplicationVersionedLambdaProps,
@@ -139,6 +139,18 @@ test('renders a versioned lambda with publish ignored', () => {
   new ApplicationVersionedLambda(stack, 'test-versioned-lambda', {
     ...config,
     usesCodeDeploy: true,
+  });
+
+  expect(Testing.synth(stack)).toMatchSnapshot();
+});
+
+test('renders a lambda with a node v14 runtime', () => {
+  const app = Testing.app();
+  const stack = new TerraformStack(app, 'test');
+
+  new ApplicationVersionedLambda(stack, 'test-versioned-lambda', {
+    ...config,
+    runtime: LAMBDA_RUNTIMES.NODEJS14,
   });
 
   expect(Testing.synth(stack)).toMatchSnapshot();
