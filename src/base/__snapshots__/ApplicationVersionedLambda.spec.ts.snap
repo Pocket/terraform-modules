@@ -1,5 +1,216 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`renders a lambda with a node v14 runtime 1`] = `
+"{
+  \\"//\\": {
+    \\"metadata\\": {
+      \\"version\\": \\"stubbed\\",
+      \\"stackName\\": \\"test\\"
+    }
+  },
+  \\"resource\\": {
+    \\"aws_s3_bucket\\": {
+      \\"test-versioned-lambda_code-bucket_C658EE92\\": {
+        \\"acl\\": \\"private\\",
+        \\"bucket\\": \\"test-bucket\\",
+        \\"force_destroy\\": true,
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-versioned-lambda/code-bucket\\",
+            \\"uniqueId\\": \\"test-versioned-lambda_code-bucket_C658EE92\\"
+          }
+        }
+      }
+    },
+    \\"aws_s3_bucket_public_access_block\\": {
+      \\"test-versioned-lambda_code-bucket-public-access-block_9662548B\\": {
+        \\"block_public_acls\\": true,
+        \\"block_public_policy\\": true,
+        \\"bucket\\": \\"\${aws_s3_bucket.test-versioned-lambda_code-bucket_C658EE92.id}\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-versioned-lambda/code-bucket-public-access-block\\",
+            \\"uniqueId\\": \\"test-versioned-lambda_code-bucket-public-access-block_9662548B\\"
+          }
+        }
+      }
+    },
+    \\"aws_iam_role\\": {
+      \\"test-versioned-lambda_execution-role_068103E3\\": {
+        \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.test-versioned-lambda_assume-policy-document_54E2E6E3.json}\\",
+        \\"name\\": \\"Test-Lambda-ExecutionRole\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-versioned-lambda/execution-role\\",
+            \\"uniqueId\\": \\"test-versioned-lambda_execution-role_068103E3\\"
+          }
+        }
+      }
+    },
+    \\"aws_iam_policy\\": {
+      \\"test-versioned-lambda_execution-policy_A934214F\\": {
+        \\"name\\": \\"Test-Lambda-ExecutionRolePolicy\\",
+        \\"policy\\": \\"\${data.aws_iam_policy_document.test-versioned-lambda_execution-policy-document_BA37CD4D.json}\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-versioned-lambda/execution-policy\\",
+            \\"uniqueId\\": \\"test-versioned-lambda_execution-policy_A934214F\\"
+          }
+        }
+      }
+    },
+    \\"aws_iam_role_policy_attachment\\": {
+      \\"test-versioned-lambda_execution-role-policy-attachment_30E5BCA4\\": {
+        \\"policy_arn\\": \\"\${aws_iam_policy.test-versioned-lambda_execution-policy_A934214F.arn}\\",
+        \\"role\\": \\"\${aws_iam_role.test-versioned-lambda_execution-role_068103E3.name}\\",
+        \\"depends_on\\": [
+          \\"aws_iam_role.test-versioned-lambda_execution-role_068103E3\\",
+          \\"aws_iam_policy.test-versioned-lambda_execution-policy_A934214F\\"
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-versioned-lambda/execution-role-policy-attachment\\",
+            \\"uniqueId\\": \\"test-versioned-lambda_execution-role-policy-attachment_30E5BCA4\\"
+          }
+        }
+      }
+    },
+    \\"aws_lambda_function\\": {
+      \\"test-versioned-lambda_D818669D\\": {
+        \\"filename\\": \\"\${data.archive_file.test-versioned-lambda_lambda-default-file_E2490368.output_path}\\",
+        \\"function_name\\": \\"Test-Lambda-Function\\",
+        \\"handler\\": \\"index.handler\\",
+        \\"publish\\": true,
+        \\"role\\": \\"\${aws_iam_role.test-versioned-lambda_execution-role_068103E3.arn}\\",
+        \\"runtime\\": \\"nodejs14.x\\",
+        \\"source_code_hash\\": \\"\${data.archive_file.test-versioned-lambda_lambda-default-file_E2490368.output_base64sha256}\\",
+        \\"timeout\\": 5,
+        \\"vpc_config\\": [],
+        \\"lifecycle\\": {
+          \\"ignore_changes\\": [
+            \\"filename\\",
+            \\"source_code_hash\\"
+          ]
+        },
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-versioned-lambda/lambda\\",
+            \\"uniqueId\\": \\"test-versioned-lambda_D818669D\\"
+          }
+        }
+      }
+    },
+    \\"aws_cloudwatch_log_group\\": {
+      \\"test-versioned-lambda_log-group_CB8A67E7\\": {
+        \\"name\\": \\"/aws/lambda/\${aws_lambda_function.test-versioned-lambda_D818669D.function_name}\\",
+        \\"retention_in_days\\": 14,
+        \\"depends_on\\": [
+          \\"aws_lambda_function.test-versioned-lambda_D818669D\\"
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-versioned-lambda/log-group\\",
+            \\"uniqueId\\": \\"test-versioned-lambda_log-group_CB8A67E7\\"
+          }
+        }
+      }
+    },
+    \\"aws_lambda_alias\\": {
+      \\"test-versioned-lambda_alias_60AF9CE1\\": {
+        \\"function_name\\": \\"\${aws_lambda_function.test-versioned-lambda_D818669D.function_name}\\",
+        \\"function_version\\": \\"\${split(\\\\\\":\\\\\\", aws_lambda_function.test-versioned-lambda_D818669D.qualified_arn)[7]}\\",
+        \\"name\\": \\"DEPLOYED\\",
+        \\"depends_on\\": [
+          \\"aws_lambda_function.test-versioned-lambda_D818669D\\"
+        ],
+        \\"lifecycle\\": {
+          \\"ignore_changes\\": [
+            \\"function_version\\"
+          ]
+        },
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-versioned-lambda/alias\\",
+            \\"uniqueId\\": \\"test-versioned-lambda_alias_60AF9CE1\\"
+          }
+        }
+      }
+    }
+  },
+  \\"data\\": {
+    \\"aws_iam_policy_document\\": {
+      \\"test-versioned-lambda_assume-policy-document_54E2E6E3\\": {
+        \\"version\\": \\"2012-10-17\\",
+        \\"statement\\": [
+          {
+            \\"actions\\": [
+              \\"sts:AssumeRole\\"
+            ],
+            \\"effect\\": \\"Allow\\",
+            \\"principals\\": [
+              {
+                \\"identifiers\\": [
+                  \\"lambda.amazonaws.com\\",
+                  \\"edgelambda.amazonaws.com\\"
+                ],
+                \\"type\\": \\"Service\\"
+              }
+            ]
+          }
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-versioned-lambda/assume-policy-document\\",
+            \\"uniqueId\\": \\"test-versioned-lambda_assume-policy-document_54E2E6E3\\"
+          }
+        }
+      },
+      \\"test-versioned-lambda_execution-policy-document_BA37CD4D\\": {
+        \\"version\\": \\"2012-10-17\\",
+        \\"statement\\": [
+          {
+            \\"actions\\": [
+              \\"logs:CreateLogGroup\\",
+              \\"logs:CreateLogStream\\",
+              \\"logs:PutLogEvents\\",
+              \\"logs:DescribeLogStreams\\"
+            ],
+            \\"effect\\": \\"Allow\\",
+            \\"resources\\": [
+              \\"arn:aws:logs:*:*:*\\"
+            ]
+          }
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-versioned-lambda/execution-policy-document\\",
+            \\"uniqueId\\": \\"test-versioned-lambda_execution-policy-document_BA37CD4D\\"
+          }
+        }
+      }
+    },
+    \\"archive_file\\": {
+      \\"test-versioned-lambda_lambda-default-file_E2490368\\": {
+        \\"output_path\\": \\"index.js.zip\\",
+        \\"type\\": \\"zip\\",
+        \\"source\\": [
+          {
+            \\"content\\": \\"export const handler = (event, context) => { console.log(event) }\\",
+            \\"filename\\": \\"index.js\\"
+          }
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-versioned-lambda/lambda-default-file\\",
+            \\"uniqueId\\": \\"test-versioned-lambda_lambda-default-file_E2490368\\"
+          }
+        }
+      }
+    }
+  }
+}"
+`;
+
 exports[`renders a versioned lambda 1`] = `
 "{
   \\"//\\": {

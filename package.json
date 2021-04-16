@@ -38,7 +38,7 @@
     "node": ">=10.12"
   },
   "peerDependencies": {
-    "cdktf": "^0.0.17",
+    "cdktf": "^0.2.2",
     "constructs": "^3.0.4"
   },
   "dependencies": {
@@ -57,8 +57,8 @@
     "@types/node": "^14.14.31",
     "@typescript-eslint/eslint-plugin": "^4.22.0",
     "@typescript-eslint/parser": "^4.21.0",
-    "cdktf": "0.2.1",
-    "cdktf-cli": "0.2.1",
+    "cdktf": "0.2.2",
+    "cdktf-cli": "^0.2.2",
     "chai": "^4.3.0",
     "constructs": "^3.2.71",
     "eslint": "^7.14.0",

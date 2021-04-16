@@ -22,6 +22,7 @@ import {
 export enum LAMBDA_RUNTIMES {
   PYTHON38 = 'python3.8',
   NODEJS12 = 'nodejs12.x',
+  NODEJS14 = 'nodejs14.x',
 }
 
 export interface ApplicationVersionedLambdaProps {
