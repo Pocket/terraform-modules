@@ -27,7 +27,7 @@ export interface PocketSQSWithLambdaTargetProps
    */
   configFromPreexistingSqsQueue?: DataAwsSqsQueueConfig;
   /**
-   * Configure a new SQS queue. Cannot be used in combination with dataSqsQueue.
+   * Configure a new SQS queue. Cannot be used in combination with configFromPreexistingSqsQueue.
    */
   sqsQueue?: PocketSQSProps;
   batchSize?: number;
@@ -116,7 +116,7 @@ export class PocketSQSWithLambdaTarget extends PocketVersionedLambda {
 
     if (config.configFromPreexistingSqsQueue && config.sqsQueue) {
       throw new Error(
-        'dataSqsQueue and sqsQueue cannot be used simultaneously.'
+        'configFromPreexistingSqsQueue and sqsQueue cannot be used simultaneously.'
       );
     }
   }
