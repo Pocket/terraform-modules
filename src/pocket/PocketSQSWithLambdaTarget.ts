@@ -23,7 +23,7 @@ import {
 export interface PocketSQSWithLambdaTargetProps
   extends PocketVersionedLambdaProps {
   /**
-   * Set dataSqsQueue to use an existing SQS queue. If not provided, then a queue will be created.
+   * Set configFromPreexistingSqsQueue to use an existing SQS queue. If not provided, then a queue will be created.
    */
   configFromPreexistingSqsQueue?: DataAwsSqsQueueConfig;
   /**
