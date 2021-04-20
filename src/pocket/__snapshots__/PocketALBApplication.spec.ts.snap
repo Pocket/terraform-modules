@@ -587,6 +587,7 @@ exports[`PocketALBApplication renders an application custom default alarms 1`] =
           \\"FARGATE\\"
         ],
         \\"task_role_arn\\": \\"\${aws_iam_role.testPocketApp_ecs_service_ecs-iam_ecs-task-role_7DB93963.arn}\\",
+        \\"volume\\": [],
         \\"depends_on\\": [],
         \\"//\\": {
           \\"metadata\\": {
@@ -1606,6 +1607,7 @@ exports[`PocketALBApplication renders an application with autoscaling group and 
           \\"hobby\\": \\"bowling\\"
         },
         \\"task_role_arn\\": \\"\${aws_iam_role.testPocketApp_ecs_service_ecs-iam_ecs-task-role_7DB93963.arn}\\",
+        \\"volume\\": [],
         \\"depends_on\\": [],
         \\"//\\": {
           \\"metadata\\": {
@@ -2598,6 +2600,7 @@ exports[`PocketALBApplication renders an application with custom task sizes 1`] 
           \\"FARGATE\\"
         ],
         \\"task_role_arn\\": \\"\${aws_iam_role.testPocketApp_ecs_service_ecs-iam_ecs-task-role_7DB93963.arn}\\",
+        \\"volume\\": [],
         \\"depends_on\\": [],
         \\"//\\": {
           \\"metadata\\": {
@@ -3598,6 +3601,7 @@ exports[`PocketALBApplication renders an application with default autoscaling gr
           \\"hobby\\": \\"bowling\\"
         },
         \\"task_role_arn\\": \\"\${aws_iam_role.testPocketApp_ecs_service_ecs-iam_ecs-task-role_7DB93963.arn}\\",
+        \\"volume\\": [],
         \\"depends_on\\": [],
         \\"//\\": {
           \\"metadata\\": {
@@ -4590,6 +4594,7 @@ exports[`PocketALBApplication renders an application with minimal config 1`] = `
           \\"FARGATE\\"
         ],
         \\"task_role_arn\\": \\"\${aws_iam_role.testPocketApp_ecs_service_ecs-iam_ecs-task-role_7DB93963.arn}\\",
+        \\"volume\\": [],
         \\"depends_on\\": [],
         \\"//\\": {
           \\"metadata\\": {
@@ -5599,6 +5604,7 @@ exports[`PocketALBApplication renders an application with modified container def
           \\"FARGATE\\"
         ],
         \\"task_role_arn\\": \\"\${aws_iam_role.testPocketApp_ecs_service_ecs-iam_ecs-task-role_7DB93963.arn}\\",
+        \\"volume\\": [],
         \\"depends_on\\": [
           \\"aws_ecr_repository.testPocketApp_ecs_service_ecr-xray-daemon_ecr-repo_9028CD2C\\"
         ],
@@ -6729,6 +6735,7 @@ exports[`PocketALBApplication renders an external application 1`] = `
           \\"FARGATE\\"
         ],
         \\"task_role_arn\\": \\"\${aws_iam_role.testPocketApp_ecs_service_ecs-iam_ecs-task-role_7DB93963.arn}\\",
+        \\"volume\\": [],
         \\"depends_on\\": [],
         \\"//\\": {
           \\"metadata\\": {
@@ -7695,6 +7702,7 @@ exports[`PocketALBApplication renders an internal application 1`] = `
           \\"FARGATE\\"
         ],
         \\"task_role_arn\\": \\"\${aws_iam_role.testPocketApp_ecs_service_ecs-iam_ecs-task-role_7DB93963.arn}\\",
+        \\"volume\\": [],
         \\"depends_on\\": [],
         \\"//\\": {
           \\"metadata\\": {
@@ -8695,6 +8703,7 @@ exports[`PocketALBApplication renders an internal application with tags 1`] = `
           \\"hobby\\": \\"bowling\\"
         },
         \\"task_role_arn\\": \\"\${aws_iam_role.testPocketApp_ecs_service_ecs-iam_ecs-task-role_7DB93963.arn}\\",
+        \\"volume\\": [],
         \\"depends_on\\": [],
         \\"//\\": {
           \\"metadata\\": {
