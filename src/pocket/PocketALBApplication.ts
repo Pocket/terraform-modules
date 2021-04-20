@@ -665,7 +665,6 @@ export class PocketALBApplication extends Resource {
                 ecsServiceClusterName,
                 {
                   yAxis: 'right',
-                  stat: 'Sum',
                   color: '#c49c94',
                 },
               ],
