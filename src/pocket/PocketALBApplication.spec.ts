@@ -300,4 +300,17 @@ describe('PocketALBApplication', () => {
     expect(pocketApp.listeners[0].portInput).toEqual(80);
     expect(pocketApp.listeners[1].portInput).toEqual(443);
   });
+
+  it('exposes the ecs service', () => {
+    const app = Testing.app();
+    const stack = new TerraformStack(app, 'test');
+
+    const pocketApp = new PocketALBApplication(
+      stack,
+      'testPocketApp',
+      BASE_CONFIG
+    );
+
+    expect(pocketApp.ecsService.mainTargetGroup).not.toBeNull();
+  });
 });
