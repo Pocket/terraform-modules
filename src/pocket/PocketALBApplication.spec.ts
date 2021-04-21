@@ -279,4 +279,25 @@ describe('PocketALBApplication', () => {
       () => new PocketALBApplication(stack, 'testPocketApp', alarmConfig)
     ).toThrow(Error);
   });
+
+  it('exposes the alb listeners', () => {
+    const app = Testing.app();
+    const stack = new TerraformStack(app, 'test');
+
+    const pocketApp = new PocketALBApplication(
+      stack,
+      'testPocketApp',
+      BASE_CONFIG
+    );
+
+    expect(pocketApp.listeners.length).toEqual(2);
+    // We are using "portInput" here because there is a bug
+    // when the "port" attribute is used, it returns a random
+    // and really high floating point number
+    // Example below:
+    // Expected: 80
+    // Received: -1.8881545897087505e+289
+    expect(pocketApp.listeners[0].portInput).toEqual(80);
+    expect(pocketApp.listeners[1].portInput).toEqual(443);
+  });
 });
