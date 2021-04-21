@@ -85,6 +85,7 @@ const DEFAULT_AUTOSCALING_CONFIG = {
 
 export class PocketALBApplication extends Resource {
   public readonly alb: ApplicationLoadBalancer;
+  public readonly ecsService: ApplicationECSService;
   public readonly baseDNS: ApplicationBaseDNS;
   public readonly listeners: AlbListener[];
   private readonly config: PocketALBApplicationProps;
@@ -123,6 +124,7 @@ export class PocketALBApplication extends Resource {
     }
 
     const ecsService = this.createECSService(alb, albCertificate);
+    this.ecsService = ecsService.ecs;
 
     this.createCloudwatchDashboard(
       alb.alb.arnSuffix,
