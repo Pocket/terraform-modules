@@ -86,6 +86,7 @@ const DEFAULT_AUTOSCALING_CONFIG = {
 export class PocketALBApplication extends Resource {
   public readonly alb: ApplicationLoadBalancer;
   public readonly baseDNS: ApplicationBaseDNS;
+  public readonly listeners: AlbListener[];
   private readonly config: PocketALBApplicationProps;
   private readonly pocketVPC: PocketVPC;
 
@@ -95,6 +96,8 @@ export class PocketALBApplication extends Resource {
     config: PocketALBApplicationProps
   ) {
     super(scope, name);
+
+    this.listeners = [];
 
     this.config = PocketALBApplication.validateConfig(config);
 
@@ -375,7 +378,7 @@ export class PocketALBApplication extends Resource {
       tags: this.config.tags,
     });
 
-    new AlbListener(this, 'listener_http', {
+    const httpListener = new AlbListener(this, 'listener_http', {
       loadBalancerArn: alb.alb.arn,
       port: 80,
       protocol: 'HTTP',
@@ -411,6 +414,9 @@ export class PocketALBApplication extends Resource {
       ],
       certificateArn: albCertificate.arn,
     });
+
+    // We want to be able to make resource changes on the alb's listeners so we expose them
+    this.listeners.push(httpListener, httpsListener);
 
     let ecsConfig: ApplicationECSServiceProps = {
       prefix: this.config.prefix,
