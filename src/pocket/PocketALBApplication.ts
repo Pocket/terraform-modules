@@ -45,6 +45,8 @@ export interface PocketALBApplicationProps {
     port: number;
     name: string;
     healthCheckPath: string;
+    /** By default, traffic is forwarded to https. Setting this to 'true' directly sends http traffic to the target. */
+    disableHttpsForwarding?: boolean;
   };
   taskSize?: {
     cpu: number;
@@ -433,6 +435,13 @@ export class PocketALBApplication extends Resource {
         containerName: this.config.exposedContainer.name,
         healthCheckPath: this.config.exposedContainer.healthCheckPath,
         listenerArn: httpsListener.arn,
+        /** Hack: disable HTTPS forwarding if disableHttpsForwarding is true.
+         * Set the test listener to the http listener. This will cause CodeDeploy to set the target of http listener
+         * directly to the active target, overriding the default of forwarding it to the https listener.
+         */
+        testListenerArn: this.config.exposedContainer.disableHttpsForwarding
+          ? httpListener.arn
+          : undefined,
         albSecurityGroupId: alb.securityGroup.id,
       },
       vpcId: this.pocketVPC.vpc.id,
