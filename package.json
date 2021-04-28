@@ -54,7 +54,7 @@
     "@semantic-release/release-notes-generator": "^9.0.1",
     "@types/chai": "^4.2.16",
     "@types/jest": "^26.0.23",
-    "@types/node": "^15.0.0",
+    "@types/node": "^15.0.1",
     "@typescript-eslint/eslint-plugin": "^4.22.0",
     "@typescript-eslint/parser": "^4.21.0",
     "cdktf": "0.2.2",
