@@ -47,7 +47,11 @@ export interface PocketALBApplicationProps {
     port: number;
     name: string;
     healthCheckPath: string;
-    /** By default, traffic is forwarded to https. Setting this to 'true' directly sends http traffic to the target. */
+    /** By default, traffic is forwarded to https. Setting this to 'true' directly sends http traffic to the target.
+     * @deprecated disableHttpsForwarding should only be used to support legacy clients that do not follow redirects
+     * and make requests on port 80. disableHttpsForwarding is intended to be temporary, but it is not known at this
+     * time when it will be removed.
+     */
     disableHttpsForwarding?: boolean;
   };
   taskSize?: {
@@ -439,7 +443,9 @@ export class PocketALBApplication extends Resource {
         listenerArn: httpsListener.arn,
         /** Hack: disable HTTPS forwarding if disableHttpsForwarding is true.
          * Set the test listener to the http listener. This will cause CodeDeploy to set the target of http listener
-         * directly to the active target, overriding the default of forwarding it to the https listener.
+         * directly to the active target, which is needed in blue/green deployments, where the target changes on every
+         * deployment. This is the least-bad solution that we could think of to have two listeners that route directly
+         * to the target group. Please let us know if there is a cleaner solution.
          */
         testListenerArn: this.config.exposedContainer.disableHttpsForwarding
           ? httpListener.arn
