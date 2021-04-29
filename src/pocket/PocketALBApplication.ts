@@ -1,6 +1,8 @@
 import { Resource } from 'cdktf';
 import {
   AlbListener,
+  AlbListenerRule,
+  AlbTargetGroup,
   CloudfrontDistribution,
   CloudwatchDashboard,
   CloudwatchMetricAlarm,
@@ -45,6 +47,12 @@ export interface PocketALBApplicationProps {
     port: number;
     name: string;
     healthCheckPath: string;
+    /** By default, traffic is forwarded to https. Setting this to 'true' directly sends http traffic to the target.
+     * @deprecated disableHttpsForwarding should only be used to support legacy clients that do not follow redirects
+     * and make requests on port 80. disableHttpsForwarding is intended to be temporary, but it is not known at this
+     * time when it will be removed.
+     */
+    disableHttpsForwarding?: boolean;
   };
   taskSize?: {
     cpu: number;
@@ -433,6 +441,15 @@ export class PocketALBApplication extends Resource {
         containerName: this.config.exposedContainer.name,
         healthCheckPath: this.config.exposedContainer.healthCheckPath,
         listenerArn: httpsListener.arn,
+        /** Hack: disable HTTPS forwarding if disableHttpsForwarding is true.
+         * Set the test listener to the http listener. This will cause CodeDeploy to set the target of http listener
+         * directly to the active target, which is needed in blue/green deployments, where the target changes on every
+         * deployment. This is the least-bad solution that we could think of to have two listeners that route directly
+         * to the target group. Please let us know if there is a cleaner solution.
+         */
+        testListenerArn: this.config.exposedContainer.disableHttpsForwarding
+          ? httpListener.arn
+          : undefined,
         albSecurityGroupId: alb.securityGroup.id,
       },
       vpcId: this.pocketVPC.vpc.id,
@@ -454,6 +471,14 @@ export class PocketALBApplication extends Resource {
       'ecs_service',
       ecsConfig
     );
+
+    if (this.config.exposedContainer.disableHttpsForwarding) {
+      this.createRuleThatForwardsAlbListenerToTargetGroup(
+        'listener_rule_http',
+        httpListener,
+        ecsService.mainTargetGroup.targetGroup
+      );
+    }
 
     new ApplicationAutoscaling(this, 'autoscaling', {
       prefix: this.config.prefix,
@@ -832,6 +857,38 @@ export class PocketALBApplication extends Resource {
     }
 
     this.createAlarms(defaultAlarms);
+  }
+
+  /**
+   * Forward all traffic to the given httpListener to the given targetGroup.
+   *
+   * @param id
+   * @param httpListener
+   * @param targetGroup
+   */
+  private createRuleThatForwardsAlbListenerToTargetGroup(
+    id: string,
+    httpListener: AlbListener,
+    targetGroup: AlbTargetGroup
+  ) {
+    new AlbListenerRule(this, id, {
+      listenerArn: httpListener.arn,
+      priority: 1,
+      condition: [
+        {
+          pathPattern: [{ values: ['*'] }],
+        },
+      ],
+      action: [
+        {
+          type: 'forward',
+          targetGroupArn: targetGroup.arn,
+        },
+      ],
+      lifecycle: {
+        ignoreChanges: ['action'],
+      },
+    });
   }
 
   private createAlarms(alarms: CloudwatchMetricAlarmConfig[]): void {
