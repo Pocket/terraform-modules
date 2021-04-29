@@ -45,7 +45,6 @@ class Example extends TerraformStack {
         name: 'blueContainer',
         port: 3000,
         healthCheckPath: '/',
-        disableHttpsForwarding: true,
       },
       codeDeploy: {
         useCodeDeploy: true,
