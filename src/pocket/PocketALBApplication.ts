@@ -1,6 +1,8 @@
 import { Resource } from 'cdktf';
 import {
   AlbListener,
+  AlbListenerRule,
+  AlbTargetGroup,
   CloudfrontDistribution,
   CloudwatchDashboard,
   CloudwatchMetricAlarm,
@@ -464,6 +466,14 @@ export class PocketALBApplication extends Resource {
       ecsConfig
     );
 
+    if (this.config.exposedContainer.disableHttpsForwarding) {
+      this.createRuleThatForwardsAlbListenerToTargetGroup(
+        'listener_rule_http',
+        httpListener,
+        ecsService.mainTargetGroup.targetGroup
+      );
+    }
+
     new ApplicationAutoscaling(this, 'autoscaling', {
       prefix: this.config.prefix,
       targetMinCapacity: this.config.autoscalingConfig.targetMinCapacity,
@@ -841,6 +851,38 @@ export class PocketALBApplication extends Resource {
     }
 
     this.createAlarms(defaultAlarms);
+  }
+
+  /**
+   * Forward all traffic to the given httpListener to the given targetGroup.
+   *
+   * @param id
+   * @param httpListener
+   * @param targetGroup
+   */
+  private createRuleThatForwardsAlbListenerToTargetGroup(
+    id: string,
+    httpListener: AlbListener,
+    targetGroup: AlbTargetGroup
+  ) {
+    new AlbListenerRule(this, id, {
+      listenerArn: httpListener.arn,
+      priority: 1,
+      condition: [
+        {
+          pathPattern: [{ values: ['*'] }],
+        },
+      ],
+      action: [
+        {
+          type: 'forward',
+          targetGroupArn: targetGroup.arn,
+        },
+      ],
+      lifecycle: {
+        ignoreChanges: ['action'],
+      },
+    });
   }
 
   private createAlarms(alarms: CloudwatchMetricAlarmConfig[]): void {
