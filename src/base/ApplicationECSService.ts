@@ -37,7 +37,6 @@ export interface ApplicationECSServiceProps {
     healthCheckPath: string;
     albSecurityGroupId: string;
     listenerArn: string;
-    testListenerArn?: string;
   };
   containerConfigs: ApplicationECSContainerDefinitionProps[];
   privateSubnetIds: string[];
@@ -192,7 +191,6 @@ export class ApplicationECSService extends Resource {
           clusterName: this.config.ecsClusterName,
           targetGroupNames: targetGroupNames,
           listenerArn: this.config.albConfig.listenerArn,
-          testListenerArn: this.config.albConfig.testListenerArn,
           snsNotificationTopicArn: this.config
             .codeDeploySnsNotificationTopicArn,
           tags: this.config.tags,

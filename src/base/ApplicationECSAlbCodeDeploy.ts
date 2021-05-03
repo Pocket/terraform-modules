@@ -16,7 +16,6 @@ export interface ApplicationECSAlbCodeDeployProps {
   clusterName: string;
   serviceName: string;
   listenerArn: string;
-  testListenerArn?: string;
   snsNotificationTopicArn?: string;
   targetGroupNames: string[];
   tags?: { [key: string]: string };
@@ -96,9 +95,6 @@ export class ApplicationECSAlbCodeDeploy extends Resource {
             targetGroupPairInfo: [
               {
                 prodTrafficRoute: [{ listenerArns: [this.config.listenerArn] }],
-                testTrafficRoute: this.config.testListenerArn
-                  ? [{ listenerArns: [this.config.testListenerArn] }]
-                  : undefined,
                 targetGroup: this.config.targetGroupNames.map((name) => {
                   return { name };
                 }),
