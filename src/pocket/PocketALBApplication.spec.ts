@@ -169,6 +169,39 @@ describe('PocketALBApplication', () => {
     expect(Testing.synth(stack)).toMatchSnapshot();
   });
 
+  it('renders an application alarms', () => {
+    const app = Testing.app();
+    const stack = new TerraformStack(app, 'test');
+
+    const alarmConfig = {
+      ...BASE_CONFIG,
+      alarms: {
+        http5xxError: {
+          threshold: 10,
+          evaluationPeriods: 1,
+          period: 600,
+          actions: ['sns-arn-for-5xx-errors'],
+        },
+        httpLatency: {
+          threshold: 0.5,
+          evaluationPeriods: 2,
+          period: 300,
+          actions: ['sns-arn-for-latency'],
+        },
+        httpRequestCount: {
+          threshold: 10000,
+          evaluationPeriods: 3,
+          period: 900,
+          actions: [],
+        },
+      },
+    };
+
+    new PocketALBApplication(stack, 'testPocketApp', alarmConfig);
+
+    expect(Testing.synth(stack)).toMatchSnapshot();
+  });
+
   it('renders an application custom default alarms', () => {
     const app = Testing.app();
     const stack = new TerraformStack(app, 'test');
