@@ -821,8 +821,8 @@ export class PocketALBApplication extends Resource {
         threshold: alarmsConfig?.httpRequestCount?.threshold ?? 500,
         alarmDescription: 'Total HTTP request count exceeds threshold',
         insufficientDataActions: [],
-        alarmActions: alarmsConfig?.httpLatency?.actions ?? [],
-        okActions: alarmsConfig?.httpLatency?.actions ?? [],
+        alarmActions: alarmsConfig?.httpRequestCount?.actions ?? [],
+        okActions: alarmsConfig?.httpRequestCount?.actions ?? [],
         tags: this.config.tags,
       },
     ];
