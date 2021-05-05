@@ -6,6 +6,7 @@ export * from './pocket/PocketPagerDuty';
 export * from './pocket/PocketSQSWithLambdaTarget';
 export * from './pocket/PocketVersionedLambda';
 export * from './pocket/PocketEventBridgeWithLambdaTarget';
+export * from './pocket/PocketECSCodePipeline';
 export * from './base/ApplicationBaseDNS';
 export * from './base/ApplicationCertificate';
 export * from './base/ApplicationECSCluster';
