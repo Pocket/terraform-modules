@@ -1,6 +1,380 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`AppliationECSService renders an ECS service with full container definition props 1`] = `
+exports[`ApplicationECSService renders an ECS service with code deploy 1`] = `
+"{
+  \\"//\\": {
+    \\"metadata\\": {
+      \\"version\\": \\"stubbed\\",
+      \\"stackName\\": \\"test\\"
+    }
+  },
+  \\"resource\\": {
+    \\"null_resource\\": {
+      \\"testECSService\\": {
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testECSService\\",
+            \\"uniqueId\\": \\"testECSService\\"
+          }
+        }
+      }
+    },
+    \\"aws_security_group\\": {
+      \\"testECSService_ecs_security_group_67979722\\": {
+        \\"description\\": \\"Internal ECS Security Group (Managed by Terraform)\\",
+        \\"egress\\": [
+          {
+            \\"cidr_blocks\\": [
+              \\"0.0.0.0/0\\"
+            ],
+            \\"description\\": \\"required\\",
+            \\"from_port\\": 0,
+            \\"ipv6_cidr_blocks\\": [],
+            \\"prefix_list_ids\\": [],
+            \\"protocol\\": \\"-1\\",
+            \\"security_groups\\": [],
+            \\"self\\": null,
+            \\"to_port\\": 0
+          }
+        ],
+        \\"ingress\\": [
+          {
+            \\"self\\": null
+          }
+        ],
+        \\"name_prefix\\": \\"abides-dev-ECSSecurityGroup\\",
+        \\"vpc_id\\": \\"myhouse\\",
+        \\"lifecycle\\": {
+          \\"create_before_destroy\\": true
+        },
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testECSService/ecs_security_group\\",
+            \\"uniqueId\\": \\"testECSService_ecs_security_group_67979722\\"
+          }
+        }
+      }
+    },
+    \\"aws_iam_role\\": {
+      \\"testECSService_ecs-iam_ecs-execution-role_88EFEECE\\": {
+        \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.testECSService_ecs-iam_ecs-task-assume_97906D9E.json}\\",
+        \\"name\\": \\"abides-dev-TaskExecutionRole\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testECSService/ecs-iam/ecs-execution-role\\",
+            \\"uniqueId\\": \\"testECSService_ecs-iam_ecs-execution-role_88EFEECE\\"
+          }
+        }
+      },
+      \\"testECSService_ecs-iam_ecs-task-role_83E10144\\": {
+        \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.testECSService_ecs-iam_ecs-task-assume_97906D9E.json}\\",
+        \\"name\\": \\"abides-dev-TaskRole\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testECSService/ecs-iam/ecs-task-role\\",
+            \\"uniqueId\\": \\"testECSService_ecs-iam_ecs-task-role_83E10144\\"
+          }
+        }
+      }
+    },
+    \\"aws_iam_role_policy_attachment\\": {
+      \\"testECSService_ecs-iam_ecs-task-execution-default-attachment_7AC36BF7\\": {
+        \\"policy_arn\\": \\"someArn\\",
+        \\"role\\": \\"\${aws_iam_role.testECSService_ecs-iam_ecs-execution-role_88EFEECE.id}\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testECSService/ecs-iam/ecs-task-execution-default-attachment\\",
+            \\"uniqueId\\": \\"testECSService_ecs-iam_ecs-task-execution-default-attachment_7AC36BF7\\"
+          }
+        }
+      }
+    },
+    \\"aws_ecs_task_definition\\": {
+      \\"testECSService_ecs-task_A268C927\\": {
+        \\"container_definitions\\": \\"[]\\",
+        \\"cpu\\": \\"512\\",
+        \\"execution_role_arn\\": \\"\${aws_iam_role.testECSService_ecs-iam_ecs-execution-role_88EFEECE.arn}\\",
+        \\"family\\": \\"abides-dev\\",
+        \\"memory\\": \\"2048\\",
+        \\"network_mode\\": \\"awsvpc\\",
+        \\"requires_compatibilities\\": [
+          \\"FARGATE\\"
+        ],
+        \\"task_role_arn\\": \\"\${aws_iam_role.testECSService_ecs-iam_ecs-task-role_83E10144.arn}\\",
+        \\"volume\\": [],
+        \\"depends_on\\": [],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testECSService/ecs-task\\",
+            \\"uniqueId\\": \\"testECSService_ecs-task_A268C927\\"
+          }
+        }
+      }
+    },
+    \\"aws_ecs_service\\": {
+      \\"testECSService_ecs-service_33F309B3\\": {
+        \\"cluster\\": \\"gorp\\",
+        \\"deployment_maximum_percent\\": 200,
+        \\"deployment_minimum_healthy_percent\\": 100,
+        \\"desired_count\\": 2,
+        \\"launch_type\\": \\"FARGATE\\",
+        \\"name\\": \\"abides-dev\\",
+        \\"propagate_tags\\": \\"SERVICE\\",
+        \\"task_definition\\": \\"\${aws_ecs_task_definition.testECSService_ecs-task_A268C927.arn}\\",
+        \\"deployment_controller\\": [
+          {
+            \\"type\\": \\"CODE_DEPLOY\\"
+          }
+        ],
+        \\"load_balancer\\": [],
+        \\"network_configuration\\": [
+          {
+            \\"security_groups\\": [
+              \\"\${aws_security_group.testECSService_ecs_security_group_67979722.id}\\"
+            ],
+            \\"subnets\\": [
+              \\"1.1.1.1\\",
+              \\"2.2.2.2\\"
+            ]
+          }
+        ],
+        \\"depends_on\\": [],
+        \\"lifecycle\\": {
+          \\"ignore_changes\\": [
+            \\"desired_count\\",
+            \\"load_balancer\\",
+            \\"task_definition\\"
+          ]
+        },
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testECSService/ecs-service\\",
+            \\"uniqueId\\": \\"testECSService_ecs-service_33F309B3\\"
+          }
+        }
+      }
+    }
+  },
+  \\"data\\": {
+    \\"aws_iam_policy_document\\": {
+      \\"testECSService_ecs-iam_ecs-task-assume_97906D9E\\": {
+        \\"version\\": \\"2012-10-17\\",
+        \\"statement\\": [
+          {
+            \\"actions\\": [
+              \\"sts:AssumeRole\\"
+            ],
+            \\"effect\\": \\"Allow\\",
+            \\"principals\\": [
+              {
+                \\"identifiers\\": [
+                  \\"ecs-tasks.amazonaws.com\\"
+                ],
+                \\"type\\": \\"Service\\"
+              }
+            ]
+          }
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testECSService/ecs-iam/ecs-task-assume\\",
+            \\"uniqueId\\": \\"testECSService_ecs-iam_ecs-task-assume_97906D9E\\"
+          }
+        }
+      }
+    }
+  }
+}"
+`;
+
+exports[`ApplicationECSService renders an ECS service with code deploy and excludes the code deployment command resource when useCodePipeline is true 1`] = `
+"{
+  \\"//\\": {
+    \\"metadata\\": {
+      \\"version\\": \\"stubbed\\",
+      \\"stackName\\": \\"test\\"
+    }
+  },
+  \\"resource\\": {
+    \\"null_resource\\": {
+      \\"testECSService\\": {
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testECSService\\",
+            \\"uniqueId\\": \\"testECSService\\"
+          }
+        }
+      }
+    },
+    \\"aws_security_group\\": {
+      \\"testECSService_ecs_security_group_67979722\\": {
+        \\"description\\": \\"Internal ECS Security Group (Managed by Terraform)\\",
+        \\"egress\\": [
+          {
+            \\"cidr_blocks\\": [
+              \\"0.0.0.0/0\\"
+            ],
+            \\"description\\": \\"required\\",
+            \\"from_port\\": 0,
+            \\"ipv6_cidr_blocks\\": [],
+            \\"prefix_list_ids\\": [],
+            \\"protocol\\": \\"-1\\",
+            \\"security_groups\\": [],
+            \\"self\\": null,
+            \\"to_port\\": 0
+          }
+        ],
+        \\"ingress\\": [
+          {
+            \\"self\\": null
+          }
+        ],
+        \\"name_prefix\\": \\"abides-dev-ECSSecurityGroup\\",
+        \\"vpc_id\\": \\"myhouse\\",
+        \\"lifecycle\\": {
+          \\"create_before_destroy\\": true
+        },
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testECSService/ecs_security_group\\",
+            \\"uniqueId\\": \\"testECSService_ecs_security_group_67979722\\"
+          }
+        }
+      }
+    },
+    \\"aws_iam_role\\": {
+      \\"testECSService_ecs-iam_ecs-execution-role_88EFEECE\\": {
+        \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.testECSService_ecs-iam_ecs-task-assume_97906D9E.json}\\",
+        \\"name\\": \\"abides-dev-TaskExecutionRole\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testECSService/ecs-iam/ecs-execution-role\\",
+            \\"uniqueId\\": \\"testECSService_ecs-iam_ecs-execution-role_88EFEECE\\"
+          }
+        }
+      },
+      \\"testECSService_ecs-iam_ecs-task-role_83E10144\\": {
+        \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.testECSService_ecs-iam_ecs-task-assume_97906D9E.json}\\",
+        \\"name\\": \\"abides-dev-TaskRole\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testECSService/ecs-iam/ecs-task-role\\",
+            \\"uniqueId\\": \\"testECSService_ecs-iam_ecs-task-role_83E10144\\"
+          }
+        }
+      }
+    },
+    \\"aws_iam_role_policy_attachment\\": {
+      \\"testECSService_ecs-iam_ecs-task-execution-default-attachment_7AC36BF7\\": {
+        \\"policy_arn\\": \\"someArn\\",
+        \\"role\\": \\"\${aws_iam_role.testECSService_ecs-iam_ecs-execution-role_88EFEECE.id}\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testECSService/ecs-iam/ecs-task-execution-default-attachment\\",
+            \\"uniqueId\\": \\"testECSService_ecs-iam_ecs-task-execution-default-attachment_7AC36BF7\\"
+          }
+        }
+      }
+    },
+    \\"aws_ecs_task_definition\\": {
+      \\"testECSService_ecs-task_A268C927\\": {
+        \\"container_definitions\\": \\"[]\\",
+        \\"cpu\\": \\"512\\",
+        \\"execution_role_arn\\": \\"\${aws_iam_role.testECSService_ecs-iam_ecs-execution-role_88EFEECE.arn}\\",
+        \\"family\\": \\"abides-dev\\",
+        \\"memory\\": \\"2048\\",
+        \\"network_mode\\": \\"awsvpc\\",
+        \\"requires_compatibilities\\": [
+          \\"FARGATE\\"
+        ],
+        \\"task_role_arn\\": \\"\${aws_iam_role.testECSService_ecs-iam_ecs-task-role_83E10144.arn}\\",
+        \\"volume\\": [],
+        \\"depends_on\\": [],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testECSService/ecs-task\\",
+            \\"uniqueId\\": \\"testECSService_ecs-task_A268C927\\"
+          }
+        }
+      }
+    },
+    \\"aws_ecs_service\\": {
+      \\"testECSService_ecs-service_33F309B3\\": {
+        \\"cluster\\": \\"gorp\\",
+        \\"deployment_maximum_percent\\": 200,
+        \\"deployment_minimum_healthy_percent\\": 100,
+        \\"desired_count\\": 2,
+        \\"launch_type\\": \\"FARGATE\\",
+        \\"name\\": \\"abides-dev\\",
+        \\"propagate_tags\\": \\"SERVICE\\",
+        \\"task_definition\\": \\"\${aws_ecs_task_definition.testECSService_ecs-task_A268C927.arn}\\",
+        \\"deployment_controller\\": [
+          {
+            \\"type\\": \\"CODE_DEPLOY\\"
+          }
+        ],
+        \\"load_balancer\\": [],
+        \\"network_configuration\\": [
+          {
+            \\"security_groups\\": [
+              \\"\${aws_security_group.testECSService_ecs_security_group_67979722.id}\\"
+            ],
+            \\"subnets\\": [
+              \\"1.1.1.1\\",
+              \\"2.2.2.2\\"
+            ]
+          }
+        ],
+        \\"depends_on\\": [],
+        \\"lifecycle\\": {
+          \\"ignore_changes\\": [
+            \\"desired_count\\",
+            \\"load_balancer\\",
+            \\"task_definition\\"
+          ]
+        },
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testECSService/ecs-service\\",
+            \\"uniqueId\\": \\"testECSService_ecs-service_33F309B3\\"
+          }
+        }
+      }
+    }
+  },
+  \\"data\\": {
+    \\"aws_iam_policy_document\\": {
+      \\"testECSService_ecs-iam_ecs-task-assume_97906D9E\\": {
+        \\"version\\": \\"2012-10-17\\",
+        \\"statement\\": [
+          {
+            \\"actions\\": [
+              \\"sts:AssumeRole\\"
+            ],
+            \\"effect\\": \\"Allow\\",
+            \\"principals\\": [
+              {
+                \\"identifiers\\": [
+                  \\"ecs-tasks.amazonaws.com\\"
+                ],
+                \\"type\\": \\"Service\\"
+              }
+            ]
+          }
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testECSService/ecs-iam/ecs-task-assume\\",
+            \\"uniqueId\\": \\"testECSService_ecs-iam_ecs-task-assume_97906D9E\\"
+          }
+        }
+      }
+    }
+  }
+}"
+`;
+
+exports[`ApplicationECSService renders an ECS service with full container definition props 1`] = `
 "{
   \\"//\\": {
     \\"metadata\\": {
@@ -187,7 +561,7 @@ exports[`AppliationECSService renders an ECS service with full container definit
 }"
 `;
 
-exports[`AppliationECSService renders an ECS service with full container definition props and ALB security group config 1`] = `
+exports[`ApplicationECSService renders an ECS service with full container definition props and ALB security group config 1`] = `
 "{
   \\"//\\": {
     \\"metadata\\": {
@@ -454,7 +828,7 @@ exports[`AppliationECSService renders an ECS service with full container definit
 }"
 `;
 
-exports[`AppliationECSService renders an ECS service with minimal config 1`] = `
+exports[`ApplicationECSService renders an ECS service with minimal config 1`] = `
 "{
   \\"//\\": {
     \\"metadata\\": {
@@ -640,7 +1014,7 @@ exports[`AppliationECSService renders an ECS service with minimal config 1`] = `
 }"
 `;
 
-exports[`AppliationECSService renders an ECS service with mountPoints deduplicated in the task definition 1`] = `
+exports[`ApplicationECSService renders an ECS service with mountPoints deduplicated in the task definition 1`] = `
 "{
   \\"//\\": {
     \\"metadata\\": {
@@ -961,7 +1335,7 @@ exports[`AppliationECSService renders an ECS service with mountPoints deduplicat
 }"
 `;
 
-exports[`AppliationECSService renders an ECS service without a log group container definition props 1`] = `
+exports[`ApplicationECSService renders an ECS service without a log group container definition props 1`] = `
 "{
   \\"//\\": {
     \\"metadata\\": {
@@ -1160,7 +1534,7 @@ exports[`AppliationECSService renders an ECS service without a log group contain
 }"
 `;
 
-exports[`AppliationECSService renders an ECS service without an image container definition props 1`] = `
+exports[`ApplicationECSService renders an ECS service without an image container definition props 1`] = `
 "{
   \\"//\\": {
     \\"metadata\\": {

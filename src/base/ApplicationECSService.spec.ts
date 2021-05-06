@@ -6,7 +6,15 @@ import {
 
 let BASE_CONFIG: ApplicationECSServiceProps;
 
-describe('AppliationECSService', () => {
+const testAlbConfig: ApplicationECSServiceProps['albConfig'] = {
+  healthCheckPath: '/health',
+  listenerArn: 'listen-to-me',
+  containerPort: 3000,
+  containerName: 'runme',
+  albSecurityGroupId: 'strike',
+};
+
+describe('ApplicationECSService', () => {
   beforeEach(() => {
     BASE_CONFIG = {
       ecsClusterName: 'cluster-name',
@@ -187,13 +195,7 @@ describe('AppliationECSService', () => {
       },
     ];
 
-    BASE_CONFIG.albConfig = {
-      healthCheckPath: '/health',
-      listenerArn: 'listen-to-me',
-      containerPort: 3000,
-      containerName: 'runme',
-      albSecurityGroupId: 'strike',
-    };
+    BASE_CONFIG.albConfig = testAlbConfig;
 
     new ApplicationECSService(stack, 'testECSService', BASE_CONFIG);
 
@@ -239,6 +241,33 @@ describe('AppliationECSService', () => {
     ];
 
     new ApplicationECSService(stack, 'testECSService', BASE_CONFIG);
+
+    expect(Testing.synth(stack)).toMatchSnapshot();
+  });
+
+  it('renders an ECS service with code deploy', () => {
+    const app = Testing.app();
+    const stack = new TerraformStack(app, 'test');
+
+    new ApplicationECSService(stack, 'testECSService', {
+      ...BASE_CONFIG,
+      ...testAlbConfig,
+      useCodeDeploy: true,
+    });
+
+    expect(Testing.synth(stack)).toMatchSnapshot();
+  });
+
+  it('renders an ECS service with code deploy and excludes the code deployment command resource when useCodePipeline is true', () => {
+    const app = Testing.app();
+    const stack = new TerraformStack(app, 'test');
+
+    new ApplicationECSService(stack, 'testECSService', {
+      ...BASE_CONFIG,
+      ...testAlbConfig,
+      useCodeDeploy: true,
+      useCodePipeline: true,
+    });
 
     expect(Testing.synth(stack)).toMatchSnapshot();
   });

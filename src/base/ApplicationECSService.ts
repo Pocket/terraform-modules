@@ -50,6 +50,7 @@ export interface ApplicationECSServiceProps {
   lifecycleIgnoreChanges?: string[]; // defaults to ['task_definition', 'desired_count', 'load_balancer']
   ecsIamConfig: ApplicationECSIAMProps;
   useCodeDeploy: boolean; //defaults to true
+  useCodePipeline?: boolean;
   codeDeploySnsNotificationTopicArn?: string;
 }
 
@@ -67,6 +68,7 @@ export class ApplicationECSService extends Resource {
 
   private readonly config: ApplicationECSServiceProps;
   public readonly mainTargetGroup?: ApplicationTargetGroup;
+  public readonly codeDeployApp?: ApplicationECSAlbCodeDeploy;
 
   // set defaults on optional properties
   private static hydrateConfig(
@@ -183,7 +185,7 @@ export class ApplicationECSService extends Resource {
       const greenTargetGroup = this.createTargetGroup('green');
       targetGroupNames.push(greenTargetGroup.targetGroup.name);
       //Setup codedeploy
-      const codeDeployApp = new ApplicationECSAlbCodeDeploy(
+      const codeDeployApp = (this.codeDeployApp = new ApplicationECSAlbCodeDeploy(
         this,
         'ecs_codedeploy',
         {
@@ -198,30 +200,32 @@ export class ApplicationECSService extends Resource {
           tags: this.config.tags,
           dependsOn: [this.service],
         }
-      );
+      ));
 
-      /**
-       * If you make any changes to the Task Definition this must be called since we ignore changes to it.
-       *
-       * We typically ignore changes to the following since we rely on BlueGreen Deployments:
-       * ALB Default Action Target Group ARN
-       * ECS Service LoadBalancer Config
-       * ECS Task Definition
-       * ECS Placement Strategy Config
-       */
-      const nullECSTaskUpdate = new Resource(this, 'update-task-definition', {
-        triggers: { task_arn: taskDef.arn },
-        dependsOn: [
-          taskDef,
-          codeDeployApp.codeDeployApp,
-          codeDeployApp.codeDeployDeploymentGroup,
-        ],
-      });
+      if (!this.config.useCodePipeline) {
+        /**
+         * If you make any changes to the Task Definition this must be called since we ignore changes to it.
+         *
+         * We typically ignore changes to the following since we rely on BlueGreen Deployments:
+         * ALB Default Action Target Group ARN
+         * ECS Service LoadBalancer Config
+         * ECS Task Definition
+         * ECS Placement Strategy Config
+         */
+        const nullECSTaskUpdate = new Resource(this, 'update-task-definition', {
+          triggers: { task_arn: taskDef.arn },
+          dependsOn: [
+            taskDef,
+            codeDeployApp.codeDeployApp,
+            codeDeployApp.codeDeployDeploymentGroup,
+          ],
+        });
 
-      nullECSTaskUpdate.addOverride(
-        'provisioner.local-exec.command',
-        `export app_spec_content_string='{"version":1,"Resources":[{"TargetService":{"Type":"AWS::ECS::Service","Properties":{"TaskDefinition":"${taskDef.arn}","LoadBalancerInfo":{"ContainerName":"${this.config.albConfig.containerName}","ContainerPort":${this.config.albConfig.containerPort}}}}}]}' && export revision="revisionType=AppSpecContent,appSpecContent={content='$app_spec_content_string'}" && aws deploy create-deployment  --application-name="${codeDeployApp.codeDeployApp.name}"  --deployment-group-name="${codeDeployApp.codeDeployDeploymentGroup.deploymentGroupName}" --description="Triggered from Terraform/CodeBuild due to a task definition update" --revision="$revision"`
-      );
+        nullECSTaskUpdate.addOverride(
+          'provisioner.local-exec.command',
+          `export app_spec_content_string='{"version":1,"Resources":[{"TargetService":{"Type":"AWS::ECS::Service","Properties":{"TaskDefinition":"${taskDef.arn}","LoadBalancerInfo":{"ContainerName":"${this.config.albConfig.containerName}","ContainerPort":${this.config.albConfig.containerPort}}}}}]}' && export revision="revisionType=AppSpecContent,appSpecContent={content='$app_spec_content_string'}" && aws deploy create-deployment  --application-name="${codeDeployApp.codeDeployApp.name}"  --deployment-group-name="${codeDeployApp.codeDeployDeploymentGroup.deploymentGroupName}" --description="Triggered from Terraform/CodeBuild due to a task definition update" --revision="$revision"`
+        );
+      }
     }
 
     // NEXT STEPS:
