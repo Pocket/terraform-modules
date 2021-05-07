@@ -368,4 +368,33 @@ describe('PocketALBApplication', () => {
 
     expect(Testing.synth(stack)).toMatchSnapshot();
   });
+
+  it('renders an Pocket App with code deploy', () => {
+    const app = Testing.app();
+    const stack = new TerraformStack(app, 'test');
+
+    new PocketALBApplication(stack, 'testPocketApp', {
+      ...BASE_CONFIG,
+      codeDeploy: {
+        useCodeDeploy: true,
+      },
+    });
+
+    expect(Testing.synth(stack)).toMatchSnapshot();
+  });
+
+  it('renders an Pocket App with code deploy and creates appspec.json and taskdef.json when using code pipeline', () => {
+    const app = Testing.app();
+    const stack = new TerraformStack(app, 'test');
+
+    new PocketALBApplication(stack, 'testPocketApp', {
+      ...BASE_CONFIG,
+      codeDeploy: {
+        useCodePipeline: true,
+        useCodeDeploy: true,
+      },
+    });
+
+    expect(Testing.synth(stack)).toMatchSnapshot();
+  });
 });
