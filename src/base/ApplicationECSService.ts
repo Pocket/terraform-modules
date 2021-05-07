@@ -23,6 +23,7 @@ import { ApplicationTargetGroup } from './ApplicationTargetGroup';
 import { ApplicationECSAlbCodeDeploy } from './ApplicationECSAlbCodeDeploy';
 import { TerraformResource } from 'cdktf';
 import { truncateString } from '../utilities';
+import { FileA } from '../../.gen/providers/local';
 
 export interface ApplicationECSServiceProps {
   prefix: string;
@@ -226,12 +227,72 @@ export class ApplicationECSService extends Resource {
           `export app_spec_content_string='{"version":1,"Resources":[{"TargetService":{"Type":"AWS::ECS::Service","Properties":{"TaskDefinition":"${taskDef.arn}","LoadBalancerInfo":{"ContainerName":"${this.config.albConfig.containerName}","ContainerPort":${this.config.albConfig.containerPort}}}}}]}' && export revision="revisionType=AppSpecContent,appSpecContent={content='$app_spec_content_string'}" && aws deploy create-deployment  --application-name="${codeDeployApp.codeDeployApp.name}"  --deployment-group-name="${codeDeployApp.codeDeployDeploymentGroup.deploymentGroupName}" --description="Triggered from Terraform/CodeBuild due to a task definition update" --revision="$revision"`
         );
       }
+
+      // We always create the appspec and taskdef files as long as we have an albConfig
+      if (config.albConfig) {
+        this.generateAppSpecAndTaskDefFiles(taskDef, config);
+      }
     }
 
     // NEXT STEPS:
 
     // https://getpocket.atlassian.net/browse/BACK-411
     // build in autoscaling
+  }
+
+  /**
+   * When running ECS Blue/Green CodeDeploy through CodePipeline, the configuration requires that
+   * appspec.json and taskdef.json files exist within the source artifact.
+   * This function creates those files as part of the terraform stack
+   * @param taskDef
+   * @param config
+   * @private
+   */
+  private generateAppSpecAndTaskDefFiles(
+    taskDef: EcsTaskDefinition,
+    config: ApplicationECSServiceProps
+  ) {
+    const nullCreateTaskDef = new Resource(
+      this,
+      'create-task-definition-file',
+      {
+        triggers: {
+          // Sets this null resorce to be triggered on every terraform apply
+          alwaysRun: '${timestamp()}',
+        },
+        dependsOn: [taskDef],
+      }
+    );
+    // There is no way to pull the task def from the output of the terraform resource.
+    // Instead of trying to build a task def ourselves we use a null resource to access the recent version
+    // in AWS AFTER we have created our new one.
+    // It is also incredibly silly that AWS Codepipeline requires a task definition because it is already getting the
+    // Task definition ARN in the app spec file. But you know. Amazon is amazon and we must obey the law.
+    nullCreateTaskDef.addOverride(
+      'provisioner.local-exec.command',
+      `aws ecs describe-task-definition --task-definition ${taskDef.family} --query 'taskDefinition' >> taskdef.json`
+    );
+
+    new FileA(this, 'appspec', {
+      content: JSON.stringify({
+        version: 1,
+        Resources: [
+          {
+            TargetService: {
+              Type: 'AWS::ECS::Service',
+              Properties: {
+                TaskDefinition: taskDef.arn,
+                LoadBalancerInfo: {
+                  ContainerName: config.albConfig.containerName,
+                  ContainerPort: config.albConfig.containerPort,
+                },
+              },
+            },
+          },
+        ],
+      }),
+      filename: 'appspec.json',
+    });
   }
 
   /**
