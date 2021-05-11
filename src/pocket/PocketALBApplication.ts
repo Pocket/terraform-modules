@@ -36,6 +36,7 @@ export interface PocketALBApplicationProps {
   domain: string;
   cdn?: boolean;
   codeDeploy: {
+    useCodePipeline?: boolean;
     useCodeDeploy: boolean;
     snsNotificationTopicArn?: string;
   };
@@ -426,6 +427,7 @@ export class PocketALBApplication extends Resource {
       ecsClusterArn: ecsCluster.cluster.arn,
       ecsClusterName: ecsCluster.cluster.name,
       useCodeDeploy: this.config.codeDeploy.useCodeDeploy,
+      useCodePipeline: this.config.codeDeploy.useCodePipeline,
       codeDeploySnsNotificationTopicArn: this.config.codeDeploy
         .snsNotificationTopicArn,
       albConfig: {
