@@ -347,28 +347,6 @@ describe('PocketALBApplication', () => {
     expect(pocketApp.ecsService.mainTargetGroup).not.toBeNull();
   });
 
-  it('forwards http traffic to the target if disableHttpsForwarding is true', () => {
-    const app = Testing.app();
-    const stack = new TerraformStack(app, 'test');
-    const disableHttpsForwardingConfig = {
-      ...BASE_CONFIG,
-      exposedContainer: {
-        name: 'main_container',
-        port: 80,
-        healthCheckPath: '/test',
-        disableHttpsForwarding: true,
-      },
-    };
-
-    new PocketALBApplication(
-      stack,
-      'testPocketApp',
-      disableHttpsForwardingConfig
-    );
-
-    expect(Testing.synth(stack)).toMatchSnapshot();
-  });
-
   it('renders an Pocket App with code deploy', () => {
     const app = Testing.app();
     const stack = new TerraformStack(app, 'test');
