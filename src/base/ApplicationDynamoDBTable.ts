@@ -11,7 +11,6 @@ import {
   IamRolePolicyAttachment,
 } from '../../.gen/providers/aws';
 import { Construct } from 'constructs';
-import {TerraformResourceLifecycle} from "cdktf/lib/terraform-resource";
 
 /**
  * Enum to determine the capacity type for autoscaling
