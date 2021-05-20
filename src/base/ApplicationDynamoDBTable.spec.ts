@@ -164,3 +164,14 @@ test('renders dynamo db table with 2 global secondary indexes', () => {
 
   expect(Testing.synth(stack)).toMatchSnapshot();
 });
+
+test('renders dynamo db table that is protected from being destroyed', () => {
+  const app = Testing.app();
+  const stack = new TerraformStack(app, 'test');
+
+  BASE_CONFIG.preventDestroyTable = true;
+
+  new ApplicationDynamoDBTable(stack, 'testDynamoDBTable', BASE_CONFIG);
+
+  expect(Testing.synth(stack)).toMatchSnapshot();
+});
