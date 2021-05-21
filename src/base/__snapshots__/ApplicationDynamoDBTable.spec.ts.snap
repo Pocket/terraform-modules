@@ -475,7 +475,8 @@ exports[`renders dynamo db table that is not protected from being destroyed 1`] 
           \\"ignore_changes\\": [
             \\"read_capacity\\",
             \\"write_capacity\\"
-          ]
+          ],
+          \\"prevent_destroy\\": false
         },
         \\"//\\": {
           \\"metadata\\": {

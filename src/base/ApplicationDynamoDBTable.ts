@@ -62,7 +62,7 @@ export class ApplicationDynamoDBTable extends Resource {
       lifecycle: {
         ignoreChanges: ['read_capacity', 'write_capacity'],
         // Protect the table from being removed, unless preventDestroyTable is explicitly set to false.
-        ...(config.preventDestroyTable !== false && { preventDestroy: true }),
+        preventDestroy: config.preventDestroyTable !== false,
       },
     });
 

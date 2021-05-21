@@ -171,7 +171,14 @@ test('renders dynamo db table that is not protected from being destroyed', () =>
 
   BASE_CONFIG.preventDestroyTable = false;
 
-  new ApplicationDynamoDBTable(stack, 'testDynamoDBTable', BASE_CONFIG);
+  const applicationDynamoDBTable = new ApplicationDynamoDBTable(
+    stack,
+    'testDynamoDBTable',
+    BASE_CONFIG
+  );
 
+  expect(applicationDynamoDBTable.dynamodb.lifecycle.preventDestroy).toEqual(
+    false
+  );
   expect(Testing.synth(stack)).toMatchSnapshot();
 });
