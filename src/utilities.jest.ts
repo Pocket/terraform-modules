@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import { getRootDomain, truncateString } from './utilities';
 
-describe('utlities', () => {
+describe('utilities', () => {
   describe('getRootDomain()', () => {
     it('gets root domain when root is the domain', () => {
       expect(getRootDomain('getpocket.com')).to.equal('getpocket.com');
