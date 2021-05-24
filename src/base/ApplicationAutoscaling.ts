@@ -28,39 +28,15 @@ export interface ApplicationAutoscalingProps {
  */
 
 export class ApplicationAutoscaling extends Resource {
-  constructor(
-    scope: Construct,
-    name: string,
-    config: ApplicationAutoscalingProps
-  ) {
-    super(scope, name);
-
-    const autoscalingIamRole = new IamRole(this, `autoscaling_role`, {
-      name: `${config.prefix}-AutoScalingRole`,
-      assumeRolePolicy: new DataAwsIamPolicyDocument(
-        this,
-        `autoscaling_assume`,
-        {
-          statement: [
-            {
-              effect: 'Allow',
-              actions: ['sts:AssumeRole'],
-              principals: [
-                {
-                  identifiers: ['ecs.application-autoscaling.amazonaws.com'],
-                  type: 'Service',
-                },
-              ],
-            },
-          ],
-        }
-      ).json,
-    });
-
-    new IamRolePolicy(this, `autoscaling_role_policy`, {
+  static generateIamRolePolicy(
+    construct: Resource,
+    config: ApplicationAutoscalingProps,
+    iamRole: IamRole
+  ): void {
+    new IamRolePolicy(construct, `autoscaling_role_policy`, {
       name: `${config.prefix}-AutoScalingPolicy`,
-      role: autoscalingIamRole.id,
-      policy: new DataAwsIamPolicyDocument(this, `role_policy`, {
+      role: iamRole.id,
+      policy: new DataAwsIamPolicyDocument(construct, `role_policy`, {
         statement: [
           {
             effect: 'Allow',
@@ -81,82 +57,113 @@ export class ApplicationAutoscaling extends Resource {
         ],
       }).json,
     });
+  }
 
-    const applicationAutoscaling = new AppautoscalingTarget(
-      this,
-      `autoscaling_target`,
-      {
-        maxCapacity: config.targetMaxCapacity,
-        minCapacity: config.targetMinCapacity,
-        resourceId: `service/${config.ecsClusterName}/${config.ecsServiceName}`,
-        roleArn: autoscalingIamRole.arn,
-        scalableDimension: 'ecs:service:DesiredCount',
-        serviceNamespace: 'ecs',
-      }
-    );
+  static generateIamRole(
+    construct: Resource,
+    config: ApplicationAutoscalingProps
+  ): IamRole {
+    return new IamRole(construct, `autoscaling_role`, {
+      name: `${config.prefix}-AutoScalingRole`,
+      assumeRolePolicy: new DataAwsIamPolicyDocument(
+        construct,
+        `autoscaling_assume`,
+        {
+          statement: [
+            {
+              effect: 'Allow',
+              actions: ['sts:AssumeRole'],
+              principals: [
+                {
+                  identifiers: ['ecs.application-autoscaling.amazonaws.com'],
+                  type: 'Service',
+                },
+              ],
+            },
+          ],
+        }
+      ).json,
+    });
+  }
 
-    const applicationScaleOut = new AppautoscalingPolicy(
-      this,
-      `scale_out_policy`,
+  static generateAutoScalingTarget(
+    construct: Resource,
+    config: ApplicationAutoscalingProps,
+    iamRole: IamRole
+  ): AppautoscalingTarget {
+    return new AppautoscalingTarget(construct, `autoscaling_target`, {
+      maxCapacity: config.targetMaxCapacity,
+      minCapacity: config.targetMinCapacity,
+      resourceId: `service/${config.ecsClusterName}/${config.ecsServiceName}`,
+      roleArn: iamRole.arn,
+      scalableDimension: 'ecs:service:DesiredCount',
+      serviceNamespace: 'ecs',
+    });
+  }
+
+  static generateAutoSclaingPolicy(
+    construct: Resource,
+    config: ApplicationAutoscalingProps,
+    target: AppautoscalingTarget,
+    type: 'In' | 'Out'
+  ): AppautoscalingPolicy {
+    let stepAdjustment;
+
+    if (type === 'In') {
+      stepAdjustment = [
+        {
+          metricIntervalUpperBound: '0',
+          scalingAdjustment: config.stepScaleInAdjustment,
+        },
+      ];
+    } else {
+      stepAdjustment = [
+        {
+          metricIntervalLowerBound: '0',
+          scalingAdjustment: config.stepScaleOutAdjustment,
+        },
+      ];
+    }
+
+    return new AppautoscalingPolicy(
+      construct,
+      `scale_${type.toLowerCase()}_policy`,
       {
-        name: `${config.prefix}-ScaleOutPolicy`,
+        name: `${config.prefix}-Scale${type}Policy`,
         policyType: 'StepScaling',
-        resourceId: applicationAutoscaling.resourceId,
-        scalableDimension: applicationAutoscaling.scalableDimension,
-        serviceNamespace: applicationAutoscaling.serviceNamespace,
+        resourceId: target.resourceId,
+        scalableDimension: target.scalableDimension,
+        serviceNamespace: target.serviceNamespace,
 
         stepScalingPolicyConfiguration: [
           {
-            adjustmentType: 'ChangeInCapacity',
+            adjustmentType: `ChangeInCapacity`,
             cooldown: 60,
             metricAggregationType: 'Average',
-
-            stepAdjustment: [
-              {
-                metricIntervalLowerBound: '0',
-                scalingAdjustment: config.stepScaleOutAdjustment,
-              },
-            ],
+            stepAdjustment,
           },
         ],
-        dependsOn: [applicationAutoscaling],
+        dependsOn: [target],
       }
     );
+  }
 
-    const applicationScaleIn = new AppautoscalingPolicy(
-      this,
-      `scale_in_policy`,
-      {
-        name: `${config.prefix}-ScaleInPolicy`,
-        policyType: 'StepScaling',
-        resourceId: applicationAutoscaling.resourceId,
-        scalableDimension: applicationAutoscaling.scalableDimension,
-        serviceNamespace: applicationAutoscaling.serviceNamespace,
-
-        stepScalingPolicyConfiguration: [
-          {
-            adjustmentType: 'ChangeInCapacity',
-            cooldown: 60,
-            metricAggregationType: 'Average',
-
-            stepAdjustment: [
-              {
-                metricIntervalUpperBound: '0',
-                scalingAdjustment: config.stepScaleInAdjustment,
-              },
-            ],
-          },
-        ],
-        dependsOn: [applicationAutoscaling],
-      }
-    );
-
-    new CloudwatchMetricAlarm(this, `scale_out_alarm`, {
-      alarmName: `${config.prefix} Service High CPU`,
-      alarmDescription: 'Alarm to add capacity if CPU is high',
-      comparisonOperator: 'GreaterThanThreshold',
+  static generateCloudwatchMetricAlarm(
+    construct: Resource,
+    config: ApplicationAutoscalingProps,
+    id: string,
+    name: string,
+    desc: string,
+    operator: string,
+    threshold: number,
+    arn: string
+  ): void {
+    new CloudwatchMetricAlarm(construct, id, {
+      alarmName: name,
+      alarmDescription: desc,
+      comparisonOperator: operator,
       evaluationPeriods: 2,
-      threshold: config.scaleOutThreshold,
+      threshold,
       statistic: 'Average',
       period: 60,
       namespace: 'AWS/ECS',
@@ -166,27 +173,64 @@ export class ApplicationAutoscaling extends Resource {
         ClusterName: config.ecsClusterName,
         ServiceName: config.ecsServiceName,
       },
-      alarmActions: [applicationScaleOut.arn],
+      alarmActions: [arn],
       tags: config.tags,
     });
+  }
 
-    new CloudwatchMetricAlarm(this, `scale_in_alarm`, {
-      alarmName: `${config.prefix} Service Low CPU`,
-      alarmDescription: 'Alarm to reduce capacity if container CPU is low',
-      comparisonOperator: 'LessThanThreshold',
-      evaluationPeriods: 2,
-      threshold: config.scaleInThreshold,
-      statistic: 'Average',
-      period: 60,
-      namespace: 'AWS/ECS',
-      metricName: 'CPUUtilization',
-      treatMissingData: 'notBreaching',
-      dimensions: {
-        ClusterName: config.ecsClusterName,
-        ServiceName: config.ecsServiceName,
-      },
-      alarmActions: [applicationScaleIn.arn],
-      tags: config.tags,
-    });
+  constructor(
+    scope: Construct,
+    name: string,
+    config: ApplicationAutoscalingProps
+  ) {
+    super(scope, name);
+
+    // set up IAM role & policy
+    const iamRole = ApplicationAutoscaling.generateIamRole(this, config);
+    ApplicationAutoscaling.generateIamRolePolicy(this, config, iamRole);
+
+    // set up autoscaling target & in/out policies
+    const autoScalingTarget = ApplicationAutoscaling.generateAutoScalingTarget(
+      this,
+      config,
+      iamRole
+    );
+
+    const applicationScaleOut = ApplicationAutoscaling.generateAutoSclaingPolicy(
+      this,
+      config,
+      autoScalingTarget,
+      'Out'
+    );
+
+    const applicationScaleIn = ApplicationAutoscaling.generateAutoSclaingPolicy(
+      this,
+      config,
+      autoScalingTarget,
+      'In'
+    );
+
+    // set up cloudwatch alarms
+    ApplicationAutoscaling.generateCloudwatchMetricAlarm(
+      this,
+      config,
+      'scale_out_alarm',
+      `${config.prefix} Service High CPU`,
+      'Alarm to add capacity if container CPU is high',
+      'GreaterThanThreshold',
+      config.scaleOutThreshold,
+      applicationScaleOut.arn
+    );
+
+    ApplicationAutoscaling.generateCloudwatchMetricAlarm(
+      this,
+      config,
+      'scale_in_alarm',
+      `${config.prefix} Service Low CPU`,
+      'Alarm to reduce capacity if container CPU is low',
+      'LessThanThreshold',
+      config.scaleInThreshold,
+      applicationScaleIn.arn
+    );
   }
 }
