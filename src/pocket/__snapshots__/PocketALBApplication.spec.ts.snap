@@ -1016,7 +1016,7 @@ exports[`PocketALBApplication renders an Pocket App with code deploy 1`] = `
         \\"alarm_actions\\": [
           \\"\${aws_appautoscaling_policy.testPocketApp_autoscaling_scale_out_policy_075BFAC4.arn}\\"
         ],
-        \\"alarm_description\\": \\"Alarm to add capacity if CPU is high\\",
+        \\"alarm_description\\": \\"Alarm to add capacity if container CPU is high\\",
         \\"alarm_name\\": \\"testapp Service High CPU\\",
         \\"comparison_operator\\": \\"GreaterThanThreshold\\",
         \\"dimensions\\": {
@@ -2177,7 +2177,7 @@ exports[`PocketALBApplication renders an Pocket App with code deploy and creates
         \\"alarm_actions\\": [
           \\"\${aws_appautoscaling_policy.testPocketApp_autoscaling_scale_out_policy_075BFAC4.arn}\\"
         ],
-        \\"alarm_description\\": \\"Alarm to add capacity if CPU is high\\",
+        \\"alarm_description\\": \\"Alarm to add capacity if container CPU is high\\",
         \\"alarm_name\\": \\"testapp Service High CPU\\",
         \\"comparison_operator\\": \\"GreaterThanThreshold\\",
         \\"dimensions\\": {
@@ -3144,7 +3144,7 @@ exports[`PocketALBApplication renders an application alarms 1`] = `
         \\"alarm_actions\\": [
           \\"\${aws_appautoscaling_policy.testPocketApp_autoscaling_scale_out_policy_075BFAC4.arn}\\"
         ],
-        \\"alarm_description\\": \\"Alarm to add capacity if CPU is high\\",
+        \\"alarm_description\\": \\"Alarm to add capacity if container CPU is high\\",
         \\"alarm_name\\": \\"testapp Service High CPU\\",
         \\"comparison_operator\\": \\"GreaterThanThreshold\\",
         \\"dimensions\\": {
@@ -4119,7 +4119,7 @@ exports[`PocketALBApplication renders an application custom default alarms 1`] =
         \\"alarm_actions\\": [
           \\"\${aws_appautoscaling_policy.testPocketApp_autoscaling_scale_out_policy_075BFAC4.arn}\\"
         ],
-        \\"alarm_description\\": \\"Alarm to add capacity if CPU is high\\",
+        \\"alarm_description\\": \\"Alarm to add capacity if container CPU is high\\",
         \\"alarm_name\\": \\"testapp Service High CPU\\",
         \\"comparison_operator\\": \\"GreaterThanThreshold\\",
         \\"dimensions\\": {
@@ -5145,7 +5145,7 @@ exports[`PocketALBApplication renders an application with autoscaling group and 
         \\"alarm_actions\\": [
           \\"\${aws_appautoscaling_policy.testPocketApp_autoscaling_scale_out_policy_075BFAC4.arn}\\"
         ],
-        \\"alarm_description\\": \\"Alarm to add capacity if CPU is high\\",
+        \\"alarm_description\\": \\"Alarm to add capacity if container CPU is high\\",
         \\"alarm_name\\": \\"testapp Service High CPU\\",
         \\"comparison_operator\\": \\"GreaterThanThreshold\\",
         \\"dimensions\\": {
@@ -6132,7 +6132,7 @@ exports[`PocketALBApplication renders an application with custom task sizes 1`] 
         \\"alarm_actions\\": [
           \\"\${aws_appautoscaling_policy.testPocketApp_autoscaling_scale_out_policy_075BFAC4.arn}\\"
         ],
-        \\"alarm_description\\": \\"Alarm to add capacity if CPU is high\\",
+        \\"alarm_description\\": \\"Alarm to add capacity if container CPU is high\\",
         \\"alarm_name\\": \\"testapp Service High CPU\\",
         \\"comparison_operator\\": \\"GreaterThanThreshold\\",
         \\"dimensions\\": {
@@ -7139,7 +7139,7 @@ exports[`PocketALBApplication renders an application with default autoscaling gr
         \\"alarm_actions\\": [
           \\"\${aws_appautoscaling_policy.testPocketApp_autoscaling_scale_out_policy_075BFAC4.arn}\\"
         ],
-        \\"alarm_description\\": \\"Alarm to add capacity if CPU is high\\",
+        \\"alarm_description\\": \\"Alarm to add capacity if container CPU is high\\",
         \\"alarm_name\\": \\"testapp Service High CPU\\",
         \\"comparison_operator\\": \\"GreaterThanThreshold\\",
         \\"dimensions\\": {
@@ -8126,7 +8126,7 @@ exports[`PocketALBApplication renders an application with minimal config 1`] = `
         \\"alarm_actions\\": [
           \\"\${aws_appautoscaling_policy.testPocketApp_autoscaling_scale_out_policy_075BFAC4.arn}\\"
         ],
-        \\"alarm_description\\": \\"Alarm to add capacity if CPU is high\\",
+        \\"alarm_description\\": \\"Alarm to add capacity if container CPU is high\\",
         \\"alarm_name\\": \\"testapp Service High CPU\\",
         \\"comparison_operator\\": \\"GreaterThanThreshold\\",
         \\"dimensions\\": {
@@ -9139,7 +9139,7 @@ exports[`PocketALBApplication renders an application with modified container def
         \\"alarm_actions\\": [
           \\"\${aws_appautoscaling_policy.testPocketApp_autoscaling_scale_out_policy_075BFAC4.arn}\\"
         ],
-        \\"alarm_description\\": \\"Alarm to add capacity if CPU is high\\",
+        \\"alarm_description\\": \\"Alarm to add capacity if container CPU is high\\",
         \\"alarm_name\\": \\"testapp Service High CPU\\",
         \\"comparison_operator\\": \\"GreaterThanThreshold\\",
         \\"dimensions\\": {
@@ -10267,7 +10267,7 @@ exports[`PocketALBApplication renders an external application 1`] = `
         \\"alarm_actions\\": [
           \\"\${aws_appautoscaling_policy.testPocketApp_autoscaling_scale_out_policy_075BFAC4.arn}\\"
         ],
-        \\"alarm_description\\": \\"Alarm to add capacity if CPU is high\\",
+        \\"alarm_description\\": \\"Alarm to add capacity if container CPU is high\\",
         \\"alarm_name\\": \\"testapp Service High CPU\\",
         \\"comparison_operator\\": \\"GreaterThanThreshold\\",
         \\"dimensions\\": {
@@ -11234,7 +11234,7 @@ exports[`PocketALBApplication renders an internal application 1`] = `
         \\"alarm_actions\\": [
           \\"\${aws_appautoscaling_policy.testPocketApp_autoscaling_scale_out_policy_075BFAC4.arn}\\"
         ],
-        \\"alarm_description\\": \\"Alarm to add capacity if CPU is high\\",
+        \\"alarm_description\\": \\"Alarm to add capacity if container CPU is high\\",
         \\"alarm_name\\": \\"testapp Service High CPU\\",
         \\"comparison_operator\\": \\"GreaterThanThreshold\\",
         \\"dimensions\\": {
@@ -12241,7 +12241,7 @@ exports[`PocketALBApplication renders an internal application with tags 1`] = `
         \\"alarm_actions\\": [
           \\"\${aws_appautoscaling_policy.testPocketApp_autoscaling_scale_out_policy_075BFAC4.arn}\\"
         ],
-        \\"alarm_description\\": \\"Alarm to add capacity if CPU is high\\",
+        \\"alarm_description\\": \\"Alarm to add capacity if container CPU is high\\",
         \\"alarm_name\\": \\"testapp Service High CPU\\",
         \\"comparison_operator\\": \\"GreaterThanThreshold\\",
         \\"dimensions\\": {
