@@ -1,53 +1,136 @@
 import { Testing, TerraformStack } from 'cdktf';
+import { TestResource } from '../testHelpers';
 import { ApplicationCertificate } from './ApplicationCertificate';
 
-test('throws an error without a zone id or zone domain', () => {
-  const app = Testing.app();
-  const stack = new TerraformStack(app, 'test');
+describe('ApplicationCertificate', () => {
+  let app;
+  let stack;
 
-  expect(() => {
-    new ApplicationCertificate(stack, 'testCert', {
-      domain: 'dev.gobowling.info',
+  const tags = {
+    name: 'thedude',
+    hobby: 'bowling',
+  };
+
+  beforeEach(() => {
+    app = Testing.app();
+    stack = new TerraformStack(app, 'test');
+  });
+
+  describe('generateAcmCertificate', () => {
+    it('renders an acm certificate without tags', () => {
+      ApplicationCertificate.generateAcmCertificate(
+        stack,
+        'dev.gobowling.info'
+      );
+
+      expect(Testing.synth(stack)).toMatchSnapshot();
     });
-  }).toThrow('You need to pass either a zone id or a zone domain');
-});
 
-test('renders a cert with a zone id', () => {
-  const app = Testing.app();
-  const stack = new TerraformStack(app, 'test');
+    it('renders an acm certificate with tags', () => {
+      ApplicationCertificate.generateAcmCertificate(
+        stack,
+        'dev.gobowling.info',
+        tags
+      );
 
-  new ApplicationCertificate(stack, 'testCert', {
-    domain: 'dev.gobowling.info',
-    zoneId: 'malibu',
+      expect(Testing.synth(stack)).toMatchSnapshot();
+    });
   });
 
-  expect(Testing.synth(stack)).toMatchSnapshot();
-});
+  describe('generateRoute53Record', () => {
+    it('renders a route 53 record', () => {
+      const construct = new TestResource(stack, 'test-resource');
 
-test('renders a cert with a zone domain', () => {
-  const app = Testing.app();
-  const stack = new TerraformStack(app, 'test');
+      const cert = ApplicationCertificate.generateAcmCertificate(
+        stack,
+        'dev.gobowling.info'
+      );
 
-  new ApplicationCertificate(stack, 'testCert', {
-    domain: 'dev.gobowling.info',
-    zoneId: 'gobowling.info',
+      ApplicationCertificate.generateRoute53Record(
+        construct,
+        'dev.gobowling.info',
+        cert
+      );
+
+      expect(Testing.synth(stack)).toMatchSnapshot();
+    });
   });
 
-  expect(Testing.synth(stack)).toMatchSnapshot();
-});
+  describe('generateAcmCertificateValidation', () => {
+    it('renders an acm certificate validation', () => {
+      const construct = new TestResource(stack, 'test-resource');
 
-test('renders a cert with tags', () => {
-  const app = Testing.app();
-  const stack = new TerraformStack(app, 'test');
+      const cert = ApplicationCertificate.generateAcmCertificate(
+        stack,
+        'dev.gobowling.info'
+      );
 
-  new ApplicationCertificate(stack, 'testCert', {
-    domain: 'dev.gobowling.info',
-    zoneId: 'gobowling.info',
-    tags: {
-      name: 'thedude',
-      hobby: 'bowling',
-    },
+      const record = ApplicationCertificate.generateRoute53Record(
+        construct,
+        'dev.gobowling.info',
+        cert
+      );
+
+      ApplicationCertificate.generateAcmCertificateValidation(
+        construct,
+        cert,
+        record
+      );
+
+      expect(Testing.synth(stack)).toMatchSnapshot();
+    });
   });
 
-  expect(Testing.synth(stack)).toMatchSnapshot();
+  describe('constructor', () => {
+    it('throws an error without a zone id or zone domain', () => {
+      const app = Testing.app();
+      const stack = new TerraformStack(app, 'test');
+
+      expect(() => {
+        new ApplicationCertificate(stack, 'testCert', {
+          domain: 'dev.gobowling.info',
+        });
+      }).toThrow('You need to pass either a zone id or a zone domain');
+    });
+
+    it('renders a cert with a zone id', () => {
+      const app = Testing.app();
+      const stack = new TerraformStack(app, 'test');
+
+      new ApplicationCertificate(stack, 'testCert', {
+        domain: 'dev.gobowling.info',
+        zoneId: 'malibu',
+      });
+
+      expect(Testing.synth(stack)).toMatchSnapshot();
+    });
+
+    it('renders a cert with a zone domain', () => {
+      const app = Testing.app();
+      const stack = new TerraformStack(app, 'test');
+
+      new ApplicationCertificate(stack, 'testCert', {
+        domain: 'dev.gobowling.info',
+        zoneId: 'gobowling.info',
+      });
+
+      expect(Testing.synth(stack)).toMatchSnapshot();
+    });
+
+    it('renders a cert with tags', () => {
+      const app = Testing.app();
+      const stack = new TerraformStack(app, 'test');
+
+      new ApplicationCertificate(stack, 'testCert', {
+        domain: 'dev.gobowling.info',
+        zoneId: 'gobowling.info',
+        tags: {
+          name: 'thedude',
+          hobby: 'bowling',
+        },
+      });
+
+      expect(Testing.synth(stack)).toMatchSnapshot();
+    });
+  });
 });
