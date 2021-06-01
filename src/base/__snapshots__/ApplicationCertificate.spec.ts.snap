@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`renders a cert with a zone domain 1`] = `
+exports[`ApplicationCertificate constructor renders a cert with a zone domain 1`] = `
 "{
   \\"//\\": {
     \\"metadata\\": {
@@ -66,7 +66,7 @@ exports[`renders a cert with a zone domain 1`] = `
 }"
 `;
 
-exports[`renders a cert with a zone id 1`] = `
+exports[`ApplicationCertificate constructor renders a cert with a zone id 1`] = `
 "{
   \\"//\\": {
     \\"metadata\\": {
@@ -132,7 +132,7 @@ exports[`renders a cert with a zone id 1`] = `
 }"
 `;
 
-exports[`renders a cert with tags 1`] = `
+exports[`ApplicationCertificate constructor renders a cert with tags 1`] = `
 "{
   \\"//\\": {
     \\"metadata\\": {
@@ -194,6 +194,180 @@ exports[`renders a cert with tags 1`] = `
           \\"metadata\\": {
             \\"path\\": \\"test/testCert/certificate_validation\\",
             \\"uniqueId\\": \\"testCert_certificate_validation_80E8BDA3\\"
+          }
+        }
+      }
+    }
+  }
+}"
+`;
+
+exports[`ApplicationCertificate generateAcmCertificate renders an acm certificate with tags 1`] = `
+"{
+  \\"//\\": {
+    \\"metadata\\": {
+      \\"version\\": \\"stubbed\\",
+      \\"stackName\\": \\"test\\"
+    }
+  },
+  \\"resource\\": {
+    \\"aws_acm_certificate\\": {
+      \\"certificate\\": {
+        \\"domain_name\\": \\"dev.gobowling.info\\",
+        \\"tags\\": {
+          \\"name\\": \\"thedude\\",
+          \\"hobby\\": \\"bowling\\"
+        },
+        \\"validation_method\\": \\"DNS\\",
+        \\"lifecycle\\": {
+          \\"create_before_destroy\\": true
+        },
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/certificate\\",
+            \\"uniqueId\\": \\"certificate\\"
+          }
+        }
+      }
+    }
+  }
+}"
+`;
+
+exports[`ApplicationCertificate generateAcmCertificate renders an acm certificate without tags 1`] = `
+"{
+  \\"//\\": {
+    \\"metadata\\": {
+      \\"version\\": \\"stubbed\\",
+      \\"stackName\\": \\"test\\"
+    }
+  },
+  \\"resource\\": {
+    \\"aws_acm_certificate\\": {
+      \\"certificate\\": {
+        \\"domain_name\\": \\"dev.gobowling.info\\",
+        \\"validation_method\\": \\"DNS\\",
+        \\"lifecycle\\": {
+          \\"create_before_destroy\\": true
+        },
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/certificate\\",
+            \\"uniqueId\\": \\"certificate\\"
+          }
+        }
+      }
+    }
+  }
+}"
+`;
+
+exports[`ApplicationCertificate generateAcmCertificateValidation renders an acm certificate validation 1`] = `
+"{
+  \\"//\\": {
+    \\"metadata\\": {
+      \\"version\\": \\"stubbed\\",
+      \\"stackName\\": \\"test\\"
+    }
+  },
+  \\"resource\\": {
+    \\"aws_route53_record\\": {
+      \\"test-resource_certificate_record_59EDF3C1\\": {
+        \\"name\\": \\"\${tolist(aws_acm_certificate.certificate.domain_validation_options)[0].resource_record_name}\\",
+        \\"records\\": [
+          \\"\${tolist(aws_acm_certificate.certificate.domain_validation_options)[0].resource_record_value}\\"
+        ],
+        \\"ttl\\": 60,
+        \\"type\\": \\"\${tolist(aws_acm_certificate.certificate.domain_validation_options)[0].resource_record_type}\\",
+        \\"zone_id\\": \\"dev.gobowling.info\\",
+        \\"depends_on\\": [
+          \\"aws_acm_certificate.certificate\\"
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-resource/certificate_record\\",
+            \\"uniqueId\\": \\"test-resource_certificate_record_59EDF3C1\\"
+          }
+        }
+      }
+    },
+    \\"aws_acm_certificate_validation\\": {
+      \\"test-resource_certificate_validation_7DB80AF0\\": {
+        \\"certificate_arn\\": \\"\${aws_acm_certificate.certificate.arn}\\",
+        \\"validation_record_fqdns\\": [
+          \\"\${aws_route53_record.test-resource_certificate_record_59EDF3C1.fqdn}\\"
+        ],
+        \\"depends_on\\": [
+          \\"aws_route53_record.test-resource_certificate_record_59EDF3C1\\",
+          \\"aws_acm_certificate.certificate\\"
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-resource/certificate_validation\\",
+            \\"uniqueId\\": \\"test-resource_certificate_validation_7DB80AF0\\"
+          }
+        }
+      }
+    },
+    \\"aws_acm_certificate\\": {
+      \\"certificate\\": {
+        \\"domain_name\\": \\"dev.gobowling.info\\",
+        \\"validation_method\\": \\"DNS\\",
+        \\"lifecycle\\": {
+          \\"create_before_destroy\\": true
+        },
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/certificate\\",
+            \\"uniqueId\\": \\"certificate\\"
+          }
+        }
+      }
+    }
+  }
+}"
+`;
+
+exports[`ApplicationCertificate generateRoute53Record renders a route 53 record 1`] = `
+"{
+  \\"//\\": {
+    \\"metadata\\": {
+      \\"version\\": \\"stubbed\\",
+      \\"stackName\\": \\"test\\"
+    }
+  },
+  \\"resource\\": {
+    \\"aws_route53_record\\": {
+      \\"test-resource_certificate_record_59EDF3C1\\": {
+        \\"name\\": \\"\${tolist(aws_acm_certificate.certificate.domain_validation_options)[0].resource_record_name}\\",
+        \\"records\\": [
+          \\"\${tolist(aws_acm_certificate.certificate.domain_validation_options)[0].resource_record_value}\\"
+        ],
+        \\"ttl\\": 60,
+        \\"type\\": \\"\${tolist(aws_acm_certificate.certificate.domain_validation_options)[0].resource_record_type}\\",
+        \\"zone_id\\": \\"dev.gobowling.info\\",
+        \\"depends_on\\": [
+          \\"aws_acm_certificate.certificate\\"
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-resource/certificate_record\\",
+            \\"uniqueId\\": \\"test-resource_certificate_record_59EDF3C1\\"
+          }
+        }
+      }
+    },
+    \\"aws_acm_certificate\\": {
+      \\"certificate\\": {
+        \\"domain_name\\": \\"dev.gobowling.info\\",
+        \\"validation_method\\": \\"DNS\\",
+        \\"lifecycle\\": {
+          \\"create_before_destroy\\": true
+        },
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/certificate\\",
+            \\"uniqueId\\": \\"certificate\\"
           }
         }
       }

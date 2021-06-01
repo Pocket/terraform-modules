@@ -8,6 +8,7 @@ import {
 describe('ApplicationAutoscaling', () => {
   let app;
   let stack;
+
   const props: ApplicationAutoscalingProps = {
     prefix: 'test-',
     targetMinCapacity: 1,

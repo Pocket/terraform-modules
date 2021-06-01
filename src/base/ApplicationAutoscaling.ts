@@ -86,18 +86,18 @@ export class ApplicationAutoscaling extends Resource {
 
   /**
    * Creates an IAM Role
-   * @param construct
+   * @param resource
    * @param config
    * @returns IamRole
    */
   static generateIamRole(
-    construct: Resource,
+    resource: Resource,
     config: ApplicationAutoscalingProps
   ): IamRole {
-    return new IamRole(construct, `autoscaling_role`, {
+    return new IamRole(resource, `autoscaling_role`, {
       name: `${config.prefix}-AutoScalingRole`,
       assumeRolePolicy: new DataAwsIamPolicyDocument(
-        construct,
+        resource,
         `autoscaling_assume`,
         {
           statement: [
@@ -120,19 +120,19 @@ export class ApplicationAutoscaling extends Resource {
   /**
    * Creates an IAM Role Policy
    *
-   * @param construct
+   * @param resource
    * @param config
    * @param iamRole
    */
   static generateIamRolePolicy(
-    construct: Resource,
+    resource: Resource,
     config: ApplicationAutoscalingProps,
     iamRole: IamRole
   ): void {
-    new IamRolePolicy(construct, `autoscaling_role_policy`, {
+    new IamRolePolicy(resource, `autoscaling_role_policy`, {
       name: `${config.prefix}-AutoScalingPolicy`,
       role: iamRole.id,
-      policy: new DataAwsIamPolicyDocument(construct, `role_policy`, {
+      policy: new DataAwsIamPolicyDocument(resource, `role_policy`, {
         statement: [
           {
             effect: 'Allow',
@@ -157,17 +157,17 @@ export class ApplicationAutoscaling extends Resource {
 
   /**
    * Creates an Auto Scaling Target
-   * @param construct
+   * @param resource
    * @param config
    * @param iamRole
    * @returns AppautoscalingTarget
    */
   static generateAutoScalingTarget(
-    construct: Resource,
+    resource: Resource,
     config: ApplicationAutoscalingProps,
     iamRole: IamRole
   ): AppautoscalingTarget {
-    return new AppautoscalingTarget(construct, `autoscaling_target`, {
+    return new AppautoscalingTarget(resource, `autoscaling_target`, {
       maxCapacity: config.targetMaxCapacity,
       minCapacity: config.targetMinCapacity,
       resourceId: `service/${config.ecsClusterName}/${config.ecsServiceName}`,
@@ -179,14 +179,14 @@ export class ApplicationAutoscaling extends Resource {
 
   /**
    * Creates an Autoscaling Policy
-   * @param construct
+   * @param resource
    * @param config
    * @param target
    * @param type
    * @returns AppautoscalingPolicy
    */
   static generateAutoSclaingPolicy(
-    construct: Resource,
+    resource: Resource,
     config: ApplicationAutoscalingProps,
     target: AppautoscalingTarget,
     type: 'In' | 'Out'
@@ -210,7 +210,7 @@ export class ApplicationAutoscaling extends Resource {
     }
 
     return new AppautoscalingPolicy(
-      construct,
+      resource,
       `scale_${type.toLowerCase()}_policy`,
       {
         name: `${config.prefix}-Scale${type}Policy`,
@@ -234,7 +234,7 @@ export class ApplicationAutoscaling extends Resource {
 
   /**
    * Creates a Cloudwatch Metric Alarm
-   * @param construct
+   * @param resource
    * @param config
    * @param id
    * @param name
@@ -244,7 +244,7 @@ export class ApplicationAutoscaling extends Resource {
    * @param arn
    */
   static generateCloudwatchMetricAlarm(
-    construct: Resource,
+    resource: Resource,
     config: ApplicationAutoscalingProps,
     id: string,
     name: string,
@@ -253,7 +253,7 @@ export class ApplicationAutoscaling extends Resource {
     threshold: number,
     arn: string
   ): void {
-    new CloudwatchMetricAlarm(construct, id, {
+    new CloudwatchMetricAlarm(resource, id, {
       alarmName: name,
       alarmDescription: desc,
       comparisonOperator: operator,
