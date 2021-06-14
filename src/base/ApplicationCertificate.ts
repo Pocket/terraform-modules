@@ -39,47 +39,85 @@ export class ApplicationCertificate extends Resource {
       throw new Error('You need to pass either a zone id or a zone domain');
     }
 
-    const certificate = new AcmCertificate(this, `certificate`, {
-      domainName: config.domain,
+    const certificate = ApplicationCertificate.generateAcmCertificate(
+      this,
+      config.domain,
+      config.tags
+    );
+
+    const certificateRecord = ApplicationCertificate.generateRoute53Record(
+      this,
+      config.zoneId,
+      certificate
+    );
+
+    ApplicationCertificate.generateAcmCertificateValidation(
+      this,
+      certificate,
+      certificateRecord
+    );
+
+    this.arn = certificate.arn;
+  }
+
+  static generateAcmCertificate(
+    resource: Resource,
+    domain: string,
+    tags?: { [key: string]: string }
+  ): AcmCertificate {
+    return new AcmCertificate(resource, `certificate`, {
+      domainName: domain,
       validationMethod: 'DNS',
-      tags: config.tags,
+      tags: tags,
       lifecycle: {
         createBeforeDestroy: true,
       },
     });
+  }
 
-    const certificateRecord = new Route53Record(this, `certificate_record`, {
-      name: certificate.domainValidationOptions('0').resourceRecordName,
-      type: certificate.domainValidationOptions('0').resourceRecordType,
-      zoneId: config.zoneId,
+  static generateRoute53Record(
+    resource: Resource,
+    zoneId: string,
+    cert: AcmCertificate
+  ): Route53Record {
+    const record = new Route53Record(resource, `certificate_record`, {
+      name: cert.domainValidationOptions('0').resourceRecordName,
+      type: cert.domainValidationOptions('0').resourceRecordType,
+      zoneId,
       records: [],
       ttl: 60,
-      dependsOn: [certificate],
+      dependsOn: [cert],
     });
 
     // there appears to be an aws / cdk versioning mismatch .the above references to
     // certificate.domainValidationOptions fail due to aws using a set instead of a list
     // (but cdk doesn't know this yet). so, we force it.
-    certificateRecord.addOverride(
+    record.addOverride(
       'name',
-      `\${tolist(${certificate.fqn}.domain_validation_options)[0].resource_record_name}`
+      `\${tolist(${cert.fqn}.domain_validation_options)[0].resource_record_name}`
     );
 
-    certificateRecord.addOverride(
+    record.addOverride(
       'type',
-      `\${tolist(${certificate.fqn}.domain_validation_options)[0].resource_record_type}`
+      `\${tolist(${cert.fqn}.domain_validation_options)[0].resource_record_type}`
     );
 
-    certificateRecord.addOverride('records', [
-      `\${tolist(${certificate.fqn}.domain_validation_options)[0].resource_record_value}`,
+    record.addOverride('records', [
+      `\${tolist(${cert.fqn}.domain_validation_options)[0].resource_record_value}`,
     ]);
 
-    new AcmCertificateValidation(this, `certificate_validation`, {
-      certificateArn: certificate.arn,
-      validationRecordFqdns: [certificateRecord.fqdn],
-      dependsOn: [certificateRecord, certificate],
-    });
+    return record;
+  }
 
-    this.arn = certificate.arn;
+  static generateAcmCertificateValidation(
+    resource: Resource,
+    cert: AcmCertificate,
+    record: Route53Record
+  ): void {
+    new AcmCertificateValidation(resource, `certificate_validation`, {
+      certificateArn: cert.arn,
+      validationRecordFqdns: [record.fqdn],
+      dependsOn: [record, cert],
+    });
   }
 }

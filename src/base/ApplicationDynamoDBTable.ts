@@ -38,6 +38,8 @@ export interface ApplicationDynamoDBProps {
   tableConfig: ApplicationDynamoDBTableConfig;
   readCapacity?: ApplicationDynamoDBTableAutoScaleProps;
   writeCapacity?: ApplicationDynamoDBTableAutoScaleProps;
+  // If true, the DynamoDB table will be protected from being destroyed. Enabled by default.
+  preventDestroyTable?: boolean;
 }
 
 /**
@@ -59,6 +61,8 @@ export class ApplicationDynamoDBTable extends Resource {
       name: config.prefix,
       lifecycle: {
         ignoreChanges: ['read_capacity', 'write_capacity'],
+        // Protect the table from being removed, unless preventDestroyTable is explicitly set to false.
+        preventDestroy: config.preventDestroyTable !== false,
       },
     });
 

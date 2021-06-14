@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`renders autoscaling without tags 1`] = `
+exports[`ApplicationAutoscaling constructor renders autoscaling without tags 1`] = `
 "{
   \\"//\\": {
     \\"metadata\\": {
@@ -174,7 +174,7 @@ exports[`renders autoscaling without tags 1`] = `
         \\"alarm_actions\\": [
           \\"\${aws_appautoscaling_policy.testAutoscaling_scale_out_policy_DE69B04C.arn}\\"
         ],
-        \\"alarm_description\\": \\"Alarm to add capacity if CPU is high\\",
+        \\"alarm_description\\": \\"Alarm to add capacity if container CPU is high\\",
         \\"alarm_name\\": \\"test- Service High CPU\\",
         \\"comparison_operator\\": \\"GreaterThanThreshold\\",
         \\"dimensions\\": {
@@ -217,6 +217,679 @@ exports[`renders autoscaling without tags 1`] = `
           \\"metadata\\": {
             \\"path\\": \\"test/testAutoscaling/scale_in_alarm\\",
             \\"uniqueId\\": \\"testAutoscaling_scale_in_alarm_D552E48E\\"
+          }
+        }
+      }
+    }
+  }
+}"
+`;
+
+exports[`ApplicationAutoscaling generateAutoScalingPolicy renders a scale-in AutoscalingPolicy 1`] = `
+"{
+  \\"//\\": {
+    \\"metadata\\": {
+      \\"version\\": \\"stubbed\\",
+      \\"stackName\\": \\"test\\"
+    }
+  },
+  \\"data\\": {
+    \\"aws_iam_policy_document\\": {
+      \\"test-resource_autoscaling_assume_94B7604F\\": {
+        \\"statement\\": [
+          {
+            \\"actions\\": [
+              \\"sts:AssumeRole\\"
+            ],
+            \\"effect\\": \\"Allow\\",
+            \\"principals\\": [
+              {
+                \\"identifiers\\": [
+                  \\"ecs.application-autoscaling.amazonaws.com\\"
+                ],
+                \\"type\\": \\"Service\\"
+              }
+            ]
+          }
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-resource/autoscaling_assume\\",
+            \\"uniqueId\\": \\"test-resource_autoscaling_assume_94B7604F\\"
+          }
+        }
+      }
+    }
+  },
+  \\"resource\\": {
+    \\"aws_iam_role\\": {
+      \\"test-resource_autoscaling_role_5C86EA80\\": {
+        \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.test-resource_autoscaling_assume_94B7604F.json}\\",
+        \\"name\\": \\"test--AutoScalingRole\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-resource/autoscaling_role\\",
+            \\"uniqueId\\": \\"test-resource_autoscaling_role_5C86EA80\\"
+          }
+        }
+      }
+    },
+    \\"aws_appautoscaling_target\\": {
+      \\"test-resource_autoscaling_target_50BC4A94\\": {
+        \\"max_capacity\\": 5,
+        \\"min_capacity\\": 1,
+        \\"resource_id\\": \\"service/ecs-cluster-test/ecs-service-test\\",
+        \\"role_arn\\": \\"\${aws_iam_role.test-resource_autoscaling_role_5C86EA80.arn}\\",
+        \\"scalable_dimension\\": \\"ecs:service:DesiredCount\\",
+        \\"service_namespace\\": \\"ecs\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-resource/autoscaling_target\\",
+            \\"uniqueId\\": \\"test-resource_autoscaling_target_50BC4A94\\"
+          }
+        }
+      }
+    },
+    \\"aws_appautoscaling_policy\\": {
+      \\"test-resource_scale_in_policy_FC19C991\\": {
+        \\"name\\": \\"test--ScaleInPolicy\\",
+        \\"policy_type\\": \\"StepScaling\\",
+        \\"resource_id\\": \\"\${aws_appautoscaling_target.test-resource_autoscaling_target_50BC4A94.resource_id}\\",
+        \\"scalable_dimension\\": \\"\${aws_appautoscaling_target.test-resource_autoscaling_target_50BC4A94.scalable_dimension}\\",
+        \\"service_namespace\\": \\"\${aws_appautoscaling_target.test-resource_autoscaling_target_50BC4A94.service_namespace}\\",
+        \\"step_scaling_policy_configuration\\": [
+          {
+            \\"adjustment_type\\": \\"ChangeInCapacity\\",
+            \\"cooldown\\": 60,
+            \\"metric_aggregation_type\\": \\"Average\\",
+            \\"step_adjustment\\": [
+              {
+                \\"metric_interval_upper_bound\\": \\"0\\",
+                \\"scaling_adjustment\\": -1
+              }
+            ]
+          }
+        ],
+        \\"depends_on\\": [
+          \\"aws_appautoscaling_target.test-resource_autoscaling_target_50BC4A94\\"
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-resource/scale_in_policy\\",
+            \\"uniqueId\\": \\"test-resource_scale_in_policy_FC19C991\\"
+          }
+        }
+      }
+    }
+  }
+}"
+`;
+
+exports[`ApplicationAutoscaling generateAutoScalingPolicy renders a scale-out AutoscalingPolicy 1`] = `
+"{
+  \\"//\\": {
+    \\"metadata\\": {
+      \\"version\\": \\"stubbed\\",
+      \\"stackName\\": \\"test\\"
+    }
+  },
+  \\"data\\": {
+    \\"aws_iam_policy_document\\": {
+      \\"test-resource_autoscaling_assume_94B7604F\\": {
+        \\"statement\\": [
+          {
+            \\"actions\\": [
+              \\"sts:AssumeRole\\"
+            ],
+            \\"effect\\": \\"Allow\\",
+            \\"principals\\": [
+              {
+                \\"identifiers\\": [
+                  \\"ecs.application-autoscaling.amazonaws.com\\"
+                ],
+                \\"type\\": \\"Service\\"
+              }
+            ]
+          }
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-resource/autoscaling_assume\\",
+            \\"uniqueId\\": \\"test-resource_autoscaling_assume_94B7604F\\"
+          }
+        }
+      }
+    }
+  },
+  \\"resource\\": {
+    \\"aws_iam_role\\": {
+      \\"test-resource_autoscaling_role_5C86EA80\\": {
+        \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.test-resource_autoscaling_assume_94B7604F.json}\\",
+        \\"name\\": \\"test--AutoScalingRole\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-resource/autoscaling_role\\",
+            \\"uniqueId\\": \\"test-resource_autoscaling_role_5C86EA80\\"
+          }
+        }
+      }
+    },
+    \\"aws_appautoscaling_target\\": {
+      \\"test-resource_autoscaling_target_50BC4A94\\": {
+        \\"max_capacity\\": 5,
+        \\"min_capacity\\": 1,
+        \\"resource_id\\": \\"service/ecs-cluster-test/ecs-service-test\\",
+        \\"role_arn\\": \\"\${aws_iam_role.test-resource_autoscaling_role_5C86EA80.arn}\\",
+        \\"scalable_dimension\\": \\"ecs:service:DesiredCount\\",
+        \\"service_namespace\\": \\"ecs\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-resource/autoscaling_target\\",
+            \\"uniqueId\\": \\"test-resource_autoscaling_target_50BC4A94\\"
+          }
+        }
+      }
+    },
+    \\"aws_appautoscaling_policy\\": {
+      \\"test-resource_scale_out_policy_CE22053C\\": {
+        \\"name\\": \\"test--ScaleOutPolicy\\",
+        \\"policy_type\\": \\"StepScaling\\",
+        \\"resource_id\\": \\"\${aws_appautoscaling_target.test-resource_autoscaling_target_50BC4A94.resource_id}\\",
+        \\"scalable_dimension\\": \\"\${aws_appautoscaling_target.test-resource_autoscaling_target_50BC4A94.scalable_dimension}\\",
+        \\"service_namespace\\": \\"\${aws_appautoscaling_target.test-resource_autoscaling_target_50BC4A94.service_namespace}\\",
+        \\"step_scaling_policy_configuration\\": [
+          {
+            \\"adjustment_type\\": \\"ChangeInCapacity\\",
+            \\"cooldown\\": 60,
+            \\"metric_aggregation_type\\": \\"Average\\",
+            \\"step_adjustment\\": [
+              {
+                \\"metric_interval_lower_bound\\": \\"0\\",
+                \\"scaling_adjustment\\": 2
+              }
+            ]
+          }
+        ],
+        \\"depends_on\\": [
+          \\"aws_appautoscaling_target.test-resource_autoscaling_target_50BC4A94\\"
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-resource/scale_out_policy\\",
+            \\"uniqueId\\": \\"test-resource_scale_out_policy_CE22053C\\"
+          }
+        }
+      }
+    }
+  }
+}"
+`;
+
+exports[`ApplicationAutoscaling generateAutoScalingTarget renders an AutoscalingTarget 1`] = `
+"{
+  \\"//\\": {
+    \\"metadata\\": {
+      \\"version\\": \\"stubbed\\",
+      \\"stackName\\": \\"test\\"
+    }
+  },
+  \\"data\\": {
+    \\"aws_iam_policy_document\\": {
+      \\"test-resource_autoscaling_assume_94B7604F\\": {
+        \\"statement\\": [
+          {
+            \\"actions\\": [
+              \\"sts:AssumeRole\\"
+            ],
+            \\"effect\\": \\"Allow\\",
+            \\"principals\\": [
+              {
+                \\"identifiers\\": [
+                  \\"ecs.application-autoscaling.amazonaws.com\\"
+                ],
+                \\"type\\": \\"Service\\"
+              }
+            ]
+          }
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-resource/autoscaling_assume\\",
+            \\"uniqueId\\": \\"test-resource_autoscaling_assume_94B7604F\\"
+          }
+        }
+      }
+    }
+  },
+  \\"resource\\": {
+    \\"aws_iam_role\\": {
+      \\"test-resource_autoscaling_role_5C86EA80\\": {
+        \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.test-resource_autoscaling_assume_94B7604F.json}\\",
+        \\"name\\": \\"test--AutoScalingRole\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-resource/autoscaling_role\\",
+            \\"uniqueId\\": \\"test-resource_autoscaling_role_5C86EA80\\"
+          }
+        }
+      }
+    },
+    \\"aws_appautoscaling_target\\": {
+      \\"test-resource_autoscaling_target_50BC4A94\\": {
+        \\"max_capacity\\": 5,
+        \\"min_capacity\\": 1,
+        \\"resource_id\\": \\"service/ecs-cluster-test/ecs-service-test\\",
+        \\"role_arn\\": \\"\${aws_iam_role.test-resource_autoscaling_role_5C86EA80.arn}\\",
+        \\"scalable_dimension\\": \\"ecs:service:DesiredCount\\",
+        \\"service_namespace\\": \\"ecs\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-resource/autoscaling_target\\",
+            \\"uniqueId\\": \\"test-resource_autoscaling_target_50BC4A94\\"
+          }
+        }
+      }
+    }
+  }
+}"
+`;
+
+exports[`ApplicationAutoscaling generateCloudwatchMetricAlarm renders a scale-in Cloudwatch Alarm 1`] = `
+"{
+  \\"//\\": {
+    \\"metadata\\": {
+      \\"version\\": \\"stubbed\\",
+      \\"stackName\\": \\"test\\"
+    }
+  },
+  \\"data\\": {
+    \\"aws_iam_policy_document\\": {
+      \\"test-resource_autoscaling_assume_94B7604F\\": {
+        \\"statement\\": [
+          {
+            \\"actions\\": [
+              \\"sts:AssumeRole\\"
+            ],
+            \\"effect\\": \\"Allow\\",
+            \\"principals\\": [
+              {
+                \\"identifiers\\": [
+                  \\"ecs.application-autoscaling.amazonaws.com\\"
+                ],
+                \\"type\\": \\"Service\\"
+              }
+            ]
+          }
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-resource/autoscaling_assume\\",
+            \\"uniqueId\\": \\"test-resource_autoscaling_assume_94B7604F\\"
+          }
+        }
+      }
+    }
+  },
+  \\"resource\\": {
+    \\"aws_iam_role\\": {
+      \\"test-resource_autoscaling_role_5C86EA80\\": {
+        \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.test-resource_autoscaling_assume_94B7604F.json}\\",
+        \\"name\\": \\"test--AutoScalingRole\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-resource/autoscaling_role\\",
+            \\"uniqueId\\": \\"test-resource_autoscaling_role_5C86EA80\\"
+          }
+        }
+      }
+    },
+    \\"aws_appautoscaling_target\\": {
+      \\"test-resource_autoscaling_target_50BC4A94\\": {
+        \\"max_capacity\\": 5,
+        \\"min_capacity\\": 1,
+        \\"resource_id\\": \\"service/ecs-cluster-test/ecs-service-test\\",
+        \\"role_arn\\": \\"\${aws_iam_role.test-resource_autoscaling_role_5C86EA80.arn}\\",
+        \\"scalable_dimension\\": \\"ecs:service:DesiredCount\\",
+        \\"service_namespace\\": \\"ecs\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-resource/autoscaling_target\\",
+            \\"uniqueId\\": \\"test-resource_autoscaling_target_50BC4A94\\"
+          }
+        }
+      }
+    },
+    \\"aws_appautoscaling_policy\\": {
+      \\"test-resource_scale_in_policy_FC19C991\\": {
+        \\"name\\": \\"test--ScaleInPolicy\\",
+        \\"policy_type\\": \\"StepScaling\\",
+        \\"resource_id\\": \\"\${aws_appautoscaling_target.test-resource_autoscaling_target_50BC4A94.resource_id}\\",
+        \\"scalable_dimension\\": \\"\${aws_appautoscaling_target.test-resource_autoscaling_target_50BC4A94.scalable_dimension}\\",
+        \\"service_namespace\\": \\"\${aws_appautoscaling_target.test-resource_autoscaling_target_50BC4A94.service_namespace}\\",
+        \\"step_scaling_policy_configuration\\": [
+          {
+            \\"adjustment_type\\": \\"ChangeInCapacity\\",
+            \\"cooldown\\": 60,
+            \\"metric_aggregation_type\\": \\"Average\\",
+            \\"step_adjustment\\": [
+              {
+                \\"metric_interval_upper_bound\\": \\"0\\",
+                \\"scaling_adjustment\\": -1
+              }
+            ]
+          }
+        ],
+        \\"depends_on\\": [
+          \\"aws_appautoscaling_target.test-resource_autoscaling_target_50BC4A94\\"
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-resource/scale_in_policy\\",
+            \\"uniqueId\\": \\"test-resource_scale_in_policy_FC19C991\\"
+          }
+        }
+      }
+    },
+    \\"aws_cloudwatch_metric_alarm\\": {
+      \\"test-resource_scale_in_alarm_73254138\\": {
+        \\"alarm_actions\\": [
+          \\"\${aws_appautoscaling_policy.test-resource_scale_in_policy_FC19C991.arn}\\"
+        ],
+        \\"alarm_description\\": \\"Alarm to reduce capacity if container CPU is low\\",
+        \\"alarm_name\\": \\"test- Service Low CPU\\",
+        \\"comparison_operator\\": \\"LessThanThreshold\\",
+        \\"dimensions\\": {
+          \\"ClusterName\\": \\"ecs-cluster-test\\",
+          \\"ServiceName\\": \\"ecs-service-test\\"
+        },
+        \\"evaluation_periods\\": 2,
+        \\"metric_name\\": \\"CPUUtilization\\",
+        \\"namespace\\": \\"AWS/ECS\\",
+        \\"period\\": 60,
+        \\"statistic\\": \\"Average\\",
+        \\"threshold\\": 30,
+        \\"treat_missing_data\\": \\"notBreaching\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-resource/scale_in_alarm\\",
+            \\"uniqueId\\": \\"test-resource_scale_in_alarm_73254138\\"
+          }
+        }
+      }
+    }
+  }
+}"
+`;
+
+exports[`ApplicationAutoscaling generateCloudwatchMetricAlarm renders a scale-out Cloudwatch Alarm 1`] = `
+"{
+  \\"//\\": {
+    \\"metadata\\": {
+      \\"version\\": \\"stubbed\\",
+      \\"stackName\\": \\"test\\"
+    }
+  },
+  \\"data\\": {
+    \\"aws_iam_policy_document\\": {
+      \\"test-resource_autoscaling_assume_94B7604F\\": {
+        \\"statement\\": [
+          {
+            \\"actions\\": [
+              \\"sts:AssumeRole\\"
+            ],
+            \\"effect\\": \\"Allow\\",
+            \\"principals\\": [
+              {
+                \\"identifiers\\": [
+                  \\"ecs.application-autoscaling.amazonaws.com\\"
+                ],
+                \\"type\\": \\"Service\\"
+              }
+            ]
+          }
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-resource/autoscaling_assume\\",
+            \\"uniqueId\\": \\"test-resource_autoscaling_assume_94B7604F\\"
+          }
+        }
+      }
+    }
+  },
+  \\"resource\\": {
+    \\"aws_iam_role\\": {
+      \\"test-resource_autoscaling_role_5C86EA80\\": {
+        \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.test-resource_autoscaling_assume_94B7604F.json}\\",
+        \\"name\\": \\"test--AutoScalingRole\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-resource/autoscaling_role\\",
+            \\"uniqueId\\": \\"test-resource_autoscaling_role_5C86EA80\\"
+          }
+        }
+      }
+    },
+    \\"aws_appautoscaling_target\\": {
+      \\"test-resource_autoscaling_target_50BC4A94\\": {
+        \\"max_capacity\\": 5,
+        \\"min_capacity\\": 1,
+        \\"resource_id\\": \\"service/ecs-cluster-test/ecs-service-test\\",
+        \\"role_arn\\": \\"\${aws_iam_role.test-resource_autoscaling_role_5C86EA80.arn}\\",
+        \\"scalable_dimension\\": \\"ecs:service:DesiredCount\\",
+        \\"service_namespace\\": \\"ecs\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-resource/autoscaling_target\\",
+            \\"uniqueId\\": \\"test-resource_autoscaling_target_50BC4A94\\"
+          }
+        }
+      }
+    },
+    \\"aws_appautoscaling_policy\\": {
+      \\"test-resource_scale_out_policy_CE22053C\\": {
+        \\"name\\": \\"test--ScaleOutPolicy\\",
+        \\"policy_type\\": \\"StepScaling\\",
+        \\"resource_id\\": \\"\${aws_appautoscaling_target.test-resource_autoscaling_target_50BC4A94.resource_id}\\",
+        \\"scalable_dimension\\": \\"\${aws_appautoscaling_target.test-resource_autoscaling_target_50BC4A94.scalable_dimension}\\",
+        \\"service_namespace\\": \\"\${aws_appautoscaling_target.test-resource_autoscaling_target_50BC4A94.service_namespace}\\",
+        \\"step_scaling_policy_configuration\\": [
+          {
+            \\"adjustment_type\\": \\"ChangeInCapacity\\",
+            \\"cooldown\\": 60,
+            \\"metric_aggregation_type\\": \\"Average\\",
+            \\"step_adjustment\\": [
+              {
+                \\"metric_interval_lower_bound\\": \\"0\\",
+                \\"scaling_adjustment\\": 2
+              }
+            ]
+          }
+        ],
+        \\"depends_on\\": [
+          \\"aws_appautoscaling_target.test-resource_autoscaling_target_50BC4A94\\"
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-resource/scale_out_policy\\",
+            \\"uniqueId\\": \\"test-resource_scale_out_policy_CE22053C\\"
+          }
+        }
+      }
+    },
+    \\"aws_cloudwatch_metric_alarm\\": {
+      \\"test-resource_scale_out_alarm_5BADC0D8\\": {
+        \\"alarm_actions\\": [
+          \\"\${aws_appautoscaling_policy.test-resource_scale_out_policy_CE22053C.arn}\\"
+        ],
+        \\"alarm_description\\": \\"Alarm to add capacity if container CPU is high\\",
+        \\"alarm_name\\": \\"test- Service High CPU\\",
+        \\"comparison_operator\\": \\"GreaterThanThreshold\\",
+        \\"dimensions\\": {
+          \\"ClusterName\\": \\"ecs-cluster-test\\",
+          \\"ServiceName\\": \\"ecs-service-test\\"
+        },
+        \\"evaluation_periods\\": 2,
+        \\"metric_name\\": \\"CPUUtilization\\",
+        \\"namespace\\": \\"AWS/ECS\\",
+        \\"period\\": 60,
+        \\"statistic\\": \\"Average\\",
+        \\"threshold\\": 45,
+        \\"treat_missing_data\\": \\"notBreaching\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-resource/scale_out_alarm\\",
+            \\"uniqueId\\": \\"test-resource_scale_out_alarm_5BADC0D8\\"
+          }
+        }
+      }
+    }
+  }
+}"
+`;
+
+exports[`ApplicationAutoscaling generateIamRole renders an IamRole 1`] = `
+"{
+  \\"//\\": {
+    \\"metadata\\": {
+      \\"version\\": \\"stubbed\\",
+      \\"stackName\\": \\"test\\"
+    }
+  },
+  \\"data\\": {
+    \\"aws_iam_policy_document\\": {
+      \\"test-resource_autoscaling_assume_94B7604F\\": {
+        \\"statement\\": [
+          {
+            \\"actions\\": [
+              \\"sts:AssumeRole\\"
+            ],
+            \\"effect\\": \\"Allow\\",
+            \\"principals\\": [
+              {
+                \\"identifiers\\": [
+                  \\"ecs.application-autoscaling.amazonaws.com\\"
+                ],
+                \\"type\\": \\"Service\\"
+              }
+            ]
+          }
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-resource/autoscaling_assume\\",
+            \\"uniqueId\\": \\"test-resource_autoscaling_assume_94B7604F\\"
+          }
+        }
+      }
+    }
+  },
+  \\"resource\\": {
+    \\"aws_iam_role\\": {
+      \\"test-resource_autoscaling_role_5C86EA80\\": {
+        \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.test-resource_autoscaling_assume_94B7604F.json}\\",
+        \\"name\\": \\"test--AutoScalingRole\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-resource/autoscaling_role\\",
+            \\"uniqueId\\": \\"test-resource_autoscaling_role_5C86EA80\\"
+          }
+        }
+      }
+    }
+  }
+}"
+`;
+
+exports[`ApplicationAutoscaling generateIamRolePolicy renders an IamRolePolicy 1`] = `
+"{
+  \\"//\\": {
+    \\"metadata\\": {
+      \\"version\\": \\"stubbed\\",
+      \\"stackName\\": \\"test\\"
+    }
+  },
+  \\"data\\": {
+    \\"aws_iam_policy_document\\": {
+      \\"test-resource_autoscaling_assume_94B7604F\\": {
+        \\"statement\\": [
+          {
+            \\"actions\\": [
+              \\"sts:AssumeRole\\"
+            ],
+            \\"effect\\": \\"Allow\\",
+            \\"principals\\": [
+              {
+                \\"identifiers\\": [
+                  \\"ecs.application-autoscaling.amazonaws.com\\"
+                ],
+                \\"type\\": \\"Service\\"
+              }
+            ]
+          }
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-resource/autoscaling_assume\\",
+            \\"uniqueId\\": \\"test-resource_autoscaling_assume_94B7604F\\"
+          }
+        }
+      },
+      \\"test-resource_role_policy_21B9F22E\\": {
+        \\"statement\\": [
+          {
+            \\"actions\\": [
+              \\"cloudwatch:PutMetricAlarm\\",
+              \\"cloudwatch:DescribeAlarms\\",
+              \\"cloudwatch:DeleteAlarms\\"
+            ],
+            \\"effect\\": \\"Allow\\",
+            \\"resources\\": [
+              \\"arn:aws:cloudwatch:*:*:alarm:/ecs-service-test*\\"
+            ]
+          },
+          {
+            \\"actions\\": [
+              \\"ecs:DescribeServices\\",
+              \\"ecs:UpdateService\\"
+            ],
+            \\"effect\\": \\"Allow\\",
+            \\"resources\\": [
+              \\"arn:aws:ecs:*:*:service/ecs-service-test*\\"
+            ]
+          }
+        ],
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-resource/role_policy\\",
+            \\"uniqueId\\": \\"test-resource_role_policy_21B9F22E\\"
+          }
+        }
+      }
+    }
+  },
+  \\"resource\\": {
+    \\"aws_iam_role\\": {
+      \\"test-resource_autoscaling_role_5C86EA80\\": {
+        \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.test-resource_autoscaling_assume_94B7604F.json}\\",
+        \\"name\\": \\"test--AutoScalingRole\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-resource/autoscaling_role\\",
+            \\"uniqueId\\": \\"test-resource_autoscaling_role_5C86EA80\\"
+          }
+        }
+      }
+    },
+    \\"aws_iam_role_policy\\": {
+      \\"test-resource_autoscaling_role_policy_8E791CA3\\": {
+        \\"name\\": \\"test--AutoScalingPolicy\\",
+        \\"policy\\": \\"\${data.aws_iam_policy_document.test-resource_role_policy_21B9F22E.json}\\",
+        \\"role\\": \\"\${aws_iam_role.test-resource_autoscaling_role_5C86EA80.id}\\",
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/test-resource/autoscaling_role_policy\\",
+            \\"uniqueId\\": \\"test-resource_autoscaling_role_policy_8E791CA3\\"
           }
         }
       }
