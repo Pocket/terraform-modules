@@ -46,12 +46,13 @@ export class ApplicationAutoscaling extends Resource {
       iamRole
     );
 
-    const applicationScaleOut = ApplicationAutoscaling.generateAutoSclaingPolicy(
-      this,
-      config,
-      autoScalingTarget,
-      'Out'
-    );
+    const applicationScaleOut =
+      ApplicationAutoscaling.generateAutoSclaingPolicy(
+        this,
+        config,
+        autoScalingTarget,
+        'Out'
+      );
 
     const applicationScaleIn = ApplicationAutoscaling.generateAutoSclaingPolicy(
       this,

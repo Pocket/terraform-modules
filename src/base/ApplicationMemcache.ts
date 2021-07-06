@@ -65,13 +65,11 @@ export class ApplicationMemcache extends ApplicationElasticacheCluster {
       engine: engine.toString(),
       nodeType: config.node.size,
       numCacheNodes: config.node.count,
-      parameterGroupName: ApplicationMemcache.getParameterGroupForEngine(
-        engine
-      ),
+      parameterGroupName:
+        ApplicationMemcache.getParameterGroupForEngine(engine),
       port: port,
-      engineVersion: ApplicationElasticacheCluster.getEngineVersionForEngine(
-        engine
-      ),
+      engineVersion:
+        ApplicationElasticacheCluster.getEngineVersionForEngine(engine),
       subnetGroupName: subnetGroup.name,
       securityGroupIds: [securityGroup.id],
       tags: config.tags,
