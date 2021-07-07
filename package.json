@@ -57,7 +57,7 @@
     "@types/node": "^15.14.1",
     "@typescript-eslint/eslint-plugin": "^4.28.2",
     "@typescript-eslint/parser": "^4.28.2",
-    "cdktf": "0.2.2",
+    "cdktf": "0.4.1",
     "cdktf-cli": "^0.2.2",
     "chai": "^4.3.0",
     "constructs": "^3.3.97",
