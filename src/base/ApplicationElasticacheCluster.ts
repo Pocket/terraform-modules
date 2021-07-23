@@ -3,7 +3,7 @@ import {
   DataAwsVpc,
   ElasticacheSubnetGroup,
   SecurityGroup,
-} from '../../.gen/providers/aws';
+} from '@cdktf/provider-aws';
 import { Construct } from 'constructs';
 
 export enum ApplicationElasticacheEngine {

@@ -5,7 +5,7 @@ import {
   Service,
   ServiceIntegration,
 } from '../../.gen/providers/pagerduty';
-import { SnsTopic, SnsTopicSubscription } from '../../.gen/providers/aws';
+import { SnsTopic, SnsTopicSubscription } from '@cdktf/provider-aws';
 
 export interface PocketPagerDutyProps {
   prefix: string;

@@ -3,7 +3,7 @@ import { Construct } from 'constructs';
 import {
   CloudwatchEventRule,
   CloudwatchEventTarget,
-} from '../../.gen/providers/aws';
+} from '@cdktf/provider-aws';
 
 export interface ApplicationEventBridgeRuleProps {
   name: string;

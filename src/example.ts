@@ -1,6 +1,6 @@
 import { Construct } from 'constructs';
 import { App, RemoteBackend, TerraformStack } from 'cdktf';
-import { AwsProvider } from '../.gen/providers/aws';
+import { AwsProvider } from '@cdktf/provider-aws';
 import { PocketALBApplication } from './pocket/PocketALBApplication';
 import { ApplicationECSContainerDefinitionProps } from './base/ApplicationECSContainerDefinition';
 

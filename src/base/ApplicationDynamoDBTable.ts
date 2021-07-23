@@ -9,7 +9,7 @@ import {
   IamPolicy,
   IamRole,
   IamRolePolicyAttachment,
-} from '../../.gen/providers/aws';
+} from '@cdktf/provider-aws';
 import { Construct } from 'constructs';
 
 /**

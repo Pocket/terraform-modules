@@ -38,7 +38,10 @@
     "node": ">=10.12"
   },
   "peerDependencies": {
-    "cdktf": "^0.2.2",
+    "@cdktf/provider-aws": "^1.0.122",
+    "@cdktf/provider-null": "^0.1.126",
+    "cdktf": "^0.4.1",
+    "cdktf-cli": "^0.4.1",
     "constructs": "^3.0.4"
   },
   "dependencies": {
@@ -57,8 +60,6 @@
     "@types/node": "^16.3.2",
     "@typescript-eslint/eslint-plugin": "^4.28.4",
     "@typescript-eslint/parser": "^4.28.4",
-    "cdktf": "0.2.2",
-    "cdktf-cli": "^0.2.2",
     "chai": "^4.3.0",
     "constructs": "^3.3.97",
     "eslint": "^7.30.0",

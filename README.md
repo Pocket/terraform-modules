@@ -48,7 +48,7 @@ You can use the existing `example.ts` file to test the modules in this repo.
 
 1. Comment out the `RemoteBackend` block in `example.ts`
 2. Run `npm run build && npm run synth`
-3. `cd` into the generated `cdktf.out` directory
+3. `cd` into the generated `cdktf.out/stacks/acme-example` directory
 4. Run `terraform init`
 5. Run `terraform validate` to validate the generated JSON (debugging level 1)
 

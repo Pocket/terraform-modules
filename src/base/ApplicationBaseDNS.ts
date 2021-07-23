@@ -3,7 +3,7 @@ import {
   DataAwsRoute53Zone,
   Route53Record,
   Route53Zone,
-} from '../../.gen/providers/aws';
+} from '@cdktf/provider-aws';
 import { Construct } from 'constructs';
 import { getRootDomain } from '../utilities';
 

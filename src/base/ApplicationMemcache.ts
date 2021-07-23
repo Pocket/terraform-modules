@@ -4,7 +4,7 @@ import {
   ApplicationElasticacheEngine,
 } from './ApplicationElasticacheCluster';
 import { Construct } from 'constructs';
-import { DataAwsVpc, ElasticacheCluster } from '../../.gen/providers/aws';
+import { DataAwsVpc, ElasticacheCluster } from '@cdktf/provider-aws';
 
 const DEFAULT_CONFIG = {
   node: {
