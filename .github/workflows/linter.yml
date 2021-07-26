@@ -44,7 +44,7 @@ jobs:
       # the latest definitions installed
       ##########################
       - name: Use Node.js 14.x
-        uses: actions/setup-node@v2.2.0
+        uses: actions/setup-node@v2.3.0
         with:
           node-version: 14.x
       - run: npm install
