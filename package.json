@@ -60,7 +60,7 @@
     "cdktf": "0.2.2",
     "cdktf-cli": "^0.2.2",
     "chai": "^4.3.0",
-    "constructs": "^3.3.97",
+    "constructs": "^3.3.107",
     "eslint": "^7.31.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^3.3.1",
