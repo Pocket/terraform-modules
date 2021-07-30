@@ -8,6 +8,7 @@ terraform.tfstate*
 .gen
 .terraform
 dist
+tsconfig.tsbuildinfo
 
 
 #From https://github.com/github/gitignore/blob/master/Global/JetBrains.gitignore
