@@ -38,7 +38,7 @@
     "node": ">=10.12"
   },
   "peerDependencies": {
-    "@cdktf/provider-aws": "^1.0.122",
+    "@cdktf/provider-aws": "^1.0.129",
     "@cdktf/provider-null": "^0.1.126",
     "cdktf": "^0.4.1",
     "cdktf-cli": "^0.4.1",
@@ -49,7 +49,7 @@
     "parse-domain": "^3.0.3"
   },
   "devDependencies": {
-    "@cdktf/provider-aws": "^1.0.122",
+    "@cdktf/provider-aws": "^1.0.129",
     "@cdktf/provider-null": "^0.1.126",
     "@semantic-release/changelog": "^5.0.1",
     "@semantic-release/commit-analyzer": "^8.0.1",
