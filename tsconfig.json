@@ -12,7 +12,8 @@
     "removeComments": true,
     "esModuleInterop": true,
     "noEmitOnError": true,
-    "declaration": true
+    "declaration": true,
+    "incremental": true
   },
   "include": ["**/*.ts"],
   "exclude": ["node_modules", "dist", "**/*.spec.ts"]
