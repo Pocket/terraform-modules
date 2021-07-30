@@ -7,7 +7,7 @@ import {
   IamRole,
   IamRolePolicy,
   S3Bucket,
-} from '../../.gen/providers/aws';
+} from '@cdktf/provider-aws';
 import crypto from 'crypto';
 
 export interface PocketECSCodePipelineProps {

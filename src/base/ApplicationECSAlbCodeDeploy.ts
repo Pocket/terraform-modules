@@ -8,7 +8,7 @@ import {
   DataAwsRegion,
   IamRole,
   IamRolePolicyAttachment,
-} from '../../.gen/providers/aws';
+} from '@cdktf/provider-aws';
 import { Construct } from 'constructs';
 
 export interface ApplicationECSAlbCodeDeployProps {

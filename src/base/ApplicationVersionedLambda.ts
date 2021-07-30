@@ -13,7 +13,7 @@ import {
   LambdaFunctionVpcConfig,
   S3Bucket,
   S3BucketPublicAccessBlock,
-} from '../../.gen/providers/aws';
+} from '@cdktf/provider-aws';
 import {
   DataArchiveFile,
   DataArchiveFileSource,

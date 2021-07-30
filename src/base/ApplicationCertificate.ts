@@ -4,7 +4,7 @@ import {
   AcmCertificate,
   Route53Record,
   AcmCertificateValidation,
-} from '../../.gen/providers/aws';
+} from '@cdktf/provider-aws';
 import { Construct } from 'constructs';
 
 export interface ApplicationCertificateProps {

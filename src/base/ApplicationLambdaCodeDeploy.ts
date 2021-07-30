@@ -7,7 +7,7 @@ import {
   DataAwsIamPolicyDocument,
   IamRole,
   IamRolePolicyAttachment,
-} from '../../.gen/providers/aws';
+} from '@cdktf/provider-aws';
 
 export interface ApplicationVersionedLambdaCodeDeployProps {
   name: string;

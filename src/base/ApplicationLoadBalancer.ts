@@ -1,5 +1,5 @@
 import { Resource } from 'cdktf';
-import { Alb, SecurityGroup } from '../../.gen/providers/aws';
+import { Alb, SecurityGroup } from '@cdktf/provider-aws';
 import { Construct } from 'constructs';
 
 export interface ApplicationLoadBalancerProps {

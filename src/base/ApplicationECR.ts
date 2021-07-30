@@ -5,7 +5,7 @@ import {
   EcrLifecyclePolicyConfig,
   EcrRepository,
   EcrRepositoryConfig,
-} from '../../.gen/providers/aws';
+} from '@cdktf/provider-aws';
 
 export interface ECRProps {
   name: string;
