@@ -1,4 +1,4 @@
-import { AlbTargetGroup } from '../../.gen/providers/aws';
+import { AlbTargetGroup } from '@cdktf/provider-aws';
 import { Resource } from 'cdktf';
 import { Construct } from 'constructs';
 

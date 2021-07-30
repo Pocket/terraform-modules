@@ -46,11 +46,13 @@ As you can infer from the above, snapshots do not test the actual infrastructure
 
 You can use the existing `example.ts` file to test the modules in this repo.
 
-1. Comment out the `RemoteBackend` block in `example.ts`
-2. Run `npm run build && npm run synth`
-3. `cd` into the generated `cdktf.out` directory
-4. Run `terraform init`
-5. Run `terraform validate` to validate the generated JSON (debugging level 1)
+1. Install [tfenv](https://github.com/tfutils/tfenv)
+2. Run `tfenv use` to ensure you are on the latest terraform version this repo is built for.
+3. Comment out the `RemoteBackend` block in `example.ts`
+4. Run `npm run build && npm run synth`
+5. `cd` into the generated `cdktf.out/stacks/acme-example` directory
+6. Run `terraform init`
+7. Run `terraform validate` to validate the generated JSON (debugging level 1)
 
 To test against our infrastructure (debugging level 2):
 

@@ -7,7 +7,7 @@ import {
   SecretsmanagerSecret,
   SecretsmanagerSecretVersion,
   SecurityGroup,
-} from '../../.gen/providers/aws';
+} from '@cdktf/provider-aws';
 import { Construct } from 'constructs';
 import crypto from 'crypto';
 

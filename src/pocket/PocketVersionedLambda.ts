@@ -8,7 +8,7 @@ import {
   CloudwatchMetricAlarm,
   DataAwsIamPolicyDocumentStatement,
   LambdaFunctionVpcConfig,
-} from '../../.gen/providers/aws';
+} from '@cdktf/provider-aws';
 import { ApplicationLambdaCodeDeploy } from '../base/ApplicationLambdaCodeDeploy';
 
 export interface PocketVersionedLambdaDefaultAlarmProps {

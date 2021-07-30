@@ -10,8 +10,8 @@ import {
   SecurityGroup,
   SecurityGroupEgress,
   SecurityGroupIngress,
-} from '../../.gen/providers/aws';
-import { Resource } from '../../.gen/providers/null';
+} from '@cdktf/provider-aws';
+import { Resource } from '@cdktf/provider-null';
 import { Construct } from 'constructs';
 import { ApplicationECR, ECRProps } from './ApplicationECR';
 import { ApplicationECSIAM, ApplicationECSIAMProps } from './ApplicationECSIAM';

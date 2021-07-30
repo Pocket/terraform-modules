@@ -6,7 +6,7 @@ import {
   DataAwsIamPolicyDocument,
   IamRole,
   IamRolePolicy,
-} from '../../.gen/providers/aws';
+} from '@cdktf/provider-aws';
 import { Construct } from 'constructs';
 
 export interface ApplicationAutoscalingProps {

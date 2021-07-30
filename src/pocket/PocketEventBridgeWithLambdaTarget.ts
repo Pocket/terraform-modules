@@ -1,7 +1,7 @@
 import { Construct } from 'constructs';
 import { ApplicationEventBridgeRule } from '../base/ApplicationEventBridgeRule';
 import { ApplicationVersionedLambda } from '../base/ApplicationVersionedLambda';
-import { LambdaPermission } from '../../.gen/providers/aws';
+import { LambdaPermission } from '@cdktf/provider-aws';
 import {
   PocketVersionedLambda,
   PocketVersionedLambdaProps,

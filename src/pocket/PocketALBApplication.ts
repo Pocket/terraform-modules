@@ -6,7 +6,7 @@ import {
   CloudwatchMetricAlarm,
   CloudwatchMetricAlarmConfig,
   Route53Record,
-} from '../../.gen/providers/aws';
+} from '@cdktf/provider-aws';
 import { Construct } from 'constructs';
 import {
   ApplicationAutoscaling,
