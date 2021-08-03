@@ -22,6 +22,8 @@ jobs:
           node-version: '14.x'
           registry-url: 'https://registry.npmjs.org'
           scope: '@pocket-tools'
+      - run: echo $(jq '.name = "@pocket-tools/terraform-modules" | del(.publishConfig)' package.json) > package.json
+      - run: cat package.json
       - run: npm install
       - run: npm run get
       - run: npm run build
