@@ -38,19 +38,21 @@
     "node": ">=10.12"
   },
   "peerDependencies": {
-    "@cdktf/provider-aws": "^1.0.122",
-    "@cdktf/provider-null": "^0.1.126",
+    "@cdktf/provider-aws": "^1.0.131",
+    "@cdktf/provider-null": "^0.1.132",
     "cdktf": "^0.4.1",
     "cdktf-cli": "^0.4.1",
     "constructs": "^3.0.4"
   },
   "dependencies": {
+    "@cdktf/provider-aws": "^1.0.131",
+    "@cdktf/provider-null": "^0.1.132",
+    "cdktf": "^0.4.1",
+    "cdktf-cli": "^0.4.1",
     "crypto-random-string": "^4.0.0",
     "parse-domain": "^3.0.3"
   },
   "devDependencies": {
-    "@cdktf/provider-aws": "^1.0.122",
-    "@cdktf/provider-null": "^0.1.126",
     "@semantic-release/changelog": "^5.0.1",
     "@semantic-release/commit-analyzer": "^8.0.1",
     "@semantic-release/git": "^9.0.0",
@@ -62,8 +64,6 @@
     "@types/node": "^16.4.7",
     "@typescript-eslint/eslint-plugin": "^4.28.5",
     "@typescript-eslint/parser": "^4.28.5",
-    "cdktf": "^0.4.1",
-    "cdktf-cli": "^0.4.1",
     "chai": "^4.3.0",
     "constructs": "^3.3.107",
     "eslint": "^7.32.0",
