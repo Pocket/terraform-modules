@@ -12,9 +12,9 @@ updates:
       interval: 'daily'
     commit-message:
       #Packaged dependencies (release)
-      prefix: 'fix(deps): '
+      prefix: fix
       #Dev dependencies prefix (no release)
-      prefix-development: 'chore(deps): '
+      prefix-development: chore
       include: scope
 
   # Maintain dependencies for GitHub Actions
@@ -23,6 +23,6 @@ updates:
     schedule:
       interval: 'daily'
     commit-message:
-      prefix: 'chore(github): '
-      prefix-development: 'chore(github): '
+      prefix: chore
+      prefix-development: chore
       include: scope
