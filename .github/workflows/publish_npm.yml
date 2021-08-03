@@ -22,8 +22,11 @@ jobs:
           node-version: '14.x'
           registry-url: 'https://registry.npmjs.org'
           scope: '@pocket-tools'
+      # We need to replace the package name and remove the publishConfig that tells npm the registry (set to GitHub registry in source) to publish to
+      # in order to be able to be able to publish to npm's registry. 
+      # In the future, we plan to stop publishing to GitHub's registry.
+      # TODO: remove this next command when that is in effect and update package.json accordingly
       - run: echo $(jq '.name = "@pocket-tools/terraform-modules" | del(.publishConfig)' package.json) > package.json
-      - run: cat package.json
       - run: npm install
       - run: npm run get
       - run: npm run build
