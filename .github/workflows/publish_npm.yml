@@ -1,7 +1,7 @@
 name: Node.js NPM Package
 
 on:
-  pull_request_target:
+  push:
     branches:
       - main
 
