@@ -17,9 +17,6 @@ jobs:
       - uses: actions/setup-node@v2.3.0
         with:
           node-version: '16.x'
-          registry-url: 'https://npm.pkg.github.com'
-          scope: '@pocket'
-          GITHUB_TOKEN: ${{ secrets.CI_GITHUB_TOKEN }}
       - run: npm install
       - run: npm run get
       - run: npm run test
@@ -35,9 +32,6 @@ jobs:
       - uses: actions/setup-node@v2.3.0
         with:
           node-version: '16.x'
-          registry-url: 'https://npm.pkg.github.com'
-          scope: '@pocket'
-          GITHUB_TOKEN: ${{ secrets.CI_GITHUB_TOKEN }}
       - run: npm install
       - run: npm run get
       - run: npm run build

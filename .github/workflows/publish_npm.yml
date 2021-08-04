@@ -1,4 +1,4 @@
-name: Node.js NPM Package
+name: NPM Publish
 
 on:
   push:
@@ -16,7 +16,7 @@ jobs:
           terraform_wrapper: false
       - uses: actions/setup-node@v2.3.0
         with:
-          node-version: '14.x'
+          node-version: '16.x'
           registry-url: 'https://registry.npmjs.org'
           scope: '@pocket-tools'
       # We need to replace the package name and remove the publishConfig that tells npm the registry (set to GitHub registry in source) to publish to
