@@ -5,7 +5,8 @@ exports[`renders a Pocket PagerDuty for critical and non-critical actions 1`] = 
   \\"//\\": {
     \\"metadata\\": {
       \\"version\\": \\"stubbed\\",
-      \\"stackName\\": \\"test\\"
+      \\"stackName\\": \\"test\\",
+      \\"backend\\": \\"local\\"
     }
   },
   \\"data\\": {
@@ -196,7 +197,8 @@ exports[`renders a Pocket PagerDuty with custom acknowledgement timeout 1`] = `
   \\"//\\": {
     \\"metadata\\": {
       \\"version\\": \\"stubbed\\",
-      \\"stackName\\": \\"test\\"
+      \\"stackName\\": \\"test\\",
+      \\"backend\\": \\"local\\"
     }
   },
   \\"data\\": {
@@ -387,7 +389,8 @@ exports[`renders a Pocket PagerDuty with custom auto resolve timeout 1`] = `
   \\"//\\": {
     \\"metadata\\": {
       \\"version\\": \\"stubbed\\",
-      \\"stackName\\": \\"test\\"
+      \\"stackName\\": \\"test\\",
+      \\"backend\\": \\"local\\"
     }
   },
   \\"data\\": {
@@ -578,7 +581,8 @@ exports[`renders a Pocket PagerDuty with custom sns topic subscription confirmat
   \\"//\\": {
     \\"metadata\\": {
       \\"version\\": \\"stubbed\\",
-      \\"stackName\\": \\"test\\"
+      \\"stackName\\": \\"test\\",
+      \\"backend\\": \\"local\\"
     }
   },
   \\"data\\": {
@@ -769,7 +773,8 @@ exports[`renders a Pocket PagerDuty with sns topic tags 1`] = `
   \\"//\\": {
     \\"metadata\\": {
       \\"version\\": \\"stubbed\\",
-      \\"stackName\\": \\"test\\"
+      \\"stackName\\": \\"test\\",
+      \\"backend\\": \\"local\\"
     }
   },
   \\"data\\": {

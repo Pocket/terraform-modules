@@ -5,7 +5,8 @@ exports[`renders an ECS cluster with tags 1`] = `
   \\"//\\": {
     \\"metadata\\": {
       \\"version\\": \\"stubbed\\",
-      \\"stackName\\": \\"test\\"
+      \\"stackName\\": \\"test\\",
+      \\"backend\\": \\"local\\"
     }
   },
   \\"resource\\": {
@@ -39,7 +40,8 @@ exports[`renders an ECS cluster without tags 1`] = `
   \\"//\\": {
     \\"metadata\\": {
       \\"version\\": \\"stubbed\\",
-      \\"stackName\\": \\"test\\"
+      \\"stackName\\": \\"test\\",
+      \\"backend\\": \\"local\\"
     }
   },
   \\"resource\\": {

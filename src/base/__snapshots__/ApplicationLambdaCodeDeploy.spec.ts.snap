@@ -5,7 +5,8 @@ exports[`renders a lambda code deploy app 1`] = `
   \\"//\\": {
     \\"metadata\\": {
       \\"version\\": \\"stubbed\\",
-      \\"stackName\\": \\"test\\"
+      \\"stackName\\": \\"test\\",
+      \\"backend\\": \\"local\\"
     }
   },
   \\"resource\\": {
@@ -116,7 +117,8 @@ exports[`renders a lambda code deploy app with sns topic arn 1`] = `
   \\"//\\": {
     \\"metadata\\": {
       \\"version\\": \\"stubbed\\",
-      \\"stackName\\": \\"test\\"
+      \\"stackName\\": \\"test\\",
+      \\"backend\\": \\"local\\"
     }
   },
   \\"resource\\": {
@@ -248,7 +250,8 @@ exports[`renders a lambda code deploy app with sns topic arn and detail type 1`]
   \\"//\\": {
     \\"metadata\\": {
       \\"version\\": \\"stubbed\\",
-      \\"stackName\\": \\"test\\"
+      \\"stackName\\": \\"test\\",
+      \\"backend\\": \\"local\\"
     }
   },
   \\"resource\\": {

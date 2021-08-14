@@ -5,7 +5,8 @@ exports[`renders a Pocket ECS Codepipeline template 1`] = `
   \\"//\\": {
     \\"metadata\\": {
       \\"version\\": \\"stubbed\\",
-      \\"stackName\\": \\"test\\"
+      \\"stackName\\": \\"test\\",
+      \\"backend\\": \\"local\\"
     }
   },
   \\"data\\": {
@@ -273,7 +274,8 @@ exports[`renders a Pocket ECS Codepipeline template with tags 1`] = `
   \\"//\\": {
     \\"metadata\\": {
       \\"version\\": \\"stubbed\\",
-      \\"stackName\\": \\"test\\"
+      \\"stackName\\": \\"test\\",
+      \\"backend\\": \\"local\\"
     }
   },
   \\"data\\": {
@@ -547,7 +549,8 @@ exports[`renders a Pocket ECS Codepipeline template with the provided CodeDeploy
   \\"//\\": {
     \\"metadata\\": {
       \\"version\\": \\"stubbed\\",
-      \\"stackName\\": \\"test\\"
+      \\"stackName\\": \\"test\\",
+      \\"backend\\": \\"local\\"
     }
   },
   \\"data\\": {
@@ -815,7 +818,8 @@ exports[`renders a Pocket ECS Codepipeline template with the provided CodeDeploy
   \\"//\\": {
     \\"metadata\\": {
       \\"version\\": \\"stubbed\\",
-      \\"stackName\\": \\"test\\"
+      \\"stackName\\": \\"test\\",
+      \\"backend\\": \\"local\\"
     }
   },
   \\"data\\": {
@@ -1083,7 +1087,8 @@ exports[`renders a Pocket ECS Codepipeline template with the provided appspec pa
   \\"//\\": {
     \\"metadata\\": {
       \\"version\\": \\"stubbed\\",
-      \\"stackName\\": \\"test\\"
+      \\"stackName\\": \\"test\\",
+      \\"backend\\": \\"local\\"
     }
   },
   \\"data\\": {
@@ -1351,7 +1356,8 @@ exports[`renders a Pocket ECS Codepipeline template with the provided code build
   \\"//\\": {
     \\"metadata\\": {
       \\"version\\": \\"stubbed\\",
-      \\"stackName\\": \\"test\\"
+      \\"stackName\\": \\"test\\",
+      \\"backend\\": \\"local\\"
     }
   },
   \\"data\\": {
@@ -1619,7 +1625,8 @@ exports[`renders a Pocket ECS Codepipeline template with the provided taskdef pa
   \\"//\\": {
     \\"metadata\\": {
       \\"version\\": \\"stubbed\\",
-      \\"stackName\\": \\"test\\"
+      \\"stackName\\": \\"test\\",
+      \\"backend\\": \\"local\\"
     }
   },
   \\"data\\": {

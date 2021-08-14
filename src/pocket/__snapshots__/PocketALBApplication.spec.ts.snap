@@ -5,7 +5,29 @@ exports[`PocketALBApplication renders an Pocket App with code deploy 1`] = `
   \\"//\\": {
     \\"metadata\\": {
       \\"version\\": \\"stubbed\\",
-      \\"stackName\\": \\"test\\"
+      \\"stackName\\": \\"test\\",
+      \\"backend\\": \\"local\\",
+      \\"overrides\\": {
+        \\"aws_subnet_ids\\": [
+          \\"filter\\",
+          \\"filter\\"
+        ],
+        \\"aws_security_group\\": [
+          \\"ingress\\",
+          \\"egress\\",
+          \\"ingress\\",
+          \\"egress\\"
+        ],
+        \\"aws_route53_record\\": [
+          \\"name\\",
+          \\"type\\",
+          \\"records\\"
+        ],
+        \\"null_resource\\": [
+          \\"provisioner\\",
+          \\"provisioner\\"
+        ]
+      }
     }
   },
   \\"data\\": {
@@ -1187,7 +1209,28 @@ exports[`PocketALBApplication renders an Pocket App with code deploy and creates
   \\"//\\": {
     \\"metadata\\": {
       \\"version\\": \\"stubbed\\",
-      \\"stackName\\": \\"test\\"
+      \\"stackName\\": \\"test\\",
+      \\"backend\\": \\"local\\",
+      \\"overrides\\": {
+        \\"aws_subnet_ids\\": [
+          \\"filter\\",
+          \\"filter\\"
+        ],
+        \\"aws_security_group\\": [
+          \\"ingress\\",
+          \\"egress\\",
+          \\"ingress\\",
+          \\"egress\\"
+        ],
+        \\"aws_route53_record\\": [
+          \\"name\\",
+          \\"type\\",
+          \\"records\\"
+        ],
+        \\"null_resource\\": [
+          \\"provisioner\\"
+        ]
+      }
     }
   },
   \\"data\\": {
@@ -2348,7 +2391,25 @@ exports[`PocketALBApplication renders an application alarms 1`] = `
   \\"//\\": {
     \\"metadata\\": {
       \\"version\\": \\"stubbed\\",
-      \\"stackName\\": \\"test\\"
+      \\"stackName\\": \\"test\\",
+      \\"backend\\": \\"local\\",
+      \\"overrides\\": {
+        \\"aws_subnet_ids\\": [
+          \\"filter\\",
+          \\"filter\\"
+        ],
+        \\"aws_security_group\\": [
+          \\"ingress\\",
+          \\"egress\\",
+          \\"ingress\\",
+          \\"egress\\"
+        ],
+        \\"aws_route53_record\\": [
+          \\"name\\",
+          \\"type\\",
+          \\"records\\"
+        ]
+      }
     }
   },
   \\"data\\": {
@@ -3323,7 +3384,25 @@ exports[`PocketALBApplication renders an application custom default alarms 1`] =
   \\"//\\": {
     \\"metadata\\": {
       \\"version\\": \\"stubbed\\",
-      \\"stackName\\": \\"test\\"
+      \\"stackName\\": \\"test\\",
+      \\"backend\\": \\"local\\",
+      \\"overrides\\": {
+        \\"aws_subnet_ids\\": [
+          \\"filter\\",
+          \\"filter\\"
+        ],
+        \\"aws_security_group\\": [
+          \\"ingress\\",
+          \\"egress\\",
+          \\"ingress\\",
+          \\"egress\\"
+        ],
+        \\"aws_route53_record\\": [
+          \\"name\\",
+          \\"type\\",
+          \\"records\\"
+        ]
+      }
     }
   },
   \\"data\\": {
@@ -4309,7 +4388,25 @@ exports[`PocketALBApplication renders an application with autoscaling group and 
   \\"//\\": {
     \\"metadata\\": {
       \\"version\\": \\"stubbed\\",
-      \\"stackName\\": \\"test\\"
+      \\"stackName\\": \\"test\\",
+      \\"backend\\": \\"local\\",
+      \\"overrides\\": {
+        \\"aws_subnet_ids\\": [
+          \\"filter\\",
+          \\"filter\\"
+        ],
+        \\"aws_security_group\\": [
+          \\"ingress\\",
+          \\"egress\\",
+          \\"ingress\\",
+          \\"egress\\"
+        ],
+        \\"aws_route53_record\\": [
+          \\"name\\",
+          \\"type\\",
+          \\"records\\"
+        ]
+      }
     }
   },
   \\"data\\": {
@@ -5336,7 +5433,25 @@ exports[`PocketALBApplication renders an application with custom task sizes 1`] 
   \\"//\\": {
     \\"metadata\\": {
       \\"version\\": \\"stubbed\\",
-      \\"stackName\\": \\"test\\"
+      \\"stackName\\": \\"test\\",
+      \\"backend\\": \\"local\\",
+      \\"overrides\\": {
+        \\"aws_subnet_ids\\": [
+          \\"filter\\",
+          \\"filter\\"
+        ],
+        \\"aws_security_group\\": [
+          \\"ingress\\",
+          \\"egress\\",
+          \\"ingress\\",
+          \\"egress\\"
+        ],
+        \\"aws_route53_record\\": [
+          \\"name\\",
+          \\"type\\",
+          \\"records\\"
+        ]
+      }
     }
   },
   \\"data\\": {
@@ -6303,7 +6418,25 @@ exports[`PocketALBApplication renders an application with default autoscaling gr
   \\"//\\": {
     \\"metadata\\": {
       \\"version\\": \\"stubbed\\",
-      \\"stackName\\": \\"test\\"
+      \\"stackName\\": \\"test\\",
+      \\"backend\\": \\"local\\",
+      \\"overrides\\": {
+        \\"aws_subnet_ids\\": [
+          \\"filter\\",
+          \\"filter\\"
+        ],
+        \\"aws_security_group\\": [
+          \\"ingress\\",
+          \\"egress\\",
+          \\"ingress\\",
+          \\"egress\\"
+        ],
+        \\"aws_route53_record\\": [
+          \\"name\\",
+          \\"type\\",
+          \\"records\\"
+        ]
+      }
     }
   },
   \\"data\\": {
@@ -7330,7 +7463,25 @@ exports[`PocketALBApplication renders an application with minimal config 1`] = `
   \\"//\\": {
     \\"metadata\\": {
       \\"version\\": \\"stubbed\\",
-      \\"stackName\\": \\"test\\"
+      \\"stackName\\": \\"test\\",
+      \\"backend\\": \\"local\\",
+      \\"overrides\\": {
+        \\"aws_subnet_ids\\": [
+          \\"filter\\",
+          \\"filter\\"
+        ],
+        \\"aws_security_group\\": [
+          \\"ingress\\",
+          \\"egress\\",
+          \\"ingress\\",
+          \\"egress\\"
+        ],
+        \\"aws_route53_record\\": [
+          \\"name\\",
+          \\"type\\",
+          \\"records\\"
+        ]
+      }
     }
   },
   \\"data\\": {
@@ -8297,7 +8448,25 @@ exports[`PocketALBApplication renders an application with modified container def
   \\"//\\": {
     \\"metadata\\": {
       \\"version\\": \\"stubbed\\",
-      \\"stackName\\": \\"test\\"
+      \\"stackName\\": \\"test\\",
+      \\"backend\\": \\"local\\",
+      \\"overrides\\": {
+        \\"aws_subnet_ids\\": [
+          \\"filter\\",
+          \\"filter\\"
+        ],
+        \\"aws_security_group\\": [
+          \\"ingress\\",
+          \\"egress\\",
+          \\"ingress\\",
+          \\"egress\\"
+        ],
+        \\"aws_route53_record\\": [
+          \\"name\\",
+          \\"type\\",
+          \\"records\\"
+        ]
+      }
     }
   },
   \\"data\\": {
@@ -9310,7 +9479,28 @@ exports[`PocketALBApplication renders an external application 1`] = `
   \\"//\\": {
     \\"metadata\\": {
       \\"version\\": \\"stubbed\\",
-      \\"stackName\\": \\"test\\"
+      \\"stackName\\": \\"test\\",
+      \\"backend\\": \\"local\\",
+      \\"overrides\\": {
+        \\"aws_subnet_ids\\": [
+          \\"filter\\",
+          \\"filter\\"
+        ],
+        \\"aws_security_group\\": [
+          \\"ingress\\",
+          \\"egress\\",
+          \\"ingress\\",
+          \\"egress\\"
+        ],
+        \\"aws_route53_record\\": [
+          \\"name\\",
+          \\"type\\",
+          \\"records\\",
+          \\"name\\",
+          \\"type\\",
+          \\"records\\"
+        ]
+      }
     }
   },
   \\"data\\": {
@@ -10438,7 +10628,25 @@ exports[`PocketALBApplication renders an internal application 1`] = `
   \\"//\\": {
     \\"metadata\\": {
       \\"version\\": \\"stubbed\\",
-      \\"stackName\\": \\"test\\"
+      \\"stackName\\": \\"test\\",
+      \\"backend\\": \\"local\\",
+      \\"overrides\\": {
+        \\"aws_subnet_ids\\": [
+          \\"filter\\",
+          \\"filter\\"
+        ],
+        \\"aws_security_group\\": [
+          \\"ingress\\",
+          \\"egress\\",
+          \\"ingress\\",
+          \\"egress\\"
+        ],
+        \\"aws_route53_record\\": [
+          \\"name\\",
+          \\"type\\",
+          \\"records\\"
+        ]
+      }
     }
   },
   \\"data\\": {
@@ -11405,7 +11613,25 @@ exports[`PocketALBApplication renders an internal application with tags 1`] = `
   \\"//\\": {
     \\"metadata\\": {
       \\"version\\": \\"stubbed\\",
-      \\"stackName\\": \\"test\\"
+      \\"stackName\\": \\"test\\",
+      \\"backend\\": \\"local\\",
+      \\"overrides\\": {
+        \\"aws_subnet_ids\\": [
+          \\"filter\\",
+          \\"filter\\"
+        ],
+        \\"aws_security_group\\": [
+          \\"ingress\\",
+          \\"egress\\",
+          \\"ingress\\",
+          \\"egress\\"
+        ],
+        \\"aws_route53_record\\": [
+          \\"name\\",
+          \\"type\\",
+          \\"records\\"
+        ]
+      }
     }
   },
   \\"data\\": {
@@ -12432,7 +12658,8 @@ exports[`PocketALBApplication throws an error trying for an internal app with a 
   \\"//\\": {
     \\"metadata\\": {
       \\"version\\": \\"stubbed\\",
-      \\"stackName\\": \\"test\\"
+      \\"stackName\\": \\"test\\",
+      \\"backend\\": \\"local\\"
     }
   }
 }"

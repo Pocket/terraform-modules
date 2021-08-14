@@ -1,9 +1,4 @@
 {
   "language": "typescript",
-  "app": "npm run --silent compile && node dist/src/example.js",
-  "terraformProviders": [
-    "pagerduty/pagerduty@~> 1.8.0",
-    "archive@~> 1.3.0",
-    "local@~> 2.1.0"
-  ]
+  "app": "npm run --silent compile && node dist/src/example.js"
 }

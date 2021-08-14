@@ -5,7 +5,8 @@ exports[`ApplicationAutoscaling constructor renders autoscaling without tags 1`]
   \\"//\\": {
     \\"metadata\\": {
       \\"version\\": \\"stubbed\\",
-      \\"stackName\\": \\"test\\"
+      \\"stackName\\": \\"test\\",
+      \\"backend\\": \\"local\\"
     }
   },
   \\"data\\": {
@@ -230,7 +231,8 @@ exports[`ApplicationAutoscaling generateAutoScalingPolicy renders a scale-in Aut
   \\"//\\": {
     \\"metadata\\": {
       \\"version\\": \\"stubbed\\",
-      \\"stackName\\": \\"test\\"
+      \\"stackName\\": \\"test\\",
+      \\"backend\\": \\"local\\"
     }
   },
   \\"data\\": {
@@ -330,7 +332,8 @@ exports[`ApplicationAutoscaling generateAutoScalingPolicy renders a scale-out Au
   \\"//\\": {
     \\"metadata\\": {
       \\"version\\": \\"stubbed\\",
-      \\"stackName\\": \\"test\\"
+      \\"stackName\\": \\"test\\",
+      \\"backend\\": \\"local\\"
     }
   },
   \\"data\\": {
@@ -430,7 +433,8 @@ exports[`ApplicationAutoscaling generateAutoScalingTarget renders an Autoscaling
   \\"//\\": {
     \\"metadata\\": {
       \\"version\\": \\"stubbed\\",
-      \\"stackName\\": \\"test\\"
+      \\"stackName\\": \\"test\\",
+      \\"backend\\": \\"local\\"
     }
   },
   \\"data\\": {
@@ -499,7 +503,8 @@ exports[`ApplicationAutoscaling generateCloudwatchMetricAlarm renders a scale-in
   \\"//\\": {
     \\"metadata\\": {
       \\"version\\": \\"stubbed\\",
-      \\"stackName\\": \\"test\\"
+      \\"stackName\\": \\"test\\",
+      \\"backend\\": \\"local\\"
     }
   },
   \\"data\\": {
@@ -626,7 +631,8 @@ exports[`ApplicationAutoscaling generateCloudwatchMetricAlarm renders a scale-ou
   \\"//\\": {
     \\"metadata\\": {
       \\"version\\": \\"stubbed\\",
-      \\"stackName\\": \\"test\\"
+      \\"stackName\\": \\"test\\",
+      \\"backend\\": \\"local\\"
     }
   },
   \\"data\\": {
@@ -753,7 +759,8 @@ exports[`ApplicationAutoscaling generateIamRole renders an IamRole 1`] = `
   \\"//\\": {
     \\"metadata\\": {
       \\"version\\": \\"stubbed\\",
-      \\"stackName\\": \\"test\\"
+      \\"stackName\\": \\"test\\",
+      \\"backend\\": \\"local\\"
     }
   },
   \\"data\\": {
@@ -806,7 +813,8 @@ exports[`ApplicationAutoscaling generateIamRolePolicy renders an IamRolePolicy 1
   \\"//\\": {
     \\"metadata\\": {
       \\"version\\": \\"stubbed\\",
-      \\"stackName\\": \\"test\\"
+      \\"stackName\\": \\"test\\",
+      \\"backend\\": \\"local\\"
     }
   },
   \\"data\\": {
