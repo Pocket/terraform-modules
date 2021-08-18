@@ -1,9 +1,6 @@
-name: Node.js NPM Package
+name: NPM Publish
 
 on:
-  pull_request:
-    branches:
-      - main
   push:
     branches:
       - main
@@ -19,11 +16,11 @@ jobs:
           terraform_wrapper: false
       - uses: actions/setup-node@v2.3.0
         with:
-          node-version: '14.x'
+          node-version: '16.x'
           registry-url: 'https://registry.npmjs.org'
           scope: '@pocket-tools'
       # We need to replace the package name and remove the publishConfig that tells npm the registry (set to GitHub registry in source) to publish to
-      # in order to be able to be able to publish to npm's registry. 
+      # in order to be able to be able to publish to npm's registry.
       # In the future, we plan to stop publishing to GitHub's registry.
       # TODO: remove this next command when that is in effect and update package.json accordingly
       - run: echo $(jq '.name = "@pocket-tools/terraform-modules" | del(.publishConfig)' package.json) > package.json
