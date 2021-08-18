@@ -12,17 +12,6 @@ class Example extends TerraformStack {
       region: 'us-east-1',
     });
 
-    // for local testing, comment out this RemoteBackend block
-    new RemoteBackend(this, {
-      hostname: 'app.terraform.io',
-      organization: 'Acme',
-      workspaces: [
-        {
-          prefix: `Example-`,
-        },
-      ],
-    });
-
     const containerConfigBlue: ApplicationECSContainerDefinitionProps = {
       name: 'blueContainer',
       containerImage: 'bitnami/node-example:0.0.1',

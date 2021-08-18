@@ -33,3 +33,4 @@ jobs:
       - run: npm run get
       - run: npm run build
       - run: npm run build:dev
+      - run: cd cdktf.out/stacks/acme-example && terraform init && terraform validate
