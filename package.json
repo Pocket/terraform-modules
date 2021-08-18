@@ -53,6 +53,7 @@
     "@cdktf/provider-pagerduty": "^0.0.0",
     "cdktf": "^0.5.0",
     "cdktf-cli": "^0.5.0",
+    "constructs": "^3.0.4",
     "crypto-random-string": "^4.0.0",
     "parse-domain": "^3.0.3"
   },
@@ -65,8 +66,8 @@
     "@semantic-release/release-notes-generator": "^9.0.3",
     "@types/chai": "^4.2.21",
     "@types/jest": "^27.0.1",
-    "@types/node": "^16.4.7",
-    "@typescript-eslint/eslint-plugin": "^4.28.5",
+    "@types/node": "^16.6.1",
+    "@typescript-eslint/eslint-plugin": "^4.29.1",
     "@typescript-eslint/parser": "^4.28.5",
     "chai": "^4.3.0",
     "constructs": "^3.3.113",
