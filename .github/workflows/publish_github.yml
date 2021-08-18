@@ -21,7 +21,6 @@ jobs:
           scope: '@pocket'
           GITHUB_TOKEN: ${{ secrets.CI_GITHUB_TOKEN }}
       - run: npm install
-      - run: npm run get
       - run: npm run build
       - name: Semantic Release
         uses: cycjimmy/semantic-release-action@v2
