@@ -5,7 +5,13 @@ exports[`renders a lambda with a node v14 runtime 1`] = `
   \\"//\\": {
     \\"metadata\\": {
       \\"version\\": \\"stubbed\\",
-      \\"stackName\\": \\"test\\"
+      \\"stackName\\": \\"test\\",
+      \\"backend\\": \\"local\\",
+      \\"overrides\\": {
+        \\"aws_lambda_alias\\": [
+          \\"function_version\\"
+        ]
+      }
     }
   },
   \\"resource\\": {
@@ -216,7 +222,13 @@ exports[`renders a versioned lambda 1`] = `
   \\"//\\": {
     \\"metadata\\": {
       \\"version\\": \\"stubbed\\",
-      \\"stackName\\": \\"test\\"
+      \\"stackName\\": \\"test\\",
+      \\"backend\\": \\"local\\",
+      \\"overrides\\": {
+        \\"aws_lambda_alias\\": [
+          \\"function_version\\"
+        ]
+      }
     }
   },
   \\"resource\\": {
@@ -427,7 +439,13 @@ exports[`renders a versioned lambda with description 1`] = `
   \\"//\\": {
     \\"metadata\\": {
       \\"version\\": \\"stubbed\\",
-      \\"stackName\\": \\"test\\"
+      \\"stackName\\": \\"test\\",
+      \\"backend\\": \\"local\\",
+      \\"overrides\\": {
+        \\"aws_lambda_alias\\": [
+          \\"function_version\\"
+        ]
+      }
     }
   },
   \\"resource\\": {
@@ -638,7 +656,13 @@ exports[`renders a versioned lambda with environment variables 1`] = `
   \\"//\\": {
     \\"metadata\\": {
       \\"version\\": \\"stubbed\\",
-      \\"stackName\\": \\"test\\"
+      \\"stackName\\": \\"test\\",
+      \\"backend\\": \\"local\\",
+      \\"overrides\\": {
+        \\"aws_lambda_alias\\": [
+          \\"function_version\\"
+        ]
+      }
     }
   },
   \\"resource\\": {
@@ -857,7 +881,13 @@ exports[`renders a versioned lambda with execution policy statements 1`] = `
   \\"//\\": {
     \\"metadata\\": {
       \\"version\\": \\"stubbed\\",
-      \\"stackName\\": \\"test\\"
+      \\"stackName\\": \\"test\\",
+      \\"backend\\": \\"local\\",
+      \\"overrides\\": {
+        \\"aws_lambda_alias\\": [
+          \\"function_version\\"
+        ]
+      }
     }
   },
   \\"resource\\": {
@@ -1077,7 +1107,13 @@ exports[`renders a versioned lambda with log retention 1`] = `
   \\"//\\": {
     \\"metadata\\": {
       \\"version\\": \\"stubbed\\",
-      \\"stackName\\": \\"test\\"
+      \\"stackName\\": \\"test\\",
+      \\"backend\\": \\"local\\",
+      \\"overrides\\": {
+        \\"aws_lambda_alias\\": [
+          \\"function_version\\"
+        ]
+      }
     }
   },
   \\"resource\\": {
@@ -1288,7 +1324,13 @@ exports[`renders a versioned lambda with publish ignored 1`] = `
   \\"//\\": {
     \\"metadata\\": {
       \\"version\\": \\"stubbed\\",
-      \\"stackName\\": \\"test\\"
+      \\"stackName\\": \\"test\\",
+      \\"backend\\": \\"local\\",
+      \\"overrides\\": {
+        \\"aws_lambda_alias\\": [
+          \\"function_version\\"
+        ]
+      }
     }
   },
   \\"resource\\": {
@@ -1500,7 +1542,13 @@ exports[`renders a versioned lambda with s3 bucket 1`] = `
   \\"//\\": {
     \\"metadata\\": {
       \\"version\\": \\"stubbed\\",
-      \\"stackName\\": \\"test\\"
+      \\"stackName\\": \\"test\\",
+      \\"backend\\": \\"local\\",
+      \\"overrides\\": {
+        \\"aws_lambda_alias\\": [
+          \\"function_version\\"
+        ]
+      }
     }
   },
   \\"resource\\": {
@@ -1711,7 +1759,13 @@ exports[`renders a versioned lambda with tags 1`] = `
   \\"//\\": {
     \\"metadata\\": {
       \\"version\\": \\"stubbed\\",
-      \\"stackName\\": \\"test\\"
+      \\"stackName\\": \\"test\\",
+      \\"backend\\": \\"local\\",
+      \\"overrides\\": {
+        \\"aws_lambda_alias\\": [
+          \\"function_version\\"
+        ]
+      }
     }
   },
   \\"resource\\": {
@@ -1930,7 +1984,13 @@ exports[`renders a versioned lambda with timeout 1`] = `
   \\"//\\": {
     \\"metadata\\": {
       \\"version\\": \\"stubbed\\",
-      \\"stackName\\": \\"test\\"
+      \\"stackName\\": \\"test\\",
+      \\"backend\\": \\"local\\",
+      \\"overrides\\": {
+        \\"aws_lambda_alias\\": [
+          \\"function_version\\"
+        ]
+      }
     }
   },
   \\"resource\\": {
@@ -2141,7 +2201,13 @@ exports[`renders a versioned lambda with vpc 1`] = `
   \\"//\\": {
     \\"metadata\\": {
       \\"version\\": \\"stubbed\\",
-      \\"stackName\\": \\"test\\"
+      \\"stackName\\": \\"test\\",
+      \\"backend\\": \\"local\\",
+      \\"overrides\\": {
+        \\"aws_lambda_alias\\": [
+          \\"function_version\\"
+        ]
+      }
     }
   },
   \\"resource\\": {

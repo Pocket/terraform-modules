@@ -23,7 +23,7 @@ import { ApplicationTargetGroup } from './ApplicationTargetGroup';
 import { ApplicationECSAlbCodeDeploy } from './ApplicationECSAlbCodeDeploy';
 import { TerraformResource } from 'cdktf';
 import { truncateString } from '../utilities';
-import { FileA } from '../../.gen/providers/local';
+import { File } from '@cdktf/provider-local';
 
 export interface ApplicationECSServiceProps {
   prefix: string;
@@ -267,7 +267,7 @@ export class ApplicationECSService extends Resource {
       `aws ecs describe-task-definition --task-definition ${taskDef.family} --query 'taskDefinition' >> taskdef.json`
     );
 
-    new FileA(this, 'appspec', {
+    new File(this, 'appspec', {
       content: JSON.stringify({
         version: 1,
         Resources: [

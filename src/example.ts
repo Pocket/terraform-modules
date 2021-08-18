@@ -1,5 +1,5 @@
 import { Construct } from 'constructs';
-import { App, RemoteBackend, TerraformStack } from 'cdktf';
+import { App, TerraformStack } from 'cdktf';
 import { AwsProvider } from '@cdktf/provider-aws';
 import { PocketALBApplication } from './pocket/PocketALBApplication';
 import { ApplicationECSContainerDefinitionProps } from './base/ApplicationECSContainerDefinition';
@@ -10,17 +10,6 @@ class Example extends TerraformStack {
 
     new AwsProvider(this, 'aws', {
       region: 'us-east-1',
-    });
-
-    // for local testing, comment out this RemoteBackend block
-    new RemoteBackend(this, {
-      hostname: 'app.terraform.io',
-      organization: 'Acme',
-      workspaces: [
-        {
-          prefix: `Example-`,
-        },
-      ],
     });
 
     const containerConfigBlue: ApplicationECSContainerDefinitionProps = {

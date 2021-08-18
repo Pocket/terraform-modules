@@ -5,7 +5,15 @@ exports[`ApplicationCertificate constructor renders a cert with a zone domain 1`
   \\"//\\": {
     \\"metadata\\": {
       \\"version\\": \\"stubbed\\",
-      \\"stackName\\": \\"test\\"
+      \\"stackName\\": \\"test\\",
+      \\"backend\\": \\"local\\",
+      \\"overrides\\": {
+        \\"aws_route53_record\\": [
+          \\"name\\",
+          \\"type\\",
+          \\"records\\"
+        ]
+      }
     }
   },
   \\"resource\\": {
@@ -71,7 +79,15 @@ exports[`ApplicationCertificate constructor renders a cert with a zone id 1`] = 
   \\"//\\": {
     \\"metadata\\": {
       \\"version\\": \\"stubbed\\",
-      \\"stackName\\": \\"test\\"
+      \\"stackName\\": \\"test\\",
+      \\"backend\\": \\"local\\",
+      \\"overrides\\": {
+        \\"aws_route53_record\\": [
+          \\"name\\",
+          \\"type\\",
+          \\"records\\"
+        ]
+      }
     }
   },
   \\"resource\\": {
@@ -137,7 +153,15 @@ exports[`ApplicationCertificate constructor renders a cert with tags 1`] = `
   \\"//\\": {
     \\"metadata\\": {
       \\"version\\": \\"stubbed\\",
-      \\"stackName\\": \\"test\\"
+      \\"stackName\\": \\"test\\",
+      \\"backend\\": \\"local\\",
+      \\"overrides\\": {
+        \\"aws_route53_record\\": [
+          \\"name\\",
+          \\"type\\",
+          \\"records\\"
+        ]
+      }
     }
   },
   \\"resource\\": {
@@ -207,7 +231,8 @@ exports[`ApplicationCertificate generateAcmCertificate renders an acm certificat
   \\"//\\": {
     \\"metadata\\": {
       \\"version\\": \\"stubbed\\",
-      \\"stackName\\": \\"test\\"
+      \\"stackName\\": \\"test\\",
+      \\"backend\\": \\"local\\"
     }
   },
   \\"resource\\": {
@@ -239,7 +264,8 @@ exports[`ApplicationCertificate generateAcmCertificate renders an acm certificat
   \\"//\\": {
     \\"metadata\\": {
       \\"version\\": \\"stubbed\\",
-      \\"stackName\\": \\"test\\"
+      \\"stackName\\": \\"test\\",
+      \\"backend\\": \\"local\\"
     }
   },
   \\"resource\\": {
@@ -267,7 +293,15 @@ exports[`ApplicationCertificate generateAcmCertificateValidation renders an acm 
   \\"//\\": {
     \\"metadata\\": {
       \\"version\\": \\"stubbed\\",
-      \\"stackName\\": \\"test\\"
+      \\"stackName\\": \\"test\\",
+      \\"backend\\": \\"local\\",
+      \\"overrides\\": {
+        \\"aws_route53_record\\": [
+          \\"name\\",
+          \\"type\\",
+          \\"records\\"
+        ]
+      }
     }
   },
   \\"resource\\": {
@@ -333,7 +367,15 @@ exports[`ApplicationCertificate generateRoute53Record renders a route 53 record 
   \\"//\\": {
     \\"metadata\\": {
       \\"version\\": \\"stubbed\\",
-      \\"stackName\\": \\"test\\"
+      \\"stackName\\": \\"test\\",
+      \\"backend\\": \\"local\\",
+      \\"overrides\\": {
+        \\"aws_route53_record\\": [
+          \\"name\\",
+          \\"type\\",
+          \\"records\\"
+        ]
+      }
     }
   },
   \\"resource\\": {

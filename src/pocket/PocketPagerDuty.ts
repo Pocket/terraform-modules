@@ -4,7 +4,7 @@ import {
   DataPagerdutyVendor,
   Service,
   ServiceIntegration,
-} from '../../.gen/providers/pagerduty';
+} from '@cdktf/provider-pagerduty';
 import { SnsTopic, SnsTopicSubscription } from '@cdktf/provider-aws';
 
 export interface PocketPagerDutyProps {

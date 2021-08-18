@@ -5,7 +5,14 @@ exports[`renders an ALB with tags 1`] = `
   \\"//\\": {
     \\"metadata\\": {
       \\"version\\": \\"stubbed\\",
-      \\"stackName\\": \\"test\\"
+      \\"stackName\\": \\"test\\",
+      \\"backend\\": \\"local\\",
+      \\"overrides\\": {
+        \\"aws_security_group\\": [
+          \\"ingress\\",
+          \\"egress\\"
+        ]
+      }
     }
   },
   \\"resource\\": {
@@ -105,7 +112,14 @@ exports[`renders an ALB without tags 1`] = `
   \\"//\\": {
     \\"metadata\\": {
       \\"version\\": \\"stubbed\\",
-      \\"stackName\\": \\"test\\"
+      \\"stackName\\": \\"test\\",
+      \\"backend\\": \\"local\\",
+      \\"overrides\\": {
+        \\"aws_security_group\\": [
+          \\"ingress\\",
+          \\"egress\\"
+        ]
+      }
     }
   },
   \\"resource\\": {
