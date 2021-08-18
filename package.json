@@ -67,7 +67,7 @@
     "@types/chai": "^4.2.21",
     "@types/jest": "^27.0.1",
     "@types/node": "^16.6.1",
-    "@typescript-eslint/eslint-plugin": "^4.29.1",
+    "@typescript-eslint/eslint-plugin": "^4.29.2",
     "@typescript-eslint/parser": "^4.29.2",
     "chai": "^4.3.0",
     "constructs": "^3.3.126",
