@@ -63,7 +63,7 @@
     "@types/jest": "^26.0.24",
     "@types/node": "^16.6.1",
     "@typescript-eslint/eslint-plugin": "^4.29.1",
-    "@typescript-eslint/parser": "^4.28.5",
+    "@typescript-eslint/parser": "^4.29.2",
     "chai": "^4.3.0",
     "constructs": "^3.3.126",
     "eslint": "^7.32.0",
