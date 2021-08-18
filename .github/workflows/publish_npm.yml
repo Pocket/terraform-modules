@@ -25,7 +25,6 @@ jobs:
       # TODO: remove this next command when that is in effect and update package.json accordingly
       - run: echo $(jq '.name = "@pocket-tools/terraform-modules" | del(.publishConfig)' package.json) > package.json
       - run: npm install
-      - run: npm run get
       - run: npm run build
       - run: npm run test
       - name: Semantic Release
