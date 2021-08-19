@@ -31,7 +31,7 @@ jobs:
         with:
           node-version: '16.x'
           registry-url: 'https://registry.npmjs.org'
-      - run: npm publish --access=public
+      - run: '(test -f .version && npm publish --access=public) || echo .version does not exist, no release was made, skipping npm registry publish'
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
 
