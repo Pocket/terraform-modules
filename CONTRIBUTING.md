@@ -26,9 +26,41 @@ If you've found a bug, or have a feature idea that you you'd like to see, follow
 
 ### Contributing Code
 
-If you are new to the repo, you might want to pay close attention to these tags, as they are typically a great way to get started: Good First Bug, Bug, Chore, and Polish. If you see a bug that is not yet assigned to anyone, start a conversation with an engineer in the ticket itself, expressing your interest in taking the bug. If you take the bug, someone will set the ticket to Assigned to Contributor, so we can be proactive about helping you succeed in fixing the bug.
+If you are new to the repo, you might want to pay close attention to these tags, as they are typically a great way to get started:
+
+- Good First Bug
+- Bug
+- Chore
+- Polish
+
+If you see a bug that is not yet assigned to anyone, start a conversation with an engineer in the ticket itself, expressing your interest in taking the bug. If you take the bug, someone will set the ticket to Assigned to Contributor, so we can be proactive about helping you succeed in fixing the bug.
 
 When you have some code written, you can open up a Pull Request, get your code reviewed, and see your code merged into the codebase.
+
+### Commit format
+
+We use standard changelog and enforce [conventional commits](https://www.conventionalcommits.org/).
+
+Commits should be formated as `type(scope): message`
+
+The following types are allowed:
+
+| Type | Description |
+|---|---|
+| feat | A new feature |
+| fix | A bug fix |
+| docs | Documentation only changes |
+| style | Changes that do not affect the meaning of the code (white-space, formatting,missing semi-colons, etc) |
+| refactor | A code change that neither fixes a bug nor adds a feature |
+| perf | A code change that improves performance |
+| test | Adding missing or correcting existing tests |
+| chore | Changes to the build process or auxiliary tools and libraries such as documentation generation |
+
+### Releasing
+
+A new version is released when a merge or push to `main` occurs.
+
+We use the rules at [default-release-rules.js](https://github.com/semantic-release/commit-analyzer/blob/master/lib/default-release-rules.js) as our guide to when a a series of commits should create a release.
 
 ### Setting up your development environment
 

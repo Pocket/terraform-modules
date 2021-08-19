@@ -3,34 +3,27 @@
 This is a collection of terraform typescript cdk modules
 that @Pocket uses in various services.
 
-## Contributing
+## Why?
 
-We use standard changelog and enforce [conventional commits](https://www.conventionalcommits.org/).
+Our goals for this project are as follows:
 
-### Commit format
+- To have as little infrastructure code as possible in repos.
+- To have as little *duplicated* infrastructure code as possible in repos.
+- To provide reasonable defaults for our most common AWS services.
+- To provide an as-simple-as-possible-while-still-configurable API to our most common AWS services by abstraction.
 
-Commits should be formated as `type(scope): message`
+## Repository Structure
 
-The following types are allowed:
+The bulk of the code for this repository is broken up into two folders:
 
-| Type | Description |
-|---|---|
-| feat | A new feature |
-| fix | A bug fix |
-| docs | Documentation only changes |
-| style | Changes that do not affect the meaning of the code (white-space, formatting,missing semi-colons, etc) |
-| refactor | A code change that neither fixes a bug nor adds a feature |
-| perf | A code change that improves performance |
-| test | Adding missing or correcting existing tests |
-| chore | Changes to the build process or auxiliary tools and libraries such as documentation generation |
+- `/src/base`: Contains abstractions of AWS services, e.g. an ECS or Redis Cluster, or an SQS Queue
+- `/src/pocket`: Contains higher level abstractions that are specific to Pocket's infrastructure, e.g. an ALB-backed application or our PagerDuty config
 
-### Releasing
+See the `README` file in each of these respective directories to learn more. (Coming soon.)
 
-A new version is released when a merge or push to `main` occurs.
+## Testing
 
-We use the rules at [default-release-rules.js](https://github.com/semantic-release/commit-analyzer/blob/master/lib/default-release-rules.js) as our guide to when a a series of commits should create a release.
-
-### Snapshot testing
+### Snapshot Testing
 
 Snapshot testing ensures that our components produce predictable output when synthesized.
 
@@ -42,7 +35,9 @@ The above will update any necessary snapshot files to be used on future test run
 
 As you can infer from the above, snapshots do not test the actual infrastructure result of running the synthesized terraform, meaning components should be tested manually (see below) to ensure they are performing the expected tasks prior to writing snapshot tests.
 
-### Testing in this repo
+### Testing in AWS
+
+While snapshot testing is great for things like regressions, it doesn't actually tell us if the code we've provided (e.g. the configuration of a particular AWS service) can be built in AWS.
 
 You can use the existing `example.ts` file to test the modules in this repo.
 
@@ -64,14 +59,14 @@ To test against our infrastructure (debugging level 2):
 
 Note that this isn't a full end-to-end verification, and will hang on domain certificate steps, but the above should surface most generated terraform issues.
 
-### Testing in other Repo
+### Testing in Dependent Repos
 
 Sometimes it is useful to develop the module while consuming it in another repo.
 
 1. Run `npm link` in the root of this repo
 2. In the consumer repo run `npm link @pocket/terraform-modules`
 3. In this repo run `npm run watch`
-4. Profit in the consumer repo
+4. Profit in the consumer repo - meaning, test deploying your application to AWS (probably in the dev account)
 
 When you are done be sure to:
 1. `npm unlink` in this repo
