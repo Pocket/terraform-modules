@@ -1,0 +1,35 @@
+name: Test & Build
+
+on:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: hashicorp/setup-terraform@v1.3.2
+        with:
+          terraform_version: 0.13.5
+          terraform_wrapper: false
+      - uses: actions/setup-node@v2.4.0
+        with:
+          node-version: '16.x'
+      - run: npm install
+      - run: npm run test
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: hashicorp/setup-terraform@v1.3.2
+        with:
+          terraform_version: 0.13.5
+          terraform_wrapper: false
+      - uses: actions/setup-node@v2.4.0
+        with:
+          node-version: '16.x'
+      - run: npm install
+      - run: npm run build
+      - run: npm run build:dev
+      - run: cd cdktf.out/stacks/acme-example && terraform init && terraform validate

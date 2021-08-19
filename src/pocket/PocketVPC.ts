@@ -8,7 +8,7 @@ import {
   DataAwsSsmParameter,
   DataAwsSubnetIds,
   DataAwsVpc,
-} from '../../.gen/providers/aws';
+} from '@cdktf/provider-aws';
 import { Construct } from 'constructs';
 
 export class PocketVPC extends Resource {

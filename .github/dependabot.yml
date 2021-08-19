@@ -11,17 +11,11 @@ updates:
     schedule:
       interval: 'daily'
     commit-message:
-      prefix: '[DEPBOT-0101]'
-
-  # Enable version updates for Docker
-  - package-ecosystem: 'docker'
-    # Look for a `Dockerfile` in the `root` directory
-    directory: '/'
-    # Check for updates once a week
-    schedule:
-      interval: 'daily'
-    commit-message:
-      prefix: '[DEPBOT-0102]'
+      #Packaged dependencies (release)
+      prefix: fix
+      #Dev dependencies prefix (no release)
+      prefix-development: chore
+      include: scope
 
   # Maintain dependencies for GitHub Actions
   - package-ecosystem: 'github-actions'
@@ -29,12 +23,6 @@ updates:
     schedule:
       interval: 'daily'
     commit-message:
-      prefix: '[DEPBOT-0103]'
-
-  # Maintain dependencies for Terraform
-  - package-ecosystem: 'terraform'
-    directory: '.aws'
-    schedule:
-      interval: 'daily'
-    commit-message:
-      prefix: '[DEPBOT-0104]'
+      prefix: chore
+      prefix-development: chore
+      include: scope

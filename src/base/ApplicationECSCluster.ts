@@ -1,5 +1,5 @@
 import { Resource } from 'cdktf';
-import { EcsCluster } from '../../.gen/providers/aws';
+import { EcsCluster } from '@cdktf/provider-aws';
 import { Construct } from 'constructs';
 
 export interface ApplicationECSClusterProps {

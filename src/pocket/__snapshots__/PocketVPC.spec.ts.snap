@@ -5,7 +5,14 @@ exports[`renders a VPC with minimal config 1`] = `
   \\"//\\": {
     \\"metadata\\": {
       \\"version\\": \\"stubbed\\",
-      \\"stackName\\": \\"test\\"
+      \\"stackName\\": \\"test\\",
+      \\"backend\\": \\"local\\",
+      \\"overrides\\": {
+        \\"aws_subnet_ids\\": [
+          \\"filter\\",
+          \\"filter\\"
+        ]
+      }
     }
   },
   \\"data\\": {

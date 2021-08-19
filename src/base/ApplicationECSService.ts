@@ -10,8 +10,8 @@ import {
   SecurityGroup,
   SecurityGroupEgress,
   SecurityGroupIngress,
-} from '../../.gen/providers/aws';
-import { Resource } from '../../.gen/providers/null';
+} from '@cdktf/provider-aws';
+import { Resource } from '@cdktf/provider-null';
 import { Construct } from 'constructs';
 import { ApplicationECR, ECRProps } from './ApplicationECR';
 import { ApplicationECSIAM, ApplicationECSIAMProps } from './ApplicationECSIAM';
@@ -23,7 +23,7 @@ import { ApplicationTargetGroup } from './ApplicationTargetGroup';
 import { ApplicationECSAlbCodeDeploy } from './ApplicationECSAlbCodeDeploy';
 import { TerraformResource } from 'cdktf';
 import { truncateString } from '../utilities';
-import { FileA } from '../../.gen/providers/local';
+import { File } from '@cdktf/provider-local';
 
 export interface ApplicationECSServiceProps {
   prefix: string;
@@ -65,40 +65,9 @@ interface ECSTaskDefinitionResponse {
 export class ApplicationECSService extends Resource {
   public readonly service: EcsService;
   public readonly ecsSecurityGroup: SecurityGroup;
-
-  private readonly config: ApplicationECSServiceProps;
   public readonly mainTargetGroup?: ApplicationTargetGroup;
   public readonly codeDeployApp?: ApplicationECSAlbCodeDeploy;
-
-  // set defaults on optional properties
-  private static hydrateConfig(
-    config: ApplicationECSServiceProps
-  ): ApplicationECSServiceProps {
-    config.launchType = config.launchType || 'FARGATE';
-    config.deploymentMinimumHealthyPercent =
-      config.deploymentMinimumHealthyPercent || 100;
-    config.deploymentMaximumPercent = config.deploymentMaximumPercent || 200;
-    config.desiredCount = config.desiredCount || 2;
-    //Need to use ?? because useCodeDeploy can be false
-    config.useCodeDeploy = config.useCodeDeploy ?? true;
-
-    config.lifecycleIgnoreChanges = config.lifecycleIgnoreChanges || [
-      'desired_count',
-      'load_balancer',
-    ];
-    if (config.useCodeDeploy) {
-      // If we are using CodeDeploy then we need to ignore the task_definition change
-      config.lifecycleIgnoreChanges.push('task_definition');
-      config.lifecycleIgnoreChanges = [
-        // De-dupe array
-        ...new Set(config.lifecycleIgnoreChanges),
-      ];
-    }
-    config.cpu = config.cpu || 512;
-    config.memory = config.memory || 2048;
-
-    return config;
-  }
+  private readonly config: ApplicationECSServiceProps;
 
   constructor(
     scope: Construct,
@@ -165,8 +134,8 @@ export class ApplicationECSService extends Resource {
         ? [{ type: 'CODE_DEPLOY' }]
         : [{ type: 'ECS' }],
       launchType: this.config.launchType,
-      deploymentMinimumHealthyPercent: this.config
-        .deploymentMinimumHealthyPercent,
+      deploymentMinimumHealthyPercent:
+        this.config.deploymentMinimumHealthyPercent,
       deploymentMaximumPercent: this.config.deploymentMaximumPercent,
       desiredCount: this.config.desiredCount,
       cluster: this.config.ecsClusterArn,
@@ -185,21 +154,18 @@ export class ApplicationECSService extends Resource {
       const greenTargetGroup = this.createTargetGroup('green');
       targetGroupNames.push(greenTargetGroup.targetGroup.name);
       //Setup codedeploy
-      const codeDeployApp = (this.codeDeployApp = new ApplicationECSAlbCodeDeploy(
-        this,
-        'ecs_codedeploy',
-        {
+      const codeDeployApp = (this.codeDeployApp =
+        new ApplicationECSAlbCodeDeploy(this, 'ecs_codedeploy', {
           prefix: this.config.prefix,
           serviceName: this.service.name,
           clusterName: this.config.ecsClusterName,
           targetGroupNames: targetGroupNames,
           listenerArn: this.config.albConfig.listenerArn,
-          snsNotificationTopicArn: this.config
-            .codeDeploySnsNotificationTopicArn,
+          snsNotificationTopicArn:
+            this.config.codeDeploySnsNotificationTopicArn,
           tags: this.config.tags,
           dependsOn: [this.service],
-        }
-      ));
+        }));
 
       if (!this.config.useCodePipeline) {
         /**
@@ -238,6 +204,36 @@ export class ApplicationECSService extends Resource {
     // build in autoscaling
   }
 
+  // set defaults on optional properties
+  private static hydrateConfig(
+    config: ApplicationECSServiceProps
+  ): ApplicationECSServiceProps {
+    config.launchType = config.launchType || 'FARGATE';
+    config.deploymentMinimumHealthyPercent =
+      config.deploymentMinimumHealthyPercent || 100;
+    config.deploymentMaximumPercent = config.deploymentMaximumPercent || 200;
+    config.desiredCount = config.desiredCount || 2;
+    //Need to use ?? because useCodeDeploy can be false
+    config.useCodeDeploy = config.useCodeDeploy ?? true;
+
+    config.lifecycleIgnoreChanges = config.lifecycleIgnoreChanges || [
+      'desired_count',
+      'load_balancer',
+    ];
+    if (config.useCodeDeploy) {
+      // If we are using CodeDeploy then we need to ignore the task_definition change
+      config.lifecycleIgnoreChanges.push('task_definition');
+      config.lifecycleIgnoreChanges = [
+        // De-dupe array
+        ...new Set(config.lifecycleIgnoreChanges),
+      ];
+    }
+    config.cpu = config.cpu || 512;
+    config.memory = config.memory || 2048;
+
+    return config;
+  }
+
   /**
    * When running ECS Blue/Green CodeDeploy through CodePipeline, the configuration requires that
    * appspec.json and taskdef.json files exist within the source artifact.
@@ -271,7 +267,7 @@ export class ApplicationECSService extends Resource {
       `aws ecs describe-task-definition --task-definition ${taskDef.family} --query 'taskDefinition' >> taskdef.json`
     );
 
-    new FileA(this, 'appspec', {
+    new File(this, 'appspec', {
       content: JSON.stringify({
         version: 1,
         Resources: [
@@ -402,12 +398,12 @@ export class ApplicationECSService extends Resource {
     const ecsIam = new ApplicationECSIAM(this, 'ecs-iam', {
       prefix: this.config.prefix,
       tags: this.config.tags,
-      taskExecutionDefaultAttachmentArn: this.config.ecsIamConfig
-        .taskExecutionDefaultAttachmentArn,
-      taskExecutionRolePolicyStatements: this.config.ecsIamConfig
-        .taskExecutionRolePolicyStatements,
-      taskRolePolicyStatements: this.config.ecsIamConfig
-        .taskRolePolicyStatements,
+      taskExecutionDefaultAttachmentArn:
+        this.config.ecsIamConfig.taskExecutionDefaultAttachmentArn,
+      taskExecutionRolePolicyStatements:
+        this.config.ecsIamConfig.taskExecutionRolePolicyStatements,
+      taskRolePolicyStatements:
+        this.config.ecsIamConfig.taskRolePolicyStatements,
     });
 
     //Create task definition

@@ -5,7 +5,13 @@ exports[`renders a lambda triggered by an existing sqs queue 1`] = `
   \\"//\\": {
     \\"metadata\\": {
       \\"version\\": \\"stubbed\\",
-      \\"stackName\\": \\"test\\"
+      \\"stackName\\": \\"test\\",
+      \\"backend\\": \\"local\\",
+      \\"overrides\\": {
+        \\"aws_lambda_alias\\": [
+          \\"function_version\\"
+        ]
+      }
     }
   },
   \\"resource\\": {
@@ -289,7 +295,13 @@ exports[`renders a plain sqs queue and lambda target 1`] = `
   \\"//\\": {
     \\"metadata\\": {
       \\"version\\": \\"stubbed\\",
-      \\"stackName\\": \\"test\\"
+      \\"stackName\\": \\"test\\",
+      \\"backend\\": \\"local\\",
+      \\"overrides\\": {
+        \\"aws_lambda_alias\\": [
+          \\"function_version\\"
+        ]
+      }
     }
   },
   \\"resource\\": {
@@ -574,7 +586,13 @@ exports[`renders a plain sqs queue with a deadletter and lambda target 1`] = `
   \\"//\\": {
     \\"metadata\\": {
       \\"version\\": \\"stubbed\\",
-      \\"stackName\\": \\"test\\"
+      \\"stackName\\": \\"test\\",
+      \\"backend\\": \\"local\\",
+      \\"overrides\\": {
+        \\"aws_lambda_alias\\": [
+          \\"function_version\\"
+        ]
+      }
     }
   },
   \\"resource\\": {

@@ -5,7 +5,14 @@ exports[`ApplicationECSService renders an ECS service with code deploy 1`] = `
   \\"//\\": {
     \\"metadata\\": {
       \\"version\\": \\"stubbed\\",
-      \\"stackName\\": \\"test\\"
+      \\"stackName\\": \\"test\\",
+      \\"backend\\": \\"local\\",
+      \\"overrides\\": {
+        \\"aws_security_group\\": [
+          \\"ingress\\",
+          \\"egress\\"
+        ]
+      }
     }
   },
   \\"resource\\": {
@@ -192,7 +199,14 @@ exports[`ApplicationECSService renders an ECS service with code deploy and exclu
   \\"//\\": {
     \\"metadata\\": {
       \\"version\\": \\"stubbed\\",
-      \\"stackName\\": \\"test\\"
+      \\"stackName\\": \\"test\\",
+      \\"backend\\": \\"local\\",
+      \\"overrides\\": {
+        \\"aws_security_group\\": [
+          \\"ingress\\",
+          \\"egress\\"
+        ]
+      }
     }
   },
   \\"resource\\": {
@@ -379,7 +393,14 @@ exports[`ApplicationECSService renders an ECS service with full container defini
   \\"//\\": {
     \\"metadata\\": {
       \\"version\\": \\"stubbed\\",
-      \\"stackName\\": \\"test\\"
+      \\"stackName\\": \\"test\\",
+      \\"backend\\": \\"local\\",
+      \\"overrides\\": {
+        \\"aws_security_group\\": [
+          \\"ingress\\",
+          \\"egress\\"
+        ]
+      }
     }
   },
   \\"resource\\": {
@@ -566,7 +587,14 @@ exports[`ApplicationECSService renders an ECS service with full container defini
   \\"//\\": {
     \\"metadata\\": {
       \\"version\\": \\"stubbed\\",
-      \\"stackName\\": \\"test\\"
+      \\"stackName\\": \\"test\\",
+      \\"backend\\": \\"local\\",
+      \\"overrides\\": {
+        \\"aws_security_group\\": [
+          \\"ingress\\",
+          \\"egress\\"
+        ]
+      }
     }
   },
   \\"resource\\": {
@@ -833,7 +861,14 @@ exports[`ApplicationECSService renders an ECS service with minimal config 1`] = 
   \\"//\\": {
     \\"metadata\\": {
       \\"version\\": \\"stubbed\\",
-      \\"stackName\\": \\"test\\"
+      \\"stackName\\": \\"test\\",
+      \\"backend\\": \\"local\\",
+      \\"overrides\\": {
+        \\"aws_security_group\\": [
+          \\"ingress\\",
+          \\"egress\\"
+        ]
+      }
     }
   },
   \\"resource\\": {
@@ -1019,7 +1054,14 @@ exports[`ApplicationECSService renders an ECS service with mountPoints deduplica
   \\"//\\": {
     \\"metadata\\": {
       \\"version\\": \\"stubbed\\",
-      \\"stackName\\": \\"test\\"
+      \\"stackName\\": \\"test\\",
+      \\"backend\\": \\"local\\",
+      \\"overrides\\": {
+        \\"aws_security_group\\": [
+          \\"ingress\\",
+          \\"egress\\"
+        ]
+      }
     }
   },
   \\"resource\\": {
@@ -1340,7 +1382,14 @@ exports[`ApplicationECSService renders an ECS service without a log group contai
   \\"//\\": {
     \\"metadata\\": {
       \\"version\\": \\"stubbed\\",
-      \\"stackName\\": \\"test\\"
+      \\"stackName\\": \\"test\\",
+      \\"backend\\": \\"local\\",
+      \\"overrides\\": {
+        \\"aws_security_group\\": [
+          \\"ingress\\",
+          \\"egress\\"
+        ]
+      }
     }
   },
   \\"resource\\": {
@@ -1539,7 +1588,14 @@ exports[`ApplicationECSService renders an ECS service without an image container
   \\"//\\": {
     \\"metadata\\": {
       \\"version\\": \\"stubbed\\",
-      \\"stackName\\": \\"test\\"
+      \\"stackName\\": \\"test\\",
+      \\"backend\\": \\"local\\",
+      \\"overrides\\": {
+        \\"aws_security_group\\": [
+          \\"ingress\\",
+          \\"egress\\"
+        ]
+      }
     }
   },
   \\"resource\\": {

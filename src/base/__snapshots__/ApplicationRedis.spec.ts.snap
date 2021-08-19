@@ -5,7 +5,13 @@ exports[`renders redis with minimal config 1`] = `
   \\"//\\": {
     \\"metadata\\": {
       \\"version\\": \\"stubbed\\",
-      \\"stackName\\": \\"test\\"
+      \\"stackName\\": \\"test\\",
+      \\"backend\\": \\"local\\",
+      \\"overrides\\": {
+        \\"aws_security_group\\": [
+          \\"ingress\\"
+        ]
+      }
     }
   },
   \\"data\\": {
@@ -105,7 +111,13 @@ exports[`renders redis with node change 1`] = `
   \\"//\\": {
     \\"metadata\\": {
       \\"version\\": \\"stubbed\\",
-      \\"stackName\\": \\"test\\"
+      \\"stackName\\": \\"test\\",
+      \\"backend\\": \\"local\\",
+      \\"overrides\\": {
+        \\"aws_security_group\\": [
+          \\"ingress\\"
+        ]
+      }
     }
   },
   \\"data\\": {
@@ -205,7 +217,13 @@ exports[`renders redis with tags 1`] = `
   \\"//\\": {
     \\"metadata\\": {
       \\"version\\": \\"stubbed\\",
-      \\"stackName\\": \\"test\\"
+      \\"stackName\\": \\"test\\",
+      \\"backend\\": \\"local\\",
+      \\"overrides\\": {
+        \\"aws_security_group\\": [
+          \\"ingress\\"
+        ]
+      }
     }
   },
   \\"data\\": {

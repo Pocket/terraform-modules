@@ -11,13 +11,13 @@ name: Lint Code Base
 # https://help.github.com/en/articles/workflow-syntax-for-github-actions
 #
 
-#############################
-# Start the job on all push #
-#############################
+####################################
+# Start the job on all prs to main #
+####################################
 on:
-  push:
-    branches-ignore:
-      - 'main'
+  pull_request:
+    branches:
+      - main
 
 ###############
 # Set the Job #
@@ -44,7 +44,7 @@ jobs:
       # the latest definitions installed
       ##########################
       - name: Use Node.js 14.x
-        uses: actions/setup-node@v2.1.5
+        uses: actions/setup-node@v2.4.0
         with:
           node-version: 14.x
       - run: npm install

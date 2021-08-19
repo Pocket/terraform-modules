@@ -3,7 +3,7 @@ import {
   ApplicationEventBridgeRule,
   ApplicationEventBridgeRuleProps,
 } from './ApplicationEventBridgeRule';
-import { SqsQueue } from '../../.gen/providers/aws';
+import { SqsQueue } from '@cdktf/provider-aws';
 
 const config: ApplicationEventBridgeRuleProps = {
   name: 'Test-EventBridge',

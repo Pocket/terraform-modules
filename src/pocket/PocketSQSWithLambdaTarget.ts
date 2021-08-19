@@ -18,7 +18,7 @@ import {
   DataAwsSqsQueue,
   DataAwsSqsQueueConfig,
   SqsQueue,
-} from '../../.gen/providers/aws';
+} from '@cdktf/provider-aws';
 
 export interface PocketSQSWithLambdaTargetProps
   extends PocketVersionedLambdaProps {

@@ -6,7 +6,7 @@ import {
   CloudwatchMetricAlarm,
   CloudwatchMetricAlarmConfig,
   Route53Record,
-} from '../../.gen/providers/aws';
+} from '@cdktf/provider-aws';
 import { Construct } from 'constructs';
 import {
   ApplicationAutoscaling,
@@ -428,8 +428,8 @@ export class PocketALBApplication extends Resource {
       ecsClusterName: ecsCluster.cluster.name,
       useCodeDeploy: this.config.codeDeploy.useCodeDeploy,
       useCodePipeline: this.config.codeDeploy.useCodePipeline,
-      codeDeploySnsNotificationTopicArn: this.config.codeDeploy
-        .snsNotificationTopicArn,
+      codeDeploySnsNotificationTopicArn:
+        this.config.codeDeploy.snsNotificationTopicArn,
       albConfig: {
         containerPort: this.config.exposedContainer.port,
         containerName: this.config.exposedContainer.name,
@@ -464,10 +464,10 @@ export class PocketALBApplication extends Resource {
       ecsClusterName: ecsCluster.cluster.name,
       ecsServiceName: ecsService.service.name,
       scalableDimension: 'ecs:service:DesiredCount',
-      stepScaleInAdjustment: this.config.autoscalingConfig
-        .stepScaleInAdjustment,
-      stepScaleOutAdjustment: this.config.autoscalingConfig
-        .stepScaleOutAdjustment,
+      stepScaleInAdjustment:
+        this.config.autoscalingConfig.stepScaleInAdjustment,
+      stepScaleOutAdjustment:
+        this.config.autoscalingConfig.stepScaleOutAdjustment,
       scaleInThreshold: this.config.autoscalingConfig.scaleInThreshold,
       scaleOutThreshold: this.config.autoscalingConfig.scaleOutThreshold,
       tags: this.config.tags,

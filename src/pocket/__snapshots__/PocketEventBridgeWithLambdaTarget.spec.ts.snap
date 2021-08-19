@@ -5,7 +5,13 @@ exports[`renders an event bridge and lambda target with event bus name 1`] = `
   \\"//\\": {
     \\"metadata\\": {
       \\"version\\": \\"stubbed\\",
-      \\"stackName\\": \\"test\\"
+      \\"stackName\\": \\"test\\",
+      \\"backend\\": \\"local\\",
+      \\"overrides\\": {
+        \\"aws_lambda_alias\\": [
+          \\"function_version\\"
+        ]
+      }
     }
   },
   \\"resource\\": {
@@ -265,7 +271,13 @@ exports[`renders an event bridge and lambda target with rule description 1`] = `
   \\"//\\": {
     \\"metadata\\": {
       \\"version\\": \\"stubbed\\",
-      \\"stackName\\": \\"test\\"
+      \\"stackName\\": \\"test\\",
+      \\"backend\\": \\"local\\",
+      \\"overrides\\": {
+        \\"aws_lambda_alias\\": [
+          \\"function_version\\"
+        ]
+      }
     }
   },
   \\"resource\\": {

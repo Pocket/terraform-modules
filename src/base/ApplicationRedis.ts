@@ -4,10 +4,7 @@ import {
   ApplicationElasticacheEngine,
 } from './ApplicationElasticacheCluster';
 import { Construct } from 'constructs';
-import {
-  DataAwsVpc,
-  ElasticacheReplicationGroup,
-} from '../../.gen/providers/aws';
+import { DataAwsVpc, ElasticacheReplicationGroup } from '@cdktf/provider-aws';
 
 const DEFAULT_CONFIG = {
   node: {
@@ -34,11 +31,8 @@ export class ApplicationRedis extends ApplicationElasticacheCluster {
 
     const vpc = ApplicationElasticacheCluster.getVpc(this, config);
 
-    this.elasticacheReplicationGroup = ApplicationRedis.createElasticacheReplicationCluster(
-      this,
-      vpc,
-      config
-    );
+    this.elasticacheReplicationGroup =
+      ApplicationRedis.createElasticacheReplicationCluster(this, vpc, config);
   }
 
   /**
@@ -56,10 +50,8 @@ export class ApplicationRedis extends ApplicationElasticacheCluster {
     const engine = ApplicationElasticacheEngine.REDIS;
     const port = ApplicationElasticacheCluster.getPortForEngine(engine);
 
-    const {
-      securityGroup,
-      subnetGroup,
-    } = ApplicationRedis.createSecurityGroupAndSubnet(scope, config, vpc, port);
+    const { securityGroup, subnetGroup } =
+      ApplicationRedis.createSecurityGroupAndSubnet(scope, config, vpc, port);
 
     return new ElasticacheReplicationGroup(
       scope,

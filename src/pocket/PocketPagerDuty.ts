@@ -4,8 +4,8 @@ import {
   DataPagerdutyVendor,
   Service,
   ServiceIntegration,
-} from '../../.gen/providers/pagerduty';
-import { SnsTopic, SnsTopicSubscription } from '../../.gen/providers/aws';
+} from '@cdktf/provider-pagerduty';
+import { SnsTopic, SnsTopicSubscription } from '@cdktf/provider-aws';
 
 export interface PocketPagerDutyProps {
   prefix: string;
@@ -31,11 +31,11 @@ export enum PAGERDUTY_SERVICE_URGENCY {
 }
 
 export class PocketPagerDuty extends Resource {
-  public readonly snsCriticalAlarmTopic: SnsTopic;
-  public readonly snsNonCriticalAlarmTopic: SnsTopic;
   static readonly SERVICE_AUTO_RESOLVE_TIMEOUT = '14400';
   static readonly SERVICE_ACKNOWLEDGEMENT_TIMEOUT = '600';
   static readonly SNS_SUBSCRIPTION_CONFIRMATION_TIMEOUT_IN_MINUTES = 2;
+  public readonly snsCriticalAlarmTopic: SnsTopic;
+  public readonly snsNonCriticalAlarmTopic: SnsTopic;
   private config: PocketPagerDutyProps;
 
   constructor(scope: Construct, name: string, config: PocketPagerDutyProps) {
@@ -79,13 +79,11 @@ export class PocketPagerDuty extends Resource {
       PAGERDUTY_SERVICE_URGENCY.NON_CRITICAL
     );
 
-    const snsCriticalAlarmTopic = (this.snsCriticalAlarmTopic = this.createSnsTopic(
-      PAGERDUTY_SERVICE_URGENCY.CRITICAL
-    ));
+    const snsCriticalAlarmTopic = (this.snsCriticalAlarmTopic =
+      this.createSnsTopic(PAGERDUTY_SERVICE_URGENCY.CRITICAL));
 
-    const snsNonCriticalAlarmTopic = (this.snsNonCriticalAlarmTopic = this.createSnsTopic(
-      PAGERDUTY_SERVICE_URGENCY.NON_CRITICAL
-    ));
+    const snsNonCriticalAlarmTopic = (this.snsNonCriticalAlarmTopic =
+      this.createSnsTopic(PAGERDUTY_SERVICE_URGENCY.NON_CRITICAL));
 
     this.createSnsTopicSubscription(
       snsCriticalAlarmTopic,

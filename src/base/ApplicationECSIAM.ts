@@ -6,7 +6,7 @@ import {
   IamPolicy,
   IamRole,
   IamRolePolicyAttachment,
-} from '../../.gen/providers/aws';
+} from '@cdktf/provider-aws';
 
 export interface ApplicationECSIAMProps {
   prefix: string;

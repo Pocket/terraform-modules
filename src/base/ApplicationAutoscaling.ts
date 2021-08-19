@@ -6,7 +6,7 @@ import {
   DataAwsIamPolicyDocument,
   IamRole,
   IamRolePolicy,
-} from '../../.gen/providers/aws';
+} from '@cdktf/provider-aws';
 import { Construct } from 'constructs';
 
 export interface ApplicationAutoscalingProps {
@@ -46,12 +46,13 @@ export class ApplicationAutoscaling extends Resource {
       iamRole
     );
 
-    const applicationScaleOut = ApplicationAutoscaling.generateAutoSclaingPolicy(
-      this,
-      config,
-      autoScalingTarget,
-      'Out'
-    );
+    const applicationScaleOut =
+      ApplicationAutoscaling.generateAutoSclaingPolicy(
+        this,
+        config,
+        autoScalingTarget,
+        'Out'
+      );
 
     const applicationScaleIn = ApplicationAutoscaling.generateAutoSclaingPolicy(
       this,

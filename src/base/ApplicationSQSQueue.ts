@@ -1,6 +1,6 @@
 import { Resource } from 'cdktf';
 import { Construct } from 'constructs';
-import { SqsQueue } from '../../.gen/providers/aws';
+import { SqsQueue } from '@cdktf/provider-aws';
 
 export interface ApplicationSQSQueueProps {
   /**

@@ -13,11 +13,11 @@ import {
   LambdaFunctionVpcConfig,
   S3Bucket,
   S3BucketPublicAccessBlock,
-} from '../../.gen/providers/aws';
+} from '@cdktf/provider-aws';
 import {
   DataArchiveFile,
   DataArchiveFileSource,
-} from '../../.gen/providers/archive';
+} from '@cdktf/provider-archive';
 
 export enum LAMBDA_RUNTIMES {
   PYTHON38 = 'python3.8',
