@@ -1,0 +1,14 @@
+#Steps from https://github.com/dependabot/dependabot-core/issues/3253#issuecomment-852541544
+
+name: Pre Publish
+on:
+  push:
+    branches:
+      - main
+
+
+jobs:
+  pre-publish:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Deploy the code to another flow"

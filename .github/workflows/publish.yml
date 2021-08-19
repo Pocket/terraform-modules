@@ -1,9 +1,11 @@
 name: GitHub Publish
 
 on:
-  push:
-    branches:
-      - main
+  workflow_run:
+    workflows:
+      - "Pre Publish"
+    types:
+      - completed
 
 jobs:
   publish:
