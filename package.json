@@ -4,8 +4,8 @@
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/"
   },
-  "main": "dist/src/index.js",
-  "types": "dist/src/index.d.ts",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "license": "MPL-2.0",
   "scripts": {
     "build": "rm -rf dist && tsc",
@@ -49,7 +49,7 @@
     "@cdktf/provider-null": "^0.2.3",
     "@cdktf/provider-pagerduty": "^0.0.3",
     "cdktf": "^0.5.0",
-    "constructs": "^3.3.127"
+    "constructs": "^3.3.131"
   },
   "dependencies": {
     "@cdktf/provider-archive": "^0.0.3",
@@ -59,7 +59,7 @@
     "@cdktf/provider-pagerduty": "^0.0.3",
     "cdktf": "^0.5.0",
     "cdktf-cli": "^0.5.0",
-    "constructs": "^3.3.127",
+    "constructs": "^3.3.131",
     "crypto-random-string": "^4.0.0",
     "parse-domain": "^3.0.3"
   },
@@ -73,17 +73,17 @@
     "@semantic-release/release-notes-generator": "^9.0.3",
     "@types/chai": "^4.2.21",
     "@types/jest": "^27.0.1",
-    "@types/node": "^16.6.2",
-    "@typescript-eslint/eslint-plugin": "^4.29.2",
-    "@typescript-eslint/parser": "^4.29.2",
+    "@types/node": "^16.7.1",
+    "@typescript-eslint/eslint-plugin": "^4.29.3",
+    "@typescript-eslint/parser": "^4.29.3",
     "chai": "^4.3.0",
-    "constructs": "^3.3.127",
+    "constructs": "^3.3.131",
     "eslint": "^7.32.0",
     "eslint-config-prettier": "^8.3.0",
-    "eslint-plugin-prettier": "^3.3.1",
+    "eslint-plugin-prettier": "^3.4.1",
     "jest": "^27.0.6",
     "prettier": "^2.3.2",
-    "semantic-release": "^17.4.5",
+    "semantic-release": "^17.4.6",
     "ts-jest": "^27.0.5",
     "ts-node": "^10.2.1",
     "typescript": "^4.3.5",
