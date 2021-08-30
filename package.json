@@ -44,7 +44,7 @@
   },
   "peerDependencies": {
     "@cdktf/provider-archive": "^0.0.3",
-    "@cdktf/provider-aws": "^2.0.5",
+    "@cdktf/provider-aws": "^2.0.9",
     "@cdktf/provider-local": "^0.0.3",
     "@cdktf/provider-null": "^0.2.3",
     "@cdktf/provider-pagerduty": "^0.0.3",
@@ -53,7 +53,7 @@
   },
   "dependencies": {
     "@cdktf/provider-archive": "^0.0.3",
-    "@cdktf/provider-aws": "^2.0.5",
+    "@cdktf/provider-aws": "^2.0.9",
     "@cdktf/provider-local": "^0.0.3",
     "@cdktf/provider-null": "^0.2.3",
     "@cdktf/provider-pagerduty": "^0.0.3",
