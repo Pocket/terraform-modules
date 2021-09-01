@@ -12,6 +12,7 @@ exports[`renders dynamo db table global secondary indexes 1`] = `
   \\"resource\\": {
     \\"aws_dynamodb_table\\": {
       \\"testDynamoDBTable_dynamodb_table_A3DD49A4\\": {
+        \\"billing_mode\\": \\"PROVISIONED\\",
         \\"hash_key\\": \\"123\\",
         \\"name\\": \\"abides-\\",
         \\"tags\\": {
@@ -443,6 +444,7 @@ exports[`renders dynamo db table that is not protected from being destroyed 1`] 
   \\"resource\\": {
     \\"aws_dynamodb_table\\": {
       \\"testDynamoDBTable_dynamodb_table_A3DD49A4\\": {
+        \\"billing_mode\\": \\"PROVISIONED\\",
         \\"hash_key\\": \\"123\\",
         \\"name\\": \\"abides-\\",
         \\"tags\\": {
@@ -970,6 +972,7 @@ exports[`renders dynamo db table with 2 global secondary indexes 1`] = `
   \\"resource\\": {
     \\"aws_dynamodb_table\\": {
       \\"testDynamoDBTable_dynamodb_table_A3DD49A4\\": {
+        \\"billing_mode\\": \\"PROVISIONED\\",
         \\"hash_key\\": \\"123\\",
         \\"name\\": \\"abides-\\",
         \\"tags\\": {
@@ -1497,6 +1500,7 @@ exports[`renders dynamo db table with minimal config 1`] = `
   \\"resource\\": {
     \\"aws_dynamodb_table\\": {
       \\"testDynamoDBTable_dynamodb_table_A3DD49A4\\": {
+        \\"billing_mode\\": \\"PROVISIONED\\",
         \\"hash_key\\": \\"123\\",
         \\"name\\": \\"abides-\\",
         \\"attribute\\": [
@@ -1537,6 +1541,7 @@ exports[`renders dynamo db table with read and write capacity 1`] = `
   \\"resource\\": {
     \\"aws_dynamodb_table\\": {
       \\"testDynamoDBTable_dynamodb_table_A3DD49A4\\": {
+        \\"billing_mode\\": \\"PROVISIONED\\",
         \\"hash_key\\": \\"123\\",
         \\"name\\": \\"abides-\\",
         \\"attribute\\": [
@@ -1859,6 +1864,7 @@ exports[`renders dynamo db table with read and write capacity and tags 1`] = `
   \\"resource\\": {
     \\"aws_dynamodb_table\\": {
       \\"testDynamoDBTable_dynamodb_table_A3DD49A4\\": {
+        \\"billing_mode\\": \\"PROVISIONED\\",
         \\"hash_key\\": \\"123\\",
         \\"name\\": \\"abides-\\",
         \\"tags\\": {
@@ -2193,6 +2199,7 @@ exports[`renders dynamo db table with read capacity 1`] = `
   \\"resource\\": {
     \\"aws_dynamodb_table\\": {
       \\"testDynamoDBTable_dynamodb_table_A3DD49A4\\": {
+        \\"billing_mode\\": \\"PROVISIONED\\",
         \\"hash_key\\": \\"123\\",
         \\"name\\": \\"abides-\\",
         \\"attribute\\": [
@@ -2381,6 +2388,7 @@ exports[`renders dynamo db table with write capacity 1`] = `
   \\"resource\\": {
     \\"aws_dynamodb_table\\": {
       \\"testDynamoDBTable_dynamodb_table_A3DD49A4\\": {
+        \\"billing_mode\\": \\"PROVISIONED\\",
         \\"hash_key\\": \\"123\\",
         \\"name\\": \\"abides-\\",
         \\"attribute\\": [
