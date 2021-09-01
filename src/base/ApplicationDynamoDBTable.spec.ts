@@ -2,6 +2,7 @@ import { Testing, TerraformStack } from 'cdktf';
 import {
   ApplicationDynamoDBTable,
   ApplicationDynamoDBProps,
+  ApplicationDynamoDBTableCapacityMode,
 } from './ApplicationDynamoDBTable';
 
 const BASE_CONFIG: ApplicationDynamoDBProps = {
@@ -180,5 +181,16 @@ test('renders dynamo db table that is not protected from being destroyed', () =>
   expect(applicationDynamoDBTable.dynamodb.lifecycle.preventDestroy).toEqual(
     false
   );
+  expect(Testing.synth(stack)).toMatchSnapshot();
+});
+
+test('renders dynamo db table with on-demand capacity', () => {
+  const app = Testing.app();
+  const stack = new TerraformStack(app, 'test');
+
+  BASE_CONFIG.capacityMode = ApplicationDynamoDBTableCapacityMode.ON_DEMAND;
+
+  new ApplicationDynamoDBTable(stack, 'testDynamoDBTable', BASE_CONFIG);
+
   expect(Testing.synth(stack)).toMatchSnapshot();
 });

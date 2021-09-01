@@ -1529,6 +1529,47 @@ exports[`renders dynamo db table with minimal config 1`] = `
 }"
 `;
 
+exports[`renders dynamo db table with on-demand capacity 1`] = `
+"{
+  \\"//\\": {
+    \\"metadata\\": {
+      \\"version\\": \\"stubbed\\",
+      \\"stackName\\": \\"test\\",
+      \\"backend\\": \\"local\\"
+    }
+  },
+  \\"resource\\": {
+    \\"aws_dynamodb_table\\": {
+      \\"testDynamoDBTable_dynamodb_table_A3DD49A4\\": {
+        \\"billing_mode\\": \\"PAY_PER_REQUEST\\",
+        \\"hash_key\\": \\"123\\",
+        \\"name\\": \\"abides-\\",
+        \\"attribute\\": [
+          {
+            \\"name\\": \\"attribeautiful\\",
+            \\"type\\": \\"shrugs!\\"
+          }
+        ],
+        \\"global_secondary_index\\": [],
+        \\"lifecycle\\": {
+          \\"ignore_changes\\": [
+            \\"read_capacity\\",
+            \\"write_capacity\\"
+          ],
+          \\"prevent_destroy\\": true
+        },
+        \\"//\\": {
+          \\"metadata\\": {
+            \\"path\\": \\"test/testDynamoDBTable/dynamodb_table\\",
+            \\"uniqueId\\": \\"testDynamoDBTable_dynamodb_table_A3DD49A4\\"
+          }
+        }
+      }
+    }
+  }
+}"
+`;
+
 exports[`renders dynamo db table with read and write capacity 1`] = `
 "{
   \\"//\\": {
