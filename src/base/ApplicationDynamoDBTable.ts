@@ -66,7 +66,7 @@ export class ApplicationDynamoDBTable extends Resource {
     super(scope, name);
 
     const billingMode: string = (
-      config.capacityMode || ApplicationDynamoDBTableCapacityMode.PROVISIONED
+      config.capacityMode ?? ApplicationDynamoDBTableCapacityMode.PROVISIONED
     ).valueOf();
 
     this.dynamodb = new DynamodbTable(this, `dynamodb_table`, {
