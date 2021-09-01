@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`renders dynamo db table global secondary indexes 1`] = `
+exports[`ApplicationDynamoDBTable renders dynamo db table global secondary indexes 1`] = `
 "{
   \\"//\\": {
     \\"metadata\\": {
@@ -15,10 +15,6 @@ exports[`renders dynamo db table global secondary indexes 1`] = `
         \\"billing_mode\\": \\"PROVISIONED\\",
         \\"hash_key\\": \\"123\\",
         \\"name\\": \\"abides-\\",
-        \\"tags\\": {
-          \\"name\\": \\"thedude\\",
-          \\"hobby\\": \\"bowling\\"
-        },
         \\"attribute\\": [
           {
             \\"name\\": \\"attribeautiful\\",
@@ -76,10 +72,6 @@ exports[`renders dynamo db table global secondary indexes 1`] = `
       \\"testDynamoDBTable_ReadCapacity_role_2B9645BB\\": {
         \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.testDynamoDBTable_ReadCapacity_assume_role_policy_document_54F698F0.json}\\",
         \\"name\\": \\"abides--ReadCapacity-AutoScalingRole\\",
-        \\"tags\\": {
-          \\"name\\": \\"thedude\\",
-          \\"hobby\\": \\"bowling\\"
-        },
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/testDynamoDBTable/ReadCapacity_role\\",
@@ -90,10 +82,6 @@ exports[`renders dynamo db table global secondary indexes 1`] = `
       \\"testDynamoDBTable_WriteCapacity_role_4BB8E3F1\\": {
         \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.testDynamoDBTable_WriteCapacity_assume_role_policy_document_5A7EA325.json}\\",
         \\"name\\": \\"abides--WriteCapacity-AutoScalingRole\\",
-        \\"tags\\": {
-          \\"name\\": \\"thedude\\",
-          \\"hobby\\": \\"bowling\\"
-        },
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/testDynamoDBTable/WriteCapacity_role\\",
@@ -432,7 +420,7 @@ exports[`renders dynamo db table global secondary indexes 1`] = `
 }"
 `;
 
-exports[`renders dynamo db table that is not protected from being destroyed 1`] = `
+exports[`ApplicationDynamoDBTable renders dynamo db table that is not protected from being destroyed 1`] = `
 "{
   \\"//\\": {
     \\"metadata\\": {
@@ -447,34 +435,13 @@ exports[`renders dynamo db table that is not protected from being destroyed 1`] 
         \\"billing_mode\\": \\"PROVISIONED\\",
         \\"hash_key\\": \\"123\\",
         \\"name\\": \\"abides-\\",
-        \\"tags\\": {
-          \\"name\\": \\"thedude\\",
-          \\"hobby\\": \\"bowling\\"
-        },
         \\"attribute\\": [
           {
             \\"name\\": \\"attribeautiful\\",
             \\"type\\": \\"shrugs!\\"
           }
         ],
-        \\"global_secondary_index\\": [
-          {
-            \\"hash_key\\": \\"card-type\\",
-            \\"name\\": \\"card-index\\",
-            \\"projection_type\\": \\"ALL\\",
-            \\"range_key\\": \\"home_on_the_range\\",
-            \\"read_capacity\\": 5,
-            \\"write_capacity\\": 5
-          },
-          {
-            \\"hash_key\\": \\"card-type-123\\",
-            \\"name\\": \\"card-index-2\\",
-            \\"projection_type\\": \\"ALL\\",
-            \\"range_key\\": \\"home_home_on_the_range\\",
-            \\"read_capacity\\": 10,
-            \\"write_capacity\\": 10
-          }
-        ],
+        \\"global_secondary_index\\": [],
         \\"lifecycle\\": {
           \\"ignore_changes\\": [
             \\"read_capacity\\",
@@ -489,478 +456,12 @@ exports[`renders dynamo db table that is not protected from being destroyed 1`] 
           }
         }
       }
-    },
-    \\"aws_iam_policy\\": {
-      \\"testDynamoDBTable_ReadCapacity_autoscaling_policy_52DA6649\\": {
-        \\"name\\": \\"abides--ReadCapacity-AutoScalingPolicy\\",
-        \\"policy\\": \\"\${data.aws_iam_policy_document.testDynamoDBTable_ReadCapacity_policy_document_EF789C68.json}\\",
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/testDynamoDBTable/ReadCapacity_autoscaling_policy\\",
-            \\"uniqueId\\": \\"testDynamoDBTable_ReadCapacity_autoscaling_policy_52DA6649\\"
-          }
-        }
-      },
-      \\"testDynamoDBTable_WriteCapacity_autoscaling_policy_9632CE60\\": {
-        \\"name\\": \\"abides--WriteCapacity-AutoScalingPolicy\\",
-        \\"policy\\": \\"\${data.aws_iam_policy_document.testDynamoDBTable_WriteCapacity_policy_document_9032D023.json}\\",
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/testDynamoDBTable/WriteCapacity_autoscaling_policy\\",
-            \\"uniqueId\\": \\"testDynamoDBTable_WriteCapacity_autoscaling_policy_9632CE60\\"
-          }
-        }
-      }
-    },
-    \\"aws_iam_role\\": {
-      \\"testDynamoDBTable_ReadCapacity_role_2B9645BB\\": {
-        \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.testDynamoDBTable_ReadCapacity_assume_role_policy_document_54F698F0.json}\\",
-        \\"name\\": \\"abides--ReadCapacity-AutoScalingRole\\",
-        \\"tags\\": {
-          \\"name\\": \\"thedude\\",
-          \\"hobby\\": \\"bowling\\"
-        },
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/testDynamoDBTable/ReadCapacity_role\\",
-            \\"uniqueId\\": \\"testDynamoDBTable_ReadCapacity_role_2B9645BB\\"
-          }
-        }
-      },
-      \\"testDynamoDBTable_WriteCapacity_role_4BB8E3F1\\": {
-        \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.testDynamoDBTable_WriteCapacity_assume_role_policy_document_5A7EA325.json}\\",
-        \\"name\\": \\"abides--WriteCapacity-AutoScalingRole\\",
-        \\"tags\\": {
-          \\"name\\": \\"thedude\\",
-          \\"hobby\\": \\"bowling\\"
-        },
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/testDynamoDBTable/WriteCapacity_role\\",
-            \\"uniqueId\\": \\"testDynamoDBTable_WriteCapacity_role_4BB8E3F1\\"
-          }
-        }
-      }
-    },
-    \\"aws_iam_role_policy_attachment\\": {
-      \\"testDynamoDBTable_ReadCapacity_role_attachment_3C0829C2\\": {
-        \\"policy_arn\\": \\"\${aws_iam_policy.testDynamoDBTable_ReadCapacity_autoscaling_policy_52DA6649.arn}\\",
-        \\"role\\": \\"\${aws_iam_role.testDynamoDBTable_ReadCapacity_role_2B9645BB.name}\\",
-        \\"depends_on\\": [
-          \\"aws_iam_role.testDynamoDBTable_ReadCapacity_role_2B9645BB\\",
-          \\"aws_iam_policy.testDynamoDBTable_ReadCapacity_autoscaling_policy_52DA6649\\"
-        ],
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/testDynamoDBTable/ReadCapacity_role_attachment\\",
-            \\"uniqueId\\": \\"testDynamoDBTable_ReadCapacity_role_attachment_3C0829C2\\"
-          }
-        }
-      },
-      \\"testDynamoDBTable_WriteCapacity_role_attachment_8ABB9833\\": {
-        \\"policy_arn\\": \\"\${aws_iam_policy.testDynamoDBTable_WriteCapacity_autoscaling_policy_9632CE60.arn}\\",
-        \\"role\\": \\"\${aws_iam_role.testDynamoDBTable_WriteCapacity_role_4BB8E3F1.name}\\",
-        \\"depends_on\\": [
-          \\"aws_iam_role.testDynamoDBTable_WriteCapacity_role_4BB8E3F1\\",
-          \\"aws_iam_policy.testDynamoDBTable_WriteCapacity_autoscaling_policy_9632CE60\\"
-        ],
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/testDynamoDBTable/WriteCapacity_role_attachment\\",
-            \\"uniqueId\\": \\"testDynamoDBTable_WriteCapacity_role_attachment_8ABB9833\\"
-          }
-        }
-      }
-    },
-    \\"aws_appautoscaling_target\\": {
-      \\"testDynamoDBTable_aws_dynamodb_tabletestDynamoDBTable_dynamodb_table_A3DD49A4name_ReadCapacity_table_target_03D4A1F8\\": {
-        \\"max_capacity\\": 10,
-        \\"min_capacity\\": 3,
-        \\"resource_id\\": \\"table/\${aws_dynamodb_table.testDynamoDBTable_dynamodb_table_A3DD49A4.name}\\",
-        \\"role_arn\\": \\"\${aws_iam_role.testDynamoDBTable_ReadCapacity_role_2B9645BB.arn}\\",
-        \\"scalable_dimension\\": \\"dynamodb:table:ReadCapacityUnits\\",
-        \\"service_namespace\\": \\"dynamodb\\",
-        \\"depends_on\\": [
-          \\"aws_dynamodb_table.testDynamoDBTable_dynamodb_table_A3DD49A4\\"
-        ],
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/testDynamoDBTable/\${aws_dynamodb_table.testDynamoDBTable_dynamodb_table_A3DD49A4.name}_ReadCapacity_table_target\\",
-            \\"uniqueId\\": \\"testDynamoDBTable_aws_dynamodb_tabletestDynamoDBTable_dynamodb_table_A3DD49A4name_ReadCapacity_table_target_03D4A1F8\\"
-          }
-        }
-      },
-      \\"testDynamoDBTable_card-index_ReadCapacity_index_target_8A2F409F\\": {
-        \\"max_capacity\\": 10,
-        \\"min_capacity\\": 5,
-        \\"resource_id\\": \\"table/\${aws_dynamodb_table.testDynamoDBTable_dynamodb_table_A3DD49A4.name}/index/card-index\\",
-        \\"role_arn\\": \\"\${aws_iam_role.testDynamoDBTable_ReadCapacity_role_2B9645BB.arn}\\",
-        \\"scalable_dimension\\": \\"dynamodb:index:ReadCapacityUnits\\",
-        \\"service_namespace\\": \\"dynamodb\\",
-        \\"depends_on\\": [
-          \\"aws_dynamodb_table.testDynamoDBTable_dynamodb_table_A3DD49A4\\"
-        ],
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/testDynamoDBTable/card-index_ReadCapacity_index_target\\",
-            \\"uniqueId\\": \\"testDynamoDBTable_card-index_ReadCapacity_index_target_8A2F409F\\"
-          }
-        }
-      },
-      \\"testDynamoDBTable_card-index-2_ReadCapacity_index_target_5B34D257\\": {
-        \\"max_capacity\\": 10,
-        \\"min_capacity\\": 10,
-        \\"resource_id\\": \\"table/\${aws_dynamodb_table.testDynamoDBTable_dynamodb_table_A3DD49A4.name}/index/card-index-2\\",
-        \\"role_arn\\": \\"\${aws_iam_role.testDynamoDBTable_ReadCapacity_role_2B9645BB.arn}\\",
-        \\"scalable_dimension\\": \\"dynamodb:index:ReadCapacityUnits\\",
-        \\"service_namespace\\": \\"dynamodb\\",
-        \\"depends_on\\": [
-          \\"aws_dynamodb_table.testDynamoDBTable_dynamodb_table_A3DD49A4\\"
-        ],
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/testDynamoDBTable/card-index-2_ReadCapacity_index_target\\",
-            \\"uniqueId\\": \\"testDynamoDBTable_card-index-2_ReadCapacity_index_target_5B34D257\\"
-          }
-        }
-      },
-      \\"testDynamoDBTable_aws_dynamodb_tabletestDynamoDBTable_dynamodb_table_A3DD49A4name_WriteCapacity_table_target_8AAAA7D9\\": {
-        \\"max_capacity\\": 10,
-        \\"min_capacity\\": 3,
-        \\"resource_id\\": \\"table/\${aws_dynamodb_table.testDynamoDBTable_dynamodb_table_A3DD49A4.name}\\",
-        \\"role_arn\\": \\"\${aws_iam_role.testDynamoDBTable_WriteCapacity_role_4BB8E3F1.arn}\\",
-        \\"scalable_dimension\\": \\"dynamodb:table:WriteCapacityUnits\\",
-        \\"service_namespace\\": \\"dynamodb\\",
-        \\"depends_on\\": [
-          \\"aws_dynamodb_table.testDynamoDBTable_dynamodb_table_A3DD49A4\\"
-        ],
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/testDynamoDBTable/\${aws_dynamodb_table.testDynamoDBTable_dynamodb_table_A3DD49A4.name}_WriteCapacity_table_target\\",
-            \\"uniqueId\\": \\"testDynamoDBTable_aws_dynamodb_tabletestDynamoDBTable_dynamodb_table_A3DD49A4name_WriteCapacity_table_target_8AAAA7D9\\"
-          }
-        }
-      },
-      \\"testDynamoDBTable_card-index_WriteCapacity_index_target_F5D86C4A\\": {
-        \\"max_capacity\\": 10,
-        \\"min_capacity\\": 5,
-        \\"resource_id\\": \\"table/\${aws_dynamodb_table.testDynamoDBTable_dynamodb_table_A3DD49A4.name}/index/card-index\\",
-        \\"role_arn\\": \\"\${aws_iam_role.testDynamoDBTable_WriteCapacity_role_4BB8E3F1.arn}\\",
-        \\"scalable_dimension\\": \\"dynamodb:index:WriteCapacityUnits\\",
-        \\"service_namespace\\": \\"dynamodb\\",
-        \\"depends_on\\": [
-          \\"aws_dynamodb_table.testDynamoDBTable_dynamodb_table_A3DD49A4\\"
-        ],
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/testDynamoDBTable/card-index_WriteCapacity_index_target\\",
-            \\"uniqueId\\": \\"testDynamoDBTable_card-index_WriteCapacity_index_target_F5D86C4A\\"
-          }
-        }
-      },
-      \\"testDynamoDBTable_card-index-2_WriteCapacity_index_target_2BCC5603\\": {
-        \\"max_capacity\\": 10,
-        \\"min_capacity\\": 10,
-        \\"resource_id\\": \\"table/\${aws_dynamodb_table.testDynamoDBTable_dynamodb_table_A3DD49A4.name}/index/card-index-2\\",
-        \\"role_arn\\": \\"\${aws_iam_role.testDynamoDBTable_WriteCapacity_role_4BB8E3F1.arn}\\",
-        \\"scalable_dimension\\": \\"dynamodb:index:WriteCapacityUnits\\",
-        \\"service_namespace\\": \\"dynamodb\\",
-        \\"depends_on\\": [
-          \\"aws_dynamodb_table.testDynamoDBTable_dynamodb_table_A3DD49A4\\"
-        ],
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/testDynamoDBTable/card-index-2_WriteCapacity_index_target\\",
-            \\"uniqueId\\": \\"testDynamoDBTable_card-index-2_WriteCapacity_index_target_2BCC5603\\"
-          }
-        }
-      }
-    },
-    \\"aws_appautoscaling_policy\\": {
-      \\"testDynamoDBTable_aws_dynamodb_tabletestDynamoDBTable_dynamodb_table_A3DD49A4name_ReadCapacity_table_policy_241DE9BD\\": {
-        \\"name\\": \\"DynamoDBReadCapacityUtilization:\${aws_appautoscaling_target.testDynamoDBTable_aws_dynamodb_tabletestDynamoDBTable_dynamodb_table_A3DD49A4name_ReadCapacity_table_target_03D4A1F8.resource_id}\\",
-        \\"policy_type\\": \\"TargetTrackingScaling\\",
-        \\"resource_id\\": \\"\${aws_appautoscaling_target.testDynamoDBTable_aws_dynamodb_tabletestDynamoDBTable_dynamodb_table_A3DD49A4name_ReadCapacity_table_target_03D4A1F8.resource_id}\\",
-        \\"scalable_dimension\\": \\"\${aws_appautoscaling_target.testDynamoDBTable_aws_dynamodb_tabletestDynamoDBTable_dynamodb_table_A3DD49A4name_ReadCapacity_table_target_03D4A1F8.scalable_dimension}\\",
-        \\"service_namespace\\": \\"\${aws_appautoscaling_target.testDynamoDBTable_aws_dynamodb_tabletestDynamoDBTable_dynamodb_table_A3DD49A4name_ReadCapacity_table_target_03D4A1F8.service_namespace}\\",
-        \\"target_tracking_scaling_policy_configuration\\": [
-          {
-            \\"target_value\\": 1,
-            \\"predefined_metric_specification\\": [
-              {
-                \\"predefined_metric_type\\": \\"DynamoDBReadCapacityUtilization\\"
-              }
-            ]
-          }
-        ],
-        \\"depends_on\\": [
-          \\"aws_appautoscaling_target.testDynamoDBTable_aws_dynamodb_tabletestDynamoDBTable_dynamodb_table_A3DD49A4name_ReadCapacity_table_target_03D4A1F8\\",
-          \\"aws_dynamodb_table.testDynamoDBTable_dynamodb_table_A3DD49A4\\"
-        ],
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/testDynamoDBTable/\${aws_dynamodb_table.testDynamoDBTable_dynamodb_table_A3DD49A4.name}_ReadCapacity_table_policy\\",
-            \\"uniqueId\\": \\"testDynamoDBTable_aws_dynamodb_tabletestDynamoDBTable_dynamodb_table_A3DD49A4name_ReadCapacity_table_policy_241DE9BD\\"
-          }
-        }
-      },
-      \\"testDynamoDBTable_card-index_ReadCapacity_index_policy_81408390\\": {
-        \\"name\\": \\"DynamoDBReadCapacityUtilization:\${aws_appautoscaling_target.testDynamoDBTable_card-index_ReadCapacity_index_target_8A2F409F.resource_id}\\",
-        \\"policy_type\\": \\"TargetTrackingScaling\\",
-        \\"resource_id\\": \\"\${aws_appautoscaling_target.testDynamoDBTable_card-index_ReadCapacity_index_target_8A2F409F.resource_id}\\",
-        \\"scalable_dimension\\": \\"\${aws_appautoscaling_target.testDynamoDBTable_card-index_ReadCapacity_index_target_8A2F409F.scalable_dimension}\\",
-        \\"service_namespace\\": \\"\${aws_appautoscaling_target.testDynamoDBTable_card-index_ReadCapacity_index_target_8A2F409F.service_namespace}\\",
-        \\"target_tracking_scaling_policy_configuration\\": [
-          {
-            \\"target_value\\": 1,
-            \\"predefined_metric_specification\\": [
-              {
-                \\"predefined_metric_type\\": \\"DynamoDBReadCapacityUtilization\\"
-              }
-            ]
-          }
-        ],
-        \\"depends_on\\": [
-          \\"aws_appautoscaling_target.testDynamoDBTable_card-index_ReadCapacity_index_target_8A2F409F\\",
-          \\"aws_dynamodb_table.testDynamoDBTable_dynamodb_table_A3DD49A4\\"
-        ],
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/testDynamoDBTable/card-index_ReadCapacity_index_policy\\",
-            \\"uniqueId\\": \\"testDynamoDBTable_card-index_ReadCapacity_index_policy_81408390\\"
-          }
-        }
-      },
-      \\"testDynamoDBTable_card-index-2_ReadCapacity_index_policy_72866E91\\": {
-        \\"name\\": \\"DynamoDBReadCapacityUtilization:\${aws_appautoscaling_target.testDynamoDBTable_card-index-2_ReadCapacity_index_target_5B34D257.resource_id}\\",
-        \\"policy_type\\": \\"TargetTrackingScaling\\",
-        \\"resource_id\\": \\"\${aws_appautoscaling_target.testDynamoDBTable_card-index-2_ReadCapacity_index_target_5B34D257.resource_id}\\",
-        \\"scalable_dimension\\": \\"\${aws_appautoscaling_target.testDynamoDBTable_card-index-2_ReadCapacity_index_target_5B34D257.scalable_dimension}\\",
-        \\"service_namespace\\": \\"\${aws_appautoscaling_target.testDynamoDBTable_card-index-2_ReadCapacity_index_target_5B34D257.service_namespace}\\",
-        \\"target_tracking_scaling_policy_configuration\\": [
-          {
-            \\"target_value\\": 1,
-            \\"predefined_metric_specification\\": [
-              {
-                \\"predefined_metric_type\\": \\"DynamoDBReadCapacityUtilization\\"
-              }
-            ]
-          }
-        ],
-        \\"depends_on\\": [
-          \\"aws_appautoscaling_target.testDynamoDBTable_card-index-2_ReadCapacity_index_target_5B34D257\\",
-          \\"aws_dynamodb_table.testDynamoDBTable_dynamodb_table_A3DD49A4\\"
-        ],
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/testDynamoDBTable/card-index-2_ReadCapacity_index_policy\\",
-            \\"uniqueId\\": \\"testDynamoDBTable_card-index-2_ReadCapacity_index_policy_72866E91\\"
-          }
-        }
-      },
-      \\"testDynamoDBTable_aws_dynamodb_tabletestDynamoDBTable_dynamodb_table_A3DD49A4name_WriteCapacity_table_policy_BF7F6E3E\\": {
-        \\"name\\": \\"DynamoDBWriteCapacityUtilization:\${aws_appautoscaling_target.testDynamoDBTable_aws_dynamodb_tabletestDynamoDBTable_dynamodb_table_A3DD49A4name_WriteCapacity_table_target_8AAAA7D9.resource_id}\\",
-        \\"policy_type\\": \\"TargetTrackingScaling\\",
-        \\"resource_id\\": \\"\${aws_appautoscaling_target.testDynamoDBTable_aws_dynamodb_tabletestDynamoDBTable_dynamodb_table_A3DD49A4name_WriteCapacity_table_target_8AAAA7D9.resource_id}\\",
-        \\"scalable_dimension\\": \\"\${aws_appautoscaling_target.testDynamoDBTable_aws_dynamodb_tabletestDynamoDBTable_dynamodb_table_A3DD49A4name_WriteCapacity_table_target_8AAAA7D9.scalable_dimension}\\",
-        \\"service_namespace\\": \\"\${aws_appautoscaling_target.testDynamoDBTable_aws_dynamodb_tabletestDynamoDBTable_dynamodb_table_A3DD49A4name_WriteCapacity_table_target_8AAAA7D9.service_namespace}\\",
-        \\"target_tracking_scaling_policy_configuration\\": [
-          {
-            \\"target_value\\": 1,
-            \\"predefined_metric_specification\\": [
-              {
-                \\"predefined_metric_type\\": \\"DynamoDBWriteCapacityUtilization\\"
-              }
-            ]
-          }
-        ],
-        \\"depends_on\\": [
-          \\"aws_appautoscaling_target.testDynamoDBTable_aws_dynamodb_tabletestDynamoDBTable_dynamodb_table_A3DD49A4name_WriteCapacity_table_target_8AAAA7D9\\",
-          \\"aws_dynamodb_table.testDynamoDBTable_dynamodb_table_A3DD49A4\\"
-        ],
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/testDynamoDBTable/\${aws_dynamodb_table.testDynamoDBTable_dynamodb_table_A3DD49A4.name}_WriteCapacity_table_policy\\",
-            \\"uniqueId\\": \\"testDynamoDBTable_aws_dynamodb_tabletestDynamoDBTable_dynamodb_table_A3DD49A4name_WriteCapacity_table_policy_BF7F6E3E\\"
-          }
-        }
-      },
-      \\"testDynamoDBTable_card-index_WriteCapacity_index_policy_C3071E31\\": {
-        \\"name\\": \\"DynamoDBWriteCapacityUtilization:\${aws_appautoscaling_target.testDynamoDBTable_card-index_WriteCapacity_index_target_F5D86C4A.resource_id}\\",
-        \\"policy_type\\": \\"TargetTrackingScaling\\",
-        \\"resource_id\\": \\"\${aws_appautoscaling_target.testDynamoDBTable_card-index_WriteCapacity_index_target_F5D86C4A.resource_id}\\",
-        \\"scalable_dimension\\": \\"\${aws_appautoscaling_target.testDynamoDBTable_card-index_WriteCapacity_index_target_F5D86C4A.scalable_dimension}\\",
-        \\"service_namespace\\": \\"\${aws_appautoscaling_target.testDynamoDBTable_card-index_WriteCapacity_index_target_F5D86C4A.service_namespace}\\",
-        \\"target_tracking_scaling_policy_configuration\\": [
-          {
-            \\"target_value\\": 1,
-            \\"predefined_metric_specification\\": [
-              {
-                \\"predefined_metric_type\\": \\"DynamoDBWriteCapacityUtilization\\"
-              }
-            ]
-          }
-        ],
-        \\"depends_on\\": [
-          \\"aws_appautoscaling_target.testDynamoDBTable_card-index_WriteCapacity_index_target_F5D86C4A\\",
-          \\"aws_dynamodb_table.testDynamoDBTable_dynamodb_table_A3DD49A4\\"
-        ],
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/testDynamoDBTable/card-index_WriteCapacity_index_policy\\",
-            \\"uniqueId\\": \\"testDynamoDBTable_card-index_WriteCapacity_index_policy_C3071E31\\"
-          }
-        }
-      },
-      \\"testDynamoDBTable_card-index-2_WriteCapacity_index_policy_BDD340E7\\": {
-        \\"name\\": \\"DynamoDBWriteCapacityUtilization:\${aws_appautoscaling_target.testDynamoDBTable_card-index-2_WriteCapacity_index_target_2BCC5603.resource_id}\\",
-        \\"policy_type\\": \\"TargetTrackingScaling\\",
-        \\"resource_id\\": \\"\${aws_appautoscaling_target.testDynamoDBTable_card-index-2_WriteCapacity_index_target_2BCC5603.resource_id}\\",
-        \\"scalable_dimension\\": \\"\${aws_appautoscaling_target.testDynamoDBTable_card-index-2_WriteCapacity_index_target_2BCC5603.scalable_dimension}\\",
-        \\"service_namespace\\": \\"\${aws_appautoscaling_target.testDynamoDBTable_card-index-2_WriteCapacity_index_target_2BCC5603.service_namespace}\\",
-        \\"target_tracking_scaling_policy_configuration\\": [
-          {
-            \\"target_value\\": 1,
-            \\"predefined_metric_specification\\": [
-              {
-                \\"predefined_metric_type\\": \\"DynamoDBWriteCapacityUtilization\\"
-              }
-            ]
-          }
-        ],
-        \\"depends_on\\": [
-          \\"aws_appautoscaling_target.testDynamoDBTable_card-index-2_WriteCapacity_index_target_2BCC5603\\",
-          \\"aws_dynamodb_table.testDynamoDBTable_dynamodb_table_A3DD49A4\\"
-        ],
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/testDynamoDBTable/card-index-2_WriteCapacity_index_policy\\",
-            \\"uniqueId\\": \\"testDynamoDBTable_card-index-2_WriteCapacity_index_policy_BDD340E7\\"
-          }
-        }
-      }
-    }
-  },
-  \\"data\\": {
-    \\"aws_iam_policy_document\\": {
-      \\"testDynamoDBTable_ReadCapacity_policy_document_EF789C68\\": {
-        \\"statement\\": [
-          {
-            \\"actions\\": [
-              \\"application-autoscaling:*\\",
-              \\"cloudwatch:DescribeAlarms\\",
-              \\"cloudwatch:PutMetricAlarm\\"
-            ],
-            \\"effect\\": \\"Allow\\",
-            \\"resources\\": [
-              \\"*\\"
-            ]
-          },
-          {
-            \\"actions\\": [
-              \\"dynamodb:DescribeTable\\",
-              \\"dynamodb:UpdateTable\\"
-            ],
-            \\"effect\\": \\"Allow\\",
-            \\"resources\\": [
-              \\"\${aws_dynamodb_table.testDynamoDBTable_dynamodb_table_A3DD49A4.arn}\\",
-              \\"\${aws_dynamodb_table.testDynamoDBTable_dynamodb_table_A3DD49A4.arn}*\\"
-            ]
-          }
-        ],
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/testDynamoDBTable/ReadCapacity_policy_document\\",
-            \\"uniqueId\\": \\"testDynamoDBTable_ReadCapacity_policy_document_EF789C68\\"
-          }
-        }
-      },
-      \\"testDynamoDBTable_ReadCapacity_assume_role_policy_document_54F698F0\\": {
-        \\"statement\\": [
-          {
-            \\"actions\\": [
-              \\"sts:AssumeRole\\"
-            ],
-            \\"effect\\": \\"Allow\\",
-            \\"principals\\": [
-              {
-                \\"identifiers\\": [
-                  \\"application-autoscaling.amazonaws.com\\"
-                ],
-                \\"type\\": \\"Service\\"
-              }
-            ]
-          }
-        ],
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/testDynamoDBTable/ReadCapacity_assume_role_policy_document\\",
-            \\"uniqueId\\": \\"testDynamoDBTable_ReadCapacity_assume_role_policy_document_54F698F0\\"
-          }
-        }
-      },
-      \\"testDynamoDBTable_WriteCapacity_policy_document_9032D023\\": {
-        \\"statement\\": [
-          {
-            \\"actions\\": [
-              \\"application-autoscaling:*\\",
-              \\"cloudwatch:DescribeAlarms\\",
-              \\"cloudwatch:PutMetricAlarm\\"
-            ],
-            \\"effect\\": \\"Allow\\",
-            \\"resources\\": [
-              \\"*\\"
-            ]
-          },
-          {
-            \\"actions\\": [
-              \\"dynamodb:DescribeTable\\",
-              \\"dynamodb:UpdateTable\\"
-            ],
-            \\"effect\\": \\"Allow\\",
-            \\"resources\\": [
-              \\"\${aws_dynamodb_table.testDynamoDBTable_dynamodb_table_A3DD49A4.arn}\\",
-              \\"\${aws_dynamodb_table.testDynamoDBTable_dynamodb_table_A3DD49A4.arn}*\\"
-            ]
-          }
-        ],
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/testDynamoDBTable/WriteCapacity_policy_document\\",
-            \\"uniqueId\\": \\"testDynamoDBTable_WriteCapacity_policy_document_9032D023\\"
-          }
-        }
-      },
-      \\"testDynamoDBTable_WriteCapacity_assume_role_policy_document_5A7EA325\\": {
-        \\"statement\\": [
-          {
-            \\"actions\\": [
-              \\"sts:AssumeRole\\"
-            ],
-            \\"effect\\": \\"Allow\\",
-            \\"principals\\": [
-              {
-                \\"identifiers\\": [
-                  \\"application-autoscaling.amazonaws.com\\"
-                ],
-                \\"type\\": \\"Service\\"
-              }
-            ]
-          }
-        ],
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/testDynamoDBTable/WriteCapacity_assume_role_policy_document\\",
-            \\"uniqueId\\": \\"testDynamoDBTable_WriteCapacity_assume_role_policy_document_5A7EA325\\"
-          }
-        }
-      }
     }
   }
 }"
 `;
 
-exports[`renders dynamo db table with 2 global secondary indexes 1`] = `
+exports[`ApplicationDynamoDBTable renders dynamo db table with 2 global secondary indexes 1`] = `
 "{
   \\"//\\": {
     \\"metadata\\": {
@@ -975,10 +476,6 @@ exports[`renders dynamo db table with 2 global secondary indexes 1`] = `
         \\"billing_mode\\": \\"PROVISIONED\\",
         \\"hash_key\\": \\"123\\",
         \\"name\\": \\"abides-\\",
-        \\"tags\\": {
-          \\"name\\": \\"thedude\\",
-          \\"hobby\\": \\"bowling\\"
-        },
         \\"attribute\\": [
           {
             \\"name\\": \\"attribeautiful\\",
@@ -986,14 +483,6 @@ exports[`renders dynamo db table with 2 global secondary indexes 1`] = `
           }
         ],
         \\"global_secondary_index\\": [
-          {
-            \\"hash_key\\": \\"card-type\\",
-            \\"name\\": \\"card-index\\",
-            \\"projection_type\\": \\"ALL\\",
-            \\"range_key\\": \\"home_on_the_range\\",
-            \\"read_capacity\\": 5,
-            \\"write_capacity\\": 5
-          },
           {
             \\"hash_key\\": \\"card-type-123\\",
             \\"name\\": \\"card-index-2\\",
@@ -1044,10 +533,6 @@ exports[`renders dynamo db table with 2 global secondary indexes 1`] = `
       \\"testDynamoDBTable_ReadCapacity_role_2B9645BB\\": {
         \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.testDynamoDBTable_ReadCapacity_assume_role_policy_document_54F698F0.json}\\",
         \\"name\\": \\"abides--ReadCapacity-AutoScalingRole\\",
-        \\"tags\\": {
-          \\"name\\": \\"thedude\\",
-          \\"hobby\\": \\"bowling\\"
-        },
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/testDynamoDBTable/ReadCapacity_role\\",
@@ -1058,10 +543,6 @@ exports[`renders dynamo db table with 2 global secondary indexes 1`] = `
       \\"testDynamoDBTable_WriteCapacity_role_4BB8E3F1\\": {
         \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.testDynamoDBTable_WriteCapacity_assume_role_policy_document_5A7EA325.json}\\",
         \\"name\\": \\"abides--WriteCapacity-AutoScalingRole\\",
-        \\"tags\\": {
-          \\"name\\": \\"thedude\\",
-          \\"hobby\\": \\"bowling\\"
-        },
         \\"//\\": {
           \\"metadata\\": {
             \\"path\\": \\"test/testDynamoDBTable/WriteCapacity_role\\",
@@ -1118,23 +599,6 @@ exports[`renders dynamo db table with 2 global secondary indexes 1`] = `
           }
         }
       },
-      \\"testDynamoDBTable_card-index_ReadCapacity_index_target_8A2F409F\\": {
-        \\"max_capacity\\": 10,
-        \\"min_capacity\\": 5,
-        \\"resource_id\\": \\"table/\${aws_dynamodb_table.testDynamoDBTable_dynamodb_table_A3DD49A4.name}/index/card-index\\",
-        \\"role_arn\\": \\"\${aws_iam_role.testDynamoDBTable_ReadCapacity_role_2B9645BB.arn}\\",
-        \\"scalable_dimension\\": \\"dynamodb:index:ReadCapacityUnits\\",
-        \\"service_namespace\\": \\"dynamodb\\",
-        \\"depends_on\\": [
-          \\"aws_dynamodb_table.testDynamoDBTable_dynamodb_table_A3DD49A4\\"
-        ],
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/testDynamoDBTable/card-index_ReadCapacity_index_target\\",
-            \\"uniqueId\\": \\"testDynamoDBTable_card-index_ReadCapacity_index_target_8A2F409F\\"
-          }
-        }
-      },
       \\"testDynamoDBTable_card-index-2_ReadCapacity_index_target_5B34D257\\": {
         \\"max_capacity\\": 10,
         \\"min_capacity\\": 10,
@@ -1166,23 +630,6 @@ exports[`renders dynamo db table with 2 global secondary indexes 1`] = `
           \\"metadata\\": {
             \\"path\\": \\"test/testDynamoDBTable/\${aws_dynamodb_table.testDynamoDBTable_dynamodb_table_A3DD49A4.name}_WriteCapacity_table_target\\",
             \\"uniqueId\\": \\"testDynamoDBTable_aws_dynamodb_tabletestDynamoDBTable_dynamodb_table_A3DD49A4name_WriteCapacity_table_target_8AAAA7D9\\"
-          }
-        }
-      },
-      \\"testDynamoDBTable_card-index_WriteCapacity_index_target_F5D86C4A\\": {
-        \\"max_capacity\\": 10,
-        \\"min_capacity\\": 5,
-        \\"resource_id\\": \\"table/\${aws_dynamodb_table.testDynamoDBTable_dynamodb_table_A3DD49A4.name}/index/card-index\\",
-        \\"role_arn\\": \\"\${aws_iam_role.testDynamoDBTable_WriteCapacity_role_4BB8E3F1.arn}\\",
-        \\"scalable_dimension\\": \\"dynamodb:index:WriteCapacityUnits\\",
-        \\"service_namespace\\": \\"dynamodb\\",
-        \\"depends_on\\": [
-          \\"aws_dynamodb_table.testDynamoDBTable_dynamodb_table_A3DD49A4\\"
-        ],
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/testDynamoDBTable/card-index_WriteCapacity_index_target\\",
-            \\"uniqueId\\": \\"testDynamoDBTable_card-index_WriteCapacity_index_target_F5D86C4A\\"
           }
         }
       },
@@ -1229,33 +676,6 @@ exports[`renders dynamo db table with 2 global secondary indexes 1`] = `
           \\"metadata\\": {
             \\"path\\": \\"test/testDynamoDBTable/\${aws_dynamodb_table.testDynamoDBTable_dynamodb_table_A3DD49A4.name}_ReadCapacity_table_policy\\",
             \\"uniqueId\\": \\"testDynamoDBTable_aws_dynamodb_tabletestDynamoDBTable_dynamodb_table_A3DD49A4name_ReadCapacity_table_policy_241DE9BD\\"
-          }
-        }
-      },
-      \\"testDynamoDBTable_card-index_ReadCapacity_index_policy_81408390\\": {
-        \\"name\\": \\"DynamoDBReadCapacityUtilization:\${aws_appautoscaling_target.testDynamoDBTable_card-index_ReadCapacity_index_target_8A2F409F.resource_id}\\",
-        \\"policy_type\\": \\"TargetTrackingScaling\\",
-        \\"resource_id\\": \\"\${aws_appautoscaling_target.testDynamoDBTable_card-index_ReadCapacity_index_target_8A2F409F.resource_id}\\",
-        \\"scalable_dimension\\": \\"\${aws_appautoscaling_target.testDynamoDBTable_card-index_ReadCapacity_index_target_8A2F409F.scalable_dimension}\\",
-        \\"service_namespace\\": \\"\${aws_appautoscaling_target.testDynamoDBTable_card-index_ReadCapacity_index_target_8A2F409F.service_namespace}\\",
-        \\"target_tracking_scaling_policy_configuration\\": [
-          {
-            \\"target_value\\": 1,
-            \\"predefined_metric_specification\\": [
-              {
-                \\"predefined_metric_type\\": \\"DynamoDBReadCapacityUtilization\\"
-              }
-            ]
-          }
-        ],
-        \\"depends_on\\": [
-          \\"aws_appautoscaling_target.testDynamoDBTable_card-index_ReadCapacity_index_target_8A2F409F\\",
-          \\"aws_dynamodb_table.testDynamoDBTable_dynamodb_table_A3DD49A4\\"
-        ],
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/testDynamoDBTable/card-index_ReadCapacity_index_policy\\",
-            \\"uniqueId\\": \\"testDynamoDBTable_card-index_ReadCapacity_index_policy_81408390\\"
           }
         }
       },
@@ -1310,33 +730,6 @@ exports[`renders dynamo db table with 2 global secondary indexes 1`] = `
           \\"metadata\\": {
             \\"path\\": \\"test/testDynamoDBTable/\${aws_dynamodb_table.testDynamoDBTable_dynamodb_table_A3DD49A4.name}_WriteCapacity_table_policy\\",
             \\"uniqueId\\": \\"testDynamoDBTable_aws_dynamodb_tabletestDynamoDBTable_dynamodb_table_A3DD49A4name_WriteCapacity_table_policy_BF7F6E3E\\"
-          }
-        }
-      },
-      \\"testDynamoDBTable_card-index_WriteCapacity_index_policy_C3071E31\\": {
-        \\"name\\": \\"DynamoDBWriteCapacityUtilization:\${aws_appautoscaling_target.testDynamoDBTable_card-index_WriteCapacity_index_target_F5D86C4A.resource_id}\\",
-        \\"policy_type\\": \\"TargetTrackingScaling\\",
-        \\"resource_id\\": \\"\${aws_appautoscaling_target.testDynamoDBTable_card-index_WriteCapacity_index_target_F5D86C4A.resource_id}\\",
-        \\"scalable_dimension\\": \\"\${aws_appautoscaling_target.testDynamoDBTable_card-index_WriteCapacity_index_target_F5D86C4A.scalable_dimension}\\",
-        \\"service_namespace\\": \\"\${aws_appautoscaling_target.testDynamoDBTable_card-index_WriteCapacity_index_target_F5D86C4A.service_namespace}\\",
-        \\"target_tracking_scaling_policy_configuration\\": [
-          {
-            \\"target_value\\": 1,
-            \\"predefined_metric_specification\\": [
-              {
-                \\"predefined_metric_type\\": \\"DynamoDBWriteCapacityUtilization\\"
-              }
-            ]
-          }
-        ],
-        \\"depends_on\\": [
-          \\"aws_appautoscaling_target.testDynamoDBTable_card-index_WriteCapacity_index_target_F5D86C4A\\",
-          \\"aws_dynamodb_table.testDynamoDBTable_dynamodb_table_A3DD49A4\\"
-        ],
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/testDynamoDBTable/card-index_WriteCapacity_index_policy\\",
-            \\"uniqueId\\": \\"testDynamoDBTable_card-index_WriteCapacity_index_policy_C3071E31\\"
           }
         }
       },
@@ -1488,7 +881,7 @@ exports[`renders dynamo db table with 2 global secondary indexes 1`] = `
 }"
 `;
 
-exports[`renders dynamo db table with minimal config 1`] = `
+exports[`ApplicationDynamoDBTable renders dynamo db table with minimal config 1`] = `
 "{
   \\"//\\": {
     \\"metadata\\": {
@@ -1529,7 +922,7 @@ exports[`renders dynamo db table with minimal config 1`] = `
 }"
 `;
 
-exports[`renders dynamo db table with on-demand capacity 1`] = `
+exports[`ApplicationDynamoDBTable renders dynamo db table with on-demand capacity 1`] = `
 "{
   \\"//\\": {
     \\"metadata\\": {
@@ -1570,7 +963,7 @@ exports[`renders dynamo db table with on-demand capacity 1`] = `
 }"
 `;
 
-exports[`renders dynamo db table with read and write capacity 1`] = `
+exports[`ApplicationDynamoDBTable renders dynamo db table with read and write capacity 1`] = `
 "{
   \\"//\\": {
     \\"metadata\\": {
@@ -1893,7 +1286,7 @@ exports[`renders dynamo db table with read and write capacity 1`] = `
 }"
 `;
 
-exports[`renders dynamo db table with read and write capacity and tags 1`] = `
+exports[`ApplicationDynamoDBTable renders dynamo db table with read and write capacity and tags 1`] = `
 "{
   \\"//\\": {
     \\"metadata\\": {
@@ -2228,7 +1621,7 @@ exports[`renders dynamo db table with read and write capacity and tags 1`] = `
 }"
 `;
 
-exports[`renders dynamo db table with read capacity 1`] = `
+exports[`ApplicationDynamoDBTable renders dynamo db table with read capacity 1`] = `
 "{
   \\"//\\": {
     \\"metadata\\": {
@@ -2417,7 +1810,7 @@ exports[`renders dynamo db table with read capacity 1`] = `
 }"
 `;
 
-exports[`renders dynamo db table with write capacity 1`] = `
+exports[`ApplicationDynamoDBTable renders dynamo db table with write capacity 1`] = `
 "{
   \\"//\\": {
     \\"metadata\\": {
@@ -2455,16 +1848,6 @@ exports[`renders dynamo db table with write capacity 1`] = `
       }
     },
     \\"aws_iam_policy\\": {
-      \\"testDynamoDBTable_ReadCapacity_autoscaling_policy_52DA6649\\": {
-        \\"name\\": \\"abides--ReadCapacity-AutoScalingPolicy\\",
-        \\"policy\\": \\"\${data.aws_iam_policy_document.testDynamoDBTable_ReadCapacity_policy_document_EF789C68.json}\\",
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/testDynamoDBTable/ReadCapacity_autoscaling_policy\\",
-            \\"uniqueId\\": \\"testDynamoDBTable_ReadCapacity_autoscaling_policy_52DA6649\\"
-          }
-        }
-      },
       \\"testDynamoDBTable_WriteCapacity_autoscaling_policy_9632CE60\\": {
         \\"name\\": \\"abides--WriteCapacity-AutoScalingPolicy\\",
         \\"policy\\": \\"\${data.aws_iam_policy_document.testDynamoDBTable_WriteCapacity_policy_document_9032D023.json}\\",
@@ -2477,16 +1860,6 @@ exports[`renders dynamo db table with write capacity 1`] = `
       }
     },
     \\"aws_iam_role\\": {
-      \\"testDynamoDBTable_ReadCapacity_role_2B9645BB\\": {
-        \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.testDynamoDBTable_ReadCapacity_assume_role_policy_document_54F698F0.json}\\",
-        \\"name\\": \\"abides--ReadCapacity-AutoScalingRole\\",
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/testDynamoDBTable/ReadCapacity_role\\",
-            \\"uniqueId\\": \\"testDynamoDBTable_ReadCapacity_role_2B9645BB\\"
-          }
-        }
-      },
       \\"testDynamoDBTable_WriteCapacity_role_4BB8E3F1\\": {
         \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.testDynamoDBTable_WriteCapacity_assume_role_policy_document_5A7EA325.json}\\",
         \\"name\\": \\"abides--WriteCapacity-AutoScalingRole\\",
@@ -2499,20 +1872,6 @@ exports[`renders dynamo db table with write capacity 1`] = `
       }
     },
     \\"aws_iam_role_policy_attachment\\": {
-      \\"testDynamoDBTable_ReadCapacity_role_attachment_3C0829C2\\": {
-        \\"policy_arn\\": \\"\${aws_iam_policy.testDynamoDBTable_ReadCapacity_autoscaling_policy_52DA6649.arn}\\",
-        \\"role\\": \\"\${aws_iam_role.testDynamoDBTable_ReadCapacity_role_2B9645BB.name}\\",
-        \\"depends_on\\": [
-          \\"aws_iam_role.testDynamoDBTable_ReadCapacity_role_2B9645BB\\",
-          \\"aws_iam_policy.testDynamoDBTable_ReadCapacity_autoscaling_policy_52DA6649\\"
-        ],
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/testDynamoDBTable/ReadCapacity_role_attachment\\",
-            \\"uniqueId\\": \\"testDynamoDBTable_ReadCapacity_role_attachment_3C0829C2\\"
-          }
-        }
-      },
       \\"testDynamoDBTable_WriteCapacity_role_attachment_8ABB9833\\": {
         \\"policy_arn\\": \\"\${aws_iam_policy.testDynamoDBTable_WriteCapacity_autoscaling_policy_9632CE60.arn}\\",
         \\"role\\": \\"\${aws_iam_role.testDynamoDBTable_WriteCapacity_role_4BB8E3F1.name}\\",
@@ -2529,23 +1888,6 @@ exports[`renders dynamo db table with write capacity 1`] = `
       }
     },
     \\"aws_appautoscaling_target\\": {
-      \\"testDynamoDBTable_aws_dynamodb_tabletestDynamoDBTable_dynamodb_table_A3DD49A4name_ReadCapacity_table_target_03D4A1F8\\": {
-        \\"max_capacity\\": 10,
-        \\"min_capacity\\": 3,
-        \\"resource_id\\": \\"table/\${aws_dynamodb_table.testDynamoDBTable_dynamodb_table_A3DD49A4.name}\\",
-        \\"role_arn\\": \\"\${aws_iam_role.testDynamoDBTable_ReadCapacity_role_2B9645BB.arn}\\",
-        \\"scalable_dimension\\": \\"dynamodb:table:ReadCapacityUnits\\",
-        \\"service_namespace\\": \\"dynamodb\\",
-        \\"depends_on\\": [
-          \\"aws_dynamodb_table.testDynamoDBTable_dynamodb_table_A3DD49A4\\"
-        ],
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/testDynamoDBTable/\${aws_dynamodb_table.testDynamoDBTable_dynamodb_table_A3DD49A4.name}_ReadCapacity_table_target\\",
-            \\"uniqueId\\": \\"testDynamoDBTable_aws_dynamodb_tabletestDynamoDBTable_dynamodb_table_A3DD49A4name_ReadCapacity_table_target_03D4A1F8\\"
-          }
-        }
-      },
       \\"testDynamoDBTable_aws_dynamodb_tabletestDynamoDBTable_dynamodb_table_A3DD49A4name_WriteCapacity_table_target_8AAAA7D9\\": {
         \\"max_capacity\\": 10,
         \\"min_capacity\\": 3,
@@ -2565,33 +1907,6 @@ exports[`renders dynamo db table with write capacity 1`] = `
       }
     },
     \\"aws_appautoscaling_policy\\": {
-      \\"testDynamoDBTable_aws_dynamodb_tabletestDynamoDBTable_dynamodb_table_A3DD49A4name_ReadCapacity_table_policy_241DE9BD\\": {
-        \\"name\\": \\"DynamoDBReadCapacityUtilization:\${aws_appautoscaling_target.testDynamoDBTable_aws_dynamodb_tabletestDynamoDBTable_dynamodb_table_A3DD49A4name_ReadCapacity_table_target_03D4A1F8.resource_id}\\",
-        \\"policy_type\\": \\"TargetTrackingScaling\\",
-        \\"resource_id\\": \\"\${aws_appautoscaling_target.testDynamoDBTable_aws_dynamodb_tabletestDynamoDBTable_dynamodb_table_A3DD49A4name_ReadCapacity_table_target_03D4A1F8.resource_id}\\",
-        \\"scalable_dimension\\": \\"\${aws_appautoscaling_target.testDynamoDBTable_aws_dynamodb_tabletestDynamoDBTable_dynamodb_table_A3DD49A4name_ReadCapacity_table_target_03D4A1F8.scalable_dimension}\\",
-        \\"service_namespace\\": \\"\${aws_appautoscaling_target.testDynamoDBTable_aws_dynamodb_tabletestDynamoDBTable_dynamodb_table_A3DD49A4name_ReadCapacity_table_target_03D4A1F8.service_namespace}\\",
-        \\"target_tracking_scaling_policy_configuration\\": [
-          {
-            \\"target_value\\": 1,
-            \\"predefined_metric_specification\\": [
-              {
-                \\"predefined_metric_type\\": \\"DynamoDBReadCapacityUtilization\\"
-              }
-            ]
-          }
-        ],
-        \\"depends_on\\": [
-          \\"aws_appautoscaling_target.testDynamoDBTable_aws_dynamodb_tabletestDynamoDBTable_dynamodb_table_A3DD49A4name_ReadCapacity_table_target_03D4A1F8\\",
-          \\"aws_dynamodb_table.testDynamoDBTable_dynamodb_table_A3DD49A4\\"
-        ],
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/testDynamoDBTable/\${aws_dynamodb_table.testDynamoDBTable_dynamodb_table_A3DD49A4.name}_ReadCapacity_table_policy\\",
-            \\"uniqueId\\": \\"testDynamoDBTable_aws_dynamodb_tabletestDynamoDBTable_dynamodb_table_A3DD49A4name_ReadCapacity_table_policy_241DE9BD\\"
-          }
-        }
-      },
       \\"testDynamoDBTable_aws_dynamodb_tabletestDynamoDBTable_dynamodb_table_A3DD49A4name_WriteCapacity_table_policy_BF7F6E3E\\": {
         \\"name\\": \\"DynamoDBWriteCapacityUtilization:\${aws_appautoscaling_target.testDynamoDBTable_aws_dynamodb_tabletestDynamoDBTable_dynamodb_table_A3DD49A4name_WriteCapacity_table_target_8AAAA7D9.resource_id}\\",
         \\"policy_type\\": \\"TargetTrackingScaling\\",
@@ -2623,62 +1938,6 @@ exports[`renders dynamo db table with write capacity 1`] = `
   },
   \\"data\\": {
     \\"aws_iam_policy_document\\": {
-      \\"testDynamoDBTable_ReadCapacity_policy_document_EF789C68\\": {
-        \\"statement\\": [
-          {
-            \\"actions\\": [
-              \\"application-autoscaling:*\\",
-              \\"cloudwatch:DescribeAlarms\\",
-              \\"cloudwatch:PutMetricAlarm\\"
-            ],
-            \\"effect\\": \\"Allow\\",
-            \\"resources\\": [
-              \\"*\\"
-            ]
-          },
-          {
-            \\"actions\\": [
-              \\"dynamodb:DescribeTable\\",
-              \\"dynamodb:UpdateTable\\"
-            ],
-            \\"effect\\": \\"Allow\\",
-            \\"resources\\": [
-              \\"\${aws_dynamodb_table.testDynamoDBTable_dynamodb_table_A3DD49A4.arn}\\",
-              \\"\${aws_dynamodb_table.testDynamoDBTable_dynamodb_table_A3DD49A4.arn}*\\"
-            ]
-          }
-        ],
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/testDynamoDBTable/ReadCapacity_policy_document\\",
-            \\"uniqueId\\": \\"testDynamoDBTable_ReadCapacity_policy_document_EF789C68\\"
-          }
-        }
-      },
-      \\"testDynamoDBTable_ReadCapacity_assume_role_policy_document_54F698F0\\": {
-        \\"statement\\": [
-          {
-            \\"actions\\": [
-              \\"sts:AssumeRole\\"
-            ],
-            \\"effect\\": \\"Allow\\",
-            \\"principals\\": [
-              {
-                \\"identifiers\\": [
-                  \\"application-autoscaling.amazonaws.com\\"
-                ],
-                \\"type\\": \\"Service\\"
-              }
-            ]
-          }
-        ],
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/testDynamoDBTable/ReadCapacity_assume_role_policy_document\\",
-            \\"uniqueId\\": \\"testDynamoDBTable_ReadCapacity_assume_role_policy_document_54F698F0\\"
-          }
-        }
-      },
       \\"testDynamoDBTable_WriteCapacity_policy_document_9032D023\\": {
         \\"statement\\": [
           {

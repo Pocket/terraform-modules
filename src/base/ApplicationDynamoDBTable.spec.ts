@@ -5,192 +5,198 @@ import {
   ApplicationDynamoDBTableCapacityMode,
 } from './ApplicationDynamoDBTable';
 
-const BASE_CONFIG: ApplicationDynamoDBProps = {
-  prefix: 'abides-',
-  tableConfig: {
-    hashKey: '123',
-    attribute: [
-      {
-        name: 'attribeautiful',
-        type: 'shrugs!',
+describe('ApplicationDynamoDBTable', () => {
+  let BASE_CONFIG: ApplicationDynamoDBProps;
+
+  beforeEach(() => {
+    BASE_CONFIG = {
+      prefix: 'abides-',
+      tableConfig: {
+        hashKey: '123',
+        attribute: [
+          {
+            name: 'attribeautiful',
+            type: 'shrugs!',
+          },
+        ],
+        globalSecondaryIndex: [],
       },
-    ],
-    globalSecondaryIndex: [],
-  },
-};
-
-test('renders dynamo db table with minimal config', () => {
-  const app = Testing.app();
-  const stack = new TerraformStack(app, 'test');
-
-  new ApplicationDynamoDBTable(stack, 'testDynamoDBTable', BASE_CONFIG);
-
-  expect(Testing.synth(stack)).toMatchSnapshot();
-});
-
-test('renders dynamo db table with read capacity', () => {
-  const app = Testing.app();
-  const stack = new TerraformStack(app, 'test');
-
-  BASE_CONFIG.readCapacity = {
-    tracking: 1,
-    max: 10,
-    min: 3,
-  };
-
-  new ApplicationDynamoDBTable(stack, 'testDynamoDBTable', BASE_CONFIG);
-
-  expect(Testing.synth(stack)).toMatchSnapshot();
-});
-
-test('renders dynamo db table with write capacity', () => {
-  const app = Testing.app();
-  const stack = new TerraformStack(app, 'test');
-
-  BASE_CONFIG.writeCapacity = {
-    tracking: 1,
-    max: 10,
-    min: 3,
-  };
-
-  new ApplicationDynamoDBTable(stack, 'testDynamoDBTable', BASE_CONFIG);
-
-  expect(Testing.synth(stack)).toMatchSnapshot();
-});
-
-test('renders dynamo db table with read and write capacity', () => {
-  const app = Testing.app();
-  const stack = new TerraformStack(app, 'test');
-
-  BASE_CONFIG.writeCapacity = {
-    tracking: 1,
-    max: 10,
-    min: 3,
-  };
-
-  BASE_CONFIG.readCapacity = {
-    tracking: 1,
-    max: 10,
-    min: 3,
-  };
-
-  new ApplicationDynamoDBTable(stack, 'testDynamoDBTable', BASE_CONFIG);
-
-  expect(Testing.synth(stack)).toMatchSnapshot();
-});
-
-test('renders dynamo db table with read and write capacity and tags', () => {
-  const app = Testing.app();
-  const stack = new TerraformStack(app, 'test');
-
-  BASE_CONFIG.writeCapacity = {
-    tracking: 1,
-    max: 10,
-    min: 3,
-  };
-
-  BASE_CONFIG.readCapacity = {
-    tracking: 1,
-    max: 10,
-    min: 3,
-  };
-
-  BASE_CONFIG.tags = {
-    name: 'thedude',
-    hobby: 'bowling',
-  };
-
-  new ApplicationDynamoDBTable(stack, 'testDynamoDBTable', BASE_CONFIG);
-
-  expect(Testing.synth(stack)).toMatchSnapshot();
-});
-
-test('renders dynamo db table global secondary indexes', () => {
-  const app = Testing.app();
-  const stack = new TerraformStack(app, 'test');
-
-  BASE_CONFIG.writeCapacity = {
-    tracking: 1,
-    max: 10,
-    min: 3,
-  };
-
-  BASE_CONFIG.readCapacity = {
-    tracking: 1,
-    max: 10,
-    min: 3,
-  };
-
-  BASE_CONFIG.tableConfig.globalSecondaryIndex.push({
-    name: 'card-index',
-    hashKey: 'card-type',
-    rangeKey: 'home_on_the_range',
-    projectionType: 'ALL',
-    readCapacity: 5,
-    writeCapacity: 5,
+    };
   });
 
-  new ApplicationDynamoDBTable(stack, 'testDynamoDBTable', BASE_CONFIG);
+  it('renders dynamo db table with minimal config', () => {
+    const app = Testing.app();
+    const stack = new TerraformStack(app, 'test');
 
-  expect(Testing.synth(stack)).toMatchSnapshot();
-});
+    new ApplicationDynamoDBTable(stack, 'testDynamoDBTable', BASE_CONFIG);
 
-test('renders dynamo db table with 2 global secondary indexes', () => {
-  const app = Testing.app();
-  const stack = new TerraformStack(app, 'test');
-
-  BASE_CONFIG.writeCapacity = {
-    tracking: 1,
-    max: 10,
-    min: 3,
-  };
-
-  BASE_CONFIG.readCapacity = {
-    tracking: 1,
-    max: 10,
-    min: 3,
-  };
-
-  //This test runs after the first secondary index test, so here we just add another index which gives us 2
-  BASE_CONFIG.tableConfig.globalSecondaryIndex.push({
-    name: 'card-index-2',
-    hashKey: 'card-type-123',
-    rangeKey: 'home_home_on_the_range',
-    projectionType: 'ALL',
-    readCapacity: 10,
-    writeCapacity: 10,
+    expect(Testing.synth(stack)).toMatchSnapshot();
   });
 
-  new ApplicationDynamoDBTable(stack, 'testDynamoDBTable', BASE_CONFIG);
+  it('renders dynamo db table with read capacity', () => {
+    const app = Testing.app();
+    const stack = new TerraformStack(app, 'test');
 
-  expect(Testing.synth(stack)).toMatchSnapshot();
-});
+    BASE_CONFIG.readCapacity = {
+      tracking: 1,
+      max: 10,
+      min: 3,
+    };
 
-test('renders dynamo db table that is not protected from being destroyed', () => {
-  const app = Testing.app();
-  const stack = new TerraformStack(app, 'test');
+    new ApplicationDynamoDBTable(stack, 'testDynamoDBTable', BASE_CONFIG);
 
-  BASE_CONFIG.preventDestroyTable = false;
+    expect(Testing.synth(stack)).toMatchSnapshot();
+  });
 
-  const applicationDynamoDBTable = new ApplicationDynamoDBTable(
-    stack,
-    'testDynamoDBTable',
-    BASE_CONFIG
-  );
+  it('renders dynamo db table with write capacity', () => {
+    const app = Testing.app();
+    const stack = new TerraformStack(app, 'test');
 
-  expect(applicationDynamoDBTable.dynamodb.lifecycle.preventDestroy).toEqual(
-    false
-  );
-  expect(Testing.synth(stack)).toMatchSnapshot();
-});
+    BASE_CONFIG.writeCapacity = {
+      tracking: 1,
+      max: 10,
+      min: 3,
+    };
 
-test('renders dynamo db table with on-demand capacity', () => {
-  const app = Testing.app();
-  const stack = new TerraformStack(app, 'test');
+    new ApplicationDynamoDBTable(stack, 'testDynamoDBTable', BASE_CONFIG);
 
-  BASE_CONFIG.capacityMode = ApplicationDynamoDBTableCapacityMode.ON_DEMAND;
+    expect(Testing.synth(stack)).toMatchSnapshot();
+  });
 
-  new ApplicationDynamoDBTable(stack, 'testDynamoDBTable', BASE_CONFIG);
+  it('renders dynamo db table with read and write capacity', () => {
+    const app = Testing.app();
+    const stack = new TerraformStack(app, 'test');
 
-  expect(Testing.synth(stack)).toMatchSnapshot();
+    BASE_CONFIG.writeCapacity = {
+      tracking: 1,
+      max: 10,
+      min: 3,
+    };
+
+    BASE_CONFIG.readCapacity = {
+      tracking: 1,
+      max: 10,
+      min: 3,
+    };
+
+    new ApplicationDynamoDBTable(stack, 'testDynamoDBTable', BASE_CONFIG);
+
+    expect(Testing.synth(stack)).toMatchSnapshot();
+  });
+
+  it('renders dynamo db table with read and write capacity and tags', () => {
+    const app = Testing.app();
+    const stack = new TerraformStack(app, 'test');
+
+    BASE_CONFIG.writeCapacity = {
+      tracking: 1,
+      max: 10,
+      min: 3,
+    };
+
+    BASE_CONFIG.readCapacity = {
+      tracking: 1,
+      max: 10,
+      min: 3,
+    };
+
+    BASE_CONFIG.tags = {
+      name: 'thedude',
+      hobby: 'bowling',
+    };
+
+    new ApplicationDynamoDBTable(stack, 'testDynamoDBTable', BASE_CONFIG);
+
+    expect(Testing.synth(stack)).toMatchSnapshot();
+  });
+
+  it('renders dynamo db table global secondary indexes', () => {
+    const app = Testing.app();
+    const stack = new TerraformStack(app, 'test');
+
+    BASE_CONFIG.writeCapacity = {
+      tracking: 1,
+      max: 10,
+      min: 3,
+    };
+
+    BASE_CONFIG.readCapacity = {
+      tracking: 1,
+      max: 10,
+      min: 3,
+    };
+
+    BASE_CONFIG.tableConfig.globalSecondaryIndex.push({
+      name: 'card-index',
+      hashKey: 'card-type',
+      rangeKey: 'home_on_the_range',
+      projectionType: 'ALL',
+      readCapacity: 5,
+      writeCapacity: 5,
+    });
+
+    new ApplicationDynamoDBTable(stack, 'testDynamoDBTable', BASE_CONFIG);
+
+    expect(Testing.synth(stack)).toMatchSnapshot();
+  });
+
+  it('renders dynamo db table with 2 global secondary indexes', () => {
+    const app = Testing.app();
+    const stack = new TerraformStack(app, 'test');
+
+    BASE_CONFIG.writeCapacity = {
+      tracking: 1,
+      max: 10,
+      min: 3,
+    };
+
+    BASE_CONFIG.readCapacity = {
+      tracking: 1,
+      max: 10,
+      min: 3,
+    };
+
+    //This test runs after the first secondary index test, so here we just add another index which gives us 2
+    BASE_CONFIG.tableConfig.globalSecondaryIndex.push({
+      name: 'card-index-2',
+      hashKey: 'card-type-123',
+      rangeKey: 'home_home_on_the_range',
+      projectionType: 'ALL',
+      readCapacity: 10,
+      writeCapacity: 10,
+    });
+
+    new ApplicationDynamoDBTable(stack, 'testDynamoDBTable', BASE_CONFIG);
+
+    expect(Testing.synth(stack)).toMatchSnapshot();
+  });
+
+  it('renders dynamo db table that is not protected from being destroyed', () => {
+    const app = Testing.app();
+    const stack = new TerraformStack(app, 'test');
+
+    BASE_CONFIG.preventDestroyTable = false;
+
+    const applicationDynamoDBTable = new ApplicationDynamoDBTable(
+      stack,
+      'testDynamoDBTable',
+      BASE_CONFIG
+    );
+
+    expect(applicationDynamoDBTable.dynamodb.lifecycle.preventDestroy).toEqual(
+      false
+    );
+    expect(Testing.synth(stack)).toMatchSnapshot();
+  });
+
+  it('renders dynamo db table with on-demand capacity', () => {
+    const app = Testing.app();
+    const stack = new TerraformStack(app, 'test');
+
+    BASE_CONFIG.capacityMode = ApplicationDynamoDBTableCapacityMode.ON_DEMAND;
+
+    new ApplicationDynamoDBTable(stack, 'testDynamoDBTable', BASE_CONFIG);
+
+    expect(Testing.synth(stack)).toMatchSnapshot();
+  });
 });
