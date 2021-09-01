@@ -46,7 +46,7 @@ export interface ApplicationDynamoDBProps {
   // If capacityMode is ON_DEMAND, the DynamoDB table will have on-demand capacity. By default this is PROVISIONED.
   // On-demand capacity mode is capable of serving thousands of requests per second without capacity planning.
   // https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.ReadWriteCapacityMode.html
-  // The readCapacity and writeCapacity properties are ignored if capacityMode is set to ON_DEMAND
+  // The readCapacity and writeCapacity properties should not be used if capacityMode is set to ON_DEMAND.
   capacityMode?: ApplicationDynamoDBTableCapacityMode;
   // If true, the DynamoDB table will be protected from being destroyed. Enabled by default.
   preventDestroyTable?: boolean;
