@@ -20,6 +20,11 @@ export enum ApplicationDynamoDBTableCapacityType {
   Write = 'WriteCapacity',
 }
 
+export enum ApplicationDynamoDBTableCapacityMode {
+  PROVISIONED = 'PROVISIONED',
+  ON_DEMAND = 'PAY_PER_REQUEST', // Confusingly, on-demand is called "PAY_PER_REQUEST" in TF and CloudFormation.
+}
+
 export interface ApplicationDynamoDBTableAutoScaleProps {
   tracking: number;
   max: number;
@@ -38,6 +43,11 @@ export interface ApplicationDynamoDBProps {
   tableConfig: ApplicationDynamoDBTableConfig;
   readCapacity?: ApplicationDynamoDBTableAutoScaleProps;
   writeCapacity?: ApplicationDynamoDBTableAutoScaleProps;
+  // If capacityMode is ON_DEMAND, the DynamoDB table will have on-demand capacity. By default this is PROVISIONED.
+  // On-demand capacity mode is capable of serving thousands of requests per second without capacity planning.
+  // https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.ReadWriteCapacityMode.html
+  // The readCapacity and writeCapacity properties should not be used if capacityMode is set to ON_DEMAND.
+  capacityMode?: ApplicationDynamoDBTableCapacityMode;
   // If true, the DynamoDB table will be protected from being destroyed. Enabled by default.
   preventDestroyTable?: boolean;
 }
@@ -55,8 +65,13 @@ export class ApplicationDynamoDBTable extends Resource {
   ) {
     super(scope, name);
 
+    const billingMode: string = (
+      config.capacityMode ?? ApplicationDynamoDBTableCapacityMode.PROVISIONED
+    ).valueOf();
+
     this.dynamodb = new DynamodbTable(this, `dynamodb_table`, {
       ...config.tableConfig,
+      billingMode: billingMode,
       tags: config.tags,
       name: config.prefix,
       lifecycle: {
