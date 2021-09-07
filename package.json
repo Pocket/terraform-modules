@@ -80,7 +80,7 @@
     "constructs": "^3.3.147",
     "eslint": "^7.32.0",
     "eslint-config-prettier": "^8.3.0",
-    "eslint-plugin-prettier": "^3.4.1",
+    "eslint-plugin-prettier": "^4.0.0",
     "jest": "^27.1.0",
     "prettier": "^2.3.2",
     "semantic-release": "^17.4.7",
