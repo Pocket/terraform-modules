@@ -61,7 +61,7 @@
     "cdktf-cli": "^0.5.0",
     "constructs": "^3.3.147",
     "crypto-random-string": "^4.0.0",
-    "parse-domain": "^3.0.3"
+    "parse-domain": "^4.1.0"
   },
   "devDependencies": {
     "@semantic-release/changelog": "^5.0.1",
