@@ -36,11 +36,11 @@ export interface ApplicationRDSClusterProps {
 }
 
 /**
- * Generates a rds cluster
+ * Generates an RDS cluster
  *
- * The database will be intialized with a random password.
+ * The database will be initialized with a random password.
  *
- * If the database is aurua or mysql, a SecretsManager secret will be created with a rotation lambda
+ * If the database is Aurora or MySQL, a SecretsManager secret will be created with a rotation lambda
  * that you can invoke in the AWS console after creation to rotate the password
  */
 export class ApplicationRDSCluster extends Resource {
@@ -159,17 +159,32 @@ export class ApplicationRDSCluster extends Resource {
       dependsOn: [rds],
     });
 
+    const secretValues: {
+      engine: string;
+      host: string;
+      username: string;
+      password: string;
+      dbname: string;
+      port: number;
+      database_url?: string;
+    } = {
+      engine: rds.engine,
+      host: rds.endpoint,
+      username: rds.masterUsername,
+      password: rds.masterPassword,
+      dbname: rds.databaseName,
+      port: rdsPort,
+    };
+
+    // Add a database URL to a MySQL-compatible Aurora instance
+    if (rds.engine === 'aurora-mysql') {
+      secretValues.database_url = `mysql://${rds.masterUsername}:${rds.masterPassword}@${rds.endpoint}:${rdsPort}/${rds.databaseName}`;
+    }
+
     //Create the initial secret version
     new SecretsmanagerSecretVersion(scope, `rds_secret_version`, {
       secretId: secret.id,
-      secretString: JSON.stringify({
-        engine: rds.engine,
-        host: rds.endpoint,
-        username: rds.masterUsername,
-        password: rds.masterPassword,
-        dbname: rds.databaseName,
-        port: rdsPort,
-      }),
+      secretString: JSON.stringify(secretValues),
       dependsOn: [secret],
     });
 
