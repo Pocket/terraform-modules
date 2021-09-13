@@ -127,7 +127,8 @@ export class ApplicationRDSCluster extends Resource {
       this.rds,
       rdsPort,
       config.prefix,
-      config.tags
+      config.tags,
+      config.rdsConfig.engine
     );
 
     this.secretARN = secretARN;
@@ -148,7 +149,8 @@ export class ApplicationRDSCluster extends Resource {
     rds: RdsCluster,
     rdsPort: number,
     prefix: string,
-    tags?: { [key: string]: string }
+    tags?: { [key: string]: string },
+    engine?: ApplicationRDSClusterConfig['engine']
   ): { secretARN: string } {
     //Create the secret
     const secret = new SecretsmanagerSecret(scope, `rds_secret`, {
@@ -177,7 +179,7 @@ export class ApplicationRDSCluster extends Resource {
     };
 
     // Add a database URL to a MySQL-compatible Aurora instance
-    if (rds.engine === 'aurora-mysql') {
+    if (engine && engine === 'aurora-mysql') {
       secretValues.database_url = `mysql://${rds.masterUsername}:${rds.masterPassword}@${rds.endpoint}:${rdsPort}/${rds.databaseName}`;
     }
 
