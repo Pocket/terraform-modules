@@ -719,7 +719,7 @@ export class PocketALBApplication extends Resource {
       httpLatency: alarmsConfig?.httpLatency?.evaluationPeriods ?? 1,
     };
     const http5xxAlarm: CloudwatchMetricAlarmConfig = {
-      alarmName: 'Alarm-HTTP5xxErrorRate',
+      alarmName: 'Alarm-HTTPTarget5xxErrorRate',
       metricQuery: [
         {
           id: 'requests',
@@ -738,7 +738,7 @@ export class PocketALBApplication extends Resource {
           id: 'errors',
           metric: [
             {
-              metricName: 'HTTPCode_ELB_5XX_Count',
+              metricName: 'HTTPCode_Target_5XX_Count',
               namespace: 'AWS/ApplicationELB',
               period: alarmsConfig?.http5xxErrorPercentage?.period ?? 60,
               stat: 'Sum',
