@@ -237,7 +237,7 @@ describe('PocketALBApplication', () => {
     const alarmConfig = {
       ...BASE_CONFIG,
       alarms: {
-        http5xxError: {
+        http5xxErrorPercentage: {
           datapointsToAlarm: 2,
         },
       },
@@ -256,24 +256,6 @@ describe('PocketALBApplication', () => {
       ...BASE_CONFIG,
       alarms: {
         httpLatency: {
-          datapointsToAlarm: 2,
-        },
-      },
-    };
-
-    expect(
-      () => new PocketALBApplication(stack, 'testPocketApp', alarmConfig)
-    ).toThrow(Error);
-  });
-
-  it('validates http request count alarm config', () => {
-    const app = Testing.app();
-    const stack = new TerraformStack(app, 'test');
-
-    const alarmConfig = {
-      ...BASE_CONFIG,
-      alarms: {
-        httpRequestCount: {
           datapointsToAlarm: 2,
         },
       },
