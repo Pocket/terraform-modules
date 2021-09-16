@@ -3045,65 +3045,6 @@ exports[`PocketALBApplication renders an application alarms 1`] = `
           }
         }
       },
-      \\"testPocketApp_alarm-http5xxerrorrate_D956FCCD\\": {
-        \\"alarm_actions\\": [
-          \\"sns-arn-for-5xx-errors\\"
-        ],
-        \\"alarm_description\\": \\"Percentage of 5xx responses exceeds threshold\\",
-        \\"alarm_name\\": \\"testapp-Alarm-HTTP5xxErrorRate\\",
-        \\"comparison_operator\\": \\"GreaterThanOrEqualToThreshold\\",
-        \\"datapoints_to_alarm\\": 1,
-        \\"evaluation_periods\\": 1,
-        \\"insufficient_data_actions\\": [],
-        \\"ok_actions\\": [
-          \\"sns-arn-for-5xx-errors\\"
-        ],
-        \\"threshold\\": 10,
-        \\"metric_query\\": [
-          {
-            \\"id\\": \\"requests\\",
-            \\"metric\\": [
-              {
-                \\"dimensions\\": {
-                  \\"LoadBalancer\\": \\"\${aws_alb.testPocketApp_application_load_balancer_alb_D538DEEE.arn_suffix}\\"
-                },
-                \\"metric_name\\": \\"RequestCount\\",
-                \\"namespace\\": \\"AWS/ApplicationELB\\",
-                \\"period\\": 600,
-                \\"stat\\": \\"Sum\\",
-                \\"unit\\": \\"Count\\"
-              }
-            ]
-          },
-          {
-            \\"id\\": \\"errors\\",
-            \\"metric\\": [
-              {
-                \\"dimensions\\": {
-                  \\"LoadBalancer\\": \\"\${aws_alb.testPocketApp_application_load_balancer_alb_D538DEEE.arn_suffix}\\"
-                },
-                \\"metric_name\\": \\"HTTPCode_ELB_5XX_Count\\",
-                \\"namespace\\": \\"AWS/ApplicationELB\\",
-                \\"period\\": 600,
-                \\"stat\\": \\"Sum\\",
-                \\"unit\\": \\"Count\\"
-              }
-            ]
-          },
-          {
-            \\"expression\\": \\"errors/requests*100\\",
-            \\"id\\": \\"expression\\",
-            \\"label\\": \\"HTTP 5xx Error Rate\\",
-            \\"return_data\\": true
-          }
-        ],
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/testPocketApp/alarm-http5xxerrorrate\\",
-            \\"uniqueId\\": \\"testPocketApp_alarm-http5xxerrorrate_D956FCCD\\"
-          }
-        }
-      },
       \\"testPocketApp_alarm-httpresponsetime_327A4315\\": {
         \\"alarm_actions\\": [
           \\"sns-arn-for-latency\\"

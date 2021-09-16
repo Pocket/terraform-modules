@@ -61,7 +61,7 @@ export interface PocketALBApplicationProps {
     scaleOutThreshold?: number;
   };
   alarms?: {
-    http5xxError?: PocketALBApplicationAlarmProps;
+    http5xxErrorPercentage?: PocketALBApplicationAlarmProps;
     httpLatency?: PocketALBApplicationAlarmProps;
     customAlarms?: CloudwatchMetricAlarmConfig[];
   };
@@ -157,7 +157,7 @@ export class PocketALBApplication extends Resource {
     if (!config) return;
 
     const alarmsToValidate = {
-      http5xxError: 'HTTP 5xx Error',
+      http5xxErrorPercentage: 'HTTP 5xx Error',
       httpLatency: 'HTTP Latency',
       httpRequestCount: 'HTTP Request Count',
     };
@@ -714,7 +714,8 @@ export class PocketALBApplication extends Resource {
   private createCloudwatchAlarms(): void {
     const alarmsConfig = this.config.alarms;
     const evaluationPeriods = {
-      http5xxError: alarmsConfig?.http5xxError?.evaluationPeriods ?? 5,
+      http5xxErrorPercentage:
+        alarmsConfig?.http5xxErrorPercentage?.evaluationPeriods ?? 5,
       httpLatency: alarmsConfig?.httpLatency?.evaluationPeriods ?? 1,
     };
     const http5xxAlarm: CloudwatchMetricAlarmConfig = {
@@ -726,7 +727,7 @@ export class PocketALBApplication extends Resource {
             {
               metricName: 'RequestCount',
               namespace: 'AWS/ApplicationELB',
-              period: alarmsConfig?.http5xxError?.period ?? 60,
+              period: alarmsConfig?.http5xxErrorPercentage?.period ?? 60,
               stat: 'Sum',
               unit: 'Count',
               dimensions: { LoadBalancer: this.alb.alb.arnSuffix },
@@ -739,7 +740,7 @@ export class PocketALBApplication extends Resource {
             {
               metricName: 'HTTPCode_ELB_5XX_Count',
               namespace: 'AWS/ApplicationELB',
-              period: alarmsConfig?.http5xxError?.period ?? 60,
+              period: alarmsConfig?.http5xxErrorPercentage?.period ?? 60,
               stat: 'Sum',
               unit: 'Count',
               dimensions: { LoadBalancer: this.alb.alb.arnSuffix },
@@ -754,14 +755,14 @@ export class PocketALBApplication extends Resource {
         },
       ],
       comparisonOperator: 'GreaterThanOrEqualToThreshold',
-      evaluationPeriods: evaluationPeriods.http5xxError,
+      evaluationPeriods: evaluationPeriods.http5xxErrorPercentage,
       datapointsToAlarm:
-        alarmsConfig?.http5xxError?.datapointsToAlarm ??
-        evaluationPeriods.http5xxError,
-      threshold: alarmsConfig?.http5xxError?.threshold ?? 5,
+        alarmsConfig?.http5xxErrorPercentage?.datapointsToAlarm ??
+        evaluationPeriods.http5xxErrorPercentage,
+      threshold: alarmsConfig?.http5xxErrorPercentage?.threshold ?? 5,
       insufficientDataActions: [],
-      alarmActions: alarmsConfig?.http5xxError?.actions ?? [],
-      okActions: alarmsConfig?.http5xxError?.actions ?? [],
+      alarmActions: alarmsConfig?.http5xxErrorPercentage?.actions ?? [],
+      okActions: alarmsConfig?.http5xxErrorPercentage?.actions ?? [],
       tags: this.config.tags,
       alarmDescription: 'Percentage of 5xx responses exceeds threshold',
     };
@@ -787,7 +788,7 @@ export class PocketALBApplication extends Resource {
 
     const defaultAlarms: CloudwatchMetricAlarmConfig[] = [];
 
-    if (alarmsConfig?.http5xxError) defaultAlarms.push(http5xxAlarm);
+    if (alarmsConfig?.http5xxErrorPercentage) defaultAlarms.push(http5xxAlarm);
 
     if (alarmsConfig?.httpLatency) defaultAlarms.push(latencyAlarm);
 

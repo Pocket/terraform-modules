@@ -237,7 +237,7 @@ describe('PocketALBApplication', () => {
     const alarmConfig = {
       ...BASE_CONFIG,
       alarms: {
-        http5xxError: {
+        http5xxErrorPercentage: {
           datapointsToAlarm: 2,
         },
       },
