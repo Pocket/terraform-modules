@@ -63,7 +63,6 @@ export interface PocketALBApplicationProps {
   alarms?: {
     http5xxError?: PocketALBApplicationAlarmProps;
     httpLatency?: PocketALBApplicationAlarmProps;
-    httpRequestCount?: PocketALBApplicationAlarmProps;
     customAlarms?: CloudwatchMetricAlarmConfig[];
   };
 }
@@ -547,16 +546,6 @@ export class PocketALBApplication extends Resource {
             region: 'us-east-1',
             period: 60,
             stat: 'Sum',
-            annotations: {
-              horizontal: [
-                {
-                  color: '#17becf',
-                  label: 'RequestCountThreshold',
-                  value: this.config.alarms?.httpRequestCount?.threshold ?? 500,
-                  yAxis: 'right',
-                },
-              ],
-            },
             title: 'Target Requests',
           },
         },
@@ -603,16 +592,6 @@ export class PocketALBApplication extends Resource {
             region: 'us-east-1',
             period: 60,
             stat: 'Sum',
-            annotations: {
-              horizontal: [
-                {
-                  color: '#17becf',
-                  label: 'RequestCountThreshold',
-                  value: this.config.alarms?.httpRequestCount?.threshold ?? 500,
-                  yAxis: 'right',
-                },
-              ],
-            },
             title: 'ALB Requests',
           },
         },
@@ -737,103 +716,86 @@ export class PocketALBApplication extends Resource {
     const evaluationPeriods = {
       http5xxError: alarmsConfig?.http5xxError?.evaluationPeriods ?? 5,
       httpLatency: alarmsConfig?.httpLatency?.evaluationPeriods ?? 1,
-      httpRequestCount: alarmsConfig?.httpRequestCount?.evaluationPeriods ?? 1,
+    };
+    const http5xxAlarm: CloudwatchMetricAlarmConfig = {
+      alarmName: 'Alarm-HTTP5xxErrorRate',
+      metricQuery: [
+        {
+          id: 'requests',
+          metric: [
+            {
+              metricName: 'RequestCount',
+              namespace: 'AWS/ApplicationELB',
+              period: alarmsConfig?.http5xxError?.period ?? 60,
+              stat: 'Sum',
+              unit: 'Count',
+              dimensions: { LoadBalancer: this.alb.alb.arnSuffix },
+            },
+          ],
+        },
+        {
+          id: 'errors',
+          metric: [
+            {
+              metricName: 'HTTPCode_ELB_5XX_Count',
+              namespace: 'AWS/ApplicationELB',
+              period: alarmsConfig?.http5xxError?.period ?? 60,
+              stat: 'Sum',
+              unit: 'Count',
+              dimensions: { LoadBalancer: this.alb.alb.arnSuffix },
+            },
+          ],
+        },
+        {
+          id: 'expression',
+          expression: 'errors/requests*100',
+          label: 'HTTP 5xx Error Rate',
+          returnData: true,
+        },
+      ],
+      comparisonOperator: 'GreaterThanOrEqualToThreshold',
+      evaluationPeriods: evaluationPeriods.http5xxError,
+      datapointsToAlarm:
+        alarmsConfig?.http5xxError?.datapointsToAlarm ??
+        evaluationPeriods.http5xxError,
+      threshold: alarmsConfig?.http5xxError?.threshold ?? 5,
+      insufficientDataActions: [],
+      alarmActions: alarmsConfig?.http5xxError?.actions ?? [],
+      okActions: alarmsConfig?.http5xxError?.actions ?? [],
+      tags: this.config.tags,
+      alarmDescription: 'Percentage of 5xx responses exceeds threshold',
+    };
+    const latencyAlarm: CloudwatchMetricAlarmConfig = {
+      alarmName: 'Alarm-HTTPResponseTime',
+      namespace: 'AWS/ApplicationELB',
+      metricName: 'TargetResponseTime',
+      dimensions: { LoadBalancer: this.alb.alb.arnSuffix },
+      period: alarmsConfig?.httpLatency?.period ?? 300,
+      evaluationPeriods: evaluationPeriods.httpLatency,
+      datapointsToAlarm:
+        alarmsConfig?.httpLatency?.datapointsToAlarm ??
+        evaluationPeriods.httpLatency,
+      statistic: 'Average',
+      comparisonOperator: 'GreaterThanThreshold',
+      threshold: alarmsConfig?.httpLatency?.threshold ?? 300,
+      alarmDescription: 'Average HTTP response time exceeds threshold',
+      insufficientDataActions: [],
+      alarmActions: alarmsConfig?.httpLatency?.actions ?? [],
+      okActions: alarmsConfig?.httpLatency?.actions ?? [],
+      tags: this.config.tags,
     };
 
-    const defaultAlarms: CloudwatchMetricAlarmConfig[] = [
-      {
-        alarmName: 'Alarm-HTTP5xxErrorRate',
-        metricQuery: [
-          {
-            id: 'requests',
-            metric: [
-              {
-                metricName: 'RequestCount',
-                namespace: 'AWS/ApplicationELB',
-                period: alarmsConfig?.http5xxError?.period ?? 60,
-                stat: 'Sum',
-                unit: 'Count',
-                dimensions: { LoadBalancer: this.alb.alb.arnSuffix },
-              },
-            ],
-          },
-          {
-            id: 'errors',
-            metric: [
-              {
-                metricName: 'HTTPCode_ELB_5XX_Count',
-                namespace: 'AWS/ApplicationELB',
-                period: alarmsConfig?.http5xxError?.period ?? 60,
-                stat: 'Sum',
-                unit: 'Count',
-                dimensions: { LoadBalancer: this.alb.alb.arnSuffix },
-              },
-            ],
-          },
-          {
-            id: 'expression',
-            expression: 'errors/requests*100',
-            label: 'HTTP 5xx Error Rate',
-            returnData: true,
-          },
-        ],
-        comparisonOperator: 'GreaterThanOrEqualToThreshold',
-        evaluationPeriods: evaluationPeriods.http5xxError,
-        datapointsToAlarm:
-          alarmsConfig?.http5xxError?.datapointsToAlarm ??
-          evaluationPeriods.http5xxError,
-        threshold: alarmsConfig?.http5xxError?.threshold ?? 5,
-        insufficientDataActions: [],
-        alarmActions: alarmsConfig?.http5xxError?.actions ?? [],
-        okActions: alarmsConfig?.http5xxError?.actions ?? [],
-        tags: this.config.tags,
-        alarmDescription: 'Percentage of 5xx responses exceeds threshold',
-      },
-      {
-        alarmName: 'Alarm-HTTPResponseTime',
-        namespace: 'AWS/ApplicationELB',
-        metricName: 'TargetResponseTime',
-        dimensions: { LoadBalancer: this.alb.alb.arnSuffix },
-        period: alarmsConfig?.httpLatency?.period ?? 300,
-        evaluationPeriods: evaluationPeriods.httpLatency,
-        datapointsToAlarm:
-          alarmsConfig?.httpLatency?.datapointsToAlarm ??
-          evaluationPeriods.httpLatency,
-        statistic: 'Average',
-        comparisonOperator: 'GreaterThanThreshold',
-        threshold: alarmsConfig?.httpLatency?.threshold ?? 300,
-        alarmDescription: 'Average HTTP response time exceeds threshold',
-        insufficientDataActions: [],
-        alarmActions: alarmsConfig?.httpLatency?.actions ?? [],
-        okActions: alarmsConfig?.httpLatency?.actions ?? [],
-        tags: this.config.tags,
-      },
-      {
-        alarmName: 'Alarm-HTTPRequestCount',
-        namespace: 'AWS/ApplicationELB',
-        metricName: 'RequestCount',
-        dimensions: { LoadBalancer: this.alb.alb.arnSuffix },
-        period: alarmsConfig?.httpRequestCount?.period ?? 300,
-        evaluationPeriods: evaluationPeriods.httpRequestCount,
-        datapointsToAlarm:
-          alarmsConfig?.httpRequestCount?.datapointsToAlarm ??
-          evaluationPeriods.httpRequestCount,
-        statistic: 'Sum',
-        comparisonOperator: 'GreaterThanThreshold',
-        threshold: alarmsConfig?.httpRequestCount?.threshold ?? 500,
-        alarmDescription: 'Total HTTP request count exceeds threshold',
-        insufficientDataActions: [],
-        alarmActions: alarmsConfig?.httpRequestCount?.actions ?? [],
-        okActions: alarmsConfig?.httpRequestCount?.actions ?? [],
-        tags: this.config.tags,
-      },
-    ];
+    const defaultAlarms: CloudwatchMetricAlarmConfig[] = [];
+
+    if (alarmsConfig?.http5xxError) defaultAlarms.push(http5xxAlarm);
+
+    if (alarmsConfig?.httpLatency) defaultAlarms.push(latencyAlarm);
 
     if (alarmsConfig?.customAlarms) {
       defaultAlarms.push(...alarmsConfig.customAlarms);
     }
 
-    this.createAlarms(defaultAlarms);
+    if (defaultAlarms.length) this.createAlarms(defaultAlarms);
   }
 
   private createAlarms(alarms: CloudwatchMetricAlarmConfig[]): void {
