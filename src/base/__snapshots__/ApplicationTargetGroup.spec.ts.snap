@@ -2,26 +2,10 @@
 
 exports[`renders a Target Group with tags 1`] = `
 "{
-  \\"//\\": {
-    \\"metadata\\": {
-      \\"version\\": \\"stubbed\\",
-      \\"stackName\\": \\"test\\",
-      \\"backend\\": \\"local\\"
-    }
-  },
   \\"resource\\": {
     \\"aws_alb_target_group\\": {
       \\"testTargetGroup_ecs_target_group_A0C76C7F\\": {
         \\"deregistration_delay\\": 120,
-        \\"name_prefix\\": \\"A1BC\\",
-        \\"port\\": 80,
-        \\"protocol\\": \\"HTTP\\",
-        \\"tags\\": {
-          \\"name\\": \\"thedude\\",
-          \\"hobby\\": \\"bowling\\"
-        },
-        \\"target_type\\": \\"ip\\",
-        \\"vpc_id\\": \\"123\\",
         \\"health_check\\": [
           {
             \\"healthy_threshold\\": 5,
@@ -31,12 +15,15 @@ exports[`renders a Target Group with tags 1`] = `
             \\"unhealthy_threshold\\": 3
           }
         ],
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/testTargetGroup/ecs_target_group\\",
-            \\"uniqueId\\": \\"testTargetGroup_ecs_target_group_A0C76C7F\\"
-          }
-        }
+        \\"name_prefix\\": \\"A1BC\\",
+        \\"port\\": 80,
+        \\"protocol\\": \\"HTTP\\",
+        \\"tags\\": {
+          \\"hobby\\": \\"bowling\\",
+          \\"name\\": \\"thedude\\"
+        },
+        \\"target_type\\": \\"ip\\",
+        \\"vpc_id\\": \\"123\\"
       }
     }
   }
@@ -45,22 +32,10 @@ exports[`renders a Target Group with tags 1`] = `
 
 exports[`renders a Target Group without tags 1`] = `
 "{
-  \\"//\\": {
-    \\"metadata\\": {
-      \\"version\\": \\"stubbed\\",
-      \\"stackName\\": \\"test\\",
-      \\"backend\\": \\"local\\"
-    }
-  },
   \\"resource\\": {
     \\"aws_alb_target_group\\": {
       \\"testTargetGroup_ecs_target_group_A0C76C7F\\": {
         \\"deregistration_delay\\": 120,
-        \\"name_prefix\\": \\"ABC\\",
-        \\"port\\": 80,
-        \\"protocol\\": \\"HTTP\\",
-        \\"target_type\\": \\"ip\\",
-        \\"vpc_id\\": \\"123\\",
         \\"health_check\\": [
           {
             \\"healthy_threshold\\": 5,
@@ -70,12 +45,11 @@ exports[`renders a Target Group without tags 1`] = `
             \\"unhealthy_threshold\\": 3
           }
         ],
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/testTargetGroup/ecs_target_group\\",
-            \\"uniqueId\\": \\"testTargetGroup_ecs_target_group_A0C76C7F\\"
-          }
-        }
+        \\"name_prefix\\": \\"ABC\\",
+        \\"port\\": 80,
+        \\"protocol\\": \\"HTTP\\",
+        \\"target_type\\": \\"ip\\",
+        \\"vpc_id\\": \\"123\\"
       }
     }
   }

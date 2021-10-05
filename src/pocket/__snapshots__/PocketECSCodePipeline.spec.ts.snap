@@ -2,13 +2,6 @@
 
 exports[`renders a Pocket ECS Codepipeline template 1`] = `
 "{
-  \\"//\\": {
-    \\"metadata\\": {
-      \\"version\\": \\"stubbed\\",
-      \\"stackName\\": \\"test\\",
-      \\"backend\\": \\"local\\"
-    }
-  },
   \\"data\\": {
     \\"aws_iam_policy_document\\": {
       \\"test-codepipeline_codepipeline-assume-role-policy_AB972C21\\": {
@@ -27,13 +20,7 @@ exports[`renders a Pocket ECS Codepipeline template 1`] = `
               }
             ]
           }
-        ],
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/test-codepipeline/codepipeline-assume-role-policy\\",
-            \\"uniqueId\\": \\"test-codepipeline_codepipeline-assume-role-policy_AB972C21\\"
-          }
-        }
+        ]
       },
       \\"test-codepipeline_codepipeline-role-policy-document_DD4EB3DB\\": {
         \\"statement\\": [
@@ -92,10 +79,6 @@ exports[`renders a Pocket ECS Codepipeline template 1`] = `
             \\"actions\\": [
               \\"iam:PassRole\\"
             ],
-            \\"effect\\": \\"Allow\\",
-            \\"resources\\": [
-              \\"*\\"
-            ],
             \\"condition\\": [
               {
                 \\"test\\": \\"StringEqualsIfExists\\",
@@ -104,6 +87,10 @@ exports[`renders a Pocket ECS Codepipeline template 1`] = `
                 ],
                 \\"variable\\": \\"iam:PassedToService\\"
               }
+            ],
+            \\"effect\\": \\"Allow\\",
+            \\"resources\\": [
+              \\"*\\"
             ]
           },
           {
@@ -115,93 +102,42 @@ exports[`renders a Pocket ECS Codepipeline template 1`] = `
               \\"*\\"
             ]
           }
-        ],
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/test-codepipeline/codepipeline-role-policy-document\\",
-            \\"uniqueId\\": \\"test-codepipeline_codepipeline-role-policy-document_DD4EB3DB\\"
-          }
-        }
+        ]
       }
     },
     \\"aws_kms_alias\\": {
       \\"test-codepipeline_kms_s3_alias_6C922DC1\\": {
-        \\"name\\": \\"alias/aws/s3\\",
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/test-codepipeline/kms_s3_alias\\",
-            \\"uniqueId\\": \\"test-codepipeline_kms_s3_alias_6C922DC1\\"
-          }
-        }
+        \\"name\\": \\"alias/aws/s3\\"
       }
     }
   },
   \\"resource\\": {
-    \\"aws_iam_role\\": {
-      \\"test-codepipeline_codepipeline-role_4D3D2364\\": {
-        \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.test-codepipeline_codepipeline-assume-role-policy_AB972C21.json}\\",
-        \\"name\\": \\"Test-Env-CodePipelineRole\\",
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/test-codepipeline/codepipeline-role\\",
-            \\"uniqueId\\": \\"test-codepipeline_codepipeline-role_4D3D2364\\"
-          }
-        }
-      }
-    },
-    \\"aws_s3_bucket\\": {
-      \\"test-codepipeline_codepipeline-bucket_D4671464\\": {
-        \\"acl\\": \\"private\\",
-        \\"bucket\\": \\"pocket-codepipeline-e7e6d80d49c8787d2f7a7aca123082dd\\",
-        \\"force_destroy\\": true,
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/test-codepipeline/codepipeline-bucket\\",
-            \\"uniqueId\\": \\"test-codepipeline_codepipeline-bucket_D4671464\\"
-          }
-        }
-      }
-    },
-    \\"aws_iam_role_policy\\": {
-      \\"test-codepipeline_codepipeline-role-policy_76FC5FBB\\": {
-        \\"name\\": \\"Test-Env-CodePipeline-Role-Policy\\",
-        \\"policy\\": \\"\${data.aws_iam_policy_document.test-codepipeline_codepipeline-role-policy-document_DD4EB3DB.json}\\",
-        \\"role\\": \\"\${aws_iam_role.test-codepipeline_codepipeline-role_4D3D2364.id}\\",
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/test-codepipeline/codepipeline-role-policy\\",
-            \\"uniqueId\\": \\"test-codepipeline_codepipeline-role-policy_76FC5FBB\\"
-          }
-        }
-      }
-    },
     \\"aws_codepipeline\\": {
       \\"test-codepipeline_367BF1E2\\": {
-        \\"name\\": \\"Test-Env-CodePipeline\\",
-        \\"role_arn\\": \\"\${aws_iam_role.test-codepipeline_codepipeline-role_4D3D2364.arn}\\",
         \\"artifact_store\\": [
           {
-            \\"location\\": \\"\${aws_s3_bucket.test-codepipeline_codepipeline-bucket_D4671464.bucket}\\",
-            \\"type\\": \\"S3\\",
             \\"encryption_key\\": [
               {
                 \\"id\\": \\"\${data.aws_kms_alias.test-codepipeline_kms_s3_alias_6C922DC1.arn}\\",
                 \\"type\\": \\"KMS\\"
               }
-            ]
+            ],
+            \\"location\\": \\"\${aws_s3_bucket.test-codepipeline_codepipeline-bucket_D4671464.bucket}\\",
+            \\"type\\": \\"S3\\"
           }
         ],
+        \\"name\\": \\"Test-Env-CodePipeline\\",
+        \\"role_arn\\": \\"\${aws_iam_role.test-codepipeline_codepipeline-role_4D3D2364.arn}\\",
         \\"stage\\": [
           {
-            \\"name\\": \\"Source\\",
             \\"action\\": [
               {
                 \\"category\\": \\"Source\\",
                 \\"configuration\\": {
-                  \\"ConnectionArn\\": \\"arn:codestart-connection:*\\",
-                  \\"FullRepositoryId\\": \\"string\\",
                   \\"BranchName\\": \\"test\\",
-                  \\"DetectChanges\\": \\"false\\"
+                  \\"ConnectionArn\\": \\"arn:codestart-connection:*\\",
+                  \\"DetectChanges\\": \\"false\\",
+                  \\"FullRepositoryId\\": \\"string\\"
                 },
                 \\"name\\": \\"GitHub_Checkout\\",
                 \\"namespace\\": \\"SourceVariables\\",
@@ -212,16 +148,16 @@ exports[`renders a Pocket ECS Codepipeline template 1`] = `
                 \\"provider\\": \\"CodeStarSourceConnection\\",
                 \\"version\\": \\"1\\"
               }
-            ]
+            ],
+            \\"name\\": \\"Source\\"
           },
           {
-            \\"name\\": \\"Deploy\\",
             \\"action\\": [
               {
                 \\"category\\": \\"Build\\",
                 \\"configuration\\": {
-                  \\"ProjectName\\": \\"Test-Env\\",
-                  \\"EnvironmentVariables\\": \\"[{\\\\\\"name\\\\\\":\\\\\\"GIT_BRANCH\\\\\\",\\\\\\"value\\\\\\":\\\\\\"#{SourceVariables.BranchName}\\\\\\"}]\\"
+                  \\"EnvironmentVariables\\": \\"[{\\\\\\"name\\\\\\":\\\\\\"GIT_BRANCH\\\\\\",\\\\\\"value\\\\\\":\\\\\\"#{SourceVariables.BranchName}\\\\\\"}]\\",
+                  \\"ProjectName\\": \\"Test-Env\\"
                 },
                 \\"input_artifacts\\": [
                   \\"SourceOutput\\"
@@ -239,11 +175,11 @@ exports[`renders a Pocket ECS Codepipeline template 1`] = `
                 \\"category\\": \\"Deploy\\",
                 \\"configuration\\": {
                   \\"ApplicationName\\": \\"Test-Env-ECS\\",
+                  \\"AppSpecTemplateArtifact\\": \\"CodeBuildOutput\\",
+                  \\"AppSpecTemplatePath\\": \\"appspec.json\\",
                   \\"DeploymentGroupName\\": \\"Test-Env-ECS\\",
                   \\"TaskDefinitionTemplateArtifact\\": \\"CodeBuildOutput\\",
-                  \\"TaskDefinitionTemplatePath\\": \\"taskdef.json\\",
-                  \\"AppSpecTemplateArtifact\\": \\"CodeBuildOutput\\",
-                  \\"AppSpecTemplatePath\\": \\"appspec.json\\"
+                  \\"TaskDefinitionTemplatePath\\": \\"taskdef.json\\"
                 },
                 \\"input_artifacts\\": [
                   \\"CodeBuildOutput\\"
@@ -254,15 +190,30 @@ exports[`renders a Pocket ECS Codepipeline template 1`] = `
                 \\"run_order\\": 2,
                 \\"version\\": \\"1\\"
               }
-            ]
+            ],
+            \\"name\\": \\"Deploy\\"
           }
-        ],
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/test-codepipeline/codepipeline\\",
-            \\"uniqueId\\": \\"test-codepipeline_367BF1E2\\"
-          }
-        }
+        ]
+      }
+    },
+    \\"aws_iam_role\\": {
+      \\"test-codepipeline_codepipeline-role_4D3D2364\\": {
+        \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.test-codepipeline_codepipeline-assume-role-policy_AB972C21.json}\\",
+        \\"name\\": \\"Test-Env-CodePipelineRole\\"
+      }
+    },
+    \\"aws_iam_role_policy\\": {
+      \\"test-codepipeline_codepipeline-role-policy_76FC5FBB\\": {
+        \\"name\\": \\"Test-Env-CodePipeline-Role-Policy\\",
+        \\"policy\\": \\"\${data.aws_iam_policy_document.test-codepipeline_codepipeline-role-policy-document_DD4EB3DB.json}\\",
+        \\"role\\": \\"\${aws_iam_role.test-codepipeline_codepipeline-role_4D3D2364.id}\\"
+      }
+    },
+    \\"aws_s3_bucket\\": {
+      \\"test-codepipeline_codepipeline-bucket_D4671464\\": {
+        \\"acl\\": \\"private\\",
+        \\"bucket\\": \\"pocket-codepipeline-e7e6d80d49c8787d2f7a7aca123082dd\\",
+        \\"force_destroy\\": true
       }
     }
   }
@@ -271,13 +222,6 @@ exports[`renders a Pocket ECS Codepipeline template 1`] = `
 
 exports[`renders a Pocket ECS Codepipeline template with tags 1`] = `
 "{
-  \\"//\\": {
-    \\"metadata\\": {
-      \\"version\\": \\"stubbed\\",
-      \\"stackName\\": \\"test\\",
-      \\"backend\\": \\"local\\"
-    }
-  },
   \\"data\\": {
     \\"aws_iam_policy_document\\": {
       \\"test-codepipeline_codepipeline-assume-role-policy_AB972C21\\": {
@@ -296,13 +240,7 @@ exports[`renders a Pocket ECS Codepipeline template with tags 1`] = `
               }
             ]
           }
-        ],
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/test-codepipeline/codepipeline-assume-role-policy\\",
-            \\"uniqueId\\": \\"test-codepipeline_codepipeline-assume-role-policy_AB972C21\\"
-          }
-        }
+        ]
       },
       \\"test-codepipeline_codepipeline-role-policy-document_DD4EB3DB\\": {
         \\"statement\\": [
@@ -361,10 +299,6 @@ exports[`renders a Pocket ECS Codepipeline template with tags 1`] = `
             \\"actions\\": [
               \\"iam:PassRole\\"
             ],
-            \\"effect\\": \\"Allow\\",
-            \\"resources\\": [
-              \\"*\\"
-            ],
             \\"condition\\": [
               {
                 \\"test\\": \\"StringEqualsIfExists\\",
@@ -373,6 +307,10 @@ exports[`renders a Pocket ECS Codepipeline template with tags 1`] = `
                 ],
                 \\"variable\\": \\"iam:PassedToService\\"
               }
+            ],
+            \\"effect\\": \\"Allow\\",
+            \\"resources\\": [
+              \\"*\\"
             ]
           },
           {
@@ -384,99 +322,42 @@ exports[`renders a Pocket ECS Codepipeline template with tags 1`] = `
               \\"*\\"
             ]
           }
-        ],
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/test-codepipeline/codepipeline-role-policy-document\\",
-            \\"uniqueId\\": \\"test-codepipeline_codepipeline-role-policy-document_DD4EB3DB\\"
-          }
-        }
+        ]
       }
     },
     \\"aws_kms_alias\\": {
       \\"test-codepipeline_kms_s3_alias_6C922DC1\\": {
-        \\"name\\": \\"alias/aws/s3\\",
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/test-codepipeline/kms_s3_alias\\",
-            \\"uniqueId\\": \\"test-codepipeline_kms_s3_alias_6C922DC1\\"
-          }
-        }
+        \\"name\\": \\"alias/aws/s3\\"
       }
     }
   },
   \\"resource\\": {
-    \\"aws_iam_role\\": {
-      \\"test-codepipeline_codepipeline-role_4D3D2364\\": {
-        \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.test-codepipeline_codepipeline-assume-role-policy_AB972C21.json}\\",
-        \\"name\\": \\"Test-Env-CodePipelineRole\\",
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/test-codepipeline/codepipeline-role\\",
-            \\"uniqueId\\": \\"test-codepipeline_codepipeline-role_4D3D2364\\"
-          }
-        }
-      }
-    },
-    \\"aws_s3_bucket\\": {
-      \\"test-codepipeline_codepipeline-bucket_D4671464\\": {
-        \\"acl\\": \\"private\\",
-        \\"bucket\\": \\"pocket-codepipeline-e7e6d80d49c8787d2f7a7aca123082dd\\",
-        \\"force_destroy\\": true,
-        \\"tags\\": {
-          \\"yup\\": \\"a tag\\"
-        },
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/test-codepipeline/codepipeline-bucket\\",
-            \\"uniqueId\\": \\"test-codepipeline_codepipeline-bucket_D4671464\\"
-          }
-        }
-      }
-    },
-    \\"aws_iam_role_policy\\": {
-      \\"test-codepipeline_codepipeline-role-policy_76FC5FBB\\": {
-        \\"name\\": \\"Test-Env-CodePipeline-Role-Policy\\",
-        \\"policy\\": \\"\${data.aws_iam_policy_document.test-codepipeline_codepipeline-role-policy-document_DD4EB3DB.json}\\",
-        \\"role\\": \\"\${aws_iam_role.test-codepipeline_codepipeline-role_4D3D2364.id}\\",
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/test-codepipeline/codepipeline-role-policy\\",
-            \\"uniqueId\\": \\"test-codepipeline_codepipeline-role-policy_76FC5FBB\\"
-          }
-        }
-      }
-    },
     \\"aws_codepipeline\\": {
       \\"test-codepipeline_367BF1E2\\": {
-        \\"name\\": \\"Test-Env-CodePipeline\\",
-        \\"role_arn\\": \\"\${aws_iam_role.test-codepipeline_codepipeline-role_4D3D2364.arn}\\",
-        \\"tags\\": {
-          \\"yup\\": \\"a tag\\"
-        },
         \\"artifact_store\\": [
           {
-            \\"location\\": \\"\${aws_s3_bucket.test-codepipeline_codepipeline-bucket_D4671464.bucket}\\",
-            \\"type\\": \\"S3\\",
             \\"encryption_key\\": [
               {
                 \\"id\\": \\"\${data.aws_kms_alias.test-codepipeline_kms_s3_alias_6C922DC1.arn}\\",
                 \\"type\\": \\"KMS\\"
               }
-            ]
+            ],
+            \\"location\\": \\"\${aws_s3_bucket.test-codepipeline_codepipeline-bucket_D4671464.bucket}\\",
+            \\"type\\": \\"S3\\"
           }
         ],
+        \\"name\\": \\"Test-Env-CodePipeline\\",
+        \\"role_arn\\": \\"\${aws_iam_role.test-codepipeline_codepipeline-role_4D3D2364.arn}\\",
         \\"stage\\": [
           {
-            \\"name\\": \\"Source\\",
             \\"action\\": [
               {
                 \\"category\\": \\"Source\\",
                 \\"configuration\\": {
-                  \\"ConnectionArn\\": \\"arn:codestart-connection:*\\",
-                  \\"FullRepositoryId\\": \\"string\\",
                   \\"BranchName\\": \\"test\\",
-                  \\"DetectChanges\\": \\"false\\"
+                  \\"ConnectionArn\\": \\"arn:codestart-connection:*\\",
+                  \\"DetectChanges\\": \\"false\\",
+                  \\"FullRepositoryId\\": \\"string\\"
                 },
                 \\"name\\": \\"GitHub_Checkout\\",
                 \\"namespace\\": \\"SourceVariables\\",
@@ -487,16 +368,16 @@ exports[`renders a Pocket ECS Codepipeline template with tags 1`] = `
                 \\"provider\\": \\"CodeStarSourceConnection\\",
                 \\"version\\": \\"1\\"
               }
-            ]
+            ],
+            \\"name\\": \\"Source\\"
           },
           {
-            \\"name\\": \\"Deploy\\",
             \\"action\\": [
               {
                 \\"category\\": \\"Build\\",
                 \\"configuration\\": {
-                  \\"ProjectName\\": \\"Test-Env\\",
-                  \\"EnvironmentVariables\\": \\"[{\\\\\\"name\\\\\\":\\\\\\"GIT_BRANCH\\\\\\",\\\\\\"value\\\\\\":\\\\\\"#{SourceVariables.BranchName}\\\\\\"}]\\"
+                  \\"EnvironmentVariables\\": \\"[{\\\\\\"name\\\\\\":\\\\\\"GIT_BRANCH\\\\\\",\\\\\\"value\\\\\\":\\\\\\"#{SourceVariables.BranchName}\\\\\\"}]\\",
+                  \\"ProjectName\\": \\"Test-Env\\"
                 },
                 \\"input_artifacts\\": [
                   \\"SourceOutput\\"
@@ -514,11 +395,11 @@ exports[`renders a Pocket ECS Codepipeline template with tags 1`] = `
                 \\"category\\": \\"Deploy\\",
                 \\"configuration\\": {
                   \\"ApplicationName\\": \\"Test-Env-ECS\\",
+                  \\"AppSpecTemplateArtifact\\": \\"CodeBuildOutput\\",
+                  \\"AppSpecTemplatePath\\": \\"appspec.json\\",
                   \\"DeploymentGroupName\\": \\"Test-Env-ECS\\",
                   \\"TaskDefinitionTemplateArtifact\\": \\"CodeBuildOutput\\",
-                  \\"TaskDefinitionTemplatePath\\": \\"taskdef.json\\",
-                  \\"AppSpecTemplateArtifact\\": \\"CodeBuildOutput\\",
-                  \\"AppSpecTemplatePath\\": \\"appspec.json\\"
+                  \\"TaskDefinitionTemplatePath\\": \\"taskdef.json\\"
                 },
                 \\"input_artifacts\\": [
                   \\"CodeBuildOutput\\"
@@ -529,14 +410,35 @@ exports[`renders a Pocket ECS Codepipeline template with tags 1`] = `
                 \\"run_order\\": 2,
                 \\"version\\": \\"1\\"
               }
-            ]
+            ],
+            \\"name\\": \\"Deploy\\"
           }
         ],
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/test-codepipeline/codepipeline\\",
-            \\"uniqueId\\": \\"test-codepipeline_367BF1E2\\"
-          }
+        \\"tags\\": {
+          \\"yup\\": \\"a tag\\"
+        }
+      }
+    },
+    \\"aws_iam_role\\": {
+      \\"test-codepipeline_codepipeline-role_4D3D2364\\": {
+        \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.test-codepipeline_codepipeline-assume-role-policy_AB972C21.json}\\",
+        \\"name\\": \\"Test-Env-CodePipelineRole\\"
+      }
+    },
+    \\"aws_iam_role_policy\\": {
+      \\"test-codepipeline_codepipeline-role-policy_76FC5FBB\\": {
+        \\"name\\": \\"Test-Env-CodePipeline-Role-Policy\\",
+        \\"policy\\": \\"\${data.aws_iam_policy_document.test-codepipeline_codepipeline-role-policy-document_DD4EB3DB.json}\\",
+        \\"role\\": \\"\${aws_iam_role.test-codepipeline_codepipeline-role_4D3D2364.id}\\"
+      }
+    },
+    \\"aws_s3_bucket\\": {
+      \\"test-codepipeline_codepipeline-bucket_D4671464\\": {
+        \\"acl\\": \\"private\\",
+        \\"bucket\\": \\"pocket-codepipeline-e7e6d80d49c8787d2f7a7aca123082dd\\",
+        \\"force_destroy\\": true,
+        \\"tags\\": {
+          \\"yup\\": \\"a tag\\"
         }
       }
     }
@@ -546,13 +448,6 @@ exports[`renders a Pocket ECS Codepipeline template with tags 1`] = `
 
 exports[`renders a Pocket ECS Codepipeline template with the provided CodeDeploy app name 1`] = `
 "{
-  \\"//\\": {
-    \\"metadata\\": {
-      \\"version\\": \\"stubbed\\",
-      \\"stackName\\": \\"test\\",
-      \\"backend\\": \\"local\\"
-    }
-  },
   \\"data\\": {
     \\"aws_iam_policy_document\\": {
       \\"test-codepipeline_codepipeline-assume-role-policy_AB972C21\\": {
@@ -571,13 +466,7 @@ exports[`renders a Pocket ECS Codepipeline template with the provided CodeDeploy
               }
             ]
           }
-        ],
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/test-codepipeline/codepipeline-assume-role-policy\\",
-            \\"uniqueId\\": \\"test-codepipeline_codepipeline-assume-role-policy_AB972C21\\"
-          }
-        }
+        ]
       },
       \\"test-codepipeline_codepipeline-role-policy-document_DD4EB3DB\\": {
         \\"statement\\": [
@@ -636,10 +525,6 @@ exports[`renders a Pocket ECS Codepipeline template with the provided CodeDeploy
             \\"actions\\": [
               \\"iam:PassRole\\"
             ],
-            \\"effect\\": \\"Allow\\",
-            \\"resources\\": [
-              \\"*\\"
-            ],
             \\"condition\\": [
               {
                 \\"test\\": \\"StringEqualsIfExists\\",
@@ -648,6 +533,10 @@ exports[`renders a Pocket ECS Codepipeline template with the provided CodeDeploy
                 ],
                 \\"variable\\": \\"iam:PassedToService\\"
               }
+            ],
+            \\"effect\\": \\"Allow\\",
+            \\"resources\\": [
+              \\"*\\"
             ]
           },
           {
@@ -659,93 +548,42 @@ exports[`renders a Pocket ECS Codepipeline template with the provided CodeDeploy
               \\"*\\"
             ]
           }
-        ],
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/test-codepipeline/codepipeline-role-policy-document\\",
-            \\"uniqueId\\": \\"test-codepipeline_codepipeline-role-policy-document_DD4EB3DB\\"
-          }
-        }
+        ]
       }
     },
     \\"aws_kms_alias\\": {
       \\"test-codepipeline_kms_s3_alias_6C922DC1\\": {
-        \\"name\\": \\"alias/aws/s3\\",
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/test-codepipeline/kms_s3_alias\\",
-            \\"uniqueId\\": \\"test-codepipeline_kms_s3_alias_6C922DC1\\"
-          }
-        }
+        \\"name\\": \\"alias/aws/s3\\"
       }
     }
   },
   \\"resource\\": {
-    \\"aws_iam_role\\": {
-      \\"test-codepipeline_codepipeline-role_4D3D2364\\": {
-        \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.test-codepipeline_codepipeline-assume-role-policy_AB972C21.json}\\",
-        \\"name\\": \\"Test-Env-CodePipelineRole\\",
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/test-codepipeline/codepipeline-role\\",
-            \\"uniqueId\\": \\"test-codepipeline_codepipeline-role_4D3D2364\\"
-          }
-        }
-      }
-    },
-    \\"aws_s3_bucket\\": {
-      \\"test-codepipeline_codepipeline-bucket_D4671464\\": {
-        \\"acl\\": \\"private\\",
-        \\"bucket\\": \\"pocket-codepipeline-e7e6d80d49c8787d2f7a7aca123082dd\\",
-        \\"force_destroy\\": true,
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/test-codepipeline/codepipeline-bucket\\",
-            \\"uniqueId\\": \\"test-codepipeline_codepipeline-bucket_D4671464\\"
-          }
-        }
-      }
-    },
-    \\"aws_iam_role_policy\\": {
-      \\"test-codepipeline_codepipeline-role-policy_76FC5FBB\\": {
-        \\"name\\": \\"Test-Env-CodePipeline-Role-Policy\\",
-        \\"policy\\": \\"\${data.aws_iam_policy_document.test-codepipeline_codepipeline-role-policy-document_DD4EB3DB.json}\\",
-        \\"role\\": \\"\${aws_iam_role.test-codepipeline_codepipeline-role_4D3D2364.id}\\",
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/test-codepipeline/codepipeline-role-policy\\",
-            \\"uniqueId\\": \\"test-codepipeline_codepipeline-role-policy_76FC5FBB\\"
-          }
-        }
-      }
-    },
     \\"aws_codepipeline\\": {
       \\"test-codepipeline_367BF1E2\\": {
-        \\"name\\": \\"Test-Env-CodePipeline\\",
-        \\"role_arn\\": \\"\${aws_iam_role.test-codepipeline_codepipeline-role_4D3D2364.arn}\\",
         \\"artifact_store\\": [
           {
-            \\"location\\": \\"\${aws_s3_bucket.test-codepipeline_codepipeline-bucket_D4671464.bucket}\\",
-            \\"type\\": \\"S3\\",
             \\"encryption_key\\": [
               {
                 \\"id\\": \\"\${data.aws_kms_alias.test-codepipeline_kms_s3_alias_6C922DC1.arn}\\",
                 \\"type\\": \\"KMS\\"
               }
-            ]
+            ],
+            \\"location\\": \\"\${aws_s3_bucket.test-codepipeline_codepipeline-bucket_D4671464.bucket}\\",
+            \\"type\\": \\"S3\\"
           }
         ],
+        \\"name\\": \\"Test-Env-CodePipeline\\",
+        \\"role_arn\\": \\"\${aws_iam_role.test-codepipeline_codepipeline-role_4D3D2364.arn}\\",
         \\"stage\\": [
           {
-            \\"name\\": \\"Source\\",
             \\"action\\": [
               {
                 \\"category\\": \\"Source\\",
                 \\"configuration\\": {
-                  \\"ConnectionArn\\": \\"arn:codestart-connection:*\\",
-                  \\"FullRepositoryId\\": \\"string\\",
                   \\"BranchName\\": \\"test\\",
-                  \\"DetectChanges\\": \\"false\\"
+                  \\"ConnectionArn\\": \\"arn:codestart-connection:*\\",
+                  \\"DetectChanges\\": \\"false\\",
+                  \\"FullRepositoryId\\": \\"string\\"
                 },
                 \\"name\\": \\"GitHub_Checkout\\",
                 \\"namespace\\": \\"SourceVariables\\",
@@ -756,16 +594,16 @@ exports[`renders a Pocket ECS Codepipeline template with the provided CodeDeploy
                 \\"provider\\": \\"CodeStarSourceConnection\\",
                 \\"version\\": \\"1\\"
               }
-            ]
+            ],
+            \\"name\\": \\"Source\\"
           },
           {
-            \\"name\\": \\"Deploy\\",
             \\"action\\": [
               {
                 \\"category\\": \\"Build\\",
                 \\"configuration\\": {
-                  \\"ProjectName\\": \\"Test-Env\\",
-                  \\"EnvironmentVariables\\": \\"[{\\\\\\"name\\\\\\":\\\\\\"GIT_BRANCH\\\\\\",\\\\\\"value\\\\\\":\\\\\\"#{SourceVariables.BranchName}\\\\\\"}]\\"
+                  \\"EnvironmentVariables\\": \\"[{\\\\\\"name\\\\\\":\\\\\\"GIT_BRANCH\\\\\\",\\\\\\"value\\\\\\":\\\\\\"#{SourceVariables.BranchName}\\\\\\"}]\\",
+                  \\"ProjectName\\": \\"Test-Env\\"
                 },
                 \\"input_artifacts\\": [
                   \\"SourceOutput\\"
@@ -783,11 +621,11 @@ exports[`renders a Pocket ECS Codepipeline template with the provided CodeDeploy
                 \\"category\\": \\"Deploy\\",
                 \\"configuration\\": {
                   \\"ApplicationName\\": \\"TestAppName\\",
+                  \\"AppSpecTemplateArtifact\\": \\"CodeBuildOutput\\",
+                  \\"AppSpecTemplatePath\\": \\"appspec.json\\",
                   \\"DeploymentGroupName\\": \\"Test-Env-ECS\\",
                   \\"TaskDefinitionTemplateArtifact\\": \\"CodeBuildOutput\\",
-                  \\"TaskDefinitionTemplatePath\\": \\"taskdef.json\\",
-                  \\"AppSpecTemplateArtifact\\": \\"CodeBuildOutput\\",
-                  \\"AppSpecTemplatePath\\": \\"appspec.json\\"
+                  \\"TaskDefinitionTemplatePath\\": \\"taskdef.json\\"
                 },
                 \\"input_artifacts\\": [
                   \\"CodeBuildOutput\\"
@@ -798,15 +636,30 @@ exports[`renders a Pocket ECS Codepipeline template with the provided CodeDeploy
                 \\"run_order\\": 2,
                 \\"version\\": \\"1\\"
               }
-            ]
+            ],
+            \\"name\\": \\"Deploy\\"
           }
-        ],
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/test-codepipeline/codepipeline\\",
-            \\"uniqueId\\": \\"test-codepipeline_367BF1E2\\"
-          }
-        }
+        ]
+      }
+    },
+    \\"aws_iam_role\\": {
+      \\"test-codepipeline_codepipeline-role_4D3D2364\\": {
+        \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.test-codepipeline_codepipeline-assume-role-policy_AB972C21.json}\\",
+        \\"name\\": \\"Test-Env-CodePipelineRole\\"
+      }
+    },
+    \\"aws_iam_role_policy\\": {
+      \\"test-codepipeline_codepipeline-role-policy_76FC5FBB\\": {
+        \\"name\\": \\"Test-Env-CodePipeline-Role-Policy\\",
+        \\"policy\\": \\"\${data.aws_iam_policy_document.test-codepipeline_codepipeline-role-policy-document_DD4EB3DB.json}\\",
+        \\"role\\": \\"\${aws_iam_role.test-codepipeline_codepipeline-role_4D3D2364.id}\\"
+      }
+    },
+    \\"aws_s3_bucket\\": {
+      \\"test-codepipeline_codepipeline-bucket_D4671464\\": {
+        \\"acl\\": \\"private\\",
+        \\"bucket\\": \\"pocket-codepipeline-e7e6d80d49c8787d2f7a7aca123082dd\\",
+        \\"force_destroy\\": true
       }
     }
   }
@@ -815,13 +668,6 @@ exports[`renders a Pocket ECS Codepipeline template with the provided CodeDeploy
 
 exports[`renders a Pocket ECS Codepipeline template with the provided CodeDeploy deployment group name 1`] = `
 "{
-  \\"//\\": {
-    \\"metadata\\": {
-      \\"version\\": \\"stubbed\\",
-      \\"stackName\\": \\"test\\",
-      \\"backend\\": \\"local\\"
-    }
-  },
   \\"data\\": {
     \\"aws_iam_policy_document\\": {
       \\"test-codepipeline_codepipeline-assume-role-policy_AB972C21\\": {
@@ -840,13 +686,7 @@ exports[`renders a Pocket ECS Codepipeline template with the provided CodeDeploy
               }
             ]
           }
-        ],
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/test-codepipeline/codepipeline-assume-role-policy\\",
-            \\"uniqueId\\": \\"test-codepipeline_codepipeline-assume-role-policy_AB972C21\\"
-          }
-        }
+        ]
       },
       \\"test-codepipeline_codepipeline-role-policy-document_DD4EB3DB\\": {
         \\"statement\\": [
@@ -905,10 +745,6 @@ exports[`renders a Pocket ECS Codepipeline template with the provided CodeDeploy
             \\"actions\\": [
               \\"iam:PassRole\\"
             ],
-            \\"effect\\": \\"Allow\\",
-            \\"resources\\": [
-              \\"*\\"
-            ],
             \\"condition\\": [
               {
                 \\"test\\": \\"StringEqualsIfExists\\",
@@ -917,6 +753,10 @@ exports[`renders a Pocket ECS Codepipeline template with the provided CodeDeploy
                 ],
                 \\"variable\\": \\"iam:PassedToService\\"
               }
+            ],
+            \\"effect\\": \\"Allow\\",
+            \\"resources\\": [
+              \\"*\\"
             ]
           },
           {
@@ -928,93 +768,42 @@ exports[`renders a Pocket ECS Codepipeline template with the provided CodeDeploy
               \\"*\\"
             ]
           }
-        ],
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/test-codepipeline/codepipeline-role-policy-document\\",
-            \\"uniqueId\\": \\"test-codepipeline_codepipeline-role-policy-document_DD4EB3DB\\"
-          }
-        }
+        ]
       }
     },
     \\"aws_kms_alias\\": {
       \\"test-codepipeline_kms_s3_alias_6C922DC1\\": {
-        \\"name\\": \\"alias/aws/s3\\",
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/test-codepipeline/kms_s3_alias\\",
-            \\"uniqueId\\": \\"test-codepipeline_kms_s3_alias_6C922DC1\\"
-          }
-        }
+        \\"name\\": \\"alias/aws/s3\\"
       }
     }
   },
   \\"resource\\": {
-    \\"aws_iam_role\\": {
-      \\"test-codepipeline_codepipeline-role_4D3D2364\\": {
-        \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.test-codepipeline_codepipeline-assume-role-policy_AB972C21.json}\\",
-        \\"name\\": \\"Test-Env-CodePipelineRole\\",
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/test-codepipeline/codepipeline-role\\",
-            \\"uniqueId\\": \\"test-codepipeline_codepipeline-role_4D3D2364\\"
-          }
-        }
-      }
-    },
-    \\"aws_s3_bucket\\": {
-      \\"test-codepipeline_codepipeline-bucket_D4671464\\": {
-        \\"acl\\": \\"private\\",
-        \\"bucket\\": \\"pocket-codepipeline-e7e6d80d49c8787d2f7a7aca123082dd\\",
-        \\"force_destroy\\": true,
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/test-codepipeline/codepipeline-bucket\\",
-            \\"uniqueId\\": \\"test-codepipeline_codepipeline-bucket_D4671464\\"
-          }
-        }
-      }
-    },
-    \\"aws_iam_role_policy\\": {
-      \\"test-codepipeline_codepipeline-role-policy_76FC5FBB\\": {
-        \\"name\\": \\"Test-Env-CodePipeline-Role-Policy\\",
-        \\"policy\\": \\"\${data.aws_iam_policy_document.test-codepipeline_codepipeline-role-policy-document_DD4EB3DB.json}\\",
-        \\"role\\": \\"\${aws_iam_role.test-codepipeline_codepipeline-role_4D3D2364.id}\\",
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/test-codepipeline/codepipeline-role-policy\\",
-            \\"uniqueId\\": \\"test-codepipeline_codepipeline-role-policy_76FC5FBB\\"
-          }
-        }
-      }
-    },
     \\"aws_codepipeline\\": {
       \\"test-codepipeline_367BF1E2\\": {
-        \\"name\\": \\"Test-Env-CodePipeline\\",
-        \\"role_arn\\": \\"\${aws_iam_role.test-codepipeline_codepipeline-role_4D3D2364.arn}\\",
         \\"artifact_store\\": [
           {
-            \\"location\\": \\"\${aws_s3_bucket.test-codepipeline_codepipeline-bucket_D4671464.bucket}\\",
-            \\"type\\": \\"S3\\",
             \\"encryption_key\\": [
               {
                 \\"id\\": \\"\${data.aws_kms_alias.test-codepipeline_kms_s3_alias_6C922DC1.arn}\\",
                 \\"type\\": \\"KMS\\"
               }
-            ]
+            ],
+            \\"location\\": \\"\${aws_s3_bucket.test-codepipeline_codepipeline-bucket_D4671464.bucket}\\",
+            \\"type\\": \\"S3\\"
           }
         ],
+        \\"name\\": \\"Test-Env-CodePipeline\\",
+        \\"role_arn\\": \\"\${aws_iam_role.test-codepipeline_codepipeline-role_4D3D2364.arn}\\",
         \\"stage\\": [
           {
-            \\"name\\": \\"Source\\",
             \\"action\\": [
               {
                 \\"category\\": \\"Source\\",
                 \\"configuration\\": {
-                  \\"ConnectionArn\\": \\"arn:codestart-connection:*\\",
-                  \\"FullRepositoryId\\": \\"string\\",
                   \\"BranchName\\": \\"test\\",
-                  \\"DetectChanges\\": \\"false\\"
+                  \\"ConnectionArn\\": \\"arn:codestart-connection:*\\",
+                  \\"DetectChanges\\": \\"false\\",
+                  \\"FullRepositoryId\\": \\"string\\"
                 },
                 \\"name\\": \\"GitHub_Checkout\\",
                 \\"namespace\\": \\"SourceVariables\\",
@@ -1025,16 +814,16 @@ exports[`renders a Pocket ECS Codepipeline template with the provided CodeDeploy
                 \\"provider\\": \\"CodeStarSourceConnection\\",
                 \\"version\\": \\"1\\"
               }
-            ]
+            ],
+            \\"name\\": \\"Source\\"
           },
           {
-            \\"name\\": \\"Deploy\\",
             \\"action\\": [
               {
                 \\"category\\": \\"Build\\",
                 \\"configuration\\": {
-                  \\"ProjectName\\": \\"Test-Env\\",
-                  \\"EnvironmentVariables\\": \\"[{\\\\\\"name\\\\\\":\\\\\\"GIT_BRANCH\\\\\\",\\\\\\"value\\\\\\":\\\\\\"#{SourceVariables.BranchName}\\\\\\"}]\\"
+                  \\"EnvironmentVariables\\": \\"[{\\\\\\"name\\\\\\":\\\\\\"GIT_BRANCH\\\\\\",\\\\\\"value\\\\\\":\\\\\\"#{SourceVariables.BranchName}\\\\\\"}]\\",
+                  \\"ProjectName\\": \\"Test-Env\\"
                 },
                 \\"input_artifacts\\": [
                   \\"SourceOutput\\"
@@ -1052,11 +841,11 @@ exports[`renders a Pocket ECS Codepipeline template with the provided CodeDeploy
                 \\"category\\": \\"Deploy\\",
                 \\"configuration\\": {
                   \\"ApplicationName\\": \\"Test-Env-ECS\\",
+                  \\"AppSpecTemplateArtifact\\": \\"CodeBuildOutput\\",
+                  \\"AppSpecTemplatePath\\": \\"appspec.json\\",
                   \\"DeploymentGroupName\\": \\"TestDeploymentGroupName\\",
                   \\"TaskDefinitionTemplateArtifact\\": \\"CodeBuildOutput\\",
-                  \\"TaskDefinitionTemplatePath\\": \\"taskdef.json\\",
-                  \\"AppSpecTemplateArtifact\\": \\"CodeBuildOutput\\",
-                  \\"AppSpecTemplatePath\\": \\"appspec.json\\"
+                  \\"TaskDefinitionTemplatePath\\": \\"taskdef.json\\"
                 },
                 \\"input_artifacts\\": [
                   \\"CodeBuildOutput\\"
@@ -1067,15 +856,30 @@ exports[`renders a Pocket ECS Codepipeline template with the provided CodeDeploy
                 \\"run_order\\": 2,
                 \\"version\\": \\"1\\"
               }
-            ]
+            ],
+            \\"name\\": \\"Deploy\\"
           }
-        ],
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/test-codepipeline/codepipeline\\",
-            \\"uniqueId\\": \\"test-codepipeline_367BF1E2\\"
-          }
-        }
+        ]
+      }
+    },
+    \\"aws_iam_role\\": {
+      \\"test-codepipeline_codepipeline-role_4D3D2364\\": {
+        \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.test-codepipeline_codepipeline-assume-role-policy_AB972C21.json}\\",
+        \\"name\\": \\"Test-Env-CodePipelineRole\\"
+      }
+    },
+    \\"aws_iam_role_policy\\": {
+      \\"test-codepipeline_codepipeline-role-policy_76FC5FBB\\": {
+        \\"name\\": \\"Test-Env-CodePipeline-Role-Policy\\",
+        \\"policy\\": \\"\${data.aws_iam_policy_document.test-codepipeline_codepipeline-role-policy-document_DD4EB3DB.json}\\",
+        \\"role\\": \\"\${aws_iam_role.test-codepipeline_codepipeline-role_4D3D2364.id}\\"
+      }
+    },
+    \\"aws_s3_bucket\\": {
+      \\"test-codepipeline_codepipeline-bucket_D4671464\\": {
+        \\"acl\\": \\"private\\",
+        \\"bucket\\": \\"pocket-codepipeline-e7e6d80d49c8787d2f7a7aca123082dd\\",
+        \\"force_destroy\\": true
       }
     }
   }
@@ -1084,13 +888,6 @@ exports[`renders a Pocket ECS Codepipeline template with the provided CodeDeploy
 
 exports[`renders a Pocket ECS Codepipeline template with the provided appspec path 1`] = `
 "{
-  \\"//\\": {
-    \\"metadata\\": {
-      \\"version\\": \\"stubbed\\",
-      \\"stackName\\": \\"test\\",
-      \\"backend\\": \\"local\\"
-    }
-  },
   \\"data\\": {
     \\"aws_iam_policy_document\\": {
       \\"test-codepipeline_codepipeline-assume-role-policy_AB972C21\\": {
@@ -1109,13 +906,7 @@ exports[`renders a Pocket ECS Codepipeline template with the provided appspec pa
               }
             ]
           }
-        ],
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/test-codepipeline/codepipeline-assume-role-policy\\",
-            \\"uniqueId\\": \\"test-codepipeline_codepipeline-assume-role-policy_AB972C21\\"
-          }
-        }
+        ]
       },
       \\"test-codepipeline_codepipeline-role-policy-document_DD4EB3DB\\": {
         \\"statement\\": [
@@ -1174,10 +965,6 @@ exports[`renders a Pocket ECS Codepipeline template with the provided appspec pa
             \\"actions\\": [
               \\"iam:PassRole\\"
             ],
-            \\"effect\\": \\"Allow\\",
-            \\"resources\\": [
-              \\"*\\"
-            ],
             \\"condition\\": [
               {
                 \\"test\\": \\"StringEqualsIfExists\\",
@@ -1186,6 +973,10 @@ exports[`renders a Pocket ECS Codepipeline template with the provided appspec pa
                 ],
                 \\"variable\\": \\"iam:PassedToService\\"
               }
+            ],
+            \\"effect\\": \\"Allow\\",
+            \\"resources\\": [
+              \\"*\\"
             ]
           },
           {
@@ -1197,93 +988,42 @@ exports[`renders a Pocket ECS Codepipeline template with the provided appspec pa
               \\"*\\"
             ]
           }
-        ],
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/test-codepipeline/codepipeline-role-policy-document\\",
-            \\"uniqueId\\": \\"test-codepipeline_codepipeline-role-policy-document_DD4EB3DB\\"
-          }
-        }
+        ]
       }
     },
     \\"aws_kms_alias\\": {
       \\"test-codepipeline_kms_s3_alias_6C922DC1\\": {
-        \\"name\\": \\"alias/aws/s3\\",
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/test-codepipeline/kms_s3_alias\\",
-            \\"uniqueId\\": \\"test-codepipeline_kms_s3_alias_6C922DC1\\"
-          }
-        }
+        \\"name\\": \\"alias/aws/s3\\"
       }
     }
   },
   \\"resource\\": {
-    \\"aws_iam_role\\": {
-      \\"test-codepipeline_codepipeline-role_4D3D2364\\": {
-        \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.test-codepipeline_codepipeline-assume-role-policy_AB972C21.json}\\",
-        \\"name\\": \\"Test-Env-CodePipelineRole\\",
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/test-codepipeline/codepipeline-role\\",
-            \\"uniqueId\\": \\"test-codepipeline_codepipeline-role_4D3D2364\\"
-          }
-        }
-      }
-    },
-    \\"aws_s3_bucket\\": {
-      \\"test-codepipeline_codepipeline-bucket_D4671464\\": {
-        \\"acl\\": \\"private\\",
-        \\"bucket\\": \\"pocket-codepipeline-e7e6d80d49c8787d2f7a7aca123082dd\\",
-        \\"force_destroy\\": true,
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/test-codepipeline/codepipeline-bucket\\",
-            \\"uniqueId\\": \\"test-codepipeline_codepipeline-bucket_D4671464\\"
-          }
-        }
-      }
-    },
-    \\"aws_iam_role_policy\\": {
-      \\"test-codepipeline_codepipeline-role-policy_76FC5FBB\\": {
-        \\"name\\": \\"Test-Env-CodePipeline-Role-Policy\\",
-        \\"policy\\": \\"\${data.aws_iam_policy_document.test-codepipeline_codepipeline-role-policy-document_DD4EB3DB.json}\\",
-        \\"role\\": \\"\${aws_iam_role.test-codepipeline_codepipeline-role_4D3D2364.id}\\",
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/test-codepipeline/codepipeline-role-policy\\",
-            \\"uniqueId\\": \\"test-codepipeline_codepipeline-role-policy_76FC5FBB\\"
-          }
-        }
-      }
-    },
     \\"aws_codepipeline\\": {
       \\"test-codepipeline_367BF1E2\\": {
-        \\"name\\": \\"Test-Env-CodePipeline\\",
-        \\"role_arn\\": \\"\${aws_iam_role.test-codepipeline_codepipeline-role_4D3D2364.arn}\\",
         \\"artifact_store\\": [
           {
-            \\"location\\": \\"\${aws_s3_bucket.test-codepipeline_codepipeline-bucket_D4671464.bucket}\\",
-            \\"type\\": \\"S3\\",
             \\"encryption_key\\": [
               {
                 \\"id\\": \\"\${data.aws_kms_alias.test-codepipeline_kms_s3_alias_6C922DC1.arn}\\",
                 \\"type\\": \\"KMS\\"
               }
-            ]
+            ],
+            \\"location\\": \\"\${aws_s3_bucket.test-codepipeline_codepipeline-bucket_D4671464.bucket}\\",
+            \\"type\\": \\"S3\\"
           }
         ],
+        \\"name\\": \\"Test-Env-CodePipeline\\",
+        \\"role_arn\\": \\"\${aws_iam_role.test-codepipeline_codepipeline-role_4D3D2364.arn}\\",
         \\"stage\\": [
           {
-            \\"name\\": \\"Source\\",
             \\"action\\": [
               {
                 \\"category\\": \\"Source\\",
                 \\"configuration\\": {
-                  \\"ConnectionArn\\": \\"arn:codestart-connection:*\\",
-                  \\"FullRepositoryId\\": \\"string\\",
                   \\"BranchName\\": \\"test\\",
-                  \\"DetectChanges\\": \\"false\\"
+                  \\"ConnectionArn\\": \\"arn:codestart-connection:*\\",
+                  \\"DetectChanges\\": \\"false\\",
+                  \\"FullRepositoryId\\": \\"string\\"
                 },
                 \\"name\\": \\"GitHub_Checkout\\",
                 \\"namespace\\": \\"SourceVariables\\",
@@ -1294,16 +1034,16 @@ exports[`renders a Pocket ECS Codepipeline template with the provided appspec pa
                 \\"provider\\": \\"CodeStarSourceConnection\\",
                 \\"version\\": \\"1\\"
               }
-            ]
+            ],
+            \\"name\\": \\"Source\\"
           },
           {
-            \\"name\\": \\"Deploy\\",
             \\"action\\": [
               {
                 \\"category\\": \\"Build\\",
                 \\"configuration\\": {
-                  \\"ProjectName\\": \\"Test-Env\\",
-                  \\"EnvironmentVariables\\": \\"[{\\\\\\"name\\\\\\":\\\\\\"GIT_BRANCH\\\\\\",\\\\\\"value\\\\\\":\\\\\\"#{SourceVariables.BranchName}\\\\\\"}]\\"
+                  \\"EnvironmentVariables\\": \\"[{\\\\\\"name\\\\\\":\\\\\\"GIT_BRANCH\\\\\\",\\\\\\"value\\\\\\":\\\\\\"#{SourceVariables.BranchName}\\\\\\"}]\\",
+                  \\"ProjectName\\": \\"Test-Env\\"
                 },
                 \\"input_artifacts\\": [
                   \\"SourceOutput\\"
@@ -1321,11 +1061,11 @@ exports[`renders a Pocket ECS Codepipeline template with the provided appspec pa
                 \\"category\\": \\"Deploy\\",
                 \\"configuration\\": {
                   \\"ApplicationName\\": \\"Test-Env-ECS\\",
+                  \\"AppSpecTemplateArtifact\\": \\"CodeBuildOutput\\",
+                  \\"AppSpecTemplatePath\\": \\"testappspec.json\\",
                   \\"DeploymentGroupName\\": \\"Test-Env-ECS\\",
                   \\"TaskDefinitionTemplateArtifact\\": \\"CodeBuildOutput\\",
-                  \\"TaskDefinitionTemplatePath\\": \\"taskdef.json\\",
-                  \\"AppSpecTemplateArtifact\\": \\"CodeBuildOutput\\",
-                  \\"AppSpecTemplatePath\\": \\"testappspec.json\\"
+                  \\"TaskDefinitionTemplatePath\\": \\"taskdef.json\\"
                 },
                 \\"input_artifacts\\": [
                   \\"CodeBuildOutput\\"
@@ -1336,15 +1076,30 @@ exports[`renders a Pocket ECS Codepipeline template with the provided appspec pa
                 \\"run_order\\": 2,
                 \\"version\\": \\"1\\"
               }
-            ]
+            ],
+            \\"name\\": \\"Deploy\\"
           }
-        ],
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/test-codepipeline/codepipeline\\",
-            \\"uniqueId\\": \\"test-codepipeline_367BF1E2\\"
-          }
-        }
+        ]
+      }
+    },
+    \\"aws_iam_role\\": {
+      \\"test-codepipeline_codepipeline-role_4D3D2364\\": {
+        \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.test-codepipeline_codepipeline-assume-role-policy_AB972C21.json}\\",
+        \\"name\\": \\"Test-Env-CodePipelineRole\\"
+      }
+    },
+    \\"aws_iam_role_policy\\": {
+      \\"test-codepipeline_codepipeline-role-policy_76FC5FBB\\": {
+        \\"name\\": \\"Test-Env-CodePipeline-Role-Policy\\",
+        \\"policy\\": \\"\${data.aws_iam_policy_document.test-codepipeline_codepipeline-role-policy-document_DD4EB3DB.json}\\",
+        \\"role\\": \\"\${aws_iam_role.test-codepipeline_codepipeline-role_4D3D2364.id}\\"
+      }
+    },
+    \\"aws_s3_bucket\\": {
+      \\"test-codepipeline_codepipeline-bucket_D4671464\\": {
+        \\"acl\\": \\"private\\",
+        \\"bucket\\": \\"pocket-codepipeline-e7e6d80d49c8787d2f7a7aca123082dd\\",
+        \\"force_destroy\\": true
       }
     }
   }
@@ -1353,13 +1108,6 @@ exports[`renders a Pocket ECS Codepipeline template with the provided appspec pa
 
 exports[`renders a Pocket ECS Codepipeline template with the provided code build project name 1`] = `
 "{
-  \\"//\\": {
-    \\"metadata\\": {
-      \\"version\\": \\"stubbed\\",
-      \\"stackName\\": \\"test\\",
-      \\"backend\\": \\"local\\"
-    }
-  },
   \\"data\\": {
     \\"aws_iam_policy_document\\": {
       \\"test-codepipeline_codepipeline-assume-role-policy_AB972C21\\": {
@@ -1378,13 +1126,7 @@ exports[`renders a Pocket ECS Codepipeline template with the provided code build
               }
             ]
           }
-        ],
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/test-codepipeline/codepipeline-assume-role-policy\\",
-            \\"uniqueId\\": \\"test-codepipeline_codepipeline-assume-role-policy_AB972C21\\"
-          }
-        }
+        ]
       },
       \\"test-codepipeline_codepipeline-role-policy-document_DD4EB3DB\\": {
         \\"statement\\": [
@@ -1443,10 +1185,6 @@ exports[`renders a Pocket ECS Codepipeline template with the provided code build
             \\"actions\\": [
               \\"iam:PassRole\\"
             ],
-            \\"effect\\": \\"Allow\\",
-            \\"resources\\": [
-              \\"*\\"
-            ],
             \\"condition\\": [
               {
                 \\"test\\": \\"StringEqualsIfExists\\",
@@ -1455,6 +1193,10 @@ exports[`renders a Pocket ECS Codepipeline template with the provided code build
                 ],
                 \\"variable\\": \\"iam:PassedToService\\"
               }
+            ],
+            \\"effect\\": \\"Allow\\",
+            \\"resources\\": [
+              \\"*\\"
             ]
           },
           {
@@ -1466,93 +1208,42 @@ exports[`renders a Pocket ECS Codepipeline template with the provided code build
               \\"*\\"
             ]
           }
-        ],
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/test-codepipeline/codepipeline-role-policy-document\\",
-            \\"uniqueId\\": \\"test-codepipeline_codepipeline-role-policy-document_DD4EB3DB\\"
-          }
-        }
+        ]
       }
     },
     \\"aws_kms_alias\\": {
       \\"test-codepipeline_kms_s3_alias_6C922DC1\\": {
-        \\"name\\": \\"alias/aws/s3\\",
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/test-codepipeline/kms_s3_alias\\",
-            \\"uniqueId\\": \\"test-codepipeline_kms_s3_alias_6C922DC1\\"
-          }
-        }
+        \\"name\\": \\"alias/aws/s3\\"
       }
     }
   },
   \\"resource\\": {
-    \\"aws_iam_role\\": {
-      \\"test-codepipeline_codepipeline-role_4D3D2364\\": {
-        \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.test-codepipeline_codepipeline-assume-role-policy_AB972C21.json}\\",
-        \\"name\\": \\"Test-Env-CodePipelineRole\\",
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/test-codepipeline/codepipeline-role\\",
-            \\"uniqueId\\": \\"test-codepipeline_codepipeline-role_4D3D2364\\"
-          }
-        }
-      }
-    },
-    \\"aws_s3_bucket\\": {
-      \\"test-codepipeline_codepipeline-bucket_D4671464\\": {
-        \\"acl\\": \\"private\\",
-        \\"bucket\\": \\"pocket-codepipeline-e7e6d80d49c8787d2f7a7aca123082dd\\",
-        \\"force_destroy\\": true,
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/test-codepipeline/codepipeline-bucket\\",
-            \\"uniqueId\\": \\"test-codepipeline_codepipeline-bucket_D4671464\\"
-          }
-        }
-      }
-    },
-    \\"aws_iam_role_policy\\": {
-      \\"test-codepipeline_codepipeline-role-policy_76FC5FBB\\": {
-        \\"name\\": \\"Test-Env-CodePipeline-Role-Policy\\",
-        \\"policy\\": \\"\${data.aws_iam_policy_document.test-codepipeline_codepipeline-role-policy-document_DD4EB3DB.json}\\",
-        \\"role\\": \\"\${aws_iam_role.test-codepipeline_codepipeline-role_4D3D2364.id}\\",
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/test-codepipeline/codepipeline-role-policy\\",
-            \\"uniqueId\\": \\"test-codepipeline_codepipeline-role-policy_76FC5FBB\\"
-          }
-        }
-      }
-    },
     \\"aws_codepipeline\\": {
       \\"test-codepipeline_367BF1E2\\": {
-        \\"name\\": \\"Test-Env-CodePipeline\\",
-        \\"role_arn\\": \\"\${aws_iam_role.test-codepipeline_codepipeline-role_4D3D2364.arn}\\",
         \\"artifact_store\\": [
           {
-            \\"location\\": \\"\${aws_s3_bucket.test-codepipeline_codepipeline-bucket_D4671464.bucket}\\",
-            \\"type\\": \\"S3\\",
             \\"encryption_key\\": [
               {
                 \\"id\\": \\"\${data.aws_kms_alias.test-codepipeline_kms_s3_alias_6C922DC1.arn}\\",
                 \\"type\\": \\"KMS\\"
               }
-            ]
+            ],
+            \\"location\\": \\"\${aws_s3_bucket.test-codepipeline_codepipeline-bucket_D4671464.bucket}\\",
+            \\"type\\": \\"S3\\"
           }
         ],
+        \\"name\\": \\"Test-Env-CodePipeline\\",
+        \\"role_arn\\": \\"\${aws_iam_role.test-codepipeline_codepipeline-role_4D3D2364.arn}\\",
         \\"stage\\": [
           {
-            \\"name\\": \\"Source\\",
             \\"action\\": [
               {
                 \\"category\\": \\"Source\\",
                 \\"configuration\\": {
-                  \\"ConnectionArn\\": \\"arn:codestart-connection:*\\",
-                  \\"FullRepositoryId\\": \\"string\\",
                   \\"BranchName\\": \\"test\\",
-                  \\"DetectChanges\\": \\"false\\"
+                  \\"ConnectionArn\\": \\"arn:codestart-connection:*\\",
+                  \\"DetectChanges\\": \\"false\\",
+                  \\"FullRepositoryId\\": \\"string\\"
                 },
                 \\"name\\": \\"GitHub_Checkout\\",
                 \\"namespace\\": \\"SourceVariables\\",
@@ -1563,16 +1254,16 @@ exports[`renders a Pocket ECS Codepipeline template with the provided code build
                 \\"provider\\": \\"CodeStarSourceConnection\\",
                 \\"version\\": \\"1\\"
               }
-            ]
+            ],
+            \\"name\\": \\"Source\\"
           },
           {
-            \\"name\\": \\"Deploy\\",
             \\"action\\": [
               {
                 \\"category\\": \\"Build\\",
                 \\"configuration\\": {
-                  \\"ProjectName\\": \\"TestBuildName\\",
-                  \\"EnvironmentVariables\\": \\"[{\\\\\\"name\\\\\\":\\\\\\"GIT_BRANCH\\\\\\",\\\\\\"value\\\\\\":\\\\\\"#{SourceVariables.BranchName}\\\\\\"}]\\"
+                  \\"EnvironmentVariables\\": \\"[{\\\\\\"name\\\\\\":\\\\\\"GIT_BRANCH\\\\\\",\\\\\\"value\\\\\\":\\\\\\"#{SourceVariables.BranchName}\\\\\\"}]\\",
+                  \\"ProjectName\\": \\"TestBuildName\\"
                 },
                 \\"input_artifacts\\": [
                   \\"SourceOutput\\"
@@ -1590,11 +1281,11 @@ exports[`renders a Pocket ECS Codepipeline template with the provided code build
                 \\"category\\": \\"Deploy\\",
                 \\"configuration\\": {
                   \\"ApplicationName\\": \\"Test-Env-ECS\\",
+                  \\"AppSpecTemplateArtifact\\": \\"CodeBuildOutput\\",
+                  \\"AppSpecTemplatePath\\": \\"appspec.json\\",
                   \\"DeploymentGroupName\\": \\"Test-Env-ECS\\",
                   \\"TaskDefinitionTemplateArtifact\\": \\"CodeBuildOutput\\",
-                  \\"TaskDefinitionTemplatePath\\": \\"taskdef.json\\",
-                  \\"AppSpecTemplateArtifact\\": \\"CodeBuildOutput\\",
-                  \\"AppSpecTemplatePath\\": \\"appspec.json\\"
+                  \\"TaskDefinitionTemplatePath\\": \\"taskdef.json\\"
                 },
                 \\"input_artifacts\\": [
                   \\"CodeBuildOutput\\"
@@ -1605,15 +1296,30 @@ exports[`renders a Pocket ECS Codepipeline template with the provided code build
                 \\"run_order\\": 2,
                 \\"version\\": \\"1\\"
               }
-            ]
+            ],
+            \\"name\\": \\"Deploy\\"
           }
-        ],
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/test-codepipeline/codepipeline\\",
-            \\"uniqueId\\": \\"test-codepipeline_367BF1E2\\"
-          }
-        }
+        ]
+      }
+    },
+    \\"aws_iam_role\\": {
+      \\"test-codepipeline_codepipeline-role_4D3D2364\\": {
+        \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.test-codepipeline_codepipeline-assume-role-policy_AB972C21.json}\\",
+        \\"name\\": \\"Test-Env-CodePipelineRole\\"
+      }
+    },
+    \\"aws_iam_role_policy\\": {
+      \\"test-codepipeline_codepipeline-role-policy_76FC5FBB\\": {
+        \\"name\\": \\"Test-Env-CodePipeline-Role-Policy\\",
+        \\"policy\\": \\"\${data.aws_iam_policy_document.test-codepipeline_codepipeline-role-policy-document_DD4EB3DB.json}\\",
+        \\"role\\": \\"\${aws_iam_role.test-codepipeline_codepipeline-role_4D3D2364.id}\\"
+      }
+    },
+    \\"aws_s3_bucket\\": {
+      \\"test-codepipeline_codepipeline-bucket_D4671464\\": {
+        \\"acl\\": \\"private\\",
+        \\"bucket\\": \\"pocket-codepipeline-e7e6d80d49c8787d2f7a7aca123082dd\\",
+        \\"force_destroy\\": true
       }
     }
   }
@@ -1622,13 +1328,6 @@ exports[`renders a Pocket ECS Codepipeline template with the provided code build
 
 exports[`renders a Pocket ECS Codepipeline template with the provided taskdef path 1`] = `
 "{
-  \\"//\\": {
-    \\"metadata\\": {
-      \\"version\\": \\"stubbed\\",
-      \\"stackName\\": \\"test\\",
-      \\"backend\\": \\"local\\"
-    }
-  },
   \\"data\\": {
     \\"aws_iam_policy_document\\": {
       \\"test-codepipeline_codepipeline-assume-role-policy_AB972C21\\": {
@@ -1647,13 +1346,7 @@ exports[`renders a Pocket ECS Codepipeline template with the provided taskdef pa
               }
             ]
           }
-        ],
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/test-codepipeline/codepipeline-assume-role-policy\\",
-            \\"uniqueId\\": \\"test-codepipeline_codepipeline-assume-role-policy_AB972C21\\"
-          }
-        }
+        ]
       },
       \\"test-codepipeline_codepipeline-role-policy-document_DD4EB3DB\\": {
         \\"statement\\": [
@@ -1712,10 +1405,6 @@ exports[`renders a Pocket ECS Codepipeline template with the provided taskdef pa
             \\"actions\\": [
               \\"iam:PassRole\\"
             ],
-            \\"effect\\": \\"Allow\\",
-            \\"resources\\": [
-              \\"*\\"
-            ],
             \\"condition\\": [
               {
                 \\"test\\": \\"StringEqualsIfExists\\",
@@ -1724,6 +1413,10 @@ exports[`renders a Pocket ECS Codepipeline template with the provided taskdef pa
                 ],
                 \\"variable\\": \\"iam:PassedToService\\"
               }
+            ],
+            \\"effect\\": \\"Allow\\",
+            \\"resources\\": [
+              \\"*\\"
             ]
           },
           {
@@ -1735,93 +1428,42 @@ exports[`renders a Pocket ECS Codepipeline template with the provided taskdef pa
               \\"*\\"
             ]
           }
-        ],
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/test-codepipeline/codepipeline-role-policy-document\\",
-            \\"uniqueId\\": \\"test-codepipeline_codepipeline-role-policy-document_DD4EB3DB\\"
-          }
-        }
+        ]
       }
     },
     \\"aws_kms_alias\\": {
       \\"test-codepipeline_kms_s3_alias_6C922DC1\\": {
-        \\"name\\": \\"alias/aws/s3\\",
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/test-codepipeline/kms_s3_alias\\",
-            \\"uniqueId\\": \\"test-codepipeline_kms_s3_alias_6C922DC1\\"
-          }
-        }
+        \\"name\\": \\"alias/aws/s3\\"
       }
     }
   },
   \\"resource\\": {
-    \\"aws_iam_role\\": {
-      \\"test-codepipeline_codepipeline-role_4D3D2364\\": {
-        \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.test-codepipeline_codepipeline-assume-role-policy_AB972C21.json}\\",
-        \\"name\\": \\"Test-Env-CodePipelineRole\\",
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/test-codepipeline/codepipeline-role\\",
-            \\"uniqueId\\": \\"test-codepipeline_codepipeline-role_4D3D2364\\"
-          }
-        }
-      }
-    },
-    \\"aws_s3_bucket\\": {
-      \\"test-codepipeline_codepipeline-bucket_D4671464\\": {
-        \\"acl\\": \\"private\\",
-        \\"bucket\\": \\"pocket-codepipeline-e7e6d80d49c8787d2f7a7aca123082dd\\",
-        \\"force_destroy\\": true,
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/test-codepipeline/codepipeline-bucket\\",
-            \\"uniqueId\\": \\"test-codepipeline_codepipeline-bucket_D4671464\\"
-          }
-        }
-      }
-    },
-    \\"aws_iam_role_policy\\": {
-      \\"test-codepipeline_codepipeline-role-policy_76FC5FBB\\": {
-        \\"name\\": \\"Test-Env-CodePipeline-Role-Policy\\",
-        \\"policy\\": \\"\${data.aws_iam_policy_document.test-codepipeline_codepipeline-role-policy-document_DD4EB3DB.json}\\",
-        \\"role\\": \\"\${aws_iam_role.test-codepipeline_codepipeline-role_4D3D2364.id}\\",
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/test-codepipeline/codepipeline-role-policy\\",
-            \\"uniqueId\\": \\"test-codepipeline_codepipeline-role-policy_76FC5FBB\\"
-          }
-        }
-      }
-    },
     \\"aws_codepipeline\\": {
       \\"test-codepipeline_367BF1E2\\": {
-        \\"name\\": \\"Test-Env-CodePipeline\\",
-        \\"role_arn\\": \\"\${aws_iam_role.test-codepipeline_codepipeline-role_4D3D2364.arn}\\",
         \\"artifact_store\\": [
           {
-            \\"location\\": \\"\${aws_s3_bucket.test-codepipeline_codepipeline-bucket_D4671464.bucket}\\",
-            \\"type\\": \\"S3\\",
             \\"encryption_key\\": [
               {
                 \\"id\\": \\"\${data.aws_kms_alias.test-codepipeline_kms_s3_alias_6C922DC1.arn}\\",
                 \\"type\\": \\"KMS\\"
               }
-            ]
+            ],
+            \\"location\\": \\"\${aws_s3_bucket.test-codepipeline_codepipeline-bucket_D4671464.bucket}\\",
+            \\"type\\": \\"S3\\"
           }
         ],
+        \\"name\\": \\"Test-Env-CodePipeline\\",
+        \\"role_arn\\": \\"\${aws_iam_role.test-codepipeline_codepipeline-role_4D3D2364.arn}\\",
         \\"stage\\": [
           {
-            \\"name\\": \\"Source\\",
             \\"action\\": [
               {
                 \\"category\\": \\"Source\\",
                 \\"configuration\\": {
-                  \\"ConnectionArn\\": \\"arn:codestart-connection:*\\",
-                  \\"FullRepositoryId\\": \\"string\\",
                   \\"BranchName\\": \\"test\\",
-                  \\"DetectChanges\\": \\"false\\"
+                  \\"ConnectionArn\\": \\"arn:codestart-connection:*\\",
+                  \\"DetectChanges\\": \\"false\\",
+                  \\"FullRepositoryId\\": \\"string\\"
                 },
                 \\"name\\": \\"GitHub_Checkout\\",
                 \\"namespace\\": \\"SourceVariables\\",
@@ -1832,16 +1474,16 @@ exports[`renders a Pocket ECS Codepipeline template with the provided taskdef pa
                 \\"provider\\": \\"CodeStarSourceConnection\\",
                 \\"version\\": \\"1\\"
               }
-            ]
+            ],
+            \\"name\\": \\"Source\\"
           },
           {
-            \\"name\\": \\"Deploy\\",
             \\"action\\": [
               {
                 \\"category\\": \\"Build\\",
                 \\"configuration\\": {
-                  \\"ProjectName\\": \\"Test-Env\\",
-                  \\"EnvironmentVariables\\": \\"[{\\\\\\"name\\\\\\":\\\\\\"GIT_BRANCH\\\\\\",\\\\\\"value\\\\\\":\\\\\\"#{SourceVariables.BranchName}\\\\\\"}]\\"
+                  \\"EnvironmentVariables\\": \\"[{\\\\\\"name\\\\\\":\\\\\\"GIT_BRANCH\\\\\\",\\\\\\"value\\\\\\":\\\\\\"#{SourceVariables.BranchName}\\\\\\"}]\\",
+                  \\"ProjectName\\": \\"Test-Env\\"
                 },
                 \\"input_artifacts\\": [
                   \\"SourceOutput\\"
@@ -1859,11 +1501,11 @@ exports[`renders a Pocket ECS Codepipeline template with the provided taskdef pa
                 \\"category\\": \\"Deploy\\",
                 \\"configuration\\": {
                   \\"ApplicationName\\": \\"Test-Env-ECS\\",
+                  \\"AppSpecTemplateArtifact\\": \\"CodeBuildOutput\\",
+                  \\"AppSpecTemplatePath\\": \\"appspec.json\\",
                   \\"DeploymentGroupName\\": \\"Test-Env-ECS\\",
                   \\"TaskDefinitionTemplateArtifact\\": \\"CodeBuildOutput\\",
-                  \\"TaskDefinitionTemplatePath\\": \\"testtaskdef.json\\",
-                  \\"AppSpecTemplateArtifact\\": \\"CodeBuildOutput\\",
-                  \\"AppSpecTemplatePath\\": \\"appspec.json\\"
+                  \\"TaskDefinitionTemplatePath\\": \\"testtaskdef.json\\"
                 },
                 \\"input_artifacts\\": [
                   \\"CodeBuildOutput\\"
@@ -1874,15 +1516,30 @@ exports[`renders a Pocket ECS Codepipeline template with the provided taskdef pa
                 \\"run_order\\": 2,
                 \\"version\\": \\"1\\"
               }
-            ]
+            ],
+            \\"name\\": \\"Deploy\\"
           }
-        ],
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/test-codepipeline/codepipeline\\",
-            \\"uniqueId\\": \\"test-codepipeline_367BF1E2\\"
-          }
-        }
+        ]
+      }
+    },
+    \\"aws_iam_role\\": {
+      \\"test-codepipeline_codepipeline-role_4D3D2364\\": {
+        \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.test-codepipeline_codepipeline-assume-role-policy_AB972C21.json}\\",
+        \\"name\\": \\"Test-Env-CodePipelineRole\\"
+      }
+    },
+    \\"aws_iam_role_policy\\": {
+      \\"test-codepipeline_codepipeline-role-policy_76FC5FBB\\": {
+        \\"name\\": \\"Test-Env-CodePipeline-Role-Policy\\",
+        \\"policy\\": \\"\${data.aws_iam_policy_document.test-codepipeline_codepipeline-role-policy-document_DD4EB3DB.json}\\",
+        \\"role\\": \\"\${aws_iam_role.test-codepipeline_codepipeline-role_4D3D2364.id}\\"
+      }
+    },
+    \\"aws_s3_bucket\\": {
+      \\"test-codepipeline_codepipeline-bucket_D4671464\\": {
+        \\"acl\\": \\"private\\",
+        \\"bucket\\": \\"pocket-codepipeline-e7e6d80d49c8787d2f7a7aca123082dd\\",
+        \\"force_destroy\\": true
       }
     }
   }
