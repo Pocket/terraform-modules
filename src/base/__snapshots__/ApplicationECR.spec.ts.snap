@@ -2,46 +2,27 @@
 
 exports[`renders an ECR with tags 1`] = `
 "{
-  \\"//\\": {
-    \\"metadata\\": {
-      \\"version\\": \\"stubbed\\",
-      \\"stackName\\": \\"test\\",
-      \\"backend\\": \\"local\\"
-    }
-  },
   \\"resource\\": {
+    \\"aws_ecr_lifecycle_policy\\": {
+      \\"testECR_ecr-repo-lifecyclepolicy_4B354AF7\\": {
+        \\"depends_on\\": [
+          \\"aws_ecr_repository.testECR_ecr-repo_E42B68DA\\"
+        ],
+        \\"policy\\": \\"{\\\\\\"rules\\\\\\":[{\\\\\\"rulePriority\\\\\\":1,\\\\\\"description\\\\\\":\\\\\\"expire old images\\\\\\",\\\\\\"selection\\\\\\":{\\\\\\"tagStatus\\\\\\":\\\\\\"any\\\\\\",\\\\\\"countType\\\\\\":\\\\\\"imageCountMoreThan\\\\\\",\\\\\\"countNumber\\\\\\":800},\\\\\\"action\\\\\\":{\\\\\\"type\\\\\\":\\\\\\"expire\\\\\\"}}]}\\",
+        \\"repository\\": \\"\${aws_ecr_repository.testECR_ecr-repo_E42B68DA.name}\\"
+      }
+    },
     \\"aws_ecr_repository\\": {
       \\"testECR_ecr-repo_E42B68DA\\": {
-        \\"name\\": \\"bowling\\",
-        \\"tags\\": {
-          \\"name\\": \\"rug\\",
-          \\"description\\": \\"tiedtheroomtogether\\"
-        },
         \\"image_scanning_configuration\\": [
           {
             \\"scan_on_push\\": true
           }
         ],
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/testECR/ecr-repo\\",
-            \\"uniqueId\\": \\"testECR_ecr-repo_E42B68DA\\"
-          }
-        }
-      }
-    },
-    \\"aws_ecr_lifecycle_policy\\": {
-      \\"testECR_ecr-repo-lifecyclepolicy_4B354AF7\\": {
-        \\"policy\\": \\"{\\\\\\"rules\\\\\\":[{\\\\\\"rulePriority\\\\\\":1,\\\\\\"description\\\\\\":\\\\\\"expire old images\\\\\\",\\\\\\"selection\\\\\\":{\\\\\\"tagStatus\\\\\\":\\\\\\"any\\\\\\",\\\\\\"countType\\\\\\":\\\\\\"imageCountMoreThan\\\\\\",\\\\\\"countNumber\\\\\\":800},\\\\\\"action\\\\\\":{\\\\\\"type\\\\\\":\\\\\\"expire\\\\\\"}}]}\\",
-        \\"repository\\": \\"\${aws_ecr_repository.testECR_ecr-repo_E42B68DA.name}\\",
-        \\"depends_on\\": [
-          \\"aws_ecr_repository.testECR_ecr-repo_E42B68DA\\"
-        ],
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/testECR/ecr-repo-lifecyclepolicy\\",
-            \\"uniqueId\\": \\"testECR_ecr-repo-lifecyclepolicy_4B354AF7\\"
-          }
+        \\"name\\": \\"bowling\\",
+        \\"tags\\": {
+          \\"description\\": \\"tiedtheroomtogether\\",
+          \\"name\\": \\"rug\\"
         }
       }
     }
@@ -51,43 +32,24 @@ exports[`renders an ECR with tags 1`] = `
 
 exports[`renders an ECR without tags 1`] = `
 "{
-  \\"//\\": {
-    \\"metadata\\": {
-      \\"version\\": \\"stubbed\\",
-      \\"stackName\\": \\"test\\",
-      \\"backend\\": \\"local\\"
-    }
-  },
   \\"resource\\": {
+    \\"aws_ecr_lifecycle_policy\\": {
+      \\"testECR_ecr-repo-lifecyclepolicy_4B354AF7\\": {
+        \\"depends_on\\": [
+          \\"aws_ecr_repository.testECR_ecr-repo_E42B68DA\\"
+        ],
+        \\"policy\\": \\"{\\\\\\"rules\\\\\\":[{\\\\\\"rulePriority\\\\\\":1,\\\\\\"description\\\\\\":\\\\\\"expire old images\\\\\\",\\\\\\"selection\\\\\\":{\\\\\\"tagStatus\\\\\\":\\\\\\"any\\\\\\",\\\\\\"countType\\\\\\":\\\\\\"imageCountMoreThan\\\\\\",\\\\\\"countNumber\\\\\\":800},\\\\\\"action\\\\\\":{\\\\\\"type\\\\\\":\\\\\\"expire\\\\\\"}}]}\\",
+        \\"repository\\": \\"\${aws_ecr_repository.testECR_ecr-repo_E42B68DA.name}\\"
+      }
+    },
     \\"aws_ecr_repository\\": {
       \\"testECR_ecr-repo_E42B68DA\\": {
-        \\"name\\": \\"bowling\\",
         \\"image_scanning_configuration\\": [
           {
             \\"scan_on_push\\": true
           }
         ],
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/testECR/ecr-repo\\",
-            \\"uniqueId\\": \\"testECR_ecr-repo_E42B68DA\\"
-          }
-        }
-      }
-    },
-    \\"aws_ecr_lifecycle_policy\\": {
-      \\"testECR_ecr-repo-lifecyclepolicy_4B354AF7\\": {
-        \\"policy\\": \\"{\\\\\\"rules\\\\\\":[{\\\\\\"rulePriority\\\\\\":1,\\\\\\"description\\\\\\":\\\\\\"expire old images\\\\\\",\\\\\\"selection\\\\\\":{\\\\\\"tagStatus\\\\\\":\\\\\\"any\\\\\\",\\\\\\"countType\\\\\\":\\\\\\"imageCountMoreThan\\\\\\",\\\\\\"countNumber\\\\\\":800},\\\\\\"action\\\\\\":{\\\\\\"type\\\\\\":\\\\\\"expire\\\\\\"}}]}\\",
-        \\"repository\\": \\"\${aws_ecr_repository.testECR_ecr-repo_E42B68DA.name}\\",
-        \\"depends_on\\": [
-          \\"aws_ecr_repository.testECR_ecr-repo_E42B68DA\\"
-        ],
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/testECR/ecr-repo-lifecyclepolicy\\",
-            \\"uniqueId\\": \\"testECR_ecr-repo-lifecyclepolicy_4B354AF7\\"
-          }
-        }
+        \\"name\\": \\"bowling\\"
       }
     }
   }

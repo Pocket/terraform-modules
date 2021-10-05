@@ -3,6 +3,8 @@ import { App, TerraformStack } from 'cdktf';
 import { AwsProvider } from '@cdktf/provider-aws';
 import { PocketALBApplication } from './pocket/PocketALBApplication';
 import { ApplicationECSContainerDefinitionProps } from './base/ApplicationECSContainerDefinition';
+import { LocalProvider } from '@cdktf/provider-local';
+import { NullProvider } from '@cdktf/provider-null';
 
 class Example extends TerraformStack {
   constructor(scope: Construct, name: string) {
@@ -11,6 +13,8 @@ class Example extends TerraformStack {
     new AwsProvider(this, 'aws', {
       region: 'us-east-1',
     });
+    new LocalProvider(this, 'local', {});
+    new NullProvider(this, 'null', {});
 
     const containerConfigBlue: ApplicationECSContainerDefinitionProps = {
       name: 'blueContainer',

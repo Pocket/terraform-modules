@@ -2,32 +2,19 @@
 
 exports[`renders an ECS cluster with tags 1`] = `
 "{
-  \\"//\\": {
-    \\"metadata\\": {
-      \\"version\\": \\"stubbed\\",
-      \\"stackName\\": \\"test\\",
-      \\"backend\\": \\"local\\"
-    }
-  },
   \\"resource\\": {
     \\"aws_ecs_cluster\\": {
       \\"testECSCluster_ecs_cluster_E3A9AFE5\\": {
         \\"name\\": \\"bowling-\\",
-        \\"tags\\": {
-          \\"name\\": \\"maude\\",
-          \\"description\\": \\"artist\\"
-        },
         \\"setting\\": [
           {
             \\"name\\": \\"containerInsights\\",
             \\"value\\": \\"enabled\\"
           }
         ],
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/testECSCluster/ecs_cluster\\",
-            \\"uniqueId\\": \\"testECSCluster_ecs_cluster_E3A9AFE5\\"
-          }
+        \\"tags\\": {
+          \\"description\\": \\"artist\\",
+          \\"name\\": \\"maude\\"
         }
       }
     }
@@ -37,13 +24,6 @@ exports[`renders an ECS cluster with tags 1`] = `
 
 exports[`renders an ECS cluster without tags 1`] = `
 "{
-  \\"//\\": {
-    \\"metadata\\": {
-      \\"version\\": \\"stubbed\\",
-      \\"stackName\\": \\"test\\",
-      \\"backend\\": \\"local\\"
-    }
-  },
   \\"resource\\": {
     \\"aws_ecs_cluster\\": {
       \\"testECSCluster_ecs_cluster_E3A9AFE5\\": {
@@ -53,13 +33,7 @@ exports[`renders an ECS cluster without tags 1`] = `
             \\"name\\": \\"containerInsights\\",
             \\"value\\": \\"enabled\\"
           }
-        ],
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/testECSCluster/ecs_cluster\\",
-            \\"uniqueId\\": \\"testECSCluster_ecs_cluster_E3A9AFE5\\"
-          }
-        }
+        ]
       }
     }
   }

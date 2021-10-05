@@ -2,17 +2,9 @@
 
 exports[`renders ECS IAM with minimal config 1`] = `
 "{
-  \\"//\\": {
-    \\"metadata\\": {
-      \\"version\\": \\"stubbed\\",
-      \\"stackName\\": \\"test\\",
-      \\"backend\\": \\"local\\"
-    }
-  },
   \\"data\\": {
     \\"aws_iam_policy_document\\": {
       \\"testECSService_ecs-task-assume_E7A7BA71\\": {
-        \\"version\\": \\"2012-10-17\\",
         \\"statement\\": [
           {
             \\"actions\\": [
@@ -29,12 +21,7 @@ exports[`renders ECS IAM with minimal config 1`] = `
             ]
           }
         ],
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/testECSService/ecs-task-assume\\",
-            \\"uniqueId\\": \\"testECSService_ecs-task-assume_E7A7BA71\\"
-          }
-        }
+        \\"version\\": \\"2012-10-17\\"
       }
     }
   },
@@ -42,35 +29,17 @@ exports[`renders ECS IAM with minimal config 1`] = `
     \\"aws_iam_role\\": {
       \\"testECSService_ecs-execution-role_46F1514F\\": {
         \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.testECSService_ecs-task-assume_E7A7BA71.json}\\",
-        \\"name\\": \\"abides-dev-TaskExecutionRole\\",
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/testECSService/ecs-execution-role\\",
-            \\"uniqueId\\": \\"testECSService_ecs-execution-role_46F1514F\\"
-          }
-        }
+        \\"name\\": \\"abides-dev-TaskExecutionRole\\"
       },
       \\"testECSService_ecs-task-role_C04CE6DA\\": {
         \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.testECSService_ecs-task-assume_E7A7BA71.json}\\",
-        \\"name\\": \\"abides-dev-TaskRole\\",
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/testECSService/ecs-task-role\\",
-            \\"uniqueId\\": \\"testECSService_ecs-task-role_C04CE6DA\\"
-          }
-        }
+        \\"name\\": \\"abides-dev-TaskRole\\"
       }
     },
     \\"aws_iam_role_policy_attachment\\": {
       \\"testECSService_ecs-task-execution-default-attachment_9FDF40D5\\": {
         \\"policy_arn\\": \\"someArn\\",
-        \\"role\\": \\"\${aws_iam_role.testECSService_ecs-execution-role_46F1514F.id}\\",
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/testECSService/ecs-task-execution-default-attachment\\",
-            \\"uniqueId\\": \\"testECSService_ecs-task-execution-default-attachment_9FDF40D5\\"
-          }
-        }
+        \\"role\\": \\"\${aws_iam_role.testECSService_ecs-execution-role_46F1514F.id}\\"
       }
     }
   }
@@ -79,17 +48,9 @@ exports[`renders ECS IAM with minimal config 1`] = `
 
 exports[`renders ECS IAM with tags 1`] = `
 "{
-  \\"//\\": {
-    \\"metadata\\": {
-      \\"version\\": \\"stubbed\\",
-      \\"stackName\\": \\"test\\",
-      \\"backend\\": \\"local\\"
-    }
-  },
   \\"data\\": {
     \\"aws_iam_policy_document\\": {
       \\"testECSService_ecs-task-assume_E7A7BA71\\": {
-        \\"version\\": \\"2012-10-17\\",
         \\"statement\\": [
           {
             \\"actions\\": [
@@ -106,12 +67,7 @@ exports[`renders ECS IAM with tags 1`] = `
             ]
           }
         ],
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/testECSService/ecs-task-assume\\",
-            \\"uniqueId\\": \\"testECSService_ecs-task-assume_E7A7BA71\\"
-          }
-        }
+        \\"version\\": \\"2012-10-17\\"
       }
     }
   },
@@ -121,41 +77,23 @@ exports[`renders ECS IAM with tags 1`] = `
         \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.testECSService_ecs-task-assume_E7A7BA71.json}\\",
         \\"name\\": \\"abides-dev-TaskExecutionRole\\",
         \\"tags\\": {
-          \\"letsgo\\": \\"bowling\\",
-          \\"donnie\\": \\"throwinrockstonight\\"
-        },
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/testECSService/ecs-execution-role\\",
-            \\"uniqueId\\": \\"testECSService_ecs-execution-role_46F1514F\\"
-          }
+          \\"donnie\\": \\"throwinrockstonight\\",
+          \\"letsgo\\": \\"bowling\\"
         }
       },
       \\"testECSService_ecs-task-role_C04CE6DA\\": {
         \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.testECSService_ecs-task-assume_E7A7BA71.json}\\",
         \\"name\\": \\"abides-dev-TaskRole\\",
         \\"tags\\": {
-          \\"letsgo\\": \\"bowling\\",
-          \\"donnie\\": \\"throwinrockstonight\\"
-        },
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/testECSService/ecs-task-role\\",
-            \\"uniqueId\\": \\"testECSService_ecs-task-role_C04CE6DA\\"
-          }
+          \\"donnie\\": \\"throwinrockstonight\\",
+          \\"letsgo\\": \\"bowling\\"
         }
       }
     },
     \\"aws_iam_role_policy_attachment\\": {
       \\"testECSService_ecs-task-execution-default-attachment_9FDF40D5\\": {
         \\"policy_arn\\": \\"someArn\\",
-        \\"role\\": \\"\${aws_iam_role.testECSService_ecs-execution-role_46F1514F.id}\\",
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/testECSService/ecs-task-execution-default-attachment\\",
-            \\"uniqueId\\": \\"testECSService_ecs-task-execution-default-attachment_9FDF40D5\\"
-          }
-        }
+        \\"role\\": \\"\${aws_iam_role.testECSService_ecs-execution-role_46F1514F.id}\\"
       }
     }
   }

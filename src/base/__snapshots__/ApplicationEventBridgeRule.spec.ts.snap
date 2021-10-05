@@ -2,26 +2,13 @@
 
 exports[`renders an event bridge with description 1`] = `
 "{
-  \\"//\\": {
-    \\"metadata\\": {
-      \\"version\\": \\"stubbed\\",
-      \\"stackName\\": \\"test\\",
-      \\"backend\\": \\"local\\"
-    }
-  },
   \\"resource\\": {
     \\"aws_cloudwatch_event_rule\\": {
       \\"test-event-bridge-rule_DA4F2E87\\": {
         \\"description\\": \\"Test description\\",
         \\"event_bus_name\\": \\"default\\",
         \\"event_pattern\\": \\"{\\\\\\"source\\\\\\":[\\\\\\"aws.states\\\\\\"],\\\\\\"detail-type\\\\\\":[\\\\\\"Step Functions Execution Status Change\\\\\\"]}\\",
-        \\"name\\": \\"Test-EventBridge-Rule\\",
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/test-event-bridge-rule/event-bridge-rule\\",
-            \\"uniqueId\\": \\"test-event-bridge-rule_DA4F2E87\\"
-          }
-        }
+        \\"name\\": \\"Test-EventBridge-Rule\\"
       }
     }
   }
@@ -30,25 +17,12 @@ exports[`renders an event bridge with description 1`] = `
 
 exports[`renders an event bridge with event bus name 1`] = `
 "{
-  \\"//\\": {
-    \\"metadata\\": {
-      \\"version\\": \\"stubbed\\",
-      \\"stackName\\": \\"test\\",
-      \\"backend\\": \\"local\\"
-    }
-  },
   \\"resource\\": {
     \\"aws_cloudwatch_event_rule\\": {
       \\"test-event-bridge-rule_DA4F2E87\\": {
         \\"event_bus_name\\": \\"test-bus\\",
         \\"event_pattern\\": \\"{\\\\\\"source\\\\\\":[\\\\\\"aws.states\\\\\\"],\\\\\\"detail-type\\\\\\":[\\\\\\"Step Functions Execution Status Change\\\\\\"]}\\",
-        \\"name\\": \\"Test-EventBridge-Rule\\",
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/test-event-bridge-rule/event-bridge-rule\\",
-            \\"uniqueId\\": \\"test-event-bridge-rule_DA4F2E87\\"
-          }
-        }
+        \\"name\\": \\"Test-EventBridge-Rule\\"
       }
     }
   }
@@ -57,53 +31,28 @@ exports[`renders an event bridge with event bus name 1`] = `
 
 exports[`renders an event bridge with sqs target 1`] = `
 "{
-  \\"//\\": {
-    \\"metadata\\": {
-      \\"version\\": \\"stubbed\\",
-      \\"stackName\\": \\"test\\",
-      \\"backend\\": \\"local\\"
-    }
-  },
   \\"resource\\": {
-    \\"aws_sqs_queue\\": {
-      \\"test-queue\\": {
-        \\"name\\": \\"Test-SQS-Queue\\",
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/test-queue\\",
-            \\"uniqueId\\": \\"test-queue\\"
-          }
-        }
-      }
-    },
     \\"aws_cloudwatch_event_rule\\": {
       \\"test-event-bridge-rule_DA4F2E87\\": {
         \\"event_bus_name\\": \\"default\\",
         \\"event_pattern\\": \\"{\\\\\\"source\\\\\\":[\\\\\\"aws.states\\\\\\"],\\\\\\"detail-type\\\\\\":[\\\\\\"Step Functions Execution Status Change\\\\\\"]}\\",
-        \\"name\\": \\"Test-EventBridge-Rule\\",
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/test-event-bridge-rule/event-bridge-rule\\",
-            \\"uniqueId\\": \\"test-event-bridge-rule_DA4F2E87\\"
-          }
-        }
+        \\"name\\": \\"Test-EventBridge-Rule\\"
       }
     },
     \\"aws_cloudwatch_event_target\\": {
       \\"test-event-bridge-rule_event-bridge-target_5807E31B\\": {
         \\"arn\\": \\"\${aws_sqs_queue.test-queue.arn}\\",
-        \\"rule\\": \\"\${aws_cloudwatch_event_rule.test-event-bridge-rule_DA4F2E87.name}\\",
-        \\"target_id\\": \\"sqs\\",
         \\"depends_on\\": [
           \\"aws_sqs_queue.test-queue\\",
           \\"aws_cloudwatch_event_rule.test-event-bridge-rule_DA4F2E87\\"
         ],
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/test-event-bridge-rule/event-bridge-target\\",
-            \\"uniqueId\\": \\"test-event-bridge-rule_event-bridge-target_5807E31B\\"
-          }
-        }
+        \\"rule\\": \\"\${aws_cloudwatch_event_rule.test-event-bridge-rule_DA4F2E87.name}\\",
+        \\"target_id\\": \\"sqs\\"
+      }
+    },
+    \\"aws_sqs_queue\\": {
+      \\"test-queue\\": {
+        \\"name\\": \\"Test-SQS-Queue\\"
       }
     }
   }
@@ -112,13 +61,6 @@ exports[`renders an event bridge with sqs target 1`] = `
 
 exports[`renders an event bridge with tags 1`] = `
 "{
-  \\"//\\": {
-    \\"metadata\\": {
-      \\"version\\": \\"stubbed\\",
-      \\"stackName\\": \\"test\\",
-      \\"backend\\": \\"local\\"
-    }
-  },
   \\"resource\\": {
     \\"aws_cloudwatch_event_rule\\": {
       \\"test-event-bridge-rule_DA4F2E87\\": {
@@ -126,14 +68,8 @@ exports[`renders an event bridge with tags 1`] = `
         \\"event_pattern\\": \\"{\\\\\\"source\\\\\\":[\\\\\\"aws.states\\\\\\"],\\\\\\"detail-type\\\\\\":[\\\\\\"Step Functions Execution Status Change\\\\\\"]}\\",
         \\"name\\": \\"Test-EventBridge-Rule\\",
         \\"tags\\": {
-          \\"my\\": \\"tag\\",
-          \\"for\\": \\"test\\"
-        },
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/test-event-bridge-rule/event-bridge-rule\\",
-            \\"uniqueId\\": \\"test-event-bridge-rule_DA4F2E87\\"
-          }
+          \\"for\\": \\"test\\",
+          \\"my\\": \\"tag\\"
         }
       }
     }
@@ -143,25 +79,12 @@ exports[`renders an event bridge with tags 1`] = `
 
 exports[`renders an event bridge without a target 1`] = `
 "{
-  \\"//\\": {
-    \\"metadata\\": {
-      \\"version\\": \\"stubbed\\",
-      \\"stackName\\": \\"test\\",
-      \\"backend\\": \\"local\\"
-    }
-  },
   \\"resource\\": {
     \\"aws_cloudwatch_event_rule\\": {
       \\"test-event-bridge-rule_DA4F2E87\\": {
         \\"event_bus_name\\": \\"default\\",
         \\"event_pattern\\": \\"{\\\\\\"source\\\\\\":[\\\\\\"aws.states\\\\\\"],\\\\\\"detail-type\\\\\\":[\\\\\\"Step Functions Execution Status Change\\\\\\"]}\\",
-        \\"name\\": \\"Test-EventBridge-Rule\\",
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/test-event-bridge-rule/event-bridge-rule\\",
-            \\"uniqueId\\": \\"test-event-bridge-rule_DA4F2E87\\"
-          }
-        }
+        \\"name\\": \\"Test-EventBridge-Rule\\"
       }
     }
   }

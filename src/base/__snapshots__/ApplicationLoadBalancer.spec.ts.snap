@@ -2,20 +2,24 @@
 
 exports[`renders an ALB with tags 1`] = `
 "{
-  \\"//\\": {
-    \\"metadata\\": {
-      \\"version\\": \\"stubbed\\",
-      \\"stackName\\": \\"test\\",
-      \\"backend\\": \\"local\\",
-      \\"overrides\\": {
-        \\"aws_security_group\\": [
-          \\"ingress\\",
-          \\"egress\\"
-        ]
-      }
-    }
-  },
   \\"resource\\": {
+    \\"aws_alb\\": {
+      \\"testALB_alb_F6B33218\\": {
+        \\"internal\\": false,
+        \\"name_prefix\\": \\"TEST\\",
+        \\"security_groups\\": [
+          \\"\${aws_security_group.testALB_alb_security_group_57C45F23.id}\\"
+        ],
+        \\"subnets\\": [
+          \\"a\\",
+          \\"b\\"
+        ],
+        \\"tags\\": {
+          \\"hobby\\": \\"bowling\\",
+          \\"name\\": \\"thedude\\"
+        }
+      }
+    },
     \\"aws_security_group\\": {
       \\"testALB_alb_security_group_57C45F23\\": {
         \\"description\\": \\"External security group  (Managed by Terraform)\\",
@@ -62,45 +66,16 @@ exports[`renders an ALB with tags 1`] = `
             \\"to_port\\": 80
           }
         ],
-        \\"name_prefix\\": \\"test--HTTP/S Security Group\\",
-        \\"tags\\": {
-          \\"name\\": \\"thedude\\",
-          \\"hobby\\": \\"bowling\\",
-          \\"Name\\": \\"test--HTTP/S Security Group\\"
-        },
-        \\"vpc_id\\": \\"123\\",
         \\"lifecycle\\": {
           \\"create_before_destroy\\": true
         },
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/testALB/alb_security_group\\",
-            \\"uniqueId\\": \\"testALB_alb_security_group_57C45F23\\"
-          }
-        }
-      }
-    },
-    \\"aws_alb\\": {
-      \\"testALB_alb_F6B33218\\": {
-        \\"internal\\": false,
-        \\"name_prefix\\": \\"TEST\\",
-        \\"security_groups\\": [
-          \\"\${aws_security_group.testALB_alb_security_group_57C45F23.id}\\"
-        ],
-        \\"subnets\\": [
-          \\"a\\",
-          \\"b\\"
-        ],
+        \\"name_prefix\\": \\"test--HTTP/S Security Group\\",
         \\"tags\\": {
+          \\"hobby\\": \\"bowling\\",
           \\"name\\": \\"thedude\\",
-          \\"hobby\\": \\"bowling\\"
+          \\"Name\\": \\"test--HTTP/S Security Group\\"
         },
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/testALB/alb\\",
-            \\"uniqueId\\": \\"testALB_alb_F6B33218\\"
-          }
-        }
+        \\"vpc_id\\": \\"123\\"
       }
     }
   }
@@ -109,20 +84,20 @@ exports[`renders an ALB with tags 1`] = `
 
 exports[`renders an ALB without tags 1`] = `
 "{
-  \\"//\\": {
-    \\"metadata\\": {
-      \\"version\\": \\"stubbed\\",
-      \\"stackName\\": \\"test\\",
-      \\"backend\\": \\"local\\",
-      \\"overrides\\": {
-        \\"aws_security_group\\": [
-          \\"ingress\\",
-          \\"egress\\"
+  \\"resource\\": {
+    \\"aws_alb\\": {
+      \\"testALB_alb_F6B33218\\": {
+        \\"internal\\": false,
+        \\"name_prefix\\": \\"TEST\\",
+        \\"security_groups\\": [
+          \\"\${aws_security_group.testALB_alb_security_group_57C45F23.id}\\"
+        ],
+        \\"subnets\\": [
+          \\"a\\",
+          \\"b\\"
         ]
       }
-    }
-  },
-  \\"resource\\": {
+    },
     \\"aws_security_group\\": {
       \\"testALB_alb_security_group_57C45F23\\": {
         \\"description\\": \\"External security group  (Managed by Terraform)\\",
@@ -169,39 +144,14 @@ exports[`renders an ALB without tags 1`] = `
             \\"to_port\\": 80
           }
         ],
+        \\"lifecycle\\": {
+          \\"create_before_destroy\\": true
+        },
         \\"name_prefix\\": \\"test--HTTP/S Security Group\\",
         \\"tags\\": {
           \\"Name\\": \\"test--HTTP/S Security Group\\"
         },
-        \\"vpc_id\\": \\"123\\",
-        \\"lifecycle\\": {
-          \\"create_before_destroy\\": true
-        },
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/testALB/alb_security_group\\",
-            \\"uniqueId\\": \\"testALB_alb_security_group_57C45F23\\"
-          }
-        }
-      }
-    },
-    \\"aws_alb\\": {
-      \\"testALB_alb_F6B33218\\": {
-        \\"internal\\": false,
-        \\"name_prefix\\": \\"TEST\\",
-        \\"security_groups\\": [
-          \\"\${aws_security_group.testALB_alb_security_group_57C45F23.id}\\"
-        ],
-        \\"subnets\\": [
-          \\"a\\",
-          \\"b\\"
-        ],
-        \\"//\\": {
-          \\"metadata\\": {
-            \\"path\\": \\"test/testALB/alb\\",
-            \\"uniqueId\\": \\"testALB_alb_F6B33218\\"
-          }
-        }
+        \\"vpc_id\\": \\"123\\"
       }
     }
   }
