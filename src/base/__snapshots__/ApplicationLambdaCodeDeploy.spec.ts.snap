@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`renders a lambda code deploy app 1`] = `
+exports[`ApplicationLambdaCodeDeploy renders a lambda code deploy app 1`] = `
 "{
   \\"data\\": {
     \\"aws_iam_policy_document\\": {
@@ -75,7 +75,7 @@ exports[`renders a lambda code deploy app 1`] = `
 }"
 `;
 
-exports[`renders a lambda code deploy app with sns topic arn 1`] = `
+exports[`ApplicationLambdaCodeDeploy renders a lambda code deploy app with sns topic arn 1`] = `
 "{
   \\"data\\": {
     \\"aws_iam_policy_document\\": {
@@ -165,7 +165,7 @@ exports[`renders a lambda code deploy app with sns topic arn 1`] = `
 }"
 `;
 
-exports[`renders a lambda code deploy app with sns topic arn and detail type 1`] = `
+exports[`ApplicationLambdaCodeDeploy renders a lambda code deploy app with sns topic arn and detail type 1`] = `
 "{
   \\"data\\": {
     \\"aws_iam_policy_document\\": {

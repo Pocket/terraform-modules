@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`renders an ALB with tags 1`] = `
+exports[`ApplicationLoadBalancer renders an ALB with tags 1`] = `
 "{
   \\"resource\\": {
     \\"aws_alb\\": {
@@ -82,7 +82,7 @@ exports[`renders an ALB with tags 1`] = `
 }"
 `;
 
-exports[`renders an ALB without tags 1`] = `
+exports[`ApplicationLoadBalancer renders an ALB without tags 1`] = `
 "{
   \\"resource\\": {
     \\"aws_alb\\": {

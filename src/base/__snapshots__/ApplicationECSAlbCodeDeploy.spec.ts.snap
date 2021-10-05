@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`renders a CodeDeploy with a sns 1`] = `
+exports[`ApplicationECSAlbCodeDeploy renders a CodeDeploy with a sns 1`] = `
 "{
   \\"data\\": {
     \\"aws_caller_identity\\": {
@@ -139,7 +139,7 @@ exports[`renders a CodeDeploy with a sns 1`] = `
 }"
 `;
 
-exports[`renders a CodeDeploy with tags 1`] = `
+exports[`ApplicationECSAlbCodeDeploy renders a CodeDeploy with tags 1`] = `
 "{
   \\"data\\": {
     \\"aws_caller_identity\\": {
@@ -278,7 +278,7 @@ exports[`renders a CodeDeploy with tags 1`] = `
 }"
 `;
 
-exports[`renders a CodeDeploy without a sns 1`] = `
+exports[`ApplicationECSAlbCodeDeploy renders a CodeDeploy without a sns 1`] = `
 "{
   \\"data\\": {
     \\"aws_iam_policy_document\\": {

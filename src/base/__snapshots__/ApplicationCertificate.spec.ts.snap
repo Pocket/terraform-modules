@@ -134,7 +134,7 @@ exports[`ApplicationCertificate generateAcmCertificate renders an acm certificat
 "{
   \\"resource\\": {
     \\"aws_acm_certificate\\": {
-      \\"certificate\\": {
+      \\"test-resource_certificate_15680B70\\": {
         \\"domain_name\\": \\"dev.gobowling.info\\",
         \\"lifecycle\\": {
           \\"create_before_destroy\\": true
@@ -154,7 +154,7 @@ exports[`ApplicationCertificate generateAcmCertificate renders an acm certificat
 "{
   \\"resource\\": {
     \\"aws_acm_certificate\\": {
-      \\"certificate\\": {
+      \\"test-resource_certificate_15680B70\\": {
         \\"domain_name\\": \\"dev.gobowling.info\\",
         \\"lifecycle\\": {
           \\"create_before_destroy\\": true
@@ -170,7 +170,7 @@ exports[`ApplicationCertificate generateAcmCertificateValidation renders an acm 
 "{
   \\"resource\\": {
     \\"aws_acm_certificate\\": {
-      \\"certificate\\": {
+      \\"test-resource_certificate_15680B70\\": {
         \\"domain_name\\": \\"dev.gobowling.info\\",
         \\"lifecycle\\": {
           \\"create_before_destroy\\": true
@@ -180,10 +180,10 @@ exports[`ApplicationCertificate generateAcmCertificateValidation renders an acm 
     },
     \\"aws_acm_certificate_validation\\": {
       \\"test-resource_certificate_validation_7DB80AF0\\": {
-        \\"certificate_arn\\": \\"\${aws_acm_certificate.certificate.arn}\\",
+        \\"certificate_arn\\": \\"\${aws_acm_certificate.test-resource_certificate_15680B70.arn}\\",
         \\"depends_on\\": [
           \\"aws_route53_record.test-resource_certificate_record_59EDF3C1\\",
-          \\"aws_acm_certificate.certificate\\"
+          \\"aws_acm_certificate.test-resource_certificate_15680B70\\"
         ],
         \\"validation_record_fqdns\\": [
           \\"\${aws_route53_record.test-resource_certificate_record_59EDF3C1.fqdn}\\"
@@ -193,14 +193,14 @@ exports[`ApplicationCertificate generateAcmCertificateValidation renders an acm 
     \\"aws_route53_record\\": {
       \\"test-resource_certificate_record_59EDF3C1\\": {
         \\"depends_on\\": [
-          \\"aws_acm_certificate.certificate\\"
+          \\"aws_acm_certificate.test-resource_certificate_15680B70\\"
         ],
-        \\"name\\": \\"\${tolist(aws_acm_certificate.certificate.domain_validation_options)[0].resource_record_name}\\",
+        \\"name\\": \\"\${tolist(aws_acm_certificate.test-resource_certificate_15680B70.domain_validation_options)[0].resource_record_name}\\",
         \\"records\\": [
-          \\"\${tolist(aws_acm_certificate.certificate.domain_validation_options)[0].resource_record_value}\\"
+          \\"\${tolist(aws_acm_certificate.test-resource_certificate_15680B70.domain_validation_options)[0].resource_record_value}\\"
         ],
         \\"ttl\\": 60,
-        \\"type\\": \\"\${tolist(aws_acm_certificate.certificate.domain_validation_options)[0].resource_record_type}\\",
+        \\"type\\": \\"\${tolist(aws_acm_certificate.test-resource_certificate_15680B70.domain_validation_options)[0].resource_record_type}\\",
         \\"zone_id\\": \\"dev.gobowling.info\\"
       }
     }
@@ -212,7 +212,7 @@ exports[`ApplicationCertificate generateRoute53Record renders a route 53 record 
 "{
   \\"resource\\": {
     \\"aws_acm_certificate\\": {
-      \\"certificate\\": {
+      \\"test-resource_certificate_15680B70\\": {
         \\"domain_name\\": \\"dev.gobowling.info\\",
         \\"lifecycle\\": {
           \\"create_before_destroy\\": true
@@ -223,14 +223,14 @@ exports[`ApplicationCertificate generateRoute53Record renders a route 53 record 
     \\"aws_route53_record\\": {
       \\"test-resource_certificate_record_59EDF3C1\\": {
         \\"depends_on\\": [
-          \\"aws_acm_certificate.certificate\\"
+          \\"aws_acm_certificate.test-resource_certificate_15680B70\\"
         ],
-        \\"name\\": \\"\${tolist(aws_acm_certificate.certificate.domain_validation_options)[0].resource_record_name}\\",
+        \\"name\\": \\"\${tolist(aws_acm_certificate.test-resource_certificate_15680B70.domain_validation_options)[0].resource_record_name}\\",
         \\"records\\": [
-          \\"\${tolist(aws_acm_certificate.certificate.domain_validation_options)[0].resource_record_value}\\"
+          \\"\${tolist(aws_acm_certificate.test-resource_certificate_15680B70.domain_validation_options)[0].resource_record_value}\\"
         ],
         \\"ttl\\": 60,
-        \\"type\\": \\"\${tolist(aws_acm_certificate.certificate.domain_validation_options)[0].resource_record_type}\\",
+        \\"type\\": \\"\${tolist(aws_acm_certificate.test-resource_certificate_15680B70.domain_validation_options)[0].resource_record_type}\\",
         \\"zone_id\\": \\"dev.gobowling.info\\"
       }
     }

@@ -1,4 +1,4 @@
-import { TerraformStack, Testing } from 'cdktf';
+import { Testing } from 'cdktf';
 import {
   ApplicationVersionedLambda,
   ApplicationVersionedLambdaProps,
@@ -12,146 +12,126 @@ const config: ApplicationVersionedLambdaProps = {
   s3Bucket: 'test-bucket',
 };
 
-test('renders a versioned lambda', () => {
-  const app = Testing.app();
-  const stack = new TerraformStack(app, 'test');
-
-  new ApplicationVersionedLambda(stack, 'test-versioned-lambda', config);
-
-  expect(Testing.synth(stack)).toMatchSnapshot();
-});
-
-test('renders a versioned lambda with tags', () => {
-  const app = Testing.app();
-  const stack = new TerraformStack(app, 'test');
-
-  new ApplicationVersionedLambda(stack, 'test-versioned-lambda', {
-    ...config,
-    tags: {
-      my: 'tag',
-      for: 'test',
-    },
+describe('ApplicationVersionedLambda', () => {
+  it('renders a versioned lambda', () => {
+    const synthed = Testing.synthScope((stack) => {
+      new ApplicationVersionedLambda(stack, 'test-versioned-lambda', config);
+    });
+    expect(synthed).toMatchSnapshot();
   });
 
-  expect(Testing.synth(stack)).toMatchSnapshot();
-});
-
-test('renders a versioned lambda with environment variables', () => {
-  const app = Testing.app();
-  const stack = new TerraformStack(app, 'test');
-
-  new ApplicationVersionedLambda(stack, 'test-versioned-lambda', {
-    ...config,
-    environment: {
-      MY: 'env_var',
-      for: 'test',
-    },
+  it('renders a versioned lambda with tags', () => {
+    const synthed = Testing.synthScope((stack) => {
+      new ApplicationVersionedLambda(stack, 'test-versioned-lambda', {
+        ...config,
+        tags: {
+          my: 'tag',
+          for: 'test',
+        },
+      });
+    });
+    expect(synthed).toMatchSnapshot();
   });
 
-  expect(Testing.synth(stack)).toMatchSnapshot();
-});
-
-test('renders a versioned lambda with timeout', () => {
-  const app = Testing.app();
-  const stack = new TerraformStack(app, 'test');
-
-  new ApplicationVersionedLambda(stack, 'test-versioned-lambda', {
-    ...config,
-    timeout: 500,
+  it('renders a versioned lambda with environment variables', () => {
+    const synthed = Testing.synthScope((stack) => {
+      new ApplicationVersionedLambda(stack, 'test-versioned-lambda', {
+        ...config,
+        environment: {
+          MY: 'env_var',
+          for: 'test',
+        },
+      });
+    });
+    expect(synthed).toMatchSnapshot();
   });
 
-  expect(Testing.synth(stack)).toMatchSnapshot();
-});
-
-test('renders a versioned lambda with description', () => {
-  const app = Testing.app();
-  const stack = new TerraformStack(app, 'test');
-
-  new ApplicationVersionedLambda(stack, 'test-versioned-lambda', {
-    ...config,
-    description: 'Test Description',
+  it('renders a versioned lambda with timeout', () => {
+    const synthed = Testing.synthScope((stack) => {
+      new ApplicationVersionedLambda(stack, 'test-versioned-lambda', {
+        ...config,
+        timeout: 500,
+      });
+    });
+    expect(synthed).toMatchSnapshot();
   });
 
-  expect(Testing.synth(stack)).toMatchSnapshot();
-});
-
-test('renders a versioned lambda with execution policy statements', () => {
-  const app = Testing.app();
-  const stack = new TerraformStack(app, 'test');
-
-  new ApplicationVersionedLambda(stack, 'test-versioned-lambda', {
-    ...config,
-    executionPolicyStatements: [
-      {
-        effect: 'Allow',
-        actions: ['*'],
-        resources: ['*'],
-      },
-    ],
+  it('renders a versioned lambda with description', () => {
+    const synthed = Testing.synthScope((stack) => {
+      new ApplicationVersionedLambda(stack, 'test-versioned-lambda', {
+        ...config,
+        description: 'Test Description',
+      });
+    });
+    expect(synthed).toMatchSnapshot();
   });
 
-  expect(Testing.synth(stack)).toMatchSnapshot();
-});
-
-test('renders a versioned lambda with log retention', () => {
-  const app = Testing.app();
-  const stack = new TerraformStack(app, 'test');
-
-  new ApplicationVersionedLambda(stack, 'test-versioned-lambda', {
-    ...config,
-    logRetention: 10,
+  it('renders a versioned lambda with execution policy statements', () => {
+    const synthed = Testing.synthScope((stack) => {
+      new ApplicationVersionedLambda(stack, 'test-versioned-lambda', {
+        ...config,
+        executionPolicyStatements: [
+          {
+            effect: 'Allow',
+            actions: ['*'],
+            resources: ['*'],
+          },
+        ],
+      });
+    });
+    expect(synthed).toMatchSnapshot();
   });
 
-  expect(Testing.synth(stack)).toMatchSnapshot();
-});
-
-test('renders a versioned lambda with vpc', () => {
-  const app = Testing.app();
-  const stack = new TerraformStack(app, 'test');
-
-  new ApplicationVersionedLambda(stack, 'test-versioned-lambda', {
-    ...config,
-    vpcConfig: {
-      subnetIds: ['1', '2'],
-      securityGroupIds: ['sec1', 'sec2'],
-    },
+  it('renders a versioned lambda with log retention', () => {
+    const synthed = Testing.synthScope((stack) => {
+      new ApplicationVersionedLambda(stack, 'test-versioned-lambda', {
+        ...config,
+        logRetention: 10,
+      });
+    });
+    expect(synthed).toMatchSnapshot();
   });
 
-  expect(Testing.synth(stack)).toMatchSnapshot();
-});
-
-test('renders a versioned lambda with s3 bucket', () => {
-  const app = Testing.app();
-  const stack = new TerraformStack(app, 'test');
-
-  new ApplicationVersionedLambda(stack, 'test-versioned-lambda', {
-    ...config,
-    s3Bucket: 'test-bucket',
+  it('renders a versioned lambda with vpc', () => {
+    const synthed = Testing.synthScope((stack) => {
+      new ApplicationVersionedLambda(stack, 'test-versioned-lambda', {
+        ...config,
+        vpcConfig: {
+          subnetIds: ['1', '2'],
+          securityGroupIds: ['sec1', 'sec2'],
+        },
+      });
+    });
+    expect(synthed).toMatchSnapshot();
   });
 
-  expect(Testing.synth(stack)).toMatchSnapshot();
-});
-
-test('renders a versioned lambda with publish ignored', () => {
-  const app = Testing.app();
-  const stack = new TerraformStack(app, 'test');
-
-  new ApplicationVersionedLambda(stack, 'test-versioned-lambda', {
-    ...config,
-    usesCodeDeploy: true,
+  it('renders a versioned lambda with s3 bucket', () => {
+    const synthed = Testing.synthScope((stack) => {
+      new ApplicationVersionedLambda(stack, 'test-versioned-lambda', {
+        ...config,
+        s3Bucket: 'test-bucket',
+      });
+    });
+    expect(synthed).toMatchSnapshot();
   });
 
-  expect(Testing.synth(stack)).toMatchSnapshot();
-});
-
-test('renders a lambda with a node v14 runtime', () => {
-  const app = Testing.app();
-  const stack = new TerraformStack(app, 'test');
-
-  new ApplicationVersionedLambda(stack, 'test-versioned-lambda', {
-    ...config,
-    runtime: LAMBDA_RUNTIMES.NODEJS14,
+  it('renders a versioned lambda with publish ignored', () => {
+    const synthed = Testing.synthScope((stack) => {
+      new ApplicationVersionedLambda(stack, 'test-versioned-lambda', {
+        ...config,
+        usesCodeDeploy: true,
+      });
+    });
+    expect(synthed).toMatchSnapshot();
   });
 
-  expect(Testing.synth(stack)).toMatchSnapshot();
+  it('renders a lambda with a node v14 runtime', () => {
+    const synthed = Testing.synthScope((stack) => {
+      new ApplicationVersionedLambda(stack, 'test-versioned-lambda', {
+        ...config,
+        runtime: LAMBDA_RUNTIMES.NODEJS14,
+      });
+    });
+    expect(synthed).toMatchSnapshot();
+  });
 });

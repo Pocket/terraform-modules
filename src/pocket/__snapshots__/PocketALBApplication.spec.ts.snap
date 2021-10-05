@@ -7952,5 +7952,3 @@ exports[`PocketALBApplication renders an internal application with tags 1`] = `
   }
 }"
 `;
-
-exports[`PocketALBApplication throws an error trying for an internal app with a cdn 1`] = `"{}"`;

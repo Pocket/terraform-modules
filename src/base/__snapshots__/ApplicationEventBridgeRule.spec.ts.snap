@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`renders an event bridge with description 1`] = `
+exports[`AplicationEventBridgeRule renders an event bridge with description 1`] = `
 "{
   \\"resource\\": {
     \\"aws_cloudwatch_event_rule\\": {
@@ -15,7 +15,7 @@ exports[`renders an event bridge with description 1`] = `
 }"
 `;
 
-exports[`renders an event bridge with event bus name 1`] = `
+exports[`AplicationEventBridgeRule renders an event bridge with event bus name 1`] = `
 "{
   \\"resource\\": {
     \\"aws_cloudwatch_event_rule\\": {
@@ -29,7 +29,7 @@ exports[`renders an event bridge with event bus name 1`] = `
 }"
 `;
 
-exports[`renders an event bridge with sqs target 1`] = `
+exports[`AplicationEventBridgeRule renders an event bridge with sqs target 1`] = `
 "{
   \\"resource\\": {
     \\"aws_cloudwatch_event_rule\\": {
@@ -59,7 +59,7 @@ exports[`renders an event bridge with sqs target 1`] = `
 }"
 `;
 
-exports[`renders an event bridge with tags 1`] = `
+exports[`AplicationEventBridgeRule renders an event bridge with tags 1`] = `
 "{
   \\"resource\\": {
     \\"aws_cloudwatch_event_rule\\": {
@@ -77,7 +77,7 @@ exports[`renders an event bridge with tags 1`] = `
 }"
 `;
 
-exports[`renders an event bridge without a target 1`] = `
+exports[`AplicationEventBridgeRule renders an event bridge without a target 1`] = `
 "{
   \\"resource\\": {
     \\"aws_cloudwatch_event_rule\\": {

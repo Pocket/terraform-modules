@@ -32,50 +32,42 @@ describe('PocketALBApplication', () => {
   });
 
   it('renders an application with minimal config', () => {
-    const app = Testing.app();
-    const stack = new TerraformStack(app, 'test');
-
-    new PocketALBApplication(stack, 'testPocketApp', BASE_CONFIG);
-
-    expect(Testing.synth(stack)).toMatchSnapshot();
+    const synthed = Testing.synthScope((stack) => {
+      new PocketALBApplication(stack, 'testPocketApp', BASE_CONFIG);
+    });
+    expect(synthed).toMatchSnapshot();
   });
 
   it('renders an external application', () => {
-    const app = Testing.app();
-    const stack = new TerraformStack(app, 'test');
+    const synthed = Testing.synthScope((stack) => {
+      BASE_CONFIG.internal = false;
+      BASE_CONFIG.cdn = true;
 
-    BASE_CONFIG.internal = false;
-    BASE_CONFIG.cdn = true;
-
-    new PocketALBApplication(stack, 'testPocketApp', BASE_CONFIG);
-
-    expect(Testing.synth(stack)).toMatchSnapshot();
+      new PocketALBApplication(stack, 'testPocketApp', BASE_CONFIG);
+    });
+    expect(synthed).toMatchSnapshot();
   });
 
   it('renders an internal application', () => {
-    const app = Testing.app();
-    const stack = new TerraformStack(app, 'test');
+    const synthed = Testing.synthScope((stack) => {
+      BASE_CONFIG.internal = true;
+      BASE_CONFIG.cdn = false;
 
-    BASE_CONFIG.internal = true;
-    BASE_CONFIG.cdn = false;
-
-    new PocketALBApplication(stack, 'testPocketApp', BASE_CONFIG);
-
-    expect(Testing.synth(stack)).toMatchSnapshot();
+      new PocketALBApplication(stack, 'testPocketApp', BASE_CONFIG);
+    });
+    expect(synthed).toMatchSnapshot();
   });
 
   it('renders an application with custom task sizes', () => {
-    const app = Testing.app();
-    const stack = new TerraformStack(app, 'test');
+    const synthed = Testing.synthScope((stack) => {
+      BASE_CONFIG.taskSize = {
+        cpu: 8675,
+        memory: 309,
+      };
 
-    BASE_CONFIG.taskSize = {
-      cpu: 8675,
-      memory: 309,
-    };
-
-    new PocketALBApplication(stack, 'testPocketApp', BASE_CONFIG);
-
-    expect(Testing.synth(stack)).toMatchSnapshot();
+      new PocketALBApplication(stack, 'testPocketApp', BASE_CONFIG);
+    });
+    expect(synthed).toMatchSnapshot();
   });
 
   it('throws an error trying for an internal app with a cdn', () => {
@@ -88,146 +80,132 @@ describe('PocketALBApplication', () => {
     expect(() => {
       new PocketALBApplication(stack, 'testPocketApp', BASE_CONFIG);
     }).toThrow('You can not have a cached ALB and have it be internal.');
-
-    expect(Testing.synth(stack)).toMatchSnapshot();
   });
 
   it('renders an internal application with tags', () => {
-    const app = Testing.app();
-    const stack = new TerraformStack(app, 'test');
+    const synthed = Testing.synthScope((stack) => {
+      BASE_CONFIG.internal = true;
+      BASE_CONFIG.cdn = false;
+      BASE_CONFIG.tags = {
+        name: 'thedude',
+        hobby: 'bowling',
+      };
 
-    BASE_CONFIG.internal = true;
-    BASE_CONFIG.cdn = false;
-    BASE_CONFIG.tags = {
-      name: 'thedude',
-      hobby: 'bowling',
-    };
-
-    new PocketALBApplication(stack, 'testPocketApp', BASE_CONFIG);
-
-    expect(Testing.synth(stack)).toMatchSnapshot();
+      new PocketALBApplication(stack, 'testPocketApp', BASE_CONFIG);
+    });
+    expect(synthed).toMatchSnapshot();
   });
 
   it('renders an application with autoscaling group and tags', () => {
-    const app = Testing.app();
-    const stack = new TerraformStack(app, 'test');
+    const synthed = Testing.synthScope((stack) => {
+      BASE_CONFIG.tags = {
+        name: 'thedude',
+        hobby: 'bowling',
+      };
 
-    BASE_CONFIG.tags = {
-      name: 'thedude',
-      hobby: 'bowling',
-    };
+      BASE_CONFIG.autoscalingConfig = {
+        targetMinCapacity: 1,
+        targetMaxCapacity: 2,
+        stepScaleInAdjustment: -1,
+        stepScaleOutAdjustment: 2,
+        scaleInThreshold: 30,
+        scaleOutThreshold: 45,
+      };
 
-    BASE_CONFIG.autoscalingConfig = {
-      targetMinCapacity: 1,
-      targetMaxCapacity: 2,
-      stepScaleInAdjustment: -1,
-      stepScaleOutAdjustment: 2,
-      scaleInThreshold: 30,
-      scaleOutThreshold: 45,
-    };
-
-    new PocketALBApplication(stack, 'testPocketApp', BASE_CONFIG);
-
-    expect(Testing.synth(stack)).toMatchSnapshot();
+      new PocketALBApplication(stack, 'testPocketApp', BASE_CONFIG);
+    });
+    expect(synthed).toMatchSnapshot();
   });
 
   it('renders an application with default autoscaling group and tags', () => {
-    const app = Testing.app();
-    const stack = new TerraformStack(app, 'test');
+    const synthed = Testing.synthScope((stack) => {
+      BASE_CONFIG.tags = {
+        name: 'thedude',
+        hobby: 'bowling',
+      };
 
-    BASE_CONFIG.tags = {
-      name: 'thedude',
-      hobby: 'bowling',
-    };
-
-    new PocketALBApplication(stack, 'testPocketApp', BASE_CONFIG);
-
-    expect(Testing.synth(stack)).toMatchSnapshot();
+      new PocketALBApplication(stack, 'testPocketApp', BASE_CONFIG);
+    });
+    expect(synthed).toMatchSnapshot();
   });
 
   it('renders an application with modified container def protocol, cpu and memory reservation', () => {
-    const app = Testing.app();
-    const stack = new TerraformStack(app, 'test');
+    const synthed = Testing.synthScope((stack) => {
+      BASE_CONFIG.containerConfigs = [
+        {
+          name: 'xray-daemon',
+          portMappings: [
+            {
+              hostPort: 0,
+              containerPort: 2000,
+              protocol: 'udp',
+            },
+          ],
+          cpu: 10,
+          memoryReservation: 50,
+        },
+      ];
 
-    BASE_CONFIG.containerConfigs = [
-      {
-        name: 'xray-daemon',
-        portMappings: [
-          {
-            hostPort: 0,
-            containerPort: 2000,
-            protocol: 'udp',
-          },
-        ],
-        cpu: 10,
-        memoryReservation: 50,
-      },
-    ];
-
-    new PocketALBApplication(stack, 'testPocketApp', BASE_CONFIG);
-
-    expect(Testing.synth(stack)).toMatchSnapshot();
+      new PocketALBApplication(stack, 'testPocketApp', BASE_CONFIG);
+    });
+    expect(synthed).toMatchSnapshot();
   });
 
   it('renders an application alarms', () => {
-    const app = Testing.app();
-    const stack = new TerraformStack(app, 'test');
-
-    const alarmConfig = {
-      ...BASE_CONFIG,
-      alarms: {
-        http5xxError: {
-          threshold: 10,
-          evaluationPeriods: 1,
-          period: 600,
-          actions: ['sns-arn-for-5xx-errors'],
+    const synthed = Testing.synthScope((stack) => {
+      const alarmConfig = {
+        ...BASE_CONFIG,
+        alarms: {
+          http5xxError: {
+            threshold: 10,
+            evaluationPeriods: 1,
+            period: 600,
+            actions: ['sns-arn-for-5xx-errors'],
+          },
+          httpLatency: {
+            threshold: 0.5,
+            evaluationPeriods: 2,
+            period: 300,
+            actions: ['sns-arn-for-latency'],
+          },
+          httpRequestCount: {
+            threshold: 10000,
+            evaluationPeriods: 3,
+            period: 900,
+            actions: [],
+          },
         },
-        httpLatency: {
-          threshold: 0.5,
-          evaluationPeriods: 2,
-          period: 300,
-          actions: ['sns-arn-for-latency'],
-        },
-        httpRequestCount: {
-          threshold: 10000,
-          evaluationPeriods: 3,
-          period: 900,
-          actions: [],
-        },
-      },
-    };
+      };
 
-    new PocketALBApplication(stack, 'testPocketApp', alarmConfig);
-
-    expect(Testing.synth(stack)).toMatchSnapshot();
+      new PocketALBApplication(stack, 'testPocketApp', alarmConfig);
+    });
+    expect(synthed).toMatchSnapshot();
   });
 
   it('renders an application custom default alarms', () => {
-    const app = Testing.app();
-    const stack = new TerraformStack(app, 'test');
+    const synthed = Testing.synthScope((stack) => {
+      const alarmConfig = {
+        ...BASE_CONFIG,
+        alarms: {
+          customAlarms: [
+            {
+              alarmName: `Alarm-Custom`,
+              namespace: 'TM/Alarm',
+              metricName: 'Custom',
+              dimensions: { Test: 'Alarm' },
+              period: 300,
+              statistic: 'Sum',
+              comparisonOperator: 'GreaterThanThreshold',
+              threshold: 500,
+              evaluationPeriods: 1,
+            },
+          ],
+        },
+      };
 
-    const alarmConfig = {
-      ...BASE_CONFIG,
-      alarms: {
-        customAlarms: [
-          {
-            alarmName: `Alarm-Custom`,
-            namespace: 'TM/Alarm',
-            metricName: 'Custom',
-            dimensions: { Test: 'Alarm' },
-            period: 300,
-            statistic: 'Sum',
-            comparisonOperator: 'GreaterThanThreshold',
-            threshold: 500,
-            evaluationPeriods: 1,
-          },
-        ],
-      },
-    };
-
-    new PocketALBApplication(stack, 'testPocketApp', alarmConfig);
-
-    expect(Testing.synth(stack)).toMatchSnapshot();
+      new PocketALBApplication(stack, 'testPocketApp', alarmConfig);
+    });
+    expect(synthed).toMatchSnapshot();
   });
 
   it('validates http 5xx alarm config', () => {
@@ -330,31 +308,27 @@ describe('PocketALBApplication', () => {
   });
 
   it('renders an Pocket App with code deploy', () => {
-    const app = Testing.app();
-    const stack = new TerraformStack(app, 'test');
-
-    new PocketALBApplication(stack, 'testPocketApp', {
-      ...BASE_CONFIG,
-      codeDeploy: {
-        useCodeDeploy: true,
-      },
+    const synthed = Testing.synthScope((stack) => {
+      new PocketALBApplication(stack, 'testPocketApp', {
+        ...BASE_CONFIG,
+        codeDeploy: {
+          useCodeDeploy: true,
+        },
+      });
     });
-
-    expect(Testing.synth(stack)).toMatchSnapshot();
+    expect(synthed).toMatchSnapshot();
   });
 
   it('renders an Pocket App with code deploy and creates appspec.json and taskdef.json when using code pipeline', () => {
-    const app = Testing.app();
-    const stack = new TerraformStack(app, 'test');
-
-    new PocketALBApplication(stack, 'testPocketApp', {
-      ...BASE_CONFIG,
-      codeDeploy: {
-        useCodePipeline: true,
-        useCodeDeploy: true,
-      },
+    const synthed = Testing.synthScope((stack) => {
+      new PocketALBApplication(stack, 'testPocketApp', {
+        ...BASE_CONFIG,
+        codeDeploy: {
+          useCodePipeline: true,
+          useCodeDeploy: true,
+        },
+      });
     });
-
-    expect(Testing.synth(stack)).toMatchSnapshot();
+    expect(synthed).toMatchSnapshot();
   });
 });

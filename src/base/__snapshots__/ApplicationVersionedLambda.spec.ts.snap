@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`renders a lambda with a node v14 runtime 1`] = `
+exports[`ApplicationVersionedLambda renders a lambda with a node v14 runtime 1`] = `
 "{
   \\"data\\": {
     \\"archive_file\\": {
@@ -139,7 +139,7 @@ exports[`renders a lambda with a node v14 runtime 1`] = `
 }"
 `;
 
-exports[`renders a versioned lambda 1`] = `
+exports[`ApplicationVersionedLambda renders a versioned lambda 1`] = `
 "{
   \\"data\\": {
     \\"archive_file\\": {
@@ -278,7 +278,7 @@ exports[`renders a versioned lambda 1`] = `
 }"
 `;
 
-exports[`renders a versioned lambda with description 1`] = `
+exports[`ApplicationVersionedLambda renders a versioned lambda with description 1`] = `
 "{
   \\"data\\": {
     \\"archive_file\\": {
@@ -417,7 +417,7 @@ exports[`renders a versioned lambda with description 1`] = `
 }"
 `;
 
-exports[`renders a versioned lambda with environment variables 1`] = `
+exports[`ApplicationVersionedLambda renders a versioned lambda with environment variables 1`] = `
 "{
   \\"data\\": {
     \\"archive_file\\": {
@@ -564,7 +564,7 @@ exports[`renders a versioned lambda with environment variables 1`] = `
 }"
 `;
 
-exports[`renders a versioned lambda with execution policy statements 1`] = `
+exports[`ApplicationVersionedLambda renders a versioned lambda with execution policy statements 1`] = `
 "{
   \\"data\\": {
     \\"archive_file\\": {
@@ -712,7 +712,7 @@ exports[`renders a versioned lambda with execution policy statements 1`] = `
 }"
 `;
 
-exports[`renders a versioned lambda with log retention 1`] = `
+exports[`ApplicationVersionedLambda renders a versioned lambda with log retention 1`] = `
 "{
   \\"data\\": {
     \\"archive_file\\": {
@@ -851,7 +851,7 @@ exports[`renders a versioned lambda with log retention 1`] = `
 }"
 `;
 
-exports[`renders a versioned lambda with publish ignored 1`] = `
+exports[`ApplicationVersionedLambda renders a versioned lambda with publish ignored 1`] = `
 "{
   \\"data\\": {
     \\"archive_file\\": {
@@ -991,7 +991,7 @@ exports[`renders a versioned lambda with publish ignored 1`] = `
 }"
 `;
 
-exports[`renders a versioned lambda with s3 bucket 1`] = `
+exports[`ApplicationVersionedLambda renders a versioned lambda with s3 bucket 1`] = `
 "{
   \\"data\\": {
     \\"archive_file\\": {
@@ -1130,7 +1130,7 @@ exports[`renders a versioned lambda with s3 bucket 1`] = `
 }"
 `;
 
-exports[`renders a versioned lambda with tags 1`] = `
+exports[`ApplicationVersionedLambda renders a versioned lambda with tags 1`] = `
 "{
   \\"data\\": {
     \\"archive_file\\": {
@@ -1277,7 +1277,7 @@ exports[`renders a versioned lambda with tags 1`] = `
 }"
 `;
 
-exports[`renders a versioned lambda with timeout 1`] = `
+exports[`ApplicationVersionedLambda renders a versioned lambda with timeout 1`] = `
 "{
   \\"data\\": {
     \\"archive_file\\": {
@@ -1416,7 +1416,7 @@ exports[`renders a versioned lambda with timeout 1`] = `
 }"
 `;
 
-exports[`renders a versioned lambda with vpc 1`] = `
+exports[`ApplicationVersionedLambda renders a versioned lambda with vpc 1`] = `
 "{
   \\"data\\": {
     \\"archive_file\\": {

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`renders ECS IAM with minimal config 1`] = `
+exports[`ApplicationECSIAM renders ECS IAM with minimal config 1`] = `
 "{
   \\"data\\": {
     \\"aws_iam_policy_document\\": {
@@ -46,7 +46,7 @@ exports[`renders ECS IAM with minimal config 1`] = `
 }"
 `;
 
-exports[`renders ECS IAM with tags 1`] = `
+exports[`ApplicationECSIAM renders ECS IAM with tags 1`] = `
 "{
   \\"data\\": {
     \\"aws_iam_policy_document\\": {
