@@ -1,4 +1,4 @@
-import { Testing, TerraformStack } from 'cdktf';
+import { Testing } from 'cdktf';
 import {
   ApplicationEventBridgeRule,
   ApplicationEventBridgeRuleProps,
@@ -13,70 +13,62 @@ const config: ApplicationEventBridgeRuleProps = {
   },
 };
 
-test('renders an event bridge without a target', () => {
-  const app = Testing.app();
-  const stack = new TerraformStack(app, 'test');
-
-  new ApplicationEventBridgeRule(stack, 'test-event-bridge-rule', config);
-
-  expect(Testing.synth(stack)).toMatchSnapshot();
-});
-
-test('renders an event bridge with sqs target', () => {
-  const app = Testing.app();
-  const stack = new TerraformStack(app, 'test');
-
-  const sqs = new SqsQueue(stack, 'test-queue', {
-    name: 'Test-SQS-Queue',
+describe('AplicationEventBridgeRule', () => {
+  it('renders an event bridge without a target', () => {
+    const synthed = Testing.synthScope((stack) => {
+      new ApplicationEventBridgeRule(stack, 'test-event-bridge-rule', config);
+    });
+    expect(synthed).toMatchSnapshot();
   });
 
-  new ApplicationEventBridgeRule(stack, 'test-event-bridge-rule', {
-    ...config,
-    target: {
-      dependsOn: sqs,
-      arn: sqs.arn,
-      targetId: 'sqs',
-    },
+  it('renders an event bridge with sqs target', () => {
+    const synthed = Testing.synthScope((stack) => {
+      const sqs = new SqsQueue(stack, 'test-queue', {
+        name: 'Test-SQS-Queue',
+      });
+
+      new ApplicationEventBridgeRule(stack, 'test-event-bridge-rule', {
+        ...config,
+        target: {
+          dependsOn: sqs,
+          arn: sqs.arn,
+          targetId: 'sqs',
+        },
+      });
+    });
+    expect(synthed).toMatchSnapshot();
   });
 
-  expect(Testing.synth(stack)).toMatchSnapshot();
-});
-
-test('renders an event bridge with description', () => {
-  const app = Testing.app();
-  const stack = new TerraformStack(app, 'test');
-
-  new ApplicationEventBridgeRule(stack, 'test-event-bridge-rule', {
-    ...config,
-    description: 'Test description',
+  it('renders an event bridge with description', () => {
+    const synthed = Testing.synthScope((stack) => {
+      new ApplicationEventBridgeRule(stack, 'test-event-bridge-rule', {
+        ...config,
+        description: 'Test description',
+      });
+    });
+    expect(synthed).toMatchSnapshot();
   });
 
-  expect(Testing.synth(stack)).toMatchSnapshot();
-});
-
-test('renders an event bridge with event bus name', () => {
-  const app = Testing.app();
-  const stack = new TerraformStack(app, 'test');
-
-  new ApplicationEventBridgeRule(stack, 'test-event-bridge-rule', {
-    ...config,
-    eventBusName: 'test-bus',
+  it('renders an event bridge with event bus name', () => {
+    const synthed = Testing.synthScope((stack) => {
+      new ApplicationEventBridgeRule(stack, 'test-event-bridge-rule', {
+        ...config,
+        eventBusName: 'test-bus',
+      });
+    });
+    expect(synthed).toMatchSnapshot();
   });
 
-  expect(Testing.synth(stack)).toMatchSnapshot();
-});
-
-test('renders an event bridge with tags', () => {
-  const app = Testing.app();
-  const stack = new TerraformStack(app, 'test');
-
-  new ApplicationEventBridgeRule(stack, 'test-event-bridge-rule', {
-    ...config,
-    tags: {
-      my: 'tag',
-      for: 'test',
-    },
+  it('renders an event bridge with tags', () => {
+    const synthed = Testing.synthScope((stack) => {
+      new ApplicationEventBridgeRule(stack, 'test-event-bridge-rule', {
+        ...config,
+        tags: {
+          my: 'tag',
+          for: 'test',
+        },
+      });
+    });
+    expect(synthed).toMatchSnapshot();
   });
-
-  expect(Testing.synth(stack)).toMatchSnapshot();
 });

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`renders an ECR with tags 1`] = `
+exports[`ApplicationECR renders an ECR with tags 1`] = `
 "{
   \\"resource\\": {
     \\"aws_ecr_lifecycle_policy\\": {
@@ -30,7 +30,7 @@ exports[`renders an ECR with tags 1`] = `
 }"
 `;
 
-exports[`renders an ECR without tags 1`] = `
+exports[`ApplicationECR renders an ECR without tags 1`] = `
 "{
   \\"resource\\": {
     \\"aws_ecr_lifecycle_policy\\": {

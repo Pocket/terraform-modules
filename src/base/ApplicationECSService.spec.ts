@@ -1,4 +1,4 @@
-import { TerraformStack, Testing } from 'cdktf';
+import { Testing } from 'cdktf';
 import {
   ApplicationECSService,
   ApplicationECSServiceProps,
@@ -35,18 +35,13 @@ describe('ApplicationECSService', () => {
   });
 
   it('renders an ECS service with minimal config', () => {
-    const app = Testing.app();
-    const stack = new TerraformStack(app, 'test');
-
-    new ApplicationECSService(stack, 'testECSService', BASE_CONFIG);
-
-    expect(Testing.synth(stack)).toMatchSnapshot();
+    const synthed = Testing.synthScope((stack) => {
+      new ApplicationECSService(stack, 'testECSService', BASE_CONFIG);
+    });
+    expect(synthed).toMatchSnapshot();
   });
 
   it('renders an ECS service with full container definition props', () => {
-    const app = Testing.app();
-    const stack = new TerraformStack(app, 'test');
-
     BASE_CONFIG.launchType = 'ROCKET';
     BASE_CONFIG.deploymentMaximumPercent = 400;
     BASE_CONFIG.deploymentMinimumHealthyPercent = 80;
@@ -78,16 +73,13 @@ describe('ApplicationECSService', () => {
         ],
       },
     ];
-
-    new ApplicationECSService(stack, 'testECSService', BASE_CONFIG);
-
-    expect(Testing.synth(stack)).toMatchSnapshot();
+    const synthed = Testing.synthScope((stack) => {
+      new ApplicationECSService(stack, 'testECSService', BASE_CONFIG);
+    });
+    expect(synthed).toMatchSnapshot();
   });
 
   it('renders an ECS service without a log group container definition props', () => {
-    const app = Testing.app();
-    const stack = new TerraformStack(app, 'test');
-
     BASE_CONFIG.launchType = 'ROCKET';
     BASE_CONFIG.deploymentMaximumPercent = 400;
     BASE_CONFIG.deploymentMinimumHealthyPercent = 80;
@@ -119,15 +111,13 @@ describe('ApplicationECSService', () => {
       },
     ];
 
-    new ApplicationECSService(stack, 'testECSService', BASE_CONFIG);
-
-    expect(Testing.synth(stack)).toMatchSnapshot();
+    const synthed = Testing.synthScope((stack) => {
+      new ApplicationECSService(stack, 'testECSService', BASE_CONFIG);
+    });
+    expect(synthed).toMatchSnapshot();
   });
 
   it('renders an ECS service without an image container definition props', () => {
-    const app = Testing.app();
-    const stack = new TerraformStack(app, 'test');
-
     BASE_CONFIG.launchType = 'ROCKET';
     BASE_CONFIG.deploymentMaximumPercent = 400;
     BASE_CONFIG.deploymentMinimumHealthyPercent = 80;
@@ -159,15 +149,13 @@ describe('ApplicationECSService', () => {
       },
     ];
 
-    new ApplicationECSService(stack, 'testECSService', BASE_CONFIG);
-
-    expect(Testing.synth(stack)).toMatchSnapshot();
+    const synthed = Testing.synthScope((stack) => {
+      new ApplicationECSService(stack, 'testECSService', BASE_CONFIG);
+    });
+    expect(synthed).toMatchSnapshot();
   });
 
   it('renders an ECS service with full container definition props and ALB security group config', () => {
-    const app = Testing.app();
-    const stack = new TerraformStack(app, 'test');
-
     BASE_CONFIG.containerConfigs = [
       {
         portMappings: [
@@ -197,15 +185,13 @@ describe('ApplicationECSService', () => {
 
     BASE_CONFIG.albConfig = testAlbConfig;
 
-    new ApplicationECSService(stack, 'testECSService', BASE_CONFIG);
-
-    expect(Testing.synth(stack)).toMatchSnapshot();
+    const synthed = Testing.synthScope((stack) => {
+      new ApplicationECSService(stack, 'testECSService', BASE_CONFIG);
+    });
+    expect(synthed).toMatchSnapshot();
   });
 
   it('renders an ECS service with mountPoints deduplicated in the task definition', () => {
-    const app = Testing.app();
-    const stack = new TerraformStack(app, 'test');
-
     BASE_CONFIG.launchType = 'ROCKET';
     BASE_CONFIG.containerConfigs = [
       {
@@ -240,35 +226,32 @@ describe('ApplicationECSService', () => {
       },
     ];
 
-    new ApplicationECSService(stack, 'testECSService', BASE_CONFIG);
-
-    expect(Testing.synth(stack)).toMatchSnapshot();
+    const synthed = Testing.synthScope((stack) => {
+      new ApplicationECSService(stack, 'testECSService', BASE_CONFIG);
+    });
+    expect(synthed).toMatchSnapshot();
   });
 
   it('renders an ECS service with code deploy', () => {
-    const app = Testing.app();
-    const stack = new TerraformStack(app, 'test');
-
-    new ApplicationECSService(stack, 'testECSService', {
-      ...BASE_CONFIG,
-      ...testAlbConfig,
-      useCodeDeploy: true,
+    const synthed = Testing.synthScope((stack) => {
+      new ApplicationECSService(stack, 'testECSService', {
+        ...BASE_CONFIG,
+        ...testAlbConfig,
+        useCodeDeploy: true,
+      });
     });
-
-    expect(Testing.synth(stack)).toMatchSnapshot();
+    expect(synthed).toMatchSnapshot();
   });
 
   it('renders an ECS service with code deploy and excludes the code deployment command resource when useCodePipeline is true', () => {
-    const app = Testing.app();
-    const stack = new TerraformStack(app, 'test');
-
-    new ApplicationECSService(stack, 'testECSService', {
-      ...BASE_CONFIG,
-      ...testAlbConfig,
-      useCodeDeploy: true,
-      useCodePipeline: true,
+    const synthed = Testing.synthScope((stack) => {
+      new ApplicationECSService(stack, 'testECSService', {
+        ...BASE_CONFIG,
+        ...testAlbConfig,
+        useCodeDeploy: true,
+        useCodePipeline: true,
+      });
     });
-
-    expect(Testing.synth(stack)).toMatchSnapshot();
+    expect(synthed).toMatchSnapshot();
   });
 });

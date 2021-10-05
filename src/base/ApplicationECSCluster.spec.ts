@@ -1,28 +1,26 @@
-import { Testing, TerraformStack } from 'cdktf';
+import { Testing } from 'cdktf';
 import { ApplicationECSCluster } from './ApplicationECSCluster';
 
-test('renders an ECS cluster without tags', () => {
-  const app = Testing.app();
-  const stack = new TerraformStack(app, 'test');
-
-  new ApplicationECSCluster(stack, 'testECSCluster', {
-    prefix: 'bowling-',
+describe('ApplicationECSCluster', () => {
+  it('renders an ECS cluster without tags', () => {
+    const synthed = Testing.synthScope((stack) => {
+      new ApplicationECSCluster(stack, 'testECSCluster', {
+        prefix: 'bowling-',
+      });
+    });
+    expect(synthed).toMatchSnapshot();
   });
 
-  expect(Testing.synth(stack)).toMatchSnapshot();
-});
-
-test('renders an ECS cluster with tags', () => {
-  const app = Testing.app();
-  const stack = new TerraformStack(app, 'test');
-
-  new ApplicationECSCluster(stack, 'testECSCluster', {
-    prefix: 'bowling-',
-    tags: {
-      name: 'maude',
-      description: 'artist',
-    },
+  it('renders an ECS cluster with tags', () => {
+    const synthed = Testing.synthScope((stack) => {
+      new ApplicationECSCluster(stack, 'testECSCluster', {
+        prefix: 'bowling-',
+        tags: {
+          name: 'maude',
+          description: 'artist',
+        },
+      });
+    });
+    expect(synthed).toMatchSnapshot();
   });
-
-  expect(Testing.synth(stack)).toMatchSnapshot();
 });

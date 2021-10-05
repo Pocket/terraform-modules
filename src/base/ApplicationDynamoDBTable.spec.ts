@@ -1,4 +1,4 @@
-import { Testing, TerraformStack } from 'cdktf';
+import { Testing } from 'cdktf';
 import {
   ApplicationDynamoDBTable,
   ApplicationDynamoDBProps,
@@ -25,48 +25,39 @@ describe('ApplicationDynamoDBTable', () => {
   });
 
   it('renders dynamo db table with minimal config', () => {
-    const app = Testing.app();
-    const stack = new TerraformStack(app, 'test');
-
-    new ApplicationDynamoDBTable(stack, 'testDynamoDBTable', BASE_CONFIG);
-
-    expect(Testing.synth(stack)).toMatchSnapshot();
+    const synthed = Testing.synthScope((stack) => {
+      new ApplicationDynamoDBTable(stack, 'testDynamoDBTable', BASE_CONFIG);
+    });
+    expect(synthed).toMatchSnapshot();
   });
 
   it('renders dynamo db table with read capacity', () => {
-    const app = Testing.app();
-    const stack = new TerraformStack(app, 'test');
-
     BASE_CONFIG.readCapacity = {
       tracking: 1,
       max: 10,
       min: 3,
     };
 
-    new ApplicationDynamoDBTable(stack, 'testDynamoDBTable', BASE_CONFIG);
-
-    expect(Testing.synth(stack)).toMatchSnapshot();
+    const synthed = Testing.synthScope((stack) => {
+      new ApplicationDynamoDBTable(stack, 'testDynamoDBTable', BASE_CONFIG);
+    });
+    expect(synthed).toMatchSnapshot();
   });
 
   it('renders dynamo db table with write capacity', () => {
-    const app = Testing.app();
-    const stack = new TerraformStack(app, 'test');
-
     BASE_CONFIG.writeCapacity = {
       tracking: 1,
       max: 10,
       min: 3,
     };
 
-    new ApplicationDynamoDBTable(stack, 'testDynamoDBTable', BASE_CONFIG);
-
-    expect(Testing.synth(stack)).toMatchSnapshot();
+    const synthed = Testing.synthScope((stack) => {
+      new ApplicationDynamoDBTable(stack, 'testDynamoDBTable', BASE_CONFIG);
+    });
+    expect(synthed).toMatchSnapshot();
   });
 
   it('renders dynamo db table with read and write capacity', () => {
-    const app = Testing.app();
-    const stack = new TerraformStack(app, 'test');
-
     BASE_CONFIG.writeCapacity = {
       tracking: 1,
       max: 10,
@@ -79,15 +70,13 @@ describe('ApplicationDynamoDBTable', () => {
       min: 3,
     };
 
-    new ApplicationDynamoDBTable(stack, 'testDynamoDBTable', BASE_CONFIG);
-
-    expect(Testing.synth(stack)).toMatchSnapshot();
+    const synthed = Testing.synthScope((stack) => {
+      new ApplicationDynamoDBTable(stack, 'testDynamoDBTable', BASE_CONFIG);
+    });
+    expect(synthed).toMatchSnapshot();
   });
 
   it('renders dynamo db table with read and write capacity and tags', () => {
-    const app = Testing.app();
-    const stack = new TerraformStack(app, 'test');
-
     BASE_CONFIG.writeCapacity = {
       tracking: 1,
       max: 10,
@@ -105,15 +94,13 @@ describe('ApplicationDynamoDBTable', () => {
       hobby: 'bowling',
     };
 
-    new ApplicationDynamoDBTable(stack, 'testDynamoDBTable', BASE_CONFIG);
-
-    expect(Testing.synth(stack)).toMatchSnapshot();
+    const synthed = Testing.synthScope((stack) => {
+      new ApplicationDynamoDBTable(stack, 'testDynamoDBTable', BASE_CONFIG);
+    });
+    expect(synthed).toMatchSnapshot();
   });
 
   it('renders dynamo db table global secondary indexes', () => {
-    const app = Testing.app();
-    const stack = new TerraformStack(app, 'test');
-
     BASE_CONFIG.writeCapacity = {
       tracking: 1,
       max: 10,
@@ -135,15 +122,13 @@ describe('ApplicationDynamoDBTable', () => {
       writeCapacity: 5,
     });
 
-    new ApplicationDynamoDBTable(stack, 'testDynamoDBTable', BASE_CONFIG);
-
-    expect(Testing.synth(stack)).toMatchSnapshot();
+    const synthed = Testing.synthScope((stack) => {
+      new ApplicationDynamoDBTable(stack, 'testDynamoDBTable', BASE_CONFIG);
+    });
+    expect(synthed).toMatchSnapshot();
   });
 
   it('renders dynamo db table with 2 global secondary indexes', () => {
-    const app = Testing.app();
-    const stack = new TerraformStack(app, 'test');
-
     BASE_CONFIG.writeCapacity = {
       tracking: 1,
       max: 10,
@@ -166,37 +151,34 @@ describe('ApplicationDynamoDBTable', () => {
       writeCapacity: 10,
     });
 
-    new ApplicationDynamoDBTable(stack, 'testDynamoDBTable', BASE_CONFIG);
-
-    expect(Testing.synth(stack)).toMatchSnapshot();
+    const synthed = Testing.synthScope((stack) => {
+      new ApplicationDynamoDBTable(stack, 'testDynamoDBTable', BASE_CONFIG);
+    });
+    expect(synthed).toMatchSnapshot();
   });
 
   it('renders dynamo db table that is not protected from being destroyed', () => {
-    const app = Testing.app();
-    const stack = new TerraformStack(app, 'test');
-
     BASE_CONFIG.preventDestroyTable = false;
 
-    const applicationDynamoDBTable = new ApplicationDynamoDBTable(
-      stack,
-      'testDynamoDBTable',
-      BASE_CONFIG
-    );
+    const synthed = Testing.synthScope((stack) => {
+      const applicationDynamoDBTable = new ApplicationDynamoDBTable(
+        stack,
+        'testDynamoDBTable',
+        BASE_CONFIG
+      );
 
-    expect(applicationDynamoDBTable.dynamodb.lifecycle.preventDestroy).toEqual(
-      false
-    );
-    expect(Testing.synth(stack)).toMatchSnapshot();
+      expect(
+        applicationDynamoDBTable.dynamodb.lifecycle.preventDestroy
+      ).toEqual(false);
+    });
+    expect(synthed).toMatchSnapshot();
   });
 
   it('renders dynamo db table with on-demand capacity', () => {
-    const app = Testing.app();
-    const stack = new TerraformStack(app, 'test');
-
     BASE_CONFIG.capacityMode = ApplicationDynamoDBTableCapacityMode.ON_DEMAND;
-
-    new ApplicationDynamoDBTable(stack, 'testDynamoDBTable', BASE_CONFIG);
-
-    expect(Testing.synth(stack)).toMatchSnapshot();
+    const synthed = Testing.synthScope((stack) => {
+      new ApplicationDynamoDBTable(stack, 'testDynamoDBTable', BASE_CONFIG);
+    });
+    expect(synthed).toMatchSnapshot();
   });
 });

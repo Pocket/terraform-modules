@@ -1,32 +1,30 @@
-import { Testing, TerraformStack } from 'cdktf';
+import { Testing } from 'cdktf';
 import { ApplicationTargetGroup } from './ApplicationTargetGroup';
 
-test('renders a Target Group without tags', () => {
-  const app = Testing.app();
-  const stack = new TerraformStack(app, 'test');
-
-  new ApplicationTargetGroup(stack, 'testTargetGroup', {
-    shortName: 'ABC',
-    vpcId: '123',
-    healthCheckPath: '/',
+describe('ApplicationTargetGroup', () => {
+  it('renders a Target Group without tags', () => {
+    const synthed = Testing.synthScope((stack) => {
+      new ApplicationTargetGroup(stack, 'testTargetGroup', {
+        shortName: 'ABC',
+        vpcId: '123',
+        healthCheckPath: '/',
+      });
+    });
+    expect(synthed).toMatchSnapshot();
   });
 
-  expect(Testing.synth(stack)).toMatchSnapshot();
-});
-
-test('renders a Target Group with tags', () => {
-  const app = Testing.app();
-  const stack = new TerraformStack(app, 'test');
-
-  new ApplicationTargetGroup(stack, 'testTargetGroup', {
-    shortName: 'A1BC',
-    vpcId: '123',
-    healthCheckPath: '/',
-    tags: {
-      name: 'thedude',
-      hobby: 'bowling',
-    },
+  it('renders a Target Group with tags', () => {
+    const synthed = Testing.synthScope((stack) => {
+      new ApplicationTargetGroup(stack, 'testTargetGroup', {
+        shortName: 'A1BC',
+        vpcId: '123',
+        healthCheckPath: '/',
+        tags: {
+          name: 'thedude',
+          hobby: 'bowling',
+        },
+      });
+    });
+    expect(synthed).toMatchSnapshot();
   });
-
-  expect(Testing.synth(stack)).toMatchSnapshot();
 });

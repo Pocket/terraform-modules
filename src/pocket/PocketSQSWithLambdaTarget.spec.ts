@@ -14,28 +14,24 @@ const config: PocketSQSWithLambdaTargetProps = {
 };
 
 test('renders a plain sqs queue and lambda target', () => {
-  const app = Testing.app();
-  const stack = new TerraformStack(app, 'test');
-
-  new PocketSQSWithLambdaTarget(stack, 'test-sqs-lambda', {
-    ...config,
+  const synthed = Testing.synthScope((stack) => {
+    new PocketSQSWithLambdaTarget(stack, 'test-sqs-lambda', {
+      ...config,
+    });
   });
-
-  expect(Testing.synth(stack)).toMatchSnapshot();
+  expect(synthed).toMatchSnapshot();
 });
 
 test('renders a plain sqs queue with a deadletter and lambda target', () => {
-  const app = Testing.app();
-  const stack = new TerraformStack(app, 'test');
-
-  new PocketSQSWithLambdaTarget(stack, 'test-sqs-lambda', {
-    ...config,
-    sqsQueue: {
-      maxReceiveCount: 3,
-    },
+  const synthed = Testing.synthScope((stack) => {
+    new PocketSQSWithLambdaTarget(stack, 'test-sqs-lambda', {
+      ...config,
+      sqsQueue: {
+        maxReceiveCount: 3,
+      },
+    });
   });
-
-  expect(Testing.synth(stack)).toMatchSnapshot();
+  expect(synthed).toMatchSnapshot();
 });
 
 test('validates batch config errors if no batch window', () => {
@@ -72,16 +68,13 @@ test('validates batch config errors if batch window is less then 1', () => {
 });
 
 test('renders a lambda triggered by an existing sqs queue', () => {
-  const app = Testing.app();
-  const stack = new TerraformStack(app, 'test');
-
-  new PocketSQSWithLambdaTarget(stack, 'test-sqs-lambda', {
-    ...config,
-    configFromPreexistingSqsQueue: {
-      name: 'my-existing-sqs',
-    },
+  const synthed = Testing.synthScope((stack) => {
+    new PocketSQSWithLambdaTarget(stack, 'test-sqs-lambda', {
+      ...config,
+      configFromPreexistingSqsQueue: {
+        name: 'my-existing-sqs',
+      },
+    });
   });
-
-  const s = Testing.synth(stack);
-  expect(s).toMatchSnapshot();
+  expect(synthed).toMatchSnapshot();
 });

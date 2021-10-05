@@ -1,4 +1,4 @@
-import { TerraformStack, Testing } from 'cdktf';
+import { Testing } from 'cdktf';
 import { ApplicationECSIAM, ApplicationECSIAMProps } from './ApplicationECSIAM';
 
 const BASE_CONFIG: ApplicationECSIAMProps = {
@@ -8,25 +8,23 @@ const BASE_CONFIG: ApplicationECSIAMProps = {
   taskRolePolicyStatements: [],
 };
 
-test('renders ECS IAM with minimal config', () => {
-  const app = Testing.app();
-  const stack = new TerraformStack(app, 'test');
+describe('ApplicationECSIAM', () => {
+  it('renders ECS IAM with minimal config', () => {
+    const synthed = Testing.synthScope((stack) => {
+      new ApplicationECSIAM(stack, 'testECSService', BASE_CONFIG);
+    });
+    expect(synthed).toMatchSnapshot();
+  });
 
-  new ApplicationECSIAM(stack, 'testECSService', BASE_CONFIG);
+  it('renders ECS IAM with tags', () => {
+    BASE_CONFIG.tags = {
+      letsgo: 'bowling',
+      donnie: 'throwinrockstonight',
+    };
 
-  expect(Testing.synth(stack)).toMatchSnapshot();
-});
-
-test('renders ECS IAM with tags', () => {
-  const app = Testing.app();
-  const stack = new TerraformStack(app, 'test');
-
-  BASE_CONFIG.tags = {
-    letsgo: 'bowling',
-    donnie: 'throwinrockstonight',
-  };
-
-  new ApplicationECSIAM(stack, 'testECSService', BASE_CONFIG);
-
-  expect(Testing.synth(stack)).toMatchSnapshot();
+    const synthed = Testing.synthScope((stack) => {
+      new ApplicationECSIAM(stack, 'testECSService', BASE_CONFIG);
+    });
+    expect(synthed).toMatchSnapshot();
+  });
 });

@@ -2,6 +2,7 @@
 *.js
 !.eslintrc.js
 !jest.config.js
+!setup.js
 node_modules
 cdktf.out
 terraform.tfstate*

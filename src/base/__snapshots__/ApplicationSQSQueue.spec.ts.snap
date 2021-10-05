@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`renders an sqs queue with max message size 1`] = `
+exports[`ApplicationSQSQueue renders an sqs queue with max message size 1`] = `
 "{
   \\"resource\\": {
     \\"aws_sqs_queue\\": {
@@ -14,7 +14,7 @@ exports[`renders an sqs queue with max message size 1`] = `
 }"
 `;
 
-exports[`renders an sqs queue with tags 1`] = `
+exports[`ApplicationSQSQueue renders an sqs queue with tags 1`] = `
 "{
   \\"resource\\": {
     \\"aws_sqs_queue\\": {
@@ -31,7 +31,7 @@ exports[`renders an sqs queue with tags 1`] = `
 }"
 `;
 
-exports[`renders an sqs queue without tags 1`] = `
+exports[`ApplicationSQSQueue renders an sqs queue without tags 1`] = `
 "{
   \\"resource\\": {
     \\"aws_sqs_queue\\": {

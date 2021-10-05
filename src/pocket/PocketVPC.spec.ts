@@ -1,11 +1,13 @@
-import { Testing, TerraformStack } from 'cdktf';
+import { Testing } from 'cdktf';
 import { PocketVPC } from './PocketVPC';
+import { DataAwsVpc } from '@cdktf/provider-aws';
+import 'cdktf/lib/testing/adapters/jest';
 
 test('renders a VPC with minimal config', () => {
-  const app = Testing.app();
-  const stack = new TerraformStack(app, 'test');
+  const synthed = Testing.synthScope((stack) => {
+    new PocketVPC(stack, 'testPocketVPC');
+  });
 
-  new PocketVPC(stack, 'testPocketVPC');
-
-  expect(Testing.synth(stack)).toMatchSnapshot();
+  expect(synthed).toMatchSnapshot();
+  expect(synthed).toHaveDataSource(DataAwsVpc);
 });

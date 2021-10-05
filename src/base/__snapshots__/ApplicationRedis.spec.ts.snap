@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`renders redis with minimal config 1`] = `
+exports[`ApplicationRedis renders redis with minimal config 1`] = `
 "{
   \\"data\\": {
     \\"aws_vpc\\": {
@@ -70,7 +70,7 @@ exports[`renders redis with minimal config 1`] = `
 }"
 `;
 
-exports[`renders redis with node change 1`] = `
+exports[`ApplicationRedis renders redis with node change 1`] = `
 "{
   \\"data\\": {
     \\"aws_vpc\\": {
@@ -140,7 +140,7 @@ exports[`renders redis with node change 1`] = `
 }"
 `;
 
-exports[`renders redis with tags 1`] = `
+exports[`ApplicationRedis renders redis with tags 1`] = `
 "{
   \\"data\\": {
     \\"aws_vpc\\": {

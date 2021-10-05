@@ -1,4 +1,4 @@
-import { Testing, TerraformStack } from 'cdktf';
+import { Testing } from 'cdktf';
 import {
   ApplicationLambdaCodeDeploy,
   ApplicationVersionedLambdaCodeDeployProps,
@@ -10,36 +10,32 @@ const config: ApplicationVersionedLambdaCodeDeployProps = {
   accountId: '123',
 };
 
-test('renders a lambda code deploy app', () => {
-  const app = Testing.app();
-  const stack = new TerraformStack(app, 'test');
-
-  new ApplicationLambdaCodeDeploy(stack, 'test-lambda-code-deploy', config);
-
-  expect(Testing.synth(stack)).toMatchSnapshot();
-});
-
-test('renders a lambda code deploy app with sns topic arn', () => {
-  const app = Testing.app();
-  const stack = new TerraformStack(app, 'test');
-
-  new ApplicationLambdaCodeDeploy(stack, 'test-lambda-code-deploy', {
-    ...config,
-    deploySnsTopicArn: 'test:deploy-topic:arn',
+describe('ApplicationLambdaCodeDeploy', () => {
+  it('renders a lambda code deploy app', () => {
+    const synthed = Testing.synthScope((stack) => {
+      new ApplicationLambdaCodeDeploy(stack, 'test-lambda-code-deploy', config);
+    });
+    expect(synthed).toMatchSnapshot();
   });
 
-  expect(Testing.synth(stack)).toMatchSnapshot();
-});
-
-test('renders a lambda code deploy app with sns topic arn and detail type', () => {
-  const app = Testing.app();
-  const stack = new TerraformStack(app, 'test');
-
-  new ApplicationLambdaCodeDeploy(stack, 'test-lambda-code-deploy', {
-    ...config,
-    deploySnsTopicArn: 'test:deploy-topic:arn',
-    detailType: 'FULL',
+  it('renders a lambda code deploy app with sns topic arn', () => {
+    const synthed = Testing.synthScope((stack) => {
+      new ApplicationLambdaCodeDeploy(stack, 'test-lambda-code-deploy', {
+        ...config,
+        deploySnsTopicArn: 'test:deploy-topic:arn',
+      });
+    });
+    expect(synthed).toMatchSnapshot();
   });
 
-  expect(Testing.synth(stack)).toMatchSnapshot();
+  it('renders a lambda code deploy app with sns topic arn and detail type', () => {
+    const synthed = Testing.synthScope((stack) => {
+      new ApplicationLambdaCodeDeploy(stack, 'test-lambda-code-deploy', {
+        ...config,
+        deploySnsTopicArn: 'test:deploy-topic:arn',
+        detailType: 'FULL',
+      });
+    });
+    expect(synthed).toMatchSnapshot();
+  });
 });

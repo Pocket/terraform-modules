@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`renders a Target Group with tags 1`] = `
+exports[`ApplicationTargetGroup renders a Target Group with tags 1`] = `
 "{
   \\"resource\\": {
     \\"aws_alb_target_group\\": {
@@ -30,7 +30,7 @@ exports[`renders a Target Group with tags 1`] = `
 }"
 `;
 
-exports[`renders a Target Group without tags 1`] = `
+exports[`ApplicationTargetGroup renders a Target Group without tags 1`] = `
 "{
   \\"resource\\": {
     \\"aws_alb_target_group\\": {

@@ -1,4 +1,4 @@
-import { TerraformStack, Testing } from 'cdktf';
+import { Testing } from 'cdktf';
 import {
   PocketEventBridgeWithLambdaTarget,
   PocketEventBridgeWithLambdaTargetProps,
@@ -20,25 +20,21 @@ const config: PocketEventBridgeWithLambdaTargetProps = {
 };
 
 test('renders an event bridge and lambda target with rule description', () => {
-  const app = Testing.app();
-  const stack = new TerraformStack(app, 'test');
-
-  new PocketEventBridgeWithLambdaTarget(stack, 'test-event-bridge-lambda', {
-    ...config,
-    eventRule: { ...config.eventRule, description: 'Test description' },
+  const synthed = Testing.synthScope((stack) => {
+    new PocketEventBridgeWithLambdaTarget(stack, 'test-event-bridge-lambda', {
+      ...config,
+      eventRule: { ...config.eventRule, description: 'Test description' },
+    });
   });
-
-  expect(Testing.synth(stack)).toMatchSnapshot();
+  expect(synthed).toMatchSnapshot();
 });
 
 test('renders an event bridge and lambda target with event bus name', () => {
-  const app = Testing.app();
-  const stack = new TerraformStack(app, 'test');
-
-  new PocketEventBridgeWithLambdaTarget(stack, 'test-event-bridge-lambda', {
-    ...config,
-    eventRule: { ...config.eventRule, eventBusName: 'test-bus' },
+  const synthed = Testing.synthScope((stack) => {
+    new PocketEventBridgeWithLambdaTarget(stack, 'test-event-bridge-lambda', {
+      ...config,
+      eventRule: { ...config.eventRule, eventBusName: 'test-bus' },
+    });
   });
-
-  expect(Testing.synth(stack)).toMatchSnapshot();
+  expect(synthed).toMatchSnapshot();
 });

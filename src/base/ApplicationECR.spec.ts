@@ -1,28 +1,26 @@
-import { Testing, TerraformStack } from 'cdktf';
+import { Testing } from 'cdktf';
 import { ApplicationECR } from './ApplicationECR';
 
-test('renders an ECR without tags', () => {
-  const app = Testing.app();
-  const stack = new TerraformStack(app, 'test');
-
-  new ApplicationECR(stack, 'testECR', {
-    name: 'bowling',
+describe('ApplicationECR', () => {
+  it('renders an ECR without tags', () => {
+    const synthed = Testing.synthScope((stack) => {
+      new ApplicationECR(stack, 'testECR', {
+        name: 'bowling',
+      });
+    });
+    expect(synthed).toMatchSnapshot();
   });
 
-  expect(Testing.synth(stack)).toMatchSnapshot();
-});
-
-test('renders an ECR with tags', () => {
-  const app = Testing.app();
-  const stack = new TerraformStack(app, 'test');
-
-  new ApplicationECR(stack, 'testECR', {
-    name: 'bowling',
-    tags: {
-      name: 'rug',
-      description: 'tiedtheroomtogether',
-    },
+  it('renders an ECR with tags', () => {
+    const synthed = Testing.synthScope((stack) => {
+      new ApplicationECR(stack, 'testECR', {
+        name: 'bowling',
+        tags: {
+          name: 'rug',
+          description: 'tiedtheroomtogether',
+        },
+      });
+    });
+    expect(synthed).toMatchSnapshot();
   });
-
-  expect(Testing.synth(stack)).toMatchSnapshot();
 });
