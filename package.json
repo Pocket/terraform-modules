@@ -60,7 +60,7 @@
     "@cdktf/provider-pagerduty": "0.0.5",
     "cdktf": "0.6.4",
     "cdktf-cli": "0.6.4",
-    "constructs": "10.0.8",
+    "constructs": "10.0.9",
     "crypto-random-string": "^4.0.0",
     "parse-domain": "^4.1.0"
   },
