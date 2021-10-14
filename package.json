@@ -50,7 +50,7 @@
     "@cdktf/provider-pagerduty": "0.0.5",
     "cdktf": "0.6.4",
     "cdktf-cli": "0.6.4",
-    "constructs": "3.3.156"
+    "constructs": "10.0.9"
   },
   "dependencies": {
     "@cdktf/provider-archive": "0.0.5",
