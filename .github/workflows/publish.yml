@@ -17,8 +17,8 @@ jobs:
           node-version: '16.x'
           registry-url: 'https://npm.pkg.github.com'
           scope: '@pocket'
-      - run: npm install
-      - run: npm run build
+      - run: npm ci
+      - run: npm run synth
       - name: Semantic Release
         uses: cycjimmy/semantic-release-action@v2
         env:

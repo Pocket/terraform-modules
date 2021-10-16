@@ -30,28 +30,96 @@ export interface PocketALBApplicationAlarmProps {
 }
 
 export interface PocketALBApplicationProps {
+  /**
+   * This is the prefix for the names of all the resources
+   * created by this construct.
+   */
   prefix: string;
+  /**
+   * Optional config to define the region for the service.
+   * This is used to define the cloudwatch dashboards
+   * as well as the region of the cloudwatch logs
+   */
+  region?: string;
+  /**
+   * VPC configuration for all resource that require it within
+   * this construct. A default Pocket VPC will be used if not
+   * provided.
+   */
+  vpcConfig?: {
+    vpcId: string;
+    privateSubnetIds: string[];
+    publicSubnetIds: string[];
+  };
+  /**
+   * Prefix for the name of the application load balancer created
+   * as part of this construct. Due to an arbitrary AWS character
+   * limit, this has to be kept at 6 characters or less.
+   */
   alb6CharacterPrefix: string;
+  /**
+   * Optional config to create an internal or public facing
+   * ALB. By default this is set to false.
+   */
   internal?: boolean;
+  /**
+   * The domain the ECS service created by this construct will
+   * be available at.
+   */
   domain: string;
+  /**
+   * Optional config to create a CDN. By default no CDN is created.
+   */
   cdn?: boolean;
+  /**
+   * Option for how the service created by this construct should be
+   * deployed.
+   */
   codeDeploy: {
+    /**
+     * Option to create a CodePipeline resource. Default is false.
+     */
     useCodePipeline?: boolean;
+    /**
+     * Option to create a CodeDeploy application.
+     */
     useCodeDeploy: boolean;
+    /**
+     * Optional SNS topic for CodeDeploy notifications.
+     */
     snsNotificationTopicArn?: string;
   };
+  /**
+   * Tags for all resources created by this construct.
+   */
   tags?: { [key: string]: string };
+  /**
+   * Container definitions for the ECS task.
+   */
   containerConfigs: ApplicationECSContainerDefinitionProps[];
+  /**
+   * Description of the container that is exposed to the ALB.
+   */
   exposedContainer: {
     port: number;
     name: string;
     healthCheckPath: string;
   };
+  /**
+   * ECS task size configuration.
+   */
   taskSize?: {
     cpu: number;
     memory: number;
   };
+  /**
+   * IAM config for the ECS Service and Tasks.
+   */
   ecsIamConfig: ApplicationECSIAMProps;
+  /**
+   * Options for configuring the autoscaling policy for
+   * the ECS service created by this construct.
+   */
   autoscalingConfig?: {
     targetMinCapacity?: number;
     targetMaxCapacity?: number;
@@ -60,6 +128,9 @@ export interface PocketALBApplicationProps {
     scaleInThreshold?: number;
     scaleOutThreshold?: number;
   };
+  /**
+   * Option for defining Cloudwatch alarms
+   */
   alarms?: {
     http5xxErrorPercentage?: PocketALBApplicationAlarmProps;
     httpLatency?: PocketALBApplicationAlarmProps;
@@ -89,7 +160,7 @@ export class PocketALBApplication extends Resource {
   public readonly baseDNS: ApplicationBaseDNS;
   public readonly listeners: AlbListener[];
   private readonly config: PocketALBApplicationProps;
-  private readonly pocketVPC: PocketVPC;
+  private readonly pocketVPC: PocketALBApplicationProps['vpcConfig'];
 
   constructor(
     scope: Construct,
@@ -108,7 +179,7 @@ export class PocketALBApplication extends Resource {
       ...config.autoscalingConfig,
     };
 
-    this.pocketVPC = new PocketVPC(this, `pocket_vpc`);
+    this.pocketVPC = this.getVpcConfig(config);
 
     //Setup the Base DNS stack for our application which includes a hosted SubZone
     this.baseDNS = new ApplicationBaseDNS(this, `base_dns`, {
@@ -133,6 +204,31 @@ export class PocketALBApplication extends Resource {
     );
 
     this.createCloudwatchAlarms();
+  }
+
+  /**
+   * Fall back to standard Pocket config if a custom VPC configuration has not been supplied.
+   *
+   * @param config
+   * @private
+   */
+  private getVpcConfig(
+    config: PocketALBApplicationProps
+  ): PocketALBApplicationProps['vpcConfig'] {
+    if (config.vpcConfig !== undefined) {
+      return {
+        vpcId: config.vpcConfig.vpcId,
+        privateSubnetIds: config.vpcConfig.privateSubnetIds,
+        publicSubnetIds: config.vpcConfig.publicSubnetIds,
+      };
+    } else {
+      const pocketVpc = new PocketVPC(this, `pocket_vpc`);
+      return {
+        vpcId: pocketVpc.vpc.id,
+        privateSubnetIds: pocketVpc.privateSubnetIds,
+        publicSubnetIds: pocketVpc.publicSubnetIds,
+      };
+    }
   }
 
   /**
@@ -207,7 +303,7 @@ export class PocketALBApplication extends Resource {
   private createALB(): CreateALBReturn {
     //Create our application Load Balancer
     const alb = new ApplicationLoadBalancer(this, `application_load_balancer`, {
-      vpcId: this.pocketVPC.vpc.id,
+      vpcId: this.pocketVPC.vpcId,
       prefix: this.config.prefix,
       alb6CharacterPrefix: this.config.alb6CharacterPrefix,
       subnetIds: this.config.internal
@@ -422,6 +518,7 @@ export class PocketALBApplication extends Resource {
 
     let ecsConfig: ApplicationECSServiceProps = {
       prefix: this.config.prefix,
+      region: this.config.region,
       shortName: this.config.alb6CharacterPrefix,
       ecsClusterArn: ecsCluster.cluster.arn,
       ecsClusterName: ecsCluster.cluster.name,
@@ -436,7 +533,7 @@ export class PocketALBApplication extends Resource {
         listenerArn: httpsListener.arn,
         albSecurityGroupId: alb.securityGroup.id,
       },
-      vpcId: this.pocketVPC.vpc.id,
+      vpcId: this.pocketVPC.vpcId,
       containerConfigs: this.config.containerConfigs,
       privateSubnetIds: this.pocketVPC.privateSubnetIds,
       ecsIamConfig: this.config.ecsIamConfig,
@@ -543,7 +640,7 @@ export class PocketALBApplication extends Resource {
             ],
             view: 'timeSeries',
             stacked: false,
-            region: 'us-east-1',
+            region: this.config.region ?? 'us-east-1',
             period: 60,
             stat: 'Sum',
             title: 'Target Requests',
@@ -589,7 +686,7 @@ export class PocketALBApplication extends Resource {
             ],
             view: 'timeSeries',
             stacked: false,
-            region: 'us-east-1',
+            region: this.config.region ?? 'us-east-1',
             period: 60,
             stat: 'Sum',
             title: 'ALB Requests',
@@ -632,7 +729,7 @@ export class PocketALBApplication extends Resource {
             ],
             view: 'timeSeries',
             stacked: false,
-            region: 'us-east-1',
+            region: this.config.region ?? 'us-east-1',
             stat: 'Average',
             period: 60,
           },
@@ -682,7 +779,7 @@ export class PocketALBApplication extends Resource {
             ],
             view: 'timeSeries',
             stacked: false,
-            region: 'us-east-1',
+            region: this.config.region ?? 'us-east-1',
             stat: 'Average',
             period: 60,
             annotations: {

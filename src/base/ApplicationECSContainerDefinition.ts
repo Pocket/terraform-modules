@@ -36,6 +36,7 @@ interface DependsOn {
 export interface ApplicationECSContainerDefinitionProps {
   containerImage?: string;
   logGroup?: string;
+  logGroupRegion?: string;
   portMappings?: PortMapping[];
   envVars?: EnvironmentVariable[];
   secretEnvVars?: SecretEnvironmentVariable[];
@@ -65,7 +66,7 @@ export function buildDefinitionJSON(
       secretOptions: [],
       options: {
         'awslogs-group': config.logGroup,
-        'awslogs-region': 'us-east-1',
+        'awslogs-region': config.logGroupRegion ?? 'us-east-1',
         'awslogs-stream-prefix': 'ecs',
       },
     },
