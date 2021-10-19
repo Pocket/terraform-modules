@@ -40,66 +40,48 @@ exports[`ApplicationECSAlbCodeDeploy renders a CodeDeploy with a sns 1`] = `
     \\"aws_codedeploy_deployment_group\\": {
       \\"testCodeDeploy_ecs_codedeploy_deployment_group_F092EC5E\\": {
         \\"app_name\\": \\"\${aws_codedeploy_app.testCodeDeploy_ecs_code_deploy_C4535318.name}\\",
-        \\"auto_rollback_configuration\\": [
-          {
-            \\"enabled\\": true,
-            \\"events\\": [
-              \\"DEPLOYMENT_FAILURE\\"
-            ]
+        \\"auto_rollback_configuration\\": {
+          \\"enabled\\": true,
+          \\"events\\": [
+            \\"DEPLOYMENT_FAILURE\\"
+          ]
+        },
+        \\"blue_green_deployment_config\\": {
+          \\"deployment_ready_option\\": {
+            \\"action_on_timeout\\": \\"CONTINUE_DEPLOYMENT\\"
+          },
+          \\"terminate_blue_instances_on_deployment_success\\": {
+            \\"action\\": \\"TERMINATE\\",
+            \\"termination_wait_time_in_minutes\\": 5
           }
-        ],
-        \\"blue_green_deployment_config\\": [
-          {
-            \\"deployment_ready_option\\": [
-              {
-                \\"action_on_timeout\\": \\"CONTINUE_DEPLOYMENT\\"
-              }
-            ],
-            \\"terminate_blue_instances_on_deployment_success\\": [
-              {
-                \\"action\\": \\"TERMINATE\\",
-                \\"termination_wait_time_in_minutes\\": 5
-              }
-            ]
-          }
-        ],
+        },
         \\"deployment_config_name\\": \\"CodeDeployDefault.ECSAllAtOnce\\",
         \\"deployment_group_name\\": \\"Test-Dev-ECS\\",
-        \\"deployment_style\\": [
-          {
-            \\"deployment_option\\": \\"WITH_TRAFFIC_CONTROL\\",
-            \\"deployment_type\\": \\"BLUE_GREEN\\"
-          }
-        ],
-        \\"ecs_service\\": [
-          {
-            \\"cluster_name\\": \\"cluster\\",
-            \\"service_name\\": \\"theService\\"
-          }
-        ],
-        \\"load_balancer_info\\": [
-          {
-            \\"target_group_pair_info\\": [
+        \\"deployment_style\\": {
+          \\"deployment_option\\": \\"WITH_TRAFFIC_CONTROL\\",
+          \\"deployment_type\\": \\"BLUE_GREEN\\"
+        },
+        \\"ecs_service\\": {
+          \\"cluster_name\\": \\"cluster\\",
+          \\"service_name\\": \\"theService\\"
+        },
+        \\"load_balancer_info\\": {
+          \\"target_group_pair_info\\": {
+            \\"prod_traffic_route\\": {
+              \\"listener_arns\\": [
+                \\"listen-to-me\\"
+              ]
+            },
+            \\"target_group\\": [
               {
-                \\"prod_traffic_route\\": [
-                  {
-                    \\"listener_arns\\": [
-                      \\"listen-to-me\\"
-                    ]
-                  }
-                ],
-                \\"target_group\\": [
-                  {
-                    \\"name\\": \\"target-1\\"
-                  },
-                  {
-                    \\"name\\": \\"target-2\\"
-                  }
-                ]
+                \\"name\\": \\"target-1\\"
+              },
+              {
+                \\"name\\": \\"target-2\\"
               }
             ]
           }
-        ],
+        },
         \\"service_role_arn\\": \\"\${aws_iam_role.testCodeDeploy_ecs_code_deploy_role_EF679F94.arn}\\"
       }
     },
@@ -179,66 +161,48 @@ exports[`ApplicationECSAlbCodeDeploy renders a CodeDeploy with tags 1`] = `
     \\"aws_codedeploy_deployment_group\\": {
       \\"testCodeDeploy_ecs_codedeploy_deployment_group_F092EC5E\\": {
         \\"app_name\\": \\"\${aws_codedeploy_app.testCodeDeploy_ecs_code_deploy_C4535318.name}\\",
-        \\"auto_rollback_configuration\\": [
-          {
-            \\"enabled\\": true,
-            \\"events\\": [
-              \\"DEPLOYMENT_FAILURE\\"
-            ]
+        \\"auto_rollback_configuration\\": {
+          \\"enabled\\": true,
+          \\"events\\": [
+            \\"DEPLOYMENT_FAILURE\\"
+          ]
+        },
+        \\"blue_green_deployment_config\\": {
+          \\"deployment_ready_option\\": {
+            \\"action_on_timeout\\": \\"CONTINUE_DEPLOYMENT\\"
+          },
+          \\"terminate_blue_instances_on_deployment_success\\": {
+            \\"action\\": \\"TERMINATE\\",
+            \\"termination_wait_time_in_minutes\\": 5
           }
-        ],
-        \\"blue_green_deployment_config\\": [
-          {
-            \\"deployment_ready_option\\": [
-              {
-                \\"action_on_timeout\\": \\"CONTINUE_DEPLOYMENT\\"
-              }
-            ],
-            \\"terminate_blue_instances_on_deployment_success\\": [
-              {
-                \\"action\\": \\"TERMINATE\\",
-                \\"termination_wait_time_in_minutes\\": 5
-              }
-            ]
-          }
-        ],
+        },
         \\"deployment_config_name\\": \\"CodeDeployDefault.ECSAllAtOnce\\",
         \\"deployment_group_name\\": \\"Test-Dev-ECS\\",
-        \\"deployment_style\\": [
-          {
-            \\"deployment_option\\": \\"WITH_TRAFFIC_CONTROL\\",
-            \\"deployment_type\\": \\"BLUE_GREEN\\"
-          }
-        ],
-        \\"ecs_service\\": [
-          {
-            \\"cluster_name\\": \\"cluster\\",
-            \\"service_name\\": \\"theService\\"
-          }
-        ],
-        \\"load_balancer_info\\": [
-          {
-            \\"target_group_pair_info\\": [
+        \\"deployment_style\\": {
+          \\"deployment_option\\": \\"WITH_TRAFFIC_CONTROL\\",
+          \\"deployment_type\\": \\"BLUE_GREEN\\"
+        },
+        \\"ecs_service\\": {
+          \\"cluster_name\\": \\"cluster\\",
+          \\"service_name\\": \\"theService\\"
+        },
+        \\"load_balancer_info\\": {
+          \\"target_group_pair_info\\": {
+            \\"prod_traffic_route\\": {
+              \\"listener_arns\\": [
+                \\"listen-to-me\\"
+              ]
+            },
+            \\"target_group\\": [
               {
-                \\"prod_traffic_route\\": [
-                  {
-                    \\"listener_arns\\": [
-                      \\"listen-to-me\\"
-                    ]
-                  }
-                ],
-                \\"target_group\\": [
-                  {
-                    \\"name\\": \\"target-1\\"
-                  },
-                  {
-                    \\"name\\": \\"target-2\\"
-                  }
-                ]
+                \\"name\\": \\"target-1\\"
+              },
+              {
+                \\"name\\": \\"target-2\\"
               }
             ]
           }
-        ],
+        },
         \\"service_role_arn\\": \\"\${aws_iam_role.testCodeDeploy_ecs_code_deploy_role_EF679F94.arn}\\"
       }
     },
@@ -312,66 +276,48 @@ exports[`ApplicationECSAlbCodeDeploy renders a CodeDeploy without a sns 1`] = `
     \\"aws_codedeploy_deployment_group\\": {
       \\"testCodeDeploy_ecs_codedeploy_deployment_group_F092EC5E\\": {
         \\"app_name\\": \\"\${aws_codedeploy_app.testCodeDeploy_ecs_code_deploy_C4535318.name}\\",
-        \\"auto_rollback_configuration\\": [
-          {
-            \\"enabled\\": true,
-            \\"events\\": [
-              \\"DEPLOYMENT_FAILURE\\"
-            ]
+        \\"auto_rollback_configuration\\": {
+          \\"enabled\\": true,
+          \\"events\\": [
+            \\"DEPLOYMENT_FAILURE\\"
+          ]
+        },
+        \\"blue_green_deployment_config\\": {
+          \\"deployment_ready_option\\": {
+            \\"action_on_timeout\\": \\"CONTINUE_DEPLOYMENT\\"
+          },
+          \\"terminate_blue_instances_on_deployment_success\\": {
+            \\"action\\": \\"TERMINATE\\",
+            \\"termination_wait_time_in_minutes\\": 5
           }
-        ],
-        \\"blue_green_deployment_config\\": [
-          {
-            \\"deployment_ready_option\\": [
-              {
-                \\"action_on_timeout\\": \\"CONTINUE_DEPLOYMENT\\"
-              }
-            ],
-            \\"terminate_blue_instances_on_deployment_success\\": [
-              {
-                \\"action\\": \\"TERMINATE\\",
-                \\"termination_wait_time_in_minutes\\": 5
-              }
-            ]
-          }
-        ],
+        },
         \\"deployment_config_name\\": \\"CodeDeployDefault.ECSAllAtOnce\\",
         \\"deployment_group_name\\": \\"Test-Dev-ECS\\",
-        \\"deployment_style\\": [
-          {
-            \\"deployment_option\\": \\"WITH_TRAFFIC_CONTROL\\",
-            \\"deployment_type\\": \\"BLUE_GREEN\\"
-          }
-        ],
-        \\"ecs_service\\": [
-          {
-            \\"cluster_name\\": \\"cluster\\",
-            \\"service_name\\": \\"theService\\"
-          }
-        ],
-        \\"load_balancer_info\\": [
-          {
-            \\"target_group_pair_info\\": [
+        \\"deployment_style\\": {
+          \\"deployment_option\\": \\"WITH_TRAFFIC_CONTROL\\",
+          \\"deployment_type\\": \\"BLUE_GREEN\\"
+        },
+        \\"ecs_service\\": {
+          \\"cluster_name\\": \\"cluster\\",
+          \\"service_name\\": \\"theService\\"
+        },
+        \\"load_balancer_info\\": {
+          \\"target_group_pair_info\\": {
+            \\"prod_traffic_route\\": {
+              \\"listener_arns\\": [
+                \\"listen-to-me\\"
+              ]
+            },
+            \\"target_group\\": [
               {
-                \\"prod_traffic_route\\": [
-                  {
-                    \\"listener_arns\\": [
-                      \\"listen-to-me\\"
-                    ]
-                  }
-                ],
-                \\"target_group\\": [
-                  {
-                    \\"name\\": \\"target-1\\"
-                  },
-                  {
-                    \\"name\\": \\"target-2\\"
-                  }
-                ]
+                \\"name\\": \\"target-1\\"
+              },
+              {
+                \\"name\\": \\"target-2\\"
               }
             ]
           }
-        ],
+        },
         \\"service_role_arn\\": \\"\${aws_iam_role.testCodeDeploy_ecs_code_deploy_role_EF679F94.arn}\\"
       }
     },

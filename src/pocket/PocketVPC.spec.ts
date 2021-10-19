@@ -1,6 +1,6 @@
 import { Testing } from 'cdktf';
 import { PocketVPC } from './PocketVPC';
-import { DataAwsVpc } from '@cdktf/provider-aws';
+import { VPC } from '@cdktf/provider-aws';
 import 'cdktf/lib/testing/adapters/jest';
 
 test('renders a VPC with minimal config', () => {
@@ -9,5 +9,5 @@ test('renders a VPC with minimal config', () => {
   });
 
   expect(synthed).toMatchSnapshot();
-  expect(synthed).toHaveDataSource(DataAwsVpc);
+  expect(synthed).toHaveDataSource(VPC.DataAwsVpc);
 });

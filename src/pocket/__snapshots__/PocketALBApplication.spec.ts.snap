@@ -199,13 +199,11 @@ exports[`PocketALBApplication renders an Pocket App with code deploy 1`] = `
       \\"testPocketApp_listener_http_A9E227C2\\": {
         \\"default_action\\": [
           {
-            \\"redirect\\": [
-              {
-                \\"port\\": \\"443\\",
-                \\"protocol\\": \\"HTTPS\\",
-                \\"status_code\\": \\"HTTP_301\\"
-              }
-            ],
+            \\"redirect\\": {
+              \\"port\\": \\"443\\",
+              \\"protocol\\": \\"HTTPS\\",
+              \\"status_code\\": \\"HTTP_301\\"
+            },
             \\"type\\": \\"redirect\\"
           }
         ],
@@ -217,13 +215,11 @@ exports[`PocketALBApplication renders an Pocket App with code deploy 1`] = `
         \\"certificate_arn\\": \\"\${aws_acm_certificate.testPocketApp_alb_certificate_417C14FF.arn}\\",
         \\"default_action\\": [
           {
-            \\"fixed_response\\": [
-              {
-                \\"content_type\\": \\"text/plain\\",
-                \\"message_body\\": \\"\\",
-                \\"status_code\\": \\"503\\"
-              }
-            ],
+            \\"fixed_response\\": {
+              \\"content_type\\": \\"text/plain\\",
+              \\"message_body\\": \\"\\",
+              \\"status_code\\": \\"503\\"
+            },
             \\"type\\": \\"fixed-response\\"
           }
         ],
@@ -243,13 +239,11 @@ exports[`PocketALBApplication renders an Pocket App with code deploy 1`] = `
         ],
         \\"condition\\": [
           {
-            \\"path_pattern\\": [
-              {
-                \\"values\\": [
-                  \\"*\\"
-                ]
-              }
-            ]
+            \\"path_pattern\\": {
+              \\"values\\": [
+                \\"*\\"
+              ]
+            }
           }
         ],
         \\"lifecycle\\": {
@@ -263,16 +257,14 @@ exports[`PocketALBApplication renders an Pocket App with code deploy 1`] = `
     },
     \\"aws_alb_target_group\\": {
       \\"testPocketApp_ecs_service_blue_target_group_ecs_target_group_A4B85885\\": {
-        \\"deregistration_delay\\": 120,
-        \\"health_check\\": [
-          {
-            \\"healthy_threshold\\": 5,
-            \\"interval\\": 15,
-            \\"path\\": \\"/test\\",
-            \\"protocol\\": \\"HTTP\\",
-            \\"unhealthy_threshold\\": 3
-          }
-        ],
+        \\"deregistration_delay\\": \\"120\\",
+        \\"health_check\\": {
+          \\"healthy_threshold\\": 5,
+          \\"interval\\": 15,
+          \\"path\\": \\"/test\\",
+          \\"protocol\\": \\"HTTP\\",
+          \\"unhealthy_threshold\\": 3
+        },
         \\"name_prefix\\": \\"TSTAPP\\",
         \\"port\\": 80,
         \\"protocol\\": \\"HTTP\\",
@@ -283,16 +275,14 @@ exports[`PocketALBApplication renders an Pocket App with code deploy 1`] = `
         \\"vpc_id\\": \\"\${data.aws_vpc.testPocketApp_pocket_vpc_C4E157E3.id}\\"
       },
       \\"testPocketApp_ecs_service_green_target_group_ecs_target_group_0E777BA1\\": {
-        \\"deregistration_delay\\": 120,
-        \\"health_check\\": [
-          {
-            \\"healthy_threshold\\": 5,
-            \\"interval\\": 15,
-            \\"path\\": \\"/test\\",
-            \\"protocol\\": \\"HTTP\\",
-            \\"unhealthy_threshold\\": 3
-          }
-        ],
+        \\"deregistration_delay\\": \\"120\\",
+        \\"health_check\\": {
+          \\"healthy_threshold\\": 5,
+          \\"interval\\": 15,
+          \\"path\\": \\"/test\\",
+          \\"protocol\\": \\"HTTP\\",
+          \\"unhealthy_threshold\\": 3
+        },
         \\"name_prefix\\": \\"TSTAPP\\",
         \\"port\\": 80,
         \\"protocol\\": \\"HTTP\\",
@@ -313,19 +303,17 @@ exports[`PocketALBApplication renders an Pocket App with code deploy 1`] = `
         \\"resource_id\\": \\"\${aws_appautoscaling_target.testPocketApp_autoscaling_autoscaling_target_505E4EA1.resource_id}\\",
         \\"scalable_dimension\\": \\"\${aws_appautoscaling_target.testPocketApp_autoscaling_autoscaling_target_505E4EA1.scalable_dimension}\\",
         \\"service_namespace\\": \\"\${aws_appautoscaling_target.testPocketApp_autoscaling_autoscaling_target_505E4EA1.service_namespace}\\",
-        \\"step_scaling_policy_configuration\\": [
-          {
-            \\"adjustment_type\\": \\"ChangeInCapacity\\",
-            \\"cooldown\\": 60,
-            \\"metric_aggregation_type\\": \\"Average\\",
-            \\"step_adjustment\\": [
-              {
-                \\"metric_interval_upper_bound\\": \\"0\\",
-                \\"scaling_adjustment\\": -1
-              }
-            ]
-          }
-        ]
+        \\"step_scaling_policy_configuration\\": {
+          \\"adjustment_type\\": \\"ChangeInCapacity\\",
+          \\"cooldown\\": 60,
+          \\"metric_aggregation_type\\": \\"Average\\",
+          \\"step_adjustment\\": [
+            {
+              \\"metric_interval_upper_bound\\": \\"0\\",
+              \\"scaling_adjustment\\": -1
+            }
+          ]
+        }
       },
       \\"testPocketApp_autoscaling_scale_out_policy_075BFAC4\\": {
         \\"depends_on\\": [
@@ -336,19 +324,17 @@ exports[`PocketALBApplication renders an Pocket App with code deploy 1`] = `
         \\"resource_id\\": \\"\${aws_appautoscaling_target.testPocketApp_autoscaling_autoscaling_target_505E4EA1.resource_id}\\",
         \\"scalable_dimension\\": \\"\${aws_appautoscaling_target.testPocketApp_autoscaling_autoscaling_target_505E4EA1.scalable_dimension}\\",
         \\"service_namespace\\": \\"\${aws_appautoscaling_target.testPocketApp_autoscaling_autoscaling_target_505E4EA1.service_namespace}\\",
-        \\"step_scaling_policy_configuration\\": [
-          {
-            \\"adjustment_type\\": \\"ChangeInCapacity\\",
-            \\"cooldown\\": 60,
-            \\"metric_aggregation_type\\": \\"Average\\",
-            \\"step_adjustment\\": [
-              {
-                \\"metric_interval_lower_bound\\": \\"0\\",
-                \\"scaling_adjustment\\": 2
-              }
-            ]
-          }
-        ]
+        \\"step_scaling_policy_configuration\\": {
+          \\"adjustment_type\\": \\"ChangeInCapacity\\",
+          \\"cooldown\\": 60,
+          \\"metric_aggregation_type\\": \\"Average\\",
+          \\"step_adjustment\\": [
+            {
+              \\"metric_interval_lower_bound\\": \\"0\\",
+              \\"scaling_adjustment\\": 2
+            }
+          ]
+        }
       }
     },
     \\"aws_appautoscaling_target\\": {
@@ -416,69 +402,51 @@ exports[`PocketALBApplication renders an Pocket App with code deploy 1`] = `
     \\"aws_codedeploy_deployment_group\\": {
       \\"testPocketApp_ecs_service_ecs_codedeploy_ecs_codedeploy_deployment_group_44B006D1\\": {
         \\"app_name\\": \\"\${aws_codedeploy_app.testPocketApp_ecs_service_ecs_codedeploy_ecs_code_deploy_480D0565.name}\\",
-        \\"auto_rollback_configuration\\": [
-          {
-            \\"enabled\\": true,
-            \\"events\\": [
-              \\"DEPLOYMENT_FAILURE\\"
-            ]
+        \\"auto_rollback_configuration\\": {
+          \\"enabled\\": true,
+          \\"events\\": [
+            \\"DEPLOYMENT_FAILURE\\"
+          ]
+        },
+        \\"blue_green_deployment_config\\": {
+          \\"deployment_ready_option\\": {
+            \\"action_on_timeout\\": \\"CONTINUE_DEPLOYMENT\\"
+          },
+          \\"terminate_blue_instances_on_deployment_success\\": {
+            \\"action\\": \\"TERMINATE\\",
+            \\"termination_wait_time_in_minutes\\": 5
           }
-        ],
-        \\"blue_green_deployment_config\\": [
-          {
-            \\"deployment_ready_option\\": [
-              {
-                \\"action_on_timeout\\": \\"CONTINUE_DEPLOYMENT\\"
-              }
-            ],
-            \\"terminate_blue_instances_on_deployment_success\\": [
-              {
-                \\"action\\": \\"TERMINATE\\",
-                \\"termination_wait_time_in_minutes\\": 5
-              }
-            ]
-          }
-        ],
+        },
         \\"depends_on\\": [
           \\"aws_ecs_service.testPocketApp_ecs_service_ecs-service_182DEA4C\\"
         ],
         \\"deployment_config_name\\": \\"CodeDeployDefault.ECSAllAtOnce\\",
         \\"deployment_group_name\\": \\"testapp-ECS\\",
-        \\"deployment_style\\": [
-          {
-            \\"deployment_option\\": \\"WITH_TRAFFIC_CONTROL\\",
-            \\"deployment_type\\": \\"BLUE_GREEN\\"
-          }
-        ],
-        \\"ecs_service\\": [
-          {
-            \\"cluster_name\\": \\"\${aws_ecs_cluster.testPocketApp_ecs_cluster_C3960066.name}\\",
-            \\"service_name\\": \\"\${aws_ecs_service.testPocketApp_ecs_service_ecs-service_182DEA4C.name}\\"
-          }
-        ],
-        \\"load_balancer_info\\": [
-          {
-            \\"target_group_pair_info\\": [
+        \\"deployment_style\\": {
+          \\"deployment_option\\": \\"WITH_TRAFFIC_CONTROL\\",
+          \\"deployment_type\\": \\"BLUE_GREEN\\"
+        },
+        \\"ecs_service\\": {
+          \\"cluster_name\\": \\"\${aws_ecs_cluster.testPocketApp_ecs_cluster_C3960066.name}\\",
+          \\"service_name\\": \\"\${aws_ecs_service.testPocketApp_ecs_service_ecs-service_182DEA4C.name}\\"
+        },
+        \\"load_balancer_info\\": {
+          \\"target_group_pair_info\\": {
+            \\"prod_traffic_route\\": {
+              \\"listener_arns\\": [
+                \\"\${aws_alb_listener.testPocketApp_listener_https_7F49DE83.arn}\\"
+              ]
+            },
+            \\"target_group\\": [
               {
-                \\"prod_traffic_route\\": [
-                  {
-                    \\"listener_arns\\": [
-                      \\"\${aws_alb_listener.testPocketApp_listener_https_7F49DE83.arn}\\"
-                    ]
-                  }
-                ],
-                \\"target_group\\": [
-                  {
-                    \\"name\\": \\"\${aws_alb_target_group.testPocketApp_ecs_service_blue_target_group_ecs_target_group_A4B85885.name}\\"
-                  },
-                  {
-                    \\"name\\": \\"\${aws_alb_target_group.testPocketApp_ecs_service_green_target_group_ecs_target_group_0E777BA1.name}\\"
-                  }
-                ]
+                \\"name\\": \\"\${aws_alb_target_group.testPocketApp_ecs_service_blue_target_group_ecs_target_group_A4B85885.name}\\"
+              },
+              {
+                \\"name\\": \\"\${aws_alb_target_group.testPocketApp_ecs_service_green_target_group_ecs_target_group_0E777BA1.name}\\"
               }
             ]
           }
-        ],
+        },
         \\"service_role_arn\\": \\"\${aws_iam_role.testPocketApp_ecs_service_ecs_codedeploy_ecs_code_deploy_role_287C837D.arn}\\"
       }
     },
@@ -500,11 +468,9 @@ exports[`PocketALBApplication renders an Pocket App with code deploy 1`] = `
           \\"aws_alb_target_group.testPocketApp_ecs_service_blue_target_group_ecs_target_group_A4B85885\\",
           \\"aws_alb_listener_rule.testPocketApp_ecs_service_listener_rule_C03BB04D\\"
         ],
-        \\"deployment_controller\\": [
-          {
-            \\"type\\": \\"CODE_DEPLOY\\"
-          }
-        ],
+        \\"deployment_controller\\": {
+          \\"type\\": \\"CODE_DEPLOY\\"
+        },
         \\"deployment_maximum_percent\\": 200,
         \\"deployment_minimum_healthy_percent\\": 100,
         \\"desired_count\\": 2,
@@ -524,14 +490,12 @@ exports[`PocketALBApplication renders an Pocket App with code deploy 1`] = `
           }
         ],
         \\"name\\": \\"testapp\\",
-        \\"network_configuration\\": [
-          {
-            \\"security_groups\\": [
-              \\"\${aws_security_group.testPocketApp_ecs_service_ecs_security_group_9C016FA8.id}\\"
-            ],
-            \\"subnets\\": \\"\${data.aws_subnet_ids.testPocketApp_pocket_vpc_private_subnet_ids_EB1E3A65.ids}\\"
-          }
-        ],
+        \\"network_configuration\\": {
+          \\"security_groups\\": [
+            \\"\${aws_security_group.testPocketApp_ecs_service_ecs_security_group_9C016FA8.id}\\"
+          ],
+          \\"subnets\\": \\"\${data.aws_subnet_ids.testPocketApp_pocket_vpc_private_subnet_ids_EB1E3A65.ids}\\"
+        },
         \\"propagate_tags\\": \\"SERVICE\\",
         \\"task_definition\\": \\"\${aws_ecs_task_definition.testPocketApp_ecs_service_ecs-task_A7E74E45.arn}\\"
       }
@@ -969,13 +933,11 @@ exports[`PocketALBApplication renders an Pocket App with code deploy and creates
       \\"testPocketApp_listener_http_A9E227C2\\": {
         \\"default_action\\": [
           {
-            \\"redirect\\": [
-              {
-                \\"port\\": \\"443\\",
-                \\"protocol\\": \\"HTTPS\\",
-                \\"status_code\\": \\"HTTP_301\\"
-              }
-            ],
+            \\"redirect\\": {
+              \\"port\\": \\"443\\",
+              \\"protocol\\": \\"HTTPS\\",
+              \\"status_code\\": \\"HTTP_301\\"
+            },
             \\"type\\": \\"redirect\\"
           }
         ],
@@ -987,13 +949,11 @@ exports[`PocketALBApplication renders an Pocket App with code deploy and creates
         \\"certificate_arn\\": \\"\${aws_acm_certificate.testPocketApp_alb_certificate_417C14FF.arn}\\",
         \\"default_action\\": [
           {
-            \\"fixed_response\\": [
-              {
-                \\"content_type\\": \\"text/plain\\",
-                \\"message_body\\": \\"\\",
-                \\"status_code\\": \\"503\\"
-              }
-            ],
+            \\"fixed_response\\": {
+              \\"content_type\\": \\"text/plain\\",
+              \\"message_body\\": \\"\\",
+              \\"status_code\\": \\"503\\"
+            },
             \\"type\\": \\"fixed-response\\"
           }
         ],
@@ -1013,13 +973,11 @@ exports[`PocketALBApplication renders an Pocket App with code deploy and creates
         ],
         \\"condition\\": [
           {
-            \\"path_pattern\\": [
-              {
-                \\"values\\": [
-                  \\"*\\"
-                ]
-              }
-            ]
+            \\"path_pattern\\": {
+              \\"values\\": [
+                \\"*\\"
+              ]
+            }
           }
         ],
         \\"lifecycle\\": {
@@ -1033,16 +991,14 @@ exports[`PocketALBApplication renders an Pocket App with code deploy and creates
     },
     \\"aws_alb_target_group\\": {
       \\"testPocketApp_ecs_service_blue_target_group_ecs_target_group_A4B85885\\": {
-        \\"deregistration_delay\\": 120,
-        \\"health_check\\": [
-          {
-            \\"healthy_threshold\\": 5,
-            \\"interval\\": 15,
-            \\"path\\": \\"/test\\",
-            \\"protocol\\": \\"HTTP\\",
-            \\"unhealthy_threshold\\": 3
-          }
-        ],
+        \\"deregistration_delay\\": \\"120\\",
+        \\"health_check\\": {
+          \\"healthy_threshold\\": 5,
+          \\"interval\\": 15,
+          \\"path\\": \\"/test\\",
+          \\"protocol\\": \\"HTTP\\",
+          \\"unhealthy_threshold\\": 3
+        },
         \\"name_prefix\\": \\"TSTAPP\\",
         \\"port\\": 80,
         \\"protocol\\": \\"HTTP\\",
@@ -1053,16 +1009,14 @@ exports[`PocketALBApplication renders an Pocket App with code deploy and creates
         \\"vpc_id\\": \\"\${data.aws_vpc.testPocketApp_pocket_vpc_C4E157E3.id}\\"
       },
       \\"testPocketApp_ecs_service_green_target_group_ecs_target_group_0E777BA1\\": {
-        \\"deregistration_delay\\": 120,
-        \\"health_check\\": [
-          {
-            \\"healthy_threshold\\": 5,
-            \\"interval\\": 15,
-            \\"path\\": \\"/test\\",
-            \\"protocol\\": \\"HTTP\\",
-            \\"unhealthy_threshold\\": 3
-          }
-        ],
+        \\"deregistration_delay\\": \\"120\\",
+        \\"health_check\\": {
+          \\"healthy_threshold\\": 5,
+          \\"interval\\": 15,
+          \\"path\\": \\"/test\\",
+          \\"protocol\\": \\"HTTP\\",
+          \\"unhealthy_threshold\\": 3
+        },
         \\"name_prefix\\": \\"TSTAPP\\",
         \\"port\\": 80,
         \\"protocol\\": \\"HTTP\\",
@@ -1083,19 +1037,17 @@ exports[`PocketALBApplication renders an Pocket App with code deploy and creates
         \\"resource_id\\": \\"\${aws_appautoscaling_target.testPocketApp_autoscaling_autoscaling_target_505E4EA1.resource_id}\\",
         \\"scalable_dimension\\": \\"\${aws_appautoscaling_target.testPocketApp_autoscaling_autoscaling_target_505E4EA1.scalable_dimension}\\",
         \\"service_namespace\\": \\"\${aws_appautoscaling_target.testPocketApp_autoscaling_autoscaling_target_505E4EA1.service_namespace}\\",
-        \\"step_scaling_policy_configuration\\": [
-          {
-            \\"adjustment_type\\": \\"ChangeInCapacity\\",
-            \\"cooldown\\": 60,
-            \\"metric_aggregation_type\\": \\"Average\\",
-            \\"step_adjustment\\": [
-              {
-                \\"metric_interval_upper_bound\\": \\"0\\",
-                \\"scaling_adjustment\\": -1
-              }
-            ]
-          }
-        ]
+        \\"step_scaling_policy_configuration\\": {
+          \\"adjustment_type\\": \\"ChangeInCapacity\\",
+          \\"cooldown\\": 60,
+          \\"metric_aggregation_type\\": \\"Average\\",
+          \\"step_adjustment\\": [
+            {
+              \\"metric_interval_upper_bound\\": \\"0\\",
+              \\"scaling_adjustment\\": -1
+            }
+          ]
+        }
       },
       \\"testPocketApp_autoscaling_scale_out_policy_075BFAC4\\": {
         \\"depends_on\\": [
@@ -1106,19 +1058,17 @@ exports[`PocketALBApplication renders an Pocket App with code deploy and creates
         \\"resource_id\\": \\"\${aws_appautoscaling_target.testPocketApp_autoscaling_autoscaling_target_505E4EA1.resource_id}\\",
         \\"scalable_dimension\\": \\"\${aws_appautoscaling_target.testPocketApp_autoscaling_autoscaling_target_505E4EA1.scalable_dimension}\\",
         \\"service_namespace\\": \\"\${aws_appautoscaling_target.testPocketApp_autoscaling_autoscaling_target_505E4EA1.service_namespace}\\",
-        \\"step_scaling_policy_configuration\\": [
-          {
-            \\"adjustment_type\\": \\"ChangeInCapacity\\",
-            \\"cooldown\\": 60,
-            \\"metric_aggregation_type\\": \\"Average\\",
-            \\"step_adjustment\\": [
-              {
-                \\"metric_interval_lower_bound\\": \\"0\\",
-                \\"scaling_adjustment\\": 2
-              }
-            ]
-          }
-        ]
+        \\"step_scaling_policy_configuration\\": {
+          \\"adjustment_type\\": \\"ChangeInCapacity\\",
+          \\"cooldown\\": 60,
+          \\"metric_aggregation_type\\": \\"Average\\",
+          \\"step_adjustment\\": [
+            {
+              \\"metric_interval_lower_bound\\": \\"0\\",
+              \\"scaling_adjustment\\": 2
+            }
+          ]
+        }
       }
     },
     \\"aws_appautoscaling_target\\": {
@@ -1186,69 +1136,51 @@ exports[`PocketALBApplication renders an Pocket App with code deploy and creates
     \\"aws_codedeploy_deployment_group\\": {
       \\"testPocketApp_ecs_service_ecs_codedeploy_ecs_codedeploy_deployment_group_44B006D1\\": {
         \\"app_name\\": \\"\${aws_codedeploy_app.testPocketApp_ecs_service_ecs_codedeploy_ecs_code_deploy_480D0565.name}\\",
-        \\"auto_rollback_configuration\\": [
-          {
-            \\"enabled\\": true,
-            \\"events\\": [
-              \\"DEPLOYMENT_FAILURE\\"
-            ]
+        \\"auto_rollback_configuration\\": {
+          \\"enabled\\": true,
+          \\"events\\": [
+            \\"DEPLOYMENT_FAILURE\\"
+          ]
+        },
+        \\"blue_green_deployment_config\\": {
+          \\"deployment_ready_option\\": {
+            \\"action_on_timeout\\": \\"CONTINUE_DEPLOYMENT\\"
+          },
+          \\"terminate_blue_instances_on_deployment_success\\": {
+            \\"action\\": \\"TERMINATE\\",
+            \\"termination_wait_time_in_minutes\\": 5
           }
-        ],
-        \\"blue_green_deployment_config\\": [
-          {
-            \\"deployment_ready_option\\": [
-              {
-                \\"action_on_timeout\\": \\"CONTINUE_DEPLOYMENT\\"
-              }
-            ],
-            \\"terminate_blue_instances_on_deployment_success\\": [
-              {
-                \\"action\\": \\"TERMINATE\\",
-                \\"termination_wait_time_in_minutes\\": 5
-              }
-            ]
-          }
-        ],
+        },
         \\"depends_on\\": [
           \\"aws_ecs_service.testPocketApp_ecs_service_ecs-service_182DEA4C\\"
         ],
         \\"deployment_config_name\\": \\"CodeDeployDefault.ECSAllAtOnce\\",
         \\"deployment_group_name\\": \\"testapp-ECS\\",
-        \\"deployment_style\\": [
-          {
-            \\"deployment_option\\": \\"WITH_TRAFFIC_CONTROL\\",
-            \\"deployment_type\\": \\"BLUE_GREEN\\"
-          }
-        ],
-        \\"ecs_service\\": [
-          {
-            \\"cluster_name\\": \\"\${aws_ecs_cluster.testPocketApp_ecs_cluster_C3960066.name}\\",
-            \\"service_name\\": \\"\${aws_ecs_service.testPocketApp_ecs_service_ecs-service_182DEA4C.name}\\"
-          }
-        ],
-        \\"load_balancer_info\\": [
-          {
-            \\"target_group_pair_info\\": [
+        \\"deployment_style\\": {
+          \\"deployment_option\\": \\"WITH_TRAFFIC_CONTROL\\",
+          \\"deployment_type\\": \\"BLUE_GREEN\\"
+        },
+        \\"ecs_service\\": {
+          \\"cluster_name\\": \\"\${aws_ecs_cluster.testPocketApp_ecs_cluster_C3960066.name}\\",
+          \\"service_name\\": \\"\${aws_ecs_service.testPocketApp_ecs_service_ecs-service_182DEA4C.name}\\"
+        },
+        \\"load_balancer_info\\": {
+          \\"target_group_pair_info\\": {
+            \\"prod_traffic_route\\": {
+              \\"listener_arns\\": [
+                \\"\${aws_alb_listener.testPocketApp_listener_https_7F49DE83.arn}\\"
+              ]
+            },
+            \\"target_group\\": [
               {
-                \\"prod_traffic_route\\": [
-                  {
-                    \\"listener_arns\\": [
-                      \\"\${aws_alb_listener.testPocketApp_listener_https_7F49DE83.arn}\\"
-                    ]
-                  }
-                ],
-                \\"target_group\\": [
-                  {
-                    \\"name\\": \\"\${aws_alb_target_group.testPocketApp_ecs_service_blue_target_group_ecs_target_group_A4B85885.name}\\"
-                  },
-                  {
-                    \\"name\\": \\"\${aws_alb_target_group.testPocketApp_ecs_service_green_target_group_ecs_target_group_0E777BA1.name}\\"
-                  }
-                ]
+                \\"name\\": \\"\${aws_alb_target_group.testPocketApp_ecs_service_blue_target_group_ecs_target_group_A4B85885.name}\\"
+              },
+              {
+                \\"name\\": \\"\${aws_alb_target_group.testPocketApp_ecs_service_green_target_group_ecs_target_group_0E777BA1.name}\\"
               }
             ]
           }
-        ],
+        },
         \\"service_role_arn\\": \\"\${aws_iam_role.testPocketApp_ecs_service_ecs_codedeploy_ecs_code_deploy_role_287C837D.arn}\\"
       }
     },
@@ -1270,11 +1202,9 @@ exports[`PocketALBApplication renders an Pocket App with code deploy and creates
           \\"aws_alb_target_group.testPocketApp_ecs_service_blue_target_group_ecs_target_group_A4B85885\\",
           \\"aws_alb_listener_rule.testPocketApp_ecs_service_listener_rule_C03BB04D\\"
         ],
-        \\"deployment_controller\\": [
-          {
-            \\"type\\": \\"CODE_DEPLOY\\"
-          }
-        ],
+        \\"deployment_controller\\": {
+          \\"type\\": \\"CODE_DEPLOY\\"
+        },
         \\"deployment_maximum_percent\\": 200,
         \\"deployment_minimum_healthy_percent\\": 100,
         \\"desired_count\\": 2,
@@ -1294,14 +1224,12 @@ exports[`PocketALBApplication renders an Pocket App with code deploy and creates
           }
         ],
         \\"name\\": \\"testapp\\",
-        \\"network_configuration\\": [
-          {
-            \\"security_groups\\": [
-              \\"\${aws_security_group.testPocketApp_ecs_service_ecs_security_group_9C016FA8.id}\\"
-            ],
-            \\"subnets\\": \\"\${data.aws_subnet_ids.testPocketApp_pocket_vpc_private_subnet_ids_EB1E3A65.ids}\\"
-          }
-        ],
+        \\"network_configuration\\": {
+          \\"security_groups\\": [
+            \\"\${aws_security_group.testPocketApp_ecs_service_ecs_security_group_9C016FA8.id}\\"
+          ],
+          \\"subnets\\": \\"\${data.aws_subnet_ids.testPocketApp_pocket_vpc_private_subnet_ids_EB1E3A65.ids}\\"
+        },
         \\"propagate_tags\\": \\"SERVICE\\",
         \\"task_definition\\": \\"\${aws_ecs_task_definition.testPocketApp_ecs_service_ecs-task_A7E74E45.arn}\\"
       }
@@ -1706,13 +1634,11 @@ exports[`PocketALBApplication renders an Pocket App with logs and dashboard in a
       \\"testPocketApp_listener_http_A9E227C2\\": {
         \\"default_action\\": [
           {
-            \\"redirect\\": [
-              {
-                \\"port\\": \\"443\\",
-                \\"protocol\\": \\"HTTPS\\",
-                \\"status_code\\": \\"HTTP_301\\"
-              }
-            ],
+            \\"redirect\\": {
+              \\"port\\": \\"443\\",
+              \\"protocol\\": \\"HTTPS\\",
+              \\"status_code\\": \\"HTTP_301\\"
+            },
             \\"type\\": \\"redirect\\"
           }
         ],
@@ -1724,13 +1650,11 @@ exports[`PocketALBApplication renders an Pocket App with logs and dashboard in a
         \\"certificate_arn\\": \\"\${aws_acm_certificate.testPocketApp_alb_certificate_417C14FF.arn}\\",
         \\"default_action\\": [
           {
-            \\"fixed_response\\": [
-              {
-                \\"content_type\\": \\"text/plain\\",
-                \\"message_body\\": \\"\\",
-                \\"status_code\\": \\"503\\"
-              }
-            ],
+            \\"fixed_response\\": {
+              \\"content_type\\": \\"text/plain\\",
+              \\"message_body\\": \\"\\",
+              \\"status_code\\": \\"503\\"
+            },
             \\"type\\": \\"fixed-response\\"
           }
         ],
@@ -1750,13 +1674,11 @@ exports[`PocketALBApplication renders an Pocket App with logs and dashboard in a
         ],
         \\"condition\\": [
           {
-            \\"path_pattern\\": [
-              {
-                \\"values\\": [
-                  \\"*\\"
-                ]
-              }
-            ]
+            \\"path_pattern\\": {
+              \\"values\\": [
+                \\"*\\"
+              ]
+            }
           }
         ],
         \\"lifecycle\\": {
@@ -1770,16 +1692,14 @@ exports[`PocketALBApplication renders an Pocket App with logs and dashboard in a
     },
     \\"aws_alb_target_group\\": {
       \\"testPocketApp_ecs_service_blue_target_group_ecs_target_group_A4B85885\\": {
-        \\"deregistration_delay\\": 120,
-        \\"health_check\\": [
-          {
-            \\"healthy_threshold\\": 5,
-            \\"interval\\": 15,
-            \\"path\\": \\"/test\\",
-            \\"protocol\\": \\"HTTP\\",
-            \\"unhealthy_threshold\\": 3
-          }
-        ],
+        \\"deregistration_delay\\": \\"120\\",
+        \\"health_check\\": {
+          \\"healthy_threshold\\": 5,
+          \\"interval\\": 15,
+          \\"path\\": \\"/test\\",
+          \\"protocol\\": \\"HTTP\\",
+          \\"unhealthy_threshold\\": 3
+        },
         \\"name_prefix\\": \\"TSTAPP\\",
         \\"port\\": 80,
         \\"protocol\\": \\"HTTP\\",
@@ -1800,19 +1720,17 @@ exports[`PocketALBApplication renders an Pocket App with logs and dashboard in a
         \\"resource_id\\": \\"\${aws_appautoscaling_target.testPocketApp_autoscaling_autoscaling_target_505E4EA1.resource_id}\\",
         \\"scalable_dimension\\": \\"\${aws_appautoscaling_target.testPocketApp_autoscaling_autoscaling_target_505E4EA1.scalable_dimension}\\",
         \\"service_namespace\\": \\"\${aws_appautoscaling_target.testPocketApp_autoscaling_autoscaling_target_505E4EA1.service_namespace}\\",
-        \\"step_scaling_policy_configuration\\": [
-          {
-            \\"adjustment_type\\": \\"ChangeInCapacity\\",
-            \\"cooldown\\": 60,
-            \\"metric_aggregation_type\\": \\"Average\\",
-            \\"step_adjustment\\": [
-              {
-                \\"metric_interval_upper_bound\\": \\"0\\",
-                \\"scaling_adjustment\\": -1
-              }
-            ]
-          }
-        ]
+        \\"step_scaling_policy_configuration\\": {
+          \\"adjustment_type\\": \\"ChangeInCapacity\\",
+          \\"cooldown\\": 60,
+          \\"metric_aggregation_type\\": \\"Average\\",
+          \\"step_adjustment\\": [
+            {
+              \\"metric_interval_upper_bound\\": \\"0\\",
+              \\"scaling_adjustment\\": -1
+            }
+          ]
+        }
       },
       \\"testPocketApp_autoscaling_scale_out_policy_075BFAC4\\": {
         \\"depends_on\\": [
@@ -1823,19 +1741,17 @@ exports[`PocketALBApplication renders an Pocket App with logs and dashboard in a
         \\"resource_id\\": \\"\${aws_appautoscaling_target.testPocketApp_autoscaling_autoscaling_target_505E4EA1.resource_id}\\",
         \\"scalable_dimension\\": \\"\${aws_appautoscaling_target.testPocketApp_autoscaling_autoscaling_target_505E4EA1.scalable_dimension}\\",
         \\"service_namespace\\": \\"\${aws_appautoscaling_target.testPocketApp_autoscaling_autoscaling_target_505E4EA1.service_namespace}\\",
-        \\"step_scaling_policy_configuration\\": [
-          {
-            \\"adjustment_type\\": \\"ChangeInCapacity\\",
-            \\"cooldown\\": 60,
-            \\"metric_aggregation_type\\": \\"Average\\",
-            \\"step_adjustment\\": [
-              {
-                \\"metric_interval_lower_bound\\": \\"0\\",
-                \\"scaling_adjustment\\": 2
-              }
-            ]
-          }
-        ]
+        \\"step_scaling_policy_configuration\\": {
+          \\"adjustment_type\\": \\"ChangeInCapacity\\",
+          \\"cooldown\\": 60,
+          \\"metric_aggregation_type\\": \\"Average\\",
+          \\"step_adjustment\\": [
+            {
+              \\"metric_interval_lower_bound\\": \\"0\\",
+              \\"scaling_adjustment\\": 2
+            }
+          ]
+        }
       }
     },
     \\"aws_appautoscaling_target\\": {
@@ -1912,11 +1828,9 @@ exports[`PocketALBApplication renders an Pocket App with logs and dashboard in a
           \\"aws_alb_target_group.testPocketApp_ecs_service_blue_target_group_ecs_target_group_A4B85885\\",
           \\"aws_alb_listener_rule.testPocketApp_ecs_service_listener_rule_C03BB04D\\"
         ],
-        \\"deployment_controller\\": [
-          {
-            \\"type\\": \\"ECS\\"
-          }
-        ],
+        \\"deployment_controller\\": {
+          \\"type\\": \\"ECS\\"
+        },
         \\"deployment_maximum_percent\\": 200,
         \\"deployment_minimum_healthy_percent\\": 100,
         \\"desired_count\\": 2,
@@ -1935,14 +1849,12 @@ exports[`PocketALBApplication renders an Pocket App with logs and dashboard in a
           }
         ],
         \\"name\\": \\"testapp\\",
-        \\"network_configuration\\": [
-          {
-            \\"security_groups\\": [
-              \\"\${aws_security_group.testPocketApp_ecs_service_ecs_security_group_9C016FA8.id}\\"
-            ],
-            \\"subnets\\": \\"\${data.aws_subnet_ids.testPocketApp_pocket_vpc_private_subnet_ids_EB1E3A65.ids}\\"
-          }
-        ],
+        \\"network_configuration\\": {
+          \\"security_groups\\": [
+            \\"\${aws_security_group.testPocketApp_ecs_service_ecs_security_group_9C016FA8.id}\\"
+          ],
+          \\"subnets\\": \\"\${data.aws_subnet_ids.testPocketApp_pocket_vpc_private_subnet_ids_EB1E3A65.ids}\\"
+        },
         \\"propagate_tags\\": \\"SERVICE\\",
         \\"task_definition\\": \\"\${aws_ecs_task_definition.testPocketApp_ecs_service_ecs-task_A7E74E45.arn}\\"
       }
@@ -2315,13 +2227,11 @@ exports[`PocketALBApplication renders an application alarms 1`] = `
       \\"testPocketApp_listener_http_A9E227C2\\": {
         \\"default_action\\": [
           {
-            \\"redirect\\": [
-              {
-                \\"port\\": \\"443\\",
-                \\"protocol\\": \\"HTTPS\\",
-                \\"status_code\\": \\"HTTP_301\\"
-              }
-            ],
+            \\"redirect\\": {
+              \\"port\\": \\"443\\",
+              \\"protocol\\": \\"HTTPS\\",
+              \\"status_code\\": \\"HTTP_301\\"
+            },
             \\"type\\": \\"redirect\\"
           }
         ],
@@ -2333,13 +2243,11 @@ exports[`PocketALBApplication renders an application alarms 1`] = `
         \\"certificate_arn\\": \\"\${aws_acm_certificate.testPocketApp_alb_certificate_417C14FF.arn}\\",
         \\"default_action\\": [
           {
-            \\"fixed_response\\": [
-              {
-                \\"content_type\\": \\"text/plain\\",
-                \\"message_body\\": \\"\\",
-                \\"status_code\\": \\"503\\"
-              }
-            ],
+            \\"fixed_response\\": {
+              \\"content_type\\": \\"text/plain\\",
+              \\"message_body\\": \\"\\",
+              \\"status_code\\": \\"503\\"
+            },
             \\"type\\": \\"fixed-response\\"
           }
         ],
@@ -2359,13 +2267,11 @@ exports[`PocketALBApplication renders an application alarms 1`] = `
         ],
         \\"condition\\": [
           {
-            \\"path_pattern\\": [
-              {
-                \\"values\\": [
-                  \\"*\\"
-                ]
-              }
-            ]
+            \\"path_pattern\\": {
+              \\"values\\": [
+                \\"*\\"
+              ]
+            }
           }
         ],
         \\"lifecycle\\": {
@@ -2379,16 +2285,14 @@ exports[`PocketALBApplication renders an application alarms 1`] = `
     },
     \\"aws_alb_target_group\\": {
       \\"testPocketApp_ecs_service_blue_target_group_ecs_target_group_A4B85885\\": {
-        \\"deregistration_delay\\": 120,
-        \\"health_check\\": [
-          {
-            \\"healthy_threshold\\": 5,
-            \\"interval\\": 15,
-            \\"path\\": \\"/test\\",
-            \\"protocol\\": \\"HTTP\\",
-            \\"unhealthy_threshold\\": 3
-          }
-        ],
+        \\"deregistration_delay\\": \\"120\\",
+        \\"health_check\\": {
+          \\"healthy_threshold\\": 5,
+          \\"interval\\": 15,
+          \\"path\\": \\"/test\\",
+          \\"protocol\\": \\"HTTP\\",
+          \\"unhealthy_threshold\\": 3
+        },
         \\"name_prefix\\": \\"TSTAPP\\",
         \\"port\\": 80,
         \\"protocol\\": \\"HTTP\\",
@@ -2409,19 +2313,17 @@ exports[`PocketALBApplication renders an application alarms 1`] = `
         \\"resource_id\\": \\"\${aws_appautoscaling_target.testPocketApp_autoscaling_autoscaling_target_505E4EA1.resource_id}\\",
         \\"scalable_dimension\\": \\"\${aws_appautoscaling_target.testPocketApp_autoscaling_autoscaling_target_505E4EA1.scalable_dimension}\\",
         \\"service_namespace\\": \\"\${aws_appautoscaling_target.testPocketApp_autoscaling_autoscaling_target_505E4EA1.service_namespace}\\",
-        \\"step_scaling_policy_configuration\\": [
-          {
-            \\"adjustment_type\\": \\"ChangeInCapacity\\",
-            \\"cooldown\\": 60,
-            \\"metric_aggregation_type\\": \\"Average\\",
-            \\"step_adjustment\\": [
-              {
-                \\"metric_interval_upper_bound\\": \\"0\\",
-                \\"scaling_adjustment\\": -1
-              }
-            ]
-          }
-        ]
+        \\"step_scaling_policy_configuration\\": {
+          \\"adjustment_type\\": \\"ChangeInCapacity\\",
+          \\"cooldown\\": 60,
+          \\"metric_aggregation_type\\": \\"Average\\",
+          \\"step_adjustment\\": [
+            {
+              \\"metric_interval_upper_bound\\": \\"0\\",
+              \\"scaling_adjustment\\": -1
+            }
+          ]
+        }
       },
       \\"testPocketApp_autoscaling_scale_out_policy_075BFAC4\\": {
         \\"depends_on\\": [
@@ -2432,19 +2334,17 @@ exports[`PocketALBApplication renders an application alarms 1`] = `
         \\"resource_id\\": \\"\${aws_appautoscaling_target.testPocketApp_autoscaling_autoscaling_target_505E4EA1.resource_id}\\",
         \\"scalable_dimension\\": \\"\${aws_appautoscaling_target.testPocketApp_autoscaling_autoscaling_target_505E4EA1.scalable_dimension}\\",
         \\"service_namespace\\": \\"\${aws_appautoscaling_target.testPocketApp_autoscaling_autoscaling_target_505E4EA1.service_namespace}\\",
-        \\"step_scaling_policy_configuration\\": [
-          {
-            \\"adjustment_type\\": \\"ChangeInCapacity\\",
-            \\"cooldown\\": 60,
-            \\"metric_aggregation_type\\": \\"Average\\",
-            \\"step_adjustment\\": [
-              {
-                \\"metric_interval_lower_bound\\": \\"0\\",
-                \\"scaling_adjustment\\": 2
-              }
-            ]
-          }
-        ]
+        \\"step_scaling_policy_configuration\\": {
+          \\"adjustment_type\\": \\"ChangeInCapacity\\",
+          \\"cooldown\\": 60,
+          \\"metric_aggregation_type\\": \\"Average\\",
+          \\"step_adjustment\\": [
+            {
+              \\"metric_interval_lower_bound\\": \\"0\\",
+              \\"scaling_adjustment\\": 2
+            }
+          ]
+        }
       }
     },
     \\"aws_appautoscaling_target\\": {
@@ -2543,11 +2443,9 @@ exports[`PocketALBApplication renders an application alarms 1`] = `
           \\"aws_alb_target_group.testPocketApp_ecs_service_blue_target_group_ecs_target_group_A4B85885\\",
           \\"aws_alb_listener_rule.testPocketApp_ecs_service_listener_rule_C03BB04D\\"
         ],
-        \\"deployment_controller\\": [
-          {
-            \\"type\\": \\"ECS\\"
-          }
-        ],
+        \\"deployment_controller\\": {
+          \\"type\\": \\"ECS\\"
+        },
         \\"deployment_maximum_percent\\": 200,
         \\"deployment_minimum_healthy_percent\\": 100,
         \\"desired_count\\": 2,
@@ -2566,14 +2464,12 @@ exports[`PocketALBApplication renders an application alarms 1`] = `
           }
         ],
         \\"name\\": \\"testapp\\",
-        \\"network_configuration\\": [
-          {
-            \\"security_groups\\": [
-              \\"\${aws_security_group.testPocketApp_ecs_service_ecs_security_group_9C016FA8.id}\\"
-            ],
-            \\"subnets\\": \\"\${data.aws_subnet_ids.testPocketApp_pocket_vpc_private_subnet_ids_EB1E3A65.ids}\\"
-          }
-        ],
+        \\"network_configuration\\": {
+          \\"security_groups\\": [
+            \\"\${aws_security_group.testPocketApp_ecs_service_ecs_security_group_9C016FA8.id}\\"
+          ],
+          \\"subnets\\": \\"\${data.aws_subnet_ids.testPocketApp_pocket_vpc_private_subnet_ids_EB1E3A65.ids}\\"
+        },
         \\"propagate_tags\\": \\"SERVICE\\",
         \\"task_definition\\": \\"\${aws_ecs_task_definition.testPocketApp_ecs_service_ecs-task_A7E74E45.arn}\\"
       }
@@ -2946,13 +2842,11 @@ exports[`PocketALBApplication renders an application custom default alarms 1`] =
       \\"testPocketApp_listener_http_A9E227C2\\": {
         \\"default_action\\": [
           {
-            \\"redirect\\": [
-              {
-                \\"port\\": \\"443\\",
-                \\"protocol\\": \\"HTTPS\\",
-                \\"status_code\\": \\"HTTP_301\\"
-              }
-            ],
+            \\"redirect\\": {
+              \\"port\\": \\"443\\",
+              \\"protocol\\": \\"HTTPS\\",
+              \\"status_code\\": \\"HTTP_301\\"
+            },
             \\"type\\": \\"redirect\\"
           }
         ],
@@ -2964,13 +2858,11 @@ exports[`PocketALBApplication renders an application custom default alarms 1`] =
         \\"certificate_arn\\": \\"\${aws_acm_certificate.testPocketApp_alb_certificate_417C14FF.arn}\\",
         \\"default_action\\": [
           {
-            \\"fixed_response\\": [
-              {
-                \\"content_type\\": \\"text/plain\\",
-                \\"message_body\\": \\"\\",
-                \\"status_code\\": \\"503\\"
-              }
-            ],
+            \\"fixed_response\\": {
+              \\"content_type\\": \\"text/plain\\",
+              \\"message_body\\": \\"\\",
+              \\"status_code\\": \\"503\\"
+            },
             \\"type\\": \\"fixed-response\\"
           }
         ],
@@ -2990,13 +2882,11 @@ exports[`PocketALBApplication renders an application custom default alarms 1`] =
         ],
         \\"condition\\": [
           {
-            \\"path_pattern\\": [
-              {
-                \\"values\\": [
-                  \\"*\\"
-                ]
-              }
-            ]
+            \\"path_pattern\\": {
+              \\"values\\": [
+                \\"*\\"
+              ]
+            }
           }
         ],
         \\"lifecycle\\": {
@@ -3010,16 +2900,14 @@ exports[`PocketALBApplication renders an application custom default alarms 1`] =
     },
     \\"aws_alb_target_group\\": {
       \\"testPocketApp_ecs_service_blue_target_group_ecs_target_group_A4B85885\\": {
-        \\"deregistration_delay\\": 120,
-        \\"health_check\\": [
-          {
-            \\"healthy_threshold\\": 5,
-            \\"interval\\": 15,
-            \\"path\\": \\"/test\\",
-            \\"protocol\\": \\"HTTP\\",
-            \\"unhealthy_threshold\\": 3
-          }
-        ],
+        \\"deregistration_delay\\": \\"120\\",
+        \\"health_check\\": {
+          \\"healthy_threshold\\": 5,
+          \\"interval\\": 15,
+          \\"path\\": \\"/test\\",
+          \\"protocol\\": \\"HTTP\\",
+          \\"unhealthy_threshold\\": 3
+        },
         \\"name_prefix\\": \\"TSTAPP\\",
         \\"port\\": 80,
         \\"protocol\\": \\"HTTP\\",
@@ -3040,19 +2928,17 @@ exports[`PocketALBApplication renders an application custom default alarms 1`] =
         \\"resource_id\\": \\"\${aws_appautoscaling_target.testPocketApp_autoscaling_autoscaling_target_505E4EA1.resource_id}\\",
         \\"scalable_dimension\\": \\"\${aws_appautoscaling_target.testPocketApp_autoscaling_autoscaling_target_505E4EA1.scalable_dimension}\\",
         \\"service_namespace\\": \\"\${aws_appautoscaling_target.testPocketApp_autoscaling_autoscaling_target_505E4EA1.service_namespace}\\",
-        \\"step_scaling_policy_configuration\\": [
-          {
-            \\"adjustment_type\\": \\"ChangeInCapacity\\",
-            \\"cooldown\\": 60,
-            \\"metric_aggregation_type\\": \\"Average\\",
-            \\"step_adjustment\\": [
-              {
-                \\"metric_interval_upper_bound\\": \\"0\\",
-                \\"scaling_adjustment\\": -1
-              }
-            ]
-          }
-        ]
+        \\"step_scaling_policy_configuration\\": {
+          \\"adjustment_type\\": \\"ChangeInCapacity\\",
+          \\"cooldown\\": 60,
+          \\"metric_aggregation_type\\": \\"Average\\",
+          \\"step_adjustment\\": [
+            {
+              \\"metric_interval_upper_bound\\": \\"0\\",
+              \\"scaling_adjustment\\": -1
+            }
+          ]
+        }
       },
       \\"testPocketApp_autoscaling_scale_out_policy_075BFAC4\\": {
         \\"depends_on\\": [
@@ -3063,19 +2949,17 @@ exports[`PocketALBApplication renders an application custom default alarms 1`] =
         \\"resource_id\\": \\"\${aws_appautoscaling_target.testPocketApp_autoscaling_autoscaling_target_505E4EA1.resource_id}\\",
         \\"scalable_dimension\\": \\"\${aws_appautoscaling_target.testPocketApp_autoscaling_autoscaling_target_505E4EA1.scalable_dimension}\\",
         \\"service_namespace\\": \\"\${aws_appautoscaling_target.testPocketApp_autoscaling_autoscaling_target_505E4EA1.service_namespace}\\",
-        \\"step_scaling_policy_configuration\\": [
-          {
-            \\"adjustment_type\\": \\"ChangeInCapacity\\",
-            \\"cooldown\\": 60,
-            \\"metric_aggregation_type\\": \\"Average\\",
-            \\"step_adjustment\\": [
-              {
-                \\"metric_interval_lower_bound\\": \\"0\\",
-                \\"scaling_adjustment\\": 2
-              }
-            ]
-          }
-        ]
+        \\"step_scaling_policy_configuration\\": {
+          \\"adjustment_type\\": \\"ChangeInCapacity\\",
+          \\"cooldown\\": 60,
+          \\"metric_aggregation_type\\": \\"Average\\",
+          \\"step_adjustment\\": [
+            {
+              \\"metric_interval_lower_bound\\": \\"0\\",
+              \\"scaling_adjustment\\": 2
+            }
+          ]
+        }
       }
     },
     \\"aws_appautoscaling_target\\": {
@@ -3165,11 +3049,9 @@ exports[`PocketALBApplication renders an application custom default alarms 1`] =
           \\"aws_alb_target_group.testPocketApp_ecs_service_blue_target_group_ecs_target_group_A4B85885\\",
           \\"aws_alb_listener_rule.testPocketApp_ecs_service_listener_rule_C03BB04D\\"
         ],
-        \\"deployment_controller\\": [
-          {
-            \\"type\\": \\"ECS\\"
-          }
-        ],
+        \\"deployment_controller\\": {
+          \\"type\\": \\"ECS\\"
+        },
         \\"deployment_maximum_percent\\": 200,
         \\"deployment_minimum_healthy_percent\\": 100,
         \\"desired_count\\": 2,
@@ -3188,14 +3070,12 @@ exports[`PocketALBApplication renders an application custom default alarms 1`] =
           }
         ],
         \\"name\\": \\"testapp\\",
-        \\"network_configuration\\": [
-          {
-            \\"security_groups\\": [
-              \\"\${aws_security_group.testPocketApp_ecs_service_ecs_security_group_9C016FA8.id}\\"
-            ],
-            \\"subnets\\": \\"\${data.aws_subnet_ids.testPocketApp_pocket_vpc_private_subnet_ids_EB1E3A65.ids}\\"
-          }
-        ],
+        \\"network_configuration\\": {
+          \\"security_groups\\": [
+            \\"\${aws_security_group.testPocketApp_ecs_service_ecs_security_group_9C016FA8.id}\\"
+          ],
+          \\"subnets\\": \\"\${data.aws_subnet_ids.testPocketApp_pocket_vpc_private_subnet_ids_EB1E3A65.ids}\\"
+        },
         \\"propagate_tags\\": \\"SERVICE\\",
         \\"task_definition\\": \\"\${aws_ecs_task_definition.testPocketApp_ecs_service_ecs-task_A7E74E45.arn}\\"
       }
@@ -3576,13 +3456,11 @@ exports[`PocketALBApplication renders an application with autoscaling group and 
       \\"testPocketApp_listener_http_A9E227C2\\": {
         \\"default_action\\": [
           {
-            \\"redirect\\": [
-              {
-                \\"port\\": \\"443\\",
-                \\"protocol\\": \\"HTTPS\\",
-                \\"status_code\\": \\"HTTP_301\\"
-              }
-            ],
+            \\"redirect\\": {
+              \\"port\\": \\"443\\",
+              \\"protocol\\": \\"HTTPS\\",
+              \\"status_code\\": \\"HTTP_301\\"
+            },
             \\"type\\": \\"redirect\\"
           }
         ],
@@ -3594,13 +3472,11 @@ exports[`PocketALBApplication renders an application with autoscaling group and 
         \\"certificate_arn\\": \\"\${aws_acm_certificate.testPocketApp_alb_certificate_417C14FF.arn}\\",
         \\"default_action\\": [
           {
-            \\"fixed_response\\": [
-              {
-                \\"content_type\\": \\"text/plain\\",
-                \\"message_body\\": \\"\\",
-                \\"status_code\\": \\"503\\"
-              }
-            ],
+            \\"fixed_response\\": {
+              \\"content_type\\": \\"text/plain\\",
+              \\"message_body\\": \\"\\",
+              \\"status_code\\": \\"503\\"
+            },
             \\"type\\": \\"fixed-response\\"
           }
         ],
@@ -3620,13 +3496,11 @@ exports[`PocketALBApplication renders an application with autoscaling group and 
         ],
         \\"condition\\": [
           {
-            \\"path_pattern\\": [
-              {
-                \\"values\\": [
-                  \\"*\\"
-                ]
-              }
-            ]
+            \\"path_pattern\\": {
+              \\"values\\": [
+                \\"*\\"
+              ]
+            }
           }
         ],
         \\"lifecycle\\": {
@@ -3640,16 +3514,14 @@ exports[`PocketALBApplication renders an application with autoscaling group and 
     },
     \\"aws_alb_target_group\\": {
       \\"testPocketApp_ecs_service_blue_target_group_ecs_target_group_A4B85885\\": {
-        \\"deregistration_delay\\": 120,
-        \\"health_check\\": [
-          {
-            \\"healthy_threshold\\": 5,
-            \\"interval\\": 15,
-            \\"path\\": \\"/test\\",
-            \\"protocol\\": \\"HTTP\\",
-            \\"unhealthy_threshold\\": 3
-          }
-        ],
+        \\"deregistration_delay\\": \\"120\\",
+        \\"health_check\\": {
+          \\"healthy_threshold\\": 5,
+          \\"interval\\": 15,
+          \\"path\\": \\"/test\\",
+          \\"protocol\\": \\"HTTP\\",
+          \\"unhealthy_threshold\\": 3
+        },
         \\"name_prefix\\": \\"TSTAPP\\",
         \\"port\\": 80,
         \\"protocol\\": \\"HTTP\\",
@@ -3672,19 +3544,17 @@ exports[`PocketALBApplication renders an application with autoscaling group and 
         \\"resource_id\\": \\"\${aws_appautoscaling_target.testPocketApp_autoscaling_autoscaling_target_505E4EA1.resource_id}\\",
         \\"scalable_dimension\\": \\"\${aws_appautoscaling_target.testPocketApp_autoscaling_autoscaling_target_505E4EA1.scalable_dimension}\\",
         \\"service_namespace\\": \\"\${aws_appautoscaling_target.testPocketApp_autoscaling_autoscaling_target_505E4EA1.service_namespace}\\",
-        \\"step_scaling_policy_configuration\\": [
-          {
-            \\"adjustment_type\\": \\"ChangeInCapacity\\",
-            \\"cooldown\\": 60,
-            \\"metric_aggregation_type\\": \\"Average\\",
-            \\"step_adjustment\\": [
-              {
-                \\"metric_interval_upper_bound\\": \\"0\\",
-                \\"scaling_adjustment\\": -1
-              }
-            ]
-          }
-        ]
+        \\"step_scaling_policy_configuration\\": {
+          \\"adjustment_type\\": \\"ChangeInCapacity\\",
+          \\"cooldown\\": 60,
+          \\"metric_aggregation_type\\": \\"Average\\",
+          \\"step_adjustment\\": [
+            {
+              \\"metric_interval_upper_bound\\": \\"0\\",
+              \\"scaling_adjustment\\": -1
+            }
+          ]
+        }
       },
       \\"testPocketApp_autoscaling_scale_out_policy_075BFAC4\\": {
         \\"depends_on\\": [
@@ -3695,19 +3565,17 @@ exports[`PocketALBApplication renders an application with autoscaling group and 
         \\"resource_id\\": \\"\${aws_appautoscaling_target.testPocketApp_autoscaling_autoscaling_target_505E4EA1.resource_id}\\",
         \\"scalable_dimension\\": \\"\${aws_appautoscaling_target.testPocketApp_autoscaling_autoscaling_target_505E4EA1.scalable_dimension}\\",
         \\"service_namespace\\": \\"\${aws_appautoscaling_target.testPocketApp_autoscaling_autoscaling_target_505E4EA1.service_namespace}\\",
-        \\"step_scaling_policy_configuration\\": [
-          {
-            \\"adjustment_type\\": \\"ChangeInCapacity\\",
-            \\"cooldown\\": 60,
-            \\"metric_aggregation_type\\": \\"Average\\",
-            \\"step_adjustment\\": [
-              {
-                \\"metric_interval_lower_bound\\": \\"0\\",
-                \\"scaling_adjustment\\": 2
-              }
-            ]
-          }
-        ]
+        \\"step_scaling_policy_configuration\\": {
+          \\"adjustment_type\\": \\"ChangeInCapacity\\",
+          \\"cooldown\\": 60,
+          \\"metric_aggregation_type\\": \\"Average\\",
+          \\"step_adjustment\\": [
+            {
+              \\"metric_interval_lower_bound\\": \\"0\\",
+              \\"scaling_adjustment\\": 2
+            }
+          ]
+        }
       }
     },
     \\"aws_appautoscaling_target\\": {
@@ -3796,11 +3664,9 @@ exports[`PocketALBApplication renders an application with autoscaling group and 
           \\"aws_alb_target_group.testPocketApp_ecs_service_blue_target_group_ecs_target_group_A4B85885\\",
           \\"aws_alb_listener_rule.testPocketApp_ecs_service_listener_rule_C03BB04D\\"
         ],
-        \\"deployment_controller\\": [
-          {
-            \\"type\\": \\"ECS\\"
-          }
-        ],
+        \\"deployment_controller\\": {
+          \\"type\\": \\"ECS\\"
+        },
         \\"deployment_maximum_percent\\": 200,
         \\"deployment_minimum_healthy_percent\\": 100,
         \\"desired_count\\": 2,
@@ -3819,14 +3685,12 @@ exports[`PocketALBApplication renders an application with autoscaling group and 
           }
         ],
         \\"name\\": \\"testapp\\",
-        \\"network_configuration\\": [
-          {
-            \\"security_groups\\": [
-              \\"\${aws_security_group.testPocketApp_ecs_service_ecs_security_group_9C016FA8.id}\\"
-            ],
-            \\"subnets\\": \\"\${data.aws_subnet_ids.testPocketApp_pocket_vpc_private_subnet_ids_EB1E3A65.ids}\\"
-          }
-        ],
+        \\"network_configuration\\": {
+          \\"security_groups\\": [
+            \\"\${aws_security_group.testPocketApp_ecs_service_ecs_security_group_9C016FA8.id}\\"
+          ],
+          \\"subnets\\": \\"\${data.aws_subnet_ids.testPocketApp_pocket_vpc_private_subnet_ids_EB1E3A65.ids}\\"
+        },
         \\"propagate_tags\\": \\"SERVICE\\",
         \\"tags\\": {
           \\"hobby\\": \\"bowling\\",
@@ -4225,13 +4089,11 @@ exports[`PocketALBApplication renders an application with custom task sizes 1`] 
       \\"testPocketApp_listener_http_A9E227C2\\": {
         \\"default_action\\": [
           {
-            \\"redirect\\": [
-              {
-                \\"port\\": \\"443\\",
-                \\"protocol\\": \\"HTTPS\\",
-                \\"status_code\\": \\"HTTP_301\\"
-              }
-            ],
+            \\"redirect\\": {
+              \\"port\\": \\"443\\",
+              \\"protocol\\": \\"HTTPS\\",
+              \\"status_code\\": \\"HTTP_301\\"
+            },
             \\"type\\": \\"redirect\\"
           }
         ],
@@ -4243,13 +4105,11 @@ exports[`PocketALBApplication renders an application with custom task sizes 1`] 
         \\"certificate_arn\\": \\"\${aws_acm_certificate.testPocketApp_alb_certificate_417C14FF.arn}\\",
         \\"default_action\\": [
           {
-            \\"fixed_response\\": [
-              {
-                \\"content_type\\": \\"text/plain\\",
-                \\"message_body\\": \\"\\",
-                \\"status_code\\": \\"503\\"
-              }
-            ],
+            \\"fixed_response\\": {
+              \\"content_type\\": \\"text/plain\\",
+              \\"message_body\\": \\"\\",
+              \\"status_code\\": \\"503\\"
+            },
             \\"type\\": \\"fixed-response\\"
           }
         ],
@@ -4269,13 +4129,11 @@ exports[`PocketALBApplication renders an application with custom task sizes 1`] 
         ],
         \\"condition\\": [
           {
-            \\"path_pattern\\": [
-              {
-                \\"values\\": [
-                  \\"*\\"
-                ]
-              }
-            ]
+            \\"path_pattern\\": {
+              \\"values\\": [
+                \\"*\\"
+              ]
+            }
           }
         ],
         \\"lifecycle\\": {
@@ -4289,16 +4147,14 @@ exports[`PocketALBApplication renders an application with custom task sizes 1`] 
     },
     \\"aws_alb_target_group\\": {
       \\"testPocketApp_ecs_service_blue_target_group_ecs_target_group_A4B85885\\": {
-        \\"deregistration_delay\\": 120,
-        \\"health_check\\": [
-          {
-            \\"healthy_threshold\\": 5,
-            \\"interval\\": 15,
-            \\"path\\": \\"/test\\",
-            \\"protocol\\": \\"HTTP\\",
-            \\"unhealthy_threshold\\": 3
-          }
-        ],
+        \\"deregistration_delay\\": \\"120\\",
+        \\"health_check\\": {
+          \\"healthy_threshold\\": 5,
+          \\"interval\\": 15,
+          \\"path\\": \\"/test\\",
+          \\"protocol\\": \\"HTTP\\",
+          \\"unhealthy_threshold\\": 3
+        },
         \\"name_prefix\\": \\"TSTAPP\\",
         \\"port\\": 80,
         \\"protocol\\": \\"HTTP\\",
@@ -4319,19 +4175,17 @@ exports[`PocketALBApplication renders an application with custom task sizes 1`] 
         \\"resource_id\\": \\"\${aws_appautoscaling_target.testPocketApp_autoscaling_autoscaling_target_505E4EA1.resource_id}\\",
         \\"scalable_dimension\\": \\"\${aws_appautoscaling_target.testPocketApp_autoscaling_autoscaling_target_505E4EA1.scalable_dimension}\\",
         \\"service_namespace\\": \\"\${aws_appautoscaling_target.testPocketApp_autoscaling_autoscaling_target_505E4EA1.service_namespace}\\",
-        \\"step_scaling_policy_configuration\\": [
-          {
-            \\"adjustment_type\\": \\"ChangeInCapacity\\",
-            \\"cooldown\\": 60,
-            \\"metric_aggregation_type\\": \\"Average\\",
-            \\"step_adjustment\\": [
-              {
-                \\"metric_interval_upper_bound\\": \\"0\\",
-                \\"scaling_adjustment\\": -1
-              }
-            ]
-          }
-        ]
+        \\"step_scaling_policy_configuration\\": {
+          \\"adjustment_type\\": \\"ChangeInCapacity\\",
+          \\"cooldown\\": 60,
+          \\"metric_aggregation_type\\": \\"Average\\",
+          \\"step_adjustment\\": [
+            {
+              \\"metric_interval_upper_bound\\": \\"0\\",
+              \\"scaling_adjustment\\": -1
+            }
+          ]
+        }
       },
       \\"testPocketApp_autoscaling_scale_out_policy_075BFAC4\\": {
         \\"depends_on\\": [
@@ -4342,19 +4196,17 @@ exports[`PocketALBApplication renders an application with custom task sizes 1`] 
         \\"resource_id\\": \\"\${aws_appautoscaling_target.testPocketApp_autoscaling_autoscaling_target_505E4EA1.resource_id}\\",
         \\"scalable_dimension\\": \\"\${aws_appautoscaling_target.testPocketApp_autoscaling_autoscaling_target_505E4EA1.scalable_dimension}\\",
         \\"service_namespace\\": \\"\${aws_appautoscaling_target.testPocketApp_autoscaling_autoscaling_target_505E4EA1.service_namespace}\\",
-        \\"step_scaling_policy_configuration\\": [
-          {
-            \\"adjustment_type\\": \\"ChangeInCapacity\\",
-            \\"cooldown\\": 60,
-            \\"metric_aggregation_type\\": \\"Average\\",
-            \\"step_adjustment\\": [
-              {
-                \\"metric_interval_lower_bound\\": \\"0\\",
-                \\"scaling_adjustment\\": 2
-              }
-            ]
-          }
-        ]
+        \\"step_scaling_policy_configuration\\": {
+          \\"adjustment_type\\": \\"ChangeInCapacity\\",
+          \\"cooldown\\": 60,
+          \\"metric_aggregation_type\\": \\"Average\\",
+          \\"step_adjustment\\": [
+            {
+              \\"metric_interval_lower_bound\\": \\"0\\",
+              \\"scaling_adjustment\\": 2
+            }
+          ]
+        }
       }
     },
     \\"aws_appautoscaling_target\\": {
@@ -4431,11 +4283,9 @@ exports[`PocketALBApplication renders an application with custom task sizes 1`] 
           \\"aws_alb_target_group.testPocketApp_ecs_service_blue_target_group_ecs_target_group_A4B85885\\",
           \\"aws_alb_listener_rule.testPocketApp_ecs_service_listener_rule_C03BB04D\\"
         ],
-        \\"deployment_controller\\": [
-          {
-            \\"type\\": \\"ECS\\"
-          }
-        ],
+        \\"deployment_controller\\": {
+          \\"type\\": \\"ECS\\"
+        },
         \\"deployment_maximum_percent\\": 200,
         \\"deployment_minimum_healthy_percent\\": 100,
         \\"desired_count\\": 2,
@@ -4454,14 +4304,12 @@ exports[`PocketALBApplication renders an application with custom task sizes 1`] 
           }
         ],
         \\"name\\": \\"testapp\\",
-        \\"network_configuration\\": [
-          {
-            \\"security_groups\\": [
-              \\"\${aws_security_group.testPocketApp_ecs_service_ecs_security_group_9C016FA8.id}\\"
-            ],
-            \\"subnets\\": \\"\${data.aws_subnet_ids.testPocketApp_pocket_vpc_private_subnet_ids_EB1E3A65.ids}\\"
-          }
-        ],
+        \\"network_configuration\\": {
+          \\"security_groups\\": [
+            \\"\${aws_security_group.testPocketApp_ecs_service_ecs_security_group_9C016FA8.id}\\"
+          ],
+          \\"subnets\\": \\"\${data.aws_subnet_ids.testPocketApp_pocket_vpc_private_subnet_ids_EB1E3A65.ids}\\"
+        },
         \\"propagate_tags\\": \\"SERVICE\\",
         \\"task_definition\\": \\"\${aws_ecs_task_definition.testPocketApp_ecs_service_ecs-task_A7E74E45.arn}\\"
       }
@@ -4842,13 +4690,11 @@ exports[`PocketALBApplication renders an application with default autoscaling gr
       \\"testPocketApp_listener_http_A9E227C2\\": {
         \\"default_action\\": [
           {
-            \\"redirect\\": [
-              {
-                \\"port\\": \\"443\\",
-                \\"protocol\\": \\"HTTPS\\",
-                \\"status_code\\": \\"HTTP_301\\"
-              }
-            ],
+            \\"redirect\\": {
+              \\"port\\": \\"443\\",
+              \\"protocol\\": \\"HTTPS\\",
+              \\"status_code\\": \\"HTTP_301\\"
+            },
             \\"type\\": \\"redirect\\"
           }
         ],
@@ -4860,13 +4706,11 @@ exports[`PocketALBApplication renders an application with default autoscaling gr
         \\"certificate_arn\\": \\"\${aws_acm_certificate.testPocketApp_alb_certificate_417C14FF.arn}\\",
         \\"default_action\\": [
           {
-            \\"fixed_response\\": [
-              {
-                \\"content_type\\": \\"text/plain\\",
-                \\"message_body\\": \\"\\",
-                \\"status_code\\": \\"503\\"
-              }
-            ],
+            \\"fixed_response\\": {
+              \\"content_type\\": \\"text/plain\\",
+              \\"message_body\\": \\"\\",
+              \\"status_code\\": \\"503\\"
+            },
             \\"type\\": \\"fixed-response\\"
           }
         ],
@@ -4886,13 +4730,11 @@ exports[`PocketALBApplication renders an application with default autoscaling gr
         ],
         \\"condition\\": [
           {
-            \\"path_pattern\\": [
-              {
-                \\"values\\": [
-                  \\"*\\"
-                ]
-              }
-            ]
+            \\"path_pattern\\": {
+              \\"values\\": [
+                \\"*\\"
+              ]
+            }
           }
         ],
         \\"lifecycle\\": {
@@ -4906,16 +4748,14 @@ exports[`PocketALBApplication renders an application with default autoscaling gr
     },
     \\"aws_alb_target_group\\": {
       \\"testPocketApp_ecs_service_blue_target_group_ecs_target_group_A4B85885\\": {
-        \\"deregistration_delay\\": 120,
-        \\"health_check\\": [
-          {
-            \\"healthy_threshold\\": 5,
-            \\"interval\\": 15,
-            \\"path\\": \\"/test\\",
-            \\"protocol\\": \\"HTTP\\",
-            \\"unhealthy_threshold\\": 3
-          }
-        ],
+        \\"deregistration_delay\\": \\"120\\",
+        \\"health_check\\": {
+          \\"healthy_threshold\\": 5,
+          \\"interval\\": 15,
+          \\"path\\": \\"/test\\",
+          \\"protocol\\": \\"HTTP\\",
+          \\"unhealthy_threshold\\": 3
+        },
         \\"name_prefix\\": \\"TSTAPP\\",
         \\"port\\": 80,
         \\"protocol\\": \\"HTTP\\",
@@ -4938,19 +4778,17 @@ exports[`PocketALBApplication renders an application with default autoscaling gr
         \\"resource_id\\": \\"\${aws_appautoscaling_target.testPocketApp_autoscaling_autoscaling_target_505E4EA1.resource_id}\\",
         \\"scalable_dimension\\": \\"\${aws_appautoscaling_target.testPocketApp_autoscaling_autoscaling_target_505E4EA1.scalable_dimension}\\",
         \\"service_namespace\\": \\"\${aws_appautoscaling_target.testPocketApp_autoscaling_autoscaling_target_505E4EA1.service_namespace}\\",
-        \\"step_scaling_policy_configuration\\": [
-          {
-            \\"adjustment_type\\": \\"ChangeInCapacity\\",
-            \\"cooldown\\": 60,
-            \\"metric_aggregation_type\\": \\"Average\\",
-            \\"step_adjustment\\": [
-              {
-                \\"metric_interval_upper_bound\\": \\"0\\",
-                \\"scaling_adjustment\\": -1
-              }
-            ]
-          }
-        ]
+        \\"step_scaling_policy_configuration\\": {
+          \\"adjustment_type\\": \\"ChangeInCapacity\\",
+          \\"cooldown\\": 60,
+          \\"metric_aggregation_type\\": \\"Average\\",
+          \\"step_adjustment\\": [
+            {
+              \\"metric_interval_upper_bound\\": \\"0\\",
+              \\"scaling_adjustment\\": -1
+            }
+          ]
+        }
       },
       \\"testPocketApp_autoscaling_scale_out_policy_075BFAC4\\": {
         \\"depends_on\\": [
@@ -4961,19 +4799,17 @@ exports[`PocketALBApplication renders an application with default autoscaling gr
         \\"resource_id\\": \\"\${aws_appautoscaling_target.testPocketApp_autoscaling_autoscaling_target_505E4EA1.resource_id}\\",
         \\"scalable_dimension\\": \\"\${aws_appautoscaling_target.testPocketApp_autoscaling_autoscaling_target_505E4EA1.scalable_dimension}\\",
         \\"service_namespace\\": \\"\${aws_appautoscaling_target.testPocketApp_autoscaling_autoscaling_target_505E4EA1.service_namespace}\\",
-        \\"step_scaling_policy_configuration\\": [
-          {
-            \\"adjustment_type\\": \\"ChangeInCapacity\\",
-            \\"cooldown\\": 60,
-            \\"metric_aggregation_type\\": \\"Average\\",
-            \\"step_adjustment\\": [
-              {
-                \\"metric_interval_lower_bound\\": \\"0\\",
-                \\"scaling_adjustment\\": 2
-              }
-            ]
-          }
-        ]
+        \\"step_scaling_policy_configuration\\": {
+          \\"adjustment_type\\": \\"ChangeInCapacity\\",
+          \\"cooldown\\": 60,
+          \\"metric_aggregation_type\\": \\"Average\\",
+          \\"step_adjustment\\": [
+            {
+              \\"metric_interval_lower_bound\\": \\"0\\",
+              \\"scaling_adjustment\\": 2
+            }
+          ]
+        }
       }
     },
     \\"aws_appautoscaling_target\\": {
@@ -5062,11 +4898,9 @@ exports[`PocketALBApplication renders an application with default autoscaling gr
           \\"aws_alb_target_group.testPocketApp_ecs_service_blue_target_group_ecs_target_group_A4B85885\\",
           \\"aws_alb_listener_rule.testPocketApp_ecs_service_listener_rule_C03BB04D\\"
         ],
-        \\"deployment_controller\\": [
-          {
-            \\"type\\": \\"ECS\\"
-          }
-        ],
+        \\"deployment_controller\\": {
+          \\"type\\": \\"ECS\\"
+        },
         \\"deployment_maximum_percent\\": 200,
         \\"deployment_minimum_healthy_percent\\": 100,
         \\"desired_count\\": 2,
@@ -5085,14 +4919,12 @@ exports[`PocketALBApplication renders an application with default autoscaling gr
           }
         ],
         \\"name\\": \\"testapp\\",
-        \\"network_configuration\\": [
-          {
-            \\"security_groups\\": [
-              \\"\${aws_security_group.testPocketApp_ecs_service_ecs_security_group_9C016FA8.id}\\"
-            ],
-            \\"subnets\\": \\"\${data.aws_subnet_ids.testPocketApp_pocket_vpc_private_subnet_ids_EB1E3A65.ids}\\"
-          }
-        ],
+        \\"network_configuration\\": {
+          \\"security_groups\\": [
+            \\"\${aws_security_group.testPocketApp_ecs_service_ecs_security_group_9C016FA8.id}\\"
+          ],
+          \\"subnets\\": \\"\${data.aws_subnet_ids.testPocketApp_pocket_vpc_private_subnet_ids_EB1E3A65.ids}\\"
+        },
         \\"propagate_tags\\": \\"SERVICE\\",
         \\"tags\\": {
           \\"hobby\\": \\"bowling\\",
@@ -5491,13 +5323,11 @@ exports[`PocketALBApplication renders an application with minimal config 1`] = `
       \\"testPocketApp_listener_http_A9E227C2\\": {
         \\"default_action\\": [
           {
-            \\"redirect\\": [
-              {
-                \\"port\\": \\"443\\",
-                \\"protocol\\": \\"HTTPS\\",
-                \\"status_code\\": \\"HTTP_301\\"
-              }
-            ],
+            \\"redirect\\": {
+              \\"port\\": \\"443\\",
+              \\"protocol\\": \\"HTTPS\\",
+              \\"status_code\\": \\"HTTP_301\\"
+            },
             \\"type\\": \\"redirect\\"
           }
         ],
@@ -5509,13 +5339,11 @@ exports[`PocketALBApplication renders an application with minimal config 1`] = `
         \\"certificate_arn\\": \\"\${aws_acm_certificate.testPocketApp_alb_certificate_417C14FF.arn}\\",
         \\"default_action\\": [
           {
-            \\"fixed_response\\": [
-              {
-                \\"content_type\\": \\"text/plain\\",
-                \\"message_body\\": \\"\\",
-                \\"status_code\\": \\"503\\"
-              }
-            ],
+            \\"fixed_response\\": {
+              \\"content_type\\": \\"text/plain\\",
+              \\"message_body\\": \\"\\",
+              \\"status_code\\": \\"503\\"
+            },
             \\"type\\": \\"fixed-response\\"
           }
         ],
@@ -5535,13 +5363,11 @@ exports[`PocketALBApplication renders an application with minimal config 1`] = `
         ],
         \\"condition\\": [
           {
-            \\"path_pattern\\": [
-              {
-                \\"values\\": [
-                  \\"*\\"
-                ]
-              }
-            ]
+            \\"path_pattern\\": {
+              \\"values\\": [
+                \\"*\\"
+              ]
+            }
           }
         ],
         \\"lifecycle\\": {
@@ -5555,16 +5381,14 @@ exports[`PocketALBApplication renders an application with minimal config 1`] = `
     },
     \\"aws_alb_target_group\\": {
       \\"testPocketApp_ecs_service_blue_target_group_ecs_target_group_A4B85885\\": {
-        \\"deregistration_delay\\": 120,
-        \\"health_check\\": [
-          {
-            \\"healthy_threshold\\": 5,
-            \\"interval\\": 15,
-            \\"path\\": \\"/test\\",
-            \\"protocol\\": \\"HTTP\\",
-            \\"unhealthy_threshold\\": 3
-          }
-        ],
+        \\"deregistration_delay\\": \\"120\\",
+        \\"health_check\\": {
+          \\"healthy_threshold\\": 5,
+          \\"interval\\": 15,
+          \\"path\\": \\"/test\\",
+          \\"protocol\\": \\"HTTP\\",
+          \\"unhealthy_threshold\\": 3
+        },
         \\"name_prefix\\": \\"TSTAPP\\",
         \\"port\\": 80,
         \\"protocol\\": \\"HTTP\\",
@@ -5585,19 +5409,17 @@ exports[`PocketALBApplication renders an application with minimal config 1`] = `
         \\"resource_id\\": \\"\${aws_appautoscaling_target.testPocketApp_autoscaling_autoscaling_target_505E4EA1.resource_id}\\",
         \\"scalable_dimension\\": \\"\${aws_appautoscaling_target.testPocketApp_autoscaling_autoscaling_target_505E4EA1.scalable_dimension}\\",
         \\"service_namespace\\": \\"\${aws_appautoscaling_target.testPocketApp_autoscaling_autoscaling_target_505E4EA1.service_namespace}\\",
-        \\"step_scaling_policy_configuration\\": [
-          {
-            \\"adjustment_type\\": \\"ChangeInCapacity\\",
-            \\"cooldown\\": 60,
-            \\"metric_aggregation_type\\": \\"Average\\",
-            \\"step_adjustment\\": [
-              {
-                \\"metric_interval_upper_bound\\": \\"0\\",
-                \\"scaling_adjustment\\": -1
-              }
-            ]
-          }
-        ]
+        \\"step_scaling_policy_configuration\\": {
+          \\"adjustment_type\\": \\"ChangeInCapacity\\",
+          \\"cooldown\\": 60,
+          \\"metric_aggregation_type\\": \\"Average\\",
+          \\"step_adjustment\\": [
+            {
+              \\"metric_interval_upper_bound\\": \\"0\\",
+              \\"scaling_adjustment\\": -1
+            }
+          ]
+        }
       },
       \\"testPocketApp_autoscaling_scale_out_policy_075BFAC4\\": {
         \\"depends_on\\": [
@@ -5608,19 +5430,17 @@ exports[`PocketALBApplication renders an application with minimal config 1`] = `
         \\"resource_id\\": \\"\${aws_appautoscaling_target.testPocketApp_autoscaling_autoscaling_target_505E4EA1.resource_id}\\",
         \\"scalable_dimension\\": \\"\${aws_appautoscaling_target.testPocketApp_autoscaling_autoscaling_target_505E4EA1.scalable_dimension}\\",
         \\"service_namespace\\": \\"\${aws_appautoscaling_target.testPocketApp_autoscaling_autoscaling_target_505E4EA1.service_namespace}\\",
-        \\"step_scaling_policy_configuration\\": [
-          {
-            \\"adjustment_type\\": \\"ChangeInCapacity\\",
-            \\"cooldown\\": 60,
-            \\"metric_aggregation_type\\": \\"Average\\",
-            \\"step_adjustment\\": [
-              {
-                \\"metric_interval_lower_bound\\": \\"0\\",
-                \\"scaling_adjustment\\": 2
-              }
-            ]
-          }
-        ]
+        \\"step_scaling_policy_configuration\\": {
+          \\"adjustment_type\\": \\"ChangeInCapacity\\",
+          \\"cooldown\\": 60,
+          \\"metric_aggregation_type\\": \\"Average\\",
+          \\"step_adjustment\\": [
+            {
+              \\"metric_interval_lower_bound\\": \\"0\\",
+              \\"scaling_adjustment\\": 2
+            }
+          ]
+        }
       }
     },
     \\"aws_appautoscaling_target\\": {
@@ -5697,11 +5517,9 @@ exports[`PocketALBApplication renders an application with minimal config 1`] = `
           \\"aws_alb_target_group.testPocketApp_ecs_service_blue_target_group_ecs_target_group_A4B85885\\",
           \\"aws_alb_listener_rule.testPocketApp_ecs_service_listener_rule_C03BB04D\\"
         ],
-        \\"deployment_controller\\": [
-          {
-            \\"type\\": \\"ECS\\"
-          }
-        ],
+        \\"deployment_controller\\": {
+          \\"type\\": \\"ECS\\"
+        },
         \\"deployment_maximum_percent\\": 200,
         \\"deployment_minimum_healthy_percent\\": 100,
         \\"desired_count\\": 2,
@@ -5720,14 +5538,12 @@ exports[`PocketALBApplication renders an application with minimal config 1`] = `
           }
         ],
         \\"name\\": \\"testapp\\",
-        \\"network_configuration\\": [
-          {
-            \\"security_groups\\": [
-              \\"\${aws_security_group.testPocketApp_ecs_service_ecs_security_group_9C016FA8.id}\\"
-            ],
-            \\"subnets\\": \\"\${data.aws_subnet_ids.testPocketApp_pocket_vpc_private_subnet_ids_EB1E3A65.ids}\\"
-          }
-        ],
+        \\"network_configuration\\": {
+          \\"security_groups\\": [
+            \\"\${aws_security_group.testPocketApp_ecs_service_ecs_security_group_9C016FA8.id}\\"
+          ],
+          \\"subnets\\": \\"\${data.aws_subnet_ids.testPocketApp_pocket_vpc_private_subnet_ids_EB1E3A65.ids}\\"
+        },
         \\"propagate_tags\\": \\"SERVICE\\",
         \\"task_definition\\": \\"\${aws_ecs_task_definition.testPocketApp_ecs_service_ecs-task_A7E74E45.arn}\\"
       }
@@ -6100,13 +5916,11 @@ exports[`PocketALBApplication renders an application with modified container def
       \\"testPocketApp_listener_http_A9E227C2\\": {
         \\"default_action\\": [
           {
-            \\"redirect\\": [
-              {
-                \\"port\\": \\"443\\",
-                \\"protocol\\": \\"HTTPS\\",
-                \\"status_code\\": \\"HTTP_301\\"
-              }
-            ],
+            \\"redirect\\": {
+              \\"port\\": \\"443\\",
+              \\"protocol\\": \\"HTTPS\\",
+              \\"status_code\\": \\"HTTP_301\\"
+            },
             \\"type\\": \\"redirect\\"
           }
         ],
@@ -6118,13 +5932,11 @@ exports[`PocketALBApplication renders an application with modified container def
         \\"certificate_arn\\": \\"\${aws_acm_certificate.testPocketApp_alb_certificate_417C14FF.arn}\\",
         \\"default_action\\": [
           {
-            \\"fixed_response\\": [
-              {
-                \\"content_type\\": \\"text/plain\\",
-                \\"message_body\\": \\"\\",
-                \\"status_code\\": \\"503\\"
-              }
-            ],
+            \\"fixed_response\\": {
+              \\"content_type\\": \\"text/plain\\",
+              \\"message_body\\": \\"\\",
+              \\"status_code\\": \\"503\\"
+            },
             \\"type\\": \\"fixed-response\\"
           }
         ],
@@ -6144,13 +5956,11 @@ exports[`PocketALBApplication renders an application with modified container def
         ],
         \\"condition\\": [
           {
-            \\"path_pattern\\": [
-              {
-                \\"values\\": [
-                  \\"*\\"
-                ]
-              }
-            ]
+            \\"path_pattern\\": {
+              \\"values\\": [
+                \\"*\\"
+              ]
+            }
           }
         ],
         \\"lifecycle\\": {
@@ -6164,16 +5974,14 @@ exports[`PocketALBApplication renders an application with modified container def
     },
     \\"aws_alb_target_group\\": {
       \\"testPocketApp_ecs_service_blue_target_group_ecs_target_group_A4B85885\\": {
-        \\"deregistration_delay\\": 120,
-        \\"health_check\\": [
-          {
-            \\"healthy_threshold\\": 5,
-            \\"interval\\": 15,
-            \\"path\\": \\"/test\\",
-            \\"protocol\\": \\"HTTP\\",
-            \\"unhealthy_threshold\\": 3
-          }
-        ],
+        \\"deregistration_delay\\": \\"120\\",
+        \\"health_check\\": {
+          \\"healthy_threshold\\": 5,
+          \\"interval\\": 15,
+          \\"path\\": \\"/test\\",
+          \\"protocol\\": \\"HTTP\\",
+          \\"unhealthy_threshold\\": 3
+        },
         \\"name_prefix\\": \\"TSTAPP\\",
         \\"port\\": 80,
         \\"protocol\\": \\"HTTP\\",
@@ -6194,19 +6002,17 @@ exports[`PocketALBApplication renders an application with modified container def
         \\"resource_id\\": \\"\${aws_appautoscaling_target.testPocketApp_autoscaling_autoscaling_target_505E4EA1.resource_id}\\",
         \\"scalable_dimension\\": \\"\${aws_appautoscaling_target.testPocketApp_autoscaling_autoscaling_target_505E4EA1.scalable_dimension}\\",
         \\"service_namespace\\": \\"\${aws_appautoscaling_target.testPocketApp_autoscaling_autoscaling_target_505E4EA1.service_namespace}\\",
-        \\"step_scaling_policy_configuration\\": [
-          {
-            \\"adjustment_type\\": \\"ChangeInCapacity\\",
-            \\"cooldown\\": 60,
-            \\"metric_aggregation_type\\": \\"Average\\",
-            \\"step_adjustment\\": [
-              {
-                \\"metric_interval_upper_bound\\": \\"0\\",
-                \\"scaling_adjustment\\": -1
-              }
-            ]
-          }
-        ]
+        \\"step_scaling_policy_configuration\\": {
+          \\"adjustment_type\\": \\"ChangeInCapacity\\",
+          \\"cooldown\\": 60,
+          \\"metric_aggregation_type\\": \\"Average\\",
+          \\"step_adjustment\\": [
+            {
+              \\"metric_interval_upper_bound\\": \\"0\\",
+              \\"scaling_adjustment\\": -1
+            }
+          ]
+        }
       },
       \\"testPocketApp_autoscaling_scale_out_policy_075BFAC4\\": {
         \\"depends_on\\": [
@@ -6217,19 +6023,17 @@ exports[`PocketALBApplication renders an application with modified container def
         \\"resource_id\\": \\"\${aws_appautoscaling_target.testPocketApp_autoscaling_autoscaling_target_505E4EA1.resource_id}\\",
         \\"scalable_dimension\\": \\"\${aws_appautoscaling_target.testPocketApp_autoscaling_autoscaling_target_505E4EA1.scalable_dimension}\\",
         \\"service_namespace\\": \\"\${aws_appautoscaling_target.testPocketApp_autoscaling_autoscaling_target_505E4EA1.service_namespace}\\",
-        \\"step_scaling_policy_configuration\\": [
-          {
-            \\"adjustment_type\\": \\"ChangeInCapacity\\",
-            \\"cooldown\\": 60,
-            \\"metric_aggregation_type\\": \\"Average\\",
-            \\"step_adjustment\\": [
-              {
-                \\"metric_interval_lower_bound\\": \\"0\\",
-                \\"scaling_adjustment\\": 2
-              }
-            ]
-          }
-        ]
+        \\"step_scaling_policy_configuration\\": {
+          \\"adjustment_type\\": \\"ChangeInCapacity\\",
+          \\"cooldown\\": 60,
+          \\"metric_aggregation_type\\": \\"Average\\",
+          \\"step_adjustment\\": [
+            {
+              \\"metric_interval_lower_bound\\": \\"0\\",
+              \\"scaling_adjustment\\": 2
+            }
+          ]
+        }
       }
     },
     \\"aws_appautoscaling_target\\": {
@@ -6305,11 +6109,9 @@ exports[`PocketALBApplication renders an application with modified container def
     },
     \\"aws_ecr_repository\\": {
       \\"testPocketApp_ecs_service_ecr-xray-daemon_ecr-repo_9028CD2C\\": {
-        \\"image_scanning_configuration\\": [
-          {
-            \\"scan_on_push\\": true
-          }
-        ],
+        \\"image_scanning_configuration\\": {
+          \\"scan_on_push\\": true
+        },
         \\"name\\": \\"testapp-xray-daemon\\"
       }
     },
@@ -6332,11 +6134,9 @@ exports[`PocketALBApplication renders an application with modified container def
           \\"aws_alb_target_group.testPocketApp_ecs_service_blue_target_group_ecs_target_group_A4B85885\\",
           \\"aws_alb_listener_rule.testPocketApp_ecs_service_listener_rule_C03BB04D\\"
         ],
-        \\"deployment_controller\\": [
-          {
-            \\"type\\": \\"ECS\\"
-          }
-        ],
+        \\"deployment_controller\\": {
+          \\"type\\": \\"ECS\\"
+        },
         \\"deployment_maximum_percent\\": 200,
         \\"deployment_minimum_healthy_percent\\": 100,
         \\"desired_count\\": 2,
@@ -6355,14 +6155,12 @@ exports[`PocketALBApplication renders an application with modified container def
           }
         ],
         \\"name\\": \\"testapp\\",
-        \\"network_configuration\\": [
-          {
-            \\"security_groups\\": [
-              \\"\${aws_security_group.testPocketApp_ecs_service_ecs_security_group_9C016FA8.id}\\"
-            ],
-            \\"subnets\\": \\"\${data.aws_subnet_ids.testPocketApp_pocket_vpc_private_subnet_ids_EB1E3A65.ids}\\"
-          }
-        ],
+        \\"network_configuration\\": {
+          \\"security_groups\\": [
+            \\"\${aws_security_group.testPocketApp_ecs_service_ecs_security_group_9C016FA8.id}\\"
+          ],
+          \\"subnets\\": \\"\${data.aws_subnet_ids.testPocketApp_pocket_vpc_private_subnet_ids_EB1E3A65.ids}\\"
+        },
         \\"propagate_tags\\": \\"SERVICE\\",
         \\"task_definition\\": \\"\${aws_ecs_task_definition.testPocketApp_ecs_service_ecs-task_A7E74E45.arn}\\"
       }
@@ -6754,13 +6552,11 @@ exports[`PocketALBApplication renders an external application 1`] = `
       \\"testPocketApp_listener_http_A9E227C2\\": {
         \\"default_action\\": [
           {
-            \\"redirect\\": [
-              {
-                \\"port\\": \\"443\\",
-                \\"protocol\\": \\"HTTPS\\",
-                \\"status_code\\": \\"HTTP_301\\"
-              }
-            ],
+            \\"redirect\\": {
+              \\"port\\": \\"443\\",
+              \\"protocol\\": \\"HTTPS\\",
+              \\"status_code\\": \\"HTTP_301\\"
+            },
             \\"type\\": \\"redirect\\"
           }
         ],
@@ -6772,13 +6568,11 @@ exports[`PocketALBApplication renders an external application 1`] = `
         \\"certificate_arn\\": \\"\${aws_acm_certificate.testPocketApp_alb_certificate_417C14FF.arn}\\",
         \\"default_action\\": [
           {
-            \\"fixed_response\\": [
-              {
-                \\"content_type\\": \\"text/plain\\",
-                \\"message_body\\": \\"\\",
-                \\"status_code\\": \\"503\\"
-              }
-            ],
+            \\"fixed_response\\": {
+              \\"content_type\\": \\"text/plain\\",
+              \\"message_body\\": \\"\\",
+              \\"status_code\\": \\"503\\"
+            },
             \\"type\\": \\"fixed-response\\"
           }
         ],
@@ -6798,13 +6592,11 @@ exports[`PocketALBApplication renders an external application 1`] = `
         ],
         \\"condition\\": [
           {
-            \\"path_pattern\\": [
-              {
-                \\"values\\": [
-                  \\"*\\"
-                ]
-              }
-            ]
+            \\"path_pattern\\": {
+              \\"values\\": [
+                \\"*\\"
+              ]
+            }
           }
         ],
         \\"lifecycle\\": {
@@ -6818,16 +6610,14 @@ exports[`PocketALBApplication renders an external application 1`] = `
     },
     \\"aws_alb_target_group\\": {
       \\"testPocketApp_ecs_service_blue_target_group_ecs_target_group_A4B85885\\": {
-        \\"deregistration_delay\\": 120,
-        \\"health_check\\": [
-          {
-            \\"healthy_threshold\\": 5,
-            \\"interval\\": 15,
-            \\"path\\": \\"/test\\",
-            \\"protocol\\": \\"HTTP\\",
-            \\"unhealthy_threshold\\": 3
-          }
-        ],
+        \\"deregistration_delay\\": \\"120\\",
+        \\"health_check\\": {
+          \\"healthy_threshold\\": 5,
+          \\"interval\\": 15,
+          \\"path\\": \\"/test\\",
+          \\"protocol\\": \\"HTTP\\",
+          \\"unhealthy_threshold\\": 3
+        },
         \\"name_prefix\\": \\"TSTAPP\\",
         \\"port\\": 80,
         \\"protocol\\": \\"HTTP\\",
@@ -6848,19 +6638,17 @@ exports[`PocketALBApplication renders an external application 1`] = `
         \\"resource_id\\": \\"\${aws_appautoscaling_target.testPocketApp_autoscaling_autoscaling_target_505E4EA1.resource_id}\\",
         \\"scalable_dimension\\": \\"\${aws_appautoscaling_target.testPocketApp_autoscaling_autoscaling_target_505E4EA1.scalable_dimension}\\",
         \\"service_namespace\\": \\"\${aws_appautoscaling_target.testPocketApp_autoscaling_autoscaling_target_505E4EA1.service_namespace}\\",
-        \\"step_scaling_policy_configuration\\": [
-          {
-            \\"adjustment_type\\": \\"ChangeInCapacity\\",
-            \\"cooldown\\": 60,
-            \\"metric_aggregation_type\\": \\"Average\\",
-            \\"step_adjustment\\": [
-              {
-                \\"metric_interval_upper_bound\\": \\"0\\",
-                \\"scaling_adjustment\\": -1
-              }
-            ]
-          }
-        ]
+        \\"step_scaling_policy_configuration\\": {
+          \\"adjustment_type\\": \\"ChangeInCapacity\\",
+          \\"cooldown\\": 60,
+          \\"metric_aggregation_type\\": \\"Average\\",
+          \\"step_adjustment\\": [
+            {
+              \\"metric_interval_upper_bound\\": \\"0\\",
+              \\"scaling_adjustment\\": -1
+            }
+          ]
+        }
       },
       \\"testPocketApp_autoscaling_scale_out_policy_075BFAC4\\": {
         \\"depends_on\\": [
@@ -6871,19 +6659,17 @@ exports[`PocketALBApplication renders an external application 1`] = `
         \\"resource_id\\": \\"\${aws_appautoscaling_target.testPocketApp_autoscaling_autoscaling_target_505E4EA1.resource_id}\\",
         \\"scalable_dimension\\": \\"\${aws_appautoscaling_target.testPocketApp_autoscaling_autoscaling_target_505E4EA1.scalable_dimension}\\",
         \\"service_namespace\\": \\"\${aws_appautoscaling_target.testPocketApp_autoscaling_autoscaling_target_505E4EA1.service_namespace}\\",
-        \\"step_scaling_policy_configuration\\": [
-          {
-            \\"adjustment_type\\": \\"ChangeInCapacity\\",
-            \\"cooldown\\": 60,
-            \\"metric_aggregation_type\\": \\"Average\\",
-            \\"step_adjustment\\": [
-              {
-                \\"metric_interval_lower_bound\\": \\"0\\",
-                \\"scaling_adjustment\\": 2
-              }
-            ]
-          }
-        ]
+        \\"step_scaling_policy_configuration\\": {
+          \\"adjustment_type\\": \\"ChangeInCapacity\\",
+          \\"cooldown\\": 60,
+          \\"metric_aggregation_type\\": \\"Average\\",
+          \\"step_adjustment\\": [
+            {
+              \\"metric_interval_lower_bound\\": \\"0\\",
+              \\"scaling_adjustment\\": 2
+            }
+          ]
+        }
       }
     },
     \\"aws_appautoscaling_target\\": {
@@ -6902,80 +6688,66 @@ exports[`PocketALBApplication renders an external application 1`] = `
           \\"testing.bowling.gov\\"
         ],
         \\"comment\\": \\"CDN for direct.testing.bowling.gov\\",
-        \\"default_cache_behavior\\": [
-          {
-            \\"allowed_methods\\": [
-              \\"GET\\",
-              \\"HEAD\\",
-              \\"OPTIONS\\",
-              \\"PUT\\",
-              \\"POST\\",
-              \\"PATCH\\",
-              \\"DELETE\\"
+        \\"default_cache_behavior\\": {
+          \\"allowed_methods\\": [
+            \\"GET\\",
+            \\"HEAD\\",
+            \\"OPTIONS\\",
+            \\"PUT\\",
+            \\"POST\\",
+            \\"PATCH\\",
+            \\"DELETE\\"
+          ],
+          \\"cached_methods\\": [
+            \\"GET\\",
+            \\"HEAD\\",
+            \\"OPTIONS\\"
+          ],
+          \\"compress\\": true,
+          \\"default_ttl\\": 0,
+          \\"forwarded_values\\": {
+            \\"cookies\\": {
+              \\"forward\\": \\"none\\"
+            },
+            \\"headers\\": [
+              \\"Accept\\",
+              \\"Origin\\",
+              \\"Authorization\\"
             ],
-            \\"cached_methods\\": [
-              \\"GET\\",
-              \\"HEAD\\",
-              \\"OPTIONS\\"
-            ],
-            \\"compress\\": true,
-            \\"default_ttl\\": 0,
-            \\"forwarded_values\\": [
-              {
-                \\"cookies\\": [
-                  {
-                    \\"forward\\": \\"none\\"
-                  }
-                ],
-                \\"headers\\": [
-                  \\"Accept\\",
-                  \\"Origin\\",
-                  \\"Authorization\\"
-                ],
-                \\"query_string\\": true
-              }
-            ],
-            \\"max_ttl\\": 31536000,
-            \\"min_ttl\\": 0,
-            \\"target_origin_id\\": \\"Alb\\",
-            \\"viewer_protocol_policy\\": \\"redirect-to-https\\"
-          }
-        ],
+            \\"query_string\\": true
+          },
+          \\"max_ttl\\": 31536000,
+          \\"min_ttl\\": 0,
+          \\"target_origin_id\\": \\"Alb\\",
+          \\"viewer_protocol_policy\\": \\"redirect-to-https\\"
+        },
         \\"enabled\\": true,
         \\"origin\\": [
           {
-            \\"custom_origin_config\\": [
-              {
-                \\"http_port\\": 80,
-                \\"https_port\\": 443,
-                \\"origin_protocol_policy\\": \\"https-only\\",
-                \\"origin_ssl_protocols\\": [
-                  \\"TLSv1.1\\",
-                  \\"TLSv1.2\\"
-                ]
-              }
-            ],
+            \\"custom_origin_config\\": {
+              \\"http_port\\": 80,
+              \\"https_port\\": 443,
+              \\"origin_protocol_policy\\": \\"https-only\\",
+              \\"origin_ssl_protocols\\": [
+                \\"TLSv1.1\\",
+                \\"TLSv1.2\\"
+              ]
+            },
             \\"domain_name\\": \\"\${aws_route53_record.testPocketApp_alb_record_7B56ED33.fqdn}\\",
             \\"origin_id\\": \\"Alb\\"
           }
         ],
         \\"price_class\\": \\"PriceClass_200\\",
-        \\"restrictions\\": [
-          {
-            \\"geo_restriction\\": [
-              {
-                \\"restriction_type\\": \\"none\\"
-              }
-            ]
+        \\"restrictions\\": {
+          \\"geo_restriction\\": {
+            \\"restriction_type\\": \\"none\\"
           }
-        ],
-        \\"viewer_certificate\\": [
-          {
-            \\"acm_certificate_arn\\": \\"\${aws_acm_certificate.testPocketApp_cdn_certificate_F1CBB9BB.arn}\\",
-            \\"minimum_protocol_version\\": \\"TLSv1.1_2016\\",
-            \\"ssl_support_method\\": \\"sni-only\\"
-          }
-        ]
+        },
+        \\"viewer_certificate\\": {
+          \\"acm_certificate_arn\\": \\"\${aws_acm_certificate.testPocketApp_cdn_certificate_F1CBB9BB.arn}\\",
+          \\"minimum_protocol_version\\": \\"TLSv1.1_2016\\",
+          \\"ssl_support_method\\": \\"sni-only\\"
+        }
       }
     },
     \\"aws_cloudwatch_dashboard\\": {
@@ -7042,11 +6814,9 @@ exports[`PocketALBApplication renders an external application 1`] = `
           \\"aws_alb_target_group.testPocketApp_ecs_service_blue_target_group_ecs_target_group_A4B85885\\",
           \\"aws_alb_listener_rule.testPocketApp_ecs_service_listener_rule_C03BB04D\\"
         ],
-        \\"deployment_controller\\": [
-          {
-            \\"type\\": \\"ECS\\"
-          }
-        ],
+        \\"deployment_controller\\": {
+          \\"type\\": \\"ECS\\"
+        },
         \\"deployment_maximum_percent\\": 200,
         \\"deployment_minimum_healthy_percent\\": 100,
         \\"desired_count\\": 2,
@@ -7065,14 +6835,12 @@ exports[`PocketALBApplication renders an external application 1`] = `
           }
         ],
         \\"name\\": \\"testapp\\",
-        \\"network_configuration\\": [
-          {
-            \\"security_groups\\": [
-              \\"\${aws_security_group.testPocketApp_ecs_service_ecs_security_group_9C016FA8.id}\\"
-            ],
-            \\"subnets\\": \\"\${data.aws_subnet_ids.testPocketApp_pocket_vpc_private_subnet_ids_EB1E3A65.ids}\\"
-          }
-        ],
+        \\"network_configuration\\": {
+          \\"security_groups\\": [
+            \\"\${aws_security_group.testPocketApp_ecs_service_ecs_security_group_9C016FA8.id}\\"
+          ],
+          \\"subnets\\": \\"\${data.aws_subnet_ids.testPocketApp_pocket_vpc_private_subnet_ids_EB1E3A65.ids}\\"
+        },
         \\"propagate_tags\\": \\"SERVICE\\",
         \\"task_definition\\": \\"\${aws_ecs_task_definition.testPocketApp_ecs_service_ecs-task_A7E74E45.arn}\\"
       }
@@ -7480,13 +7248,11 @@ exports[`PocketALBApplication renders an internal application 1`] = `
       \\"testPocketApp_listener_http_A9E227C2\\": {
         \\"default_action\\": [
           {
-            \\"redirect\\": [
-              {
-                \\"port\\": \\"443\\",
-                \\"protocol\\": \\"HTTPS\\",
-                \\"status_code\\": \\"HTTP_301\\"
-              }
-            ],
+            \\"redirect\\": {
+              \\"port\\": \\"443\\",
+              \\"protocol\\": \\"HTTPS\\",
+              \\"status_code\\": \\"HTTP_301\\"
+            },
             \\"type\\": \\"redirect\\"
           }
         ],
@@ -7498,13 +7264,11 @@ exports[`PocketALBApplication renders an internal application 1`] = `
         \\"certificate_arn\\": \\"\${aws_acm_certificate.testPocketApp_alb_certificate_417C14FF.arn}\\",
         \\"default_action\\": [
           {
-            \\"fixed_response\\": [
-              {
-                \\"content_type\\": \\"text/plain\\",
-                \\"message_body\\": \\"\\",
-                \\"status_code\\": \\"503\\"
-              }
-            ],
+            \\"fixed_response\\": {
+              \\"content_type\\": \\"text/plain\\",
+              \\"message_body\\": \\"\\",
+              \\"status_code\\": \\"503\\"
+            },
             \\"type\\": \\"fixed-response\\"
           }
         ],
@@ -7524,13 +7288,11 @@ exports[`PocketALBApplication renders an internal application 1`] = `
         ],
         \\"condition\\": [
           {
-            \\"path_pattern\\": [
-              {
-                \\"values\\": [
-                  \\"*\\"
-                ]
-              }
-            ]
+            \\"path_pattern\\": {
+              \\"values\\": [
+                \\"*\\"
+              ]
+            }
           }
         ],
         \\"lifecycle\\": {
@@ -7544,16 +7306,14 @@ exports[`PocketALBApplication renders an internal application 1`] = `
     },
     \\"aws_alb_target_group\\": {
       \\"testPocketApp_ecs_service_blue_target_group_ecs_target_group_A4B85885\\": {
-        \\"deregistration_delay\\": 120,
-        \\"health_check\\": [
-          {
-            \\"healthy_threshold\\": 5,
-            \\"interval\\": 15,
-            \\"path\\": \\"/test\\",
-            \\"protocol\\": \\"HTTP\\",
-            \\"unhealthy_threshold\\": 3
-          }
-        ],
+        \\"deregistration_delay\\": \\"120\\",
+        \\"health_check\\": {
+          \\"healthy_threshold\\": 5,
+          \\"interval\\": 15,
+          \\"path\\": \\"/test\\",
+          \\"protocol\\": \\"HTTP\\",
+          \\"unhealthy_threshold\\": 3
+        },
         \\"name_prefix\\": \\"TSTAPP\\",
         \\"port\\": 80,
         \\"protocol\\": \\"HTTP\\",
@@ -7574,19 +7334,17 @@ exports[`PocketALBApplication renders an internal application 1`] = `
         \\"resource_id\\": \\"\${aws_appautoscaling_target.testPocketApp_autoscaling_autoscaling_target_505E4EA1.resource_id}\\",
         \\"scalable_dimension\\": \\"\${aws_appautoscaling_target.testPocketApp_autoscaling_autoscaling_target_505E4EA1.scalable_dimension}\\",
         \\"service_namespace\\": \\"\${aws_appautoscaling_target.testPocketApp_autoscaling_autoscaling_target_505E4EA1.service_namespace}\\",
-        \\"step_scaling_policy_configuration\\": [
-          {
-            \\"adjustment_type\\": \\"ChangeInCapacity\\",
-            \\"cooldown\\": 60,
-            \\"metric_aggregation_type\\": \\"Average\\",
-            \\"step_adjustment\\": [
-              {
-                \\"metric_interval_upper_bound\\": \\"0\\",
-                \\"scaling_adjustment\\": -1
-              }
-            ]
-          }
-        ]
+        \\"step_scaling_policy_configuration\\": {
+          \\"adjustment_type\\": \\"ChangeInCapacity\\",
+          \\"cooldown\\": 60,
+          \\"metric_aggregation_type\\": \\"Average\\",
+          \\"step_adjustment\\": [
+            {
+              \\"metric_interval_upper_bound\\": \\"0\\",
+              \\"scaling_adjustment\\": -1
+            }
+          ]
+        }
       },
       \\"testPocketApp_autoscaling_scale_out_policy_075BFAC4\\": {
         \\"depends_on\\": [
@@ -7597,19 +7355,17 @@ exports[`PocketALBApplication renders an internal application 1`] = `
         \\"resource_id\\": \\"\${aws_appautoscaling_target.testPocketApp_autoscaling_autoscaling_target_505E4EA1.resource_id}\\",
         \\"scalable_dimension\\": \\"\${aws_appautoscaling_target.testPocketApp_autoscaling_autoscaling_target_505E4EA1.scalable_dimension}\\",
         \\"service_namespace\\": \\"\${aws_appautoscaling_target.testPocketApp_autoscaling_autoscaling_target_505E4EA1.service_namespace}\\",
-        \\"step_scaling_policy_configuration\\": [
-          {
-            \\"adjustment_type\\": \\"ChangeInCapacity\\",
-            \\"cooldown\\": 60,
-            \\"metric_aggregation_type\\": \\"Average\\",
-            \\"step_adjustment\\": [
-              {
-                \\"metric_interval_lower_bound\\": \\"0\\",
-                \\"scaling_adjustment\\": 2
-              }
-            ]
-          }
-        ]
+        \\"step_scaling_policy_configuration\\": {
+          \\"adjustment_type\\": \\"ChangeInCapacity\\",
+          \\"cooldown\\": 60,
+          \\"metric_aggregation_type\\": \\"Average\\",
+          \\"step_adjustment\\": [
+            {
+              \\"metric_interval_lower_bound\\": \\"0\\",
+              \\"scaling_adjustment\\": 2
+            }
+          ]
+        }
       }
     },
     \\"aws_appautoscaling_target\\": {
@@ -7686,11 +7442,9 @@ exports[`PocketALBApplication renders an internal application 1`] = `
           \\"aws_alb_target_group.testPocketApp_ecs_service_blue_target_group_ecs_target_group_A4B85885\\",
           \\"aws_alb_listener_rule.testPocketApp_ecs_service_listener_rule_C03BB04D\\"
         ],
-        \\"deployment_controller\\": [
-          {
-            \\"type\\": \\"ECS\\"
-          }
-        ],
+        \\"deployment_controller\\": {
+          \\"type\\": \\"ECS\\"
+        },
         \\"deployment_maximum_percent\\": 200,
         \\"deployment_minimum_healthy_percent\\": 100,
         \\"desired_count\\": 2,
@@ -7709,14 +7463,12 @@ exports[`PocketALBApplication renders an internal application 1`] = `
           }
         ],
         \\"name\\": \\"testapp\\",
-        \\"network_configuration\\": [
-          {
-            \\"security_groups\\": [
-              \\"\${aws_security_group.testPocketApp_ecs_service_ecs_security_group_9C016FA8.id}\\"
-            ],
-            \\"subnets\\": \\"\${data.aws_subnet_ids.testPocketApp_pocket_vpc_private_subnet_ids_EB1E3A65.ids}\\"
-          }
-        ],
+        \\"network_configuration\\": {
+          \\"security_groups\\": [
+            \\"\${aws_security_group.testPocketApp_ecs_service_ecs_security_group_9C016FA8.id}\\"
+          ],
+          \\"subnets\\": \\"\${data.aws_subnet_ids.testPocketApp_pocket_vpc_private_subnet_ids_EB1E3A65.ids}\\"
+        },
         \\"propagate_tags\\": \\"SERVICE\\",
         \\"task_definition\\": \\"\${aws_ecs_task_definition.testPocketApp_ecs_service_ecs-task_A7E74E45.arn}\\"
       }
@@ -8097,13 +7849,11 @@ exports[`PocketALBApplication renders an internal application with tags 1`] = `
       \\"testPocketApp_listener_http_A9E227C2\\": {
         \\"default_action\\": [
           {
-            \\"redirect\\": [
-              {
-                \\"port\\": \\"443\\",
-                \\"protocol\\": \\"HTTPS\\",
-                \\"status_code\\": \\"HTTP_301\\"
-              }
-            ],
+            \\"redirect\\": {
+              \\"port\\": \\"443\\",
+              \\"protocol\\": \\"HTTPS\\",
+              \\"status_code\\": \\"HTTP_301\\"
+            },
             \\"type\\": \\"redirect\\"
           }
         ],
@@ -8115,13 +7865,11 @@ exports[`PocketALBApplication renders an internal application with tags 1`] = `
         \\"certificate_arn\\": \\"\${aws_acm_certificate.testPocketApp_alb_certificate_417C14FF.arn}\\",
         \\"default_action\\": [
           {
-            \\"fixed_response\\": [
-              {
-                \\"content_type\\": \\"text/plain\\",
-                \\"message_body\\": \\"\\",
-                \\"status_code\\": \\"503\\"
-              }
-            ],
+            \\"fixed_response\\": {
+              \\"content_type\\": \\"text/plain\\",
+              \\"message_body\\": \\"\\",
+              \\"status_code\\": \\"503\\"
+            },
             \\"type\\": \\"fixed-response\\"
           }
         ],
@@ -8141,13 +7889,11 @@ exports[`PocketALBApplication renders an internal application with tags 1`] = `
         ],
         \\"condition\\": [
           {
-            \\"path_pattern\\": [
-              {
-                \\"values\\": [
-                  \\"*\\"
-                ]
-              }
-            ]
+            \\"path_pattern\\": {
+              \\"values\\": [
+                \\"*\\"
+              ]
+            }
           }
         ],
         \\"lifecycle\\": {
@@ -8161,16 +7907,14 @@ exports[`PocketALBApplication renders an internal application with tags 1`] = `
     },
     \\"aws_alb_target_group\\": {
       \\"testPocketApp_ecs_service_blue_target_group_ecs_target_group_A4B85885\\": {
-        \\"deregistration_delay\\": 120,
-        \\"health_check\\": [
-          {
-            \\"healthy_threshold\\": 5,
-            \\"interval\\": 15,
-            \\"path\\": \\"/test\\",
-            \\"protocol\\": \\"HTTP\\",
-            \\"unhealthy_threshold\\": 3
-          }
-        ],
+        \\"deregistration_delay\\": \\"120\\",
+        \\"health_check\\": {
+          \\"healthy_threshold\\": 5,
+          \\"interval\\": 15,
+          \\"path\\": \\"/test\\",
+          \\"protocol\\": \\"HTTP\\",
+          \\"unhealthy_threshold\\": 3
+        },
         \\"name_prefix\\": \\"TSTAPP\\",
         \\"port\\": 80,
         \\"protocol\\": \\"HTTP\\",
@@ -8193,19 +7937,17 @@ exports[`PocketALBApplication renders an internal application with tags 1`] = `
         \\"resource_id\\": \\"\${aws_appautoscaling_target.testPocketApp_autoscaling_autoscaling_target_505E4EA1.resource_id}\\",
         \\"scalable_dimension\\": \\"\${aws_appautoscaling_target.testPocketApp_autoscaling_autoscaling_target_505E4EA1.scalable_dimension}\\",
         \\"service_namespace\\": \\"\${aws_appautoscaling_target.testPocketApp_autoscaling_autoscaling_target_505E4EA1.service_namespace}\\",
-        \\"step_scaling_policy_configuration\\": [
-          {
-            \\"adjustment_type\\": \\"ChangeInCapacity\\",
-            \\"cooldown\\": 60,
-            \\"metric_aggregation_type\\": \\"Average\\",
-            \\"step_adjustment\\": [
-              {
-                \\"metric_interval_upper_bound\\": \\"0\\",
-                \\"scaling_adjustment\\": -1
-              }
-            ]
-          }
-        ]
+        \\"step_scaling_policy_configuration\\": {
+          \\"adjustment_type\\": \\"ChangeInCapacity\\",
+          \\"cooldown\\": 60,
+          \\"metric_aggregation_type\\": \\"Average\\",
+          \\"step_adjustment\\": [
+            {
+              \\"metric_interval_upper_bound\\": \\"0\\",
+              \\"scaling_adjustment\\": -1
+            }
+          ]
+        }
       },
       \\"testPocketApp_autoscaling_scale_out_policy_075BFAC4\\": {
         \\"depends_on\\": [
@@ -8216,19 +7958,17 @@ exports[`PocketALBApplication renders an internal application with tags 1`] = `
         \\"resource_id\\": \\"\${aws_appautoscaling_target.testPocketApp_autoscaling_autoscaling_target_505E4EA1.resource_id}\\",
         \\"scalable_dimension\\": \\"\${aws_appautoscaling_target.testPocketApp_autoscaling_autoscaling_target_505E4EA1.scalable_dimension}\\",
         \\"service_namespace\\": \\"\${aws_appautoscaling_target.testPocketApp_autoscaling_autoscaling_target_505E4EA1.service_namespace}\\",
-        \\"step_scaling_policy_configuration\\": [
-          {
-            \\"adjustment_type\\": \\"ChangeInCapacity\\",
-            \\"cooldown\\": 60,
-            \\"metric_aggregation_type\\": \\"Average\\",
-            \\"step_adjustment\\": [
-              {
-                \\"metric_interval_lower_bound\\": \\"0\\",
-                \\"scaling_adjustment\\": 2
-              }
-            ]
-          }
-        ]
+        \\"step_scaling_policy_configuration\\": {
+          \\"adjustment_type\\": \\"ChangeInCapacity\\",
+          \\"cooldown\\": 60,
+          \\"metric_aggregation_type\\": \\"Average\\",
+          \\"step_adjustment\\": [
+            {
+              \\"metric_interval_lower_bound\\": \\"0\\",
+              \\"scaling_adjustment\\": 2
+            }
+          ]
+        }
       }
     },
     \\"aws_appautoscaling_target\\": {
@@ -8317,11 +8057,9 @@ exports[`PocketALBApplication renders an internal application with tags 1`] = `
           \\"aws_alb_target_group.testPocketApp_ecs_service_blue_target_group_ecs_target_group_A4B85885\\",
           \\"aws_alb_listener_rule.testPocketApp_ecs_service_listener_rule_C03BB04D\\"
         ],
-        \\"deployment_controller\\": [
-          {
-            \\"type\\": \\"ECS\\"
-          }
-        ],
+        \\"deployment_controller\\": {
+          \\"type\\": \\"ECS\\"
+        },
         \\"deployment_maximum_percent\\": 200,
         \\"deployment_minimum_healthy_percent\\": 100,
         \\"desired_count\\": 2,
@@ -8340,14 +8078,12 @@ exports[`PocketALBApplication renders an internal application with tags 1`] = `
           }
         ],
         \\"name\\": \\"testapp\\",
-        \\"network_configuration\\": [
-          {
-            \\"security_groups\\": [
-              \\"\${aws_security_group.testPocketApp_ecs_service_ecs_security_group_9C016FA8.id}\\"
-            ],
-            \\"subnets\\": \\"\${data.aws_subnet_ids.testPocketApp_pocket_vpc_private_subnet_ids_EB1E3A65.ids}\\"
-          }
-        ],
+        \\"network_configuration\\": {
+          \\"security_groups\\": [
+            \\"\${aws_security_group.testPocketApp_ecs_service_ecs_security_group_9C016FA8.id}\\"
+          ],
+          \\"subnets\\": \\"\${data.aws_subnet_ids.testPocketApp_pocket_vpc_private_subnet_ids_EB1E3A65.ids}\\"
+        },
         \\"propagate_tags\\": \\"SERVICE\\",
         \\"tags\\": {
           \\"hobby\\": \\"bowling\\",

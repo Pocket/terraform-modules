@@ -1,5 +1,5 @@
 import { Resource } from 'cdktf';
-import { Alb, SecurityGroup } from '@cdktf/provider-aws';
+import { VPC, ELB } from '@cdktf/provider-aws';
 import { Construct } from 'constructs';
 
 export interface ApplicationLoadBalancerProps {
@@ -15,8 +15,8 @@ export interface ApplicationLoadBalancerProps {
  * Generates an Application Certificate given a domain name and zoneId
  */
 export class ApplicationLoadBalancer extends Resource {
-  public readonly alb: Alb;
-  public readonly securityGroup: SecurityGroup;
+  public readonly alb: ELB.Alb;
+  public readonly securityGroup: VPC.SecurityGroup;
 
   constructor(
     scope: Construct,
@@ -25,7 +25,7 @@ export class ApplicationLoadBalancer extends Resource {
   ) {
     super(scope, name);
 
-    this.securityGroup = new SecurityGroup(this, `alb_security_group`, {
+    this.securityGroup = new VPC.SecurityGroup(this, `alb_security_group`, {
       namePrefix: `${config.prefix}-HTTP/S Security Group`,
       description: 'External security group  (Managed by Terraform)',
       vpcId: config.vpcId,
@@ -86,7 +86,7 @@ export class ApplicationLoadBalancer extends Resource {
     this.securityGroup.addOverride('egress.0.security_groups', null);
     this.securityGroup.addOverride('egress.0.self', null);
 
-    this.alb = new Alb(this, `alb`, {
+    this.alb = new ELB.Alb(this, `alb`, {
       namePrefix: config.alb6CharacterPrefix,
       securityGroups: [this.securityGroup.id],
       internal: config.internal !== undefined ? config.internal : false,

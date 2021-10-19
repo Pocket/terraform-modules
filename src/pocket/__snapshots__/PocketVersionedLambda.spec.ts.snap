@@ -139,8 +139,7 @@ exports[`it can treat missing data as breaching 1`] = `
         \\"role\\": \\"\${aws_iam_role.test-lambda_execution-role_9D4EE856.arn}\\",
         \\"runtime\\": \\"python3.8\\",
         \\"source_code_hash\\": \\"\${data.archive_file.test-lambda_lambda-default-file_7A7DBB68.output_base64sha256}\\",
-        \\"timeout\\": 5,
-        \\"vpc_config\\": []
+        \\"timeout\\": 5
       }
     },
     \\"aws_s3_bucket\\": {
@@ -278,8 +277,7 @@ exports[`renders a lambda target 1`] = `
         \\"role\\": \\"\${aws_iam_role.test-lambda_execution-role_9D4EE856.arn}\\",
         \\"runtime\\": \\"python3.8\\",
         \\"source_code_hash\\": \\"\${data.archive_file.test-lambda_lambda-default-file_7A7DBB68.output_base64sha256}\\",
-        \\"timeout\\": 5,
-        \\"vpc_config\\": []
+        \\"timeout\\": 5
       }
     },
     \\"aws_s3_bucket\\": {
@@ -421,8 +419,7 @@ exports[`renders a lambda target with tags 1`] = `
           \\"for\\": \\"test\\",
           \\"my\\": \\"tags\\"
         },
-        \\"timeout\\": 5,
-        \\"vpc_config\\": []
+        \\"timeout\\": 5
       }
     },
     \\"aws_s3_bucket\\": {
@@ -666,8 +663,7 @@ exports[`renders a lambda with alarms 1`] = `
         \\"role\\": \\"\${aws_iam_role.test-lambda_execution-role_9D4EE856.arn}\\",
         \\"runtime\\": \\"python3.8\\",
         \\"source_code_hash\\": \\"\${data.archive_file.test-lambda_lambda-default-file_7A7DBB68.output_base64sha256}\\",
-        \\"timeout\\": 5,
-        \\"vpc_config\\": []
+        \\"timeout\\": 5
       }
     },
     \\"aws_s3_bucket\\": {
@@ -780,25 +776,21 @@ exports[`renders a lambda with code deploy 1`] = `
     \\"aws_codedeploy_deployment_group\\": {
       \\"test-lambda_lambda-code-deploy_code-deployment-group_07908CD9\\": {
         \\"app_name\\": \\"\${aws_codedeploy_app.test-lambda_lambda-code-deploy_code-deploy-app_7C98647C.name}\\",
-        \\"auto_rollback_configuration\\": [
-          {
-            \\"enabled\\": true,
-            \\"events\\": [
-              \\"DEPLOYMENT_FAILURE\\"
-            ]
-          }
-        ],
+        \\"auto_rollback_configuration\\": {
+          \\"enabled\\": true,
+          \\"events\\": [
+            \\"DEPLOYMENT_FAILURE\\"
+          ]
+        },
         \\"depends_on\\": [
           \\"aws_codedeploy_app.test-lambda_lambda-code-deploy_code-deploy-app_7C98647C\\"
         ],
         \\"deployment_config_name\\": \\"CodeDeployDefault.LambdaAllAtOnce\\",
         \\"deployment_group_name\\": \\"\${aws_codedeploy_app.test-lambda_lambda-code-deploy_code-deploy-app_7C98647C.name}\\",
-        \\"deployment_style\\": [
-          {
-            \\"deployment_option\\": \\"WITH_TRAFFIC_CONTROL\\",
-            \\"deployment_type\\": \\"BLUE_GREEN\\"
-          }
-        ],
+        \\"deployment_style\\": {
+          \\"deployment_option\\": \\"WITH_TRAFFIC_CONTROL\\",
+          \\"deployment_type\\": \\"BLUE_GREEN\\"
+        },
         \\"service_role_arn\\": \\"\${aws_iam_role.test-lambda_lambda-code-deploy_code-deploy-role_6EA86ECC.arn}\\"
       }
     },
@@ -881,8 +873,7 @@ exports[`renders a lambda with code deploy 1`] = `
         \\"role\\": \\"\${aws_iam_role.test-lambda_execution-role_9D4EE856.arn}\\",
         \\"runtime\\": \\"python3.8\\",
         \\"source_code_hash\\": \\"\${data.archive_file.test-lambda_lambda-default-file_7A7DBB68.output_base64sha256}\\",
-        \\"timeout\\": 5,
-        \\"vpc_config\\": []
+        \\"timeout\\": 5
       }
     },
     \\"aws_s3_bucket\\": {
@@ -1007,14 +998,12 @@ exports[`renders a lambda with environment variables 1`] = `
     },
     \\"aws_lambda_function\\": {
       \\"test-lambda_8915D118\\": {
-        \\"environment\\": [
-          {
-            \\"variables\\": {
-              \\"IS\\": \\"good\\",
-              \\"my\\": \\"var\\"
-            }
+        \\"environment\\": {
+          \\"variables\\": {
+            \\"IS\\": \\"good\\",
+            \\"my\\": \\"var\\"
           }
-        ],
+        },
         \\"filename\\": \\"\${data.archive_file.test-lambda_lambda-default-file_7A7DBB68.output_path}\\",
         \\"function_name\\": \\"test-lambda-Function\\",
         \\"handler\\": \\"index.handler\\",
@@ -1028,8 +1017,7 @@ exports[`renders a lambda with environment variables 1`] = `
         \\"role\\": \\"\${aws_iam_role.test-lambda_execution-role_9D4EE856.arn}\\",
         \\"runtime\\": \\"python3.8\\",
         \\"source_code_hash\\": \\"\${data.archive_file.test-lambda_lambda-default-file_7A7DBB68.output_base64sha256}\\",
-        \\"timeout\\": 5,
-        \\"vpc_config\\": []
+        \\"timeout\\": 5
       }
     },
     \\"aws_s3_bucket\\": {
@@ -1176,8 +1164,7 @@ exports[`renders a lambda with execution policy 1`] = `
         \\"role\\": \\"\${aws_iam_role.test-lambda_execution-role_9D4EE856.arn}\\",
         \\"runtime\\": \\"python3.8\\",
         \\"source_code_hash\\": \\"\${data.archive_file.test-lambda_lambda-default-file_7A7DBB68.output_base64sha256}\\",
-        \\"timeout\\": 5,
-        \\"vpc_config\\": []
+        \\"timeout\\": 5
       }
     },
     \\"aws_s3_bucket\\": {
@@ -1315,8 +1302,7 @@ exports[`renders a lambda with lambda description 1`] = `
         \\"role\\": \\"\${aws_iam_role.test-lambda_execution-role_9D4EE856.arn}\\",
         \\"runtime\\": \\"python3.8\\",
         \\"source_code_hash\\": \\"\${data.archive_file.test-lambda_lambda-default-file_7A7DBB68.output_base64sha256}\\",
-        \\"timeout\\": 5,
-        \\"vpc_config\\": []
+        \\"timeout\\": 5
       }
     },
     \\"aws_s3_bucket\\": {
@@ -1454,8 +1440,7 @@ exports[`renders a lambda with log retention 1`] = `
         \\"role\\": \\"\${aws_iam_role.test-lambda_execution-role_9D4EE856.arn}\\",
         \\"runtime\\": \\"python3.8\\",
         \\"source_code_hash\\": \\"\${data.archive_file.test-lambda_lambda-default-file_7A7DBB68.output_base64sha256}\\",
-        \\"timeout\\": 5,
-        \\"vpc_config\\": []
+        \\"timeout\\": 5
       }
     },
     \\"aws_s3_bucket\\": {
@@ -1593,8 +1578,7 @@ exports[`renders a lambda with s3 bucket 1`] = `
         \\"role\\": \\"\${aws_iam_role.test-lambda_execution-role_9D4EE856.arn}\\",
         \\"runtime\\": \\"python3.8\\",
         \\"source_code_hash\\": \\"\${data.archive_file.test-lambda_lambda-default-file_7A7DBB68.output_base64sha256}\\",
-        \\"timeout\\": 5,
-        \\"vpc_config\\": []
+        \\"timeout\\": 5
       }
     },
     \\"aws_s3_bucket\\": {
@@ -1732,8 +1716,7 @@ exports[`renders a lambda with timeout 1`] = `
         \\"role\\": \\"\${aws_iam_role.test-lambda_execution-role_9D4EE856.arn}\\",
         \\"runtime\\": \\"python3.8\\",
         \\"source_code_hash\\": \\"\${data.archive_file.test-lambda_lambda-default-file_7A7DBB68.output_base64sha256}\\",
-        \\"timeout\\": 300,
-        \\"vpc_config\\": []
+        \\"timeout\\": 300
       }
     },
     \\"aws_s3_bucket\\": {
@@ -1885,18 +1868,16 @@ exports[`renders a lambda with vpc config 1`] = `
         \\"runtime\\": \\"python3.8\\",
         \\"source_code_hash\\": \\"\${data.archive_file.test-lambda_lambda-default-file_7A7DBB68.output_base64sha256}\\",
         \\"timeout\\": 5,
-        \\"vpc_config\\": [
-          {
-            \\"security_group_ids\\": [
-              \\"sec1\\",
-              \\"sec2\\"
-            ],
-            \\"subnet_ids\\": [
-              \\"1\\",
-              \\"2\\"
-            ]
-          }
-        ]
+        \\"vpc_config\\": {
+          \\"security_group_ids\\": [
+            \\"sec1\\",
+            \\"sec2\\"
+          ],
+          \\"subnet_ids\\": [
+            \\"1\\",
+            \\"2\\"
+          ]
+        }
       }
     },
     \\"aws_s3_bucket\\": {

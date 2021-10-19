@@ -1,7 +1,7 @@
 import { Construct } from 'constructs';
 import { ApplicationEventBridgeRule } from '../base/ApplicationEventBridgeRule';
 import { ApplicationVersionedLambda } from '../base/ApplicationVersionedLambda';
-import { LambdaPermission } from '@cdktf/provider-aws';
+import { LambdaFunction } from '@cdktf/provider-aws';
 import {
   PocketVersionedLambda,
   PocketVersionedLambdaProps,
@@ -41,7 +41,7 @@ export class PocketEventBridgeWithLambdaTarget extends PocketVersionedLambda {
     lambda: ApplicationVersionedLambda,
     eventBridgeRule: ApplicationEventBridgeRule
   ): void {
-    new LambdaPermission(this, 'lambda-permission', {
+    new LambdaFunction.LambdaPermission(this, 'lambda-permission', {
       action: 'lambda:InvokeFunction',
       functionName: lambda.versionedLambda.functionName,
       qualifier: lambda.versionedLambda.name,

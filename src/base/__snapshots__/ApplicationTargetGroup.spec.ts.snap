@@ -5,16 +5,14 @@ exports[`ApplicationTargetGroup renders a Target Group with tags 1`] = `
   \\"resource\\": {
     \\"aws_alb_target_group\\": {
       \\"testTargetGroup_ecs_target_group_A0C76C7F\\": {
-        \\"deregistration_delay\\": 120,
-        \\"health_check\\": [
-          {
-            \\"healthy_threshold\\": 5,
-            \\"interval\\": 15,
-            \\"path\\": \\"/\\",
-            \\"protocol\\": \\"HTTP\\",
-            \\"unhealthy_threshold\\": 3
-          }
-        ],
+        \\"deregistration_delay\\": \\"120\\",
+        \\"health_check\\": {
+          \\"healthy_threshold\\": 5,
+          \\"interval\\": 15,
+          \\"path\\": \\"/\\",
+          \\"protocol\\": \\"HTTP\\",
+          \\"unhealthy_threshold\\": 3
+        },
         \\"name_prefix\\": \\"A1BC\\",
         \\"port\\": 80,
         \\"protocol\\": \\"HTTP\\",
@@ -35,16 +33,14 @@ exports[`ApplicationTargetGroup renders a Target Group without tags 1`] = `
   \\"resource\\": {
     \\"aws_alb_target_group\\": {
       \\"testTargetGroup_ecs_target_group_A0C76C7F\\": {
-        \\"deregistration_delay\\": 120,
-        \\"health_check\\": [
-          {
-            \\"healthy_threshold\\": 5,
-            \\"interval\\": 15,
-            \\"path\\": \\"/\\",
-            \\"protocol\\": \\"HTTP\\",
-            \\"unhealthy_threshold\\": 3
-          }
-        ],
+        \\"deregistration_delay\\": \\"120\\",
+        \\"health_check\\": {
+          \\"healthy_threshold\\": 5,
+          \\"interval\\": 15,
+          \\"path\\": \\"/\\",
+          \\"protocol\\": \\"HTTP\\",
+          \\"unhealthy_threshold\\": 3
+        },
         \\"name_prefix\\": \\"ABC\\",
         \\"port\\": 80,
         \\"protocol\\": \\"HTTP\\",

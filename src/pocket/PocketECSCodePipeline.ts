@@ -1,13 +1,6 @@
 import { Resource } from 'cdktf';
 import { Construct } from 'constructs';
-import {
-  Codepipeline,
-  DataAwsIamPolicyDocument,
-  DataAwsKmsAlias,
-  IamRole,
-  IamRolePolicy,
-  S3Bucket,
-} from '@cdktf/provider-aws';
+import { CodePipeline, IAM, KMS, S3 } from '@cdktf/provider-aws';
 import crypto from 'crypto';
 
 export interface PocketECSCodePipelineProps {
@@ -31,7 +24,7 @@ export class PocketECSCodePipeline extends Resource {
   private static DEFAULT_TASKDEF_PATH = 'taskdef.json';
   private static DEFAULT_APPSPEC_PATH = 'appspec.json';
 
-  public readonly codePipeline: Codepipeline;
+  public readonly codePipeline: CodePipeline.Codepipeline;
 
   constructor(
     scope: Construct,
@@ -47,10 +40,10 @@ export class PocketECSCodePipeline extends Resource {
    * Create a CodePipeline that runs CodeBuild and ECS CodeDeploy
    * @private
    */
-  private createCodePipeline(): Codepipeline {
+  private createCodePipeline(): CodePipeline.Codepipeline {
     const pipelineRole = this.createPipelineRole();
 
-    const s3KmsAlias = new DataAwsKmsAlias(this, 'kms_s3_alias', {
+    const s3KmsAlias = new KMS.DataAwsKmsAlias(this, 'kms_s3_alias', {
       name: 'alias/aws/s3',
     });
 
@@ -74,14 +67,14 @@ export class PocketECSCodePipeline extends Resource {
       codeDeployDeploymentGroupName
     );
 
-    return new Codepipeline(this, 'codepipeline', {
+    return new CodePipeline.Codepipeline(this, 'codepipeline', {
       name: `${this.config.prefix}-CodePipeline`,
       roleArn: pipelineRole.arn,
       artifactStore: [
         {
           location: pipelineArtifactBucket.bucket,
           type: 'S3',
-          encryptionKey: [{ id: s3KmsAlias.arn, type: 'KMS' }],
+          encryptionKey: { id: s3KmsAlias.arn, type: 'KMS' },
         },
       ],
       stage: [
@@ -163,7 +156,7 @@ export class PocketECSCodePipeline extends Resource {
       .update(this.config.prefix)
       .digest('hex');
 
-    return new S3Bucket(this, 'codepipeline-bucket', {
+    return new S3.S3Bucket(this, 'codepipeline-bucket', {
       bucket: `pocket-codepipeline-${prefixHash}`,
       acl: 'private',
       forceDestroy: true,
@@ -181,16 +174,16 @@ export class PocketECSCodePipeline extends Resource {
    * @private
    */
   private attachPipelineRolePolicy(
-    pipelineRole: IamRole,
-    pipelineArtifactBucket: S3Bucket,
+    pipelineRole: IAM.IamRole,
+    pipelineArtifactBucket: S3.S3Bucket,
     codeBuildProjectName: string,
     codeDeployApplicationName: string,
     codeDeployDeploymentGroupName: string
   ) {
-    new IamRolePolicy(this, 'codepipeline-role-policy', {
+    new IAM.IamRolePolicy(this, 'codepipeline-role-policy', {
       name: `${this.config.prefix}-CodePipeline-Role-Policy`,
       role: pipelineRole.id,
-      policy: new DataAwsIamPolicyDocument(
+      policy: new IAM.DataAwsIamPolicyDocument(
         this,
         `codepipeline-role-policy-document`,
         {
@@ -270,9 +263,9 @@ export class PocketECSCodePipeline extends Resource {
    * @private
    */
   private createPipelineRole() {
-    return new IamRole(this, 'codepipeline-role', {
+    return new IAM.IamRole(this, 'codepipeline-role', {
       name: `${this.config.prefix}-CodePipelineRole`,
-      assumeRolePolicy: new DataAwsIamPolicyDocument(
+      assumeRolePolicy: new IAM.DataAwsIamPolicyDocument(
         this,
         `codepipeline-assume-role-policy`,
         {

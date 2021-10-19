@@ -14,11 +14,9 @@ exports[`ApplicationECR renders an ECR with tags 1`] = `
     },
     \\"aws_ecr_repository\\": {
       \\"testECR_ecr-repo_E42B68DA\\": {
-        \\"image_scanning_configuration\\": [
-          {
-            \\"scan_on_push\\": true
-          }
-        ],
+        \\"image_scanning_configuration\\": {
+          \\"scan_on_push\\": true
+        },
         \\"name\\": \\"bowling\\",
         \\"tags\\": {
           \\"description\\": \\"tiedtheroomtogether\\",
@@ -44,11 +42,9 @@ exports[`ApplicationECR renders an ECR without tags 1`] = `
     },
     \\"aws_ecr_repository\\": {
       \\"testECR_ecr-repo_E42B68DA\\": {
-        \\"image_scanning_configuration\\": [
-          {
-            \\"scan_on_push\\": true
-          }
-        ],
+        \\"image_scanning_configuration\\": {
+          \\"scan_on_push\\": true
+        },
         \\"name\\": \\"bowling\\"
       }
     }

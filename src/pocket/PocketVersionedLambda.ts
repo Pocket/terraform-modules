@@ -4,11 +4,7 @@ import {
   ApplicationVersionedLambda,
   LAMBDA_RUNTIMES,
 } from '../base/ApplicationVersionedLambda';
-import {
-  CloudwatchMetricAlarm,
-  DataAwsIamPolicyDocumentStatement,
-  LambdaFunctionVpcConfig,
-} from '@cdktf/provider-aws';
+import { CloudWatch, IAM, LambdaFunction } from '@cdktf/provider-aws';
 import { ApplicationLambdaCodeDeploy } from '../base/ApplicationLambdaCodeDeploy';
 
 export interface PocketVersionedLambdaDefaultAlarmProps {
@@ -37,8 +33,8 @@ export interface PocketVersionedLambdaProps {
     handler: string;
     timeout?: number;
     environment?: { [key: string]: string };
-    vpcConfig?: LambdaFunctionVpcConfig;
-    executionPolicyStatements?: DataAwsIamPolicyDocumentStatement[];
+    vpcConfig?: LambdaFunction.LambdaFunctionVpcConfig;
+    executionPolicyStatements?: IAM.DataAwsIamPolicyDocumentStatement[];
     logRetention?: number;
     s3Bucket?: string;
     codeDeploy?: {
@@ -137,29 +133,33 @@ export class PocketVersionedLambda extends Resource {
     const props = config.props;
     const defaultEvaluationPeriods = 1;
 
-    new CloudwatchMetricAlarm(this, config.metricName.toLowerCase(), {
-      alarmName: `${this.config.name}-Lambda-${config.metricName}-Alarm`,
-      namespace: 'AWS/Lambda',
-      metricName: config.metricName,
-      dimensions: {
-        FunctionName: lambda.versionedLambda.functionName,
-        Resource: `${lambda.versionedLambda.functionName}:${lambda.versionedLambda.name}`,
-      },
-      period: props.period,
-      evaluationPeriods: props.evaluationPeriods ?? defaultEvaluationPeriods,
-      datapointsToAlarm: props.datapointsToAlarm ?? defaultEvaluationPeriods,
-      statistic: 'Sum',
-      comparisonOperator: props.comparisonOperator ?? 'GreaterThanThreshold',
-      threshold: props.threshold,
-      alarmDescription:
-        props.alarmDescription ??
-        `Total ${config.metricName.toLowerCase()} breaches threshold`,
-      insufficientDataActions: [],
-      alarmActions: props.actions ?? [],
-      okActions: props.actions ?? [],
-      tags: this.config.tags,
-      treatMissingData: props.treatMissingData ?? 'missing',
-    });
+    new CloudWatch.CloudwatchMetricAlarm(
+      this,
+      config.metricName.toLowerCase(),
+      {
+        alarmName: `${this.config.name}-Lambda-${config.metricName}-Alarm`,
+        namespace: 'AWS/Lambda',
+        metricName: config.metricName,
+        dimensions: {
+          FunctionName: lambda.versionedLambda.functionName,
+          Resource: `${lambda.versionedLambda.functionName}:${lambda.versionedLambda.name}`,
+        },
+        period: props.period,
+        evaluationPeriods: props.evaluationPeriods ?? defaultEvaluationPeriods,
+        datapointsToAlarm: props.datapointsToAlarm ?? defaultEvaluationPeriods,
+        statistic: 'Sum',
+        comparisonOperator: props.comparisonOperator ?? 'GreaterThanThreshold',
+        threshold: props.threshold,
+        alarmDescription:
+          props.alarmDescription ??
+          `Total ${config.metricName.toLowerCase()} breaches threshold`,
+        insufficientDataActions: [],
+        alarmActions: props.actions ?? [],
+        okActions: props.actions ?? [],
+        tags: this.config.tags,
+        treatMissingData: props.treatMissingData ?? 'missing',
+      }
+    );
   }
 
   private createLambdaCodeDeploy(): void {

@@ -1,12 +1,8 @@
 import { Resource } from 'cdktf';
-import {
-  AppautoscalingPolicy,
-  AppautoscalingTarget,
-  CloudwatchMetricAlarm,
-  DataAwsIamPolicyDocument,
-  IamRole,
-  IamRolePolicy,
-} from '@cdktf/provider-aws';
+import { AppAutoScaling, CloudWatch, IAM } from '@cdktf/provider-aws';
+const { AppautoscalingPolicy, AppautoscalingTarget } = AppAutoScaling;
+const { CloudwatchMetricAlarm } = CloudWatch;
+const { IamRole, IamRolePolicy, DataAwsIamPolicyDocument } = IAM;
 import { Construct } from 'constructs';
 
 export interface ApplicationAutoscalingProps {
@@ -94,7 +90,7 @@ export class ApplicationAutoscaling extends Resource {
   static generateIamRole(
     resource: Resource,
     config: ApplicationAutoscalingProps
-  ): IamRole {
+  ): IAM.IamRole {
     return new IamRole(resource, `autoscaling_role`, {
       name: `${config.prefix}-AutoScalingRole`,
       assumeRolePolicy: new DataAwsIamPolicyDocument(
@@ -128,7 +124,7 @@ export class ApplicationAutoscaling extends Resource {
   static generateIamRolePolicy(
     resource: Resource,
     config: ApplicationAutoscalingProps,
-    iamRole: IamRole
+    iamRole: IAM.IamRole
   ): void {
     new IamRolePolicy(resource, `autoscaling_role_policy`, {
       name: `${config.prefix}-AutoScalingPolicy`,
@@ -166,8 +162,8 @@ export class ApplicationAutoscaling extends Resource {
   static generateAutoScalingTarget(
     resource: Resource,
     config: ApplicationAutoscalingProps,
-    iamRole: IamRole
-  ): AppautoscalingTarget {
+    iamRole: IAM.IamRole
+  ): AppAutoScaling.AppautoscalingTarget {
     return new AppautoscalingTarget(resource, `autoscaling_target`, {
       maxCapacity: config.targetMaxCapacity,
       minCapacity: config.targetMinCapacity,
@@ -189,9 +185,9 @@ export class ApplicationAutoscaling extends Resource {
   static generateAutoSclaingPolicy(
     resource: Resource,
     config: ApplicationAutoscalingProps,
-    target: AppautoscalingTarget,
+    target: AppAutoScaling.AppautoscalingTarget,
     type: 'In' | 'Out'
-  ): AppautoscalingPolicy {
+  ): AppAutoScaling.AppautoscalingPolicy {
     let stepAdjustment;
 
     if (type === 'In') {
@@ -220,14 +216,12 @@ export class ApplicationAutoscaling extends Resource {
         scalableDimension: target.scalableDimension,
         serviceNamespace: target.serviceNamespace,
 
-        stepScalingPolicyConfiguration: [
-          {
-            adjustmentType: `ChangeInCapacity`,
-            cooldown: 60,
-            metricAggregationType: 'Average',
-            stepAdjustment,
-          },
-        ],
+        stepScalingPolicyConfiguration: {
+          adjustmentType: `ChangeInCapacity`,
+          cooldown: 60,
+          metricAggregationType: 'Average',
+          stepAdjustment,
+        },
         dependsOn: [target],
       }
     );

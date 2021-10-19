@@ -30,11 +30,9 @@ exports[`ApplicationECSService renders an ECS service with code deploy 1`] = `
       \\"testECSService_ecs-service_33F309B3\\": {
         \\"cluster\\": \\"gorp\\",
         \\"depends_on\\": [],
-        \\"deployment_controller\\": [
-          {
-            \\"type\\": \\"CODE_DEPLOY\\"
-          }
-        ],
+        \\"deployment_controller\\": {
+          \\"type\\": \\"CODE_DEPLOY\\"
+        },
         \\"deployment_maximum_percent\\": 200,
         \\"deployment_minimum_healthy_percent\\": 100,
         \\"desired_count\\": 2,
@@ -48,17 +46,15 @@ exports[`ApplicationECSService renders an ECS service with code deploy 1`] = `
         },
         \\"load_balancer\\": [],
         \\"name\\": \\"abides-dev\\",
-        \\"network_configuration\\": [
-          {
-            \\"security_groups\\": [
-              \\"\${aws_security_group.testECSService_ecs_security_group_67979722.id}\\"
-            ],
-            \\"subnets\\": [
-              \\"1.1.1.1\\",
-              \\"2.2.2.2\\"
-            ]
-          }
-        ],
+        \\"network_configuration\\": {
+          \\"security_groups\\": [
+            \\"\${aws_security_group.testECSService_ecs_security_group_67979722.id}\\"
+          ],
+          \\"subnets\\": [
+            \\"1.1.1.1\\",
+            \\"2.2.2.2\\"
+          ]
+        },
         \\"propagate_tags\\": \\"SERVICE\\",
         \\"task_definition\\": \\"\${aws_ecs_task_definition.testECSService_ecs-task_A268C927.arn}\\"
       }
@@ -162,11 +158,9 @@ exports[`ApplicationECSService renders an ECS service with code deploy and exclu
       \\"testECSService_ecs-service_33F309B3\\": {
         \\"cluster\\": \\"gorp\\",
         \\"depends_on\\": [],
-        \\"deployment_controller\\": [
-          {
-            \\"type\\": \\"CODE_DEPLOY\\"
-          }
-        ],
+        \\"deployment_controller\\": {
+          \\"type\\": \\"CODE_DEPLOY\\"
+        },
         \\"deployment_maximum_percent\\": 200,
         \\"deployment_minimum_healthy_percent\\": 100,
         \\"desired_count\\": 2,
@@ -180,17 +174,15 @@ exports[`ApplicationECSService renders an ECS service with code deploy and exclu
         },
         \\"load_balancer\\": [],
         \\"name\\": \\"abides-dev\\",
-        \\"network_configuration\\": [
-          {
-            \\"security_groups\\": [
-              \\"\${aws_security_group.testECSService_ecs_security_group_67979722.id}\\"
-            ],
-            \\"subnets\\": [
-              \\"1.1.1.1\\",
-              \\"2.2.2.2\\"
-            ]
-          }
-        ],
+        \\"network_configuration\\": {
+          \\"security_groups\\": [
+            \\"\${aws_security_group.testECSService_ecs_security_group_67979722.id}\\"
+          ],
+          \\"subnets\\": [
+            \\"1.1.1.1\\",
+            \\"2.2.2.2\\"
+          ]
+        },
         \\"propagate_tags\\": \\"SERVICE\\",
         \\"task_definition\\": \\"\${aws_ecs_task_definition.testECSService_ecs-task_A268C927.arn}\\"
       }
@@ -294,11 +286,9 @@ exports[`ApplicationECSService renders an ECS service with full container defini
       \\"testECSService_ecs-service_33F309B3\\": {
         \\"cluster\\": \\"gorp\\",
         \\"depends_on\\": [],
-        \\"deployment_controller\\": [
-          {
-            \\"type\\": \\"ECS\\"
-          }
-        ],
+        \\"deployment_controller\\": {
+          \\"type\\": \\"ECS\\"
+        },
         \\"deployment_maximum_percent\\": 400,
         \\"deployment_minimum_healthy_percent\\": 80,
         \\"desired_count\\": 4,
@@ -312,17 +302,15 @@ exports[`ApplicationECSService renders an ECS service with full container defini
         },
         \\"load_balancer\\": [],
         \\"name\\": \\"abides-dev\\",
-        \\"network_configuration\\": [
-          {
-            \\"security_groups\\": [
-              \\"\${aws_security_group.testECSService_ecs_security_group_67979722.id}\\"
-            ],
-            \\"subnets\\": [
-              \\"1.1.1.1\\",
-              \\"2.2.2.2\\"
-            ]
-          }
-        ],
+        \\"network_configuration\\": {
+          \\"security_groups\\": [
+            \\"\${aws_security_group.testECSService_ecs_security_group_67979722.id}\\"
+          ],
+          \\"subnets\\": [
+            \\"1.1.1.1\\",
+            \\"2.2.2.2\\"
+          ]
+        },
         \\"propagate_tags\\": \\"SERVICE\\",
         \\"task_definition\\": \\"\${aws_ecs_task_definition.testECSService_ecs-task_A268C927.arn}\\"
       }
@@ -432,13 +420,11 @@ exports[`ApplicationECSService renders an ECS service with full container defini
         ],
         \\"condition\\": [
           {
-            \\"path_pattern\\": [
-              {
-                \\"values\\": [
-                  \\"*\\"
-                ]
-              }
-            ]
+            \\"path_pattern\\": {
+              \\"values\\": [
+                \\"*\\"
+              ]
+            }
           }
         ],
         \\"lifecycle\\": {
@@ -452,16 +438,14 @@ exports[`ApplicationECSService renders an ECS service with full container defini
     },
     \\"aws_alb_target_group\\": {
       \\"testECSService_blue_target_group_ecs_target_group_AB8F309D\\": {
-        \\"deregistration_delay\\": 120,
-        \\"health_check\\": [
-          {
-            \\"healthy_threshold\\": 5,
-            \\"interval\\": 15,
-            \\"path\\": \\"/health\\",
-            \\"protocol\\": \\"HTTP\\",
-            \\"unhealthy_threshold\\": 3
-          }
-        ],
+        \\"deregistration_delay\\": \\"120\\",
+        \\"health_check\\": {
+          \\"healthy_threshold\\": 5,
+          \\"interval\\": 15,
+          \\"path\\": \\"/health\\",
+          \\"protocol\\": \\"HTTP\\",
+          \\"unhealthy_threshold\\": 3
+        },
         \\"name_prefix\\": \\"shortb\\",
         \\"port\\": 80,
         \\"protocol\\": \\"HTTP\\",
@@ -479,11 +463,9 @@ exports[`ApplicationECSService renders an ECS service with full container defini
           \\"aws_alb_target_group.testECSService_blue_target_group_ecs_target_group_AB8F309D\\",
           \\"aws_alb_listener_rule.testECSService_listener_rule_A3A4BB9D\\"
         ],
-        \\"deployment_controller\\": [
-          {
-            \\"type\\": \\"ECS\\"
-          }
-        ],
+        \\"deployment_controller\\": {
+          \\"type\\": \\"ECS\\"
+        },
         \\"deployment_maximum_percent\\": 200,
         \\"deployment_minimum_healthy_percent\\": 100,
         \\"desired_count\\": 2,
@@ -502,17 +484,15 @@ exports[`ApplicationECSService renders an ECS service with full container defini
           }
         ],
         \\"name\\": \\"abides-dev\\",
-        \\"network_configuration\\": [
-          {
-            \\"security_groups\\": [
-              \\"\${aws_security_group.testECSService_ecs_security_group_67979722.id}\\"
-            ],
-            \\"subnets\\": [
-              \\"1.1.1.1\\",
-              \\"2.2.2.2\\"
-            ]
-          }
-        ],
+        \\"network_configuration\\": {
+          \\"security_groups\\": [
+            \\"\${aws_security_group.testECSService_ecs_security_group_67979722.id}\\"
+          ],
+          \\"subnets\\": [
+            \\"1.1.1.1\\",
+            \\"2.2.2.2\\"
+          ]
+        },
         \\"propagate_tags\\": \\"SERVICE\\",
         \\"task_definition\\": \\"\${aws_ecs_task_definition.testECSService_ecs-task_A268C927.arn}\\"
       }
@@ -626,11 +606,9 @@ exports[`ApplicationECSService renders an ECS service with minimal config 1`] = 
       \\"testECSService_ecs-service_33F309B3\\": {
         \\"cluster\\": \\"gorp\\",
         \\"depends_on\\": [],
-        \\"deployment_controller\\": [
-          {
-            \\"type\\": \\"ECS\\"
-          }
-        ],
+        \\"deployment_controller\\": {
+          \\"type\\": \\"ECS\\"
+        },
         \\"deployment_maximum_percent\\": 200,
         \\"deployment_minimum_healthy_percent\\": 100,
         \\"desired_count\\": 2,
@@ -643,17 +621,15 @@ exports[`ApplicationECSService renders an ECS service with minimal config 1`] = 
         },
         \\"load_balancer\\": [],
         \\"name\\": \\"abides-dev\\",
-        \\"network_configuration\\": [
-          {
-            \\"security_groups\\": [
-              \\"\${aws_security_group.testECSService_ecs_security_group_67979722.id}\\"
-            ],
-            \\"subnets\\": [
-              \\"1.1.1.1\\",
-              \\"2.2.2.2\\"
-            ]
-          }
-        ],
+        \\"network_configuration\\": {
+          \\"security_groups\\": [
+            \\"\${aws_security_group.testECSService_ecs_security_group_67979722.id}\\"
+          ],
+          \\"subnets\\": [
+            \\"1.1.1.1\\",
+            \\"2.2.2.2\\"
+          ]
+        },
         \\"propagate_tags\\": \\"SERVICE\\",
         \\"task_definition\\": \\"\${aws_ecs_task_definition.testECSService_ecs-task_A268C927.arn}\\"
       }
@@ -792,27 +768,21 @@ exports[`ApplicationECSService renders an ECS service with mountPoints deduplica
     },
     \\"aws_ecr_repository\\": {
       \\"testECSService_ecr-container1_ecr-repo_6BB90A2E\\": {
-        \\"image_scanning_configuration\\": [
-          {
-            \\"scan_on_push\\": true
-          }
-        ],
+        \\"image_scanning_configuration\\": {
+          \\"scan_on_push\\": true
+        },
         \\"name\\": \\"abides-dev-container1\\"
       },
       \\"testECSService_ecr-container2_ecr-repo_6980E3F0\\": {
-        \\"image_scanning_configuration\\": [
-          {
-            \\"scan_on_push\\": true
-          }
-        ],
+        \\"image_scanning_configuration\\": {
+          \\"scan_on_push\\": true
+        },
         \\"name\\": \\"abides-dev-container2\\"
       },
       \\"testECSService_ecr-container3_ecr-repo_F25059FD\\": {
-        \\"image_scanning_configuration\\": [
-          {
-            \\"scan_on_push\\": true
-          }
-        ],
+        \\"image_scanning_configuration\\": {
+          \\"scan_on_push\\": true
+        },
         \\"name\\": \\"abides-dev-container3\\"
       }
     },
@@ -824,11 +794,9 @@ exports[`ApplicationECSService renders an ECS service with mountPoints deduplica
           \\"aws_ecr_repository.testECSService_ecr-container2_ecr-repo_6980E3F0\\",
           \\"aws_ecr_repository.testECSService_ecr-container3_ecr-repo_F25059FD\\"
         ],
-        \\"deployment_controller\\": [
-          {
-            \\"type\\": \\"ECS\\"
-          }
-        ],
+        \\"deployment_controller\\": {
+          \\"type\\": \\"ECS\\"
+        },
         \\"deployment_maximum_percent\\": 200,
         \\"deployment_minimum_healthy_percent\\": 100,
         \\"desired_count\\": 2,
@@ -841,17 +809,15 @@ exports[`ApplicationECSService renders an ECS service with mountPoints deduplica
         },
         \\"load_balancer\\": [],
         \\"name\\": \\"abides-dev\\",
-        \\"network_configuration\\": [
-          {
-            \\"security_groups\\": [
-              \\"\${aws_security_group.testECSService_ecs_security_group_67979722.id}\\"
-            ],
-            \\"subnets\\": [
-              \\"1.1.1.1\\",
-              \\"2.2.2.2\\"
-            ]
-          }
-        ],
+        \\"network_configuration\\": {
+          \\"security_groups\\": [
+            \\"\${aws_security_group.testECSService_ecs_security_group_67979722.id}\\"
+          ],
+          \\"subnets\\": [
+            \\"1.1.1.1\\",
+            \\"2.2.2.2\\"
+          ]
+        },
         \\"propagate_tags\\": \\"SERVICE\\",
         \\"task_definition\\": \\"\${aws_ecs_task_definition.testECSService_ecs-task_A268C927.arn}\\"
       }
@@ -975,11 +941,9 @@ exports[`ApplicationECSService renders an ECS service without a log group contai
       \\"testECSService_ecs-service_33F309B3\\": {
         \\"cluster\\": \\"gorp\\",
         \\"depends_on\\": [],
-        \\"deployment_controller\\": [
-          {
-            \\"type\\": \\"ECS\\"
-          }
-        ],
+        \\"deployment_controller\\": {
+          \\"type\\": \\"ECS\\"
+        },
         \\"deployment_maximum_percent\\": 400,
         \\"deployment_minimum_healthy_percent\\": 80,
         \\"desired_count\\": 4,
@@ -993,17 +957,15 @@ exports[`ApplicationECSService renders an ECS service without a log group contai
         },
         \\"load_balancer\\": [],
         \\"name\\": \\"abides-dev\\",
-        \\"network_configuration\\": [
-          {
-            \\"security_groups\\": [
-              \\"\${aws_security_group.testECSService_ecs_security_group_67979722.id}\\"
-            ],
-            \\"subnets\\": [
-              \\"1.1.1.1\\",
-              \\"2.2.2.2\\"
-            ]
-          }
-        ],
+        \\"network_configuration\\": {
+          \\"security_groups\\": [
+            \\"\${aws_security_group.testECSService_ecs_security_group_67979722.id}\\"
+          ],
+          \\"subnets\\": [
+            \\"1.1.1.1\\",
+            \\"2.2.2.2\\"
+          ]
+        },
         \\"propagate_tags\\": \\"SERVICE\\",
         \\"task_definition\\": \\"\${aws_ecs_task_definition.testECSService_ecs-task_A268C927.arn}\\"
       }
@@ -1114,11 +1076,9 @@ exports[`ApplicationECSService renders an ECS service without an image container
     },
     \\"aws_ecr_repository\\": {
       \\"testECSService_ecr-lebowski_ecr-repo_6D07DF86\\": {
-        \\"image_scanning_configuration\\": [
-          {
-            \\"scan_on_push\\": true
-          }
-        ],
+        \\"image_scanning_configuration\\": {
+          \\"scan_on_push\\": true
+        },
         \\"name\\": \\"abides-dev-lebowski\\"
       }
     },
@@ -1128,11 +1088,9 @@ exports[`ApplicationECSService renders an ECS service without an image container
         \\"depends_on\\": [
           \\"aws_ecr_repository.testECSService_ecr-lebowski_ecr-repo_6D07DF86\\"
         ],
-        \\"deployment_controller\\": [
-          {
-            \\"type\\": \\"ECS\\"
-          }
-        ],
+        \\"deployment_controller\\": {
+          \\"type\\": \\"ECS\\"
+        },
         \\"deployment_maximum_percent\\": 400,
         \\"deployment_minimum_healthy_percent\\": 80,
         \\"desired_count\\": 4,
@@ -1146,17 +1104,15 @@ exports[`ApplicationECSService renders an ECS service without an image container
         },
         \\"load_balancer\\": [],
         \\"name\\": \\"abides-dev\\",
-        \\"network_configuration\\": [
-          {
-            \\"security_groups\\": [
-              \\"\${aws_security_group.testECSService_ecs_security_group_67979722.id}\\"
-            ],
-            \\"subnets\\": [
-              \\"1.1.1.1\\",
-              \\"2.2.2.2\\"
-            ]
-          }
-        ],
+        \\"network_configuration\\": {
+          \\"security_groups\\": [
+            \\"\${aws_security_group.testECSService_ecs_security_group_67979722.id}\\"
+          ],
+          \\"subnets\\": [
+            \\"1.1.1.1\\",
+            \\"2.2.2.2\\"
+          ]
+        },
         \\"propagate_tags\\": \\"SERVICE\\",
         \\"task_definition\\": \\"\${aws_ecs_task_definition.testECSService_ecs-task_A268C927.arn}\\"
       }

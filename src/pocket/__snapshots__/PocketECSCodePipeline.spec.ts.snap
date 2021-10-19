@@ -116,12 +116,10 @@ exports[`renders a Pocket ECS Codepipeline template 1`] = `
       \\"test-codepipeline_367BF1E2\\": {
         \\"artifact_store\\": [
           {
-            \\"encryption_key\\": [
-              {
-                \\"id\\": \\"\${data.aws_kms_alias.test-codepipeline_kms_s3_alias_6C922DC1.arn}\\",
-                \\"type\\": \\"KMS\\"
-              }
-            ],
+            \\"encryption_key\\": {
+              \\"id\\": \\"\${data.aws_kms_alias.test-codepipeline_kms_s3_alias_6C922DC1.arn}\\",
+              \\"type\\": \\"KMS\\"
+            },
             \\"location\\": \\"\${aws_s3_bucket.test-codepipeline_codepipeline-bucket_D4671464.bucket}\\",
             \\"type\\": \\"S3\\"
           }
@@ -336,12 +334,10 @@ exports[`renders a Pocket ECS Codepipeline template with tags 1`] = `
       \\"test-codepipeline_367BF1E2\\": {
         \\"artifact_store\\": [
           {
-            \\"encryption_key\\": [
-              {
-                \\"id\\": \\"\${data.aws_kms_alias.test-codepipeline_kms_s3_alias_6C922DC1.arn}\\",
-                \\"type\\": \\"KMS\\"
-              }
-            ],
+            \\"encryption_key\\": {
+              \\"id\\": \\"\${data.aws_kms_alias.test-codepipeline_kms_s3_alias_6C922DC1.arn}\\",
+              \\"type\\": \\"KMS\\"
+            },
             \\"location\\": \\"\${aws_s3_bucket.test-codepipeline_codepipeline-bucket_D4671464.bucket}\\",
             \\"type\\": \\"S3\\"
           }
@@ -562,12 +558,10 @@ exports[`renders a Pocket ECS Codepipeline template with the provided CodeDeploy
       \\"test-codepipeline_367BF1E2\\": {
         \\"artifact_store\\": [
           {
-            \\"encryption_key\\": [
-              {
-                \\"id\\": \\"\${data.aws_kms_alias.test-codepipeline_kms_s3_alias_6C922DC1.arn}\\",
-                \\"type\\": \\"KMS\\"
-              }
-            ],
+            \\"encryption_key\\": {
+              \\"id\\": \\"\${data.aws_kms_alias.test-codepipeline_kms_s3_alias_6C922DC1.arn}\\",
+              \\"type\\": \\"KMS\\"
+            },
             \\"location\\": \\"\${aws_s3_bucket.test-codepipeline_codepipeline-bucket_D4671464.bucket}\\",
             \\"type\\": \\"S3\\"
           }
@@ -782,12 +776,10 @@ exports[`renders a Pocket ECS Codepipeline template with the provided CodeDeploy
       \\"test-codepipeline_367BF1E2\\": {
         \\"artifact_store\\": [
           {
-            \\"encryption_key\\": [
-              {
-                \\"id\\": \\"\${data.aws_kms_alias.test-codepipeline_kms_s3_alias_6C922DC1.arn}\\",
-                \\"type\\": \\"KMS\\"
-              }
-            ],
+            \\"encryption_key\\": {
+              \\"id\\": \\"\${data.aws_kms_alias.test-codepipeline_kms_s3_alias_6C922DC1.arn}\\",
+              \\"type\\": \\"KMS\\"
+            },
             \\"location\\": \\"\${aws_s3_bucket.test-codepipeline_codepipeline-bucket_D4671464.bucket}\\",
             \\"type\\": \\"S3\\"
           }
@@ -1002,12 +994,10 @@ exports[`renders a Pocket ECS Codepipeline template with the provided appspec pa
       \\"test-codepipeline_367BF1E2\\": {
         \\"artifact_store\\": [
           {
-            \\"encryption_key\\": [
-              {
-                \\"id\\": \\"\${data.aws_kms_alias.test-codepipeline_kms_s3_alias_6C922DC1.arn}\\",
-                \\"type\\": \\"KMS\\"
-              }
-            ],
+            \\"encryption_key\\": {
+              \\"id\\": \\"\${data.aws_kms_alias.test-codepipeline_kms_s3_alias_6C922DC1.arn}\\",
+              \\"type\\": \\"KMS\\"
+            },
             \\"location\\": \\"\${aws_s3_bucket.test-codepipeline_codepipeline-bucket_D4671464.bucket}\\",
             \\"type\\": \\"S3\\"
           }
@@ -1222,12 +1212,10 @@ exports[`renders a Pocket ECS Codepipeline template with the provided code build
       \\"test-codepipeline_367BF1E2\\": {
         \\"artifact_store\\": [
           {
-            \\"encryption_key\\": [
-              {
-                \\"id\\": \\"\${data.aws_kms_alias.test-codepipeline_kms_s3_alias_6C922DC1.arn}\\",
-                \\"type\\": \\"KMS\\"
-              }
-            ],
+            \\"encryption_key\\": {
+              \\"id\\": \\"\${data.aws_kms_alias.test-codepipeline_kms_s3_alias_6C922DC1.arn}\\",
+              \\"type\\": \\"KMS\\"
+            },
             \\"location\\": \\"\${aws_s3_bucket.test-codepipeline_codepipeline-bucket_D4671464.bucket}\\",
             \\"type\\": \\"S3\\"
           }
@@ -1442,12 +1430,10 @@ exports[`renders a Pocket ECS Codepipeline template with the provided taskdef pa
       \\"test-codepipeline_367BF1E2\\": {
         \\"artifact_store\\": [
           {
-            \\"encryption_key\\": [
-              {
-                \\"id\\": \\"\${data.aws_kms_alias.test-codepipeline_kms_s3_alias_6C922DC1.arn}\\",
-                \\"type\\": \\"KMS\\"
-              }
-            ],
+            \\"encryption_key\\": {
+              \\"id\\": \\"\${data.aws_kms_alias.test-codepipeline_kms_s3_alias_6C922DC1.arn}\\",
+              \\"type\\": \\"KMS\\"
+            },
             \\"location\\": \\"\${aws_s3_bucket.test-codepipeline_codepipeline-bucket_D4671464.bucket}\\",
             \\"type\\": \\"S3\\"
           }
