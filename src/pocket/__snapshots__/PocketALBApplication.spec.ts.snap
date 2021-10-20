@@ -6310,6 +6310,7 @@ exports[`PocketALBApplication renders an external application 1`] = `
               \\"OPTIONS\\"
             ],
             \\"compress\\": true,
+            \\"default_ttl\\": 0,
             \\"forwarded_values\\": [
               {
                 \\"cookies\\": [
@@ -6325,6 +6326,8 @@ exports[`PocketALBApplication renders an external application 1`] = `
                 \\"query_string\\": true
               }
             ],
+            \\"max_ttl\\": 31536000,
+            \\"min_ttl\\": 0,
             \\"target_origin_id\\": \\"Alb\\",
             \\"viewer_protocol_policy\\": \\"redirect-to-https\\"
           }
