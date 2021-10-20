@@ -1,9 +1,5 @@
 import { Resource } from 'cdktf';
-import {
-  DataAwsRoute53Zone,
-  Route53Record,
-  Route53Zone,
-} from '@cdktf/provider-aws';
+import { Route53 } from '@cdktf/provider-aws';
 import { Construct } from 'constructs';
 import { getRootDomain } from '../utilities';
 
@@ -44,8 +40,8 @@ export class ApplicationBaseDNS extends Resource {
     scope: Construct,
     name: string,
     domain: string
-  ): DataAwsRoute53Zone {
-    return new DataAwsRoute53Zone(scope, `${name}_main_hosted_zone`, {
+  ): Route53.DataAwsRoute53Zone {
+    return new Route53.DataAwsRoute53Zone(scope, `${name}_main_hosted_zone`, {
       name: getRootDomain(domain),
     });
   }
@@ -54,8 +50,8 @@ export class ApplicationBaseDNS extends Resource {
     resource: Resource,
     domain: string,
     tags?: { [key: string]: string }
-  ): Route53Zone {
-    return new Route53Zone(resource, `subhosted_zone`, {
+  ): Route53.Route53Zone {
+    return new Route53.Route53Zone(resource, `subhosted_zone`, {
       name: domain,
       tags: tags,
     });
@@ -67,7 +63,7 @@ export class ApplicationBaseDNS extends Resource {
     zoneId: string,
     records: string[]
   ): void {
-    new Route53Record(resource, `subhosted_zone_ns`, {
+    new Route53.Route53Record(resource, `subhosted_zone_ns`, {
       name,
       type: 'NS',
       ttl: 86400,

@@ -1,13 +1,12 @@
 import { Resource } from 'cdktf';
-import {
-  AppautoscalingPolicy,
-  AppautoscalingTarget,
-  CloudwatchMetricAlarm,
-  DataAwsIamPolicyDocument,
-  IamRole,
-  IamRolePolicy,
-} from '@cdktf/provider-aws';
+import { AppAutoScaling, CloudWatch, IAM } from '@cdktf/provider-aws';
 import { Construct } from 'constructs';
+import IamRole = IAM.IamRole;
+import DataAwsIamPolicyDocument = IAM.DataAwsIamPolicyDocument;
+import IamRolePolicy = IAM.IamRolePolicy;
+import AppautoscalingTarget = AppAutoScaling.AppautoscalingTarget;
+import AppautoscalingPolicy = AppAutoScaling.AppautoscalingPolicy;
+import CloudwatchMetricAlarm = CloudWatch.CloudwatchMetricAlarm;
 
 export interface ApplicationAutoscalingProps {
   ecsClusterName: string;
@@ -220,14 +219,12 @@ export class ApplicationAutoscaling extends Resource {
         scalableDimension: target.scalableDimension,
         serviceNamespace: target.serviceNamespace,
 
-        stepScalingPolicyConfiguration: [
-          {
-            adjustmentType: `ChangeInCapacity`,
-            cooldown: 60,
-            metricAggregationType: 'Average',
-            stepAdjustment,
-          },
-        ],
+        stepScalingPolicyConfiguration: {
+          adjustmentType: `ChangeInCapacity`,
+          cooldown: 60,
+          metricAggregationType: 'Average',
+          stepAdjustment,
+        },
         dependsOn: [target],
       }
     );
