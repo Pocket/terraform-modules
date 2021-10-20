@@ -417,6 +417,11 @@ export class PocketALBApplication extends Resource {
               ],
             },
           ],
+          //These are hacks to enable Use Origin Cache Header
+          //https://github.com/hashicorp/terraform-provider-aws/issues/19382
+          defaultTtl: 0, //This breaks from the hack, because the default is was 0 before. As long as clients specify a cache header this is overridden.
+          minTtl: 0,
+          maxTtl: 31536000, // 1 year
         },
       ],
       viewerCertificate: [
