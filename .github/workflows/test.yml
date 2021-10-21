@@ -15,7 +15,7 @@ jobs:
       - uses: actions/setup-node@v2.4.1
         with:
           node-version: '16.x'
-      - run: npm install
+      - run: npm ci
       - run: npm run test
 
   build:
@@ -29,7 +29,6 @@ jobs:
       - uses: actions/setup-node@v2.4.1
         with:
           node-version: '16.x'
-      - run: npm install
-      - run: npm run build
-      - run: npm run build:dev
+      - run: npm ci
+      - run: npm run synth
       - run: cd cdktf.out/stacks/acme-example && terraform init && terraform validate

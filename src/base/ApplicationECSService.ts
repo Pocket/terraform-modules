@@ -27,6 +27,7 @@ import { File } from '@cdktf/provider-local';
 
 export interface ApplicationECSServiceProps {
   prefix: string;
+  region?: string;
   shortName: string;
   tags?: { [key: string]: string };
   ecsClusterArn: string;
@@ -383,6 +384,7 @@ export class ApplicationECSService extends Resource {
           tags: this.config.tags,
         });
         def.logGroup = cloudwatch.name;
+        def.logGroupRegion = this.config.region;
       }
 
       if (def.mountPoints) {

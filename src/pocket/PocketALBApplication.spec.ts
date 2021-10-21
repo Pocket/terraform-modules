@@ -331,4 +331,14 @@ describe('PocketALBApplication', () => {
     });
     expect(synthed).toMatchSnapshot();
   });
+
+  it('renders an Pocket App with logs and dashboard in a specified region', () => {
+    const synthed = Testing.synthScope((stack) => {
+      new PocketALBApplication(stack, 'testPocketApp', {
+        ...BASE_CONFIG,
+        region: 'central region',
+      });
+    });
+    expect(synthed).toMatchSnapshot();
+  });
 });
