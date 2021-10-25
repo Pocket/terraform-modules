@@ -73,7 +73,7 @@
     "@semantic-release/release-notes-generator": "^10.0.2",
     "@types/chai": "^4.2.22",
     "@types/jest": "^27.0.2",
-    "@types/node": "^16.11.2",
+    "@types/node": "^16.11.4",
     "@typescript-eslint/eslint-plugin": "^5.1.0",
     "@typescript-eslint/parser": "^5.1.0",
     "chai": "^4.3.0",
