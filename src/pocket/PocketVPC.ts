@@ -41,10 +41,12 @@ export class PocketVPC extends Resource {
       {
         provider: awsProvider,
         vpcId: this.vpc.id,
-        filter: [{
-          name: 'subnet-id',
-          values: Fn.split(",", privateString.value)
-        }],
+        filter: [
+          {
+            name: 'subnet-id',
+            values: Fn.split(',', privateString.value),
+          },
+        ],
       }
     );
 
@@ -58,10 +60,12 @@ export class PocketVPC extends Resource {
     const publicSubnets = new VPC.DataAwsSubnetIds(this, `public_subnet_ids`, {
       provider: awsProvider,
       vpcId: this.vpc.id,
-      filter: [{
-        name: 'subnet-id',
-        values: Fn.split(",", publicString.value)
-      }]
+      filter: [
+        {
+          name: 'subnet-id',
+          values: Fn.split(',', publicString.value),
+        },
+      ],
     });
 
     this.publicSubnetIds = publicSubnets.ids;

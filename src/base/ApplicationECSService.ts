@@ -1,4 +1,4 @@
-import { EC2, ECS, ECR, CloudWatch, VPC, ELB } from '@cdktf/provider-aws';
+import { ECS, ECR, CloudWatch, VPC, ELB } from '@cdktf/provider-aws';
 import { Resource } from '@cdktf/provider-null';
 import { Construct } from 'constructs';
 import { ApplicationECR, ECRProps } from './ApplicationECR';
