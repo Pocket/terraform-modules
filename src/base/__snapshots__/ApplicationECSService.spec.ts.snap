@@ -109,11 +109,7 @@ exports[`ApplicationECSService renders an ECS service with code deploy 1`] = `
             \\"to_port\\": 0
           }
         ],
-        \\"ingress\\": [
-          {
-            \\"self\\": null
-          }
-        ],
+        \\"ingress\\": [],
         \\"lifecycle\\": {
           \\"create_before_destroy\\": true
         },
@@ -237,11 +233,7 @@ exports[`ApplicationECSService renders an ECS service with code deploy and exclu
             \\"to_port\\": 0
           }
         ],
-        \\"ingress\\": [
-          {
-            \\"self\\": null
-          }
-        ],
+        \\"ingress\\": [],
         \\"lifecycle\\": {
           \\"create_before_destroy\\": true
         },
@@ -365,11 +357,7 @@ exports[`ApplicationECSService renders an ECS service with full container defini
             \\"to_port\\": 0
           }
         ],
-        \\"ingress\\": [
-          {
-            \\"self\\": null
-          }
-        ],
+        \\"ingress\\": [],
         \\"lifecycle\\": {
           \\"create_before_destroy\\": true
         },
@@ -684,11 +672,7 @@ exports[`ApplicationECSService renders an ECS service with minimal config 1`] = 
             \\"to_port\\": 0
           }
         ],
-        \\"ingress\\": [
-          {
-            \\"self\\": null
-          }
-        ],
+        \\"ingress\\": [],
         \\"lifecycle\\": {
           \\"create_before_destroy\\": true
         },
@@ -886,11 +870,7 @@ exports[`ApplicationECSService renders an ECS service with mountPoints deduplica
             \\"to_port\\": 0
           }
         ],
-        \\"ingress\\": [
-          {
-            \\"self\\": null
-          }
-        ],
+        \\"ingress\\": [],
         \\"lifecycle\\": {
           \\"create_before_destroy\\": true
         },
@@ -1020,11 +1000,7 @@ exports[`ApplicationECSService renders an ECS service without a log group contai
             \\"to_port\\": 0
           }
         ],
-        \\"ingress\\": [
-          {
-            \\"self\\": null
-          }
-        ],
+        \\"ingress\\": [],
         \\"lifecycle\\": {
           \\"create_before_destroy\\": true
         },
@@ -1169,11 +1145,7 @@ exports[`ApplicationECSService renders an ECS service without an image container
             \\"to_port\\": 0
           }
         ],
-        \\"ingress\\": [
-          {
-            \\"self\\": null
-          }
-        ],
+        \\"ingress\\": [],
         \\"lifecycle\\": {
           \\"create_before_destroy\\": true
         },

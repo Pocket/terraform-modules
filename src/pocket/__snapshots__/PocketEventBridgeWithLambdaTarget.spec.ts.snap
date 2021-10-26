@@ -111,7 +111,7 @@ exports[`renders an event bridge and lambda target with event bus name 1`] = `
           \\"aws_lambda_function.test-event-bridge-lambda_65C2E1CE\\"
         ],
         \\"function_name\\": \\"\${aws_lambda_function.test-event-bridge-lambda_65C2E1CE.function_name}\\",
-        \\"function_version\\": \\"\${split(\\\\\\":\\\\\\", aws_lambda_function.test-event-bridge-lambda_65C2E1CE.qualified_arn)[7]}\\",
+        \\"function_version\\": \\"\${element(split(\\\\\\":\\\\\\", \\\\\\"aws_lambda_function.test-event-bridge-lambda_65C2E1CE\\\\\\"), 7)}\\",
         \\"lifecycle\\": {
           \\"ignore_changes\\": [
             \\"function_version\\"
@@ -281,7 +281,7 @@ exports[`renders an event bridge and lambda target with rule description 1`] = `
           \\"aws_lambda_function.test-event-bridge-lambda_65C2E1CE\\"
         ],
         \\"function_name\\": \\"\${aws_lambda_function.test-event-bridge-lambda_65C2E1CE.function_name}\\",
-        \\"function_version\\": \\"\${split(\\\\\\":\\\\\\", aws_lambda_function.test-event-bridge-lambda_65C2E1CE.qualified_arn)[7]}\\",
+        \\"function_version\\": \\"\${element(split(\\\\\\":\\\\\\", \\\\\\"aws_lambda_function.test-event-bridge-lambda_65C2E1CE\\\\\\"), 7)}\\",
         \\"lifecycle\\": {
           \\"ignore_changes\\": [
             \\"function_version\\"

@@ -1,4 +1,4 @@
-import { Resource } from 'cdktf';
+import { Fn, Resource } from 'cdktf';
 import { Construct } from 'constructs';
 import { CloudWatch, IAM, LambdaFunction, S3 } from '@cdktf/provider-aws';
 import {
@@ -100,18 +100,13 @@ export class ApplicationVersionedLambda extends Resource {
 
     const lambdaAlias = new LambdaFunction.LambdaAlias(this, 'alias', {
       functionName: lambda.functionName,
-      functionVersion: lambda.version,
+      functionVersion: Fn.element(Fn.split(':', lambda.fqn), 7),
       name: 'DEPLOYED',
       lifecycle: {
         ignoreChanges: ['function_version'],
       },
       dependsOn: [lambda],
     });
-
-    lambdaAlias.addOverride(
-      'function_version',
-      `\${split(":", ${lambda.fqn}.qualified_arn)[7]}`
-    );
 
     return lambdaAlias;
   }

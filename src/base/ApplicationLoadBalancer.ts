@@ -66,26 +66,6 @@ export class ApplicationLoadBalancer extends Resource {
       },
     });
 
-    // the following are included due to a bug
-    // https://github.com/hashicorp/terraform-cdk/issues/223
-    this.securityGroup.addOverride('ingress.0.description', null);
-    this.securityGroup.addOverride('ingress.0.ipv6_cidr_blocks', null);
-    this.securityGroup.addOverride('ingress.0.prefix_list_ids', null);
-    this.securityGroup.addOverride('ingress.0.security_groups', null);
-    this.securityGroup.addOverride('ingress.0.self', null);
-
-    this.securityGroup.addOverride('ingress.1.description', null);
-    this.securityGroup.addOverride('ingress.1.ipv6_cidr_blocks', null);
-    this.securityGroup.addOverride('ingress.1.prefix_list_ids', null);
-    this.securityGroup.addOverride('ingress.1.security_groups', null);
-    this.securityGroup.addOverride('ingress.1.self', null);
-
-    this.securityGroup.addOverride('egress.0.description', null);
-    this.securityGroup.addOverride('egress.0.ipv6_cidr_blocks', null);
-    this.securityGroup.addOverride('egress.0.prefix_list_ids', null);
-    this.securityGroup.addOverride('egress.0.security_groups', null);
-    this.securityGroup.addOverride('egress.0.self', null);
-
     this.alb = new ELB.Alb(this, `alb`, {
       namePrefix: config.alb6CharacterPrefix,
       securityGroups: [this.securityGroup.id],

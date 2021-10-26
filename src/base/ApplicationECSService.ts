@@ -327,12 +327,6 @@ export class ApplicationECSService extends Resource {
         createBeforeDestroy: true,
       },
     });
-
-    // the following are included due to a bug
-    // https://github.com/hashicorp/terraform-cdk/issues/223
-    securityGroup.addOverride('ingress.0.self', null);
-    securityGroup.addOverride('egress.0.self', null);
-
     return securityGroup;
   }
 

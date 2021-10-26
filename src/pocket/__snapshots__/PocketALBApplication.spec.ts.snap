@@ -607,12 +607,12 @@ exports[`PocketALBApplication renders an Pocket App with code deploy 1`] = `
             \\"cidr_blocks\\": [
               \\"0.0.0.0/0\\"
             ],
-            \\"description\\": null,
+            \\"description\\": \\"required\\",
             \\"from_port\\": 0,
-            \\"ipv6_cidr_blocks\\": null,
-            \\"prefix_list_ids\\": null,
+            \\"ipv6_cidr_blocks\\": [],
+            \\"prefix_list_ids\\": [],
             \\"protocol\\": \\"-1\\",
-            \\"security_groups\\": null,
+            \\"security_groups\\": [],
             \\"self\\": null,
             \\"to_port\\": 0
           }
@@ -1341,12 +1341,12 @@ exports[`PocketALBApplication renders an Pocket App with code deploy and creates
             \\"cidr_blocks\\": [
               \\"0.0.0.0/0\\"
             ],
-            \\"description\\": null,
+            \\"description\\": \\"required\\",
             \\"from_port\\": 0,
-            \\"ipv6_cidr_blocks\\": null,
-            \\"prefix_list_ids\\": null,
+            \\"ipv6_cidr_blocks\\": [],
+            \\"prefix_list_ids\\": [],
             \\"protocol\\": \\"-1\\",
-            \\"security_groups\\": null,
+            \\"security_groups\\": [],
             \\"self\\": null,
             \\"to_port\\": 0
           }
@@ -1953,12 +1953,12 @@ exports[`PocketALBApplication renders an Pocket App with logs and dashboard in a
             \\"cidr_blocks\\": [
               \\"0.0.0.0/0\\"
             ],
-            \\"description\\": null,
+            \\"description\\": \\"required\\",
             \\"from_port\\": 0,
-            \\"ipv6_cidr_blocks\\": null,
-            \\"prefix_list_ids\\": null,
+            \\"ipv6_cidr_blocks\\": [],
+            \\"prefix_list_ids\\": [],
             \\"protocol\\": \\"-1\\",
-            \\"security_groups\\": null,
+            \\"security_groups\\": [],
             \\"self\\": null,
             \\"to_port\\": 0
           }
@@ -2568,12 +2568,12 @@ exports[`PocketALBApplication renders an application alarms 1`] = `
             \\"cidr_blocks\\": [
               \\"0.0.0.0/0\\"
             ],
-            \\"description\\": null,
+            \\"description\\": \\"required\\",
             \\"from_port\\": 0,
-            \\"ipv6_cidr_blocks\\": null,
-            \\"prefix_list_ids\\": null,
+            \\"ipv6_cidr_blocks\\": [],
+            \\"prefix_list_ids\\": [],
             \\"protocol\\": \\"-1\\",
-            \\"security_groups\\": null,
+            \\"security_groups\\": [],
             \\"self\\": null,
             \\"to_port\\": 0
           }
@@ -3174,12 +3174,12 @@ exports[`PocketALBApplication renders an application custom default alarms 1`] =
             \\"cidr_blocks\\": [
               \\"0.0.0.0/0\\"
             ],
-            \\"description\\": null,
+            \\"description\\": \\"required\\",
             \\"from_port\\": 0,
-            \\"ipv6_cidr_blocks\\": null,
-            \\"prefix_list_ids\\": null,
+            \\"ipv6_cidr_blocks\\": [],
+            \\"prefix_list_ids\\": [],
             \\"protocol\\": \\"-1\\",
-            \\"security_groups\\": null,
+            \\"security_groups\\": [],
             \\"self\\": null,
             \\"to_port\\": 0
           }
@@ -3809,12 +3809,12 @@ exports[`PocketALBApplication renders an application with autoscaling group and 
             \\"cidr_blocks\\": [
               \\"0.0.0.0/0\\"
             ],
-            \\"description\\": null,
+            \\"description\\": \\"required\\",
             \\"from_port\\": 0,
-            \\"ipv6_cidr_blocks\\": null,
-            \\"prefix_list_ids\\": null,
+            \\"ipv6_cidr_blocks\\": [],
+            \\"prefix_list_ids\\": [],
             \\"protocol\\": \\"-1\\",
-            \\"security_groups\\": null,
+            \\"security_groups\\": [],
             \\"self\\": null,
             \\"to_port\\": 0
           }
@@ -4408,12 +4408,12 @@ exports[`PocketALBApplication renders an application with custom task sizes 1`] 
             \\"cidr_blocks\\": [
               \\"0.0.0.0/0\\"
             ],
-            \\"description\\": null,
+            \\"description\\": \\"required\\",
             \\"from_port\\": 0,
-            \\"ipv6_cidr_blocks\\": null,
-            \\"prefix_list_ids\\": null,
+            \\"ipv6_cidr_blocks\\": [],
+            \\"prefix_list_ids\\": [],
             \\"protocol\\": \\"-1\\",
-            \\"security_groups\\": null,
+            \\"security_groups\\": [],
             \\"self\\": null,
             \\"to_port\\": 0
           }
@@ -5043,12 +5043,12 @@ exports[`PocketALBApplication renders an application with default autoscaling gr
             \\"cidr_blocks\\": [
               \\"0.0.0.0/0\\"
             ],
-            \\"description\\": null,
+            \\"description\\": \\"required\\",
             \\"from_port\\": 0,
-            \\"ipv6_cidr_blocks\\": null,
-            \\"prefix_list_ids\\": null,
+            \\"ipv6_cidr_blocks\\": [],
+            \\"prefix_list_ids\\": [],
             \\"protocol\\": \\"-1\\",
-            \\"security_groups\\": null,
+            \\"security_groups\\": [],
             \\"self\\": null,
             \\"to_port\\": 0
           }
@@ -5642,12 +5642,12 @@ exports[`PocketALBApplication renders an application with minimal config 1`] = `
             \\"cidr_blocks\\": [
               \\"0.0.0.0/0\\"
             ],
-            \\"description\\": null,
+            \\"description\\": \\"required\\",
             \\"from_port\\": 0,
-            \\"ipv6_cidr_blocks\\": null,
-            \\"prefix_list_ids\\": null,
+            \\"ipv6_cidr_blocks\\": [],
+            \\"prefix_list_ids\\": [],
             \\"protocol\\": \\"-1\\",
-            \\"security_groups\\": null,
+            \\"security_groups\\": [],
             \\"self\\": null,
             \\"to_port\\": 0
           }
@@ -6261,12 +6261,12 @@ exports[`PocketALBApplication renders an application with modified container def
             \\"cidr_blocks\\": [
               \\"0.0.0.0/0\\"
             ],
-            \\"description\\": null,
+            \\"description\\": \\"required\\",
             \\"from_port\\": 0,
-            \\"ipv6_cidr_blocks\\": null,
-            \\"prefix_list_ids\\": null,
+            \\"ipv6_cidr_blocks\\": [],
+            \\"prefix_list_ids\\": [],
             \\"protocol\\": \\"-1\\",
-            \\"security_groups\\": null,
+            \\"security_groups\\": [],
             \\"self\\": null,
             \\"to_port\\": 0
           }
@@ -6974,12 +6974,12 @@ exports[`PocketALBApplication renders an external application 1`] = `
             \\"cidr_blocks\\": [
               \\"0.0.0.0/0\\"
             ],
-            \\"description\\": null,
+            \\"description\\": \\"required\\",
             \\"from_port\\": 0,
-            \\"ipv6_cidr_blocks\\": null,
-            \\"prefix_list_ids\\": null,
+            \\"ipv6_cidr_blocks\\": [],
+            \\"prefix_list_ids\\": [],
             \\"protocol\\": \\"-1\\",
-            \\"security_groups\\": null,
+            \\"security_groups\\": [],
             \\"self\\": null,
             \\"to_port\\": 0
           }
@@ -7567,12 +7567,12 @@ exports[`PocketALBApplication renders an internal application 1`] = `
             \\"cidr_blocks\\": [
               \\"0.0.0.0/0\\"
             ],
-            \\"description\\": null,
+            \\"description\\": \\"required\\",
             \\"from_port\\": 0,
-            \\"ipv6_cidr_blocks\\": null,
-            \\"prefix_list_ids\\": null,
+            \\"ipv6_cidr_blocks\\": [],
+            \\"prefix_list_ids\\": [],
             \\"protocol\\": \\"-1\\",
-            \\"security_groups\\": null,
+            \\"security_groups\\": [],
             \\"self\\": null,
             \\"to_port\\": 0
           }
@@ -8202,12 +8202,12 @@ exports[`PocketALBApplication renders an internal application with tags 1`] = `
             \\"cidr_blocks\\": [
               \\"0.0.0.0/0\\"
             ],
-            \\"description\\": null,
+            \\"description\\": \\"required\\",
             \\"from_port\\": 0,
-            \\"ipv6_cidr_blocks\\": null,
-            \\"prefix_list_ids\\": null,
+            \\"ipv6_cidr_blocks\\": [],
+            \\"prefix_list_ids\\": [],
             \\"protocol\\": \\"-1\\",
-            \\"security_groups\\": null,
+            \\"security_groups\\": [],
             \\"self\\": null,
             \\"to_port\\": 0
           }
