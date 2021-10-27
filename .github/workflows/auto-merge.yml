@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: ahmadnassri/action-dependabot-auto-merge@v2.4
+      - uses: ahmadnassri/action-dependabot-auto-merge@v2.6
         with:
           config: .github/auto-merge.yml # Path to configuration file (relative to root)
           github-token: ${{ secrets.DEPBOT_AUTO_MERGE_TOKEN }}
