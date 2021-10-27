@@ -4,6 +4,7 @@ module.exports = {
   testMatch: ['**/?(*.)+(jest|spec).[jt]s?(x)'],
   testPathIgnorePatterns: ['/dist/'],
   clearMocks: true,
+  restoreMocks: true,
   coverageProvider: 'v8',
   setupFilesAfterEnv: ['./setup.js'],
 };
