@@ -1,9 +1,5 @@
 import { Resource } from 'cdktf';
-import {
-  DataAwsVpc,
-  ElasticacheSubnetGroup,
-  SecurityGroup,
-} from '@cdktf/provider-aws';
+import { VPC, ElastiCache } from '@cdktf/provider-aws';
 import { Construct } from 'constructs';
 
 export enum ApplicationElasticacheEngine {
@@ -47,8 +43,8 @@ export abstract class ApplicationElasticacheCluster extends Resource {
   protected static getVpc(
     scope: Construct,
     config: ApplicationElasticacheClusterProps
-  ): DataAwsVpc {
-    return new DataAwsVpc(scope, `vpc`, {
+  ): VPC.DataAwsVpc {
+    return new VPC.DataAwsVpc(scope, `vpc`, {
       filter: [
         {
           name: 'vpc-id',
@@ -117,10 +113,13 @@ export abstract class ApplicationElasticacheCluster extends Resource {
   protected static createSecurityGroupAndSubnet(
     scope: Construct,
     config: ApplicationElasticacheClusterProps,
-    vpc: DataAwsVpc,
+    vpc: VPC.DataAwsVpc,
     port: number
-  ): { securityGroup: SecurityGroup; subnetGroup: ElasticacheSubnetGroup } {
-    const securityGroup = new SecurityGroup(
+  ): {
+    securityGroup: VPC.SecurityGroup;
+    subnetGroup: ElastiCache.ElasticacheSubnetGroup;
+  } {
+    const securityGroup = new VPC.SecurityGroup(
       scope,
       'elasticache_security_group',
       {
@@ -153,7 +152,7 @@ export abstract class ApplicationElasticacheCluster extends Resource {
         tags: config.tags,
       }
     );
-    const subnetGroup = new ElasticacheSubnetGroup(
+    const subnetGroup = new ElastiCache.ElasticacheSubnetGroup(
       scope,
       'elasticache_subnet_group',
       {

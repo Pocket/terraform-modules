@@ -34,25 +34,21 @@ exports[`ApplicationLambdaCodeDeploy renders a lambda code deploy app 1`] = `
     \\"aws_codedeploy_deployment_group\\": {
       \\"test-lambda-code-deploy_code-deployment-group_3F73EBCE\\": {
         \\"app_name\\": \\"\${aws_codedeploy_app.test-lambda-code-deploy_code-deploy-app_A7640CFE.name}\\",
-        \\"auto_rollback_configuration\\": [
-          {
-            \\"enabled\\": true,
-            \\"events\\": [
-              \\"DEPLOYMENT_FAILURE\\"
-            ]
-          }
-        ],
+        \\"auto_rollback_configuration\\": {
+          \\"enabled\\": true,
+          \\"events\\": [
+            \\"DEPLOYMENT_FAILURE\\"
+          ]
+        },
         \\"depends_on\\": [
           \\"aws_codedeploy_app.test-lambda-code-deploy_code-deploy-app_A7640CFE\\"
         ],
         \\"deployment_config_name\\": \\"CodeDeployDefault.LambdaAllAtOnce\\",
         \\"deployment_group_name\\": \\"\${aws_codedeploy_app.test-lambda-code-deploy_code-deploy-app_A7640CFE.name}\\",
-        \\"deployment_style\\": [
-          {
-            \\"deployment_option\\": \\"WITH_TRAFFIC_CONTROL\\",
-            \\"deployment_type\\": \\"BLUE_GREEN\\"
-          }
-        ],
+        \\"deployment_style\\": {
+          \\"deployment_option\\": \\"WITH_TRAFFIC_CONTROL\\",
+          \\"deployment_type\\": \\"BLUE_GREEN\\"
+        },
         \\"service_role_arn\\": \\"\${aws_iam_role.test-lambda-code-deploy_code-deploy-role_9DA8B07C.arn}\\"
       }
     },
@@ -109,25 +105,21 @@ exports[`ApplicationLambdaCodeDeploy renders a lambda code deploy app with sns t
     \\"aws_codedeploy_deployment_group\\": {
       \\"test-lambda-code-deploy_code-deployment-group_3F73EBCE\\": {
         \\"app_name\\": \\"\${aws_codedeploy_app.test-lambda-code-deploy_code-deploy-app_A7640CFE.name}\\",
-        \\"auto_rollback_configuration\\": [
-          {
-            \\"enabled\\": true,
-            \\"events\\": [
-              \\"DEPLOYMENT_FAILURE\\"
-            ]
-          }
-        ],
+        \\"auto_rollback_configuration\\": {
+          \\"enabled\\": true,
+          \\"events\\": [
+            \\"DEPLOYMENT_FAILURE\\"
+          ]
+        },
         \\"depends_on\\": [
           \\"aws_codedeploy_app.test-lambda-code-deploy_code-deploy-app_A7640CFE\\"
         ],
         \\"deployment_config_name\\": \\"CodeDeployDefault.LambdaAllAtOnce\\",
         \\"deployment_group_name\\": \\"\${aws_codedeploy_app.test-lambda-code-deploy_code-deploy-app_A7640CFE.name}\\",
-        \\"deployment_style\\": [
-          {
-            \\"deployment_option\\": \\"WITH_TRAFFIC_CONTROL\\",
-            \\"deployment_type\\": \\"BLUE_GREEN\\"
-          }
-        ],
+        \\"deployment_style\\": {
+          \\"deployment_option\\": \\"WITH_TRAFFIC_CONTROL\\",
+          \\"deployment_type\\": \\"BLUE_GREEN\\"
+        },
         \\"service_role_arn\\": \\"\${aws_iam_role.test-lambda-code-deploy_code-deploy-role_9DA8B07C.arn}\\"
       }
     },
@@ -199,25 +191,21 @@ exports[`ApplicationLambdaCodeDeploy renders a lambda code deploy app with sns t
     \\"aws_codedeploy_deployment_group\\": {
       \\"test-lambda-code-deploy_code-deployment-group_3F73EBCE\\": {
         \\"app_name\\": \\"\${aws_codedeploy_app.test-lambda-code-deploy_code-deploy-app_A7640CFE.name}\\",
-        \\"auto_rollback_configuration\\": [
-          {
-            \\"enabled\\": true,
-            \\"events\\": [
-              \\"DEPLOYMENT_FAILURE\\"
-            ]
-          }
-        ],
+        \\"auto_rollback_configuration\\": {
+          \\"enabled\\": true,
+          \\"events\\": [
+            \\"DEPLOYMENT_FAILURE\\"
+          ]
+        },
         \\"depends_on\\": [
           \\"aws_codedeploy_app.test-lambda-code-deploy_code-deploy-app_A7640CFE\\"
         ],
         \\"deployment_config_name\\": \\"CodeDeployDefault.LambdaAllAtOnce\\",
         \\"deployment_group_name\\": \\"\${aws_codedeploy_app.test-lambda-code-deploy_code-deploy-app_A7640CFE.name}\\",
-        \\"deployment_style\\": [
-          {
-            \\"deployment_option\\": \\"WITH_TRAFFIC_CONTROL\\",
-            \\"deployment_type\\": \\"BLUE_GREEN\\"
-          }
-        ],
+        \\"deployment_style\\": {
+          \\"deployment_option\\": \\"WITH_TRAFFIC_CONTROL\\",
+          \\"deployment_type\\": \\"BLUE_GREEN\\"
+        },
         \\"service_role_arn\\": \\"\${aws_iam_role.test-lambda-code-deploy_code-deploy-role_9DA8B07C.arn}\\"
       }
     },

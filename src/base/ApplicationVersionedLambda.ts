@@ -1,19 +1,6 @@
-import { Resource } from 'cdktf';
+import { Fn, Resource } from 'cdktf';
 import { Construct } from 'constructs';
-import {
-  CloudwatchLogGroup,
-  DataAwsIamPolicyDocument,
-  DataAwsIamPolicyDocumentStatement,
-  IamPolicy,
-  IamRole,
-  IamRolePolicyAttachment,
-  LambdaAlias,
-  LambdaFunction,
-  LambdaFunctionConfig,
-  LambdaFunctionVpcConfig,
-  S3Bucket,
-  S3BucketPublicAccessBlock,
-} from '@cdktf/provider-aws';
+import { CloudWatch, IAM, LambdaFunction, S3 } from '@cdktf/provider-aws';
 import {
   DataArchiveFile,
   DataArchiveFileSource,
@@ -32,8 +19,8 @@ export interface ApplicationVersionedLambdaProps {
   handler: string;
   timeout?: number;
   environment?: { [key: string]: string };
-  vpcConfig?: LambdaFunctionVpcConfig;
-  executionPolicyStatements?: DataAwsIamPolicyDocumentStatement[];
+  vpcConfig?: LambdaFunction.LambdaFunctionVpcConfig;
+  executionPolicyStatements?: IAM.DataAwsIamPolicyDocumentStatement[];
   tags?: { [key: string]: string };
   logRetention?: number;
   s3Bucket: string;
@@ -44,8 +31,8 @@ const DEFAULT_TIMEOUT = 5;
 const DEFAULT_RETENTION = 14;
 
 export class ApplicationVersionedLambda extends Resource {
-  public readonly versionedLambda: LambdaAlias;
-  public lambdaExecutionRole: IamRole;
+  public readonly versionedLambda: LambdaFunction.LambdaAlias;
+  public lambdaExecutionRole: IAM.IamRole;
 
   constructor(
     scope: Construct,
@@ -59,24 +46,24 @@ export class ApplicationVersionedLambda extends Resource {
   }
 
   private createLambdaFunction() {
-    this.lambdaExecutionRole = new IamRole(this, 'execution-role', {
+    this.lambdaExecutionRole = new IAM.IamRole(this, 'execution-role', {
       name: `${this.config.name}-ExecutionRole`,
       assumeRolePolicy: this.getLambdaAssumePolicyDocument(),
     });
 
-    const executionPolicy = new IamPolicy(this, 'execution-policy', {
+    const executionPolicy = new IAM.IamPolicy(this, 'execution-policy', {
       name: `${this.config.name}-ExecutionRolePolicy`,
       policy: this.getLambdaExecutionPolicyDocument(),
     });
 
-    new IamRolePolicyAttachment(this, 'execution-role-policy-attachment', {
+    new IAM.IamRolePolicyAttachment(this, 'execution-role-policy-attachment', {
       role: this.lambdaExecutionRole.name,
       policyArn: executionPolicy.arn,
       dependsOn: [this.lambdaExecutionRole, executionPolicy],
     });
 
     const defaultLambda = this.getDefaultLambda();
-    const lambdaConfig: LambdaFunctionConfig = {
+    const lambdaConfig: LambdaFunction.LambdaFunctionConfig = {
       functionName: `${this.config.name}-Function`,
       filename: defaultLambda.outputPath,
       handler: this.config.handler,
@@ -84,7 +71,7 @@ export class ApplicationVersionedLambda extends Resource {
       timeout: this.config.timeout ?? DEFAULT_TIMEOUT,
       sourceCodeHash: defaultLambda.outputBase64Sha256,
       role: this.lambdaExecutionRole.arn,
-      vpcConfig: [this.config.vpcConfig],
+      vpcConfig: this.config.vpcConfig,
       publish: true,
       lifecycle: {
         ignoreChanges: [
@@ -95,32 +82,31 @@ export class ApplicationVersionedLambda extends Resource {
       },
       tags: this.config.tags,
       environment: this.config.environment
-        ? [{ variables: this.config.environment }]
+        ? { variables: this.config.environment }
         : undefined,
     };
 
-    const lambda = new LambdaFunction(this, 'lambda', lambdaConfig);
+    const lambda = new LambdaFunction.LambdaFunction(
+      this,
+      'lambda',
+      lambdaConfig
+    );
 
-    new CloudwatchLogGroup(this, 'log-group', {
+    new CloudWatch.CloudwatchLogGroup(this, 'log-group', {
       name: `/aws/lambda/${lambda.functionName}`,
       retentionInDays: this.config.logRetention ?? DEFAULT_RETENTION,
       dependsOn: [lambda],
     });
 
-    const lambdaAlias = new LambdaAlias(this, 'alias', {
+    const lambdaAlias = new LambdaFunction.LambdaAlias(this, 'alias', {
       functionName: lambda.functionName,
-      functionVersion: lambda.version,
+      functionVersion: Fn.element(Fn.split(':', lambda.fqn), 7),
       name: 'DEPLOYED',
       lifecycle: {
         ignoreChanges: ['function_version'],
       },
       dependsOn: [lambda],
     });
-
-    lambdaAlias.addOverride(
-      'function_version',
-      `\${split(":", ${lambda.fqn}.qualified_arn)[7]}`
-    );
 
     return lambdaAlias;
   }
@@ -134,7 +120,7 @@ export class ApplicationVersionedLambda extends Resource {
   }
 
   private getLambdaAssumePolicyDocument() {
-    return new DataAwsIamPolicyDocument(this, 'assume-policy-document', {
+    return new IAM.DataAwsIamPolicyDocument(this, 'assume-policy-document', {
       version: '2012-10-17',
       statement: [
         {
@@ -183,7 +169,7 @@ export class ApplicationVersionedLambda extends Resource {
       });
     }
 
-    return new DataAwsIamPolicyDocument(
+    return new IAM.DataAwsIamPolicyDocument(
       this,
       'execution-policy-document',
       document
@@ -220,14 +206,14 @@ export class ApplicationVersionedLambda extends Resource {
   }
 
   private createCodeBucket() {
-    const codeBucket = new S3Bucket(this, 'code-bucket', {
+    const codeBucket = new S3.S3Bucket(this, 'code-bucket', {
       bucket: this.config.s3Bucket,
       acl: 'private',
       tags: this.config.tags,
       forceDestroy: true,
     });
 
-    new S3BucketPublicAccessBlock(this, `code-bucket-public-access-block`, {
+    new S3.S3BucketPublicAccessBlock(this, `code-bucket-public-access-block`, {
       bucket: codeBucket.id,
       blockPublicAcls: true,
       blockPublicPolicy: true,

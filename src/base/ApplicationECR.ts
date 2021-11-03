@@ -1,11 +1,6 @@
 import { Resource } from 'cdktf';
 import { Construct } from 'constructs';
-import {
-  EcrLifecyclePolicy,
-  EcrLifecyclePolicyConfig,
-  EcrRepository,
-  EcrRepositoryConfig,
-} from '@cdktf/provider-aws';
+import { ECR } from '@cdktf/provider-aws';
 
 export interface ECRProps {
   name: string;
@@ -13,22 +8,20 @@ export interface ECRProps {
 }
 
 export class ApplicationECR extends Resource {
-  public readonly repo: EcrRepository;
+  public readonly repo: ECR.EcrRepository;
 
   constructor(scope: Construct, name: string, config: ECRProps) {
     super(scope, name);
 
-    const ecrConfig: EcrRepositoryConfig = {
+    const ecrConfig: ECR.EcrRepositoryConfig = {
       name: config.name,
       tags: config.tags,
-      imageScanningConfiguration: [
-        {
-          scanOnPush: true, // scans docker image for vulnerabilities
-        },
-      ],
+      imageScanningConfiguration: {
+        scanOnPush: true, // scans docker image for vulnerabilities
+      },
     };
 
-    this.repo = new EcrRepository(this, 'ecr-repo', ecrConfig);
+    this.repo = new ECR.EcrRepository(this, 'ecr-repo', ecrConfig);
 
     // this is our default policy
     // perhaps this should be defined elsewhere? or allow to be overwritten?
@@ -50,12 +43,16 @@ export class ApplicationECR extends Resource {
       ],
     };
 
-    const ecrPolicyConfig: EcrLifecyclePolicyConfig = {
+    const ecrPolicyConfig: ECR.EcrLifecyclePolicyConfig = {
       repository: this.repo.name,
       policy: JSON.stringify(policy),
       dependsOn: [this.repo],
     };
 
-    new EcrLifecyclePolicy(this, 'ecr-repo-lifecyclepolicy', ecrPolicyConfig);
+    new ECR.EcrLifecyclePolicy(
+      this,
+      'ecr-repo-lifecyclepolicy',
+      ecrPolicyConfig
+    );
   }
 }

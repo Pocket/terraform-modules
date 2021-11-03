@@ -3,7 +3,7 @@ import {
   ApplicationEventBridgeRule,
   ApplicationEventBridgeRuleProps,
 } from './ApplicationEventBridgeRule';
-import { SqsQueue } from '@cdktf/provider-aws';
+import { SQS } from '@cdktf/provider-aws';
 
 const config: ApplicationEventBridgeRuleProps = {
   name: 'Test-EventBridge',
@@ -23,7 +23,7 @@ describe('AplicationEventBridgeRule', () => {
 
   it('renders an event bridge with sqs target', () => {
     const synthed = Testing.synthScope((stack) => {
-      const sqs = new SqsQueue(stack, 'test-queue', {
+      const sqs = new SQS.SqsQueue(stack, 'test-queue', {
         name: 'Test-SQS-Queue',
       });
 

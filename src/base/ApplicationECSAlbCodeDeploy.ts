@@ -1,14 +1,5 @@
 import { Resource, TerraformResource } from 'cdktf';
-import {
-  CodedeployApp,
-  CodedeployDeploymentGroup,
-  CodestarnotificationsNotificationRule,
-  DataAwsCallerIdentity,
-  DataAwsIamPolicyDocument,
-  DataAwsRegion,
-  IamRole,
-  IamRolePolicyAttachment,
-} from '@cdktf/provider-aws';
+import { CodeDeploy, CodeStar, IAM, DataSources } from '@cdktf/provider-aws';
 import { Construct } from 'constructs';
 
 export interface ApplicationECSAlbCodeDeployProps {
@@ -23,8 +14,8 @@ export interface ApplicationECSAlbCodeDeployProps {
 }
 
 interface CodeDeployResponse {
-  codeDeployApp: CodedeployApp;
-  ecsCodeDeployRole: IamRole;
+  codeDeployApp: CodeDeploy.CodedeployApp;
+  ecsCodeDeployRole: IAM.IamRole;
 }
 
 /**
@@ -33,8 +24,8 @@ interface CodeDeployResponse {
 export class ApplicationECSAlbCodeDeploy extends Resource {
   private readonly config: ApplicationECSAlbCodeDeployProps;
 
-  public readonly codeDeployApp: CodedeployApp;
-  public readonly codeDeployDeploymentGroup: CodedeployDeploymentGroup;
+  public readonly codeDeployApp: CodeDeploy.CodedeployApp;
+  public readonly codeDeployDeploymentGroup: CodeDeploy.CodedeployDeploymentGroup;
 
   constructor(
     scope: Construct,
@@ -48,7 +39,7 @@ export class ApplicationECSAlbCodeDeploy extends Resource {
     const { codeDeployApp, ecsCodeDeployRole } = this.setupCodeDeployApp();
     this.codeDeployApp = codeDeployApp;
 
-    this.codeDeployDeploymentGroup = new CodedeployDeploymentGroup(
+    this.codeDeployDeploymentGroup = new CodeDeploy.CodedeployDeploymentGroup(
       this,
       `ecs_codedeploy_deployment_group`,
       {
@@ -57,51 +48,35 @@ export class ApplicationECSAlbCodeDeploy extends Resource {
         deploymentConfigName: 'CodeDeployDefault.ECSAllAtOnce',
         deploymentGroupName: `${this.config.prefix}-ECS`,
         serviceRoleArn: ecsCodeDeployRole.arn,
-        autoRollbackConfiguration: [
-          {
-            enabled: true,
-            events: ['DEPLOYMENT_FAILURE'],
+        autoRollbackConfiguration: {
+          enabled: true,
+          events: ['DEPLOYMENT_FAILURE'],
+        },
+        blueGreenDeploymentConfig: {
+          deploymentReadyOption: {
+            actionOnTimeout: 'CONTINUE_DEPLOYMENT',
           },
-        ],
-        blueGreenDeploymentConfig: [
-          {
-            deploymentReadyOption: [
-              {
-                actionOnTimeout: 'CONTINUE_DEPLOYMENT',
-              },
-            ],
-            terminateBlueInstancesOnDeploymentSuccess: [
-              {
-                action: 'TERMINATE',
-                terminationWaitTimeInMinutes: 5,
-              },
-            ],
+          terminateBlueInstancesOnDeploymentSuccess: {
+            action: 'TERMINATE',
+            terminationWaitTimeInMinutes: 5,
           },
-        ],
-        deploymentStyle: [
-          {
-            deploymentOption: 'WITH_TRAFFIC_CONTROL',
-            deploymentType: 'BLUE_GREEN',
+        },
+        deploymentStyle: {
+          deploymentOption: 'WITH_TRAFFIC_CONTROL',
+          deploymentType: 'BLUE_GREEN',
+        },
+        ecsService: {
+          clusterName: this.config.clusterName,
+          serviceName: this.config.serviceName,
+        },
+        loadBalancerInfo: {
+          targetGroupPairInfo: {
+            prodTrafficRoute: { listenerArns: [this.config.listenerArn] },
+            targetGroup: this.config.targetGroupNames.map((name) => {
+              return { name };
+            }),
           },
-        ],
-        ecsService: [
-          {
-            clusterName: this.config.clusterName,
-            serviceName: this.config.serviceName,
-          },
-        ],
-        loadBalancerInfo: [
-          {
-            targetGroupPairInfo: [
-              {
-                prodTrafficRoute: [{ listenerArns: [this.config.listenerArn] }],
-                targetGroup: this.config.targetGroupNames.map((name) => {
-                  return { name };
-                }),
-              },
-            ],
-          },
-        ],
+        },
       }
     );
   }
@@ -111,9 +86,9 @@ export class ApplicationECSAlbCodeDeploy extends Resource {
    * @private
    */
   private setupCodeDeployApp(): CodeDeployResponse {
-    const ecsCodeDeployRole = new IamRole(this, 'ecs_code_deploy_role', {
+    const ecsCodeDeployRole = new IAM.IamRole(this, 'ecs_code_deploy_role', {
       name: `${this.config.prefix}-ECSCodeDeployRole`,
-      assumeRolePolicy: new DataAwsIamPolicyDocument(
+      assumeRolePolicy: new IAM.DataAwsIamPolicyDocument(
         this,
         `codedeploy_assume_role`,
         {
@@ -133,21 +108,29 @@ export class ApplicationECSAlbCodeDeploy extends Resource {
       ).json,
     });
 
-    new IamRolePolicyAttachment(this, 'ecs_codedeploy_role_attachment', {
+    new IAM.IamRolePolicyAttachment(this, 'ecs_codedeploy_role_attachment', {
       policyArn: 'arn:aws:iam::aws:policy/AWSCodeDeployRoleForECS',
       role: ecsCodeDeployRole.name,
       dependsOn: [ecsCodeDeployRole],
     });
 
-    const codeDeployApp = new CodedeployApp(this, 'ecs_code_deploy', {
-      computePlatform: 'ECS',
-      name: `${this.config.prefix}-ECS`,
-    });
+    const codeDeployApp = new CodeDeploy.CodedeployApp(
+      this,
+      'ecs_code_deploy',
+      {
+        computePlatform: 'ECS',
+        name: `${this.config.prefix}-ECS`,
+      }
+    );
 
     if (this.config.snsNotificationTopicArn) {
-      const region = new DataAwsRegion(this, 'current_region', {});
-      const account = new DataAwsCallerIdentity(this, 'current_account', {});
-      new CodestarnotificationsNotificationRule(
+      const region = new DataSources.DataAwsRegion(this, 'current_region', {});
+      const account = new DataSources.DataAwsCallerIdentity(
+        this,
+        'current_account',
+        {}
+      );
+      new CodeStar.CodestarnotificationsNotificationRule(
         this,
         `ecs_codedeploy_notifications`,
         {

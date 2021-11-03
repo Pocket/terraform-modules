@@ -1,12 +1,5 @@
 import { Resource } from 'cdktf';
-import {
-  AlbListener,
-  CloudfrontDistribution,
-  CloudwatchDashboard,
-  CloudwatchMetricAlarm,
-  CloudwatchMetricAlarmConfig,
-  Route53Record,
-} from '@cdktf/provider-aws';
+import { ELB, CloudFront, CloudWatch, Route53 } from '@cdktf/provider-aws';
 import { Construct } from 'constructs';
 import {
   ApplicationAutoscaling,
@@ -134,13 +127,13 @@ export interface PocketALBApplicationProps {
   alarms?: {
     http5xxErrorPercentage?: PocketALBApplicationAlarmProps;
     httpLatency?: PocketALBApplicationAlarmProps;
-    customAlarms?: CloudwatchMetricAlarmConfig[];
+    customAlarms?: CloudWatch.CloudwatchMetricAlarmConfig[];
   };
 }
 
 interface CreateALBReturn {
   alb: ApplicationLoadBalancer;
-  albRecord: Route53Record;
+  albRecord: Route53.Route53Record;
   albCertificate: ApplicationCertificate;
 }
 
@@ -158,7 +151,7 @@ export class PocketALBApplication extends Resource {
   public readonly alb: ApplicationLoadBalancer;
   public readonly ecsService: ApplicationECSService;
   public readonly baseDNS: ApplicationBaseDNS;
-  public readonly listeners: AlbListener[];
+  public readonly listeners: ELB.AlbListener[];
   private readonly config: PocketALBApplicationProps;
   private readonly pocketVPC: PocketALBApplicationProps['vpcConfig'];
 
@@ -269,11 +262,13 @@ export class PocketALBApplication extends Resource {
       }
     });
 
-    config.customAlarms?.forEach((alarm: CloudwatchMetricAlarmConfig) => {
-      if (alarm.datapointsToAlarm > alarm.evaluationPeriods) {
-        throw new Error(`${alarm.alarmName}: ${errorMessage}`);
+    config.customAlarms?.forEach(
+      (alarm: CloudWatch.CloudwatchMetricAlarmConfig) => {
+        if (alarm.datapointsToAlarm > alarm.evaluationPeriods) {
+          throw new Error(`${alarm.alarmName}: ${errorMessage}`);
+        }
       }
-    });
+    );
   }
 
   private static validateCachedALB(
@@ -320,7 +315,7 @@ export class PocketALBApplication extends Resource {
       : this.config.domain;
 
     //Sets up the record for the ALB.
-    const albRecord = new Route53Record(this, `alb_record`, {
+    const albRecord = new Route53.Route53Record(this, `alb_record`, {
       name: albDomainName,
       type: 'A',
       zoneId: this.baseDNS.zoneId,
@@ -362,7 +357,7 @@ export class PocketALBApplication extends Resource {
    * @param albRecord
    * @private
    */
-  private createCDN(albRecord: Route53Record): void {
+  private createCDN(albRecord: Route53.Route53Record): void {
     //Create the certificate for the CDN
     const cdnCertificate = new ApplicationCertificate(this, `cdn_certificate`, {
       zoneId: this.baseDNS.zoneId,
@@ -371,28 +366,28 @@ export class PocketALBApplication extends Resource {
     });
 
     //Create the CDN
-    const cdn = new CloudfrontDistribution(this, `cloudfront_distribution`, {
-      comment: `CDN for direct.${this.config.domain}`,
-      enabled: true,
-      aliases: [this.config.domain],
-      priceClass: 'PriceClass_200',
-      tags: this.config.tags,
-      origin: [
-        {
-          domainName: albRecord.fqdn,
-          originId: 'Alb',
-          customOriginConfig: [
-            {
+    const cdn = new CloudFront.CloudfrontDistribution(
+      this,
+      `cloudfront_distribution`,
+      {
+        comment: `CDN for direct.${this.config.domain}`,
+        enabled: true,
+        aliases: [this.config.domain],
+        priceClass: 'PriceClass_200',
+        tags: this.config.tags,
+        origin: [
+          {
+            domainName: albRecord.fqdn,
+            originId: 'Alb',
+            customOriginConfig: {
               httpPort: 80,
               httpsPort: 443,
               originProtocolPolicy: 'https-only',
               originSslProtocols: ['TLSv1.1', 'TLSv1.2'],
             },
-          ],
-        },
-      ],
-      defaultCacheBehavior: [
-        {
+          },
+        ],
+        defaultCacheBehavior: {
           targetOriginId: 'Alb',
           viewerProtocolPolicy: 'redirect-to-https',
           compress: true,
@@ -406,44 +401,34 @@ export class PocketALBApplication extends Resource {
             'DELETE',
           ],
           cachedMethods: ['GET', 'HEAD', 'OPTIONS'],
-          forwardedValues: [
-            {
-              queryString: true,
-              headers: ['Accept', 'Origin', 'Authorization'], //This is important for apollo because it serves different responses based on this
-              cookies: [
-                {
-                  forward: 'none',
-                },
-              ],
+          forwardedValues: {
+            queryString: true,
+            headers: ['Accept', 'Origin', 'Authorization'], //This is important for apollo because it serves different responses based on this
+            cookies: {
+              forward: 'none',
             },
-          ],
+          },
           //These are hacks to enable Use Origin Cache Header
           //https://github.com/hashicorp/terraform-provider-aws/issues/19382
           defaultTtl: 0, //This breaks from the hack, because the default is was 0 before. As long as clients specify a cache header this is overridden.
           minTtl: 0,
           maxTtl: 31536000, // 1 year
         },
-      ],
-      viewerCertificate: [
-        {
+        viewerCertificate: {
           acmCertificateArn: cdnCertificate.arn,
           sslSupportMethod: 'sni-only',
           minimumProtocolVersion: 'TLSv1.1_2016',
         },
-      ],
-      restrictions: [
-        {
-          geoRestriction: [
-            {
-              restrictionType: 'none',
-            },
-          ],
+        restrictions: {
+          geoRestriction: {
+            restrictionType: 'none',
+          },
         },
-      ],
-    });
+      }
+    );
 
     //When cached the CDN must point to the Load Balancer
-    new Route53Record(this, `cdn_record`, {
+    new Route53.Route53Record(this, `cdn_record`, {
       name: this.config.domain,
       type: 'A',
       zoneId: this.baseDNS.zoneId,
@@ -481,21 +466,19 @@ export class PocketALBApplication extends Resource {
       tags: this.config.tags,
     });
 
-    const httpListener = new AlbListener(this, 'listener_http', {
+    const httpListener = new ELB.AlbListener(this, 'listener_http', {
       loadBalancerArn: alb.alb.arn,
       port: 80,
       protocol: 'HTTP',
       defaultAction: [
         {
           type: 'redirect',
-          redirect: [
-            { port: '443', protocol: 'HTTPS', statusCode: 'HTTP_301' },
-          ],
+          redirect: { port: '443', protocol: 'HTTPS', statusCode: 'HTTP_301' },
         },
       ],
     });
 
-    const httpsListener = new AlbListener(this, 'listener_https', {
+    const httpsListener = new ELB.AlbListener(this, 'listener_https', {
       loadBalancerArn: alb.alb.arn,
       port: 443,
       protocol: 'HTTPS',
@@ -503,16 +486,14 @@ export class PocketALBApplication extends Resource {
       defaultAction: [
         {
           type: 'fixed-response',
-          fixedResponse: [
-            {
-              // To keep things dry we use a default status code here and append a rule for our target group.
-              // This is because our ECSService is responsible for creating our target group because CodeDeploy requires
-              // 2 target groups and knowing the names of them both
-              contentType: 'text/plain',
-              statusCode: '503',
-              messageBody: '',
-            },
-          ],
+          fixedResponse: {
+            // To keep things dry we use a default status code here and append a rule for our target group.
+            // This is because our ECSService is responsible for creating our target group because CodeDeploy requires
+            // 2 target groups and knowing the names of them both
+            contentType: 'text/plain',
+            statusCode: '503',
+            messageBody: '',
+          },
         },
       ],
       certificateArn: albCertificate.arn,
@@ -591,7 +572,7 @@ export class PocketALBApplication extends Resource {
     albArnSuffix: string,
     ecsServiceName: string,
     ecsServiceClusterName: string
-  ): CloudwatchDashboard {
+  ): CloudWatch.CloudwatchDashboard {
     // don't love having this big ol' JSON object here, but it is the simplest way to achieve the result
     const dashboardJSON = {
       widgets: [
@@ -807,7 +788,7 @@ export class PocketALBApplication extends Resource {
       ],
     };
 
-    return new CloudwatchDashboard(this, 'cloudwatch-dashboard', {
+    return new CloudWatch.CloudwatchDashboard(this, 'cloudwatch-dashboard', {
       dashboardName: `${this.config.prefix}-ALBDashboard`,
       dashboardBody: JSON.stringify(dashboardJSON),
     });
@@ -820,34 +801,30 @@ export class PocketALBApplication extends Resource {
         alarmsConfig?.http5xxErrorPercentage?.evaluationPeriods ?? 5,
       httpLatency: alarmsConfig?.httpLatency?.evaluationPeriods ?? 1,
     };
-    const http5xxAlarm: CloudwatchMetricAlarmConfig = {
+    const http5xxAlarm: CloudWatch.CloudwatchMetricAlarmConfig = {
       alarmName: 'Alarm-HTTPTarget5xxErrorRate',
       metricQuery: [
         {
           id: 'requests',
-          metric: [
-            {
-              metricName: 'RequestCount',
-              namespace: 'AWS/ApplicationELB',
-              period: alarmsConfig?.http5xxErrorPercentage?.period ?? 60,
-              stat: 'Sum',
-              unit: 'Count',
-              dimensions: { LoadBalancer: this.alb.alb.arnSuffix },
-            },
-          ],
+          metric: {
+            metricName: 'RequestCount',
+            namespace: 'AWS/ApplicationELB',
+            period: alarmsConfig?.http5xxErrorPercentage?.period ?? 60,
+            stat: 'Sum',
+            unit: 'Count',
+            dimensions: { LoadBalancer: this.alb.alb.arnSuffix },
+          },
         },
         {
           id: 'errors',
-          metric: [
-            {
-              metricName: 'HTTPCode_Target_5XX_Count',
-              namespace: 'AWS/ApplicationELB',
-              period: alarmsConfig?.http5xxErrorPercentage?.period ?? 60,
-              stat: 'Sum',
-              unit: 'Count',
-              dimensions: { LoadBalancer: this.alb.alb.arnSuffix },
-            },
-          ],
+          metric: {
+            metricName: 'HTTPCode_Target_5XX_Count',
+            namespace: 'AWS/ApplicationELB',
+            period: alarmsConfig?.http5xxErrorPercentage?.period ?? 60,
+            stat: 'Sum',
+            unit: 'Count',
+            dimensions: { LoadBalancer: this.alb.alb.arnSuffix },
+          },
         },
         {
           id: 'expression',
@@ -868,7 +845,7 @@ export class PocketALBApplication extends Resource {
       tags: this.config.tags,
       alarmDescription: 'Percentage of 5xx responses exceeds threshold',
     };
-    const latencyAlarm: CloudwatchMetricAlarmConfig = {
+    const latencyAlarm: CloudWatch.CloudwatchMetricAlarmConfig = {
       alarmName: 'Alarm-HTTPResponseTime',
       namespace: 'AWS/ApplicationELB',
       metricName: 'TargetResponseTime',
@@ -888,7 +865,7 @@ export class PocketALBApplication extends Resource {
       tags: this.config.tags,
     };
 
-    const defaultAlarms: CloudwatchMetricAlarmConfig[] = [];
+    const defaultAlarms: CloudWatch.CloudwatchMetricAlarmConfig[] = [];
 
     if (alarmsConfig?.http5xxErrorPercentage) defaultAlarms.push(http5xxAlarm);
 
@@ -901,12 +878,16 @@ export class PocketALBApplication extends Resource {
     if (defaultAlarms.length) this.createAlarms(defaultAlarms);
   }
 
-  private createAlarms(alarms: CloudwatchMetricAlarmConfig[]): void {
+  private createAlarms(alarms: CloudWatch.CloudwatchMetricAlarmConfig[]): void {
     alarms.forEach((alarmConfig) => {
-      new CloudwatchMetricAlarm(this, alarmConfig.alarmName.toLowerCase(), {
-        ...alarmConfig,
-        alarmName: `${this.config.prefix}-${alarmConfig.alarmName}`,
-      });
+      new CloudWatch.CloudwatchMetricAlarm(
+        this,
+        alarmConfig.alarmName.toLowerCase(),
+        {
+          ...alarmConfig,
+          alarmName: `${this.config.prefix}-${alarmConfig.alarmName}`,
+        }
+      );
     });
   }
 }

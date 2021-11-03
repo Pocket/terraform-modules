@@ -1,10 +1,7 @@
 import { Resource } from 'cdktf';
-import {
-  DataAwsRoute53Zone,
-  AcmCertificate,
-  Route53Record,
-  AcmCertificateValidation,
-} from '@cdktf/provider-aws';
+import { Route53, ACM } from '@cdktf/provider-aws';
+const { DataAwsRoute53Zone, Route53Record } = Route53;
+const { AcmCertificate, AcmCertificateValidation } = ACM;
 import { Construct } from 'constructs';
 
 export interface ApplicationCertificateProps {
@@ -64,7 +61,7 @@ export class ApplicationCertificate extends Resource {
     resource: Resource,
     domain: string,
     tags?: { [key: string]: string }
-  ): AcmCertificate {
+  ): ACM.AcmCertificate {
     return new AcmCertificate(resource, `certificate`, {
       domainName: domain,
       validationMethod: 'DNS',
@@ -78,8 +75,8 @@ export class ApplicationCertificate extends Resource {
   static generateRoute53Record(
     resource: Resource,
     zoneId: string,
-    cert: AcmCertificate
-  ): Route53Record {
+    cert: ACM.AcmCertificate
+  ): Route53.Route53Record {
     const record = new Route53Record(resource, `certificate_record`, {
       name: cert.domainValidationOptions('0').resourceRecordName,
       type: cert.domainValidationOptions('0').resourceRecordType,
@@ -111,8 +108,8 @@ export class ApplicationCertificate extends Resource {
 
   static generateAcmCertificateValidation(
     resource: Resource,
-    cert: AcmCertificate,
-    record: Route53Record
+    cert: ACM.AcmCertificate,
+    record: Route53.Route53Record
   ): void {
     new AcmCertificateValidation(resource, `certificate_validation`, {
       certificateArn: cert.arn,

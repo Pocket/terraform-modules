@@ -1,13 +1,6 @@
 import { Resource } from 'cdktf';
 import { Construct } from 'constructs';
-import {
-  CodedeployApp,
-  CodedeployDeploymentGroup,
-  CodestarnotificationsNotificationRule,
-  DataAwsIamPolicyDocument,
-  IamRole,
-  IamRolePolicyAttachment,
-} from '@cdktf/provider-aws';
+import { CodeDeploy, CodeStar, IAM } from '@cdktf/provider-aws';
 
 export interface ApplicationVersionedLambdaCodeDeployProps {
   name: string;
@@ -18,7 +11,7 @@ export interface ApplicationVersionedLambdaCodeDeployProps {
 }
 
 export class ApplicationLambdaCodeDeploy extends Resource {
-  public readonly codeDeployApp: CodedeployApp;
+  public readonly codeDeployApp: CodeDeploy.CodedeployApp;
 
   constructor(
     scope: Construct,
@@ -31,10 +24,14 @@ export class ApplicationLambdaCodeDeploy extends Resource {
   }
 
   private setupCodeDeploy() {
-    const codeDeployApp = new CodedeployApp(this, 'code-deploy-app', {
-      name: `${this.config.name}-Lambda`,
-      computePlatform: 'Lambda',
-    });
+    const codeDeployApp = new CodeDeploy.CodedeployApp(
+      this,
+      'code-deploy-app',
+      {
+        name: `${this.config.name}-Lambda`,
+        computePlatform: 'Lambda',
+      }
+    );
 
     this.createCodeDeploymentGroup(codeDeployApp);
 
@@ -45,35 +42,31 @@ export class ApplicationLambdaCodeDeploy extends Resource {
     return codeDeployApp;
   }
 
-  private createCodeDeploymentGroup(codeDeployApp: CodedeployApp) {
-    new CodedeployDeploymentGroup(this, 'code-deployment-group', {
+  private createCodeDeploymentGroup(codeDeployApp: CodeDeploy.CodedeployApp) {
+    new CodeDeploy.CodedeployDeploymentGroup(this, 'code-deployment-group', {
       appName: codeDeployApp.name,
       deploymentConfigName: 'CodeDeployDefault.LambdaAllAtOnce',
       deploymentGroupName: codeDeployApp.name,
       serviceRoleArn: this.getCodeDeployRole().arn,
-      deploymentStyle: [
-        {
-          deploymentType: 'BLUE_GREEN',
-          deploymentOption: 'WITH_TRAFFIC_CONTROL',
-        },
-      ],
-      autoRollbackConfiguration: [
-        {
-          enabled: true,
-          events: ['DEPLOYMENT_FAILURE'],
-        },
-      ],
+      deploymentStyle: {
+        deploymentType: 'BLUE_GREEN',
+        deploymentOption: 'WITH_TRAFFIC_CONTROL',
+      },
+      autoRollbackConfiguration: {
+        enabled: true,
+        events: ['DEPLOYMENT_FAILURE'],
+      },
       dependsOn: [codeDeployApp],
     });
   }
 
   private getCodeDeployRole() {
-    const codeDeployRole = new IamRole(this, 'code-deploy-role', {
+    const codeDeployRole = new IAM.IamRole(this, 'code-deploy-role', {
       name: `${this.config.name}-CodeDeployRole`,
       assumeRolePolicy: this.getCodeDeployAssumePolicyDocument(),
     });
 
-    new IamRolePolicyAttachment(this, 'code-deploy-policy-attachment', {
+    new IAM.IamRolePolicyAttachment(this, 'code-deploy-policy-attachment', {
       policyArn:
         'arn:aws:iam::aws:policy/service-role/AWSCodeDeployRoleForLambda',
       role: codeDeployRole.name,
@@ -84,7 +77,7 @@ export class ApplicationLambdaCodeDeploy extends Resource {
   }
 
   private getCodeDeployAssumePolicyDocument() {
-    return new DataAwsIamPolicyDocument(
+    return new IAM.DataAwsIamPolicyDocument(
       this,
       'code-deploy-assume-role-policy-document',
       {
@@ -104,8 +97,10 @@ export class ApplicationLambdaCodeDeploy extends Resource {
     ).json;
   }
 
-  private setupCodeDeployNotifications(codeDeployApp: CodedeployApp) {
-    new CodestarnotificationsNotificationRule(this, 'notifications', {
+  private setupCodeDeployNotifications(
+    codeDeployApp: CodeDeploy.CodedeployApp
+  ) {
+    new CodeStar.CodestarnotificationsNotificationRule(this, 'notifications', {
       detailType: this.config.detailType ?? 'BASIC',
       eventTypeIds: ['codedeploy-application-deployment-failed'],
       name: codeDeployApp.name,

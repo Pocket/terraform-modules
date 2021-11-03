@@ -1,4 +1,4 @@
-import { AlbTargetGroup } from '@cdktf/provider-aws';
+import { ELB } from '@cdktf/provider-aws';
 import { Resource } from 'cdktf';
 import { Construct } from 'constructs';
 
@@ -10,7 +10,7 @@ export interface ApplicationTargetGroupProps {
 }
 
 export class ApplicationTargetGroup extends Resource {
-  public readonly targetGroup: AlbTargetGroup;
+  public readonly targetGroup: ELB.AlbTargetGroup;
 
   constructor(
     scope: Construct,
@@ -19,23 +19,21 @@ export class ApplicationTargetGroup extends Resource {
   ) {
     super(scope, name);
 
-    this.targetGroup = new AlbTargetGroup(this, 'ecs_target_group', {
+    this.targetGroup = new ELB.AlbTargetGroup(this, 'ecs_target_group', {
       namePrefix: config.shortName,
       protocol: 'HTTP',
       vpcId: config.vpcId,
       tags: config.tags,
       targetType: 'ip',
       port: 80,
-      deregistrationDelay: 120,
-      healthCheck: [
-        {
-          interval: 15,
-          path: config.healthCheckPath,
-          protocol: 'HTTP',
-          healthyThreshold: 5,
-          unhealthyThreshold: 3,
-        },
-      ],
+      deregistrationDelay: '120',
+      healthCheck: {
+        interval: 15,
+        path: config.healthCheckPath,
+        protocol: 'HTTP',
+        healthyThreshold: 5,
+        unhealthyThreshold: 3,
+      },
     });
   }
 }
