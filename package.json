@@ -135,6 +135,6 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/Pocket/terraform-modules.git"
+    "url": "git+https://github.com/Pocket/terraform-modules.git"
   }
 }
