@@ -9,6 +9,9 @@ jobs:
       - image: circleci/node:16
     steps:
       - checkout
+      - add_ssh_keys:
+          fingerprints:
+            - '95:3f:a9:02:0d:06:71:f9:5d:90:1e:a0:e5:e3:c3:25'
       - attach_workspace:
           at: /tmp/workspace
       - restore_cache:
