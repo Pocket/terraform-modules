@@ -1,0 +1,43 @@
+version: 2.1
+
+orbs:
+  terraform: circleci/terraform@3.0.0
+
+jobs:
+  publish:
+    docker:
+      - image: circleci/node:16
+    steps:
+      - checkout
+      - attach_workspace:
+          at: /tmp/workspace
+      - restore_cache:
+          keys:
+            - node-v1-{{ checksum "package-lock.json" }}
+            - node-v1-
+      - run:
+          name: Setup GitHub Token
+          command: echo "//npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}" >> ~/.npmrc
+      - run: npm ci
+      - save_cache:
+          key: node-v1-{{ checksum "package-lock.json" }}
+          paths:
+            - ~/.npm
+      - terraform/install:
+          terraform_version: 0.13.5
+      - run: npm run synth
+      - run: npx semantic-release
+      ## Let's update the package.json and then publish with a different name to npm registry.
+      - run: echo $(jq '.name = "@pocket-tools/terraform-modules" | del(.publishConfig)' package.json) > package.json
+      - run:
+          name: Setup NPM Token
+          command: echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" >> ~/.npmrc
+      - run: '(test -f .version && npm publish --access=public) || echo .version does not exist, no release was made, skipping npm registry publish'
+
+workflows:
+  all:
+    jobs:
+      - publish:
+          context: pocket
+          name: Publish NPM package
+
