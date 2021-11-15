@@ -86,7 +86,7 @@
     "node": ">=10.12"
   },
   "peerDependencies": {
-    "@cdktf/provider-archive": "0.0.112",
+    "@cdktf/provider-archive": "0.0.130",
     "@cdktf/provider-aws": "2.0.13",
     "@cdktf/provider-local": "0.0.125",
     "@cdktf/provider-null": "0.2.130",
@@ -96,7 +96,7 @@
     "constructs": "10.0.9"
   },
   "dependencies": {
-    "@cdktf/provider-archive": "0.0.112",
+    "@cdktf/provider-archive": "0.0.130",
     "@cdktf/provider-aws": "2.0.13",
     "@cdktf/provider-local": "0.0.125",
     "@cdktf/provider-null": "0.2.130",
