@@ -15,6 +15,6 @@
     "declaration": true,
     "incremental": true
   },
-  "include": ["**/*.ts"],
+  "include": ["**/*.ts", "./src/pocket/synthetics/nodejs/node_modules"],
   "exclude": ["node_modules", "dist", "**/*.spec.ts"]
 }

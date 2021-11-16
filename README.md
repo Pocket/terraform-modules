@@ -44,7 +44,7 @@ You can use the existing `example.ts` file to test the modules in this repo.
 1. Install [tfenv](https://github.com/tfutils/tfenv)
 2. Run `tfenv use` to ensure you are on the latest terraform version this repo is built for.
 3. Comment out the `RemoteBackend` block in `example.ts`
-4. Run `npm run build && npm run synth`
+4. Run `npm run build:dev`
 5. `cd` into the generated `cdktf.out/stacks/acme-example` directory
 6. Run `terraform init`
 7. Run `terraform validate` to validate the generated JSON (debugging level 1)

@@ -1,0 +1,289 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`pass a completely custom test for synthetics 1`] = `
+"{
+  \\"data\\": {
+    \\"archive_file\\": {
+      \\"test-synthetic_synthetic-zip-file_B5627663\\": {
+        \\"output_path\\": \\"index-kw2pbiej.zip\\",
+        \\"source_dir\\": \\"/home/bkochendorfer/work/pocket/terraform-modules/src/pocket/synthetics\\",
+        \\"type\\": \\"zip\\"
+      }
+    },
+    \\"aws_iam_policy_document\\": {
+      \\"test-synthetic_assume-policy-document_4EBEEFDF\\": {
+        \\"statement\\": [
+          {
+            \\"actions\\": [
+              \\"sts:AssumeRole\\"
+            ],
+            \\"effect\\": \\"Allow\\",
+            \\"principals\\": [
+              {
+                \\"identifiers\\": [
+                  \\"lambda.amazonaws.com\\",
+                  \\"synthetics.amazonaws.com\\"
+                ],
+                \\"type\\": \\"Service\\"
+              }
+            ]
+          }
+        ],
+        \\"version\\": \\"2012-10-17\\"
+      },
+      \\"test-synthetic_execution-policy-document_E5D2936D\\": {
+        \\"statement\\": [
+          {
+            \\"actions\\": [
+              \\"logs:CreateLogGroup\\",
+              \\"logs:CreateLogStream\\",
+              \\"logs:PutLogEvents\\"
+            ],
+            \\"effect\\": \\"Allow\\",
+            \\"resources\\": [
+              \\"arn:aws:logs:*:*:*\\"
+            ]
+          },
+          {
+            \\"actions\\": [
+              \\"s3:ListAllMyBuckets\\",
+              \\"cloudwatch:PutMetricData\\",
+              \\"xray:PutTraceSegments\\"
+            ],
+            \\"effect\\": \\"Allow\\",
+            \\"resources\\": [
+              \\"*\\"
+            ]
+          },
+          {
+            \\"actions\\": [
+              \\"s3:PutObject\\",
+              \\"s3:GetBucketLocation\\"
+            ],
+            \\"effect\\": \\"Allow\\",
+            \\"resources\\": [
+              \\"arn:aws:s3:::not-a-real-thing\\",
+              \\"arn:aws:s3:::not-a-real-thing/*\\"
+            ]
+          }
+        ],
+        \\"version\\": \\"2012-10-17\\"
+      }
+    }
+  },
+  \\"provider\\": {
+    \\"archive\\": [
+      {}
+    ]
+  },
+  \\"resource\\": {
+    \\"aws_cloudwatch_metric_alarm\\": {
+      \\"test-synthetic_synthetics-failed-alarm_42A00967\\": {
+        \\"alarm_actions\\": [],
+        \\"alarm_description\\": \\"Synthetic Check is failing\\",
+        \\"alarm_name\\": \\"test-synthetic-SyntheticsFailed-Alarm\\",
+        \\"comparison_operator\\": \\"GreaterThanOrEqualToThreshold\\",
+        \\"dimensions\\": {
+          \\"CanaryName\\": \\"test-synthetic-synthetic\\"
+        },
+        \\"evaluation_periods\\": 1,
+        \\"insufficient_data_actions\\": [],
+        \\"metric_name\\": \\"Failures\\",
+        \\"namespace\\": \\"CloudWatchSynthetics\\",
+        \\"period\\": 60,
+        \\"statistic\\": \\"SampleCount\\",
+        \\"threshold\\": 1,
+        \\"treat_missing_data\\": \\"notBreaching\\"
+      }
+    },
+    \\"aws_iam_policy\\": {
+      \\"test-synthetic_execution-policy_244BCA50\\": {
+        \\"name\\": \\"test-synthetic-ExecutionRolePolicy\\",
+        \\"policy\\": \\"\${data.aws_iam_policy_document.test-synthetic_execution-policy-document_E5D2936D.json}\\"
+      }
+    },
+    \\"aws_iam_role\\": {
+      \\"test-synthetic_synthetics-execution-role_3C0A4E8C\\": {
+        \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.test-synthetic_assume-policy-document_4EBEEFDF.json}\\",
+        \\"name\\": \\"synthetics-role-for-test-synthetic\\"
+      }
+    },
+    \\"aws_iam_role_policy_attachment\\": {
+      \\"test-synthetic_execution-role-policy-attachment_914E7B38\\": {
+        \\"depends_on\\": [
+          \\"aws_iam_role.test-synthetic_synthetics-execution-role_3C0A4E8C\\",
+          \\"aws_iam_policy.test-synthetic_execution-policy_244BCA50\\"
+        ],
+        \\"policy_arn\\": \\"\${aws_iam_policy.test-synthetic_execution-policy_244BCA50.arn}\\",
+        \\"role\\": \\"\${aws_iam_role.test-synthetic_synthetics-execution-role_3C0A4E8C.name}\\"
+      }
+    },
+    \\"aws_synthetics_canary\\": {
+      \\"test-synthetic_canary-test-synthetic_1B71309A\\": {
+        \\"artifact_s3_location\\": \\"s3://not-a-real-thing\\",
+        \\"execution_role_arn\\": \\"\${aws_iam_role.test-synthetic_synthetics-execution-role_3C0A4E8C.arn}\\",
+        \\"handler\\": \\"index.handler\\",
+        \\"name\\": \\"test-synthetic-syntheic\\",
+        \\"runtime_version\\": \\"syn-nodejs-puppeteer-3.3\\",
+        \\"schedule\\": {
+          \\"expression\\": \\"rate(3 minutes)\\"
+        },
+        \\"start_canary\\": true,
+        \\"zip_file\\": \\"\${data.archive_file.test-synthetic_synthetic-zip-file_B5627663.output_path}\\"
+      }
+    }
+  },
+  \\"terraform\\": {
+    \\"required_providers\\": {
+      \\"archive\\": {
+        \\"source\\": \\"hashicorp/archive\\",
+        \\"version\\": \\"~> 2.2\\"
+      }
+    }
+  }
+}"
+`;
+
+exports[`renders a Pocket Synthetic check for acme.getpocket.dev 1`] = `
+"{
+  \\"data\\": {
+    \\"archive_file\\": {
+      \\"test-synthetic_synthetic-zip-file_B5627663\\": {
+        \\"output_path\\": \\"index-kw2pbi65.zip\\",
+        \\"source_dir\\": \\"/home/bkochendorfer/work/pocket/terraform-modules/src/pocket/synthetics\\",
+        \\"type\\": \\"zip\\"
+      }
+    },
+    \\"aws_iam_policy_document\\": {
+      \\"test-synthetic_assume-policy-document_4EBEEFDF\\": {
+        \\"statement\\": [
+          {
+            \\"actions\\": [
+              \\"sts:AssumeRole\\"
+            ],
+            \\"effect\\": \\"Allow\\",
+            \\"principals\\": [
+              {
+                \\"identifiers\\": [
+                  \\"lambda.amazonaws.com\\",
+                  \\"synthetics.amazonaws.com\\"
+                ],
+                \\"type\\": \\"Service\\"
+              }
+            ]
+          }
+        ],
+        \\"version\\": \\"2012-10-17\\"
+      },
+      \\"test-synthetic_execution-policy-document_E5D2936D\\": {
+        \\"statement\\": [
+          {
+            \\"actions\\": [
+              \\"logs:CreateLogGroup\\",
+              \\"logs:CreateLogStream\\",
+              \\"logs:PutLogEvents\\"
+            ],
+            \\"effect\\": \\"Allow\\",
+            \\"resources\\": [
+              \\"arn:aws:logs:*:*:*\\"
+            ]
+          },
+          {
+            \\"actions\\": [
+              \\"s3:ListAllMyBuckets\\",
+              \\"cloudwatch:PutMetricData\\",
+              \\"xray:PutTraceSegments\\"
+            ],
+            \\"effect\\": \\"Allow\\",
+            \\"resources\\": [
+              \\"*\\"
+            ]
+          },
+          {
+            \\"actions\\": [
+              \\"s3:PutObject\\",
+              \\"s3:GetBucketLocation\\"
+            ],
+            \\"effect\\": \\"Allow\\",
+            \\"resources\\": [
+              \\"arn:aws:s3:::not-a-real-thing\\",
+              \\"arn:aws:s3:::not-a-real-thing/*\\"
+            ]
+          }
+        ],
+        \\"version\\": \\"2012-10-17\\"
+      }
+    }
+  },
+  \\"provider\\": {
+    \\"archive\\": [
+      {}
+    ]
+  },
+  \\"resource\\": {
+    \\"aws_cloudwatch_metric_alarm\\": {
+      \\"test-synthetic_synthetics-failed-alarm_42A00967\\": {
+        \\"alarm_actions\\": [],
+        \\"alarm_description\\": \\"Synthetic Check is failing\\",
+        \\"alarm_name\\": \\"test-synthetic-SyntheticsFailed-Alarm\\",
+        \\"comparison_operator\\": \\"GreaterThanOrEqualToThreshold\\",
+        \\"dimensions\\": {
+          \\"CanaryName\\": \\"test-synthetic-synthetic\\"
+        },
+        \\"evaluation_periods\\": 1,
+        \\"insufficient_data_actions\\": [],
+        \\"metric_name\\": \\"Failures\\",
+        \\"namespace\\": \\"CloudWatchSynthetics\\",
+        \\"period\\": 60,
+        \\"statistic\\": \\"SampleCount\\",
+        \\"threshold\\": 1,
+        \\"treat_missing_data\\": \\"notBreaching\\"
+      }
+    },
+    \\"aws_iam_policy\\": {
+      \\"test-synthetic_execution-policy_244BCA50\\": {
+        \\"name\\": \\"test-synthetic-ExecutionRolePolicy\\",
+        \\"policy\\": \\"\${data.aws_iam_policy_document.test-synthetic_execution-policy-document_E5D2936D.json}\\"
+      }
+    },
+    \\"aws_iam_role\\": {
+      \\"test-synthetic_synthetics-execution-role_3C0A4E8C\\": {
+        \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.test-synthetic_assume-policy-document_4EBEEFDF.json}\\",
+        \\"name\\": \\"synthetics-role-for-test-synthetic\\"
+      }
+    },
+    \\"aws_iam_role_policy_attachment\\": {
+      \\"test-synthetic_execution-role-policy-attachment_914E7B38\\": {
+        \\"depends_on\\": [
+          \\"aws_iam_role.test-synthetic_synthetics-execution-role_3C0A4E8C\\",
+          \\"aws_iam_policy.test-synthetic_execution-policy_244BCA50\\"
+        ],
+        \\"policy_arn\\": \\"\${aws_iam_policy.test-synthetic_execution-policy_244BCA50.arn}\\",
+        \\"role\\": \\"\${aws_iam_role.test-synthetic_synthetics-execution-role_3C0A4E8C.name}\\"
+      }
+    },
+    \\"aws_synthetics_canary\\": {
+      \\"test-synthetic_canary-test-synthetic_1B71309A\\": {
+        \\"artifact_s3_location\\": \\"s3://not-a-real-thing\\",
+        \\"execution_role_arn\\": \\"\${aws_iam_role.test-synthetic_synthetics-execution-role_3C0A4E8C.arn}\\",
+        \\"handler\\": \\"index.handler\\",
+        \\"name\\": \\"test-synthetic-syntheic\\",
+        \\"runtime_version\\": \\"syn-nodejs-puppeteer-3.3\\",
+        \\"schedule\\": {
+          \\"expression\\": \\"rate(3 minutes)\\"
+        },
+        \\"start_canary\\": true,
+        \\"zip_file\\": \\"\${data.archive_file.test-synthetic_synthetic-zip-file_B5627663.output_path}\\"
+      }
+    }
+  },
+  \\"terraform\\": {
+    \\"required_providers\\": {
+      \\"archive\\": {
+        \\"source\\": \\"hashicorp/archive\\",
+        \\"version\\": \\"~> 2.2\\"
+      }
+    }
+  }
+}"
+`;

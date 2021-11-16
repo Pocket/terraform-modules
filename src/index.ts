@@ -7,6 +7,7 @@ export * from './pocket/PocketPagerDuty';
 export * from './pocket/PocketSQSWithLambdaTarget';
 export * from './pocket/PocketVersionedLambda';
 export * from './pocket/PocketVPC';
+export * from './pocket/PocketSynthetic';
 export * from './base/ApplicationAutoscaling';
 export * from './base/ApplicationBaseDNS';
 export * from './base/ApplicationCertificate';

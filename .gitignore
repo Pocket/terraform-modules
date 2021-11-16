@@ -11,3 +11,4 @@ terraform.tfstate*
 dist
 tsconfig.tsbuildinfo
 .idea
+!src/pocket/synthetics*
