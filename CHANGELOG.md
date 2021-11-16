@@ -1,3 +1,10 @@
+### [2.0.30](https://github.com/Pocket/terraform-modules/compare/v2.0.29...v2.0.30) (2021-11-16)
+
+
+### Bug Fixes
+
+* **lambda:** Fix Lambda alias function version ([#476](https://github.com/Pocket/terraform-modules/issues/476)) ([8fe6e16](https://github.com/Pocket/terraform-modules/commit/8fe6e16913d414d525baf2e8641e465d1b730aec))
+
 ### [2.0.29](https://github.com/Pocket/terraform-modules/compare/v2.0.28...v2.0.29) (2021-11-16)
 
 
