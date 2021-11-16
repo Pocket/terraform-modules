@@ -98,17 +98,15 @@ export class ApplicationVersionedLambda extends Resource {
       dependsOn: [lambda],
     });
 
-    const lambdaAlias = new LambdaFunction.LambdaAlias(this, 'alias', {
+    return new LambdaFunction.LambdaAlias(this, 'alias', {
       functionName: lambda.functionName,
-      functionVersion: Fn.element(Fn.split(':', lambda.fqn), 7),
+      functionVersion: Fn.element(Fn.split(':', lambda.qualifiedArn), 7),
       name: 'DEPLOYED',
       lifecycle: {
         ignoreChanges: ['function_version'],
       },
       dependsOn: [lambda],
     });
-
-    return lambdaAlias;
   }
 
   private shouldIgnorePublish() {
@@ -191,7 +189,7 @@ export class ApplicationVersionedLambda extends Resource {
     const functionName = handler.pop();
     const functionFilename = handler.join('.');
 
-    let content = `export const ${functionName} = (event, context) => { console.log(event) }`;
+    let content = `exports.${functionName} = (event, context) => { console.log(event) }`;
     let filename = `${functionFilename}.js`;
 
     if (runtime === 'python') {

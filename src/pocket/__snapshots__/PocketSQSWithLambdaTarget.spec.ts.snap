@@ -130,7 +130,7 @@ exports[`renders a lambda triggered by an existing sqs queue 1`] = `
           \\"aws_lambda_function.test-sqs-lambda_C2DB9DC9\\"
         ],
         \\"function_name\\": \\"\${aws_lambda_function.test-sqs-lambda_C2DB9DC9.function_name}\\",
-        \\"function_version\\": \\"\${element(split(\\\\\\":\\\\\\", \\\\\\"aws_lambda_function.test-sqs-lambda_C2DB9DC9\\\\\\"), 7)}\\",
+        \\"function_version\\": \\"\${element(split(\\\\\\":\\\\\\", aws_lambda_function.test-sqs-lambda_C2DB9DC9.qualified_arn), 7)}\\",
         \\"lifecycle\\": {
           \\"ignore_changes\\": [
             \\"function_version\\"
@@ -306,7 +306,7 @@ exports[`renders a plain sqs queue and lambda target 1`] = `
           \\"aws_lambda_function.test-sqs-lambda_C2DB9DC9\\"
         ],
         \\"function_name\\": \\"\${aws_lambda_function.test-sqs-lambda_C2DB9DC9.function_name}\\",
-        \\"function_version\\": \\"\${element(split(\\\\\\":\\\\\\", \\\\\\"aws_lambda_function.test-sqs-lambda_C2DB9DC9\\\\\\"), 7)}\\",
+        \\"function_version\\": \\"\${element(split(\\\\\\":\\\\\\", aws_lambda_function.test-sqs-lambda_C2DB9DC9.qualified_arn), 7)}\\",
         \\"lifecycle\\": {
           \\"ignore_changes\\": [
             \\"function_version\\"
@@ -488,7 +488,7 @@ exports[`renders a plain sqs queue with a deadletter and lambda target 1`] = `
           \\"aws_lambda_function.test-sqs-lambda_C2DB9DC9\\"
         ],
         \\"function_name\\": \\"\${aws_lambda_function.test-sqs-lambda_C2DB9DC9.function_name}\\",
-        \\"function_version\\": \\"\${element(split(\\\\\\":\\\\\\", \\\\\\"aws_lambda_function.test-sqs-lambda_C2DB9DC9\\\\\\"), 7)}\\",
+        \\"function_version\\": \\"\${element(split(\\\\\\":\\\\\\", aws_lambda_function.test-sqs-lambda_C2DB9DC9.qualified_arn), 7)}\\",
         \\"lifecycle\\": {
           \\"ignore_changes\\": [
             \\"function_version\\"

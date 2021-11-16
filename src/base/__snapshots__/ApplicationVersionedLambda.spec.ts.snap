@@ -8,7 +8,7 @@ exports[`ApplicationVersionedLambda renders a lambda with a node v14 runtime 1`]
         \\"output_path\\": \\"index.js.zip\\",
         \\"source\\": [
           {
-            \\"content\\": \\"export const handler = (event, context) => { console.log(event) }\\",
+            \\"content\\": \\"exports.handler = (event, context) => { console.log(event) }\\",
             \\"filename\\": \\"index.js\\"
           }
         ],
@@ -93,7 +93,7 @@ exports[`ApplicationVersionedLambda renders a lambda with a node v14 runtime 1`]
           \\"aws_lambda_function.test-versioned-lambda_D818669D\\"
         ],
         \\"function_name\\": \\"\${aws_lambda_function.test-versioned-lambda_D818669D.function_name}\\",
-        \\"function_version\\": \\"\${element(split(\\\\\\":\\\\\\", \\\\\\"aws_lambda_function.test-versioned-lambda_D818669D\\\\\\"), 7)}\\",
+        \\"function_version\\": \\"\${element(split(\\\\\\":\\\\\\", aws_lambda_function.test-versioned-lambda_D818669D.qualified_arn), 7)}\\",
         \\"lifecycle\\": {
           \\"ignore_changes\\": [
             \\"function_version\\"
@@ -231,7 +231,7 @@ exports[`ApplicationVersionedLambda renders a versioned lambda 1`] = `
           \\"aws_lambda_function.test-versioned-lambda_D818669D\\"
         ],
         \\"function_name\\": \\"\${aws_lambda_function.test-versioned-lambda_D818669D.function_name}\\",
-        \\"function_version\\": \\"\${element(split(\\\\\\":\\\\\\", \\\\\\"aws_lambda_function.test-versioned-lambda_D818669D\\\\\\"), 7)}\\",
+        \\"function_version\\": \\"\${element(split(\\\\\\":\\\\\\", aws_lambda_function.test-versioned-lambda_D818669D.qualified_arn), 7)}\\",
         \\"lifecycle\\": {
           \\"ignore_changes\\": [
             \\"function_version\\"
@@ -369,7 +369,7 @@ exports[`ApplicationVersionedLambda renders a versioned lambda with description 
           \\"aws_lambda_function.test-versioned-lambda_D818669D\\"
         ],
         \\"function_name\\": \\"\${aws_lambda_function.test-versioned-lambda_D818669D.function_name}\\",
-        \\"function_version\\": \\"\${element(split(\\\\\\":\\\\\\", \\\\\\"aws_lambda_function.test-versioned-lambda_D818669D\\\\\\"), 7)}\\",
+        \\"function_version\\": \\"\${element(split(\\\\\\":\\\\\\", aws_lambda_function.test-versioned-lambda_D818669D.qualified_arn), 7)}\\",
         \\"lifecycle\\": {
           \\"ignore_changes\\": [
             \\"function_version\\"
@@ -507,7 +507,7 @@ exports[`ApplicationVersionedLambda renders a versioned lambda with environment 
           \\"aws_lambda_function.test-versioned-lambda_D818669D\\"
         ],
         \\"function_name\\": \\"\${aws_lambda_function.test-versioned-lambda_D818669D.function_name}\\",
-        \\"function_version\\": \\"\${element(split(\\\\\\":\\\\\\", \\\\\\"aws_lambda_function.test-versioned-lambda_D818669D\\\\\\"), 7)}\\",
+        \\"function_version\\": \\"\${element(split(\\\\\\":\\\\\\", aws_lambda_function.test-versioned-lambda_D818669D.qualified_arn), 7)}\\",
         \\"lifecycle\\": {
           \\"ignore_changes\\": [
             \\"function_version\\"
@@ -660,7 +660,7 @@ exports[`ApplicationVersionedLambda renders a versioned lambda with execution po
           \\"aws_lambda_function.test-versioned-lambda_D818669D\\"
         ],
         \\"function_name\\": \\"\${aws_lambda_function.test-versioned-lambda_D818669D.function_name}\\",
-        \\"function_version\\": \\"\${element(split(\\\\\\":\\\\\\", \\\\\\"aws_lambda_function.test-versioned-lambda_D818669D\\\\\\"), 7)}\\",
+        \\"function_version\\": \\"\${element(split(\\\\\\":\\\\\\", aws_lambda_function.test-versioned-lambda_D818669D.qualified_arn), 7)}\\",
         \\"lifecycle\\": {
           \\"ignore_changes\\": [
             \\"function_version\\"
@@ -798,7 +798,7 @@ exports[`ApplicationVersionedLambda renders a versioned lambda with log retentio
           \\"aws_lambda_function.test-versioned-lambda_D818669D\\"
         ],
         \\"function_name\\": \\"\${aws_lambda_function.test-versioned-lambda_D818669D.function_name}\\",
-        \\"function_version\\": \\"\${element(split(\\\\\\":\\\\\\", \\\\\\"aws_lambda_function.test-versioned-lambda_D818669D\\\\\\"), 7)}\\",
+        \\"function_version\\": \\"\${element(split(\\\\\\":\\\\\\", aws_lambda_function.test-versioned-lambda_D818669D.qualified_arn), 7)}\\",
         \\"lifecycle\\": {
           \\"ignore_changes\\": [
             \\"function_version\\"
@@ -936,7 +936,7 @@ exports[`ApplicationVersionedLambda renders a versioned lambda with publish igno
           \\"aws_lambda_function.test-versioned-lambda_D818669D\\"
         ],
         \\"function_name\\": \\"\${aws_lambda_function.test-versioned-lambda_D818669D.function_name}\\",
-        \\"function_version\\": \\"\${element(split(\\\\\\":\\\\\\", \\\\\\"aws_lambda_function.test-versioned-lambda_D818669D\\\\\\"), 7)}\\",
+        \\"function_version\\": \\"\${element(split(\\\\\\":\\\\\\", aws_lambda_function.test-versioned-lambda_D818669D.qualified_arn), 7)}\\",
         \\"lifecycle\\": {
           \\"ignore_changes\\": [
             \\"function_version\\"
@@ -1075,7 +1075,7 @@ exports[`ApplicationVersionedLambda renders a versioned lambda with s3 bucket 1`
           \\"aws_lambda_function.test-versioned-lambda_D818669D\\"
         ],
         \\"function_name\\": \\"\${aws_lambda_function.test-versioned-lambda_D818669D.function_name}\\",
-        \\"function_version\\": \\"\${element(split(\\\\\\":\\\\\\", \\\\\\"aws_lambda_function.test-versioned-lambda_D818669D\\\\\\"), 7)}\\",
+        \\"function_version\\": \\"\${element(split(\\\\\\":\\\\\\", aws_lambda_function.test-versioned-lambda_D818669D.qualified_arn), 7)}\\",
         \\"lifecycle\\": {
           \\"ignore_changes\\": [
             \\"function_version\\"
@@ -1213,7 +1213,7 @@ exports[`ApplicationVersionedLambda renders a versioned lambda with tags 1`] = `
           \\"aws_lambda_function.test-versioned-lambda_D818669D\\"
         ],
         \\"function_name\\": \\"\${aws_lambda_function.test-versioned-lambda_D818669D.function_name}\\",
-        \\"function_version\\": \\"\${element(split(\\\\\\":\\\\\\", \\\\\\"aws_lambda_function.test-versioned-lambda_D818669D\\\\\\"), 7)}\\",
+        \\"function_version\\": \\"\${element(split(\\\\\\":\\\\\\", aws_lambda_function.test-versioned-lambda_D818669D.qualified_arn), 7)}\\",
         \\"lifecycle\\": {
           \\"ignore_changes\\": [
             \\"function_version\\"
@@ -1359,7 +1359,7 @@ exports[`ApplicationVersionedLambda renders a versioned lambda with timeout 1`] 
           \\"aws_lambda_function.test-versioned-lambda_D818669D\\"
         ],
         \\"function_name\\": \\"\${aws_lambda_function.test-versioned-lambda_D818669D.function_name}\\",
-        \\"function_version\\": \\"\${element(split(\\\\\\":\\\\\\", \\\\\\"aws_lambda_function.test-versioned-lambda_D818669D\\\\\\"), 7)}\\",
+        \\"function_version\\": \\"\${element(split(\\\\\\":\\\\\\", aws_lambda_function.test-versioned-lambda_D818669D.qualified_arn), 7)}\\",
         \\"lifecycle\\": {
           \\"ignore_changes\\": [
             \\"function_version\\"
@@ -1510,7 +1510,7 @@ exports[`ApplicationVersionedLambda renders a versioned lambda with vpc 1`] = `
           \\"aws_lambda_function.test-versioned-lambda_D818669D\\"
         ],
         \\"function_name\\": \\"\${aws_lambda_function.test-versioned-lambda_D818669D.function_name}\\",
-        \\"function_version\\": \\"\${element(split(\\\\\\":\\\\\\", \\\\\\"aws_lambda_function.test-versioned-lambda_D818669D\\\\\\"), 7)}\\",
+        \\"function_version\\": \\"\${element(split(\\\\\\":\\\\\\", aws_lambda_function.test-versioned-lambda_D818669D.qualified_arn), 7)}\\",
         \\"lifecycle\\": {
           \\"ignore_changes\\": [
             \\"function_version\\"
