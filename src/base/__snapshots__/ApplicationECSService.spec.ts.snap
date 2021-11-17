@@ -25,129 +25,13 @@ exports[`ApplicationECSService renders an ECS service with code deploy 1`] = `
       }
     }
   },
-  \\"resource\\": {
-    \\"aws_ecs_service\\": {
-      \\"testECSService_ecs-service_33F309B3\\": {
-        \\"cluster\\": \\"gorp\\",
-        \\"depends_on\\": [],
-        \\"deployment_controller\\": {
-          \\"type\\": \\"CODE_DEPLOY\\"
-        },
-        \\"deployment_maximum_percent\\": 200,
-        \\"deployment_minimum_healthy_percent\\": 100,
-        \\"desired_count\\": 2,
-        \\"launch_type\\": \\"FARGATE\\",
-        \\"lifecycle\\": {
-          \\"ignore_changes\\": [
-            \\"desired_count\\",
-            \\"load_balancer\\",
-            \\"task_definition\\"
-          ]
-        },
-        \\"load_balancer\\": [],
-        \\"name\\": \\"abides-dev\\",
-        \\"network_configuration\\": {
-          \\"security_groups\\": [
-            \\"\${aws_security_group.testECSService_ecs_security_group_67979722.id}\\"
-          ],
-          \\"subnets\\": [
-            \\"1.1.1.1\\",
-            \\"2.2.2.2\\"
-          ]
-        },
-        \\"propagate_tags\\": \\"SERVICE\\",
-        \\"task_definition\\": \\"\${aws_ecs_task_definition.testECSService_ecs-task_A268C927.arn}\\"
-      }
-    },
-    \\"aws_ecs_task_definition\\": {
-      \\"testECSService_ecs-task_A268C927\\": {
-        \\"container_definitions\\": \\"[]\\",
-        \\"cpu\\": \\"512\\",
-        \\"depends_on\\": [],
-        \\"execution_role_arn\\": \\"\${aws_iam_role.testECSService_ecs-iam_ecs-execution-role_88EFEECE.arn}\\",
-        \\"family\\": \\"abides-dev\\",
-        \\"memory\\": \\"2048\\",
-        \\"network_mode\\": \\"awsvpc\\",
-        \\"requires_compatibilities\\": [
-          \\"FARGATE\\"
-        ],
-        \\"task_role_arn\\": \\"\${aws_iam_role.testECSService_ecs-iam_ecs-task-role_83E10144.arn}\\",
-        \\"volume\\": []
-      }
-    },
-    \\"aws_iam_role\\": {
-      \\"testECSService_ecs-iam_ecs-execution-role_88EFEECE\\": {
-        \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.testECSService_ecs-iam_ecs-task-assume_97906D9E.json}\\",
-        \\"name\\": \\"abides-dev-TaskExecutionRole\\"
-      },
-      \\"testECSService_ecs-iam_ecs-task-role_83E10144\\": {
-        \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.testECSService_ecs-iam_ecs-task-assume_97906D9E.json}\\",
-        \\"name\\": \\"abides-dev-TaskRole\\"
-      }
-    },
-    \\"aws_iam_role_policy_attachment\\": {
-      \\"testECSService_ecs-iam_ecs-task-execution-default-attachment_7AC36BF7\\": {
-        \\"policy_arn\\": \\"someArn\\",
-        \\"role\\": \\"\${aws_iam_role.testECSService_ecs-iam_ecs-execution-role_88EFEECE.id}\\"
-      }
-    },
-    \\"aws_security_group\\": {
-      \\"testECSService_ecs_security_group_67979722\\": {
-        \\"description\\": \\"Internal ECS Security Group (Managed by Terraform)\\",
-        \\"egress\\": [
-          {
-            \\"cidr_blocks\\": [
-              \\"0.0.0.0/0\\"
-            ],
-            \\"description\\": \\"required\\",
-            \\"from_port\\": 0,
-            \\"ipv6_cidr_blocks\\": [],
-            \\"prefix_list_ids\\": [],
-            \\"protocol\\": \\"-1\\",
-            \\"security_groups\\": [],
-            \\"self\\": null,
-            \\"to_port\\": 0
-          }
-        ],
-        \\"ingress\\": [],
-        \\"lifecycle\\": {
-          \\"create_before_destroy\\": true
-        },
-        \\"name_prefix\\": \\"abides-dev-ECSSecurityGroup\\",
-        \\"vpc_id\\": \\"myhouse\\"
-      }
-    },
-    \\"null_resource\\": {
-      \\"testECSService\\": {}
-    }
-  }
-}"
-`;
-
-exports[`ApplicationECSService renders an ECS service with code deploy and excludes the code deployment command resource when useCodePipeline is true 1`] = `
-"{
-  \\"data\\": {
-    \\"aws_iam_policy_document\\": {
-      \\"testECSService_ecs-iam_ecs-task-assume_97906D9E\\": {
-        \\"statement\\": [
-          {
-            \\"actions\\": [
-              \\"sts:AssumeRole\\"
-            ],
-            \\"effect\\": \\"Allow\\",
-            \\"principals\\": [
-              {
-                \\"identifiers\\": [
-                  \\"ecs-tasks.amazonaws.com\\"
-                ],
-                \\"type\\": \\"Service\\"
-              }
-            ]
-          }
-        ],
-        \\"version\\": \\"2012-10-17\\"
-      }
-    }
+  \\"provider\\": {
+    \\"local\\": [
+      {}
+    ],
+    \\"null\\": [
+      {}
+    ]
   },
   \\"resource\\": {
     \\"aws_ecs_service\\": {
@@ -244,6 +128,162 @@ exports[`ApplicationECSService renders an ECS service with code deploy and exclu
     \\"null_resource\\": {
       \\"testECSService\\": {}
     }
+  },
+  \\"terraform\\": {
+    \\"required_providers\\": {
+      \\"local\\": {
+        \\"source\\": \\"hashicorp/local\\",
+        \\"version\\": \\"~> 2.1\\"
+      },
+      \\"null\\": {
+        \\"source\\": \\"null\\",
+        \\"version\\": \\"~> 2.0\\"
+      }
+    }
+  }
+}"
+`;
+
+exports[`ApplicationECSService renders an ECS service with code deploy and excludes the code deployment command resource when useCodePipeline is true 1`] = `
+"{
+  \\"data\\": {
+    \\"aws_iam_policy_document\\": {
+      \\"testECSService_ecs-iam_ecs-task-assume_97906D9E\\": {
+        \\"statement\\": [
+          {
+            \\"actions\\": [
+              \\"sts:AssumeRole\\"
+            ],
+            \\"effect\\": \\"Allow\\",
+            \\"principals\\": [
+              {
+                \\"identifiers\\": [
+                  \\"ecs-tasks.amazonaws.com\\"
+                ],
+                \\"type\\": \\"Service\\"
+              }
+            ]
+          }
+        ],
+        \\"version\\": \\"2012-10-17\\"
+      }
+    }
+  },
+  \\"provider\\": {
+    \\"local\\": [
+      {}
+    ],
+    \\"null\\": [
+      {}
+    ]
+  },
+  \\"resource\\": {
+    \\"aws_ecs_service\\": {
+      \\"testECSService_ecs-service_33F309B3\\": {
+        \\"cluster\\": \\"gorp\\",
+        \\"depends_on\\": [],
+        \\"deployment_controller\\": {
+          \\"type\\": \\"CODE_DEPLOY\\"
+        },
+        \\"deployment_maximum_percent\\": 200,
+        \\"deployment_minimum_healthy_percent\\": 100,
+        \\"desired_count\\": 2,
+        \\"launch_type\\": \\"FARGATE\\",
+        \\"lifecycle\\": {
+          \\"ignore_changes\\": [
+            \\"desired_count\\",
+            \\"load_balancer\\",
+            \\"task_definition\\"
+          ]
+        },
+        \\"load_balancer\\": [],
+        \\"name\\": \\"abides-dev\\",
+        \\"network_configuration\\": {
+          \\"security_groups\\": [
+            \\"\${aws_security_group.testECSService_ecs_security_group_67979722.id}\\"
+          ],
+          \\"subnets\\": [
+            \\"1.1.1.1\\",
+            \\"2.2.2.2\\"
+          ]
+        },
+        \\"propagate_tags\\": \\"SERVICE\\",
+        \\"task_definition\\": \\"\${aws_ecs_task_definition.testECSService_ecs-task_A268C927.arn}\\"
+      }
+    },
+    \\"aws_ecs_task_definition\\": {
+      \\"testECSService_ecs-task_A268C927\\": {
+        \\"container_definitions\\": \\"[]\\",
+        \\"cpu\\": \\"512\\",
+        \\"depends_on\\": [],
+        \\"execution_role_arn\\": \\"\${aws_iam_role.testECSService_ecs-iam_ecs-execution-role_88EFEECE.arn}\\",
+        \\"family\\": \\"abides-dev\\",
+        \\"memory\\": \\"2048\\",
+        \\"network_mode\\": \\"awsvpc\\",
+        \\"requires_compatibilities\\": [
+          \\"FARGATE\\"
+        ],
+        \\"task_role_arn\\": \\"\${aws_iam_role.testECSService_ecs-iam_ecs-task-role_83E10144.arn}\\",
+        \\"volume\\": []
+      }
+    },
+    \\"aws_iam_role\\": {
+      \\"testECSService_ecs-iam_ecs-execution-role_88EFEECE\\": {
+        \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.testECSService_ecs-iam_ecs-task-assume_97906D9E.json}\\",
+        \\"name\\": \\"abides-dev-TaskExecutionRole\\"
+      },
+      \\"testECSService_ecs-iam_ecs-task-role_83E10144\\": {
+        \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.testECSService_ecs-iam_ecs-task-assume_97906D9E.json}\\",
+        \\"name\\": \\"abides-dev-TaskRole\\"
+      }
+    },
+    \\"aws_iam_role_policy_attachment\\": {
+      \\"testECSService_ecs-iam_ecs-task-execution-default-attachment_7AC36BF7\\": {
+        \\"policy_arn\\": \\"someArn\\",
+        \\"role\\": \\"\${aws_iam_role.testECSService_ecs-iam_ecs-execution-role_88EFEECE.id}\\"
+      }
+    },
+    \\"aws_security_group\\": {
+      \\"testECSService_ecs_security_group_67979722\\": {
+        \\"description\\": \\"Internal ECS Security Group (Managed by Terraform)\\",
+        \\"egress\\": [
+          {
+            \\"cidr_blocks\\": [
+              \\"0.0.0.0/0\\"
+            ],
+            \\"description\\": \\"required\\",
+            \\"from_port\\": 0,
+            \\"ipv6_cidr_blocks\\": [],
+            \\"prefix_list_ids\\": [],
+            \\"protocol\\": \\"-1\\",
+            \\"security_groups\\": [],
+            \\"self\\": null,
+            \\"to_port\\": 0
+          }
+        ],
+        \\"ingress\\": [],
+        \\"lifecycle\\": {
+          \\"create_before_destroy\\": true
+        },
+        \\"name_prefix\\": \\"abides-dev-ECSSecurityGroup\\",
+        \\"vpc_id\\": \\"myhouse\\"
+      }
+    },
+    \\"null_resource\\": {
+      \\"testECSService\\": {}
+    }
+  },
+  \\"terraform\\": {
+    \\"required_providers\\": {
+      \\"local\\": {
+        \\"source\\": \\"hashicorp/local\\",
+        \\"version\\": \\"~> 2.1\\"
+      },
+      \\"null\\": {
+        \\"source\\": \\"null\\",
+        \\"version\\": \\"~> 2.0\\"
+      }
+    }
   }
 }"
 `;
@@ -272,6 +312,14 @@ exports[`ApplicationECSService renders an ECS service with full container defini
         \\"version\\": \\"2012-10-17\\"
       }
     }
+  },
+  \\"provider\\": {
+    \\"local\\": [
+      {}
+    ],
+    \\"null\\": [
+      {}
+    ]
   },
   \\"resource\\": {
     \\"aws_ecs_service\\": {
@@ -368,6 +416,18 @@ exports[`ApplicationECSService renders an ECS service with full container defini
     \\"null_resource\\": {
       \\"testECSService\\": {}
     }
+  },
+  \\"terraform\\": {
+    \\"required_providers\\": {
+      \\"local\\": {
+        \\"source\\": \\"hashicorp/local\\",
+        \\"version\\": \\"~> 2.1\\"
+      },
+      \\"null\\": {
+        \\"source\\": \\"null\\",
+        \\"version\\": \\"~> 2.0\\"
+      }
+    }
   }
 }"
 `;
@@ -396,6 +456,14 @@ exports[`ApplicationECSService renders an ECS service with full container defini
         \\"version\\": \\"2012-10-17\\"
       }
     }
+  },
+  \\"provider\\": {
+    \\"local\\": [
+      {}
+    ],
+    \\"null\\": [
+      {}
+    ]
   },
   \\"resource\\": {
     \\"aws_alb_listener_rule\\": {
@@ -560,6 +628,18 @@ exports[`ApplicationECSService renders an ECS service with full container defini
     \\"null_resource\\": {
       \\"testECSService\\": {}
     }
+  },
+  \\"terraform\\": {
+    \\"required_providers\\": {
+      \\"local\\": {
+        \\"source\\": \\"hashicorp/local\\",
+        \\"version\\": \\"~> 2.1\\"
+      },
+      \\"null\\": {
+        \\"source\\": \\"null\\",
+        \\"version\\": \\"~> 2.0\\"
+      }
+    }
   }
 }"
 `;
@@ -588,6 +668,14 @@ exports[`ApplicationECSService renders an ECS service with minimal config 1`] = 
         \\"version\\": \\"2012-10-17\\"
       }
     }
+  },
+  \\"provider\\": {
+    \\"local\\": [
+      {}
+    ],
+    \\"null\\": [
+      {}
+    ]
   },
   \\"resource\\": {
     \\"aws_ecs_service\\": {
@@ -683,6 +771,18 @@ exports[`ApplicationECSService renders an ECS service with minimal config 1`] = 
     \\"null_resource\\": {
       \\"testECSService\\": {}
     }
+  },
+  \\"terraform\\": {
+    \\"required_providers\\": {
+      \\"local\\": {
+        \\"source\\": \\"hashicorp/local\\",
+        \\"version\\": \\"~> 2.1\\"
+      },
+      \\"null\\": {
+        \\"source\\": \\"null\\",
+        \\"version\\": \\"~> 2.0\\"
+      }
+    }
   }
 }"
 `;
@@ -711,6 +811,14 @@ exports[`ApplicationECSService renders an ECS service with mountPoints deduplica
         \\"version\\": \\"2012-10-17\\"
       }
     }
+  },
+  \\"provider\\": {
+    \\"local\\": [
+      {}
+    ],
+    \\"null\\": [
+      {}
+    ]
   },
   \\"resource\\": {
     \\"aws_cloudwatch_log_group\\": {
@@ -881,6 +989,18 @@ exports[`ApplicationECSService renders an ECS service with mountPoints deduplica
     \\"null_resource\\": {
       \\"testECSService\\": {}
     }
+  },
+  \\"terraform\\": {
+    \\"required_providers\\": {
+      \\"local\\": {
+        \\"source\\": \\"hashicorp/local\\",
+        \\"version\\": \\"~> 2.1\\"
+      },
+      \\"null\\": {
+        \\"source\\": \\"null\\",
+        \\"version\\": \\"~> 2.0\\"
+      }
+    }
   }
 }"
 `;
@@ -909,6 +1029,14 @@ exports[`ApplicationECSService renders an ECS service without a log group contai
         \\"version\\": \\"2012-10-17\\"
       }
     }
+  },
+  \\"provider\\": {
+    \\"local\\": [
+      {}
+    ],
+    \\"null\\": [
+      {}
+    ]
   },
   \\"resource\\": {
     \\"aws_cloudwatch_log_group\\": {
@@ -1011,6 +1139,18 @@ exports[`ApplicationECSService renders an ECS service without a log group contai
     \\"null_resource\\": {
       \\"testECSService\\": {}
     }
+  },
+  \\"terraform\\": {
+    \\"required_providers\\": {
+      \\"local\\": {
+        \\"source\\": \\"hashicorp/local\\",
+        \\"version\\": \\"~> 2.1\\"
+      },
+      \\"null\\": {
+        \\"source\\": \\"null\\",
+        \\"version\\": \\"~> 2.0\\"
+      }
+    }
   }
 }"
 `;
@@ -1039,6 +1179,14 @@ exports[`ApplicationECSService renders an ECS service without an image container
         \\"version\\": \\"2012-10-17\\"
       }
     }
+  },
+  \\"provider\\": {
+    \\"local\\": [
+      {}
+    ],
+    \\"null\\": [
+      {}
+    ]
   },
   \\"resource\\": {
     \\"aws_ecr_lifecycle_policy\\": {
@@ -1155,6 +1303,18 @@ exports[`ApplicationECSService renders an ECS service without an image container
     },
     \\"null_resource\\": {
       \\"testECSService\\": {}
+    }
+  },
+  \\"terraform\\": {
+    \\"required_providers\\": {
+      \\"local\\": {
+        \\"source\\": \\"hashicorp/local\\",
+        \\"version\\": \\"~> 2.1\\"
+      },
+      \\"null\\": {
+        \\"source\\": \\"null\\",
+        \\"version\\": \\"~> 2.0\\"
+      }
     }
   }
 }"

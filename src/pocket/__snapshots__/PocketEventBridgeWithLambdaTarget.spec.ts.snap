@@ -55,6 +55,11 @@ exports[`renders an event bridge and lambda target with event bus name 1`] = `
       }
     }
   },
+  \\"provider\\": {
+    \\"archive\\": [
+      {}
+    ]
+  },
   \\"resource\\": {
     \\"aws_cloudwatch_event_rule\\": {
       \\"test-event-bridge-lambda_event-bridge-rule_529FF7C2\\": {
@@ -165,6 +170,14 @@ exports[`renders an event bridge and lambda target with event bus name 1`] = `
         \\"bucket\\": \\"\${aws_s3_bucket.test-event-bridge-lambda_code-bucket_3703E73B.id}\\"
       }
     }
+  },
+  \\"terraform\\": {
+    \\"required_providers\\": {
+      \\"archive\\": {
+        \\"source\\": \\"hashicorp/archive\\",
+        \\"version\\": \\"~> 2.2\\"
+      }
+    }
   }
 }"
 `;
@@ -223,6 +236,11 @@ exports[`renders an event bridge and lambda target with rule description 1`] = `
         \\"version\\": \\"2012-10-17\\"
       }
     }
+  },
+  \\"provider\\": {
+    \\"archive\\": [
+      {}
+    ]
   },
   \\"resource\\": {
     \\"aws_cloudwatch_event_rule\\": {
@@ -333,6 +351,14 @@ exports[`renders an event bridge and lambda target with rule description 1`] = `
         \\"block_public_acls\\": true,
         \\"block_public_policy\\": true,
         \\"bucket\\": \\"\${aws_s3_bucket.test-event-bridge-lambda_code-bucket_3703E73B.id}\\"
+      }
+    }
+  },
+  \\"terraform\\": {
+    \\"required_providers\\": {
+      \\"archive\\": {
+        \\"source\\": \\"hashicorp/archive\\",
+        \\"version\\": \\"~> 2.2\\"
       }
     }
   }

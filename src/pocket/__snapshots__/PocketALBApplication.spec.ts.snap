@@ -163,6 +163,14 @@ exports[`PocketALBApplication renders an Pocket App with code deploy 1`] = `
       }
     }
   },
+  \\"provider\\": {
+    \\"local\\": [
+      {}
+    ],
+    \\"null\\": [
+      {}
+    ]
+  },
   \\"resource\\": {
     \\"aws_acm_certificate\\": {
       \\"testPocketApp_alb_certificate_417C14FF\\": {
@@ -730,6 +738,18 @@ exports[`PocketALBApplication renders an Pocket App with code deploy 1`] = `
         }
       }
     }
+  },
+  \\"terraform\\": {
+    \\"required_providers\\": {
+      \\"local\\": {
+        \\"source\\": \\"hashicorp/local\\",
+        \\"version\\": \\"~> 2.1\\"
+      },
+      \\"null\\": {
+        \\"source\\": \\"null\\",
+        \\"version\\": \\"~> 2.0\\"
+      }
+    }
   }
 }"
 `;
@@ -896,6 +916,14 @@ exports[`PocketALBApplication renders an Pocket App with code deploy and creates
         ]
       }
     }
+  },
+  \\"provider\\": {
+    \\"local\\": [
+      {}
+    ],
+    \\"null\\": [
+      {}
+    ]
   },
   \\"resource\\": {
     \\"aws_acm_certificate\\": {
@@ -1449,6 +1477,18 @@ exports[`PocketALBApplication renders an Pocket App with code deploy and creates
         }
       }
     }
+  },
+  \\"terraform\\": {
+    \\"required_providers\\": {
+      \\"local\\": {
+        \\"source\\": \\"hashicorp/local\\",
+        \\"version\\": \\"~> 2.1\\"
+      },
+      \\"null\\": {
+        \\"source\\": \\"null\\",
+        \\"version\\": \\"~> 2.0\\"
+      }
+    }
   }
 }"
 `;
@@ -1597,6 +1637,14 @@ exports[`PocketALBApplication renders an Pocket App with logs and dashboard in a
         ]
       }
     }
+  },
+  \\"provider\\": {
+    \\"local\\": [
+      {}
+    ],
+    \\"null\\": [
+      {}
+    ]
   },
   \\"resource\\": {
     \\"aws_acm_certificate\\": {
@@ -2042,6 +2090,18 @@ exports[`PocketALBApplication renders an Pocket App with logs and dashboard in a
     \\"null_resource\\": {
       \\"testPocketApp_ecs_service_8F213571\\": {}
     }
+  },
+  \\"terraform\\": {
+    \\"required_providers\\": {
+      \\"local\\": {
+        \\"source\\": \\"hashicorp/local\\",
+        \\"version\\": \\"~> 2.1\\"
+      },
+      \\"null\\": {
+        \\"source\\": \\"null\\",
+        \\"version\\": \\"~> 2.0\\"
+      }
+    }
   }
 }"
 `;
@@ -2190,6 +2250,14 @@ exports[`PocketALBApplication renders an application alarms 1`] = `
         ]
       }
     }
+  },
+  \\"provider\\": {
+    \\"local\\": [
+      {}
+    ],
+    \\"null\\": [
+      {}
+    ]
   },
   \\"resource\\": {
     \\"aws_acm_certificate\\": {
@@ -2657,6 +2725,18 @@ exports[`PocketALBApplication renders an application alarms 1`] = `
     \\"null_resource\\": {
       \\"testPocketApp_ecs_service_8F213571\\": {}
     }
+  },
+  \\"terraform\\": {
+    \\"required_providers\\": {
+      \\"local\\": {
+        \\"source\\": \\"hashicorp/local\\",
+        \\"version\\": \\"~> 2.1\\"
+      },
+      \\"null\\": {
+        \\"source\\": \\"null\\",
+        \\"version\\": \\"~> 2.0\\"
+      }
+    }
   }
 }"
 `;
@@ -2805,6 +2885,14 @@ exports[`PocketALBApplication renders an application custom default alarms 1`] =
         ]
       }
     }
+  },
+  \\"provider\\": {
+    \\"local\\": [
+      {}
+    ],
+    \\"null\\": [
+      {}
+    ]
   },
   \\"resource\\": {
     \\"aws_acm_certificate\\": {
@@ -3263,6 +3351,18 @@ exports[`PocketALBApplication renders an application custom default alarms 1`] =
     \\"null_resource\\": {
       \\"testPocketApp_ecs_service_8F213571\\": {}
     }
+  },
+  \\"terraform\\": {
+    \\"required_providers\\": {
+      \\"local\\": {
+        \\"source\\": \\"hashicorp/local\\",
+        \\"version\\": \\"~> 2.1\\"
+      },
+      \\"null\\": {
+        \\"source\\": \\"null\\",
+        \\"version\\": \\"~> 2.0\\"
+      }
+    }
   }
 }"
 `;
@@ -3411,6 +3511,14 @@ exports[`PocketALBApplication renders an application with autoscaling group and 
         ]
       }
     }
+  },
+  \\"provider\\": {
+    \\"local\\": [
+      {}
+    ],
+    \\"null\\": [
+      {}
+    ]
   },
   \\"resource\\": {
     \\"aws_acm_certificate\\": {
@@ -3904,6 +4012,18 @@ exports[`PocketALBApplication renders an application with autoscaling group and 
     \\"null_resource\\": {
       \\"testPocketApp_ecs_service_8F213571\\": {}
     }
+  },
+  \\"terraform\\": {
+    \\"required_providers\\": {
+      \\"local\\": {
+        \\"source\\": \\"hashicorp/local\\",
+        \\"version\\": \\"~> 2.1\\"
+      },
+      \\"null\\": {
+        \\"source\\": \\"null\\",
+        \\"version\\": \\"~> 2.0\\"
+      }
+    }
   }
 }"
 `;
@@ -4052,6 +4172,14 @@ exports[`PocketALBApplication renders an application with custom task sizes 1`] 
         ]
       }
     }
+  },
+  \\"provider\\": {
+    \\"local\\": [
+      {}
+    ],
+    \\"null\\": [
+      {}
+    ]
   },
   \\"resource\\": {
     \\"aws_acm_certificate\\": {
@@ -4497,6 +4625,18 @@ exports[`PocketALBApplication renders an application with custom task sizes 1`] 
     \\"null_resource\\": {
       \\"testPocketApp_ecs_service_8F213571\\": {}
     }
+  },
+  \\"terraform\\": {
+    \\"required_providers\\": {
+      \\"local\\": {
+        \\"source\\": \\"hashicorp/local\\",
+        \\"version\\": \\"~> 2.1\\"
+      },
+      \\"null\\": {
+        \\"source\\": \\"null\\",
+        \\"version\\": \\"~> 2.0\\"
+      }
+    }
   }
 }"
 `;
@@ -4645,6 +4785,14 @@ exports[`PocketALBApplication renders an application with default autoscaling gr
         ]
       }
     }
+  },
+  \\"provider\\": {
+    \\"local\\": [
+      {}
+    ],
+    \\"null\\": [
+      {}
+    ]
   },
   \\"resource\\": {
     \\"aws_acm_certificate\\": {
@@ -5138,6 +5286,18 @@ exports[`PocketALBApplication renders an application with default autoscaling gr
     \\"null_resource\\": {
       \\"testPocketApp_ecs_service_8F213571\\": {}
     }
+  },
+  \\"terraform\\": {
+    \\"required_providers\\": {
+      \\"local\\": {
+        \\"source\\": \\"hashicorp/local\\",
+        \\"version\\": \\"~> 2.1\\"
+      },
+      \\"null\\": {
+        \\"source\\": \\"null\\",
+        \\"version\\": \\"~> 2.0\\"
+      }
+    }
   }
 }"
 `;
@@ -5286,6 +5446,14 @@ exports[`PocketALBApplication renders an application with minimal config 1`] = `
         ]
       }
     }
+  },
+  \\"provider\\": {
+    \\"local\\": [
+      {}
+    ],
+    \\"null\\": [
+      {}
+    ]
   },
   \\"resource\\": {
     \\"aws_acm_certificate\\": {
@@ -5731,6 +5899,18 @@ exports[`PocketALBApplication renders an application with minimal config 1`] = `
     \\"null_resource\\": {
       \\"testPocketApp_ecs_service_8F213571\\": {}
     }
+  },
+  \\"terraform\\": {
+    \\"required_providers\\": {
+      \\"local\\": {
+        \\"source\\": \\"hashicorp/local\\",
+        \\"version\\": \\"~> 2.1\\"
+      },
+      \\"null\\": {
+        \\"source\\": \\"null\\",
+        \\"version\\": \\"~> 2.0\\"
+      }
+    }
   }
 }"
 `;
@@ -5879,6 +6059,14 @@ exports[`PocketALBApplication renders an application with modified container def
         ]
       }
     }
+  },
+  \\"provider\\": {
+    \\"local\\": [
+      {}
+    ],
+    \\"null\\": [
+      {}
+    ]
   },
   \\"resource\\": {
     \\"aws_acm_certificate\\": {
@@ -6350,6 +6538,18 @@ exports[`PocketALBApplication renders an application with modified container def
     \\"null_resource\\": {
       \\"testPocketApp_ecs_service_8F213571\\": {}
     }
+  },
+  \\"terraform\\": {
+    \\"required_providers\\": {
+      \\"local\\": {
+        \\"source\\": \\"hashicorp/local\\",
+        \\"version\\": \\"~> 2.1\\"
+      },
+      \\"null\\": {
+        \\"source\\": \\"null\\",
+        \\"version\\": \\"~> 2.0\\"
+      }
+    }
   }
 }"
 `;
@@ -6498,6 +6698,14 @@ exports[`PocketALBApplication renders an external application 1`] = `
         ]
       }
     }
+  },
+  \\"provider\\": {
+    \\"local\\": [
+      {}
+    ],
+    \\"null\\": [
+      {}
+    ]
   },
   \\"resource\\": {
     \\"aws_acm_certificate\\": {
@@ -7063,6 +7271,18 @@ exports[`PocketALBApplication renders an external application 1`] = `
     \\"null_resource\\": {
       \\"testPocketApp_ecs_service_8F213571\\": {}
     }
+  },
+  \\"terraform\\": {
+    \\"required_providers\\": {
+      \\"local\\": {
+        \\"source\\": \\"hashicorp/local\\",
+        \\"version\\": \\"~> 2.1\\"
+      },
+      \\"null\\": {
+        \\"source\\": \\"null\\",
+        \\"version\\": \\"~> 2.0\\"
+      }
+    }
   }
 }"
 `;
@@ -7211,6 +7431,14 @@ exports[`PocketALBApplication renders an internal application 1`] = `
         ]
       }
     }
+  },
+  \\"provider\\": {
+    \\"local\\": [
+      {}
+    ],
+    \\"null\\": [
+      {}
+    ]
   },
   \\"resource\\": {
     \\"aws_acm_certificate\\": {
@@ -7656,6 +7884,18 @@ exports[`PocketALBApplication renders an internal application 1`] = `
     \\"null_resource\\": {
       \\"testPocketApp_ecs_service_8F213571\\": {}
     }
+  },
+  \\"terraform\\": {
+    \\"required_providers\\": {
+      \\"local\\": {
+        \\"source\\": \\"hashicorp/local\\",
+        \\"version\\": \\"~> 2.1\\"
+      },
+      \\"null\\": {
+        \\"source\\": \\"null\\",
+        \\"version\\": \\"~> 2.0\\"
+      }
+    }
   }
 }"
 `;
@@ -7804,6 +8044,14 @@ exports[`PocketALBApplication renders an internal application with tags 1`] = `
         ]
       }
     }
+  },
+  \\"provider\\": {
+    \\"local\\": [
+      {}
+    ],
+    \\"null\\": [
+      {}
+    ]
   },
   \\"resource\\": {
     \\"aws_acm_certificate\\": {
@@ -8296,6 +8544,18 @@ exports[`PocketALBApplication renders an internal application with tags 1`] = `
     },
     \\"null_resource\\": {
       \\"testPocketApp_ecs_service_8F213571\\": {}
+    }
+  },
+  \\"terraform\\": {
+    \\"required_providers\\": {
+      \\"local\\": {
+        \\"source\\": \\"hashicorp/local\\",
+        \\"version\\": \\"~> 2.1\\"
+      },
+      \\"null\\": {
+        \\"source\\": \\"null\\",
+        \\"version\\": \\"~> 2.0\\"
+      }
     }
   }
 }"

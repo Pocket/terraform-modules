@@ -2,6 +2,7 @@ import { Fn, Resource } from 'cdktf';
 import { Construct } from 'constructs';
 import { CloudWatch, IAM, LambdaFunction, S3 } from '@cdktf/provider-aws';
 import {
+  ArchiveProvider,
   DataArchiveFile,
   DataArchiveFileSource,
 } from '@cdktf/provider-archive';
@@ -40,6 +41,8 @@ export class ApplicationVersionedLambda extends Resource {
     private config: ApplicationVersionedLambdaProps
   ) {
     super(scope, name);
+
+    new ArchiveProvider(this, 'archive');
 
     this.createCodeBucket();
     this.versionedLambda = this.createLambdaFunction();

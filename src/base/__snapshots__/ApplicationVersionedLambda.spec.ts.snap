@@ -55,6 +55,11 @@ exports[`ApplicationVersionedLambda renders a lambda with a node v14 runtime 1`]
       }
     }
   },
+  \\"provider\\": {
+    \\"archive\\": [
+      {}
+    ]
+  },
   \\"resource\\": {
     \\"aws_cloudwatch_log_group\\": {
       \\"test-versioned-lambda_log-group_CB8A67E7\\": {
@@ -134,6 +139,14 @@ exports[`ApplicationVersionedLambda renders a lambda with a node v14 runtime 1`]
         \\"bucket\\": \\"\${aws_s3_bucket.test-versioned-lambda_code-bucket_C658EE92.id}\\"
       }
     }
+  },
+  \\"terraform\\": {
+    \\"required_providers\\": {
+      \\"archive\\": {
+        \\"source\\": \\"hashicorp/archive\\",
+        \\"version\\": \\"~> 2.2\\"
+      }
+    }
   }
 }"
 `;
@@ -192,6 +205,11 @@ exports[`ApplicationVersionedLambda renders a versioned lambda 1`] = `
         \\"version\\": \\"2012-10-17\\"
       }
     }
+  },
+  \\"provider\\": {
+    \\"archive\\": [
+      {}
+    ]
   },
   \\"resource\\": {
     \\"aws_cloudwatch_log_group\\": {
@@ -270,6 +288,14 @@ exports[`ApplicationVersionedLambda renders a versioned lambda 1`] = `
         \\"block_public_acls\\": true,
         \\"block_public_policy\\": true,
         \\"bucket\\": \\"\${aws_s3_bucket.test-versioned-lambda_code-bucket_C658EE92.id}\\"
+      }
+    }
+  },
+  \\"terraform\\": {
+    \\"required_providers\\": {
+      \\"archive\\": {
+        \\"source\\": \\"hashicorp/archive\\",
+        \\"version\\": \\"~> 2.2\\"
       }
     }
   }
@@ -331,6 +357,11 @@ exports[`ApplicationVersionedLambda renders a versioned lambda with description 
       }
     }
   },
+  \\"provider\\": {
+    \\"archive\\": [
+      {}
+    ]
+  },
   \\"resource\\": {
     \\"aws_cloudwatch_log_group\\": {
       \\"test-versioned-lambda_log-group_CB8A67E7\\": {
@@ -410,6 +441,14 @@ exports[`ApplicationVersionedLambda renders a versioned lambda with description 
         \\"bucket\\": \\"\${aws_s3_bucket.test-versioned-lambda_code-bucket_C658EE92.id}\\"
       }
     }
+  },
+  \\"terraform\\": {
+    \\"required_providers\\": {
+      \\"archive\\": {
+        \\"source\\": \\"hashicorp/archive\\",
+        \\"version\\": \\"~> 2.2\\"
+      }
+    }
   }
 }"
 `;
@@ -468,6 +507,11 @@ exports[`ApplicationVersionedLambda renders a versioned lambda with environment 
         \\"version\\": \\"2012-10-17\\"
       }
     }
+  },
+  \\"provider\\": {
+    \\"archive\\": [
+      {}
+    ]
   },
   \\"resource\\": {
     \\"aws_cloudwatch_log_group\\": {
@@ -554,6 +598,14 @@ exports[`ApplicationVersionedLambda renders a versioned lambda with environment 
         \\"bucket\\": \\"\${aws_s3_bucket.test-versioned-lambda_code-bucket_C658EE92.id}\\"
       }
     }
+  },
+  \\"terraform\\": {
+    \\"required_providers\\": {
+      \\"archive\\": {
+        \\"source\\": \\"hashicorp/archive\\",
+        \\"version\\": \\"~> 2.2\\"
+      }
+    }
   }
 }"
 `;
@@ -621,6 +673,11 @@ exports[`ApplicationVersionedLambda renders a versioned lambda with execution po
         \\"version\\": \\"2012-10-17\\"
       }
     }
+  },
+  \\"provider\\": {
+    \\"archive\\": [
+      {}
+    ]
   },
   \\"resource\\": {
     \\"aws_cloudwatch_log_group\\": {
@@ -701,6 +758,14 @@ exports[`ApplicationVersionedLambda renders a versioned lambda with execution po
         \\"bucket\\": \\"\${aws_s3_bucket.test-versioned-lambda_code-bucket_C658EE92.id}\\"
       }
     }
+  },
+  \\"terraform\\": {
+    \\"required_providers\\": {
+      \\"archive\\": {
+        \\"source\\": \\"hashicorp/archive\\",
+        \\"version\\": \\"~> 2.2\\"
+      }
+    }
   }
 }"
 `;
@@ -759,6 +824,11 @@ exports[`ApplicationVersionedLambda renders a versioned lambda with log retentio
         \\"version\\": \\"2012-10-17\\"
       }
     }
+  },
+  \\"provider\\": {
+    \\"archive\\": [
+      {}
+    ]
   },
   \\"resource\\": {
     \\"aws_cloudwatch_log_group\\": {
@@ -839,6 +909,14 @@ exports[`ApplicationVersionedLambda renders a versioned lambda with log retentio
         \\"bucket\\": \\"\${aws_s3_bucket.test-versioned-lambda_code-bucket_C658EE92.id}\\"
       }
     }
+  },
+  \\"terraform\\": {
+    \\"required_providers\\": {
+      \\"archive\\": {
+        \\"source\\": \\"hashicorp/archive\\",
+        \\"version\\": \\"~> 2.2\\"
+      }
+    }
   }
 }"
 `;
@@ -897,6 +975,11 @@ exports[`ApplicationVersionedLambda renders a versioned lambda with publish igno
         \\"version\\": \\"2012-10-17\\"
       }
     }
+  },
+  \\"provider\\": {
+    \\"archive\\": [
+      {}
+    ]
   },
   \\"resource\\": {
     \\"aws_cloudwatch_log_group\\": {
@@ -978,6 +1061,14 @@ exports[`ApplicationVersionedLambda renders a versioned lambda with publish igno
         \\"bucket\\": \\"\${aws_s3_bucket.test-versioned-lambda_code-bucket_C658EE92.id}\\"
       }
     }
+  },
+  \\"terraform\\": {
+    \\"required_providers\\": {
+      \\"archive\\": {
+        \\"source\\": \\"hashicorp/archive\\",
+        \\"version\\": \\"~> 2.2\\"
+      }
+    }
   }
 }"
 `;
@@ -1036,6 +1127,11 @@ exports[`ApplicationVersionedLambda renders a versioned lambda with s3 bucket 1`
         \\"version\\": \\"2012-10-17\\"
       }
     }
+  },
+  \\"provider\\": {
+    \\"archive\\": [
+      {}
+    ]
   },
   \\"resource\\": {
     \\"aws_cloudwatch_log_group\\": {
@@ -1116,6 +1212,14 @@ exports[`ApplicationVersionedLambda renders a versioned lambda with s3 bucket 1`
         \\"bucket\\": \\"\${aws_s3_bucket.test-versioned-lambda_code-bucket_C658EE92.id}\\"
       }
     }
+  },
+  \\"terraform\\": {
+    \\"required_providers\\": {
+      \\"archive\\": {
+        \\"source\\": \\"hashicorp/archive\\",
+        \\"version\\": \\"~> 2.2\\"
+      }
+    }
   }
 }"
 `;
@@ -1174,6 +1278,11 @@ exports[`ApplicationVersionedLambda renders a versioned lambda with tags 1`] = `
         \\"version\\": \\"2012-10-17\\"
       }
     }
+  },
+  \\"provider\\": {
+    \\"archive\\": [
+      {}
+    ]
   },
   \\"resource\\": {
     \\"aws_cloudwatch_log_group\\": {
@@ -1262,6 +1371,14 @@ exports[`ApplicationVersionedLambda renders a versioned lambda with tags 1`] = `
         \\"bucket\\": \\"\${aws_s3_bucket.test-versioned-lambda_code-bucket_C658EE92.id}\\"
       }
     }
+  },
+  \\"terraform\\": {
+    \\"required_providers\\": {
+      \\"archive\\": {
+        \\"source\\": \\"hashicorp/archive\\",
+        \\"version\\": \\"~> 2.2\\"
+      }
+    }
   }
 }"
 `;
@@ -1320,6 +1437,11 @@ exports[`ApplicationVersionedLambda renders a versioned lambda with timeout 1`] 
         \\"version\\": \\"2012-10-17\\"
       }
     }
+  },
+  \\"provider\\": {
+    \\"archive\\": [
+      {}
+    ]
   },
   \\"resource\\": {
     \\"aws_cloudwatch_log_group\\": {
@@ -1400,6 +1522,14 @@ exports[`ApplicationVersionedLambda renders a versioned lambda with timeout 1`] 
         \\"bucket\\": \\"\${aws_s3_bucket.test-versioned-lambda_code-bucket_C658EE92.id}\\"
       }
     }
+  },
+  \\"terraform\\": {
+    \\"required_providers\\": {
+      \\"archive\\": {
+        \\"source\\": \\"hashicorp/archive\\",
+        \\"version\\": \\"~> 2.2\\"
+      }
+    }
   }
 }"
 `;
@@ -1471,6 +1601,11 @@ exports[`ApplicationVersionedLambda renders a versioned lambda with vpc 1`] = `
         \\"version\\": \\"2012-10-17\\"
       }
     }
+  },
+  \\"provider\\": {
+    \\"archive\\": [
+      {}
+    ]
   },
   \\"resource\\": {
     \\"aws_cloudwatch_log_group\\": {
@@ -1559,6 +1694,14 @@ exports[`ApplicationVersionedLambda renders a versioned lambda with vpc 1`] = `
         \\"block_public_acls\\": true,
         \\"block_public_policy\\": true,
         \\"bucket\\": \\"\${aws_s3_bucket.test-versioned-lambda_code-bucket_C658EE92.id}\\"
+      }
+    }
+  },
+  \\"terraform\\": {
+    \\"required_providers\\": {
+      \\"archive\\": {
+        \\"source\\": \\"hashicorp/archive\\",
+        \\"version\\": \\"~> 2.2\\"
       }
     }
   }

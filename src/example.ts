@@ -13,8 +13,6 @@ class Example extends TerraformStack {
     new AwsProvider(this, 'aws', {
       region: 'us-east-1',
     });
-    new LocalProvider(this, 'local', {});
-    new NullProvider(this, 'null', {});
 
     const containerConfigBlue: ApplicationECSContainerDefinitionProps = {
       name: 'blueContainer',

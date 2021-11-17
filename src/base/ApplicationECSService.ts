@@ -1,5 +1,5 @@
-import { ECS, ECR, CloudWatch, VPC, ELB } from '@cdktf/provider-aws';
-import { Resource } from '@cdktf/provider-null';
+import { CloudWatch, ECR, ECS, ELB, VPC } from '@cdktf/provider-aws';
+import { NullProvider, Resource } from '@cdktf/provider-null';
 import { Construct } from 'constructs';
 import { ApplicationECR, ECRProps } from './ApplicationECR';
 import { ApplicationECSIAM, ApplicationECSIAMProps } from './ApplicationECSIAM';
@@ -11,7 +11,7 @@ import { ApplicationTargetGroup } from './ApplicationTargetGroup';
 import { ApplicationECSAlbCodeDeploy } from './ApplicationECSAlbCodeDeploy';
 import { TerraformResource } from 'cdktf';
 import { truncateString } from '../utilities';
-import { File } from '@cdktf/provider-local';
+import { File, LocalProvider } from '@cdktf/provider-local';
 
 export interface ApplicationECSServiceProps {
   prefix: string;
@@ -64,6 +64,9 @@ export class ApplicationECSService extends Resource {
     config: ApplicationECSServiceProps
   ) {
     super(scope, name);
+
+    new NullProvider(this, 'ecs-null-provider');
+    new LocalProvider(this, 'ecs-local-provider');
 
     // populate defaults for some values if not provided
     this.config = ApplicationECSService.hydrateConfig(config);
