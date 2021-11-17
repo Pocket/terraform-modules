@@ -18,8 +18,6 @@ export interface ApiGatewayLambdaRoute {
 export interface PocketApiGatewayProps {
   name: string;
   routes: ApiGatewayLambdaRoute[];
-  accountId: string;
-  region: string;
 }
 
 interface InitializedGatewayRoute {
@@ -81,7 +79,8 @@ export class PocketApiGateway extends Resource {
         this,
         `${route.path}-integration`,
         {
-          httpMethod: method.httpMethod,
+          httpMethod: route.method,
+          integrationHttpMethod: 'POST', // lambda has to be post
           resourceId: resource.id,
           restApiId: this.apiGatewayRestApi.id,
           type: 'AWS_PROXY',
@@ -90,12 +89,15 @@ export class PocketApiGateway extends Resource {
       );
       const permission = new LambdaFunction.LambdaPermission(
         this,
-        `${resource.path}-allow-gateway-lambda-invoke`,
+        `${route.path}-allow-gateway-lambda-invoke`,
         {
           functionName: lambda.lambda.versionedLambda.functionName,
           action: 'lambda:InvokeFunction',
           principal: 'apigateway.amazonaws.com',
-          sourceArn: `arn:aws:execute-api:${config.region}:${config.accountId}:${this.apiGatewayRestApi.id}/*/${method.httpMethod}${resource.path}`,
+          // The /*/*/* part allows invocation from any stage, method and resource path
+          // within API Gateway REST API.
+          sourceArn: `${this.apiGatewayRestApi.executionArn}/*/*/*`,
+          qualifier: lambda.lambda.versionedLambda.name,
         }
       );
       return { resource, method, integration, permission };
