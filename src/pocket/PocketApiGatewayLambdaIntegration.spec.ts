@@ -1,4 +1,4 @@
-import { TerraformStack, Testing } from 'cdktf';
+import { Testing } from 'cdktf';
 import { LAMBDA_RUNTIMES } from '../base/ApplicationVersionedLambda';
 import {
   PocketApiGateway,
