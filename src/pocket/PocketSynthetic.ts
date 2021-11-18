@@ -84,7 +84,7 @@ export class PocketSyntheticCheck extends Resource {
   ) {
     super(scope, name);
 
-    if (!this.config.hasOwnProperty('check')) {
+    if (this.config.check == undefined) {
       this.config.check = defaultMonitor(
         this.config.config.url,
         this.config.config.protocol,

@@ -24,6 +24,7 @@ test('pass a completely custom test for synthetics', () => {
   config.check = `
   console.log('I am a synthetic-check');
 `;
+
   const synthed = Testing.synthScope((stack) => {
     new PocketSyntheticCheck(stack, 'test-synthetic', config);
   });
