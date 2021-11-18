@@ -11,18 +11,18 @@ export interface PocketSyntheticProps {
   verifySsl: boolean;
   policyId?: number;
   nrqlConfig?: {
-    query?: string,
-    evaluationOffset?: number,
-    valueFunction?: string,
-    violationTimeLimitSeconds?: number,
-    closeViolationsOnExpiration?: boolean,
-    expirationDuration?: number,
+    query?: string;
+    evaluationOffset?: number;
+    valueFunction?: string;
+    violationTimeLimitSeconds?: number;
+    closeViolationsOnExpiration?: boolean;
+    expirationDuration?: number;
     critical?: {
-      operator?: string,
-      threshold?: number,
-      thresholdDuration?: number,
-      thresholdOccurrences?: string,
-    }
+      operator?: string;
+      threshold?: number;
+      thresholdDuration?: number;
+      thresholdOccurrences?: string;
+    };
   };
 }
 
@@ -47,7 +47,6 @@ export class PocketSyntheticCheck extends Resource {
       // the cdktf.json file so we have to hardcode the default policy id
       this.config.policyId = 1707149; // Pocket-Default-Policy
     }
-
 
     const pocketMonitor = new SyntheticsMonitor(
       this,
@@ -75,8 +74,8 @@ export class PocketSyntheticCheck extends Resource {
         threshold: 2,
         thresholdDuration: 900,
         thresholdOccurrences: 'AT_LEAST_ONCE',
-      }
-    }
+      },
+    };
 
     this.config.nrqlConfig = {
       ...defaultNrqlConfig,
@@ -91,14 +90,17 @@ export class PocketSyntheticCheck extends Resource {
         evaluationOffset: this.config.nrqlConfig.evaluationOffset,
       },
       valueFunction: this.config.nrqlConfig.valueFunction,
-      violationTimeLimitSeconds: this.config.nrqlConfig.violationTimeLimitSeconds,
-      closeViolationsOnExpiration: this.config.nrqlConfig.closeViolationsOnExpiration,
+      violationTimeLimitSeconds:
+        this.config.nrqlConfig.violationTimeLimitSeconds,
+      closeViolationsOnExpiration:
+        this.config.nrqlConfig.closeViolationsOnExpiration,
       expirationDuration: this.config.nrqlConfig.expirationDuration,
       critical: {
         operator: this.config.nrqlConfig.critical.operator,
         threshold: this.config.nrqlConfig.critical.threshold,
         thresholdDuration: this.config.nrqlConfig.critical.thresholdDuration,
-        thresholdOccurrences: this.config.nrqlConfig.critical.thresholdOccurrences,
+        thresholdOccurrences:
+          this.config.nrqlConfig.critical.thresholdOccurrences,
       },
     });
   }
