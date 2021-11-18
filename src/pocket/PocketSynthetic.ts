@@ -1,29 +1,26 @@
 import { Resource } from 'cdktf';
 import { Synthetics, IAM, CloudWatch } from '@cdktf/provider-aws';
 import { Construct } from 'constructs';
-import { ArchiveProvider, DataArchiveFile } from '@cdktf/provider-archive';
+import { DataArchiveFile } from '@cdktf/provider-archive';
 
-// the exported type is called compile? I assume
-// compile is a builtin?
 import compile from 'string-template/compile';
 import fs = require('fs');
 import path = require('path');
-   
 
 export interface PocketSyntheticProps {
   config?: {
-    url: string,
+    url: string;
     path: string;
     port: string;
     protocol: string;
-  },
+  };
   check?: any;
   environment: string;
   artifactS3Location: string;
   pagerDutyArn?: string;
 }
 
-const defaultMonitor = comile(`
+const defaultMonitor = compile(`
 var synthetics = require('Synthetics');
 
 const apiCanary = async function () {
@@ -86,29 +83,28 @@ export class PocketSyntheticCheck extends Resource {
     private config: PocketSyntheticProps
   ) {
     super(scope, name);
-    new ArchiveProvider(this, 'archive', {});
-   
+
     if (!this.config.hasOwnProperty('check')) {
       this.config.check = defaultMonitor(
-          this.config.config.url,
-          this.config.config.protocol,
-          this.config.config.port,
-          this.config.config.path,
-        ) 
+        this.config.config.url,
+        this.config.config.protocol,
+        this.config.config.port,
+        this.config.config.path
+      );
     }
 
-    const indexPath = path.join(__dirname, 'synthetics', 'nodejs',
-        'node_modules', 'index.js');
+    const indexPath = path.join(
+      __dirname,
+      'synthetics',
+      'nodejs',
+      'node_modules',
+      'index.js'
+    );
 
-    fs.writeFile(indexPath, this.config.check, err => {
-      if (err) {
-        console.log(err);
-        return
-      }
-    });
+    fs.writeFileSync(indexPath, this.config.check);
 
-    const zipFile = new DataArchiveFile(this, "synthetic-zip-file", {
-      type: "zip",
+    const zipFile = new DataArchiveFile(this, 'synthetic-zip-file', {
+      type: 'zip',
       // TODO: hmm, maybe don't want to cause a diff evertyime
       outputPath: `index-${(+new Date()).toString(36)}.zip`,
       sourceDir: path.join(__dirname, 'synthetics'),
@@ -116,12 +112,14 @@ export class PocketSyntheticCheck extends Resource {
 
     new Synthetics.SyntheticsCanary(this, `canary-${this.name}`, {
       name: `${this.name}-syntheic`.toLowerCase(),
-      schedule: { expression: "rate(3 minutes)" },
-      runtimeVersion: "syn-nodejs-puppeteer-3.3",
+      schedule: { expression: 'rate(3 minutes)' },
+      runtimeVersion: 'syn-nodejs-puppeteer-3.3',
       artifactS3Location: this.config.artifactS3Location,
       zipFile: zipFile.outputPath,
-      handler: "index.handler",
-      executionRoleArn: this.syntheticsExecutionRole(this.config.artifactS3Location).arn,
+      handler: 'index.handler',
+      executionRoleArn: this.syntheticsExecutionRole(
+        this.config.artifactS3Location
+      ).arn,
       startCanary: true,
     });
 
@@ -137,84 +135,80 @@ export class PocketSyntheticCheck extends Resource {
       statistic: 'SampleCount',
       comparisonOperator: 'GreaterThanOrEqualToThreshold',
       threshold: 1,
-      alarmDescription: 'Synthetic Check is failing', 
+      alarmDescription: 'Synthetic Check is failing',
       insufficientDataActions: [],
-      alarmActions:  [],//TODO: put a pagerduty arn here
+      alarmActions: [], //TODO: put a pagerduty arn here
       treatMissingData: 'notBreaching',
     });
   }
 
   private syntheticsExecutionRole(bucket: string) {
-    const iamRole = new IAM.IamRole(this, "synthetics-execution-role", {
+    const iamRole = new IAM.IamRole(this, 'synthetics-execution-role', {
       name: `synthetics-role-for-${this.name}`,
       assumeRolePolicy: this.syntheticsAssumePolicyDocument(),
     });
 
-    const policy = new IAM.IamPolicy(this, "execution-policy", {
+    const policy = new IAM.IamPolicy(this, 'execution-policy', {
       name: `${this.name}-ExecutionRolePolicy`,
-      policy: this.getPolicyDocument(bucket.replace('s3://','')),
+      policy: this.getPolicyDocument(bucket.replace('s3://', '')),
     });
 
-    new IAM.IamRolePolicyAttachment(this, "execution-role-policy-attachment", {
+    new IAM.IamRolePolicyAttachment(this, 'execution-role-policy-attachment', {
       role: iamRole.name,
       policyArn: policy.arn,
       dependsOn: [iamRole, policy],
     });
-
     return iamRole;
   }
 
   private getPolicyDocument(bucket: string) {
     const document = {
-      version: "2012-10-17",
+      version: '2012-10-17',
       statement: [
         {
-          effect: "Allow",
+          effect: 'Allow',
           actions: [
-            "logs:CreateLogGroup",
-            "logs:CreateLogStream",
-            "logs:PutLogEvents",
+            'logs:CreateLogGroup',
+            'logs:CreateLogStream',
+            'logs:PutLogEvents',
           ],
-          resources: ["arn:aws:logs:*:*:*"],
+          resources: ['arn:aws:logs:*:*:*'],
         },
         {
-          effect: "Allow",
+          effect: 'Allow',
           actions: [
-            "s3:ListAllMyBuckets",
-            "cloudwatch:PutMetricData",
-            "xray:PutTraceSegments",
+            's3:ListAllMyBuckets',
+            'cloudwatch:PutMetricData',
+            'xray:PutTraceSegments',
           ],
-          resources: ["*"],
+          resources: ['*'],
         },
         {
-          effect: "Allow",
-          actions: ["s3:PutObject", "s3:GetBucketLocation"],
-          resources: [
-            `arn:aws:s3:::${bucket}`,
-            `arn:aws:s3:::${bucket}/*`,
-          ],
+          effect: 'Allow',
+          actions: ['s3:PutObject', 's3:GetBucketLocation'],
+          resources: [`arn:aws:s3:::${bucket}`, `arn:aws:s3:::${bucket}/*`],
         },
       ],
     };
 
     return new IAM.DataAwsIamPolicyDocument(
       this,
-      "execution-policy-document",
+      'execution-policy-document',
       document
     ).json;
   }
 
   private syntheticsAssumePolicyDocument() {
-    return new IAM.DataAwsIamPolicyDocument(this, "assume-policy-document", {
-      version: "2012-10-17",
+    return new IAM.DataAwsIamPolicyDocument(this, 'assume-policy-document', {
+      version: '2012-10-17',
       statement: [
         {
-          effect: "Allow",
-          actions: ["sts:AssumeRole"],
+          effect: 'Allow',
+          actions: ['sts:AssumeRole'],
           principals: [
             {
-              identifiers: ["lambda.amazonaws.com", "synthetics.amazonaws.com"],
-              type: "Service",
+              identifiers: ['lambda.amazonaws.com', 'synthetics.amazonaws.com'],
+              type: 'Service',
             },
           ],
         },
