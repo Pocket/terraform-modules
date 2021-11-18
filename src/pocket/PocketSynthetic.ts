@@ -105,8 +105,7 @@ export class PocketSyntheticCheck extends Resource {
 
     const zipFile = new DataArchiveFile(this, 'synthetic-zip-file', {
       type: 'zip',
-      // TODO: hmm, maybe don't want to cause a diff evertyime
-      outputPath: `index-${(+new Date()).toString(36)}.zip`,
+      outputPath: 'index.zip',
       sourceDir: path.join(__dirname, 'synthetics'),
     });
 

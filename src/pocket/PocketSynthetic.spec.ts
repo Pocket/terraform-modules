@@ -12,11 +12,14 @@ const config: PocketSyntheticProps = {
   artifactS3Location: 's3://not-a-real-thing',
 };
 
+// Because the snapshot includes a zip file with my local path
+// trying to test something inside the snapshot instead of the
+// entire snapshot
 test('renders a Pocket Synthetic check for acme.getpocket.dev', () => {
   const synthed = Testing.synthScope((stack) => {
     new PocketSyntheticCheck(stack, 'test-synthetic', config);
   });
-  expect(synthed).toMatchSnapshot();
+  expect(JSON.parse(synthed)).toHaveProperty('resource.aws_synthetics_canary');
 });
 
 test('pass a completely custom test for synthetics', () => {
@@ -28,5 +31,6 @@ test('pass a completely custom test for synthetics', () => {
   const synthed = Testing.synthScope((stack) => {
     new PocketSyntheticCheck(stack, 'test-synthetic', config);
   });
-  expect(synthed).toMatchSnapshot();
+
+  expect(JSON.parse(synthed)).toHaveProperty('resource.aws_synthetics_canary');
 });
