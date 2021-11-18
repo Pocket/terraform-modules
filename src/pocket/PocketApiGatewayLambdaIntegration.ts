@@ -1,6 +1,7 @@
 import { APIGateway, LambdaFunction } from '@cdktf/provider-aws';
 import { Resource } from '@cdktf/provider-null';
 import { Construct } from 'constructs';
+import { Fn } from 'cdktf';
 
 import { PocketVersionedLambda, PocketVersionedLambdaProps } from '..';
 
@@ -17,14 +18,15 @@ export interface ApiGatewayLambdaRoute {
 
 export interface PocketApiGatewayProps {
   name: string;
+  stage: string; // https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/api_gateway_stage#stage_name
   routes: ApiGatewayLambdaRoute[];
 }
 
 interface InitializedGatewayRoute {
+  lambda: PocketVersionedLambda;
   resource: APIGateway.ApiGatewayResource;
   method: APIGateway.ApiGatewayMethod;
   integration: APIGateway.ApiGatewayIntegration;
-  permission: LambdaFunction.LambdaPermission;
 }
 
 export class PocketApiGateway extends Resource {
@@ -43,9 +45,60 @@ export class PocketApiGateway extends Resource {
         name: config.name,
       }
     );
-    // do the deployment after everything is initialized but before adding lambda permissions??
     // https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/api_gateway_deployment
-    this.createLambdaIntegrations(config);
+    this.routes = this.createLambdaIntegrations(config);
+    const routeDependencies = this.routes.flatMap((route) => [
+      route.integration,
+      route.method,
+      route.resource,
+      route.lambda.lambda.versionedLambda,
+    ]);
+    // Deployment before adding permissions so we can restrict to the stage
+    this.apiGatewayDeployment = new APIGateway.ApiGatewayDeployment(
+      scope,
+      'api-gateway-deployment',
+      {
+        restApiId: this.apiGatewayRestApi.id,
+        // Removing the `id` from the resources in line 51 causes:
+        // `RangeError: Resolution error Maximum call stack size exceeded`
+        // However, this may not suffice for proper redeployment trigger...
+        // https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/api_gateway_deployment#terraform-resources
+        triggers: {
+          redeployment: Fn.sha1(
+            Fn.jsonencode(routeDependencies.map((dependency) => dependency.id))
+          ),
+        },
+        dependsOn: routeDependencies,
+      }
+    );
+    this.apiGatewayStage = new APIGateway.ApiGatewayStage(
+      scope,
+      'api-gateway-stage',
+      {
+        deploymentId: this.apiGatewayDeployment.id,
+        restApiId: this.apiGatewayRestApi.id,
+        stageName: config.stage,
+      }
+    );
+    this.addInvokePermissions();
+  }
+  private addInvokePermissions() {
+    this.routes.map(({ lambda, resource, method }) => {
+      const functionName = lambda.lambda.versionedLambda.functionName;
+      new LambdaFunction.LambdaPermission(
+        this,
+        `${functionName}-allow-gateway-lambda-invoke`,
+        {
+          functionName: lambda.lambda.versionedLambda.functionName,
+          action: 'lambda:InvokeFunction',
+          principal: 'apigateway.amazonaws.com',
+          // Grants access to invoke lambda on specified stage, method, resource path
+          // note the resource path has a leading `/`
+          sourceArn: `${this.apiGatewayRestApi.executionArn}/${this.apiGatewayStage.stageName}/${method.httpMethod}${resource.path}`,
+          qualifier: lambda.lambda.versionedLambda.name,
+        }
+      );
+    });
   }
   // loop over routes and generate methods
   /**
@@ -53,7 +106,7 @@ export class PocketApiGateway extends Resource {
    * @param routes
    */
   private createLambdaIntegrations(config: PocketApiGatewayProps) {
-    this.routes = config.routes.map((route: ApiGatewayLambdaRoute) => {
+    return config.routes.map((route: ApiGatewayLambdaRoute) => {
       const lambda = new PocketVersionedLambda(
         this,
         `${route.path}-lambda`,
@@ -87,20 +140,7 @@ export class PocketApiGateway extends Resource {
           uri: lambda.lambda.versionedLambda.invokeArn,
         }
       );
-      const permission = new LambdaFunction.LambdaPermission(
-        this,
-        `${route.path}-allow-gateway-lambda-invoke`,
-        {
-          functionName: lambda.lambda.versionedLambda.functionName,
-          action: 'lambda:InvokeFunction',
-          principal: 'apigateway.amazonaws.com',
-          // The /*/*/* part allows invocation from any stage, method and resource path
-          // within API Gateway REST API.
-          sourceArn: `${this.apiGatewayRestApi.executionArn}/*/*/*`,
-          qualifier: lambda.lambda.versionedLambda.name,
-        }
-      );
-      return { resource, method, integration, permission };
+      return { lambda, resource, method, integration };
     });
   }
 }

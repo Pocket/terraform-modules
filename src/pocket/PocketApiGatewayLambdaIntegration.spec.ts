@@ -7,6 +7,7 @@ import {
 
 const config: PocketApiGatewayProps = {
   name: 'test-api-lambda',
+  stage: 'test',
   routes: [
     {
       path: 'endpoint',
