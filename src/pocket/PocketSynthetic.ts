@@ -5,7 +5,7 @@ import { ArchiveProvider, DataArchiveFile } from '@cdktf/provider-archive';
 
 // the exported type is called compile? I assume
 // compile is a builtin?
-import comile = require('string-template/compile')
+import compile from 'string-template/compile';
 import fs = require('fs');
 import path = require('path');
    
