@@ -29,7 +29,7 @@ var synthetics = require('Synthetics');
 const apiCanary = async function () {
 
     // Handle validation for positive scenario
-    const validateSuccessfull = async function (res) {
+    const validateSuccessful = async function (res) {
         return new Promise((resolve, reject) => {
             if (res.statusCode < 200 || res.statusCode > 299) {
                 throw res.statusCode + ' ' + res.statusMessage;
