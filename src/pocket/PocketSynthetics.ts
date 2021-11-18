@@ -10,6 +10,20 @@ export interface PocketSyntheticProps {
   uri: string;
   verifySsl: boolean;
   policyId?: number;
+  nrqlConfig?: {
+    query?: string,
+    evaluationOffset?: number,
+    valueFunction?: string,
+    violationTimeLimitSeconds?: number,
+    closeViolationsOnExpiration?: boolean,
+    expirationDuration?: number,
+    critical?: {
+      operator?: string,
+      threshold?: number,
+      thresholdDuration?: number,
+      thresholdOccurrences?: string,
+    }
+  };
 }
 
 const globalCheckLocations = [
@@ -34,6 +48,7 @@ export class PocketSyntheticCheck extends Resource {
       this.config.policyId = 1707149; // Pocket-Default-Policy
     }
 
+
     const pocketMonitor = new SyntheticsMonitor(
       this,
       `${this.name}-synthetics-monitor`,
@@ -48,13 +63,9 @@ export class PocketSyntheticCheck extends Resource {
       }
     );
 
-    new NrqlAlertCondition(this, 'alert-condition', {
-      name: `${this.name}-nrql`,
-      policyId: this.config.policyId,
-      nrql: {
-        query: `SELECT count(result) from SyntheticCheck where result = 'FAILED' and monitorName = '${pocketMonitor.name}'`,
-        evaluationOffset: 3,
-      },
+    const defaultNrqlConfig = {
+      query: `SELECT count(result) from SyntheticCheck where result = 'FAILED' and monitorName = '${pocketMonitor.name}'`,
+      evaluationOffset: 3,
       valueFunction: 'sum',
       violationTimeLimitSeconds: 2592000,
       closeViolationsOnExpiration: true,
@@ -64,6 +75,30 @@ export class PocketSyntheticCheck extends Resource {
         threshold: 2,
         thresholdDuration: 900,
         thresholdOccurrences: 'AT_LEAST_ONCE',
+      }
+    }
+
+    this.config.nrqlConfig = {
+      ...defaultNrqlConfig,
+      ...config.nrqlConfig,
+    };
+
+    new NrqlAlertCondition(this, 'alert-condition', {
+      name: `${this.name}-nrql`,
+      policyId: this.config.policyId,
+      nrql: {
+        query: this.config.nrqlConfig.query,
+        evaluationOffset: this.config.nrqlConfig.evaluationOffset,
+      },
+      valueFunction: this.config.nrqlConfig.valueFunction,
+      violationTimeLimitSeconds: this.config.nrqlConfig.violationTimeLimitSeconds,
+      closeViolationsOnExpiration: this.config.nrqlConfig.closeViolationsOnExpiration,
+      expirationDuration: this.config.nrqlConfig.expirationDuration,
+      critical: {
+        operator: this.config.nrqlConfig.critical.operator,
+        threshold: this.config.nrqlConfig.critical.threshold,
+        thresholdDuration: this.config.nrqlConfig.critical.thresholdDuration,
+        thresholdOccurrences: this.config.nrqlConfig.critical.thresholdOccurrences,
       },
     });
   }

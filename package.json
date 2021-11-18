@@ -91,6 +91,7 @@
     "@cdktf/provider-local": "0.0.252",
     "@cdktf/provider-null": "0.2.252",
     "@cdktf/provider-pagerduty": "0.0.241",
+    "@cdktf/provider-newrelic": "0.0.0",
     "cdktf": "0.7.0",
     "cdktf-cli": "0.7.0",
     "constructs": "10.0.9"
