@@ -71,7 +71,7 @@ const apiCanary = async function () {
     await synthetics.executeHttpStep('Verify synthetic check', {
         ...commonProps,
         path: '{3}',
-    }, validateSuccessfull, allConfig);
+    }, validateSuccessful, allConfig);
 };
 
 exports.handler = async () => {
