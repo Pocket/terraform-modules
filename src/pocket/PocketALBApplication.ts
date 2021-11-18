@@ -20,6 +20,7 @@ export interface PocketALBApplicationAlarmProps {
   evaluationPeriods?: number;
   datapointsToAlarm?: number;
   actions?: string[];
+  alarmDescription?: string;
 }
 
 export interface PocketALBApplicationProps {
@@ -843,7 +844,9 @@ export class PocketALBApplication extends Resource {
       alarmActions: alarmsConfig?.http5xxErrorPercentage?.actions ?? [],
       okActions: alarmsConfig?.http5xxErrorPercentage?.actions ?? [],
       tags: this.config.tags,
-      alarmDescription: 'Percentage of 5xx responses exceeds threshold',
+      alarmDescription:
+        alarmsConfig?.http5xxErrorPercentage?.alarmDescription ??
+        'Percentage of 5xx responses exceeds threshold',
     };
     const latencyAlarm: CloudWatch.CloudwatchMetricAlarmConfig = {
       alarmName: 'Alarm-HTTPResponseTime',
@@ -858,7 +861,9 @@ export class PocketALBApplication extends Resource {
       statistic: 'Average',
       comparisonOperator: 'GreaterThanThreshold',
       threshold: alarmsConfig?.httpLatency?.threshold ?? 300,
-      alarmDescription: 'Average HTTP response time exceeds threshold',
+      alarmDescription:
+        alarmsConfig?.httpLatency?.alarmDescription ??
+        'Average HTTP response time exceeds threshold',
       insufficientDataActions: [],
       alarmActions: alarmsConfig?.httpLatency?.actions ?? [],
       okActions: alarmsConfig?.httpLatency?.actions ?? [],
