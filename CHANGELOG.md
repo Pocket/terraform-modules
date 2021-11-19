@@ -1,3 +1,10 @@
+## [2.1.0](https://github.com/Pocket/terraform-modules/compare/v2.0.41...v2.1.0) (2021-11-19)
+
+
+### Features
+
+* **CloudwatchAlarm:** Allow configuring Alarm Description ([#506](https://github.com/Pocket/terraform-modules/issues/506)) ([f22a8aa](https://github.com/Pocket/terraform-modules/commit/f22a8aa8eb864ea9787e3013b3e1c3cb9b5f0b12))
+
 ### [2.0.41](https://github.com/Pocket/terraform-modules/compare/v2.0.40...v2.0.41) (2021-11-19)
 
 
