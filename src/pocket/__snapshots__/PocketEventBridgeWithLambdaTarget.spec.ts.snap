@@ -8,7 +8,7 @@ exports[`renders an event bridge and lambda target with event bus name 1`] = `
         \\"output_path\\": \\"index.py.zip\\",
         \\"source\\": [
           {
-            \\"content\\": \\"handler(event, context):\\\\n\\\\t print(event)\\",
+            \\"content\\": \\"import json\\\\ndef handler(event, context):\\\\n\\\\t print(event)\\\\n\\\\t return {'statusCode': 200, 'headers': {'dance': 'party'}, 'body': json.dumps({'electric': 'boogaloo'}), 'isBase64Encoded': False}\\",
             \\"filename\\": \\"index.py\\"
           }
         ],
@@ -177,7 +177,7 @@ exports[`renders an event bridge and lambda target with rule description 1`] = `
         \\"output_path\\": \\"index.py.zip\\",
         \\"source\\": [
           {
-            \\"content\\": \\"handler(event, context):\\\\n\\\\t print(event)\\",
+            \\"content\\": \\"import json\\\\ndef handler(event, context):\\\\n\\\\t print(event)\\\\n\\\\t return {'statusCode': 200, 'headers': {'dance': 'party'}, 'body': json.dumps({'electric': 'boogaloo'}), 'isBase64Encoded': False}\\",
             \\"filename\\": \\"index.py\\"
           }
         ],

@@ -193,7 +193,7 @@ export class ApplicationVersionedLambda extends Resource {
     let filename = `${functionFilename}.js`;
 
     if (runtime === 'python') {
-      content = `${functionName}(event, context):\n\t print(event)`;
+      content = `import json\ndef ${functionName}(event, context):\n\t print(event)\n\t return {'statusCode': 200, 'headers': {'dance': 'party'}, 'body': json.dumps({'electric': 'boogaloo'}), 'isBase64Encoded': False}`;
       filename = `${functionFilename}.py`;
     }
 

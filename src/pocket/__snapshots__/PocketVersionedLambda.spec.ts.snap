@@ -8,7 +8,7 @@ exports[`it can treat missing data as breaching 1`] = `
         \\"output_path\\": \\"index.py.zip\\",
         \\"source\\": [
           {
-            \\"content\\": \\"handler(event, context):\\\\n\\\\t print(event)\\",
+            \\"content\\": \\"import json\\\\ndef handler(event, context):\\\\n\\\\t print(event)\\\\n\\\\t return {'statusCode': 200, 'headers': {'dance': 'party'}, 'body': json.dumps({'electric': 'boogaloo'}), 'isBase64Encoded': False}\\",
             \\"filename\\": \\"index.py\\"
           }
         ],
@@ -168,7 +168,7 @@ exports[`renders a lambda target 1`] = `
         \\"output_path\\": \\"index.py.zip\\",
         \\"source\\": [
           {
-            \\"content\\": \\"handler(event, context):\\\\n\\\\t print(event)\\",
+            \\"content\\": \\"import json\\\\ndef handler(event, context):\\\\n\\\\t print(event)\\\\n\\\\t return {'statusCode': 200, 'headers': {'dance': 'party'}, 'body': json.dumps({'electric': 'boogaloo'}), 'isBase64Encoded': False}\\",
             \\"filename\\": \\"index.py\\"
           }
         ],
@@ -306,7 +306,7 @@ exports[`renders a lambda target with tags 1`] = `
         \\"output_path\\": \\"index.py.zip\\",
         \\"source\\": [
           {
-            \\"content\\": \\"handler(event, context):\\\\n\\\\t print(event)\\",
+            \\"content\\": \\"import json\\\\ndef handler(event, context):\\\\n\\\\t print(event)\\\\n\\\\t return {'statusCode': 200, 'headers': {'dance': 'party'}, 'body': json.dumps({'electric': 'boogaloo'}), 'isBase64Encoded': False}\\",
             \\"filename\\": \\"index.py\\"
           }
         ],
@@ -452,7 +452,7 @@ exports[`renders a lambda with alarms 1`] = `
         \\"output_path\\": \\"index.py.zip\\",
         \\"source\\": [
           {
-            \\"content\\": \\"handler(event, context):\\\\n\\\\t print(event)\\",
+            \\"content\\": \\"import json\\\\ndef handler(event, context):\\\\n\\\\t print(event)\\\\n\\\\t return {'statusCode': 200, 'headers': {'dance': 'party'}, 'body': json.dumps({'electric': 'boogaloo'}), 'isBase64Encoded': False}\\",
             \\"filename\\": \\"index.py\\"
           }
         ],
@@ -692,7 +692,7 @@ exports[`renders a lambda with code deploy 1`] = `
         \\"output_path\\": \\"index.py.zip\\",
         \\"source\\": [
           {
-            \\"content\\": \\"handler(event, context):\\\\n\\\\t print(event)\\",
+            \\"content\\": \\"import json\\\\ndef handler(event, context):\\\\n\\\\t print(event)\\\\n\\\\t return {'statusCode': 200, 'headers': {'dance': 'party'}, 'body': json.dumps({'electric': 'boogaloo'}), 'isBase64Encoded': False}\\",
             \\"filename\\": \\"index.py\\"
           }
         ],
@@ -902,7 +902,7 @@ exports[`renders a lambda with environment variables 1`] = `
         \\"output_path\\": \\"index.py.zip\\",
         \\"source\\": [
           {
-            \\"content\\": \\"handler(event, context):\\\\n\\\\t print(event)\\",
+            \\"content\\": \\"import json\\\\ndef handler(event, context):\\\\n\\\\t print(event)\\\\n\\\\t return {'statusCode': 200, 'headers': {'dance': 'party'}, 'body': json.dumps({'electric': 'boogaloo'}), 'isBase64Encoded': False}\\",
             \\"filename\\": \\"index.py\\"
           }
         ],
@@ -1046,7 +1046,7 @@ exports[`renders a lambda with execution policy 1`] = `
         \\"output_path\\": \\"index.py.zip\\",
         \\"source\\": [
           {
-            \\"content\\": \\"handler(event, context):\\\\n\\\\t print(event)\\",
+            \\"content\\": \\"import json\\\\ndef handler(event, context):\\\\n\\\\t print(event)\\\\n\\\\t return {'statusCode': 200, 'headers': {'dance': 'party'}, 'body': json.dumps({'electric': 'boogaloo'}), 'isBase64Encoded': False}\\",
             \\"filename\\": \\"index.py\\"
           }
         ],
@@ -1193,7 +1193,7 @@ exports[`renders a lambda with lambda description 1`] = `
         \\"output_path\\": \\"index.py.zip\\",
         \\"source\\": [
           {
-            \\"content\\": \\"handler(event, context):\\\\n\\\\t print(event)\\",
+            \\"content\\": \\"import json\\\\ndef handler(event, context):\\\\n\\\\t print(event)\\\\n\\\\t return {'statusCode': 200, 'headers': {'dance': 'party'}, 'body': json.dumps({'electric': 'boogaloo'}), 'isBase64Encoded': False}\\",
             \\"filename\\": \\"index.py\\"
           }
         ],
@@ -1331,7 +1331,7 @@ exports[`renders a lambda with log retention 1`] = `
         \\"output_path\\": \\"index.py.zip\\",
         \\"source\\": [
           {
-            \\"content\\": \\"handler(event, context):\\\\n\\\\t print(event)\\",
+            \\"content\\": \\"import json\\\\ndef handler(event, context):\\\\n\\\\t print(event)\\\\n\\\\t return {'statusCode': 200, 'headers': {'dance': 'party'}, 'body': json.dumps({'electric': 'boogaloo'}), 'isBase64Encoded': False}\\",
             \\"filename\\": \\"index.py\\"
           }
         ],
@@ -1469,7 +1469,7 @@ exports[`renders a lambda with s3 bucket 1`] = `
         \\"output_path\\": \\"index.py.zip\\",
         \\"source\\": [
           {
-            \\"content\\": \\"handler(event, context):\\\\n\\\\t print(event)\\",
+            \\"content\\": \\"import json\\\\ndef handler(event, context):\\\\n\\\\t print(event)\\\\n\\\\t return {'statusCode': 200, 'headers': {'dance': 'party'}, 'body': json.dumps({'electric': 'boogaloo'}), 'isBase64Encoded': False}\\",
             \\"filename\\": \\"index.py\\"
           }
         ],
@@ -1607,7 +1607,7 @@ exports[`renders a lambda with timeout 1`] = `
         \\"output_path\\": \\"index.py.zip\\",
         \\"source\\": [
           {
-            \\"content\\": \\"handler(event, context):\\\\n\\\\t print(event)\\",
+            \\"content\\": \\"import json\\\\ndef handler(event, context):\\\\n\\\\t print(event)\\\\n\\\\t return {'statusCode': 200, 'headers': {'dance': 'party'}, 'body': json.dumps({'electric': 'boogaloo'}), 'isBase64Encoded': False}\\",
             \\"filename\\": \\"index.py\\"
           }
         ],
@@ -1745,7 +1745,7 @@ exports[`renders a lambda with vpc config 1`] = `
         \\"output_path\\": \\"index.py.zip\\",
         \\"source\\": [
           {
-            \\"content\\": \\"handler(event, context):\\\\n\\\\t print(event)\\",
+            \\"content\\": \\"import json\\\\ndef handler(event, context):\\\\n\\\\t print(event)\\\\n\\\\t return {'statusCode': 200, 'headers': {'dance': 'party'}, 'body': json.dumps({'electric': 'boogaloo'}), 'isBase64Encoded': False}\\",
             \\"filename\\": \\"index.py\\"
           }
         ],

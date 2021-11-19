@@ -146,7 +146,7 @@ exports[`ApplicationVersionedLambda renders a versioned lambda 1`] = `
         \\"output_path\\": \\"index.py.zip\\",
         \\"source\\": [
           {
-            \\"content\\": \\"handler(event, context):\\\\n\\\\t print(event)\\",
+            \\"content\\": \\"import json\\\\ndef handler(event, context):\\\\n\\\\t print(event)\\\\n\\\\t return {'statusCode': 200, 'headers': {'dance': 'party'}, 'body': json.dumps({'electric': 'boogaloo'}), 'isBase64Encoded': False}\\",
             \\"filename\\": \\"index.py\\"
           }
         ],
@@ -284,7 +284,7 @@ exports[`ApplicationVersionedLambda renders a versioned lambda with description 
         \\"output_path\\": \\"index.py.zip\\",
         \\"source\\": [
           {
-            \\"content\\": \\"handler(event, context):\\\\n\\\\t print(event)\\",
+            \\"content\\": \\"import json\\\\ndef handler(event, context):\\\\n\\\\t print(event)\\\\n\\\\t return {'statusCode': 200, 'headers': {'dance': 'party'}, 'body': json.dumps({'electric': 'boogaloo'}), 'isBase64Encoded': False}\\",
             \\"filename\\": \\"index.py\\"
           }
         ],
@@ -422,7 +422,7 @@ exports[`ApplicationVersionedLambda renders a versioned lambda with environment 
         \\"output_path\\": \\"index.py.zip\\",
         \\"source\\": [
           {
-            \\"content\\": \\"handler(event, context):\\\\n\\\\t print(event)\\",
+            \\"content\\": \\"import json\\\\ndef handler(event, context):\\\\n\\\\t print(event)\\\\n\\\\t return {'statusCode': 200, 'headers': {'dance': 'party'}, 'body': json.dumps({'electric': 'boogaloo'}), 'isBase64Encoded': False}\\",
             \\"filename\\": \\"index.py\\"
           }
         ],
@@ -566,7 +566,7 @@ exports[`ApplicationVersionedLambda renders a versioned lambda with execution po
         \\"output_path\\": \\"index.py.zip\\",
         \\"source\\": [
           {
-            \\"content\\": \\"handler(event, context):\\\\n\\\\t print(event)\\",
+            \\"content\\": \\"import json\\\\ndef handler(event, context):\\\\n\\\\t print(event)\\\\n\\\\t return {'statusCode': 200, 'headers': {'dance': 'party'}, 'body': json.dumps({'electric': 'boogaloo'}), 'isBase64Encoded': False}\\",
             \\"filename\\": \\"index.py\\"
           }
         ],
@@ -713,7 +713,7 @@ exports[`ApplicationVersionedLambda renders a versioned lambda with log retentio
         \\"output_path\\": \\"index.py.zip\\",
         \\"source\\": [
           {
-            \\"content\\": \\"handler(event, context):\\\\n\\\\t print(event)\\",
+            \\"content\\": \\"import json\\\\ndef handler(event, context):\\\\n\\\\t print(event)\\\\n\\\\t return {'statusCode': 200, 'headers': {'dance': 'party'}, 'body': json.dumps({'electric': 'boogaloo'}), 'isBase64Encoded': False}\\",
             \\"filename\\": \\"index.py\\"
           }
         ],
@@ -851,7 +851,7 @@ exports[`ApplicationVersionedLambda renders a versioned lambda with publish igno
         \\"output_path\\": \\"index.py.zip\\",
         \\"source\\": [
           {
-            \\"content\\": \\"handler(event, context):\\\\n\\\\t print(event)\\",
+            \\"content\\": \\"import json\\\\ndef handler(event, context):\\\\n\\\\t print(event)\\\\n\\\\t return {'statusCode': 200, 'headers': {'dance': 'party'}, 'body': json.dumps({'electric': 'boogaloo'}), 'isBase64Encoded': False}\\",
             \\"filename\\": \\"index.py\\"
           }
         ],
@@ -990,7 +990,7 @@ exports[`ApplicationVersionedLambda renders a versioned lambda with s3 bucket 1`
         \\"output_path\\": \\"index.py.zip\\",
         \\"source\\": [
           {
-            \\"content\\": \\"handler(event, context):\\\\n\\\\t print(event)\\",
+            \\"content\\": \\"import json\\\\ndef handler(event, context):\\\\n\\\\t print(event)\\\\n\\\\t return {'statusCode': 200, 'headers': {'dance': 'party'}, 'body': json.dumps({'electric': 'boogaloo'}), 'isBase64Encoded': False}\\",
             \\"filename\\": \\"index.py\\"
           }
         ],
@@ -1128,7 +1128,7 @@ exports[`ApplicationVersionedLambda renders a versioned lambda with tags 1`] = `
         \\"output_path\\": \\"index.py.zip\\",
         \\"source\\": [
           {
-            \\"content\\": \\"handler(event, context):\\\\n\\\\t print(event)\\",
+            \\"content\\": \\"import json\\\\ndef handler(event, context):\\\\n\\\\t print(event)\\\\n\\\\t return {'statusCode': 200, 'headers': {'dance': 'party'}, 'body': json.dumps({'electric': 'boogaloo'}), 'isBase64Encoded': False}\\",
             \\"filename\\": \\"index.py\\"
           }
         ],
@@ -1274,7 +1274,7 @@ exports[`ApplicationVersionedLambda renders a versioned lambda with timeout 1`] 
         \\"output_path\\": \\"index.py.zip\\",
         \\"source\\": [
           {
-            \\"content\\": \\"handler(event, context):\\\\n\\\\t print(event)\\",
+            \\"content\\": \\"import json\\\\ndef handler(event, context):\\\\n\\\\t print(event)\\\\n\\\\t return {'statusCode': 200, 'headers': {'dance': 'party'}, 'body': json.dumps({'electric': 'boogaloo'}), 'isBase64Encoded': False}\\",
             \\"filename\\": \\"index.py\\"
           }
         ],
@@ -1412,7 +1412,7 @@ exports[`ApplicationVersionedLambda renders a versioned lambda with vpc 1`] = `
         \\"output_path\\": \\"index.py.zip\\",
         \\"source\\": [
           {
-            \\"content\\": \\"handler(event, context):\\\\n\\\\t print(event)\\",
+            \\"content\\": \\"import json\\\\ndef handler(event, context):\\\\n\\\\t print(event)\\\\n\\\\t return {'statusCode': 200, 'headers': {'dance': 'party'}, 'body': json.dumps({'electric': 'boogaloo'}), 'isBase64Encoded': False}\\",
             \\"filename\\": \\"index.py\\"
           }
         ],

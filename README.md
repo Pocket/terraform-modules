@@ -43,19 +43,19 @@ You can use the existing `example.ts` file to test the modules in this repo.
 
 1. Install [tfenv](https://github.com/tfutils/tfenv)
 2. Run `tfenv use` to ensure you are on the latest terraform version this repo is built for.
-3. Comment out the `RemoteBackend` block in `example.ts`
-4. Run `npm run build && npm run synth`
-5. `cd` into the generated `cdktf.out/stacks/acme-example` directory
-6. Run `terraform init`
-7. Run `terraform validate` to validate the generated JSON (debugging level 1)
+3. Run `npm run build:dev`
+4. `cd` into the generated `cdktf.out/stacks/acme-example` directory
+5. Run `terraform init`
+6. Run `terraform validate` to validate the generated JSON (debugging level 1)
 
 To test against our infrastructure (debugging level 2):
 
-1. Run `$(maws)` and select the 👉dev👈 backend SSO role (triple check that you are in DEV)
-2. Run `terraform plan`
-3. Check one more time that you are in the dev account
-4. Check with your teammates that it's okay to blow up the dev infra, then run `terraform apply`
-5. Clean up your mess by running `terraform destroy` when you're all done
+1. Log into terraform `terraform login` if not already. You will be prompted to save an API token.
+2. Run `$(maws)` and select the 👉dev👈 backend SSO role (triple check that you are in DEV)
+3. Run `terraform plan`
+4. Check one more time that you are in the dev account
+5. Check with your teammates that it's okay to blow up the dev infra, then run `terraform apply`
+6. Clean up your mess by running `terraform destroy` when you're all done
 
 Note that this isn't a full end-to-end verification, and will hang on domain certificate steps, but the above should surface most generated terraform issues.
 
