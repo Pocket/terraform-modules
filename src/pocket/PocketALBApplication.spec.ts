@@ -341,4 +341,21 @@ describe('PocketALBApplication', () => {
     });
     expect(synthed).toMatchSnapshot();
   });
+
+  it('renders an Pocket App with custom Alarm Description', () => {
+    const synthed = Testing.synthScope((stack) => {
+      new PocketALBApplication(stack, 'testPocketApp', {
+        ...BASE_CONFIG,
+        alarms: {
+          http5xxErrorPercentage: {
+            alarmDescription: 'Uh oh. something bad happened.',
+          },
+          httpLatency: {
+            alarmDescription: 'Uh oh. This is very slow.',
+          },
+        },
+      });
+    });
+    expect(synthed).toMatchSnapshot();
+  });
 });
