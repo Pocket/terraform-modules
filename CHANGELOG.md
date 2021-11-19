@@ -1,3 +1,10 @@
+## [2.2.0](https://github.com/Pocket/terraform-modules/compare/v2.1.0...v2.2.0) (2021-11-19)
+
+
+### Features
+
+* **api gateway:** Pocket api gateway construct with lambda proxy integrations ([#486](https://github.com/Pocket/terraform-modules/issues/486)) ([93d1c33](https://github.com/Pocket/terraform-modules/commit/93d1c33caabf50b20f5ac63173397d064824e815))
+
 ## [2.1.0](https://github.com/Pocket/terraform-modules/compare/v2.0.41...v2.1.0) (2021-11-19)
 
 
