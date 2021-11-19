@@ -65,7 +65,10 @@ export class PocketApiGateway extends Resource {
         // https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/api_gateway_deployment#terraform-resources
         triggers: {
           redeployment: Fn.sha1(
-            Fn.jsonencode(routeDependencies.map((dependency) => dependency.id))
+            Fn.jsonencode({
+              resources: routeDependencies.map((d) => d.id),
+              ...config,
+            })
           ),
         },
         dependsOn: routeDependencies,
