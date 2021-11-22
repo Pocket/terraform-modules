@@ -1,3 +1,10 @@
+### [2.2.5](https://github.com/Pocket/terraform-modules/compare/v2.2.4...v2.2.5) (2021-11-22)
+
+
+### Bug Fixes
+
+* **types:** Export the PocketApiGatewayLambdaIntegration class and its types ([#517](https://github.com/Pocket/terraform-modules/issues/517)) ([cac1f12](https://github.com/Pocket/terraform-modules/commit/cac1f12524db1226c005f3b1bbe8bcf56094d531))
+
 ### [2.2.4](https://github.com/Pocket/terraform-modules/compare/v2.2.3...v2.2.4) (2021-11-22)
 
 
