@@ -20,7 +20,7 @@ export interface PocketApiGatewayProps {
   name: string;
   stage: string; // https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/api_gateway_stage#stage_name
   routes: ApiGatewayLambdaRoute[];
-  tags: { [key: string]: string };
+  tags?: { [key: string]: string };
 }
 
 interface InitializedGatewayRoute {
@@ -55,6 +55,15 @@ export class PocketApiGateway extends Resource {
       route.resource,
       route.lambda.lambda.versionedLambda,
     ]);
+
+    const apiGatewayRoutes = config.routes;
+    const apiGatewayRoutesObject = {};
+    apiGatewayRoutes.forEach(
+      (route, index) => (apiGatewayRoutesObject[index] = route)
+    );
+    //remove the routes property from the config object
+    delete config.routes;
+
     // Deployment before adding permissions so we can restrict to the stage
     this.apiGatewayDeployment = new APIGateway.ApiGatewayDeployment(
       scope,
@@ -69,7 +78,10 @@ export class PocketApiGateway extends Resource {
           redeployment: Fn.sha1(
             Fn.jsonencode({
               resources: routeDependencies.map((d) => d.id),
-              config: JSON.stringify(config),
+              config: JSON.stringify({
+                ...config,
+                routes: apiGatewayRoutesObject,
+              }),
             })
           ),
         },
