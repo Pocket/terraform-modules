@@ -20,6 +20,7 @@ export interface PocketApiGatewayProps {
   name: string;
   stage: string; // https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/api_gateway_stage#stage_name
   routes: ApiGatewayLambdaRoute[];
+  tags: { [key: string]: string };
 }
 
 interface InitializedGatewayRoute {
@@ -43,6 +44,7 @@ export class PocketApiGateway extends Resource {
       `api-gateway-rest`,
       {
         name: config.name,
+        tags: config.tags,
       }
     );
     // https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/api_gateway_deployment
@@ -67,7 +69,7 @@ export class PocketApiGateway extends Resource {
           redeployment: Fn.sha1(
             Fn.jsonencode({
               resources: routeDependencies.map((d) => d.id),
-              ...config,
+              config: JSON.stringify(config),
             })
           ),
         },
@@ -85,6 +87,7 @@ export class PocketApiGateway extends Resource {
     );
     this.addInvokePermissions();
   }
+
   private addInvokePermissions() {
     this.routes.map(({ lambda, resource, method }) => {
       const functionName = lambda.lambda.versionedLambda.functionName;
@@ -103,10 +106,11 @@ export class PocketApiGateway extends Resource {
       );
     });
   }
-  // loop over routes and generate methods
+
   /**
    * Generate aws proxy routes handled by aws lambda
-   * @param routes
+   * loops over routes and generate methods
+   * @param config
    */
   private createLambdaIntegrations(config: PocketApiGatewayProps) {
     return config.routes.map((route: ApiGatewayLambdaRoute) => {
