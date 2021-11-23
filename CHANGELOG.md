@@ -1,3 +1,10 @@
+### [2.2.11](https://github.com/Pocket/terraform-modules/compare/v2.2.10...v2.2.11) (2021-11-23)
+
+
+### Bug Fixes
+
+* **api-gateway:** add lifecycle property to api gateway ([#525](https://github.com/Pocket/terraform-modules/issues/525)) ([727707a](https://github.com/Pocket/terraform-modules/commit/727707a1770ba892be4d65a595b17f321b6d8562))
+
 ### [2.2.10](https://github.com/Pocket/terraform-modules/compare/v2.2.9...v2.2.10) (2021-11-23)
 
 
