@@ -84,6 +84,7 @@ export class PocketApiGateway extends Resource {
           ),
           ...triggers,
         },
+        lifecycle: { createBeforeDestroy: true },
         dependsOn: routeDependencies,
       }
     );
