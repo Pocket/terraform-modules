@@ -1,9 +1,10 @@
 import { APIGateway, LambdaFunction } from '@cdktf/provider-aws';
 import { Resource } from '@cdktf/provider-null';
 import { Construct } from 'constructs';
-import { Fn } from 'cdktf';
 
 import { PocketVersionedLambda, PocketVersionedLambdaProps } from '..';
+import ApiGatewayDeploymentConfig = APIGateway.ApiGatewayDeploymentConfig;
+import { Fn } from 'cdktf';
 
 export interface ApiGatewayLambdaRoute {
   path: string;
@@ -21,6 +22,8 @@ export interface PocketApiGatewayProps {
   stage: string; // https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/api_gateway_stage#stage_name
   routes: ApiGatewayLambdaRoute[];
   tags?: { [key: string]: string };
+  // Should not contain lists/arrays, should only contain objects
+  triggers?: ApiGatewayDeploymentConfig['triggers'];
 }
 
 interface InitializedGatewayRoute {
@@ -31,13 +34,16 @@ interface InitializedGatewayRoute {
 }
 
 export class PocketApiGateway extends Resource {
-  private readonly config: PocketApiGatewayProps;
   private apiGatewayRestApi: APIGateway.ApiGatewayRestApi;
   private routes: InitializedGatewayRoute[];
   private apiGatewayDeployment: APIGateway.ApiGatewayDeployment;
   private apiGatewayStage: APIGateway.ApiGatewayStage;
 
-  constructor(scope: Construct, name: string, config: PocketApiGatewayProps) {
+  constructor(
+    scope: Construct,
+    name: string,
+    private readonly config: PocketApiGatewayProps
+  ) {
     super(scope, name);
     this.apiGatewayRestApi = new APIGateway.ApiGatewayRestApi(
       scope,
@@ -56,13 +62,9 @@ export class PocketApiGateway extends Resource {
       route.lambda.lambda.versionedLambda,
     ]);
 
-    const apiGatewayRoutes = config.routes;
-    const apiGatewayRoutesObject = {};
-    apiGatewayRoutes.forEach(
-      (route, index) => (apiGatewayRoutesObject[index] = route)
-    );
-    //remove the routes property from the config object
-    delete config.routes;
+    // Use the current timestamp in milliseconds to trigger a redeployment if no triggers are provided.
+    // If no triggers are provided, this resource will be redeployed on every "terraform apply".
+    const triggers = config.triggers ?? { deployedAt: Date.now().toString() };
 
     // Deployment before adding permissions so we can restrict to the stage
     this.apiGatewayDeployment = new APIGateway.ApiGatewayDeployment(
@@ -78,12 +80,9 @@ export class PocketApiGateway extends Resource {
           redeployment: Fn.sha1(
             Fn.jsonencode({
               resources: routeDependencies.map((d) => d.id),
-              config: JSON.stringify({
-                ...config,
-                routes: apiGatewayRoutesObject,
-              }),
             })
           ),
+          ...triggers,
         },
         dependsOn: routeDependencies,
       }
