@@ -1,3 +1,10 @@
+### [2.2.10](https://github.com/Pocket/terraform-modules/compare/v2.2.9...v2.2.10) (2021-11-23)
+
+
+### Bug Fixes
+
+* **api gateway lambda integration:** Fix redeployment trigger ([#518](https://github.com/Pocket/terraform-modules/issues/518)) ([b35cd08](https://github.com/Pocket/terraform-modules/commit/b35cd081b0f90590e5748d0c83e01627b7445d63))
+
 ### [2.2.9](https://github.com/Pocket/terraform-modules/compare/v2.2.8...v2.2.9) (2021-11-23)
 
 
