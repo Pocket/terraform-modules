@@ -90,7 +90,7 @@
     "@cdktf/provider-aws": "2.0.13",
     "@cdktf/provider-local": "0.0.203",
     "@cdktf/provider-null": "0.2.204",
-    "@cdktf/provider-pagerduty": "0.0.199",
+    "@cdktf/provider-pagerduty": "0.0.206",
     "cdktf": "0.7.0",
     "cdktf-cli": "0.7.0",
     "constructs": "10.0.9"
@@ -100,7 +100,7 @@
     "@cdktf/provider-aws": "2.0.13",
     "@cdktf/provider-local": "0.0.203",
     "@cdktf/provider-null": "0.2.204",
-    "@cdktf/provider-pagerduty": "0.0.199",
+    "@cdktf/provider-pagerduty": "0.0.206",
     "cdktf": "0.7.0",
     "cdktf-cli": "0.7.0",
     "constructs": "10.0.9",
