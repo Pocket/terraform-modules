@@ -88,7 +88,7 @@
   "peerDependencies": {
     "@cdktf/provider-archive": "0.0.217",
     "@cdktf/provider-aws": "2.0.13",
-    "@cdktf/provider-local": "0.0.223",
+    "@cdktf/provider-local": "0.0.244",
     "@cdktf/provider-null": "0.2.224",
     "@cdktf/provider-pagerduty": "0.0.220",
     "cdktf": "0.7.0",
@@ -98,7 +98,7 @@
   "dependencies": {
     "@cdktf/provider-archive": "0.0.217",
     "@cdktf/provider-aws": "2.0.13",
-    "@cdktf/provider-local": "0.0.223",
+    "@cdktf/provider-local": "0.0.244",
     "@cdktf/provider-null": "0.2.224",
     "@cdktf/provider-pagerduty": "0.0.220",
     "cdktf": "0.7.0",
