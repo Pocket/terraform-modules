@@ -1,3 +1,10 @@
+### [2.2.29](https://github.com/Pocket/terraform-modules/compare/v2.2.28...v2.2.29) (2021-11-30)
+
+
+### Bug Fixes
+
+* **deps:** bump @cdktf/provider-null from 0.2.246 to 0.2.252 ([#562](https://github.com/Pocket/terraform-modules/issues/562)) ([16a236f](https://github.com/Pocket/terraform-modules/commit/16a236f44b64cd2ae190f1b1cfc392d5d24efb63))
+
 ### [2.2.28](https://github.com/Pocket/terraform-modules/compare/v2.2.27...v2.2.28) (2021-11-30)
 
 
