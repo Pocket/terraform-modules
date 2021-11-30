@@ -1,8 +1,8 @@
-import { APIGateway, LambdaFunction } from '@cdktf/provider-aws';
+import { APIGateway, LambdaFunction, Route53 } from '@cdktf/provider-aws';
 import { Resource } from '@cdktf/provider-null';
 import { Construct } from 'constructs';
 
-import { PocketVersionedLambda, PocketVersionedLambdaProps } from '..';
+import { PocketVersionedLambda, PocketVersionedLambdaProps, ApplicationBaseDNS, ApplicationCertificate } from '..';
 import ApiGatewayDeploymentConfig = APIGateway.ApiGatewayDeploymentConfig;
 import { Fn } from 'cdktf';
 
@@ -34,6 +34,7 @@ interface InitializedGatewayRoute {
 }
 
 export class PocketApiGateway extends Resource {
+  public readonly baseDNS: ApplicationBaseDNS;
   private apiGatewayRestApi: APIGateway.ApiGatewayRestApi;
   private routes: InitializedGatewayRoute[];
   private apiGatewayDeployment: APIGateway.ApiGatewayDeployment;
@@ -53,6 +54,9 @@ export class PocketApiGateway extends Resource {
         tags: config.tags,
       }
     );
+
+    this.createRoute53AndCertificate();
+
     // https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/api_gateway_deployment
     this.routes = this.createLambdaIntegrations(config);
     const routeDependencies = this.routes.flatMap((route) => [
@@ -98,6 +102,40 @@ export class PocketApiGateway extends Resource {
       }
     );
     this.addInvokePermissions();
+  }
+
+  private createRoute53AndCertificate() {
+    const apiGatewayDomainName = this.config.name;
+    const apiGatewayRoute53 = new Route53.Route53Record(this, `api_gateway_record`, {
+      name: apiGatewayDomainName,
+      type: 'A',
+      zoneId: this.baseDNS.zoneId,
+      weightedRoutingPolicy: [
+        {
+          weight: 1
+        }
+      ],
+      alias: [
+        {
+          name: this.apiGatewayRestApi.name,
+          zoneId: this.baseDNS.zoneId,
+          //todo - how to set alternate zome id for api gateway. in alb, it was a part of class.
+          evaluateTargetHealth: true
+        }
+      ],
+      lifecycle: {
+        ignoreChanges: ['weighted_routing_policy[0].weight']
+      },
+      setIdentifier: '1'
+    });
+
+    const apiGatewayCertificate = new ApplicationCertificate(this, `alb_certificate`, {
+      zoneId: this.baseDNS.zoneId,
+      domain: apiGatewayDomainName,
+      tags: this.config.tags
+    });
+
+    return {apiGatewayRoute53, apiGatewayCertificate}
   }
 
   private addInvokePermissions() {
