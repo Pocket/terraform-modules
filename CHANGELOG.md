@@ -1,3 +1,10 @@
+## [2.3.0](https://github.com/Pocket/terraform-modules/compare/v2.2.30...v2.3.0) (2021-11-30)
+
+
+### Features
+
+* **NewRelic:** Synthetics integration ([#484](https://github.com/Pocket/terraform-modules/issues/484)) ([5d5de9d](https://github.com/Pocket/terraform-modules/commit/5d5de9da514d4f848ca7df2de1f4a12bdf0f8bed))
+
 ### [2.2.30](https://github.com/Pocket/terraform-modules/compare/v2.2.29...v2.2.30) (2021-11-30)
 
 
