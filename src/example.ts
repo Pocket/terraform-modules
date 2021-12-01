@@ -1,10 +1,16 @@
 import { Construct } from 'constructs';
 import { App, TerraformStack } from 'cdktf';
 import { AwsProvider } from '@cdktf/provider-aws';
-import { PocketALBApplication } from './pocket/PocketALBApplication';
-import { ApplicationECSContainerDefinitionProps } from './base/ApplicationECSContainerDefinition';
 import { LocalProvider } from '@cdktf/provider-local';
 import { NullProvider } from '@cdktf/provider-null';
+import {
+  ApiGatewayLambdaRoute,
+  PocketApiGateway,
+  PocketApiGatewayProps
+} from './pocket/PocketApiGatewayLambdaIntegration';
+import { LAMBDA_RUNTIMES } from './base/ApplicationVersionedLambda';
+import { PocketVPC } from './pocket/PocketVPC';
+import { ArchiveProvider } from '@cdktf/provider-archive';
 
 class Example extends TerraformStack {
   constructor(scope: Construct, name: string) {
@@ -15,48 +21,44 @@ class Example extends TerraformStack {
     });
     new LocalProvider(this, 'local', {});
     new NullProvider(this, 'null', {});
-
-    const containerConfigBlue: ApplicationECSContainerDefinitionProps = {
-      name: 'blueContainer',
-      containerImage: 'bitnami/node-example:0.0.1',
-      portMappings: [
-        {
-          hostPort: 3000,
-          containerPort: 3000,
+    new ArchiveProvider(this, 'archive', {});
+    const vpc = new PocketVPC(this, 'pocket-vpc');
+    const prefix=`apigateway-dev`
+    const fxaEventsRoute: ApiGatewayLambdaRoute = {
+      path: 'events',
+      method: 'POST',
+      eventHandler: {
+        name: `${prefix}-ApiGateway-FxA-Events`,
+        lambda: {
+          runtime: LAMBDA_RUNTIMES.NODEJS14,
+          handler: 'index.handler',
+          timeout: 120,
+          vpcConfig: {
+            securityGroupIds: vpc.defaultSecurityGroups.ids,
+            subnetIds: vpc.privateSubnetIds,
+          },
+          codeDeploy: {
+            region: vpc.region,
+            accountId: vpc.accountId,
+          },
         },
-      ],
-      envVars: [
-        {
-          name: 'foo',
-          value: 'bar',
-        },
-      ],
+      },
+    };
+    const pocketApiGatewayProps: PocketApiGatewayProps = {
+      name: `${prefix}-API-Gateway`,
+      stage: `dev`,
+      routes: [fxaEventsRoute],
+      domain:  'apig-test.getpocket.dev',
     };
 
-    new PocketALBApplication(this, 'example', {
-      exposedContainer: {
-        name: 'blueContainer',
-        port: 3000,
-        healthCheckPath: '/',
-      },
-      codeDeploy: {
-        useCodeDeploy: true,
-      },
-      cdn: false, // maybe make this false if you're testing an actual terraform apply - cdn's take a loooong time to spin up
-      alb6CharacterPrefix: 'ACMECO',
-      internal: false,
-      domain: 'acme.getpocket.dev',
-      prefix: 'ACME-Dev', // Prefix is a combo of the `Name-Environment`
-      containerConfigs: [containerConfigBlue],
-      ecsIamConfig: {
-        prefix: 'ACME-Dev',
-        taskExecutionRolePolicyStatements: [],
-        taskRolePolicyStatements: [],
-      },
-    });
+    new PocketApiGateway(
+      this,
+      'fxa-events-apigateway-lambda',
+      pocketApiGatewayProps
+    );
   }
 }
 
 const app = new App();
-new Example(app, 'acme-example');
+new Example(app, 'apig-test');
 app.synth();

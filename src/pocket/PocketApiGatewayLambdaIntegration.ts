@@ -24,6 +24,7 @@ export interface PocketApiGatewayProps {
   tags?: { [key: string]: string };
   // Should not contain lists/arrays, should only contain objects
   triggers?: ApiGatewayDeploymentConfig['triggers'];
+  domain?: string
 }
 
 interface InitializedGatewayRoute {
@@ -55,7 +56,12 @@ export class PocketApiGateway extends Resource {
       }
     );
 
-    this.createRoute53AndCertificate();
+    //Setup the Base DNS stack for our application which includes a hosted SubZone
+    this.baseDNS = new ApplicationBaseDNS(this, `base-dns`, {
+      domain: config.domain,
+      tags: config.tags,
+    });
+    this.createRoute53Record(scope, config);
 
     // https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/api_gateway_deployment
     this.routes = this.createLambdaIntegrations(config);
@@ -104,38 +110,37 @@ export class PocketApiGateway extends Resource {
     this.addInvokePermissions();
   }
 
-  private createRoute53AndCertificate() {
-    const apiGatewayDomainName = this.config.name;
-    const apiGatewayRoute53 = new Route53.Route53Record(this, `api_gateway_record`, {
-      name: apiGatewayDomainName,
+  private createRoute53Record(scope: Construct, config: PocketApiGatewayProps) {
+    //Creates the Certificate for API gateway
+    const apiGatewayCertificate = new ApplicationCertificate(this, `api-gateway-certificate`, {
+      zoneId: this.baseDNS.zoneId,
+      domain: config.domain,
+      tags: this.config.tags,
+    });
+
+    //setup custom domain name for API gateway
+    //https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/api_gateway_domain_name#regional-acm-certificate
+    const customDomainName = new APIGateway.ApiGatewayDomainName(this,
+      `api-gateway-domain-name`,
+      {
+        domainName: config.domain,
+        regionalCertificateArn: apiGatewayCertificate.arn,
+        endpointConfiguration: {types: [`REGIONAL`]}
+      },
+    );
+
+    new Route53.Route53Record(this, `api_gateway_route53`, {
+      name: config.domain,
       type: 'A',
       zoneId: this.baseDNS.zoneId,
-      weightedRoutingPolicy: [
-        {
-          weight: 1
-        }
-      ],
       alias: [
         {
-          name: this.apiGatewayRestApi.name,
-          zoneId: this.baseDNS.zoneId,
-          //todo - how to set alternate zome id for api gateway. in alb, it was a part of class.
+          name: customDomainName.regionalDomainName,
+          zoneId: customDomainName.regionalZoneId,
           evaluateTargetHealth: true
         }
-      ],
-      lifecycle: {
-        ignoreChanges: ['weighted_routing_policy[0].weight']
-      },
-      setIdentifier: '1'
+      ]
     });
-
-    const apiGatewayCertificate = new ApplicationCertificate(this, `alb_certificate`, {
-      zoneId: this.baseDNS.zoneId,
-      domain: apiGatewayDomainName,
-      tags: this.config.tags
-    });
-
-    return {apiGatewayRoute53, apiGatewayCertificate}
   }
 
   private addInvokePermissions() {
