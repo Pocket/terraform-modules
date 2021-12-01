@@ -19,6 +19,9 @@ export interface ApplicationCertificateProps {
  */
 export class ApplicationCertificate extends Resource {
   public readonly arn: string;
+  // Use `certificateValidation` in `dependsOn` to block on the
+  // complete certificate for any downstream dependencies
+  public readonly certificateValidation: ACM.AcmCertificateValidation;
 
   constructor(
     scope: Construct,
@@ -48,13 +51,14 @@ export class ApplicationCertificate extends Resource {
       certificate
     );
 
-    ApplicationCertificate.generateAcmCertificateValidation(
+    const validation = ApplicationCertificate.generateAcmCertificateValidation(
       this,
       certificate,
       certificateRecord
     );
 
     this.arn = certificate.arn;
+    this.certificateValidation = validation;
   }
 
   static generateAcmCertificate(
@@ -110,8 +114,8 @@ export class ApplicationCertificate extends Resource {
     resource: Resource,
     cert: ACM.AcmCertificate,
     record: Route53.Route53Record
-  ): void {
-    new AcmCertificateValidation(resource, `certificate_validation`, {
+  ): ACM.AcmCertificateValidation {
+    return new AcmCertificateValidation(resource, `certificate_validation`, {
       certificateArn: cert.arn,
       validationRecordFqdns: [record.fqdn],
       dependsOn: [record, cert],

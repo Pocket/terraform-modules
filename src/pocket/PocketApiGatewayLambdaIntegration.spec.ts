@@ -9,6 +9,7 @@ import {
 const config: PocketApiGatewayProps = {
   name: 'test-api-lambda',
   stage: 'test',
+  domain: 'getpocket.dev',
   routes: [
     {
       path: 'endpoint',

@@ -4,12 +4,10 @@ import { AwsProvider } from '@cdktf/provider-aws';
 import { LocalProvider } from '@cdktf/provider-local';
 import { NullProvider } from '@cdktf/provider-null';
 import {
-  ApiGatewayLambdaRoute,
   PocketApiGateway,
-  PocketApiGatewayProps
+  PocketApiGatewayProps,
 } from './pocket/PocketApiGatewayLambdaIntegration';
 import { LAMBDA_RUNTIMES } from './base/ApplicationVersionedLambda';
-import { PocketVPC } from './pocket/PocketVPC';
 import { ArchiveProvider } from '@cdktf/provider-archive';
 
 class Example extends TerraformStack {
@@ -22,40 +20,27 @@ class Example extends TerraformStack {
     new LocalProvider(this, 'local', {});
     new NullProvider(this, 'null', {});
     new ArchiveProvider(this, 'archive', {});
-    const vpc = new PocketVPC(this, 'pocket-vpc');
-    const prefix=`apigateway-dev`
-    const fxaEventsRoute: ApiGatewayLambdaRoute = {
-      path: 'events',
-      method: 'POST',
-      eventHandler: {
-        name: `${prefix}-ApiGateway-FxA-Events`,
-        lambda: {
-          runtime: LAMBDA_RUNTIMES.NODEJS14,
-          handler: 'index.handler',
-          timeout: 120,
-          vpcConfig: {
-            securityGroupIds: vpc.defaultSecurityGroups.ids,
-            subnetIds: vpc.privateSubnetIds,
-          },
-          codeDeploy: {
-            region: vpc.region,
-            accountId: vpc.accountId,
+
+    const config: PocketApiGatewayProps = {
+      name: 'test-api-lambda',
+      stage: 'test',
+      domain: 'exampleapi.getpocket.dev',
+      routes: [
+        {
+          path: 'endpoint',
+          method: 'POST',
+          eventHandler: {
+            name: 'lambda-endpoint',
+            lambda: {
+              runtime: LAMBDA_RUNTIMES.PYTHON38,
+              handler: 'index.handler',
+            },
           },
         },
-      },
-    };
-    const pocketApiGatewayProps: PocketApiGatewayProps = {
-      name: `${prefix}-API-Gateway`,
-      stage: `dev`,
-      routes: [fxaEventsRoute],
-      domain:  'apig-test.getpocket.dev',
+      ],
     };
 
-    new PocketApiGateway(
-      this,
-      'fxa-events-apigateway-lambda',
-      pocketApiGatewayProps
-    );
+    new PocketApiGateway(this, 'example', config);
   }
 }
 

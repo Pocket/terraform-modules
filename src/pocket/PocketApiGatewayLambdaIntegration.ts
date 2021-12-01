@@ -2,7 +2,12 @@ import { APIGateway, LambdaFunction, Route53 } from '@cdktf/provider-aws';
 import { Resource } from '@cdktf/provider-null';
 import { Construct } from 'constructs';
 
-import { PocketVersionedLambda, PocketVersionedLambdaProps, ApplicationBaseDNS, ApplicationCertificate } from '..';
+import {
+  PocketVersionedLambda,
+  PocketVersionedLambdaProps,
+  ApplicationBaseDNS,
+  ApplicationCertificate,
+} from '..';
 import ApiGatewayDeploymentConfig = APIGateway.ApiGatewayDeploymentConfig;
 import { Fn } from 'cdktf';
 
@@ -24,7 +29,7 @@ export interface PocketApiGatewayProps {
   tags?: { [key: string]: string };
   // Should not contain lists/arrays, should only contain objects
   triggers?: ApiGatewayDeploymentConfig['triggers'];
-  domain?: string
+  domain?: string;
 }
 
 interface InitializedGatewayRoute {
@@ -34,8 +39,11 @@ interface InitializedGatewayRoute {
   integration: APIGateway.ApiGatewayIntegration;
 }
 
+/**
+ * Create an API Gateway with lambda handlers, optionally assigned
+ * to a custom domain owned by the account.
+ */
 export class PocketApiGateway extends Resource {
-  public readonly baseDNS: ApplicationBaseDNS;
   private apiGatewayRestApi: APIGateway.ApiGatewayRestApi;
   private routes: InitializedGatewayRoute[];
   private apiGatewayDeployment: APIGateway.ApiGatewayDeployment;
@@ -56,13 +64,6 @@ export class PocketApiGateway extends Resource {
       }
     );
 
-    //Setup the Base DNS stack for our application which includes a hosted SubZone
-    this.baseDNS = new ApplicationBaseDNS(this, `base-dns`, {
-      domain: config.domain,
-      tags: config.tags,
-    });
-    this.createRoute53Record(scope, config);
-
     // https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/api_gateway_deployment
     this.routes = this.createLambdaIntegrations(config);
     const routeDependencies = this.routes.flatMap((route) => [
@@ -82,10 +83,6 @@ export class PocketApiGateway extends Resource {
       'api-gateway-deployment',
       {
         restApiId: this.apiGatewayRestApi.id,
-        // Removing the `id` from the resources in line 51 causes:
-        // `RangeError: Resolution error Maximum call stack size exceeded`
-        // However, this may not suffice for proper redeployment trigger...
-        // https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/api_gateway_deployment#terraform-resources
         triggers: {
           redeployment: Fn.sha1(
             Fn.jsonencode({
@@ -107,42 +104,80 @@ export class PocketApiGateway extends Resource {
         stageName: config.stage,
       }
     );
+    if (config.domain != null) {
+      this.createRoute53Record(config);
+    }
     this.addInvokePermissions();
   }
 
-  private createRoute53Record(scope: Construct, config: PocketApiGatewayProps) {
-    //Creates the Certificate for API gateway
-    const apiGatewayCertificate = new ApplicationCertificate(this, `api-gateway-certificate`, {
-      zoneId: this.baseDNS.zoneId,
+  /**
+   * Sets up a custom domain name for the API gateway;
+   * adds ACM Certificate and configures Route 53 Record
+   * The deployed API stage will be exposed at the base path
+   * of the domain.
+   * e.g.
+   * abc123.execute-api.us-east-1.amazonaws.com/test-stage -> exampleapi.getpocket.dev
+   * @param config
+   */
+  private createRoute53Record(config: PocketApiGatewayProps) {
+    //Setup the Base DNS stack for our application which includes a hosted SubZone
+    const baseDNS = new ApplicationBaseDNS(this, `base-dns`, {
       domain: config.domain,
-      tags: this.config.tags,
+      tags: config.tags,
     });
 
+    //Creates the Certificate for API gateway
+    const apiGatewayCertificate = new ApplicationCertificate(
+      this,
+      `api-gateway-certificate`,
+      {
+        zoneId: baseDNS.zoneId,
+        domain: config.domain,
+        tags: this.config.tags,
+      }
+    );
+
     //setup custom domain name for API gateway
-    //https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/api_gateway_domain_name#regional-acm-certificate
-    const customDomainName = new APIGateway.ApiGatewayDomainName(this,
+    const customDomainName = new APIGateway.ApiGatewayDomainName(
+      this,
       `api-gateway-domain-name`,
       {
         domainName: config.domain,
-        regionalCertificateArn: apiGatewayCertificate.arn,
-        endpointConfiguration: {types: [`REGIONAL`]}
-      },
+        certificateArn: apiGatewayCertificate.arn,
+        dependsOn: [apiGatewayCertificate.certificateValidation],
+      }
     );
 
-    new Route53.Route53Record(this, `api_gateway_route53`, {
-      name: config.domain,
+    new Route53.Route53Record(this, `apigateway-route53-domain-record`, {
+      name: customDomainName.domainName,
       type: 'A',
-      zoneId: this.baseDNS.zoneId,
+      zoneId: baseDNS.zoneId,
       alias: [
         {
-          name: customDomainName.regionalDomainName,
-          zoneId: customDomainName.regionalZoneId,
-          evaluateTargetHealth: true
-        }
-      ]
+          evaluateTargetHealth: true,
+          name: customDomainName.cloudfrontDomainName,
+          zoneId: customDomainName.cloudfrontZoneId,
+        },
+      ],
+      dependsOn: [apiGatewayCertificate.certificateValidation],
     });
+
+    // base path isn't specified, so the api is exposed
+    // at the root of the given domain
+    new APIGateway.ApiGatewayBasePathMapping(
+      this,
+      `api-gateway-base-path-mapping`,
+      {
+        apiId: this.apiGatewayRestApi.id,
+        stageName: this.apiGatewayStage.stageName,
+        domainName: customDomainName.domainName,
+      }
+    );
   }
 
+  /**
+   * Add permissions for gateway to invoke lambda functions
+   */
   private addInvokePermissions() {
     this.routes.map(({ lambda, resource, method }) => {
       const functionName = lambda.lambda.versionedLambda.functionName;
