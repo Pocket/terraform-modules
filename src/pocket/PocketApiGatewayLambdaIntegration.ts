@@ -30,6 +30,7 @@ export interface PocketApiGatewayProps {
   // Should not contain lists/arrays, should only contain objects
   triggers?: ApiGatewayDeploymentConfig['triggers'];
   domain?: string;
+  basePath?: string;
 }
 
 interface InitializedGatewayRoute {
@@ -162,8 +163,6 @@ export class PocketApiGateway extends Resource {
       dependsOn: [apiGatewayCertificate.certificateValidation],
     });
 
-    // base path isn't specified, so the api is exposed
-    // at the root of the given domain
     new APIGateway.ApiGatewayBasePathMapping(
       this,
       `api-gateway-base-path-mapping`,
@@ -171,6 +170,7 @@ export class PocketApiGateway extends Resource {
         apiId: this.apiGatewayRestApi.id,
         stageName: this.apiGatewayStage.stageName,
         domainName: customDomainName.domainName,
+        basePath: config.basePath?? ''
       }
     );
   }
