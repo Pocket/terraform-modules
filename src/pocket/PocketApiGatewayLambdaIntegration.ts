@@ -170,7 +170,7 @@ export class PocketApiGateway extends Resource {
         apiId: this.apiGatewayRestApi.id,
         stageName: this.apiGatewayStage.stageName,
         domainName: customDomainName.domainName,
-        basePath: config.basePath?? ''
+        basePath: config.basePath ?? '',
       }
     );
   }

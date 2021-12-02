@@ -10,6 +10,7 @@ const config: PocketApiGatewayProps = {
   name: 'test-api-lambda',
   stage: 'test',
   domain: 'exampleapi.getpocket.dev',
+  basePath: 'fxaProxy',
   routes: [
     {
       path: 'endpoint',
