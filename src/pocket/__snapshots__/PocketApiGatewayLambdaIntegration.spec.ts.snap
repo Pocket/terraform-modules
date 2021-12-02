@@ -63,7 +63,7 @@ exports[`PocketApiGatewayLambdaIntegration renders an api gateway with a lambda 
   \\"resource\\": {
     \\"aws_acm_certificate\\": {
       \\"test-api-lambda_api-gateway-certificate_8D77B940\\": {
-        \\"domain_name\\": \\"getpocket.dev\\",
+        \\"domain_name\\": \\"exampleapi.getpocket.dev\\",
         \\"lifecycle\\": {
           \\"create_before_destroy\\": true
         },
@@ -113,7 +113,7 @@ exports[`PocketApiGatewayLambdaIntegration renders an api gateway with a lambda 
         \\"depends_on\\": [
           \\"aws_acm_certificate_validation.test-api-lambda_api-gateway-certificate_certificate_validation_6C09E593\\"
         ],
-        \\"domain_name\\": \\"getpocket.dev\\"
+        \\"domain_name\\": \\"exampleapi.getpocket.dev\\"
       }
     },
     \\"aws_api_gateway_integration\\": {
@@ -255,7 +255,7 @@ exports[`PocketApiGatewayLambdaIntegration renders an api gateway with a lambda 
         \\"zone_id\\": \\"\${aws_route53_zone.test-api-lambda_base-dns_subhosted_zone_B29688D6.zone_id}\\"
       },
       \\"test-api-lambda_base-dns_subhosted_zone_ns_B7A2A51A\\": {
-        \\"name\\": \\"getpocket.dev\\",
+        \\"name\\": \\"exampleapi.getpocket.dev\\",
         \\"records\\": \\"\${aws_route53_zone.test-api-lambda_base-dns_subhosted_zone_B29688D6.name_servers}\\",
         \\"ttl\\": 86400,
         \\"type\\": \\"NS\\",
@@ -264,7 +264,7 @@ exports[`PocketApiGatewayLambdaIntegration renders an api gateway with a lambda 
     },
     \\"aws_route53_zone\\": {
       \\"test-api-lambda_base-dns_subhosted_zone_B29688D6\\": {
-        \\"name\\": \\"getpocket.dev\\"
+        \\"name\\": \\"exampleapi.getpocket.dev\\"
       }
     },
     \\"aws_s3_bucket\\": {
