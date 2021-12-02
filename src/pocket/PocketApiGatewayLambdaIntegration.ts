@@ -114,10 +114,6 @@ export class PocketApiGateway extends Resource {
   /**
    * Sets up a custom domain name for the API gateway;
    * adds ACM Certificate and configures Route 53 Record
-   * The deployed API stage will be exposed at the base path
-   * of the domain.
-   * e.g.
-   * abc123.execute-api.us-east-1.amazonaws.com/test-stage -> exampleapi.getpocket.dev
    * @param config
    */
   private createRoute53Record(config: PocketApiGatewayProps) {
