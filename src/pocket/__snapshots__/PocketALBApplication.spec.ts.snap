@@ -313,7 +313,8 @@ exports[`PocketALBApplication renders an Pocket App with code deploy 1`] = `
               \\"scaling_adjustment\\": -1
             }
           ]
-        }
+        },
+        \\"target_tracking_scaling_policy_configuration\\": {}
       },
       \\"testPocketApp_autoscaling_scale_out_policy_075BFAC4\\": {
         \\"depends_on\\": [
@@ -334,7 +335,8 @@ exports[`PocketALBApplication renders an Pocket App with code deploy 1`] = `
               \\"scaling_adjustment\\": 2
             }
           ]
-        }
+        },
+        \\"target_tracking_scaling_policy_configuration\\": {}
       }
     },
     \\"aws_appautoscaling_target\\": {
@@ -452,6 +454,9 @@ exports[`PocketALBApplication renders an Pocket App with code deploy 1`] = `
     },
     \\"aws_ecs_cluster\\": {
       \\"testPocketApp_ecs_cluster_C3960066\\": {
+        \\"configuration\\": {
+          \\"execute_command_configuration\\": {}
+        },
         \\"name\\": \\"testapp\\",
         \\"setting\\": [
           {
@@ -1047,7 +1052,8 @@ exports[`PocketALBApplication renders an Pocket App with code deploy and creates
               \\"scaling_adjustment\\": -1
             }
           ]
-        }
+        },
+        \\"target_tracking_scaling_policy_configuration\\": {}
       },
       \\"testPocketApp_autoscaling_scale_out_policy_075BFAC4\\": {
         \\"depends_on\\": [
@@ -1068,7 +1074,8 @@ exports[`PocketALBApplication renders an Pocket App with code deploy and creates
               \\"scaling_adjustment\\": 2
             }
           ]
-        }
+        },
+        \\"target_tracking_scaling_policy_configuration\\": {}
       }
     },
     \\"aws_appautoscaling_target\\": {
@@ -1186,6 +1193,9 @@ exports[`PocketALBApplication renders an Pocket App with code deploy and creates
     },
     \\"aws_ecs_cluster\\": {
       \\"testPocketApp_ecs_cluster_C3960066\\": {
+        \\"configuration\\": {
+          \\"execute_command_configuration\\": {}
+        },
         \\"name\\": \\"testapp\\",
         \\"setting\\": [
           {
@@ -1730,7 +1740,8 @@ exports[`PocketALBApplication renders an Pocket App with custom Alarm Descriptio
               \\"scaling_adjustment\\": -1
             }
           ]
-        }
+        },
+        \\"target_tracking_scaling_policy_configuration\\": {}
       },
       \\"testPocketApp_autoscaling_scale_out_policy_075BFAC4\\": {
         \\"depends_on\\": [
@@ -1751,7 +1762,8 @@ exports[`PocketALBApplication renders an Pocket App with custom Alarm Descriptio
               \\"scaling_adjustment\\": 2
             }
           ]
-        }
+        },
+        \\"target_tracking_scaling_policy_configuration\\": {}
       }
     },
     \\"aws_appautoscaling_target\\": {
@@ -1875,6 +1887,9 @@ exports[`PocketALBApplication renders an Pocket App with custom Alarm Descriptio
     },
     \\"aws_ecs_cluster\\": {
       \\"testPocketApp_ecs_cluster_C3960066\\": {
+        \\"configuration\\": {
+          \\"execute_command_configuration\\": {}
+        },
         \\"name\\": \\"testapp\\",
         \\"setting\\": [
           {
@@ -2386,7 +2401,8 @@ exports[`PocketALBApplication renders an Pocket App with logs and dashboard in a
               \\"scaling_adjustment\\": -1
             }
           ]
-        }
+        },
+        \\"target_tracking_scaling_policy_configuration\\": {}
       },
       \\"testPocketApp_autoscaling_scale_out_policy_075BFAC4\\": {
         \\"depends_on\\": [
@@ -2407,7 +2423,8 @@ exports[`PocketALBApplication renders an Pocket App with logs and dashboard in a
               \\"scaling_adjustment\\": 2
             }
           ]
-        }
+        },
+        \\"target_tracking_scaling_policy_configuration\\": {}
       }
     },
     \\"aws_appautoscaling_target\\": {
@@ -2468,6 +2485,9 @@ exports[`PocketALBApplication renders an Pocket App with logs and dashboard in a
     },
     \\"aws_ecs_cluster\\": {
       \\"testPocketApp_ecs_cluster_C3960066\\": {
+        \\"configuration\\": {
+          \\"execute_command_configuration\\": {}
+        },
         \\"name\\": \\"testapp\\",
         \\"setting\\": [
           {
@@ -2979,7 +2999,8 @@ exports[`PocketALBApplication renders an application alarms 1`] = `
               \\"scaling_adjustment\\": -1
             }
           ]
-        }
+        },
+        \\"target_tracking_scaling_policy_configuration\\": {}
       },
       \\"testPocketApp_autoscaling_scale_out_policy_075BFAC4\\": {
         \\"depends_on\\": [
@@ -3000,7 +3021,8 @@ exports[`PocketALBApplication renders an application alarms 1`] = `
               \\"scaling_adjustment\\": 2
             }
           ]
-        }
+        },
+        \\"target_tracking_scaling_policy_configuration\\": {}
       }
     },
     \\"aws_appautoscaling_target\\": {
@@ -3083,6 +3105,9 @@ exports[`PocketALBApplication renders an application alarms 1`] = `
     },
     \\"aws_ecs_cluster\\": {
       \\"testPocketApp_ecs_cluster_C3960066\\": {
+        \\"configuration\\": {
+          \\"execute_command_configuration\\": {}
+        },
         \\"name\\": \\"testapp\\",
         \\"setting\\": [
           {
@@ -3594,7 +3619,8 @@ exports[`PocketALBApplication renders an application custom default alarms 1`] =
               \\"scaling_adjustment\\": -1
             }
           ]
-        }
+        },
+        \\"target_tracking_scaling_policy_configuration\\": {}
       },
       \\"testPocketApp_autoscaling_scale_out_policy_075BFAC4\\": {
         \\"depends_on\\": [
@@ -3615,7 +3641,8 @@ exports[`PocketALBApplication renders an application custom default alarms 1`] =
               \\"scaling_adjustment\\": 2
             }
           ]
-        }
+        },
+        \\"target_tracking_scaling_policy_configuration\\": {}
       }
     },
     \\"aws_appautoscaling_target\\": {
@@ -3689,6 +3716,9 @@ exports[`PocketALBApplication renders an application custom default alarms 1`] =
     },
     \\"aws_ecs_cluster\\": {
       \\"testPocketApp_ecs_cluster_C3960066\\": {
+        \\"configuration\\": {
+          \\"execute_command_configuration\\": {}
+        },
         \\"name\\": \\"testapp\\",
         \\"setting\\": [
           {
@@ -4210,7 +4240,8 @@ exports[`PocketALBApplication renders an application with autoscaling group and 
               \\"scaling_adjustment\\": -1
             }
           ]
-        }
+        },
+        \\"target_tracking_scaling_policy_configuration\\": {}
       },
       \\"testPocketApp_autoscaling_scale_out_policy_075BFAC4\\": {
         \\"depends_on\\": [
@@ -4231,7 +4262,8 @@ exports[`PocketALBApplication renders an application with autoscaling group and 
               \\"scaling_adjustment\\": 2
             }
           ]
-        }
+        },
+        \\"target_tracking_scaling_policy_configuration\\": {}
       }
     },
     \\"aws_appautoscaling_target\\": {
@@ -4300,6 +4332,9 @@ exports[`PocketALBApplication renders an application with autoscaling group and 
     },
     \\"aws_ecs_cluster\\": {
       \\"testPocketApp_ecs_cluster_C3960066\\": {
+        \\"configuration\\": {
+          \\"execute_command_configuration\\": {}
+        },
         \\"name\\": \\"testapp\\",
         \\"setting\\": [
           {
@@ -4841,7 +4876,8 @@ exports[`PocketALBApplication renders an application with custom task sizes 1`] 
               \\"scaling_adjustment\\": -1
             }
           ]
-        }
+        },
+        \\"target_tracking_scaling_policy_configuration\\": {}
       },
       \\"testPocketApp_autoscaling_scale_out_policy_075BFAC4\\": {
         \\"depends_on\\": [
@@ -4862,7 +4898,8 @@ exports[`PocketALBApplication renders an application with custom task sizes 1`] 
               \\"scaling_adjustment\\": 2
             }
           ]
-        }
+        },
+        \\"target_tracking_scaling_policy_configuration\\": {}
       }
     },
     \\"aws_appautoscaling_target\\": {
@@ -4923,6 +4960,9 @@ exports[`PocketALBApplication renders an application with custom task sizes 1`] 
     },
     \\"aws_ecs_cluster\\": {
       \\"testPocketApp_ecs_cluster_C3960066\\": {
+        \\"configuration\\": {
+          \\"execute_command_configuration\\": {}
+        },
         \\"name\\": \\"testapp\\",
         \\"setting\\": [
           {
@@ -5444,7 +5484,8 @@ exports[`PocketALBApplication renders an application with default autoscaling gr
               \\"scaling_adjustment\\": -1
             }
           ]
-        }
+        },
+        \\"target_tracking_scaling_policy_configuration\\": {}
       },
       \\"testPocketApp_autoscaling_scale_out_policy_075BFAC4\\": {
         \\"depends_on\\": [
@@ -5465,7 +5506,8 @@ exports[`PocketALBApplication renders an application with default autoscaling gr
               \\"scaling_adjustment\\": 2
             }
           ]
-        }
+        },
+        \\"target_tracking_scaling_policy_configuration\\": {}
       }
     },
     \\"aws_appautoscaling_target\\": {
@@ -5534,6 +5576,9 @@ exports[`PocketALBApplication renders an application with default autoscaling gr
     },
     \\"aws_ecs_cluster\\": {
       \\"testPocketApp_ecs_cluster_C3960066\\": {
+        \\"configuration\\": {
+          \\"execute_command_configuration\\": {}
+        },
         \\"name\\": \\"testapp\\",
         \\"setting\\": [
           {
@@ -6075,7 +6120,8 @@ exports[`PocketALBApplication renders an application with minimal config 1`] = `
               \\"scaling_adjustment\\": -1
             }
           ]
-        }
+        },
+        \\"target_tracking_scaling_policy_configuration\\": {}
       },
       \\"testPocketApp_autoscaling_scale_out_policy_075BFAC4\\": {
         \\"depends_on\\": [
@@ -6096,7 +6142,8 @@ exports[`PocketALBApplication renders an application with minimal config 1`] = `
               \\"scaling_adjustment\\": 2
             }
           ]
-        }
+        },
+        \\"target_tracking_scaling_policy_configuration\\": {}
       }
     },
     \\"aws_appautoscaling_target\\": {
@@ -6157,6 +6204,9 @@ exports[`PocketALBApplication renders an application with minimal config 1`] = `
     },
     \\"aws_ecs_cluster\\": {
       \\"testPocketApp_ecs_cluster_C3960066\\": {
+        \\"configuration\\": {
+          \\"execute_command_configuration\\": {}
+        },
         \\"name\\": \\"testapp\\",
         \\"setting\\": [
           {
@@ -6668,7 +6718,8 @@ exports[`PocketALBApplication renders an application with modified container def
               \\"scaling_adjustment\\": -1
             }
           ]
-        }
+        },
+        \\"target_tracking_scaling_policy_configuration\\": {}
       },
       \\"testPocketApp_autoscaling_scale_out_policy_075BFAC4\\": {
         \\"depends_on\\": [
@@ -6689,7 +6740,8 @@ exports[`PocketALBApplication renders an application with modified container def
               \\"scaling_adjustment\\": 2
             }
           ]
-        }
+        },
+        \\"target_tracking_scaling_policy_configuration\\": {}
       }
     },
     \\"aws_appautoscaling_target\\": {
@@ -6773,6 +6825,9 @@ exports[`PocketALBApplication renders an application with modified container def
     },
     \\"aws_ecs_cluster\\": {
       \\"testPocketApp_ecs_cluster_C3960066\\": {
+        \\"configuration\\": {
+          \\"execute_command_configuration\\": {}
+        },
         \\"name\\": \\"testapp\\",
         \\"setting\\": [
           {
@@ -7304,7 +7359,8 @@ exports[`PocketALBApplication renders an external application 1`] = `
               \\"scaling_adjustment\\": -1
             }
           ]
-        }
+        },
+        \\"target_tracking_scaling_policy_configuration\\": {}
       },
       \\"testPocketApp_autoscaling_scale_out_policy_075BFAC4\\": {
         \\"depends_on\\": [
@@ -7325,7 +7381,8 @@ exports[`PocketALBApplication renders an external application 1`] = `
               \\"scaling_adjustment\\": 2
             }
           ]
-        }
+        },
+        \\"target_tracking_scaling_policy_configuration\\": {}
       }
     },
     \\"aws_appautoscaling_target\\": {
@@ -7454,6 +7511,9 @@ exports[`PocketALBApplication renders an external application 1`] = `
     },
     \\"aws_ecs_cluster\\": {
       \\"testPocketApp_ecs_cluster_C3960066\\": {
+        \\"configuration\\": {
+          \\"execute_command_configuration\\": {}
+        },
         \\"name\\": \\"testapp\\",
         \\"setting\\": [
           {
@@ -8000,7 +8060,8 @@ exports[`PocketALBApplication renders an internal application 1`] = `
               \\"scaling_adjustment\\": -1
             }
           ]
-        }
+        },
+        \\"target_tracking_scaling_policy_configuration\\": {}
       },
       \\"testPocketApp_autoscaling_scale_out_policy_075BFAC4\\": {
         \\"depends_on\\": [
@@ -8021,7 +8082,8 @@ exports[`PocketALBApplication renders an internal application 1`] = `
               \\"scaling_adjustment\\": 2
             }
           ]
-        }
+        },
+        \\"target_tracking_scaling_policy_configuration\\": {}
       }
     },
     \\"aws_appautoscaling_target\\": {
@@ -8082,6 +8144,9 @@ exports[`PocketALBApplication renders an internal application 1`] = `
     },
     \\"aws_ecs_cluster\\": {
       \\"testPocketApp_ecs_cluster_C3960066\\": {
+        \\"configuration\\": {
+          \\"execute_command_configuration\\": {}
+        },
         \\"name\\": \\"testapp\\",
         \\"setting\\": [
           {
@@ -8603,7 +8668,8 @@ exports[`PocketALBApplication renders an internal application with tags 1`] = `
               \\"scaling_adjustment\\": -1
             }
           ]
-        }
+        },
+        \\"target_tracking_scaling_policy_configuration\\": {}
       },
       \\"testPocketApp_autoscaling_scale_out_policy_075BFAC4\\": {
         \\"depends_on\\": [
@@ -8624,7 +8690,8 @@ exports[`PocketALBApplication renders an internal application with tags 1`] = `
               \\"scaling_adjustment\\": 2
             }
           ]
-        }
+        },
+        \\"target_tracking_scaling_policy_configuration\\": {}
       }
     },
     \\"aws_appautoscaling_target\\": {
@@ -8693,6 +8760,9 @@ exports[`PocketALBApplication renders an internal application with tags 1`] = `
     },
     \\"aws_ecs_cluster\\": {
       \\"testPocketApp_ecs_cluster_C3960066\\": {
+        \\"configuration\\": {
+          \\"execute_command_configuration\\": {}
+        },
         \\"name\\": \\"testapp\\",
         \\"setting\\": [
           {

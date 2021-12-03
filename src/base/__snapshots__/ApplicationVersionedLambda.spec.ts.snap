@@ -124,7 +124,13 @@ exports[`ApplicationVersionedLambda renders a lambda with a node v14 runtime 1`]
       \\"test-versioned-lambda_code-bucket_C658EE92\\": {
         \\"acl\\": \\"private\\",
         \\"bucket\\": \\"test-bucket\\",
-        \\"force_destroy\\": true
+        \\"force_destroy\\": true,
+        \\"object_lock_configuration\\": {
+          \\"rule\\": {}
+        },
+        \\"server_side_encryption_configuration\\": {
+          \\"rule\\": {}
+        }
       }
     },
     \\"aws_s3_bucket_public_access_block\\": {
@@ -262,7 +268,13 @@ exports[`ApplicationVersionedLambda renders a versioned lambda 1`] = `
       \\"test-versioned-lambda_code-bucket_C658EE92\\": {
         \\"acl\\": \\"private\\",
         \\"bucket\\": \\"test-bucket\\",
-        \\"force_destroy\\": true
+        \\"force_destroy\\": true,
+        \\"object_lock_configuration\\": {
+          \\"rule\\": {}
+        },
+        \\"server_side_encryption_configuration\\": {
+          \\"rule\\": {}
+        }
       }
     },
     \\"aws_s3_bucket_public_access_block\\": {
@@ -400,7 +412,13 @@ exports[`ApplicationVersionedLambda renders a versioned lambda with description 
       \\"test-versioned-lambda_code-bucket_C658EE92\\": {
         \\"acl\\": \\"private\\",
         \\"bucket\\": \\"test-bucket\\",
-        \\"force_destroy\\": true
+        \\"force_destroy\\": true,
+        \\"object_lock_configuration\\": {
+          \\"rule\\": {}
+        },
+        \\"server_side_encryption_configuration\\": {
+          \\"rule\\": {}
+        }
       }
     },
     \\"aws_s3_bucket_public_access_block\\": {
@@ -544,7 +562,13 @@ exports[`ApplicationVersionedLambda renders a versioned lambda with environment 
       \\"test-versioned-lambda_code-bucket_C658EE92\\": {
         \\"acl\\": \\"private\\",
         \\"bucket\\": \\"test-bucket\\",
-        \\"force_destroy\\": true
+        \\"force_destroy\\": true,
+        \\"object_lock_configuration\\": {
+          \\"rule\\": {}
+        },
+        \\"server_side_encryption_configuration\\": {
+          \\"rule\\": {}
+        }
       }
     },
     \\"aws_s3_bucket_public_access_block\\": {
@@ -691,7 +715,13 @@ exports[`ApplicationVersionedLambda renders a versioned lambda with execution po
       \\"test-versioned-lambda_code-bucket_C658EE92\\": {
         \\"acl\\": \\"private\\",
         \\"bucket\\": \\"test-bucket\\",
-        \\"force_destroy\\": true
+        \\"force_destroy\\": true,
+        \\"object_lock_configuration\\": {
+          \\"rule\\": {}
+        },
+        \\"server_side_encryption_configuration\\": {
+          \\"rule\\": {}
+        }
       }
     },
     \\"aws_s3_bucket_public_access_block\\": {
@@ -829,7 +859,13 @@ exports[`ApplicationVersionedLambda renders a versioned lambda with log retentio
       \\"test-versioned-lambda_code-bucket_C658EE92\\": {
         \\"acl\\": \\"private\\",
         \\"bucket\\": \\"test-bucket\\",
-        \\"force_destroy\\": true
+        \\"force_destroy\\": true,
+        \\"object_lock_configuration\\": {
+          \\"rule\\": {}
+        },
+        \\"server_side_encryption_configuration\\": {
+          \\"rule\\": {}
+        }
       }
     },
     \\"aws_s3_bucket_public_access_block\\": {
@@ -968,7 +1004,13 @@ exports[`ApplicationVersionedLambda renders a versioned lambda with publish igno
       \\"test-versioned-lambda_code-bucket_C658EE92\\": {
         \\"acl\\": \\"private\\",
         \\"bucket\\": \\"test-bucket\\",
-        \\"force_destroy\\": true
+        \\"force_destroy\\": true,
+        \\"object_lock_configuration\\": {
+          \\"rule\\": {}
+        },
+        \\"server_side_encryption_configuration\\": {
+          \\"rule\\": {}
+        }
       }
     },
     \\"aws_s3_bucket_public_access_block\\": {
@@ -1106,7 +1148,13 @@ exports[`ApplicationVersionedLambda renders a versioned lambda with s3 bucket 1`
       \\"test-versioned-lambda_code-bucket_C658EE92\\": {
         \\"acl\\": \\"private\\",
         \\"bucket\\": \\"test-bucket\\",
-        \\"force_destroy\\": true
+        \\"force_destroy\\": true,
+        \\"object_lock_configuration\\": {
+          \\"rule\\": {}
+        },
+        \\"server_side_encryption_configuration\\": {
+          \\"rule\\": {}
+        }
       }
     },
     \\"aws_s3_bucket_public_access_block\\": {
@@ -1249,6 +1297,12 @@ exports[`ApplicationVersionedLambda renders a versioned lambda with tags 1`] = `
         \\"acl\\": \\"private\\",
         \\"bucket\\": \\"test-bucket\\",
         \\"force_destroy\\": true,
+        \\"object_lock_configuration\\": {
+          \\"rule\\": {}
+        },
+        \\"server_side_encryption_configuration\\": {
+          \\"rule\\": {}
+        },
         \\"tags\\": {
           \\"for\\": \\"test\\",
           \\"my\\": \\"tag\\"
@@ -1390,7 +1444,13 @@ exports[`ApplicationVersionedLambda renders a versioned lambda with timeout 1`] 
       \\"test-versioned-lambda_code-bucket_C658EE92\\": {
         \\"acl\\": \\"private\\",
         \\"bucket\\": \\"test-bucket\\",
-        \\"force_destroy\\": true
+        \\"force_destroy\\": true,
+        \\"object_lock_configuration\\": {
+          \\"rule\\": {}
+        },
+        \\"server_side_encryption_configuration\\": {
+          \\"rule\\": {}
+        }
       }
     },
     \\"aws_s3_bucket_public_access_block\\": {
@@ -1551,7 +1611,13 @@ exports[`ApplicationVersionedLambda renders a versioned lambda with vpc 1`] = `
       \\"test-versioned-lambda_code-bucket_C658EE92\\": {
         \\"acl\\": \\"private\\",
         \\"bucket\\": \\"test-bucket\\",
-        \\"force_destroy\\": true
+        \\"force_destroy\\": true,
+        \\"object_lock_configuration\\": {
+          \\"rule\\": {}
+        },
+        \\"server_side_encryption_configuration\\": {
+          \\"rule\\": {}
+        }
       }
     },
     \\"aws_s3_bucket_public_access_block\\": {

@@ -15,10 +15,12 @@ exports[`renders a Pocket PagerDuty for critical and non-critical actions 1`] = 
   \\"resource\\": {
     \\"aws_sns_topic\\": {
       \\"test-pagerduty_alarm-critical-topic_5B8FEE8D\\": {
-        \\"name\\": \\"Test-Env-Infrastructure-Alarm-Critical\\"
+        \\"name\\": \\"Test-Env-Infrastructure-Alarm-Critical\\",
+        \\"tags\\": {}
       },
       \\"test-pagerduty_alarm-non-critical-topic_3FD65796\\": {
-        \\"name\\": \\"Test-Env-Infrastructure-Alarm-Non-Critical\\"
+        \\"name\\": \\"Test-Env-Infrastructure-Alarm-Non-Critical\\",
+        \\"tags\\": {}
       }
     },
     \\"aws_sns_topic_subscription\\": {
@@ -49,6 +51,7 @@ exports[`renders a Pocket PagerDuty for critical and non-critical actions 1`] = 
       \\"test-pagerduty_pagerduty-critical_3EB714BD\\": {
         \\"acknowledgement_timeout\\": \\"600\\",
         \\"alert_creation\\": \\"create_incidents\\",
+        \\"alert_grouping_parameters\\": {},
         \\"auto_resolve_timeout\\": \\"14400\\",
         \\"description\\": \\"PagerDuty Critical\\",
         \\"escalation_policy\\": \\"critical-id\\",
@@ -61,6 +64,7 @@ exports[`renders a Pocket PagerDuty for critical and non-critical actions 1`] = 
       \\"test-pagerduty_pagerduty-non-critical_BBC21A2B\\": {
         \\"acknowledgement_timeout\\": \\"600\\",
         \\"alert_creation\\": \\"create_incidents\\",
+        \\"alert_grouping_parameters\\": {},
         \\"auto_resolve_timeout\\": \\"14400\\",
         \\"description\\": \\"PagerDuty Non-Critical\\",
         \\"escalation_policy\\": \\"non-critical-id\\",
@@ -124,10 +128,12 @@ exports[`renders a Pocket PagerDuty with custom acknowledgement timeout 1`] = `
   \\"resource\\": {
     \\"aws_sns_topic\\": {
       \\"test-pagerduty_alarm-critical-topic_5B8FEE8D\\": {
-        \\"name\\": \\"Test-Env-Infrastructure-Alarm-Critical\\"
+        \\"name\\": \\"Test-Env-Infrastructure-Alarm-Critical\\",
+        \\"tags\\": {}
       },
       \\"test-pagerduty_alarm-non-critical-topic_3FD65796\\": {
-        \\"name\\": \\"Test-Env-Infrastructure-Alarm-Non-Critical\\"
+        \\"name\\": \\"Test-Env-Infrastructure-Alarm-Non-Critical\\",
+        \\"tags\\": {}
       }
     },
     \\"aws_sns_topic_subscription\\": {
@@ -158,6 +164,7 @@ exports[`renders a Pocket PagerDuty with custom acknowledgement timeout 1`] = `
       \\"test-pagerduty_pagerduty-critical_3EB714BD\\": {
         \\"acknowledgement_timeout\\": \\"100\\",
         \\"alert_creation\\": \\"create_incidents\\",
+        \\"alert_grouping_parameters\\": {},
         \\"auto_resolve_timeout\\": \\"14400\\",
         \\"description\\": \\"PagerDuty Critical\\",
         \\"escalation_policy\\": \\"critical-id\\",
@@ -170,6 +177,7 @@ exports[`renders a Pocket PagerDuty with custom acknowledgement timeout 1`] = `
       \\"test-pagerduty_pagerduty-non-critical_BBC21A2B\\": {
         \\"acknowledgement_timeout\\": \\"100\\",
         \\"alert_creation\\": \\"create_incidents\\",
+        \\"alert_grouping_parameters\\": {},
         \\"auto_resolve_timeout\\": \\"14400\\",
         \\"description\\": \\"PagerDuty Non-Critical\\",
         \\"escalation_policy\\": \\"non-critical-id\\",
@@ -233,10 +241,12 @@ exports[`renders a Pocket PagerDuty with custom auto resolve timeout 1`] = `
   \\"resource\\": {
     \\"aws_sns_topic\\": {
       \\"test-pagerduty_alarm-critical-topic_5B8FEE8D\\": {
-        \\"name\\": \\"Test-Env-Infrastructure-Alarm-Critical\\"
+        \\"name\\": \\"Test-Env-Infrastructure-Alarm-Critical\\",
+        \\"tags\\": {}
       },
       \\"test-pagerduty_alarm-non-critical-topic_3FD65796\\": {
-        \\"name\\": \\"Test-Env-Infrastructure-Alarm-Non-Critical\\"
+        \\"name\\": \\"Test-Env-Infrastructure-Alarm-Non-Critical\\",
+        \\"tags\\": {}
       }
     },
     \\"aws_sns_topic_subscription\\": {
@@ -267,6 +277,7 @@ exports[`renders a Pocket PagerDuty with custom auto resolve timeout 1`] = `
       \\"test-pagerduty_pagerduty-critical_3EB714BD\\": {
         \\"acknowledgement_timeout\\": \\"600\\",
         \\"alert_creation\\": \\"create_incidents\\",
+        \\"alert_grouping_parameters\\": {},
         \\"auto_resolve_timeout\\": \\"4\\",
         \\"description\\": \\"PagerDuty Critical\\",
         \\"escalation_policy\\": \\"critical-id\\",
@@ -279,6 +290,7 @@ exports[`renders a Pocket PagerDuty with custom auto resolve timeout 1`] = `
       \\"test-pagerduty_pagerduty-non-critical_BBC21A2B\\": {
         \\"acknowledgement_timeout\\": \\"600\\",
         \\"alert_creation\\": \\"create_incidents\\",
+        \\"alert_grouping_parameters\\": {},
         \\"auto_resolve_timeout\\": \\"4\\",
         \\"description\\": \\"PagerDuty Non-Critical\\",
         \\"escalation_policy\\": \\"non-critical-id\\",
@@ -342,10 +354,12 @@ exports[`renders a Pocket PagerDuty with custom sns topic subscription confirmat
   \\"resource\\": {
     \\"aws_sns_topic\\": {
       \\"test-pagerduty_alarm-critical-topic_5B8FEE8D\\": {
-        \\"name\\": \\"Test-Env-Infrastructure-Alarm-Critical\\"
+        \\"name\\": \\"Test-Env-Infrastructure-Alarm-Critical\\",
+        \\"tags\\": {}
       },
       \\"test-pagerduty_alarm-non-critical-topic_3FD65796\\": {
-        \\"name\\": \\"Test-Env-Infrastructure-Alarm-Non-Critical\\"
+        \\"name\\": \\"Test-Env-Infrastructure-Alarm-Non-Critical\\",
+        \\"tags\\": {}
       }
     },
     \\"aws_sns_topic_subscription\\": {
@@ -376,6 +390,7 @@ exports[`renders a Pocket PagerDuty with custom sns topic subscription confirmat
       \\"test-pagerduty_pagerduty-critical_3EB714BD\\": {
         \\"acknowledgement_timeout\\": \\"600\\",
         \\"alert_creation\\": \\"create_incidents\\",
+        \\"alert_grouping_parameters\\": {},
         \\"auto_resolve_timeout\\": \\"14400\\",
         \\"description\\": \\"PagerDuty Critical\\",
         \\"escalation_policy\\": \\"critical-id\\",
@@ -388,6 +403,7 @@ exports[`renders a Pocket PagerDuty with custom sns topic subscription confirmat
       \\"test-pagerduty_pagerduty-non-critical_BBC21A2B\\": {
         \\"acknowledgement_timeout\\": \\"600\\",
         \\"alert_creation\\": \\"create_incidents\\",
+        \\"alert_grouping_parameters\\": {},
         \\"auto_resolve_timeout\\": \\"14400\\",
         \\"description\\": \\"PagerDuty Non-Critical\\",
         \\"escalation_policy\\": \\"non-critical-id\\",
@@ -491,6 +507,7 @@ exports[`renders a Pocket PagerDuty with sns topic tags 1`] = `
       \\"test-pagerduty_pagerduty-critical_3EB714BD\\": {
         \\"acknowledgement_timeout\\": \\"600\\",
         \\"alert_creation\\": \\"create_incidents\\",
+        \\"alert_grouping_parameters\\": {},
         \\"auto_resolve_timeout\\": \\"14400\\",
         \\"description\\": \\"PagerDuty Critical\\",
         \\"escalation_policy\\": \\"critical-id\\",
@@ -503,6 +520,7 @@ exports[`renders a Pocket PagerDuty with sns topic tags 1`] = `
       \\"test-pagerduty_pagerduty-non-critical_BBC21A2B\\": {
         \\"acknowledgement_timeout\\": \\"600\\",
         \\"alert_creation\\": \\"create_incidents\\",
+        \\"alert_grouping_parameters\\": {},
         \\"auto_resolve_timeout\\": \\"14400\\",
         \\"description\\": \\"PagerDuty Non-Critical\\",
         \\"escalation_policy\\": \\"non-critical-id\\",

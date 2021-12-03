@@ -188,7 +188,13 @@ exports[`PocketApiGatewayLambdaIntegration renders an api gateway with a lambda 
       \\"test-api-lambda_endpoint-lambda_code-bucket_8153D419\\": {
         \\"acl\\": \\"private\\",
         \\"bucket\\": \\"pocket-lambda-endpoint\\",
-        \\"force_destroy\\": true
+        \\"force_destroy\\": true,
+        \\"object_lock_configuration\\": {
+          \\"rule\\": {}
+        },
+        \\"server_side_encryption_configuration\\": {
+          \\"rule\\": {}
+        }
       }
     },
     \\"aws_s3_bucket_public_access_block\\": {
