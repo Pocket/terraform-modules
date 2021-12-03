@@ -176,7 +176,7 @@ exports[`PocketApiGatewayLambdaIntegration renders an api gateway with a lambda 
       }
     },
     \\"aws_lambda_permission\\": {
-      \\"test-api-lambda_TfTokenTOKEN29-allow-gateway-lambda-invoke_968F16C6\\": {
+      \\"test-api-lambda_test-api-lambda_endpoint-lambda_alias_A14F4FF8-allow-gateway-lambda-invoke_F4009ED6\\": {
         \\"action\\": \\"lambda:InvokeFunction\\",
         \\"function_name\\": \\"\${aws_lambda_alias.test-api-lambda_endpoint-lambda_alias_A14F4FF8.function_name}\\",
         \\"principal\\": \\"apigateway.amazonaws.com\\",

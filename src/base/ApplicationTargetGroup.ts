@@ -1,4 +1,4 @@
-import { ELB } from '@cdktf/provider-aws';
+import { elb } from '@cdktf/provider-aws';
 import { Resource } from 'cdktf';
 import { Construct } from 'constructs';
 
@@ -10,7 +10,7 @@ export interface ApplicationTargetGroupProps {
 }
 
 export class ApplicationTargetGroup extends Resource {
-  public readonly targetGroup: ELB.AlbTargetGroup;
+  public readonly targetGroup: elb.AlbTargetGroup;
 
   constructor(
     scope: Construct,
@@ -19,7 +19,7 @@ export class ApplicationTargetGroup extends Resource {
   ) {
     super(scope, name);
 
-    this.targetGroup = new ELB.AlbTargetGroup(this, 'ecs_target_group', {
+    this.targetGroup = new elb.AlbTargetGroup(this, 'ecs_target_group', {
       namePrefix: config.shortName,
       protocol: 'HTTP',
       vpcId: config.vpcId,

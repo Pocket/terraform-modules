@@ -4,7 +4,7 @@ import {
   ApplicationElasticacheEngine,
 } from './ApplicationElasticacheCluster';
 import { Construct } from 'constructs';
-import { VPC, ElastiCache } from '@cdktf/provider-aws';
+import { vpc, elasticache } from '@cdktf/provider-aws';
 
 const DEFAULT_CONFIG = {
   node: {
@@ -14,7 +14,7 @@ const DEFAULT_CONFIG = {
 };
 
 export class ApplicationRedis extends ApplicationElasticacheCluster {
-  public elasticacheReplicationGroup: ElastiCache.ElasticacheReplicationGroup;
+  public elasticacheReplicationGroup: elasticache.ElasticacheReplicationGroup;
 
   constructor(
     scope: Construct,
@@ -29,31 +29,40 @@ export class ApplicationRedis extends ApplicationElasticacheCluster {
       ...config,
     };
 
-    const vpc = ApplicationElasticacheCluster.getVpc(this, config);
+    const appVpc = ApplicationElasticacheCluster.getVpc(this, config);
 
     this.elasticacheReplicationGroup =
-      ApplicationRedis.createElasticacheReplicationCluster(this, vpc, config);
+      ApplicationRedis.createElasticacheReplicationCluster(
+        this,
+        appVpc,
+        config
+      );
   }
 
   /**
    * Creates the elasticache cluster to be used
    * @param scope
-   * @param vpc
+   * @param appVpc
    * @param config
    * @private
    */
   private static createElasticacheReplicationCluster(
     scope: Construct,
-    vpc: VPC.DataAwsVpc,
+    appVpc: vpc.DataAwsVpc,
     config: ApplicationElasticacheClusterProps
-  ): ElastiCache.ElasticacheReplicationGroup {
+  ): elasticache.ElasticacheReplicationGroup {
     const engine = ApplicationElasticacheEngine.REDIS;
     const port = ApplicationElasticacheCluster.getPortForEngine(engine);
 
     const { securityGroup, subnetGroup } =
-      ApplicationRedis.createSecurityGroupAndSubnet(scope, config, vpc, port);
+      ApplicationRedis.createSecurityGroupAndSubnet(
+        scope,
+        config,
+        appVpc,
+        port
+      );
 
-    return new ElastiCache.ElasticacheReplicationGroup(
+    return new elasticache.ElasticacheReplicationGroup(
       scope,
       'elasticache_replication_group',
       {
