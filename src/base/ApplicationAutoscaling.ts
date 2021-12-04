@@ -206,7 +206,7 @@ export class ApplicationAutoscaling extends Resource {
       ];
     }
 
-    return new AppautoscalingPolicy(
+    const appAutoscaling = new AppautoscalingPolicy(
       resource,
       `scale_${type.toLowerCase()}_policy`,
       {
@@ -225,6 +225,15 @@ export class ApplicationAutoscaling extends Resource {
         dependsOn: [target],
       }
     );
+
+    // Terraform CDK 0.8.1 started outputing this as a {} in syntiesized output and
+    // terraform does not like this being an empty object, but it is ok with a null
+    appAutoscaling.addOverride(
+      'target_tracking_scaling_policy_configuration',
+      null
+    );
+
+    return appAutoscaling;
   }
 
   /**

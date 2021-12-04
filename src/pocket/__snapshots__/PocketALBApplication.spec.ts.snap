@@ -314,7 +314,7 @@ exports[`PocketALBApplication renders an Pocket App with code deploy 1`] = `
             }
           ]
         },
-        \\"target_tracking_scaling_policy_configuration\\": {}
+        \\"target_tracking_scaling_policy_configuration\\": null
       },
       \\"testPocketApp_autoscaling_scale_out_policy_075BFAC4\\": {
         \\"depends_on\\": [
@@ -336,7 +336,7 @@ exports[`PocketALBApplication renders an Pocket App with code deploy 1`] = `
             }
           ]
         },
-        \\"target_tracking_scaling_policy_configuration\\": {}
+        \\"target_tracking_scaling_policy_configuration\\": null
       }
     },
     \\"aws_appautoscaling_target\\": {
@@ -1053,7 +1053,7 @@ exports[`PocketALBApplication renders an Pocket App with code deploy and creates
             }
           ]
         },
-        \\"target_tracking_scaling_policy_configuration\\": {}
+        \\"target_tracking_scaling_policy_configuration\\": null
       },
       \\"testPocketApp_autoscaling_scale_out_policy_075BFAC4\\": {
         \\"depends_on\\": [
@@ -1075,7 +1075,7 @@ exports[`PocketALBApplication renders an Pocket App with code deploy and creates
             }
           ]
         },
-        \\"target_tracking_scaling_policy_configuration\\": {}
+        \\"target_tracking_scaling_policy_configuration\\": null
       }
     },
     \\"aws_appautoscaling_target\\": {
@@ -1741,7 +1741,7 @@ exports[`PocketALBApplication renders an Pocket App with custom Alarm Descriptio
             }
           ]
         },
-        \\"target_tracking_scaling_policy_configuration\\": {}
+        \\"target_tracking_scaling_policy_configuration\\": null
       },
       \\"testPocketApp_autoscaling_scale_out_policy_075BFAC4\\": {
         \\"depends_on\\": [
@@ -1763,7 +1763,7 @@ exports[`PocketALBApplication renders an Pocket App with custom Alarm Descriptio
             }
           ]
         },
-        \\"target_tracking_scaling_policy_configuration\\": {}
+        \\"target_tracking_scaling_policy_configuration\\": null
       }
     },
     \\"aws_appautoscaling_target\\": {
@@ -2402,7 +2402,7 @@ exports[`PocketALBApplication renders an Pocket App with logs and dashboard in a
             }
           ]
         },
-        \\"target_tracking_scaling_policy_configuration\\": {}
+        \\"target_tracking_scaling_policy_configuration\\": null
       },
       \\"testPocketApp_autoscaling_scale_out_policy_075BFAC4\\": {
         \\"depends_on\\": [
@@ -2424,7 +2424,7 @@ exports[`PocketALBApplication renders an Pocket App with logs and dashboard in a
             }
           ]
         },
-        \\"target_tracking_scaling_policy_configuration\\": {}
+        \\"target_tracking_scaling_policy_configuration\\": null
       }
     },
     \\"aws_appautoscaling_target\\": {
@@ -3000,7 +3000,7 @@ exports[`PocketALBApplication renders an application alarms 1`] = `
             }
           ]
         },
-        \\"target_tracking_scaling_policy_configuration\\": {}
+        \\"target_tracking_scaling_policy_configuration\\": null
       },
       \\"testPocketApp_autoscaling_scale_out_policy_075BFAC4\\": {
         \\"depends_on\\": [
@@ -3022,7 +3022,7 @@ exports[`PocketALBApplication renders an application alarms 1`] = `
             }
           ]
         },
-        \\"target_tracking_scaling_policy_configuration\\": {}
+        \\"target_tracking_scaling_policy_configuration\\": null
       }
     },
     \\"aws_appautoscaling_target\\": {
@@ -3620,7 +3620,7 @@ exports[`PocketALBApplication renders an application custom default alarms 1`] =
             }
           ]
         },
-        \\"target_tracking_scaling_policy_configuration\\": {}
+        \\"target_tracking_scaling_policy_configuration\\": null
       },
       \\"testPocketApp_autoscaling_scale_out_policy_075BFAC4\\": {
         \\"depends_on\\": [
@@ -3642,7 +3642,7 @@ exports[`PocketALBApplication renders an application custom default alarms 1`] =
             }
           ]
         },
-        \\"target_tracking_scaling_policy_configuration\\": {}
+        \\"target_tracking_scaling_policy_configuration\\": null
       }
     },
     \\"aws_appautoscaling_target\\": {
@@ -4241,7 +4241,7 @@ exports[`PocketALBApplication renders an application with autoscaling group and 
             }
           ]
         },
-        \\"target_tracking_scaling_policy_configuration\\": {}
+        \\"target_tracking_scaling_policy_configuration\\": null
       },
       \\"testPocketApp_autoscaling_scale_out_policy_075BFAC4\\": {
         \\"depends_on\\": [
@@ -4263,7 +4263,7 @@ exports[`PocketALBApplication renders an application with autoscaling group and 
             }
           ]
         },
-        \\"target_tracking_scaling_policy_configuration\\": {}
+        \\"target_tracking_scaling_policy_configuration\\": null
       }
     },
     \\"aws_appautoscaling_target\\": {
@@ -4877,7 +4877,7 @@ exports[`PocketALBApplication renders an application with custom task sizes 1`] 
             }
           ]
         },
-        \\"target_tracking_scaling_policy_configuration\\": {}
+        \\"target_tracking_scaling_policy_configuration\\": null
       },
       \\"testPocketApp_autoscaling_scale_out_policy_075BFAC4\\": {
         \\"depends_on\\": [
@@ -4899,7 +4899,7 @@ exports[`PocketALBApplication renders an application with custom task sizes 1`] 
             }
           ]
         },
-        \\"target_tracking_scaling_policy_configuration\\": {}
+        \\"target_tracking_scaling_policy_configuration\\": null
       }
     },
     \\"aws_appautoscaling_target\\": {
@@ -5485,7 +5485,7 @@ exports[`PocketALBApplication renders an application with default autoscaling gr
             }
           ]
         },
-        \\"target_tracking_scaling_policy_configuration\\": {}
+        \\"target_tracking_scaling_policy_configuration\\": null
       },
       \\"testPocketApp_autoscaling_scale_out_policy_075BFAC4\\": {
         \\"depends_on\\": [
@@ -5507,7 +5507,7 @@ exports[`PocketALBApplication renders an application with default autoscaling gr
             }
           ]
         },
-        \\"target_tracking_scaling_policy_configuration\\": {}
+        \\"target_tracking_scaling_policy_configuration\\": null
       }
     },
     \\"aws_appautoscaling_target\\": {
@@ -6121,7 +6121,7 @@ exports[`PocketALBApplication renders an application with minimal config 1`] = `
             }
           ]
         },
-        \\"target_tracking_scaling_policy_configuration\\": {}
+        \\"target_tracking_scaling_policy_configuration\\": null
       },
       \\"testPocketApp_autoscaling_scale_out_policy_075BFAC4\\": {
         \\"depends_on\\": [
@@ -6143,7 +6143,7 @@ exports[`PocketALBApplication renders an application with minimal config 1`] = `
             }
           ]
         },
-        \\"target_tracking_scaling_policy_configuration\\": {}
+        \\"target_tracking_scaling_policy_configuration\\": null
       }
     },
     \\"aws_appautoscaling_target\\": {
@@ -6719,7 +6719,7 @@ exports[`PocketALBApplication renders an application with modified container def
             }
           ]
         },
-        \\"target_tracking_scaling_policy_configuration\\": {}
+        \\"target_tracking_scaling_policy_configuration\\": null
       },
       \\"testPocketApp_autoscaling_scale_out_policy_075BFAC4\\": {
         \\"depends_on\\": [
@@ -6741,7 +6741,7 @@ exports[`PocketALBApplication renders an application with modified container def
             }
           ]
         },
-        \\"target_tracking_scaling_policy_configuration\\": {}
+        \\"target_tracking_scaling_policy_configuration\\": null
       }
     },
     \\"aws_appautoscaling_target\\": {
@@ -7360,7 +7360,7 @@ exports[`PocketALBApplication renders an external application 1`] = `
             }
           ]
         },
-        \\"target_tracking_scaling_policy_configuration\\": {}
+        \\"target_tracking_scaling_policy_configuration\\": null
       },
       \\"testPocketApp_autoscaling_scale_out_policy_075BFAC4\\": {
         \\"depends_on\\": [
@@ -7382,7 +7382,7 @@ exports[`PocketALBApplication renders an external application 1`] = `
             }
           ]
         },
-        \\"target_tracking_scaling_policy_configuration\\": {}
+        \\"target_tracking_scaling_policy_configuration\\": null
       }
     },
     \\"aws_appautoscaling_target\\": {
@@ -8061,7 +8061,7 @@ exports[`PocketALBApplication renders an internal application 1`] = `
             }
           ]
         },
-        \\"target_tracking_scaling_policy_configuration\\": {}
+        \\"target_tracking_scaling_policy_configuration\\": null
       },
       \\"testPocketApp_autoscaling_scale_out_policy_075BFAC4\\": {
         \\"depends_on\\": [
@@ -8083,7 +8083,7 @@ exports[`PocketALBApplication renders an internal application 1`] = `
             }
           ]
         },
-        \\"target_tracking_scaling_policy_configuration\\": {}
+        \\"target_tracking_scaling_policy_configuration\\": null
       }
     },
     \\"aws_appautoscaling_target\\": {
@@ -8669,7 +8669,7 @@ exports[`PocketALBApplication renders an internal application with tags 1`] = `
             }
           ]
         },
-        \\"target_tracking_scaling_policy_configuration\\": {}
+        \\"target_tracking_scaling_policy_configuration\\": null
       },
       \\"testPocketApp_autoscaling_scale_out_policy_075BFAC4\\": {
         \\"depends_on\\": [
@@ -8691,7 +8691,7 @@ exports[`PocketALBApplication renders an internal application with tags 1`] = `
             }
           ]
         },
-        \\"target_tracking_scaling_policy_configuration\\": {}
+        \\"target_tracking_scaling_policy_configuration\\": null
       }
     },
     \\"aws_appautoscaling_target\\": {
