@@ -1,3 +1,10 @@
+## [2.4.0](https://github.com/Pocket/terraform-modules/compare/v2.3.10...v2.4.0) (2021-12-03)
+
+
+### Features
+
+* **api-gateway:** adding route53 to pocket api gateway construct.  ([#568](https://github.com/Pocket/terraform-modules/issues/568)) ([b15faed](https://github.com/Pocket/terraform-modules/commit/b15faedea570f4a0d6887f36a93f1caaacdf8ca8))
+
 ### [2.3.10](https://github.com/Pocket/terraform-modules/compare/v2.3.9...v2.3.10) (2021-12-02)
 
 
