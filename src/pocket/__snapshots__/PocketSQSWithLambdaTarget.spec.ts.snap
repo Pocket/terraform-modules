@@ -141,7 +141,6 @@ exports[`renders a lambda triggered by an existing sqs queue 1`] = `
     },
     \\"aws_lambda_event_source_mapping\\": {
       \\"test-sqs-lambda_lambda_event_source_mapping_C60D5FF2\\": {
-        \\"destination_config\\": {},
         \\"event_source_arn\\": \\"\${data.aws_sqs_queue.test-sqs-lambda_lambda_sqs_queue_D097423A.arn}\\",
         \\"function_name\\": \\"\${aws_lambda_alias.test-sqs-lambda_alias_2C2A09A2.arn}\\"
       }
@@ -168,13 +167,7 @@ exports[`renders a lambda triggered by an existing sqs queue 1`] = `
       \\"test-sqs-lambda_code-bucket_34D549A2\\": {
         \\"acl\\": \\"private\\",
         \\"bucket\\": \\"pocket-test-sqs-lambda\\",
-        \\"force_destroy\\": true,
-        \\"object_lock_configuration\\": {
-          \\"rule\\": {}
-        },
-        \\"server_side_encryption_configuration\\": {
-          \\"rule\\": {}
-        }
+        \\"force_destroy\\": true
       }
     },
     \\"aws_s3_bucket_public_access_block\\": {
@@ -324,7 +317,6 @@ exports[`renders a plain sqs queue and lambda target 1`] = `
     },
     \\"aws_lambda_event_source_mapping\\": {
       \\"test-sqs-lambda_lambda_event_source_mapping_C60D5FF2\\": {
-        \\"destination_config\\": {},
         \\"event_source_arn\\": \\"\${aws_sqs_queue.test-sqs-lambda_lambda_sqs_queue_7C6D24B3.arn}\\",
         \\"function_name\\": \\"\${aws_lambda_alias.test-sqs-lambda_alias_2C2A09A2.arn}\\"
       }
@@ -351,13 +343,7 @@ exports[`renders a plain sqs queue and lambda target 1`] = `
       \\"test-sqs-lambda_code-bucket_34D549A2\\": {
         \\"acl\\": \\"private\\",
         \\"bucket\\": \\"pocket-test-sqs-lambda\\",
-        \\"force_destroy\\": true,
-        \\"object_lock_configuration\\": {
-          \\"rule\\": {}
-        },
-        \\"server_side_encryption_configuration\\": {
-          \\"rule\\": {}
-        }
+        \\"force_destroy\\": true
       }
     },
     \\"aws_s3_bucket_public_access_block\\": {
@@ -513,7 +499,6 @@ exports[`renders a plain sqs queue with a deadletter and lambda target 1`] = `
     },
     \\"aws_lambda_event_source_mapping\\": {
       \\"test-sqs-lambda_lambda_event_source_mapping_C60D5FF2\\": {
-        \\"destination_config\\": {},
         \\"event_source_arn\\": \\"\${aws_sqs_queue.test-sqs-lambda_lambda_sqs_queue_7C6D24B3.arn}\\",
         \\"function_name\\": \\"\${aws_lambda_alias.test-sqs-lambda_alias_2C2A09A2.arn}\\"
       }
@@ -540,13 +525,7 @@ exports[`renders a plain sqs queue with a deadletter and lambda target 1`] = `
       \\"test-sqs-lambda_code-bucket_34D549A2\\": {
         \\"acl\\": \\"private\\",
         \\"bucket\\": \\"pocket-test-sqs-lambda\\",
-        \\"force_destroy\\": true,
-        \\"object_lock_configuration\\": {
-          \\"rule\\": {}
-        },
-        \\"server_side_encryption_configuration\\": {
-          \\"rule\\": {}
-        }
+        \\"force_destroy\\": true
       }
     },
     \\"aws_s3_bucket_public_access_block\\": {

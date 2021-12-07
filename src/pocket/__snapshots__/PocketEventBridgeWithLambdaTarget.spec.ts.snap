@@ -70,7 +70,6 @@ exports[`renders an event bridge and lambda target with event bus name 1`] = `
           \\"aws_lambda_alias.test-event-bridge-lambda_alias_2EC274FC\\",
           \\"aws_cloudwatch_event_rule.test-event-bridge-lambda_event-bridge-rule_529FF7C2\\"
         ],
-        \\"ecs_target\\": {},
         \\"rule\\": \\"\${aws_cloudwatch_event_rule.test-event-bridge-lambda_event-bridge-rule_529FF7C2.name}\\",
         \\"target_id\\": \\"lambda\\"
       }
@@ -156,13 +155,7 @@ exports[`renders an event bridge and lambda target with event bus name 1`] = `
       \\"test-event-bridge-lambda_code-bucket_3703E73B\\": {
         \\"acl\\": \\"private\\",
         \\"bucket\\": \\"pocket-test-event-bridge-lambda\\",
-        \\"force_destroy\\": true,
-        \\"object_lock_configuration\\": {
-          \\"rule\\": {}
-        },
-        \\"server_side_encryption_configuration\\": {
-          \\"rule\\": {}
-        }
+        \\"force_destroy\\": true
       }
     },
     \\"aws_s3_bucket_public_access_block\\": {
@@ -247,7 +240,6 @@ exports[`renders an event bridge and lambda target with rule description 1`] = `
           \\"aws_lambda_alias.test-event-bridge-lambda_alias_2EC274FC\\",
           \\"aws_cloudwatch_event_rule.test-event-bridge-lambda_event-bridge-rule_529FF7C2\\"
         ],
-        \\"ecs_target\\": {},
         \\"rule\\": \\"\${aws_cloudwatch_event_rule.test-event-bridge-lambda_event-bridge-rule_529FF7C2.name}\\",
         \\"target_id\\": \\"lambda\\"
       }
@@ -333,13 +325,7 @@ exports[`renders an event bridge and lambda target with rule description 1`] = `
       \\"test-event-bridge-lambda_code-bucket_3703E73B\\": {
         \\"acl\\": \\"private\\",
         \\"bucket\\": \\"pocket-test-event-bridge-lambda\\",
-        \\"force_destroy\\": true,
-        \\"object_lock_configuration\\": {
-          \\"rule\\": {}
-        },
-        \\"server_side_encryption_configuration\\": {
-          \\"rule\\": {}
-        }
+        \\"force_destroy\\": true
       }
     },
     \\"aws_s3_bucket_public_access_block\\": {

@@ -40,7 +40,6 @@ exports[`ApplicationLambdaCodeDeploy renders a lambda code deploy app 1`] = `
             \\"DEPLOYMENT_FAILURE\\"
           ]
         },
-        \\"blue_green_deployment_config\\": {},
         \\"depends_on\\": [
           \\"aws_codedeploy_app.test-lambda-code-deploy_code-deploy-app_A7640CFE\\"
         ],
@@ -49,9 +48,6 @@ exports[`ApplicationLambdaCodeDeploy renders a lambda code deploy app 1`] = `
         \\"deployment_style\\": {
           \\"deployment_option\\": \\"WITH_TRAFFIC_CONTROL\\",
           \\"deployment_type\\": \\"BLUE_GREEN\\"
-        },
-        \\"load_balancer_info\\": {
-          \\"target_group_pair_info\\": {}
         },
         \\"service_role_arn\\": \\"\${aws_iam_role.test-lambda-code-deploy_code-deploy-role_9DA8B07C.arn}\\"
       }
@@ -115,7 +111,6 @@ exports[`ApplicationLambdaCodeDeploy renders a lambda code deploy app with sns t
             \\"DEPLOYMENT_FAILURE\\"
           ]
         },
-        \\"blue_green_deployment_config\\": {},
         \\"depends_on\\": [
           \\"aws_codedeploy_app.test-lambda-code-deploy_code-deploy-app_A7640CFE\\"
         ],
@@ -124,9 +119,6 @@ exports[`ApplicationLambdaCodeDeploy renders a lambda code deploy app with sns t
         \\"deployment_style\\": {
           \\"deployment_option\\": \\"WITH_TRAFFIC_CONTROL\\",
           \\"deployment_type\\": \\"BLUE_GREEN\\"
-        },
-        \\"load_balancer_info\\": {
-          \\"target_group_pair_info\\": {}
         },
         \\"service_role_arn\\": \\"\${aws_iam_role.test-lambda-code-deploy_code-deploy-role_9DA8B07C.arn}\\"
       }
@@ -205,7 +197,6 @@ exports[`ApplicationLambdaCodeDeploy renders a lambda code deploy app with sns t
             \\"DEPLOYMENT_FAILURE\\"
           ]
         },
-        \\"blue_green_deployment_config\\": {},
         \\"depends_on\\": [
           \\"aws_codedeploy_app.test-lambda-code-deploy_code-deploy-app_A7640CFE\\"
         ],
@@ -214,9 +205,6 @@ exports[`ApplicationLambdaCodeDeploy renders a lambda code deploy app with sns t
         \\"deployment_style\\": {
           \\"deployment_option\\": \\"WITH_TRAFFIC_CONTROL\\",
           \\"deployment_type\\": \\"BLUE_GREEN\\"
-        },
-        \\"load_balancer_info\\": {
-          \\"target_group_pair_info\\": {}
         },
         \\"service_role_arn\\": \\"\${aws_iam_role.test-lambda-code-deploy_code-deploy-role_9DA8B07C.arn}\\"
       }

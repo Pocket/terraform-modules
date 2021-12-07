@@ -454,9 +454,6 @@ exports[`PocketALBApplication renders an Pocket App with code deploy 1`] = `
     },
     \\"aws_ecs_cluster\\": {
       \\"testPocketApp_ecs_cluster_C3960066\\": {
-        \\"configuration\\": {
-          \\"execute_command_configuration\\": {}
-        },
         \\"name\\": \\"testapp\\",
         \\"setting\\": [
           {
@@ -1193,9 +1190,6 @@ exports[`PocketALBApplication renders an Pocket App with code deploy and creates
     },
     \\"aws_ecs_cluster\\": {
       \\"testPocketApp_ecs_cluster_C3960066\\": {
-        \\"configuration\\": {
-          \\"execute_command_configuration\\": {}
-        },
         \\"name\\": \\"testapp\\",
         \\"setting\\": [
           {
@@ -1887,9 +1881,6 @@ exports[`PocketALBApplication renders an Pocket App with custom Alarm Descriptio
     },
     \\"aws_ecs_cluster\\": {
       \\"testPocketApp_ecs_cluster_C3960066\\": {
-        \\"configuration\\": {
-          \\"execute_command_configuration\\": {}
-        },
         \\"name\\": \\"testapp\\",
         \\"setting\\": [
           {
@@ -2485,9 +2476,6 @@ exports[`PocketALBApplication renders an Pocket App with logs and dashboard in a
     },
     \\"aws_ecs_cluster\\": {
       \\"testPocketApp_ecs_cluster_C3960066\\": {
-        \\"configuration\\": {
-          \\"execute_command_configuration\\": {}
-        },
         \\"name\\": \\"testapp\\",
         \\"setting\\": [
           {
@@ -3105,9 +3093,6 @@ exports[`PocketALBApplication renders an application alarms 1`] = `
     },
     \\"aws_ecs_cluster\\": {
       \\"testPocketApp_ecs_cluster_C3960066\\": {
-        \\"configuration\\": {
-          \\"execute_command_configuration\\": {}
-        },
         \\"name\\": \\"testapp\\",
         \\"setting\\": [
           {
@@ -3716,9 +3701,6 @@ exports[`PocketALBApplication renders an application custom default alarms 1`] =
     },
     \\"aws_ecs_cluster\\": {
       \\"testPocketApp_ecs_cluster_C3960066\\": {
-        \\"configuration\\": {
-          \\"execute_command_configuration\\": {}
-        },
         \\"name\\": \\"testapp\\",
         \\"setting\\": [
           {
@@ -4332,9 +4314,6 @@ exports[`PocketALBApplication renders an application with autoscaling group and 
     },
     \\"aws_ecs_cluster\\": {
       \\"testPocketApp_ecs_cluster_C3960066\\": {
-        \\"configuration\\": {
-          \\"execute_command_configuration\\": {}
-        },
         \\"name\\": \\"testapp\\",
         \\"setting\\": [
           {
@@ -4960,9 +4939,6 @@ exports[`PocketALBApplication renders an application with custom task sizes 1`] 
     },
     \\"aws_ecs_cluster\\": {
       \\"testPocketApp_ecs_cluster_C3960066\\": {
-        \\"configuration\\": {
-          \\"execute_command_configuration\\": {}
-        },
         \\"name\\": \\"testapp\\",
         \\"setting\\": [
           {
@@ -5576,9 +5552,6 @@ exports[`PocketALBApplication renders an application with default autoscaling gr
     },
     \\"aws_ecs_cluster\\": {
       \\"testPocketApp_ecs_cluster_C3960066\\": {
-        \\"configuration\\": {
-          \\"execute_command_configuration\\": {}
-        },
         \\"name\\": \\"testapp\\",
         \\"setting\\": [
           {
@@ -6204,9 +6177,6 @@ exports[`PocketALBApplication renders an application with minimal config 1`] = `
     },
     \\"aws_ecs_cluster\\": {
       \\"testPocketApp_ecs_cluster_C3960066\\": {
-        \\"configuration\\": {
-          \\"execute_command_configuration\\": {}
-        },
         \\"name\\": \\"testapp\\",
         \\"setting\\": [
           {
@@ -6825,9 +6795,6 @@ exports[`PocketALBApplication renders an application with modified container def
     },
     \\"aws_ecs_cluster\\": {
       \\"testPocketApp_ecs_cluster_C3960066\\": {
-        \\"configuration\\": {
-          \\"execute_command_configuration\\": {}
-        },
         \\"name\\": \\"testapp\\",
         \\"setting\\": [
           {
@@ -7511,9 +7478,6 @@ exports[`PocketALBApplication renders an external application 1`] = `
     },
     \\"aws_ecs_cluster\\": {
       \\"testPocketApp_ecs_cluster_C3960066\\": {
-        \\"configuration\\": {
-          \\"execute_command_configuration\\": {}
-        },
         \\"name\\": \\"testapp\\",
         \\"setting\\": [
           {
@@ -8144,9 +8108,6 @@ exports[`PocketALBApplication renders an internal application 1`] = `
     },
     \\"aws_ecs_cluster\\": {
       \\"testPocketApp_ecs_cluster_C3960066\\": {
-        \\"configuration\\": {
-          \\"execute_command_configuration\\": {}
-        },
         \\"name\\": \\"testapp\\",
         \\"setting\\": [
           {
@@ -8760,9 +8721,6 @@ exports[`PocketALBApplication renders an internal application with tags 1`] = `
     },
     \\"aws_ecs_cluster\\": {
       \\"testPocketApp_ecs_cluster_C3960066\\": {
-        \\"configuration\\": {
-          \\"execute_command_configuration\\": {}
-        },
         \\"name\\": \\"testapp\\",
         \\"setting\\": [
           {

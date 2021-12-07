@@ -211,13 +211,7 @@ exports[`renders a Pocket ECS Codepipeline template 1`] = `
       \\"test-codepipeline_codepipeline-bucket_D4671464\\": {
         \\"acl\\": \\"private\\",
         \\"bucket\\": \\"pocket-codepipeline-e7e6d80d49c8787d2f7a7aca123082dd\\",
-        \\"force_destroy\\": true,
-        \\"object_lock_configuration\\": {
-          \\"rule\\": {}
-        },
-        \\"server_side_encryption_configuration\\": {
-          \\"rule\\": {}
-        }
+        \\"force_destroy\\": true
       }
     }
   }
@@ -439,12 +433,6 @@ exports[`renders a Pocket ECS Codepipeline template with tags 1`] = `
         \\"acl\\": \\"private\\",
         \\"bucket\\": \\"pocket-codepipeline-e7e6d80d49c8787d2f7a7aca123082dd\\",
         \\"force_destroy\\": true,
-        \\"object_lock_configuration\\": {
-          \\"rule\\": {}
-        },
-        \\"server_side_encryption_configuration\\": {
-          \\"rule\\": {}
-        },
         \\"tags\\": {
           \\"yup\\": \\"a tag\\"
         }
@@ -665,13 +653,7 @@ exports[`renders a Pocket ECS Codepipeline template with the provided CodeDeploy
       \\"test-codepipeline_codepipeline-bucket_D4671464\\": {
         \\"acl\\": \\"private\\",
         \\"bucket\\": \\"pocket-codepipeline-e7e6d80d49c8787d2f7a7aca123082dd\\",
-        \\"force_destroy\\": true,
-        \\"object_lock_configuration\\": {
-          \\"rule\\": {}
-        },
-        \\"server_side_encryption_configuration\\": {
-          \\"rule\\": {}
-        }
+        \\"force_destroy\\": true
       }
     }
   }
@@ -889,13 +871,7 @@ exports[`renders a Pocket ECS Codepipeline template with the provided CodeDeploy
       \\"test-codepipeline_codepipeline-bucket_D4671464\\": {
         \\"acl\\": \\"private\\",
         \\"bucket\\": \\"pocket-codepipeline-e7e6d80d49c8787d2f7a7aca123082dd\\",
-        \\"force_destroy\\": true,
-        \\"object_lock_configuration\\": {
-          \\"rule\\": {}
-        },
-        \\"server_side_encryption_configuration\\": {
-          \\"rule\\": {}
-        }
+        \\"force_destroy\\": true
       }
     }
   }
@@ -1113,13 +1089,7 @@ exports[`renders a Pocket ECS Codepipeline template with the provided appspec pa
       \\"test-codepipeline_codepipeline-bucket_D4671464\\": {
         \\"acl\\": \\"private\\",
         \\"bucket\\": \\"pocket-codepipeline-e7e6d80d49c8787d2f7a7aca123082dd\\",
-        \\"force_destroy\\": true,
-        \\"object_lock_configuration\\": {
-          \\"rule\\": {}
-        },
-        \\"server_side_encryption_configuration\\": {
-          \\"rule\\": {}
-        }
+        \\"force_destroy\\": true
       }
     }
   }
@@ -1337,13 +1307,7 @@ exports[`renders a Pocket ECS Codepipeline template with the provided code build
       \\"test-codepipeline_codepipeline-bucket_D4671464\\": {
         \\"acl\\": \\"private\\",
         \\"bucket\\": \\"pocket-codepipeline-e7e6d80d49c8787d2f7a7aca123082dd\\",
-        \\"force_destroy\\": true,
-        \\"object_lock_configuration\\": {
-          \\"rule\\": {}
-        },
-        \\"server_side_encryption_configuration\\": {
-          \\"rule\\": {}
-        }
+        \\"force_destroy\\": true
       }
     }
   }
@@ -1561,13 +1525,7 @@ exports[`renders a Pocket ECS Codepipeline template with the provided taskdef pa
       \\"test-codepipeline_codepipeline-bucket_D4671464\\": {
         \\"acl\\": \\"private\\",
         \\"bucket\\": \\"pocket-codepipeline-e7e6d80d49c8787d2f7a7aca123082dd\\",
-        \\"force_destroy\\": true,
-        \\"object_lock_configuration\\": {
-          \\"rule\\": {}
-        },
-        \\"server_side_encryption_configuration\\": {
-          \\"rule\\": {}
-        }
+        \\"force_destroy\\": true
       }
     }
   }

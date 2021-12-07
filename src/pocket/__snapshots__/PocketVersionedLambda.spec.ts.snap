@@ -146,13 +146,7 @@ exports[`it can treat missing data as breaching 1`] = `
       \\"test-lambda_code-bucket_177F316E\\": {
         \\"acl\\": \\"private\\",
         \\"bucket\\": \\"pocket-test-lambda\\",
-        \\"force_destroy\\": true,
-        \\"object_lock_configuration\\": {
-          \\"rule\\": {}
-        },
-        \\"server_side_encryption_configuration\\": {
-          \\"rule\\": {}
-        }
+        \\"force_destroy\\": true
       }
     },
     \\"aws_s3_bucket_public_access_block\\": {
@@ -290,13 +284,7 @@ exports[`renders a lambda target 1`] = `
       \\"test-lambda_code-bucket_177F316E\\": {
         \\"acl\\": \\"private\\",
         \\"bucket\\": \\"pocket-test-lambda\\",
-        \\"force_destroy\\": true,
-        \\"object_lock_configuration\\": {
-          \\"rule\\": {}
-        },
-        \\"server_side_encryption_configuration\\": {
-          \\"rule\\": {}
-        }
+        \\"force_destroy\\": true
       }
     },
     \\"aws_s3_bucket_public_access_block\\": {
@@ -439,12 +427,6 @@ exports[`renders a lambda target with tags 1`] = `
         \\"acl\\": \\"private\\",
         \\"bucket\\": \\"pocket-test-lambda\\",
         \\"force_destroy\\": true,
-        \\"object_lock_configuration\\": {
-          \\"rule\\": {}
-        },
-        \\"server_side_encryption_configuration\\": {
-          \\"rule\\": {}
-        },
         \\"tags\\": {
           \\"for\\": \\"test\\",
           \\"my\\": \\"tags\\"
@@ -688,13 +670,7 @@ exports[`renders a lambda with alarms 1`] = `
       \\"test-lambda_code-bucket_177F316E\\": {
         \\"acl\\": \\"private\\",
         \\"bucket\\": \\"pocket-test-lambda\\",
-        \\"force_destroy\\": true,
-        \\"object_lock_configuration\\": {
-          \\"rule\\": {}
-        },
-        \\"server_side_encryption_configuration\\": {
-          \\"rule\\": {}
-        }
+        \\"force_destroy\\": true
       }
     },
     \\"aws_s3_bucket_public_access_block\\": {
@@ -806,7 +782,6 @@ exports[`renders a lambda with code deploy 1`] = `
             \\"DEPLOYMENT_FAILURE\\"
           ]
         },
-        \\"blue_green_deployment_config\\": {},
         \\"depends_on\\": [
           \\"aws_codedeploy_app.test-lambda_lambda-code-deploy_code-deploy-app_7C98647C\\"
         ],
@@ -815,9 +790,6 @@ exports[`renders a lambda with code deploy 1`] = `
         \\"deployment_style\\": {
           \\"deployment_option\\": \\"WITH_TRAFFIC_CONTROL\\",
           \\"deployment_type\\": \\"BLUE_GREEN\\"
-        },
-        \\"load_balancer_info\\": {
-          \\"target_group_pair_info\\": {}
         },
         \\"service_role_arn\\": \\"\${aws_iam_role.test-lambda_lambda-code-deploy_code-deploy-role_6EA86ECC.arn}\\"
       }
@@ -908,13 +880,7 @@ exports[`renders a lambda with code deploy 1`] = `
       \\"test-lambda_code-bucket_177F316E\\": {
         \\"acl\\": \\"private\\",
         \\"bucket\\": \\"pocket-test-lambda\\",
-        \\"force_destroy\\": true,
-        \\"object_lock_configuration\\": {
-          \\"rule\\": {}
-        },
-        \\"server_side_encryption_configuration\\": {
-          \\"rule\\": {}
-        }
+        \\"force_destroy\\": true
       }
     },
     \\"aws_s3_bucket_public_access_block\\": {
@@ -1058,13 +1024,7 @@ exports[`renders a lambda with environment variables 1`] = `
       \\"test-lambda_code-bucket_177F316E\\": {
         \\"acl\\": \\"private\\",
         \\"bucket\\": \\"pocket-test-lambda\\",
-        \\"force_destroy\\": true,
-        \\"object_lock_configuration\\": {
-          \\"rule\\": {}
-        },
-        \\"server_side_encryption_configuration\\": {
-          \\"rule\\": {}
-        }
+        \\"force_destroy\\": true
       }
     },
     \\"aws_s3_bucket_public_access_block\\": {
@@ -1211,13 +1171,7 @@ exports[`renders a lambda with execution policy 1`] = `
       \\"test-lambda_code-bucket_177F316E\\": {
         \\"acl\\": \\"private\\",
         \\"bucket\\": \\"pocket-test-lambda\\",
-        \\"force_destroy\\": true,
-        \\"object_lock_configuration\\": {
-          \\"rule\\": {}
-        },
-        \\"server_side_encryption_configuration\\": {
-          \\"rule\\": {}
-        }
+        \\"force_destroy\\": true
       }
     },
     \\"aws_s3_bucket_public_access_block\\": {
@@ -1355,13 +1309,7 @@ exports[`renders a lambda with lambda description 1`] = `
       \\"test-lambda_code-bucket_177F316E\\": {
         \\"acl\\": \\"private\\",
         \\"bucket\\": \\"pocket-test-lambda\\",
-        \\"force_destroy\\": true,
-        \\"object_lock_configuration\\": {
-          \\"rule\\": {}
-        },
-        \\"server_side_encryption_configuration\\": {
-          \\"rule\\": {}
-        }
+        \\"force_destroy\\": true
       }
     },
     \\"aws_s3_bucket_public_access_block\\": {
@@ -1499,13 +1447,7 @@ exports[`renders a lambda with log retention 1`] = `
       \\"test-lambda_code-bucket_177F316E\\": {
         \\"acl\\": \\"private\\",
         \\"bucket\\": \\"pocket-test-lambda\\",
-        \\"force_destroy\\": true,
-        \\"object_lock_configuration\\": {
-          \\"rule\\": {}
-        },
-        \\"server_side_encryption_configuration\\": {
-          \\"rule\\": {}
-        }
+        \\"force_destroy\\": true
       }
     },
     \\"aws_s3_bucket_public_access_block\\": {
@@ -1643,13 +1585,7 @@ exports[`renders a lambda with s3 bucket 1`] = `
       \\"test-lambda_code-bucket_177F316E\\": {
         \\"acl\\": \\"private\\",
         \\"bucket\\": \\"test-bucket\\",
-        \\"force_destroy\\": true,
-        \\"object_lock_configuration\\": {
-          \\"rule\\": {}
-        },
-        \\"server_side_encryption_configuration\\": {
-          \\"rule\\": {}
-        }
+        \\"force_destroy\\": true
       }
     },
     \\"aws_s3_bucket_public_access_block\\": {
@@ -1787,13 +1723,7 @@ exports[`renders a lambda with timeout 1`] = `
       \\"test-lambda_code-bucket_177F316E\\": {
         \\"acl\\": \\"private\\",
         \\"bucket\\": \\"pocket-test-lambda\\",
-        \\"force_destroy\\": true,
-        \\"object_lock_configuration\\": {
-          \\"rule\\": {}
-        },
-        \\"server_side_encryption_configuration\\": {
-          \\"rule\\": {}
-        }
+        \\"force_destroy\\": true
       }
     },
     \\"aws_s3_bucket_public_access_block\\": {
@@ -1954,13 +1884,7 @@ exports[`renders a lambda with vpc config 1`] = `
       \\"test-lambda_code-bucket_177F316E\\": {
         \\"acl\\": \\"private\\",
         \\"bucket\\": \\"pocket-test-lambda\\",
-        \\"force_destroy\\": true,
-        \\"object_lock_configuration\\": {
-          \\"rule\\": {}
-        },
-        \\"server_side_encryption_configuration\\": {
-          \\"rule\\": {}
-        }
+        \\"force_destroy\\": true
       }
     },
     \\"aws_s3_bucket_public_access_block\\": {
