@@ -1,10 +1,7 @@
 import { Construct } from 'constructs';
 import { App, TerraformStack } from 'cdktf';
 import { AwsProvider } from '@cdktf/provider-aws';
-import { PocketALBApplication } from './pocket/PocketALBApplication';
-import { ApplicationECSContainerDefinitionProps } from './base/ApplicationECSContainerDefinition';
-import { LocalProvider } from '@cdktf/provider-local';
-import { NullProvider } from '@cdktf/provider-null';
+import { ApplicationBackup } from './base/ApplicationBackups';
 
 class Example extends TerraformStack {
   constructor(scope: Construct, name: string) {
@@ -13,46 +10,24 @@ class Example extends TerraformStack {
     new AwsProvider(this, 'aws', {
       region: 'us-east-1',
     });
-    new LocalProvider(this, 'local', {});
-    new NullProvider(this, 'null', {});
 
-    const containerConfigBlue: ApplicationECSContainerDefinitionProps = {
-      name: 'blueContainer',
-      containerImage: 'bitnami/node-example:0.0.1',
-      portMappings: [
+    new ApplicationBackup(this, 'test-backup', {
+      name: 'TestDevVault',
+      prefix: 'Test-Dev',
+      accountId: '410318598490',
+      // backupPlans: plans as unknown as ApplicationBackupProps['backupPlans'],
+      backupPlans: [
         {
-          hostPort: 3000,
-          containerPort: 3000,
+          name: 'TestDevPlan',
+          resources: ['arn:aws:rds:us-east-1:410318598490:db:parser-dev3'],
+          rules: [
+            {
+              ruleName: 'TestDailyBackupRule',
+            },
+          ],
         },
       ],
-      envVars: [
-        {
-          name: 'foo',
-          value: 'bar',
-        },
-      ],
-    };
-
-    new PocketALBApplication(this, 'example', {
-      exposedContainer: {
-        name: 'blueContainer',
-        port: 3000,
-        healthCheckPath: '/',
-      },
-      codeDeploy: {
-        useCodeDeploy: true,
-      },
-      cdn: false, // maybe make this false if you're testing an actual terraform apply - cdn's take a loooong time to spin up
-      alb6CharacterPrefix: 'ACMECO',
-      internal: false,
-      domain: 'acme.getpocket.dev',
-      prefix: 'ACME-Dev', // Prefix is a combo of the `Name-Environment`
-      containerConfigs: [containerConfigBlue],
-      ecsIamConfig: {
-        prefix: 'ACME-Dev',
-        taskExecutionRolePolicyStatements: [],
-        taskRolePolicyStatements: [],
-      },
+      tags: { service: 'PocketDevBackup' },
     });
   }
 }
