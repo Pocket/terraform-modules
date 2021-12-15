@@ -5,6 +5,7 @@ import BackupVault = Backup.BackupVault;
 import BackupPlan = Backup.BackupPlan;
 import BackupSelection = Backup.BackupSelection;
 import BackupPlanRule = Backup.BackupPlanRule;
+import { type } from 'os';
 
 
 // export interface ApplicationBackupProps {
@@ -29,6 +30,8 @@ export interface ApplicationBackupProps {
       name: string;
       resources: string[];
       rules: Omit<BackupPlanRule, 'targetVaultName'>[];
+      // selectionTag?: Omit<BackupPlanRule, 'targetVaultName'>[];
+      selectionTag: any
     }[];
     tags?: { [key: string]: string };
   }
@@ -75,7 +78,19 @@ export class ApplicationBackup extends Resource {
                 name: `${config.prefix}-Backup-Selection`,
                 planId: backupPlan.id,
                 iamRoleArn: `arn:aws:iam::${config.accountId}:role/service-role/AWSBackupDefaultServiceRole`,
+                // resources: [ "*"],
                 resources: plan.resources,
+                selectionTag: plan.selectionTag
+
+                // resources is optional
+                // resources: plan.resources,
+                // selectionTag is optional
+                // selectionTag: [{
+                //   key: 'BackupsEnabled',
+                //   type: 'STRINGEQUALS',
+                //   value: 'True'
+                // }
+               // ]        
               });
             });
           }

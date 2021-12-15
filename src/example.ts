@@ -12,14 +12,20 @@ class Example extends TerraformStack {
     });
 
     new ApplicationBackup(this, 'test-backup', {
-      name: 'TestDevVault',
-      prefix: 'Test-Dev',
+      name: 'TestVault',
+      prefix: 'Pocket-Dev',
       accountId: '410318598490',
       // backupPlans: plans as unknown as ApplicationBackupProps['backupPlans'],
       backupPlans: [
         {
           name: 'TestDevPlan',
-          resources: ['arn:aws:rds:us-east-1:410318598490:db:parser-dev3'],
+          // resources: ['arn:aws:rds:us-east-1:410318598490:db:parser-dev3'],
+          resources: ['*'],
+          selectionTag: [{
+            key: 'BackupsEnabled',
+            type: 'STRINGEQUALS',
+            value: 'True'
+          }],
           rules: [
             {
               ruleName: 'TestDailyBackupRule',
