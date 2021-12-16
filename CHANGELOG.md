@@ -1,3 +1,22 @@
+## [3.0.0](https://github.com/Pocket/terraform-modules/compare/v2.4.2...v3.0.0) (2021-12-16)
+
+
+### ⚠ BREAKING CHANGES
+
+* **cdktf:** Please note that CDK for Terraform 0.8 contains breaking changes that will require code updates for namespacing AWS provider resources
+
+* feat(cdktf): bump cdktf to 0.8.1
+
+* fix(cdktf): fixes for cdktf 0.8.1
+
+* feat(cdktf): bump cdktf providers
+
+* fix(cdktf): fixes for cdktf 0.8.3
+
+### Features
+
+* **cdktf:** bump cdktf to 0.8 ([#584](https://github.com/Pocket/terraform-modules/issues/584)) ([f8113fe](https://github.com/Pocket/terraform-modules/commit/f8113fead51684fceabad3785fa1f78c00283dec))
+
 ### [2.4.2](https://github.com/Pocket/terraform-modules/compare/v2.4.1...v2.4.2) (2021-12-13)
 
 
