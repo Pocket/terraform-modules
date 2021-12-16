@@ -1,4 +1,4 @@
-import { APIGateway, LambdaFunction, Route53 } from '@cdktf/provider-aws';
+import { apigateway, lambdafunction, route53 } from '@cdktf/provider-aws';
 import { Resource } from '@cdktf/provider-null';
 import { Construct } from 'constructs';
 
@@ -8,7 +8,7 @@ import {
   ApplicationBaseDNS,
   ApplicationCertificate,
 } from '..';
-import ApiGatewayDeploymentConfig = APIGateway.ApiGatewayDeploymentConfig;
+import ApiGatewayDeploymentConfig = apigateway.ApiGatewayDeploymentConfig;
 import { Fn } from 'cdktf';
 
 export interface ApiGatewayLambdaRoute {
@@ -35,9 +35,9 @@ export interface PocketApiGatewayProps {
 
 interface InitializedGatewayRoute {
   lambda: PocketVersionedLambda;
-  resource: APIGateway.ApiGatewayResource;
-  method: APIGateway.ApiGatewayMethod;
-  integration: APIGateway.ApiGatewayIntegration;
+  resource: apigateway.ApiGatewayResource;
+  method: apigateway.ApiGatewayMethod;
+  integration: apigateway.ApiGatewayIntegration;
 }
 
 /**
@@ -45,10 +45,10 @@ interface InitializedGatewayRoute {
  * to a custom domain owned by the account.
  */
 export class PocketApiGateway extends Resource {
-  private apiGatewayRestApi: APIGateway.ApiGatewayRestApi;
+  private apiGatewayRestApi: apigateway.ApiGatewayRestApi;
   private routes: InitializedGatewayRoute[];
-  private apiGatewayDeployment: APIGateway.ApiGatewayDeployment;
-  private apiGatewayStage: APIGateway.ApiGatewayStage;
+  private apiGatewayDeployment: apigateway.ApiGatewayDeployment;
+  private apiGatewayStage: apigateway.ApiGatewayStage;
 
   constructor(
     scope: Construct,
@@ -56,7 +56,7 @@ export class PocketApiGateway extends Resource {
     private readonly config: PocketApiGatewayProps
   ) {
     super(scope, name);
-    this.apiGatewayRestApi = new APIGateway.ApiGatewayRestApi(
+    this.apiGatewayRestApi = new apigateway.ApiGatewayRestApi(
       scope,
       `api-gateway-rest`,
       {
@@ -79,7 +79,7 @@ export class PocketApiGateway extends Resource {
     const triggers = config.triggers ?? { deployedAt: Date.now().toString() };
 
     // Deployment before adding permissions so we can restrict to the stage
-    this.apiGatewayDeployment = new APIGateway.ApiGatewayDeployment(
+    this.apiGatewayDeployment = new apigateway.ApiGatewayDeployment(
       scope,
       'api-gateway-deployment',
       {
@@ -96,7 +96,7 @@ export class PocketApiGateway extends Resource {
         dependsOn: routeDependencies,
       }
     );
-    this.apiGatewayStage = new APIGateway.ApiGatewayStage(
+    this.apiGatewayStage = new apigateway.ApiGatewayStage(
       scope,
       'api-gateway-stage',
       {
@@ -135,7 +135,7 @@ export class PocketApiGateway extends Resource {
     );
 
     //setup custom domain name for API gateway
-    const customDomainName = new APIGateway.ApiGatewayDomainName(
+    const customDomainName = new apigateway.ApiGatewayDomainName(
       this,
       `api-gateway-domain-name`,
       {
@@ -145,7 +145,7 @@ export class PocketApiGateway extends Resource {
       }
     );
 
-    new Route53.Route53Record(this, `apigateway-route53-domain-record`, {
+    new route53.Route53Record(this, `apigateway-route53-domain-record`, {
       name: customDomainName.domainName,
       type: 'A',
       zoneId: baseDNS.zoneId,
@@ -159,7 +159,7 @@ export class PocketApiGateway extends Resource {
       dependsOn: [apiGatewayCertificate.certificateValidation],
     });
 
-    new APIGateway.ApiGatewayBasePathMapping(
+    new apigateway.ApiGatewayBasePathMapping(
       this,
       `api-gateway-base-path-mapping`,
       {
@@ -176,10 +176,10 @@ export class PocketApiGateway extends Resource {
    */
   private addInvokePermissions() {
     this.routes.map(({ lambda, resource, method }) => {
-      const functionName = lambda.lambda.versionedLambda.functionName;
-      new LambdaFunction.LambdaPermission(
+      const friendlyUniqueId = lambda.lambda.versionedLambda.friendlyUniqueId;
+      new lambdafunction.LambdaPermission(
         this,
-        `${functionName}-allow-gateway-lambda-invoke`,
+        `${friendlyUniqueId}-allow-gateway-lambda-invoke`,
         {
           functionName: lambda.lambda.versionedLambda.functionName,
           action: 'lambda:InvokeFunction',
@@ -205,12 +205,12 @@ export class PocketApiGateway extends Resource {
         `${route.path}-lambda`,
         route.eventHandler
       );
-      const resource = new APIGateway.ApiGatewayResource(this, route.path, {
+      const resource = new apigateway.ApiGatewayResource(this, route.path, {
         parentId: this.apiGatewayRestApi.rootResourceId,
         pathPart: route.path,
         restApiId: this.apiGatewayRestApi.id,
       });
-      const method = new APIGateway.ApiGatewayMethod(
+      const method = new apigateway.ApiGatewayMethod(
         this,
         `${route.path}-method`,
         {
@@ -221,7 +221,7 @@ export class PocketApiGateway extends Resource {
           httpMethod: route.method,
         }
       );
-      const integration = new APIGateway.ApiGatewayIntegration(
+      const integration = new apigateway.ApiGatewayIntegration(
         this,
         `${route.path}-integration`,
         {

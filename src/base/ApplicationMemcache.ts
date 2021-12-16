@@ -4,7 +4,7 @@ import {
   ApplicationElasticacheEngine,
 } from './ApplicationElasticacheCluster';
 import { Construct } from 'constructs';
-import { VPC, ElastiCache } from '@cdktf/provider-aws';
+import { vpc, elasticache } from '@cdktf/provider-aws';
 
 const DEFAULT_CONFIG = {
   node: {
@@ -14,7 +14,7 @@ const DEFAULT_CONFIG = {
 };
 
 export class ApplicationMemcache extends ApplicationElasticacheCluster {
-  public elasticacheCluster: ElastiCache.ElasticacheCluster;
+  public elasticacheCluster: elasticache.ElasticacheCluster;
 
   constructor(
     scope: Construct,
@@ -29,11 +29,11 @@ export class ApplicationMemcache extends ApplicationElasticacheCluster {
       ...config,
     };
 
-    const vpc = ApplicationElasticacheCluster.getVpc(this, config);
+    const appVpc = ApplicationElasticacheCluster.getVpc(this, config);
 
     this.elasticacheCluster = ApplicationMemcache.createElasticacheCluster(
       this,
-      vpc,
+      appVpc,
       config
     );
   }
@@ -41,26 +41,26 @@ export class ApplicationMemcache extends ApplicationElasticacheCluster {
   /**
    * Creates the elasticache cluster to be used
    * @param scope
-   * @param vpc
+   * @param appVpc
    * @param config
    * @private
    */
   private static createElasticacheCluster(
     scope: Construct,
-    vpc: VPC.DataAwsVpc,
+    appVpc: vpc.DataAwsVpc,
     config: ApplicationElasticacheClusterProps
-  ): ElastiCache.ElasticacheCluster {
+  ): elasticache.ElasticacheCluster {
     const engine = ApplicationElasticacheEngine.MEMCACHED;
     const port = ApplicationElasticacheCluster.getPortForEngine(engine);
 
     const { securityGroup, subnetGroup } = this.createSecurityGroupAndSubnet(
       scope,
       config,
-      vpc,
+      appVpc,
       port
     );
 
-    return new ElastiCache.ElasticacheCluster(scope, `elasticache_cluster`, {
+    return new elasticache.ElasticacheCluster(scope, `elasticache_cluster`, {
       clusterId: config.prefix.toLowerCase(),
       engine: engine.toString(),
       nodeType: config.node.size,

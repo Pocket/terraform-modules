@@ -1,6 +1,6 @@
 import { Resource } from 'cdktf';
 import { Construct } from 'constructs';
-import { SQS } from '@cdktf/provider-aws';
+import { sqs } from '@cdktf/provider-aws';
 
 export interface ApplicationSQSQueueProps {
   /**
@@ -71,7 +71,7 @@ const validations: {
  * Creates an SQS Queue with a dead letter queue
  */
 export class ApplicationSQSQueue extends Resource {
-  public readonly sqsQueue: SQS.SqsQueue;
+  public readonly sqsQueue: sqs.SqsQueue;
 
   constructor(
     scope: Construct,
@@ -125,7 +125,7 @@ export class ApplicationSQSQueue extends Resource {
       });
     }
 
-    return new SQS.SqsQueue(this, `sqs_queue`, sqsConfig);
+    return new sqs.SqsQueue(this, `sqs_queue`, sqsConfig);
   }
 
   /**
@@ -134,7 +134,7 @@ export class ApplicationSQSQueue extends Resource {
    * @private
    */
   private createDeadLetterSQSQueue(config: ApplicationSQSQueueProps) {
-    return new SQS.SqsQueue(this, `redrive_sqs_queue`, {
+    return new sqs.SqsQueue(this, `redrive_sqs_queue`, {
       name: `${config.name}-Deadletter`,
       tags: config.tags,
       fifoQueue: false,

@@ -1,5 +1,5 @@
 import { Resource, TerraformResource } from 'cdktf';
-import { CodeDeploy, CodeStar, IAM, DataSources } from '@cdktf/provider-aws';
+import { codedeploy, codestar, iam, datasources } from '@cdktf/provider-aws';
 import { Construct } from 'constructs';
 
 export interface ApplicationECSAlbCodeDeployProps {
@@ -14,18 +14,18 @@ export interface ApplicationECSAlbCodeDeployProps {
 }
 
 interface CodeDeployResponse {
-  codeDeployApp: CodeDeploy.CodedeployApp;
-  ecsCodeDeployRole: IAM.IamRole;
+  codeDeployApp: codedeploy.CodedeployApp;
+  ecsCodeDeployRole: iam.IamRole;
 }
 
 /**
- * Represents a ECS Codeploy App that uses an ALB
+ * Represents a ecs Codeploy App that uses an ALB
  */
 export class ApplicationECSAlbCodeDeploy extends Resource {
   private readonly config: ApplicationECSAlbCodeDeployProps;
 
-  public readonly codeDeployApp: CodeDeploy.CodedeployApp;
-  public readonly codeDeployDeploymentGroup: CodeDeploy.CodedeployDeploymentGroup;
+  public readonly codeDeployApp: codedeploy.CodedeployApp;
+  public readonly codeDeployDeploymentGroup: codedeploy.CodedeployDeploymentGroup;
 
   constructor(
     scope: Construct,
@@ -39,7 +39,7 @@ export class ApplicationECSAlbCodeDeploy extends Resource {
     const { codeDeployApp, ecsCodeDeployRole } = this.setupCodeDeployApp();
     this.codeDeployApp = codeDeployApp;
 
-    this.codeDeployDeploymentGroup = new CodeDeploy.CodedeployDeploymentGroup(
+    this.codeDeployDeploymentGroup = new codedeploy.CodedeployDeploymentGroup(
       this,
       `ecs_codedeploy_deployment_group`,
       {
@@ -86,9 +86,9 @@ export class ApplicationECSAlbCodeDeploy extends Resource {
    * @private
    */
   private setupCodeDeployApp(): CodeDeployResponse {
-    const ecsCodeDeployRole = new IAM.IamRole(this, 'ecs_code_deploy_role', {
+    const ecsCodeDeployRole = new iam.IamRole(this, 'ecs_code_deploy_role', {
       name: `${this.config.prefix}-ECSCodeDeployRole`,
-      assumeRolePolicy: new IAM.DataAwsIamPolicyDocument(
+      assumeRolePolicy: new iam.DataAwsIamPolicyDocument(
         this,
         `codedeploy_assume_role`,
         {
@@ -108,13 +108,13 @@ export class ApplicationECSAlbCodeDeploy extends Resource {
       ).json,
     });
 
-    new IAM.IamRolePolicyAttachment(this, 'ecs_codedeploy_role_attachment', {
+    new iam.IamRolePolicyAttachment(this, 'ecs_codedeploy_role_attachment', {
       policyArn: 'arn:aws:iam::aws:policy/AWSCodeDeployRoleForECS',
       role: ecsCodeDeployRole.name,
       dependsOn: [ecsCodeDeployRole],
     });
 
-    const codeDeployApp = new CodeDeploy.CodedeployApp(
+    const codeDeployApp = new codedeploy.CodedeployApp(
       this,
       'ecs_code_deploy',
       {
@@ -124,13 +124,13 @@ export class ApplicationECSAlbCodeDeploy extends Resource {
     );
 
     if (this.config.snsNotificationTopicArn) {
-      const region = new DataSources.DataAwsRegion(this, 'current_region', {});
-      const account = new DataSources.DataAwsCallerIdentity(
+      const region = new datasources.DataAwsRegion(this, 'current_region', {});
+      const account = new datasources.DataAwsCallerIdentity(
         this,
         'current_account',
         {}
       );
-      new CodeStar.CodestarnotificationsNotificationRule(
+      new codestar.CodestarnotificationsNotificationRule(
         this,
         `ecs_codedeploy_notifications`,
         {

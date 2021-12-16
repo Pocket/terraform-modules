@@ -1,5 +1,5 @@
 import { Resource } from 'cdktf';
-import { AppAutoScaling, IAM, DynamoDB } from '@cdktf/provider-aws';
+import { appautoscaling, iam, dynamodb } from '@cdktf/provider-aws';
 import { Construct } from 'constructs';
 
 /**
@@ -23,7 +23,7 @@ export interface ApplicationDynamoDBTableAutoScaleProps {
 
 //Override the default dynamo config but remove the items that we set ourselves.
 export type ApplicationDynamoDBTableConfig = Omit<
-  DynamoDB.DynamodbTableConfig,
+  dynamodb.DynamodbTableConfig,
   'name' | 'tags' | 'lifecycle'
 >;
 
@@ -33,12 +33,12 @@ export interface ApplicationDynamoDBProps {
   tableConfig: ApplicationDynamoDBTableConfig;
   readCapacity?: ApplicationDynamoDBTableAutoScaleProps;
   writeCapacity?: ApplicationDynamoDBTableAutoScaleProps;
-  // If capacityMode is ON_DEMAND, the DynamoDB table will have on-demand capacity. By default this is PROVISIONED.
+  // If capacityMode is ON_DEMAND, the dynamodb table will have on-demand capacity. By default this is PROVISIONED.
   // On-demand capacity mode is capable of serving thousands of requests per second without capacity planning.
   // https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.ReadWriteCapacityMode.html
   // The readCapacity and writeCapacity properties should not be used if capacityMode is set to ON_DEMAND.
   capacityMode?: ApplicationDynamoDBTableCapacityMode;
-  // If true, the DynamoDB table will be protected from being destroyed. Enabled by default.
+  // If true, the dynamodb table will be protected from being destroyed. Enabled by default.
   preventDestroyTable?: boolean;
 }
 
@@ -46,7 +46,7 @@ export interface ApplicationDynamoDBProps {
  * Generates a dynamodb
  */
 export class ApplicationDynamoDBTable extends Resource {
-  public readonly dynamodb: DynamoDB.DynamodbTable;
+  public readonly dynamodb: dynamodb.DynamodbTable;
 
   constructor(
     scope: Construct,
@@ -59,7 +59,7 @@ export class ApplicationDynamoDBTable extends Resource {
       config.capacityMode ?? ApplicationDynamoDBTableCapacityMode.PROVISIONED
     ).valueOf();
 
-    this.dynamodb = new DynamoDB.DynamodbTable(this, `dynamodb_table`, {
+    this.dynamodb = new dynamodb.DynamodbTable(this, `dynamodb_table`, {
       ...config.tableConfig,
       billingMode: billingMode,
       tags: config.tags,
@@ -111,9 +111,9 @@ export class ApplicationDynamoDBTable extends Resource {
     scope: Construct,
     prefix,
     config: ApplicationDynamoDBTableAutoScaleProps,
-    dynamoDB: DynamoDB.DynamodbTable,
+    dynamoDB: dynamodb.DynamodbTable,
     capacityType: ApplicationDynamoDBTableCapacityType,
-    globalSecondaryIndexes: DynamoDB.DynamodbTableGlobalSecondaryIndex[],
+    globalSecondaryIndexes: dynamodb.DynamodbTableGlobalSecondaryIndex[],
     tags?: { [key: string]: string }
   ): void {
     const roleArn = ApplicationDynamoDBTable.createAutoScalingRole(
@@ -184,7 +184,7 @@ export class ApplicationDynamoDBTable extends Resource {
     minCapacity: number,
     maxCapacity: number,
     tracking: number,
-    dynamoDB: DynamoDB.DynamodbTable,
+    dynamoDB: dynamodb.DynamodbTable,
     indexName?: string
   ): void {
     let resourceId = `table/${dynamoDB.name}`;
@@ -201,10 +201,10 @@ export class ApplicationDynamoDBTable extends Resource {
     }
 
     const constructPrefix = `${
-      indexName ? indexName : dynamoDB.name
+      indexName ? indexName : dynamoDB.friendlyUniqueId
     }_${capacityType}_${policyTarget}`;
 
-    const targetTracking = new AppAutoScaling.AppautoscalingTarget(
+    const targetTracking = new appautoscaling.AppautoscalingTarget(
       scope,
       `${constructPrefix}_target`,
       {
@@ -218,7 +218,7 @@ export class ApplicationDynamoDBTable extends Resource {
       }
     );
 
-    new AppAutoScaling.AppautoscalingPolicy(
+    new appautoscaling.AppautoscalingPolicy(
       scope,
       `${constructPrefix}_policy`,
       {
@@ -254,12 +254,12 @@ export class ApplicationDynamoDBTable extends Resource {
     dynamoDBARN: string,
     tags?: { [key: string]: string }
   ): string {
-    const policy = new IAM.IamPolicy(
+    const policy = new iam.IamPolicy(
       scope,
       `${capacityType}_autoscaling_policy`,
       {
         name: `${prefix}-${capacityType}-AutoScalingPolicy`,
-        policy: new IAM.DataAwsIamPolicyDocument(
+        policy: new iam.DataAwsIamPolicyDocument(
           scope,
           `${capacityType}_policy_document`,
           {
@@ -295,10 +295,10 @@ export class ApplicationDynamoDBTable extends Resource {
     //   description: `Autoscaling Service Role for ${prefix}-${capacityType}`,
     // });
 
-    const role = new IAM.IamRole(scope, `${capacityType}_role`, {
+    const role = new iam.IamRole(scope, `${capacityType}_role`, {
       name: `${prefix}-${capacityType}-AutoScalingRole`,
       tags: tags,
-      assumeRolePolicy: new IAM.DataAwsIamPolicyDocument(
+      assumeRolePolicy: new iam.DataAwsIamPolicyDocument(
         scope,
         `${capacityType}_assume_role_policy_document`,
         {
@@ -318,7 +318,7 @@ export class ApplicationDynamoDBTable extends Resource {
       ).json,
     });
 
-    new IAM.IamRolePolicyAttachment(scope, `${capacityType}_role_attachment`, {
+    new iam.IamRolePolicyAttachment(scope, `${capacityType}_role_attachment`, {
       policyArn: policy.arn,
       role: role.name,
       dependsOn: [role, policy],

@@ -5,7 +5,7 @@ import {
   Service,
   ServiceIntegration,
 } from '@cdktf/provider-pagerduty';
-import { SNS } from '@cdktf/provider-aws';
+import { sns } from '@cdktf/provider-aws';
 
 export interface PocketPagerDutyProps {
   prefix: string;
@@ -34,8 +34,8 @@ export class PocketPagerDuty extends Resource {
   static readonly SERVICE_AUTO_RESOLVE_TIMEOUT = '14400';
   static readonly SERVICE_ACKNOWLEDGEMENT_TIMEOUT = '600';
   static readonly SNS_SUBSCRIPTION_CONFIRMATION_TIMEOUT_IN_MINUTES = 2;
-  public readonly snsCriticalAlarmTopic: SNS.SnsTopic;
-  public readonly snsNonCriticalAlarmTopic: SNS.SnsTopic;
+  public readonly snsCriticalAlarmTopic: sns.SnsTopic;
+  public readonly snsNonCriticalAlarmTopic: sns.SnsTopic;
   private config: PocketPagerDutyProps;
 
   constructor(scope: Construct, name: string, config: PocketPagerDutyProps) {
@@ -99,11 +99,11 @@ export class PocketPagerDuty extends Resource {
   }
 
   private createSnsTopicSubscription(
-    topic: SNS.SnsTopic,
+    topic: sns.SnsTopic,
     integration: ServiceIntegration,
     urgency: PAGERDUTY_SERVICE_URGENCY
-  ): SNS.SnsTopicSubscription {
-    return new SNS.SnsTopicSubscription(
+  ): sns.SnsTopicSubscription {
+    return new sns.SnsTopicSubscription(
       this,
       `alarm-${urgency.toLowerCase()}-subscription`,
       {
@@ -119,8 +119,8 @@ export class PocketPagerDuty extends Resource {
     );
   }
 
-  private createSnsTopic(urgency: PAGERDUTY_SERVICE_URGENCY): SNS.SnsTopic {
-    return new SNS.SnsTopic(this, `alarm-${urgency.toLowerCase()}-topic`, {
+  private createSnsTopic(urgency: PAGERDUTY_SERVICE_URGENCY): sns.SnsTopic {
+    return new sns.SnsTopic(this, `alarm-${urgency.toLowerCase()}-topic`, {
       name: `${this.config.prefix}-Infrastructure-Alarm-${urgency}`,
       tags: this.config.sns?.topic?.tags ?? {},
     });
@@ -133,7 +133,7 @@ export class PocketPagerDuty extends Resource {
   ): ServiceIntegration {
     return new ServiceIntegration(
       this,
-      `${vendor.name}-${urgency.toLowerCase()}`,
+      `${vendor.friendlyUniqueId}-${urgency.toLowerCase()}`,
       {
         name: vendor.name,
         service: service.id,

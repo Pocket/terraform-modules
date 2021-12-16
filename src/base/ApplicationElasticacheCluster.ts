@@ -1,5 +1,5 @@
 import { Resource } from 'cdktf';
-import { VPC, ElastiCache } from '@cdktf/provider-aws';
+import { vpc, elasticache } from '@cdktf/provider-aws';
 import { Construct } from 'constructs';
 
 export enum ApplicationElasticacheEngine {
@@ -43,8 +43,8 @@ export abstract class ApplicationElasticacheCluster extends Resource {
   protected static getVpc(
     scope: Construct,
     config: ApplicationElasticacheClusterProps
-  ): VPC.DataAwsVpc {
-    return new VPC.DataAwsVpc(scope, `vpc`, {
+  ): vpc.DataAwsVpc {
+    return new vpc.DataAwsVpc(scope, `vpc`, {
       filter: [
         {
           name: 'vpc-id',
@@ -106,26 +106,26 @@ export abstract class ApplicationElasticacheCluster extends Resource {
    * Create a security group and a subnet group for Elasticache
    * @param scope
    * @param config
-   * @param vpc
+   * @param appVpc
    * @param port
    * @protected
    */
   protected static createSecurityGroupAndSubnet(
     scope: Construct,
     config: ApplicationElasticacheClusterProps,
-    vpc: VPC.DataAwsVpc,
+    appVpc: vpc.DataAwsVpc,
     port: number
   ): {
-    securityGroup: VPC.SecurityGroup;
-    subnetGroup: ElastiCache.ElasticacheSubnetGroup;
+    securityGroup: vpc.SecurityGroup;
+    subnetGroup: elasticache.ElasticacheSubnetGroup;
   } {
-    const securityGroup = new VPC.SecurityGroup(
+    const securityGroup = new vpc.SecurityGroup(
       scope,
       'elasticache_security_group',
       {
         namePrefix: config.prefix,
         description: 'Managed by Terraform',
-        vpcId: vpc.id,
+        vpcId: appVpc.id,
         ingress: [
           {
             fromPort: port,
@@ -140,7 +140,7 @@ export abstract class ApplicationElasticacheCluster extends Resource {
             //IF we do not have a ingress security group lets all the whole vpc access
             cidrBlocks: config.allowedIngressSecurityGroupIds
               ? null
-              : [vpc.cidrBlock],
+              : [appVpc.cidrBlock],
 
             // the following are included due to a bug
             // https://github.com/hashicorp/terraform-cdk/issues/223
@@ -152,7 +152,7 @@ export abstract class ApplicationElasticacheCluster extends Resource {
         tags: config.tags,
       }
     );
-    const subnetGroup = new ElastiCache.ElasticacheSubnetGroup(
+    const subnetGroup = new elasticache.ElasticacheSubnetGroup(
       scope,
       'elasticache_subnet_group',
       {

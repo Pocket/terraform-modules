@@ -1,8 +1,8 @@
 import { Resource } from 'cdktf';
-import { AppAutoScaling, CloudWatch, IAM } from '@cdktf/provider-aws';
-const { AppautoscalingPolicy, AppautoscalingTarget } = AppAutoScaling;
-const { CloudwatchMetricAlarm } = CloudWatch;
-const { IamRole, IamRolePolicy, DataAwsIamPolicyDocument } = IAM;
+import { appautoscaling, cloudwatch, iam } from '@cdktf/provider-aws';
+const { AppautoscalingPolicy, AppautoscalingTarget } = appautoscaling;
+const { CloudwatchMetricAlarm } = cloudwatch;
+const { IamRole, IamRolePolicy, DataAwsIamPolicyDocument } = iam;
 import { Construct } from 'constructs';
 
 export interface ApplicationAutoscalingProps {
@@ -90,7 +90,7 @@ export class ApplicationAutoscaling extends Resource {
   static generateIamRole(
     resource: Resource,
     config: ApplicationAutoscalingProps
-  ): IAM.IamRole {
+  ): iam.IamRole {
     return new IamRole(resource, `autoscaling_role`, {
       name: `${config.prefix}-AutoScalingRole`,
       assumeRolePolicy: new DataAwsIamPolicyDocument(
@@ -124,7 +124,7 @@ export class ApplicationAutoscaling extends Resource {
   static generateIamRolePolicy(
     resource: Resource,
     config: ApplicationAutoscalingProps,
-    iamRole: IAM.IamRole
+    iamRole: iam.IamRole
   ): void {
     new IamRolePolicy(resource, `autoscaling_role_policy`, {
       name: `${config.prefix}-AutoScalingPolicy`,
@@ -162,8 +162,8 @@ export class ApplicationAutoscaling extends Resource {
   static generateAutoScalingTarget(
     resource: Resource,
     config: ApplicationAutoscalingProps,
-    iamRole: IAM.IamRole
-  ): AppAutoScaling.AppautoscalingTarget {
+    iamRole: iam.IamRole
+  ): appautoscaling.AppautoscalingTarget {
     return new AppautoscalingTarget(resource, `autoscaling_target`, {
       maxCapacity: config.targetMaxCapacity,
       minCapacity: config.targetMinCapacity,
@@ -185,9 +185,9 @@ export class ApplicationAutoscaling extends Resource {
   static generateAutoSclaingPolicy(
     resource: Resource,
     config: ApplicationAutoscalingProps,
-    target: AppAutoScaling.AppautoscalingTarget,
+    target: appautoscaling.AppautoscalingTarget,
     type: 'In' | 'Out'
-  ): AppAutoScaling.AppautoscalingPolicy {
+  ): appautoscaling.AppautoscalingPolicy {
     let stepAdjustment;
 
     if (type === 'In') {
@@ -206,7 +206,7 @@ export class ApplicationAutoscaling extends Resource {
       ];
     }
 
-    return new AppautoscalingPolicy(
+    const appAutoscaling = new AppautoscalingPolicy(
       resource,
       `scale_${type.toLowerCase()}_policy`,
       {
@@ -225,6 +225,15 @@ export class ApplicationAutoscaling extends Resource {
         dependsOn: [target],
       }
     );
+
+    // Terraform CDK 0.8.1 started outputing this as a {} in syntiesized output and
+    // terraform does not like this being an empty object, but it is ok with a null
+    appAutoscaling.addOverride(
+      'target_tracking_scaling_policy_configuration',
+      null
+    );
+
+    return appAutoscaling;
   }
 
   /**

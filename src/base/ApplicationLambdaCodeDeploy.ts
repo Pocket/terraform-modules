@@ -1,6 +1,6 @@
 import { Resource } from 'cdktf';
 import { Construct } from 'constructs';
-import { CodeDeploy, CodeStar, IAM } from '@cdktf/provider-aws';
+import { codedeploy, codestar, iam } from '@cdktf/provider-aws';
 
 export interface ApplicationVersionedLambdaCodeDeployProps {
   name: string;
@@ -11,7 +11,7 @@ export interface ApplicationVersionedLambdaCodeDeployProps {
 }
 
 export class ApplicationLambdaCodeDeploy extends Resource {
-  public readonly codeDeployApp: CodeDeploy.CodedeployApp;
+  public readonly codeDeployApp: codedeploy.CodedeployApp;
 
   constructor(
     scope: Construct,
@@ -24,7 +24,7 @@ export class ApplicationLambdaCodeDeploy extends Resource {
   }
 
   private setupCodeDeploy() {
-    const codeDeployApp = new CodeDeploy.CodedeployApp(
+    const codeDeployApp = new codedeploy.CodedeployApp(
       this,
       'code-deploy-app',
       {
@@ -42,8 +42,8 @@ export class ApplicationLambdaCodeDeploy extends Resource {
     return codeDeployApp;
   }
 
-  private createCodeDeploymentGroup(codeDeployApp: CodeDeploy.CodedeployApp) {
-    new CodeDeploy.CodedeployDeploymentGroup(this, 'code-deployment-group', {
+  private createCodeDeploymentGroup(codeDeployApp: codedeploy.CodedeployApp) {
+    new codedeploy.CodedeployDeploymentGroup(this, 'code-deployment-group', {
       appName: codeDeployApp.name,
       deploymentConfigName: 'CodeDeployDefault.LambdaAllAtOnce',
       deploymentGroupName: codeDeployApp.name,
@@ -61,12 +61,12 @@ export class ApplicationLambdaCodeDeploy extends Resource {
   }
 
   private getCodeDeployRole() {
-    const codeDeployRole = new IAM.IamRole(this, 'code-deploy-role', {
+    const codeDeployRole = new iam.IamRole(this, 'code-deploy-role', {
       name: `${this.config.name}-CodeDeployRole`,
       assumeRolePolicy: this.getCodeDeployAssumePolicyDocument(),
     });
 
-    new IAM.IamRolePolicyAttachment(this, 'code-deploy-policy-attachment', {
+    new iam.IamRolePolicyAttachment(this, 'code-deploy-policy-attachment', {
       policyArn:
         'arn:aws:iam::aws:policy/service-role/AWSCodeDeployRoleForLambda',
       role: codeDeployRole.name,
@@ -77,7 +77,7 @@ export class ApplicationLambdaCodeDeploy extends Resource {
   }
 
   private getCodeDeployAssumePolicyDocument() {
-    return new IAM.DataAwsIamPolicyDocument(
+    return new iam.DataAwsIamPolicyDocument(
       this,
       'code-deploy-assume-role-policy-document',
       {
@@ -98,9 +98,9 @@ export class ApplicationLambdaCodeDeploy extends Resource {
   }
 
   private setupCodeDeployNotifications(
-    codeDeployApp: CodeDeploy.CodedeployApp
+    codeDeployApp: codedeploy.CodedeployApp
   ) {
-    new CodeStar.CodestarnotificationsNotificationRule(this, 'notifications', {
+    new codestar.CodestarnotificationsNotificationRule(this, 'notifications', {
       detailType: this.config.detailType ?? 'BASIC',
       eventTypeIds: ['codedeploy-application-deployment-failed'],
       name: codeDeployApp.name,

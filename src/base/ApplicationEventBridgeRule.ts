@@ -1,6 +1,6 @@
 import { Resource, TerraformResource } from 'cdktf';
 import { Construct } from 'constructs';
-import { CloudWatchEventBridge as CWEB } from '@cdktf/provider-aws';
+import { eventbridge } from '@cdktf/provider-aws';
 
 export interface ApplicationEventBridgeRuleProps {
   name: string;
@@ -16,7 +16,7 @@ export interface ApplicationEventBridgeRuleProps {
 }
 
 export class ApplicationEventBridgeRule extends Resource {
-  public readonly rule: CWEB.CloudwatchEventRule;
+  public readonly rule: eventbridge.CloudwatchEventRule;
 
   constructor(
     scope: Construct,
@@ -29,16 +29,20 @@ export class ApplicationEventBridgeRule extends Resource {
   }
 
   private createCloudwatchEventRule() {
-    const rule = new CWEB.CloudwatchEventRule(this, 'event-bridge-rule', {
-      name: `${this.config.name}-Rule`,
-      description: this.config.description,
-      eventPattern: JSON.stringify(this.config.eventPattern),
-      eventBusName: this.config.eventBusName ?? 'default',
-      tags: this.config.tags,
-    });
+    const rule = new eventbridge.CloudwatchEventRule(
+      this,
+      'event-bridge-rule',
+      {
+        name: `${this.config.name}-Rule`,
+        description: this.config.description,
+        eventPattern: JSON.stringify(this.config.eventPattern),
+        eventBusName: this.config.eventBusName ?? 'default',
+        tags: this.config.tags,
+      }
+    );
 
     if (this.config.target) {
-      new CWEB.CloudwatchEventTarget(this, 'event-bridge-target', {
+      new eventbridge.CloudwatchEventTarget(this, 'event-bridge-target', {
         rule: rule.name,
         targetId: this.config.target.targetId,
         arn: this.config.target.arn,
