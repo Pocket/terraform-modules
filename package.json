@@ -91,7 +91,7 @@
     "@cdktf/provider-local": "0.2.14",
     "@cdktf/provider-newrelic": "0.2.14",
     "@cdktf/provider-null": "0.4.13",
-    "@cdktf/provider-pagerduty": "0.2.14",
+    "@cdktf/provider-pagerduty": "0.2.17",
     "cdktf": "0.8.3",
     "cdktf-cli": "0.8.3",
     "constructs": "10.0.12"
@@ -102,7 +102,7 @@
     "@cdktf/provider-local": "0.2.14",
     "@cdktf/provider-newrelic": "0.2.14",
     "@cdktf/provider-null": "0.4.13",
-    "@cdktf/provider-pagerduty": "0.2.14",
+    "@cdktf/provider-pagerduty": "0.2.17",
     "@sinonjs/commons": "^1.8.3",
     "cdktf": "0.8.3",
     "cdktf-cli": "0.8.3",
