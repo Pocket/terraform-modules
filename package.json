@@ -88,7 +88,7 @@
   "peerDependencies": {
     "@cdktf/provider-archive": "0.2.43",
     "@cdktf/provider-aws": "3.0.1",
-    "@cdktf/provider-local": "0.2.39",
+    "@cdktf/provider-local": "0.2.47",
     "@cdktf/provider-newrelic": "0.2.39",
     "@cdktf/provider-null": "0.4.45",
     "@cdktf/provider-pagerduty": "0.2.46",
@@ -99,7 +99,7 @@
   "dependencies": {
     "@cdktf/provider-archive": "0.2.43",
     "@cdktf/provider-aws": "3.0.1",
-    "@cdktf/provider-local": "0.2.39",
+    "@cdktf/provider-local": "0.2.47",
     "@cdktf/provider-newrelic": "0.2.39",
     "@cdktf/provider-null": "0.4.45",
     "@cdktf/provider-pagerduty": "0.2.46",
