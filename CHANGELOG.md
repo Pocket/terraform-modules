@@ -1,3 +1,10 @@
+### [3.0.18](https://github.com/Pocket/terraform-modules/compare/v3.0.17...v3.0.18) (2021-12-21)
+
+
+### Bug Fixes
+
+* **deps:** bump @cdktf/provider-pagerduty from 0.2.46 to 0.2.47 ([#635](https://github.com/Pocket/terraform-modules/issues/635)) ([e2331f1](https://github.com/Pocket/terraform-modules/commit/e2331f1fdd0799e4b4d489826b709f451155208a))
+
 ### [3.0.17](https://github.com/Pocket/terraform-modules/compare/v3.0.16...v3.0.17) (2021-12-21)
 
 
