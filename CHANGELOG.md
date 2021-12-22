@@ -1,3 +1,10 @@
+### [3.0.23](https://github.com/Pocket/terraform-modules/compare/v3.0.22...v3.0.23) (2021-12-22)
+
+
+### Bug Fixes
+
+* **deps:** bump @cdktf/provider-newrelic from 0.2.47 to 0.2.54 ([#645](https://github.com/Pocket/terraform-modules/issues/645)) ([818764e](https://github.com/Pocket/terraform-modules/commit/818764efcbd36b737b263abf24a71304436ceb37))
+
 ### [3.0.22](https://github.com/Pocket/terraform-modules/compare/v3.0.21...v3.0.22) (2021-12-22)
 
 
