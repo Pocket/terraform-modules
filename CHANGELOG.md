@@ -1,3 +1,10 @@
+### [3.0.24](https://github.com/Pocket/terraform-modules/compare/v3.0.23...v3.0.24) (2021-12-22)
+
+
+### Bug Fixes
+
+* **deps:** bump @cdktf/provider-local from 0.2.47 to 0.2.53 ([#643](https://github.com/Pocket/terraform-modules/issues/643)) ([df4fb1d](https://github.com/Pocket/terraform-modules/commit/df4fb1de805cdd13e219ad1255124cfbff0e20c3))
+
 ### [3.0.23](https://github.com/Pocket/terraform-modules/compare/v3.0.22...v3.0.23) (2021-12-22)
 
 
