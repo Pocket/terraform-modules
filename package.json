@@ -86,7 +86,7 @@
     "node": ">=10.12"
   },
   "peerDependencies": {
-    "@cdktf/provider-archive": "0.2.90",
+    "@cdktf/provider-archive": "0.2.96",
     "@cdktf/provider-aws": "3.0.1",
     "@cdktf/provider-local": "0.2.101",
     "@cdktf/provider-newrelic": "0.2.99",
@@ -97,7 +97,7 @@
     "constructs": "10.0.17"
   },
   "dependencies": {
-    "@cdktf/provider-archive": "0.2.90",
+    "@cdktf/provider-archive": "0.2.96",
     "@cdktf/provider-aws": "3.0.1",
     "@cdktf/provider-local": "0.2.101",
     "@cdktf/provider-newrelic": "0.2.99",
