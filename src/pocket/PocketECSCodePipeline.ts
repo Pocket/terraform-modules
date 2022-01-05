@@ -1,6 +1,6 @@
-import {Resource} from 'cdktf';
-import {Construct} from 'constructs';
-import {codepipeline, iam, kms, s3} from '@cdktf/provider-aws';
+import { Resource } from 'cdktf';
+import { Construct } from 'constructs';
+import { codepipeline, iam, kms, s3 } from '@cdktf/provider-aws';
 import crypto from 'crypto';
 
 export interface PocketECSCodePipelineProps {
@@ -44,7 +44,8 @@ export class PocketECSCodePipeline extends Resource {
 
     this.codeBuildProjectName = this.getCodeBuildProjectName();
     this.codeDeployApplicationName = this.getCodeDeployApplicationName();
-    this.codeDeployDeploymentGroupName = this.getCodeDeployDeploymentGroupName();
+    this.codeDeployDeploymentGroupName =
+      this.getCodeDeployDeploymentGroupName();
     this.taskDefinitionTemplatePath = this.getTaskDefinitionTemplatePath();
     this.appSpecTemplatePath = this.getAppSpecTemplatePath();
 
@@ -60,12 +61,10 @@ export class PocketECSCodePipeline extends Resource {
     this.config.codeBuildProjectName ?? this.config.prefix;
 
   protected getCodeDeployApplicationName = () =>
-    this.config.codeDeploy?.applicationName ??
-    `${this.config.prefix}-ECS`;
+    this.config.codeDeploy?.applicationName ?? `${this.config.prefix}-ECS`;
 
   protected getCodeDeployDeploymentGroupName = () =>
-    this.config.codeDeploy?.deploymentGroupName ??
-    `${this.config.prefix}-ECS`;
+    this.config.codeDeploy?.deploymentGroupName ?? `${this.config.prefix}-ECS`;
 
   protected getTaskDefinitionTemplatePath = () =>
     this.config.codeDeploy?.taskDefPath ??
@@ -76,13 +75,9 @@ export class PocketECSCodePipeline extends Resource {
     PocketECSCodePipeline.DEFAULT_APPSPEC_PATH;
 
   protected createS3KmsAlias() {
-    return new kms.DataAwsKmsAlias(
-      this,
-      'kms_s3_alias',
-      {
-        name: 'alias/aws/s3',
-      }
-    );
+    return new kms.DataAwsKmsAlias(this, 'kms_s3_alias', {
+      name: 'alias/aws/s3',
+    });
   }
 
   /**
@@ -255,10 +250,7 @@ export class PocketECSCodePipeline extends Resource {
 
   protected getDeployStage = () => ({
     name: 'Deploy',
-    action: [
-      this.getDeployCdkAction(),
-      this.getDeployEcsAction(),
-    ],
+    action: [this.getDeployCdkAction(), this.getDeployEcsAction()],
   });
 
   protected getDeployCdkAction = () => ({
