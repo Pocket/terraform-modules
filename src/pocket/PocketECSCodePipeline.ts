@@ -21,126 +21,61 @@ export interface PocketECSCodePipelineProps {
 }
 
 export class PocketECSCodePipeline extends Resource {
-  private static DEFAULT_TASKDEF_PATH = 'taskdef.json';
-  private static DEFAULT_APPSPEC_PATH = 'appspec.json';
+  protected static DEFAULT_TASKDEF_PATH = 'taskdef.json';
+  protected static DEFAULT_APPSPEC_PATH = 'appspec.json';
 
   public readonly codePipeline: codepipeline.Codepipeline;
+  protected readonly pipelineArtifactBucket: s3.S3Bucket;
+  protected readonly s3KmsAlias: kms.DataAwsKmsAlias;
+  protected readonly pipelineRole: iam.IamRole;
+
+  protected readonly codeBuildProjectName: string;
+  protected readonly codeDeployApplicationName: string;
+  protected readonly codeDeployDeploymentGroupName: string;
+  protected readonly taskDefinitionTemplatePath: string;
+  protected readonly appSpecTemplatePath: string;
 
   constructor(
     scope: Construct,
     name: string,
-    private config: PocketECSCodePipelineProps
+    protected config: PocketECSCodePipelineProps
   ) {
     super(scope, name);
+    this.codeBuildProjectName = this.getCodeBuildProjectName();
+    this.codeDeployApplicationName = this.getCodeDeployApplicationName();
+    this.codeDeployDeploymentGroupName = this.getCodeDeployDeploymentGroupName();
+    this.taskDefinitionTemplatePath = this.getTaskDefinitionTemplatePath();
+    this.appSpecTemplatePath = this.getAppSpecTemplatePath();
 
+    this.s3KmsAlias = this.createS3KmsAlias();
+    this.pipelineRole = this.createPipelineRole();
+    this.pipelineArtifactBucket = this.createArtifactBucket();
     this.codePipeline = this.createCodePipeline();
+  }
+
+  protected getPipelineName = () => `${this.config.prefix}-CodePipeline`;
+  protected getCodeBuildProjectName = () => this.config.codeBuildProjectName ?? this.config.prefix;
+  protected getCodeDeployApplicationName = () => this.config.codeDeploy?.applicationName ?? `${this.config.prefix}-ECS`;
+  protected getCodeDeployDeploymentGroupName = () => this.config.codeDeploy?.deploymentGroupName ?? `${this.config.prefix}-ECS`;
+  protected getTaskDefinitionTemplatePath = () => this.config.codeDeploy?.taskDefPath ?? PocketECSCodePipeline.DEFAULT_TASKDEF_PATH;
+  protected getAppSpecTemplatePath = () => this.config.codeDeploy?.appSpecPath ?? PocketECSCodePipeline.DEFAULT_APPSPEC_PATH;
+
+  protected createS3KmsAlias() {
+    return new kms.DataAwsKmsAlias(this, 'kms_s3_alias', {name: 'alias/aws/s3'});
   }
 
   /**
    * Create a CodePipeline that runs CodeBuild and ECS CodeDeploy
-   * @private
+   * @protected
    */
-  private createCodePipeline(): codepipeline.Codepipeline {
-    const pipelineRole = this.createPipelineRole();
-
-    const s3KmsAlias = new kms.DataAwsKmsAlias(this, 'kms_s3_alias', {
-      name: 'alias/aws/s3',
-    });
-
-    const pipelineArtifactBucket = this.createArtifactBucket();
-
-    const codeBuildProjectName =
-      this.config.codeBuildProjectName ?? this.config.prefix;
-
-    const codeDeployApplicationName =
-      this.config.codeDeploy?.applicationName ?? `${this.config.prefix}-ECS`;
-
-    const codeDeployDeploymentGroupName =
-      this.config.codeDeploy?.deploymentGroupName ??
-      `${this.config.prefix}-ECS`;
-
-    this.attachPipelineRolePolicy(
-      pipelineRole,
-      pipelineArtifactBucket,
-      codeBuildProjectName,
-      codeDeployApplicationName,
-      codeDeployDeploymentGroupName
-    );
-
+  protected createCodePipeline(): codepipeline.Codepipeline {
     return new codepipeline.Codepipeline(this, 'codepipeline', {
-      name: `${this.config.prefix}-CodePipeline`,
-      roleArn: pipelineRole.arn,
-      artifactStore: [
-        {
-          location: pipelineArtifactBucket.bucket,
-          type: 'S3',
-          encryptionKey: { id: s3KmsAlias.arn, type: 'KMS' },
-        },
-      ],
+      name: this.getPipelineName(),
+      roleArn: this.pipelineRole.arn,
+      artifactStore: this.getArtifactStore(),
       stage: [
-        {
-          name: 'Source',
-          action: [
-            {
-              name: 'GitHub_Checkout',
-              category: 'Source',
-              owner: 'AWS',
-              provider: 'CodeStarSourceConnection',
-              version: '1',
-              outputArtifacts: ['SourceOutput'],
-              configuration: {
-                ConnectionArn: this.config.source.codeStarConnectionArn,
-                FullRepositoryId: this.config.source.repository,
-                BranchName: this.config.source.branchName,
-                DetectChanges: 'false',
-              },
-              namespace: 'SourceVariables',
-            },
-          ],
-        },
-        {
-          name: 'Deploy',
-          action: [
-            {
-              name: 'CodeBuild',
-              category: 'Build',
-              owner: 'AWS',
-              provider: 'CodeBuild',
-              inputArtifacts: ['SourceOutput'],
-              outputArtifacts: ['CodeBuildOutput'],
-              version: '1',
-              configuration: {
-                ProjectName: codeBuildProjectName,
-                EnvironmentVariables: `[${JSON.stringify({
-                  name: 'GIT_BRANCH',
-                  value: '#{SourceVariables.BranchName}',
-                })}]`,
-              },
-              runOrder: 1,
-            },
-            {
-              name: 'Deploy_ECS',
-              category: 'Deploy',
-              owner: 'AWS',
-              provider: 'CodeDeployToECS',
-              inputArtifacts: ['CodeBuildOutput'],
-              version: '1',
-              configuration: {
-                ApplicationName: codeDeployApplicationName,
-                DeploymentGroupName: codeDeployDeploymentGroupName,
-                TaskDefinitionTemplateArtifact: 'CodeBuildOutput',
-                TaskDefinitionTemplatePath:
-                  this.config.codeDeploy?.taskDefPath ??
-                  PocketECSCodePipeline.DEFAULT_TASKDEF_PATH,
-                AppSpecTemplateArtifact: 'CodeBuildOutput',
-                AppSpecTemplatePath:
-                  this.config.codeDeploy?.appSpecPath ??
-                  PocketECSCodePipeline.DEFAULT_APPSPEC_PATH,
-              },
-              runOrder: 2,
-            },
-          ],
-        },
+        this.getSourceStage(),
+        this.getDeployStage(),
       ],
       tags: this.config.tags,
     });
@@ -148,9 +83,9 @@ export class PocketECSCodePipeline extends Resource {
 
   /**
    * Create CodePipeline artifact s3 bucket
-   * @private
+   * @protected
    */
-  private createArtifactBucket() {
+  protected createArtifactBucket() {
     const prefixHash = crypto
       .createHash('md5')
       .update(this.config.prefix)
@@ -165,24 +100,35 @@ export class PocketECSCodePipeline extends Resource {
   }
 
   /**
-   * Attach IAM policy to the pipeline role
-   * @param pipelineRole
-   * @param pipelineArtifactBucket
-   * @param codeBuildProjectName
-   * @param codeDeployApplicationName
-   * @param codeDeployDeploymentGroupName
-   * @private
+   * Creates a CodePipeline role.
+   * @protected
    */
-  private attachPipelineRolePolicy(
-    pipelineRole: iam.IamRole,
-    pipelineArtifactBucket: s3.S3Bucket,
-    codeBuildProjectName: string,
-    codeDeployApplicationName: string,
-    codeDeployDeploymentGroupName: string
-  ) {
+  protected createPipelineRole() {
+    const role = new iam.IamRole(this, 'codepipeline-role', {
+      name: `${this.config.prefix}-CodePipelineRole`,
+      assumeRolePolicy: new iam.DataAwsIamPolicyDocument(
+        this,
+        `codepipeline-assume-role-policy`,
+        {
+          statement: [
+            {
+              effect: 'Allow',
+              actions: ['sts:AssumeRole'],
+              principals: [
+                {
+                  identifiers: ['codepipeline.amazonaws.com'],
+                  type: 'Service',
+                },
+              ],
+            },
+          ],
+        }
+      ).json,
+    });
+
     new iam.IamRolePolicy(this, 'codepipeline-role-policy', {
       name: `${this.config.prefix}-CodePipeline-Role-Policy`,
-      role: pipelineRole.id,
+      role: role.id,
       policy: new iam.DataAwsIamPolicyDocument(
         this,
         `codepipeline-role-policy-document`,
@@ -202,7 +148,7 @@ export class PocketECSCodePipeline extends Resource {
                 'codebuild:StartBuildBatch',
               ],
               resources: [
-                `arn:aws:codebuild:*:*:project/${codeBuildProjectName}`,
+                `arn:aws:codebuild:*:*:project/${this.codeBuildProjectName}`,
               ],
             },
             {
@@ -216,8 +162,8 @@ export class PocketECSCodePipeline extends Resource {
                 'codedeploy:GetDeploymentConfig',
               ],
               resources: [
-                `arn:aws:codedeploy:*:*:application:${codeDeployApplicationName}`,
-                `arn:aws:codedeploy:*:*:deploymentgroup:${codeDeployApplicationName}/${codeDeployDeploymentGroupName}`,
+                `arn:aws:codedeploy:*:*:application:${this.codeDeployApplicationName}`,
+                `arn:aws:codedeploy:*:*:deploymentgroup:${this.codeDeployApplicationName}/${this.codeDeployDeploymentGroupName}`,
                 'arn:aws:codedeploy:*:*:deploymentconfig:*',
               ],
             },
@@ -231,8 +177,8 @@ export class PocketECSCodePipeline extends Resource {
                 's3:PutObject',
               ],
               resources: [
-                pipelineArtifactBucket.arn,
-                `${pipelineArtifactBucket.arn}/*`,
+                this.pipelineArtifactBucket.arn,
+                `${this.pipelineArtifactBucket.arn}/*`,
               ],
             },
             {
@@ -256,33 +202,80 @@ export class PocketECSCodePipeline extends Resource {
         }
       ).json,
     });
+
+    return role;
   }
 
-  /**
-   * Creates a CodePipeline role.
-   * @private
-   */
-  private createPipelineRole() {
-    return new iam.IamRole(this, 'codepipeline-role', {
-      name: `${this.config.prefix}-CodePipelineRole`,
-      assumeRolePolicy: new iam.DataAwsIamPolicyDocument(
-        this,
-        `codepipeline-assume-role-policy`,
-        {
-          statement: [
-            {
-              effect: 'Allow',
-              actions: ['sts:AssumeRole'],
-              principals: [
-                {
-                  identifiers: ['codepipeline.amazonaws.com'],
-                  type: 'Service',
-                },
-              ],
-            },
-          ],
-        }
-      ).json,
-    });
-  }
+  protected getArtifactStore = () => ([
+    {
+      location: this.pipelineArtifactBucket.bucket,
+      type: 'S3',
+      encryptionKey: {id: this.s3KmsAlias.arn, type: 'KMS'},
+    },
+  ]);
+
+  protected getSourceStage = () => ({
+    name: 'Source',
+    action: [
+      {
+        name: 'GitHub_Checkout',
+        category: 'Source',
+        owner: 'AWS',
+        provider: 'CodeStarSourceConnection',
+        version: '1',
+        outputArtifacts: ['SourceOutput'],
+        configuration: {
+          ConnectionArn: this.config.source.codeStarConnectionArn,
+          FullRepositoryId: this.config.source.repository,
+          BranchName: this.config.source.branchName,
+          DetectChanges: 'false',
+        },
+        namespace: 'SourceVariables',
+      },
+    ],
+  });
+
+  protected getDeployStage = () => ({
+    name: 'Deploy',
+    action: [
+      this.getDeployCdkAction(),
+      this.getDeployEcsAction(),
+    ],
+  });
+
+  protected getDeployCdkAction = () => ({
+    name: 'Deploy_CDK',
+    category: 'Build',
+    owner: 'AWS',
+    provider: 'CodeBuild',
+    inputArtifacts: ['SourceOutput'],
+    outputArtifacts: ['CodeBuildOutput'],
+    version: '1',
+    configuration: {
+      ProjectName: this.codeBuildProjectName,
+      EnvironmentVariables: `[${JSON.stringify({
+        name: 'GIT_BRANCH',
+        value: '#{SourceVariables.BranchName}',
+      })}]`,
+    },
+    runOrder: 1,
+  });
+
+  protected getDeployEcsAction = () => ({
+    name: 'Deploy_ECS',
+    category: 'Deploy',
+    owner: 'AWS',
+    provider: 'CodeDeployToECS',
+    inputArtifacts: ['CodeBuildOutput'],
+    version: '1',
+    configuration: {
+      ApplicationName: this.codeDeployApplicationName,
+      DeploymentGroupName: this.codeDeployDeploymentGroupName,
+      TaskDefinitionTemplateArtifact: 'CodeBuildOutput',
+      TaskDefinitionTemplatePath: this.taskDefinitionTemplatePath,
+      AppSpecTemplateArtifact: 'CodeBuildOutput',
+      AppSpecTemplatePath: this.appSpecTemplatePath,
+    },
+    runOrder: 2,
+  });
 }
