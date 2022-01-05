@@ -1,6 +1,6 @@
-import { Resource } from 'cdktf';
-import { Construct } from 'constructs';
-import { codepipeline, iam, kms, s3 } from '@cdktf/provider-aws';
+import {Resource} from 'cdktf';
+import {Construct} from 'constructs';
+import {codepipeline, iam, kms, s3} from '@cdktf/provider-aws';
 import crypto from 'crypto';
 
 export interface PocketECSCodePipelineProps {
@@ -41,6 +41,7 @@ export class PocketECSCodePipeline extends Resource {
     protected config: PocketECSCodePipelineProps
   ) {
     super(scope, name);
+
     this.codeBuildProjectName = this.getCodeBuildProjectName();
     this.codeDeployApplicationName = this.getCodeDeployApplicationName();
     this.codeDeployDeploymentGroupName = this.getCodeDeployDeploymentGroupName();
@@ -54,14 +55,34 @@ export class PocketECSCodePipeline extends Resource {
   }
 
   protected getPipelineName = () => `${this.config.prefix}-CodePipeline`;
-  protected getCodeBuildProjectName = () => this.config.codeBuildProjectName ?? this.config.prefix;
-  protected getCodeDeployApplicationName = () => this.config.codeDeploy?.applicationName ?? `${this.config.prefix}-ECS`;
-  protected getCodeDeployDeploymentGroupName = () => this.config.codeDeploy?.deploymentGroupName ?? `${this.config.prefix}-ECS`;
-  protected getTaskDefinitionTemplatePath = () => this.config.codeDeploy?.taskDefPath ?? PocketECSCodePipeline.DEFAULT_TASKDEF_PATH;
-  protected getAppSpecTemplatePath = () => this.config.codeDeploy?.appSpecPath ?? PocketECSCodePipeline.DEFAULT_APPSPEC_PATH;
+
+  protected getCodeBuildProjectName = () =>
+    this.config.codeBuildProjectName ?? this.config.prefix;
+
+  protected getCodeDeployApplicationName = () =>
+    this.config.codeDeploy?.applicationName ??
+    `${this.config.prefix}-ECS`;
+
+  protected getCodeDeployDeploymentGroupName = () =>
+    this.config.codeDeploy?.deploymentGroupName ??
+    `${this.config.prefix}-ECS`;
+
+  protected getTaskDefinitionTemplatePath = () =>
+    this.config.codeDeploy?.taskDefPath ??
+    PocketECSCodePipeline.DEFAULT_TASKDEF_PATH;
+
+  protected getAppSpecTemplatePath = () =>
+    this.config.codeDeploy?.appSpecPath ??
+    PocketECSCodePipeline.DEFAULT_APPSPEC_PATH;
 
   protected createS3KmsAlias() {
-    return new kms.DataAwsKmsAlias(this, 'kms_s3_alias', {name: 'alias/aws/s3'});
+    return new kms.DataAwsKmsAlias(
+      this,
+      'kms_s3_alias',
+      {
+        name: 'alias/aws/s3',
+      }
+    );
   }
 
   /**
@@ -73,10 +94,7 @@ export class PocketECSCodePipeline extends Resource {
       name: this.getPipelineName(),
       roleArn: this.pipelineRole.arn,
       artifactStore: this.getArtifactStore(),
-      stage: [
-        this.getSourceStage(),
-        this.getDeployStage(),
-      ],
+      stage: [this.getSourceStage(), this.getDeployStage()],
       tags: this.config.tags,
     });
   }
@@ -206,13 +224,13 @@ export class PocketECSCodePipeline extends Resource {
     return role;
   }
 
-  protected getArtifactStore = () => ([
+  protected getArtifactStore = () => [
     {
       location: this.pipelineArtifactBucket.bucket,
       type: 'S3',
-      encryptionKey: {id: this.s3KmsAlias.arn, type: 'KMS'},
+      encryptionKey: { id: this.s3KmsAlias.arn, type: 'KMS' },
     },
-  ]);
+  ];
 
   protected getSourceStage = () => ({
     name: 'Source',
