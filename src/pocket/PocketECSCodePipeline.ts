@@ -227,6 +227,10 @@ export class PocketECSCodePipeline extends Resource {
     },
   ];
 
+  /**
+   * Get the source code from GitHub.
+   * @protected
+   */
   protected getSourceStage = () => ({
     name: 'Source',
     action: [
@@ -248,12 +252,22 @@ export class PocketECSCodePipeline extends Resource {
     ],
   });
 
-  protected getDeployStage = () => ({
+  /**
+   * Get a stage that deploys the infrastructure and ECS service.
+   * @protected
+   */
+  protected getDeployStage = (): codepipeline.CodepipelineStage => ({
     name: 'Deploy',
-    action: [this.getDeployCdkAction(), this.getDeployEcsAction()],
+    action: [this.getDeployCdkAction(1), this.getDeployEcsAction(2)],
   });
 
-  protected getDeployCdkAction = () => ({
+  /**
+   * Get the CDK for Terraform deployment step that runs `terraform apply`.
+   * @protected
+   */
+  protected getDeployCdkAction = (
+    runOrder: number
+  ): codepipeline.CodepipelineStageAction => ({
     name: 'Deploy_CDK',
     category: 'Build',
     owner: 'AWS',
@@ -268,10 +282,16 @@ export class PocketECSCodePipeline extends Resource {
         value: '#{SourceVariables.BranchName}',
       })}]`,
     },
-    runOrder: 1,
+    runOrder: runOrder,
   });
 
-  protected getDeployEcsAction = () => ({
+  /**
+   * Get the ECS CodeDeploy step that does a blue/green deployment.
+   * @protected
+   */
+  protected getDeployEcsAction = (
+    runOrder: number
+  ): codepipeline.CodepipelineStageAction => ({
     name: 'Deploy_ECS',
     category: 'Deploy',
     owner: 'AWS',
@@ -286,6 +306,6 @@ export class PocketECSCodePipeline extends Resource {
       AppSpecTemplateArtifact: 'CodeBuildOutput',
       AppSpecTemplatePath: this.appSpecTemplatePath,
     },
-    runOrder: 2,
+    runOrder: runOrder,
   });
 }
