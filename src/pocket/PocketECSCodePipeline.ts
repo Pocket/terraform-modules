@@ -254,7 +254,7 @@ export class PocketECSCodePipeline extends Resource {
   });
 
   protected getDeployCdkAction = () => ({
-    name: 'CodeBuild',
+    name: 'Deploy_CDK',
     category: 'Build',
     owner: 'AWS',
     provider: 'CodeBuild',

@@ -160,7 +160,7 @@ exports[`renders a Pocket ECS Codepipeline template 1`] = `
                 \\"input_artifacts\\": [
                   \\"SourceOutput\\"
                 ],
-                \\"name\\": \\"CodeBuild\\",
+                \\"name\\": \\"Deploy_CDK\\",
                 \\"output_artifacts\\": [
                   \\"CodeBuildOutput\\"
                 ],
@@ -378,7 +378,7 @@ exports[`renders a Pocket ECS Codepipeline template with tags 1`] = `
                 \\"input_artifacts\\": [
                   \\"SourceOutput\\"
                 ],
-                \\"name\\": \\"CodeBuild\\",
+                \\"name\\": \\"Deploy_CDK\\",
                 \\"output_artifacts\\": [
                   \\"CodeBuildOutput\\"
                 ],
@@ -602,7 +602,7 @@ exports[`renders a Pocket ECS Codepipeline template with the provided CodeDeploy
                 \\"input_artifacts\\": [
                   \\"SourceOutput\\"
                 ],
-                \\"name\\": \\"CodeBuild\\",
+                \\"name\\": \\"Deploy_CDK\\",
                 \\"output_artifacts\\": [
                   \\"CodeBuildOutput\\"
                 ],
@@ -820,7 +820,7 @@ exports[`renders a Pocket ECS Codepipeline template with the provided CodeDeploy
                 \\"input_artifacts\\": [
                   \\"SourceOutput\\"
                 ],
-                \\"name\\": \\"CodeBuild\\",
+                \\"name\\": \\"Deploy_CDK\\",
                 \\"output_artifacts\\": [
                   \\"CodeBuildOutput\\"
                 ],
@@ -1038,7 +1038,7 @@ exports[`renders a Pocket ECS Codepipeline template with the provided appspec pa
                 \\"input_artifacts\\": [
                   \\"SourceOutput\\"
                 ],
-                \\"name\\": \\"CodeBuild\\",
+                \\"name\\": \\"Deploy_CDK\\",
                 \\"output_artifacts\\": [
                   \\"CodeBuildOutput\\"
                 ],
@@ -1256,7 +1256,7 @@ exports[`renders a Pocket ECS Codepipeline template with the provided code build
                 \\"input_artifacts\\": [
                   \\"SourceOutput\\"
                 ],
-                \\"name\\": \\"CodeBuild\\",
+                \\"name\\": \\"Deploy_CDK\\",
                 \\"output_artifacts\\": [
                   \\"CodeBuildOutput\\"
                 ],
@@ -1474,7 +1474,7 @@ exports[`renders a Pocket ECS Codepipeline template with the provided taskdef pa
                 \\"input_artifacts\\": [
                   \\"SourceOutput\\"
                 ],
-                \\"name\\": \\"CodeBuild\\",
+                \\"name\\": \\"Deploy_CDK\\",
                 \\"output_artifacts\\": [
                   \\"CodeBuildOutput\\"
                 ],
