@@ -50,8 +50,8 @@ export class PocketECSCodePipeline extends Resource {
     this.appSpecTemplatePath = this.getAppSpecTemplatePath();
 
     this.s3KmsAlias = this.createS3KmsAlias();
-    this.pipelineRole = this.createPipelineRole();
     this.pipelineArtifactBucket = this.createArtifactBucket();
+    this.pipelineRole = this.createPipelineRole();
     this.codePipeline = this.createCodePipeline();
   }
 
@@ -254,7 +254,7 @@ export class PocketECSCodePipeline extends Resource {
   });
 
   protected getDeployCdkAction = () => ({
-    name: 'Deploy_CDK',
+    name: 'CodeBuild',
     category: 'Build',
     owner: 'AWS',
     provider: 'CodeBuild',
