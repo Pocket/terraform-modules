@@ -133,5 +133,13 @@ describe('ApplicationECSContainerDefinition', () => {
           `"sourceVolume":"/[{}].txt"}`
       );
     });
+
+    it('passes entryPoint', () => {
+      config.entryPoint = ['/bin/bash'];
+
+      const result = buildDefinitionJSON(config);
+
+      expect(result).to.contain(`"entryPoint":["/bin/bash"]`);
+    });
   });
 });
