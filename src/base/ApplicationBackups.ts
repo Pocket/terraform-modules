@@ -1,31 +1,19 @@
 import { Construct } from 'constructs';
 import { Resource } from 'cdktf';
-import { Backup } from '@cdktf/provider-aws';
+import { Backup, IAM } from '@cdktf/provider-aws';
 import BackupVault = Backup.BackupVault;
+import BackupVaultPolicy = Backup.BackupVaultPolicy;
 import BackupPlan = Backup.BackupPlan;
 import BackupSelection = Backup.BackupSelection;
 import BackupPlanRule = Backup.BackupPlanRule;
 import { type } from 'os';
 
-
-// export interface ApplicationBackupProps {
-//     BackupVaultName: string;
-//     backupName: string;
-//     backupPlanName: string;
-//     backupPlanRuleName: string;
-//     backupPlanSelectionName: string;
-//     backupPlanResourceSelection: string[];
-//     backupIamRole: string;
-//     backupSchedule: string;
-//     // arn: string;
-//     // awsBackupVault: string;
-//     // tags?: { [key: string]: string };
-// }
-
 export interface ApplicationBackupProps {
     name: string;
+    kmsKeyArn: string;
     prefix: string;
     accountId: string;
+    vaultPolicy: string;
     backupPlans: {
       name: string;
       resources: string[];
@@ -52,17 +40,19 @@ export class ApplicationBackup extends Resource {
       name: string, 
       private config: ApplicationBackupProps) 
       {
-        super(scope, name);        
-
-        // Backup.BackupGlobalSettings
-        // if vault exists do not create it
-        // if (ApplicationBackup.vault === null) {
-
-
+        super(scope, name);  
+              
         const vault = new BackupVault(this, 'backup-vault', {
             name: `${config.prefix}-${config.name}`,
+            kmsKeyArn: config.kmsKeyArn,
             tags: config.tags,
-        });
+        })
+        
+        const vaultPolicy = new BackupVaultPolicy(this, 'backup-vault-policy', {
+            backupVaultName: `${config.prefix}-${config.name}`,
+            policy: config.vaultPolicy
+        })
+        ;
 
         config.backupPlans.forEach((plan) => {
             const backupPlan = new BackupPlan(this, 'backup-plan', {
@@ -78,74 +68,14 @@ export class ApplicationBackup extends Resource {
                 name: `${config.prefix}-Backup-Selection`,
                 planId: backupPlan.id,
                 iamRoleArn: `arn:aws:iam::${config.accountId}:role/service-role/AWSBackupDefaultServiceRole`,
-                // resources: [ "*"],
                 resources: plan.resources,
                 selectionTag: plan.selectionTag
-
-                // resources is optional
-                // resources: plan.resources,
-                // selectionTag is optional
-                // selectionTag: [{
-                //   key: 'BackupsEnabled',
-                //   type: 'STRINGEQUALS',
-                //   value: 'True'
-                // }
-               // ]        
               });
             });
           }
 
 
-            // ApplicationBackup.vault = new Backup.BackupVault(this, config.BackupVaultName, {
-            //     name: config.BackupVaultName,
-            // });
-
-        // }   
-
-        // this.backupPlan = new Backup.BackupPlan(this, config.backupPlanName, {
-        //     name: config.backupName,
-        //     rule: [ {
-        //         ruleName: config.backupPlanRuleName,
-        //         targetVaultName: config.name
-        //     }]
-        // })
-
-        // must run before backupPlanSelection so it can get backupPlan.id
-        // this.backupPlan = this.backupPlanSet(config.backupPlanName, config.backupPlanRuleName, config.BackupVaultName, config.backupSchedule);
-
-        // this.backupSelection = this.backupSelectionSet(config.backupPlanSelectionName, config.backupPlanName, this.backupPlan.id, config.backupIamRole, config.backupPlanResourceSelection);
-
-        // const backupPlanSelection = new Backup.BackupSelection(this, config.backupPlanSelectionName, {
-
-        //     name: config.backupPlanName,
-        //     planId: this.backupPlan.id,
-        //     //iamRoleArn: this.backupPlan.arn,
-        //     iamRoleArn: config.backupIamRole,
-        //     resources: config.backupPlanResourceSelection
-        // }) 
-    // }
-
-    // private backupPlanSet(backupPlanName, ruleName, targetVaueName, backupSchedule): Backup.BackupPlan {
-    //     return new Backup.BackupPlan(this, backupPlanName, {
-    //         name: backupPlanName,
-    //         rule: [ {
-    //             ruleName: ruleName,
-    //             targetVaultName: targetVaueName,
-    //             recoveryPointTags: {},
-    //             schedule: backupSchedule                
-    //     }]})
-    // }
-  
-    
-    // private backupSelectionSet(backupPlanSelectionName, backupPlanName, backupPlanId, backupIamRole, backupPlanResourceSelection): Backup.BackupSelection {
-    //     return new Backup.BackupSelection(this, backupPlanSelectionName, {
-    //         name: backupPlanName,
-    //         planId: backupPlanId,
-    //         iamRoleArn: backupIamRole,
-    //         resources: backupPlanResourceSelection
-    //     })
-    // }
-
+         
 }
     
   
