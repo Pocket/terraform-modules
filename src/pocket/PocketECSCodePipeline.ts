@@ -17,28 +17,31 @@ export interface PocketECSCodePipelineProps {
     appSpecPath?: string;
     taskDefPath?: string;
   };
+  // Optional stage to run after the deploy stage.
+  postDeployStage?: codepipeline.CodepipelineStage;
   tags?: { [key: string]: string };
 }
 
 export class PocketECSCodePipeline extends Resource {
-  protected static DEFAULT_TASKDEF_PATH = 'taskdef.json';
-  protected static DEFAULT_APPSPEC_PATH = 'appspec.json';
+  private static DEFAULT_TASKDEF_PATH = 'taskdef.json';
+  private static DEFAULT_APPSPEC_PATH = 'appspec.json';
 
   public readonly codePipeline: codepipeline.Codepipeline;
-  protected readonly pipelineArtifactBucket: s3.S3Bucket;
-  protected readonly s3KmsAlias: kms.DataAwsKmsAlias;
-  protected readonly pipelineRole: iam.IamRole;
+  public readonly stages: codepipeline.CodepipelineStage[];
+  private readonly pipelineArtifactBucket: s3.S3Bucket;
+  private readonly s3KmsAlias: kms.DataAwsKmsAlias;
+  private readonly pipelineRole: iam.IamRole;
 
-  protected readonly codeBuildProjectName: string;
-  protected readonly codeDeployApplicationName: string;
-  protected readonly codeDeployDeploymentGroupName: string;
-  protected readonly taskDefinitionTemplatePath: string;
-  protected readonly appSpecTemplatePath: string;
+  private readonly codeBuildProjectName: string;
+  private readonly codeDeployApplicationName: string;
+  private readonly codeDeployDeploymentGroupName: string;
+  private readonly taskDefinitionTemplatePath: string;
+  private readonly appSpecTemplatePath: string;
 
   constructor(
     scope: Construct,
     name: string,
-    protected config: PocketECSCodePipelineProps
+    private config: PocketECSCodePipelineProps
   ) {
     super(scope, name);
 
@@ -55,26 +58,36 @@ export class PocketECSCodePipeline extends Resource {
     this.codePipeline = this.createCodePipeline();
   }
 
-  protected getPipelineName = () => `${this.config.prefix}-CodePipeline`;
+  private getPipelineName = () => `${this.config.prefix}-CodePipeline`;
 
-  protected getCodeBuildProjectName = () =>
+  private getCodeBuildProjectName = () =>
     this.config.codeBuildProjectName ?? this.config.prefix;
 
-  protected getCodeDeployApplicationName = () =>
+  private getCodeDeployApplicationName = () =>
     this.config.codeDeploy?.applicationName ?? `${this.config.prefix}-ECS`;
 
-  protected getCodeDeployDeploymentGroupName = () =>
+  private getCodeDeployDeploymentGroupName = () =>
     this.config.codeDeploy?.deploymentGroupName ?? `${this.config.prefix}-ECS`;
 
-  protected getTaskDefinitionTemplatePath = () =>
+  private getTaskDefinitionTemplatePath = () =>
     this.config.codeDeploy?.taskDefPath ??
     PocketECSCodePipeline.DEFAULT_TASKDEF_PATH;
 
-  protected getAppSpecTemplatePath = () =>
+  private getAppSpecTemplatePath = () =>
     this.config.codeDeploy?.appSpecPath ??
     PocketECSCodePipeline.DEFAULT_APPSPEC_PATH;
 
-  protected createS3KmsAlias() {
+  /**
+   * Get all stages for the pipeline, including postDeployStage if provided.
+   * @private
+   */
+  private getStages = () => [
+    this.getSourceStage(),
+    this.getDeployStage(),
+    ...(this.config.postDeployStage ? [this.config.postDeployStage] : []),
+  ];
+
+  private createS3KmsAlias() {
     return new kms.DataAwsKmsAlias(this, 'kms_s3_alias', {
       name: 'alias/aws/s3',
     });
@@ -82,23 +95,23 @@ export class PocketECSCodePipeline extends Resource {
 
   /**
    * Create a CodePipeline that runs CodeBuild and ECS CodeDeploy
-   * @protected
+   * @private
    */
-  protected createCodePipeline(): codepipeline.Codepipeline {
+  private createCodePipeline(): codepipeline.Codepipeline {
     return new codepipeline.Codepipeline(this, 'codepipeline', {
       name: this.getPipelineName(),
       roleArn: this.pipelineRole.arn,
       artifactStore: this.getArtifactStore(),
-      stage: [this.getSourceStage(), this.getDeployStage()],
+      stage: this.getStages(),
       tags: this.config.tags,
     });
   }
 
   /**
    * Create CodePipeline artifact s3 bucket
-   * @protected
+   * @private
    */
-  protected createArtifactBucket() {
+  private createArtifactBucket() {
     const prefixHash = crypto
       .createHash('md5')
       .update(this.config.prefix)
@@ -114,9 +127,9 @@ export class PocketECSCodePipeline extends Resource {
 
   /**
    * Creates a CodePipeline role.
-   * @protected
+   * @private
    */
-  protected createPipelineRole() {
+  private createPipelineRole() {
     const role = new iam.IamRole(this, 'codepipeline-role', {
       name: `${this.config.prefix}-CodePipelineRole`,
       assumeRolePolicy: new iam.DataAwsIamPolicyDocument(
@@ -219,7 +232,7 @@ export class PocketECSCodePipeline extends Resource {
     return role;
   }
 
-  protected getArtifactStore = () => [
+  private getArtifactStore = () => [
     {
       location: this.pipelineArtifactBucket.bucket,
       type: 'S3',
@@ -229,9 +242,9 @@ export class PocketECSCodePipeline extends Resource {
 
   /**
    * Get the source code from GitHub.
-   * @protected
+   * @private
    */
-  protected getSourceStage = () => ({
+  private getSourceStage = () => ({
     name: 'Source',
     action: [
       {
@@ -254,18 +267,18 @@ export class PocketECSCodePipeline extends Resource {
 
   /**
    * Get a stage that deploys the infrastructure and ECS service.
-   * @protected
+   * @private
    */
-  protected getDeployStage = (): codepipeline.CodepipelineStage => ({
+  private getDeployStage = (): codepipeline.CodepipelineStage => ({
     name: 'Deploy',
     action: [this.getDeployCdkAction(1), this.getDeployEcsAction(2)],
   });
 
   /**
    * Get the CDK for Terraform deployment step that runs `terraform apply`.
-   * @protected
+   * @private
    */
-  protected getDeployCdkAction = (
+  private getDeployCdkAction = (
     runOrder: number
   ): codepipeline.CodepipelineStageAction => ({
     name: 'Deploy_CDK',
@@ -287,9 +300,9 @@ export class PocketECSCodePipeline extends Resource {
 
   /**
    * Get the ECS CodeDeploy step that does a blue/green deployment.
-   * @protected
+   * @private
    */
-  protected getDeployEcsAction = (
+  private getDeployEcsAction = (
     runOrder: number
   ): codepipeline.CodepipelineStageAction => ({
     name: 'Deploy_ECS',

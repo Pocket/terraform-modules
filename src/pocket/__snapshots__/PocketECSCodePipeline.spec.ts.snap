@@ -408,6 +408,23 @@ exports[`renders a Pocket ECS Codepipeline template with a custom step 1`] = `
               }
             ],
             \\"name\\": \\"Deploy\\"
+          },
+          {
+            \\"action\\": [
+              {
+                \\"category\\": \\"Deploy\\",
+                \\"configuration\\": {
+                  \\"ExecutionNamePrefix\\": \\"CodePipelineDeploy\\",
+                  \\"stateMachineArn\\": \\"myStateMachineArn123\\"
+                },
+                \\"name\\": \\"Custom_Action\\",
+                \\"owner\\": \\"AWS\\",
+                \\"provider\\": \\"StepFunctions\\",
+                \\"run_order\\": 1,
+                \\"version\\": \\"1\\"
+              }
+            ],
+            \\"name\\": \\"Custom_Stage\\"
           }
         ]
       }
