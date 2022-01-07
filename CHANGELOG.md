@@ -1,3 +1,10 @@
+## [3.1.0](https://github.com/Pocket/terraform-modules/compare/v3.0.92...v3.1.0) (2022-01-07)
+
+
+### Features
+
+* **ApplicationEcsContainerDefinition:** Add ability to pass boolean to essential ([#760](https://github.com/Pocket/terraform-modules/issues/760)) ([080d3d5](https://github.com/Pocket/terraform-modules/commit/080d3d526dda0877a310fe05ad54ef3096723b75))
+
 ### [3.0.92](https://github.com/Pocket/terraform-modules/compare/v3.0.91...v3.0.92) (2022-01-07)
 
 
