@@ -49,6 +49,7 @@ export interface ApplicationECSContainerDefinitionProps {
   mountPoints?: MountPoint[];
   dependsOn?: DependsOn[];
   entryPoint?: string[];
+  essential?: boolean;
 }
 
 export function buildDefinitionJSON(
@@ -97,7 +98,7 @@ export function buildDefinitionJSON(
     disableNetworking: null,
     interactive: null,
     healthCheck: config.healthCheck ?? null,
-    essential: true,
+    essential: config.essential ?? true,
     links: null,
     hostname: null,
     extraHosts: null,
