@@ -13,6 +13,8 @@ import { TerraformResource } from 'cdktf';
 import { truncateString } from '../utilities';
 import { File } from '@cdktf/provider-local';
 
+const defaultRegion = 'us-east-1';
+
 export interface ApplicationECSServiceProps {
   prefix: string;
   region?: string;
@@ -67,6 +69,9 @@ export class ApplicationECSService extends Resource {
 
     // populate defaults for some values if not provided
     this.config = ApplicationECSService.hydrateConfig(config);
+
+    // set default region
+    this.config.region = this.config.region ?? defaultRegion;
 
     this.ecsSecurityGroup = this.setupECSSecurityGroups();
     const { taskDef, ecrRepos } = this.setupECSTaskDefinition();
@@ -177,7 +182,7 @@ export class ApplicationECSService extends Resource {
 
         nullECSTaskUpdate.addOverride(
           'provisioner.local-exec.command',
-          `export app_spec_content_string='{"version":1,"Resources":[{"TargetService":{"Type":"AWS::ECS::Service","Properties":{"TaskDefinition":"${taskDef.arn}","LoadBalancerInfo":{"ContainerName":"${this.config.albConfig.containerName}","ContainerPort":${this.config.albConfig.containerPort}}}}}]}' && export revision="revisionType=AppSpecContent,appSpecContent={content='$app_spec_content_string'}" && aws deploy create-deployment  --application-name="${codeDeployApp.codeDeployApp.name}"  --deployment-group-name="${codeDeployApp.codeDeployDeploymentGroup.deploymentGroupName}" --description="Triggered from Terraform/CodeBuild due to a task definition update" --revision="$revision"`
+          `export app_spec_content_string='{"version":1,"Resources":[{"TargetService":{"Type":"AWS::ECS::Service","Properties":{"TaskDefinition":"${taskDef.arn}","LoadBalancerInfo":{"ContainerName":"${this.config.albConfig.containerName}","ContainerPort":${this.config.albConfig.containerPort}}}}}]}' && export revision="revisionType=AppSpecContent,appSpecContent={content='$app_spec_content_string'}" && aws --region ${this.config.region} deploy create-deployment  --application-name="${codeDeployApp.codeDeployApp.name}"  --deployment-group-name="${codeDeployApp.codeDeployDeploymentGroup.deploymentGroupName}" --description="Triggered from Terraform/CodeBuild due to a task definition update" --revision="$revision"`
         );
       }
 
@@ -253,7 +258,7 @@ export class ApplicationECSService extends Resource {
     // Task definition ARN in the app spec file. But you know. Amazon is amazon and we must obey the law.
     nullCreateTaskDef.addOverride(
       'provisioner.local-exec.command',
-      `aws ecs describe-task-definition --task-definition ${taskDef.family} --query 'taskDefinition' >> taskdef.json`
+      `aws --region ${this.config.region} ecs describe-task-definition --task-definition ${taskDef.family} --query 'taskDefinition' >> taskdef.json`
     );
 
     new File(this, 'appspec', {
