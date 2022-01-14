@@ -17,7 +17,13 @@ export interface PocketECSCodePipelineProps {
     appSpecPath?: string;
     taskDefPath?: string;
   };
-  // Optional stages to run after the deploy stage.
+  /** Optional stages to run before the deploy stage.
+   * For CodeBuild actions, ensure that the project name starts with `prefix`.
+   */
+  preDeployStages?: codepipeline.CodepipelineStage[];
+  /** Optional stages to run after the deploy stage.
+   * For CodeBuild actions, ensure that the project name starts with `prefix`.
+   */
   postDeployStages?: codepipeline.CodepipelineStage[];
   tags?: { [key: string]: string };
 }
@@ -83,6 +89,7 @@ export class PocketECSCodePipeline extends Resource {
    */
   private getStages = () => [
     this.getSourceStage(),
+    ...(this.config.preDeployStages ? this.config.preDeployStages : []),
     this.getDeployStage(),
     ...(this.config.postDeployStages ? this.config.postDeployStages : []),
   ];
@@ -174,6 +181,9 @@ export class PocketECSCodePipeline extends Resource {
                 'codebuild:StartBuildBatch',
               ],
               resources: [
+                // The * allows CodeBuild in `preDeployStages` and
+                // `postDeployStages` to start, if the project name starts with
+                // `this.config.prefix`.
                 `arn:aws:codebuild:*:*:project/${this.codeBuildProjectName}*`,
               ],
             },

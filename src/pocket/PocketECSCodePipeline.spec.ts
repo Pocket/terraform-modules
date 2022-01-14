@@ -92,9 +92,27 @@ test('renders a Pocket ECS Codepipeline template with a custom step', () => {
   const synthed = Testing.synthScope((stack) => {
     new PocketECSCodePipeline(stack, 'test-codepipeline', {
       ...config,
+      preDeployStages: [
+        {
+          name: 'Custom_PreDeploy_Stage',
+          action: [
+            {
+              name: 'MyBuild',
+              category: 'Deploy',
+              owner: 'AWS',
+              provider: 'CodeBuild',
+              version: '1',
+              configuration: {
+                projectName: 'Test-Env-MyBuild',
+              },
+              runOrder: 1,
+            },
+          ],
+        },
+      ],
       postDeployStages: [
         {
-          name: 'Custom_Stage',
+          name: 'Custom_PostDeploy_Stage',
           action: [
             {
               name: 'Custom_Action',
