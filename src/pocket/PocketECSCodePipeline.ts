@@ -174,7 +174,7 @@ export class PocketECSCodePipeline extends Resource {
                 'codebuild:StartBuildBatch',
               ],
               resources: [
-                `arn:aws:codebuild:*:*:project/${this.codeBuildProjectName}`,
+                `arn:aws:codebuild:*:*:project/${this.codeBuildProjectName}*`,
               ],
             },
             {
