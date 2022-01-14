@@ -218,7 +218,7 @@ exports[`renders a Pocket ECS Codepipeline template 1`] = `
 }"
 `;
 
-exports[`renders a Pocket ECS Codepipeline template with a custom step 1`] = `
+exports[`renders a Pocket ECS Codepipeline template with custom steps 1`] = `
 "{
   \\"data\\": {
     \\"aws_iam_policy_document\\": {

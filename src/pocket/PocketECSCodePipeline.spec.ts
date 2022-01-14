@@ -88,7 +88,7 @@ test('renders a Pocket ECS Codepipeline template with the provided taskdef path'
   expect(synthed).toMatchSnapshot();
 });
 
-test('renders a Pocket ECS Codepipeline template with a custom step', () => {
+test('renders a Pocket ECS Codepipeline template with custom steps', () => {
   const synthed = Testing.synthScope((stack) => {
     new PocketECSCodePipeline(stack, 'test-codepipeline', {
       ...config,
