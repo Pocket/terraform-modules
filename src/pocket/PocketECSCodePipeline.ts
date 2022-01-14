@@ -17,8 +17,8 @@ export interface PocketECSCodePipelineProps {
     appSpecPath?: string;
     taskDefPath?: string;
   };
-  // Optional stage to run after the deploy stage.
-  postDeployStage?: codepipeline.CodepipelineStage;
+  // Optional stages to run after the deploy stage.
+  postDeployStages?: codepipeline.CodepipelineStage[];
   tags?: { [key: string]: string };
 }
 
@@ -84,7 +84,7 @@ export class PocketECSCodePipeline extends Resource {
   private getStages = () => [
     this.getSourceStage(),
     this.getDeployStage(),
-    ...(this.config.postDeployStage ? [this.config.postDeployStage] : []),
+    ...(this.config.postDeployStages ? this.config.postDeployStages : []),
   ];
 
   private createS3KmsAlias() {
@@ -271,16 +271,14 @@ export class PocketECSCodePipeline extends Resource {
    */
   private getDeployStage = (): codepipeline.CodepipelineStage => ({
     name: 'Deploy',
-    action: [this.getDeployCdkAction(1), this.getDeployEcsAction(2)],
+    action: [this.getDeployCdkAction(), this.getDeployEcsAction()],
   });
 
   /**
    * Get the CDK for Terraform deployment step that runs `terraform apply`.
    * @private
    */
-  private getDeployCdkAction = (
-    runOrder: number
-  ): codepipeline.CodepipelineStageAction => ({
+  private getDeployCdkAction = (): codepipeline.CodepipelineStageAction => ({
     name: 'Deploy_CDK',
     category: 'Build',
     owner: 'AWS',
@@ -295,16 +293,14 @@ export class PocketECSCodePipeline extends Resource {
         value: '#{SourceVariables.BranchName}',
       })}]`,
     },
-    runOrder: runOrder,
+    runOrder: 1,
   });
 
   /**
    * Get the ECS CodeDeploy step that does a blue/green deployment.
    * @private
    */
-  private getDeployEcsAction = (
-    runOrder: number
-  ): codepipeline.CodepipelineStageAction => ({
+  private getDeployEcsAction = (): codepipeline.CodepipelineStageAction => ({
     name: 'Deploy_ECS',
     category: 'Deploy',
     owner: 'AWS',
@@ -319,6 +315,6 @@ export class PocketECSCodePipeline extends Resource {
       AppSpecTemplateArtifact: 'CodeBuildOutput',
       AppSpecTemplatePath: this.appSpecTemplatePath,
     },
-    runOrder: runOrder,
+    runOrder: 2,
   });
 }
