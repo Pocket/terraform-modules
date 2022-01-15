@@ -87,3 +87,49 @@ test('renders a Pocket ECS Codepipeline template with the provided taskdef path'
   });
   expect(synthed).toMatchSnapshot();
 });
+
+test('renders a Pocket ECS Codepipeline template with custom steps', () => {
+  const synthed = Testing.synthScope((stack) => {
+    new PocketECSCodePipeline(stack, 'test-codepipeline', {
+      ...config,
+      preDeployStages: [
+        {
+          name: 'Custom_PreDeploy_Stage',
+          action: [
+            {
+              name: 'MyBuild',
+              category: 'Deploy',
+              owner: 'AWS',
+              provider: 'CodeBuild',
+              version: '1',
+              configuration: {
+                projectName: 'Test-Env-MyBuild',
+              },
+              runOrder: 1,
+            },
+          ],
+        },
+      ],
+      postDeployStages: [
+        {
+          name: 'Custom_PostDeploy_Stage',
+          action: [
+            {
+              name: 'Custom_Action',
+              category: 'Deploy',
+              owner: 'AWS',
+              provider: 'StepFunctions',
+              version: '1',
+              configuration: {
+                stateMachineArn: 'myStateMachineArn123',
+                ExecutionNamePrefix: 'CodePipelineDeploy',
+              },
+              runOrder: 1,
+            },
+          ],
+        },
+      ],
+    });
+  });
+  expect(synthed).toMatchSnapshot();
+});
