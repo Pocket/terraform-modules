@@ -1,3 +1,10 @@
+## [3.2.0](https://github.com/Pocket/terraform-modules/compare/v3.1.16...v3.2.0) (2022-01-15)
+
+
+### Features
+
+* **pocket-ecs-codepipeline:** Make codepipeline steps extendable ([#748](https://github.com/Pocket/terraform-modules/issues/748)) ([b0779ba](https://github.com/Pocket/terraform-modules/commit/b0779bafb8c7303b422ae3ee29532886ede15aa2))
+
 ### [3.1.16](https://github.com/Pocket/terraform-modules/compare/v3.1.15...v3.1.16) (2022-01-14)
 
 
