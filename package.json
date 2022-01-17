@@ -94,7 +94,7 @@
     "@cdktf/provider-pagerduty": "0.2.147",
     "cdktf": "0.8.3",
     "cdktf-cli": "0.8.3",
-    "constructs": "10.0.33"
+    "constructs": "10.0.36"
   },
   "dependencies": {
     "@cdktf/provider-archive": "0.2.136",
@@ -106,7 +106,7 @@
     "@sinonjs/commons": "^1.8.3",
     "cdktf": "0.8.3",
     "cdktf-cli": "0.8.3",
-    "constructs": "10.0.33",
+    "constructs": "10.0.36",
     "crypto-random-string": "^4.0.0",
     "parse-domain": "^4.1.0"
   },
