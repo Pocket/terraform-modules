@@ -1,3 +1,10 @@
+### [3.2.3](https://github.com/Pocket/terraform-modules/compare/v3.2.2...v3.2.3) (2022-01-17)
+
+
+### Bug Fixes
+
+* **deps:** bump @cdktf/provider-archive from 0.2.136 to 0.2.142 ([#785](https://github.com/Pocket/terraform-modules/issues/785)) ([e5a1598](https://github.com/Pocket/terraform-modules/commit/e5a1598179061f7007cc315cb6f0be92ee461130))
+
 ### [3.2.2](https://github.com/Pocket/terraform-modules/compare/v3.2.1...v3.2.2) (2022-01-17)
 
 
