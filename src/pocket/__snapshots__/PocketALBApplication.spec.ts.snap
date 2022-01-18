@@ -709,7 +709,7 @@ exports[`PocketALBApplication renders an Pocket App with code deploy 1`] = `
         ],
         \\"provisioner\\": {
           \\"local-exec\\": {
-            \\"command\\": \\"aws ecs describe-task-definition --task-definition \${aws_ecs_task_definition.testPocketApp_ecs_service_ecs-task_A7E74E45.family} --query 'taskDefinition' >> taskdef.json\\"
+            \\"command\\": \\"aws --region us-east-1 ecs describe-task-definition --task-definition \${aws_ecs_task_definition.testPocketApp_ecs_service_ecs-task_A7E74E45.family} --query 'taskDefinition' >> taskdef.json\\"
           }
         },
         \\"triggers\\": {
@@ -724,7 +724,7 @@ exports[`PocketALBApplication renders an Pocket App with code deploy 1`] = `
         ],
         \\"provisioner\\": {
           \\"local-exec\\": {
-            \\"command\\": \\"export app_spec_content_string='{\\\\\\"version\\\\\\":1,\\\\\\"Resources\\\\\\":[{\\\\\\"TargetService\\\\\\":{\\\\\\"Type\\\\\\":\\\\\\"AWS::ECS::Service\\\\\\",\\\\\\"Properties\\\\\\":{\\\\\\"TaskDefinition\\\\\\":\\\\\\"\${aws_ecs_task_definition.testPocketApp_ecs_service_ecs-task_A7E74E45.arn}\\\\\\",\\\\\\"LoadBalancerInfo\\\\\\":{\\\\\\"ContainerName\\\\\\":\\\\\\"main_container\\\\\\",\\\\\\"ContainerPort\\\\\\":8675309}}}}]}' && export revision=\\\\\\"revisionType=AppSpecContent,appSpecContent={content='$app_spec_content_string'}\\\\\\" && aws deploy create-deployment  --application-name=\\\\\\"\${aws_codedeploy_app.testPocketApp_ecs_service_ecs_codedeploy_ecs_code_deploy_480D0565.name}\\\\\\"  --deployment-group-name=\\\\\\"\${aws_codedeploy_deployment_group.testPocketApp_ecs_service_ecs_codedeploy_ecs_codedeploy_deployment_group_44B006D1.deployment_group_name}\\\\\\" --description=\\\\\\"Triggered from Terraform/CodeBuild due to a task definition update\\\\\\" --revision=\\\\\\"$revision\\\\\\"\\"
+            \\"command\\": \\"export app_spec_content_string='{\\\\\\"version\\\\\\":1,\\\\\\"Resources\\\\\\":[{\\\\\\"TargetService\\\\\\":{\\\\\\"Type\\\\\\":\\\\\\"AWS::ECS::Service\\\\\\",\\\\\\"Properties\\\\\\":{\\\\\\"TaskDefinition\\\\\\":\\\\\\"\${aws_ecs_task_definition.testPocketApp_ecs_service_ecs-task_A7E74E45.arn}\\\\\\",\\\\\\"LoadBalancerInfo\\\\\\":{\\\\\\"ContainerName\\\\\\":\\\\\\"main_container\\\\\\",\\\\\\"ContainerPort\\\\\\":8675309}}}}]}' && export revision=\\\\\\"revisionType=AppSpecContent,appSpecContent={content='$app_spec_content_string'}\\\\\\" && aws --region us-east-1 deploy create-deployment  --application-name=\\\\\\"\${aws_codedeploy_app.testPocketApp_ecs_service_ecs_codedeploy_ecs_code_deploy_480D0565.name}\\\\\\"  --deployment-group-name=\\\\\\"\${aws_codedeploy_deployment_group.testPocketApp_ecs_service_ecs_codedeploy_ecs_codedeploy_deployment_group_44B006D1.deployment_group_name}\\\\\\" --description=\\\\\\"Triggered from Terraform/CodeBuild due to a task definition update\\\\\\" --revision=\\\\\\"$revision\\\\\\"\\"
           }
         },
         \\"triggers\\": {
@@ -1445,7 +1445,7 @@ exports[`PocketALBApplication renders an Pocket App with code deploy and creates
         ],
         \\"provisioner\\": {
           \\"local-exec\\": {
-            \\"command\\": \\"aws ecs describe-task-definition --task-definition \${aws_ecs_task_definition.testPocketApp_ecs_service_ecs-task_A7E74E45.family} --query 'taskDefinition' >> taskdef.json\\"
+            \\"command\\": \\"aws --region us-east-1 ecs describe-task-definition --task-definition \${aws_ecs_task_definition.testPocketApp_ecs_service_ecs-task_A7E74E45.family} --query 'taskDefinition' >> taskdef.json\\"
           }
         },
         \\"triggers\\": {
