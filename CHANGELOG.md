@@ -1,3 +1,10 @@
+## [3.3.0](https://github.com/Pocket/terraform-modules/compare/v3.2.12...v3.3.0) (2022-01-18)
+
+
+### Features
+
+* **region:** Pass region into aws command, default to us-east-1 ([#771](https://github.com/Pocket/terraform-modules/issues/771)) ([989e761](https://github.com/Pocket/terraform-modules/commit/989e7616dd5e4a824fdc3ade7770666e93030739))
+
 ### [3.2.12](https://github.com/Pocket/terraform-modules/compare/v3.2.11...v3.2.12) (2022-01-18)
 
 
