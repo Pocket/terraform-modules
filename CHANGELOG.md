@@ -1,3 +1,10 @@
+### [3.3.2](https://github.com/Pocket/terraform-modules/compare/v3.3.1...v3.3.2) (2022-01-19)
+
+
+### Bug Fixes
+
+* **deps:** bump @cdktf/provider-aws from 4.0.11 to 4.0.12 ([#802](https://github.com/Pocket/terraform-modules/issues/802)) ([759a141](https://github.com/Pocket/terraform-modules/commit/759a141795b9cef8367c3ad3a40eaedda45d4b90))
+
 ### [3.3.1](https://github.com/Pocket/terraform-modules/compare/v3.3.0...v3.3.1) (2022-01-19)
 
 
