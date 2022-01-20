@@ -1,3 +1,10 @@
+### [3.3.9](https://github.com/Pocket/terraform-modules/compare/v3.3.8...v3.3.9) (2022-01-20)
+
+
+### Bug Fixes
+
+* **deps:** bump @cdktf/provider-pagerduty from 0.2.155 to 0.2.156 ([#810](https://github.com/Pocket/terraform-modules/issues/810)) ([56a20db](https://github.com/Pocket/terraform-modules/commit/56a20dbfbdb4fbb9c3edc30ebcb948b61c356706))
+
 ### [3.3.8](https://github.com/Pocket/terraform-modules/compare/v3.3.7...v3.3.8) (2022-01-20)
 
 
