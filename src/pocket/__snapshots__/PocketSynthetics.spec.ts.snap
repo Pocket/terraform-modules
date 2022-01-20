@@ -13,6 +13,8 @@ exports[`allows passing different values for nrql config 1`] = `
           \\"threshold_occurrences\\": \\"AT_LEAST_ONCE\\"
         },
         \\"expiration_duration\\": 600,
+        \\"fill_option\\": \\"static\\",
+        \\"fill_value\\": 0,
         \\"name\\": \\"test-synthetic-nrql\\",
         \\"nrql\\": {
           \\"evaluation_offset\\": 3,
@@ -55,6 +57,8 @@ exports[`renders a Pocket New Relic synthetic check 1`] = `
           \\"threshold_occurrences\\": \\"AT_LEAST_ONCE\\"
         },
         \\"expiration_duration\\": 600,
+        \\"fill_option\\": \\"static\\",
+        \\"fill_value\\": 0,
         \\"name\\": \\"test-synthetic-nrql\\",
         \\"nrql\\": {
           \\"evaluation_offset\\": 3,
