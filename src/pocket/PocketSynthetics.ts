@@ -85,6 +85,8 @@ export class PocketSyntheticCheck extends Resource {
     new NrqlAlertCondition(this, 'alert-condition', {
       name: `${this.name}-nrql`,
       policyId: this.config.policyId,
+      fillValue: 0,
+      fillOption: 'static',
       nrql: {
         query: this.config.nrqlConfig.query,
         evaluationOffset: this.config.nrqlConfig.evaluationOffset,
