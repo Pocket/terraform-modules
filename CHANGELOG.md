@@ -1,3 +1,10 @@
+## [3.4.0](https://github.com/Pocket/terraform-modules/compare/v3.3.14...v3.4.0) (2022-01-20)
+
+
+### Features
+
+* **PocketSynthetics:** Set fill value and fill option to close alerts in PagerDuty ([#816](https://github.com/Pocket/terraform-modules/issues/816)) ([cf471b6](https://github.com/Pocket/terraform-modules/commit/cf471b6c42b7d20ce543fd5b0d742f025b179bed))
+
 ### [3.3.14](https://github.com/Pocket/terraform-modules/compare/v3.3.13...v3.3.14) (2022-01-20)
 
 
