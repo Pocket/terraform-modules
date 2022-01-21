@@ -87,9 +87,9 @@
   },
   "peerDependencies": {
     "@cdktf/provider-archive": "0.2.145",
-    "@cdktf/provider-aws": "4.0.13",
+    "@cdktf/provider-aws": "4.0.14",
     "@cdktf/provider-local": "0.2.158",
-    "@cdktf/provider-newrelic": "0.2.182",
+    "@cdktf/provider-newrelic": "0.2.187",
     "@cdktf/provider-null": "0.4.154",
     "@cdktf/provider-pagerduty": "0.2.156",
     "cdktf": "0.8.3",
@@ -98,9 +98,9 @@
   },
   "dependencies": {
     "@cdktf/provider-archive": "0.2.145",
-    "@cdktf/provider-aws": "4.0.13",
+    "@cdktf/provider-aws": "4.0.14",
     "@cdktf/provider-local": "0.2.158",
-    "@cdktf/provider-newrelic": "0.2.182",
+    "@cdktf/provider-newrelic": "0.2.187",
     "@cdktf/provider-null": "0.4.154",
     "@cdktf/provider-pagerduty": "0.2.156",
     "@sinonjs/commons": "^1.8.3",
