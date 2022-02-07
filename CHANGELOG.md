@@ -1,3 +1,10 @@
+### [3.4.31](https://github.com/Pocket/terraform-modules/compare/v3.4.30...v3.4.31) (2022-02-07)
+
+
+### Bug Fixes
+
+* **deps:** bump constructs from 10.0.52 to 10.0.54 ([#864](https://github.com/Pocket/terraform-modules/issues/864)) ([21886cd](https://github.com/Pocket/terraform-modules/commit/21886cd6a3ee82caf89dd3e8db95002ea73500e0))
+
 ### [3.4.30](https://github.com/Pocket/terraform-modules/compare/v3.4.29...v3.4.30) (2022-02-02)
 
 
