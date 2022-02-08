@@ -1,7 +1,7 @@
 version: 2.1
 
 orbs:
-  terraform: circleci/terraform@3.0.0
+  terraform: circleci/terraform@3.0.1
 
 jobs:
   publish:
