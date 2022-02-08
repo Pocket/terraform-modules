@@ -7,4 +7,4 @@ jobs:
     name: Check for unverified commits
     runs-on: ubuntu-latest
     steps:
-      - uses: nadock/verified_commits_check@v1
+      - uses: nadock/verified_commits_check@f9b330e987c2e7121dfc0230e65cb5751ee5fac9 # renovate: tag=v1
