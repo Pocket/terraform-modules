@@ -6,7 +6,7 @@ orbs:
 jobs:
   publish:
     docker:
-      - image: circleci/node:16@sha256:1803e9ed7deec9456ad2609124b7333d40b2eec0cf34998ae766cbf90c9a3625
+      - image: circleci/node:17@sha256:b2330f71df36d859dd822767ed7799bf67ea0a82efa451df6f121f52f7bd337d
     steps:
       - checkout
       - add_ssh_keys:
