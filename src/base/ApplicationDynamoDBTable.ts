@@ -1,6 +1,7 @@
-import { Resource } from 'cdktf';
+import { IResolvable, Resource } from 'cdktf';
 import { appautoscaling, iam, dynamodb } from '@cdktf/provider-aws';
 import { Construct } from 'constructs';
+import { DynamodbTableGlobalSecondaryIndex } from '@cdktf/provider-aws/lib/dynamodb';
 
 /**
  * Enum to determine the capacity type for autoscaling
@@ -113,7 +114,9 @@ export class ApplicationDynamoDBTable extends Resource {
     config: ApplicationDynamoDBTableAutoScaleProps,
     dynamoDB: dynamodb.DynamodbTable,
     capacityType: ApplicationDynamoDBTableCapacityType,
-    globalSecondaryIndexes: dynamodb.DynamodbTableGlobalSecondaryIndex[],
+    globalSecondaryIndexes:
+      | dynamodb.DynamodbTableGlobalSecondaryIndex[]
+      | IResolvable,
     tags?: { [key: string]: string }
   ): void {
     const roleArn = ApplicationDynamoDBTable.createAutoScalingRole(
@@ -136,9 +139,14 @@ export class ApplicationDynamoDBTable extends Resource {
       dynamoDB
     );
 
+    //cdktf 0.9 updated the types of Globalsecondary indexes to be IResolvable | DynamodbGlobalSecondaryIndexes[]
+    // we need to cast it here to loop it.
+    const castedGlobalSecondaryIndexes =
+      globalSecondaryIndexes as DynamodbTableGlobalSecondaryIndex[];
+
     // create an auto scaling policy for each global secondary index
-    if (globalSecondaryIndexes.length) {
-      globalSecondaryIndexes.forEach((gsIndex) => {
+    if (castedGlobalSecondaryIndexes.length) {
+      castedGlobalSecondaryIndexes.forEach((gsIndex) => {
         // min capacity is defined by the global secondary index
         // max capacity is inherited from the table auto scaling config
         // TODO: if we want this to be configurabe per index, we'll need to extend the third-party interface

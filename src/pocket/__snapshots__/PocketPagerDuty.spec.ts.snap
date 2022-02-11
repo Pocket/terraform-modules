@@ -16,11 +16,13 @@ exports[`renders a Pocket PagerDuty for critical and non-critical actions 1`] = 
     \\"aws_sns_topic\\": {
       \\"test-pagerduty_alarm-critical-topic_5B8FEE8D\\": {
         \\"name\\": \\"Test-Env-Infrastructure-Alarm-Critical\\",
-        \\"tags\\": {}
+        \\"tags\\": {
+        }
       },
       \\"test-pagerduty_alarm-non-critical-topic_3FD65796\\": {
         \\"name\\": \\"Test-Env-Infrastructure-Alarm-Non-Critical\\",
-        \\"tags\\": {}
+        \\"tags\\": {
+        }
       }
     },
     \\"aws_sns_topic_subscription\\": {
@@ -127,11 +129,13 @@ exports[`renders a Pocket PagerDuty with custom acknowledgement timeout 1`] = `
     \\"aws_sns_topic\\": {
       \\"test-pagerduty_alarm-critical-topic_5B8FEE8D\\": {
         \\"name\\": \\"Test-Env-Infrastructure-Alarm-Critical\\",
-        \\"tags\\": {}
+        \\"tags\\": {
+        }
       },
       \\"test-pagerduty_alarm-non-critical-topic_3FD65796\\": {
         \\"name\\": \\"Test-Env-Infrastructure-Alarm-Non-Critical\\",
-        \\"tags\\": {}
+        \\"tags\\": {
+        }
       }
     },
     \\"aws_sns_topic_subscription\\": {
@@ -238,11 +242,13 @@ exports[`renders a Pocket PagerDuty with custom auto resolve timeout 1`] = `
     \\"aws_sns_topic\\": {
       \\"test-pagerduty_alarm-critical-topic_5B8FEE8D\\": {
         \\"name\\": \\"Test-Env-Infrastructure-Alarm-Critical\\",
-        \\"tags\\": {}
+        \\"tags\\": {
+        }
       },
       \\"test-pagerduty_alarm-non-critical-topic_3FD65796\\": {
         \\"name\\": \\"Test-Env-Infrastructure-Alarm-Non-Critical\\",
-        \\"tags\\": {}
+        \\"tags\\": {
+        }
       }
     },
     \\"aws_sns_topic_subscription\\": {
@@ -349,11 +355,13 @@ exports[`renders a Pocket PagerDuty with custom sns topic subscription confirmat
     \\"aws_sns_topic\\": {
       \\"test-pagerduty_alarm-critical-topic_5B8FEE8D\\": {
         \\"name\\": \\"Test-Env-Infrastructure-Alarm-Critical\\",
-        \\"tags\\": {}
+        \\"tags\\": {
+        }
       },
       \\"test-pagerduty_alarm-non-critical-topic_3FD65796\\": {
         \\"name\\": \\"Test-Env-Infrastructure-Alarm-Non-Critical\\",
-        \\"tags\\": {}
+        \\"tags\\": {
+        }
       }
     },
     \\"aws_sns_topic_subscription\\": {
