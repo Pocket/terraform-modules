@@ -33,6 +33,10 @@ export class ApplicationEventBridgeRule extends Resource {
   }
 
   private createCloudwatchEventRule() {
+    if (this.config.targets.length > 5) {
+      throw new Error('AWS allows only upto 5 targets per event bridge rule');
+    }
+
     const rule = new eventbridge.CloudwatchEventRule(
       this,
       'event-bridge-rule',
@@ -46,9 +50,6 @@ export class ApplicationEventBridgeRule extends Resource {
     );
 
     if (this.config.targets) {
-      if (this.config.targets.length > 5) {
-        throw new Error('each rule can have only 5 targets');
-      }
       this.config.targets.forEach((t) => {
         new eventbridge.CloudwatchEventTarget(this, 'event-bridge-target', {
           rule: rule.name,
