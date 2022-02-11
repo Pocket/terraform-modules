@@ -1,3 +1,10 @@
+## [3.5.0](https://github.com/Pocket/terraform-modules/compare/v3.4.32...v3.5.0) (2022-02-11)
+
+
+### Features
+
+* **cdktf:** update cdktf 0.9 ([#880](https://github.com/Pocket/terraform-modules/issues/880)) ([f83453e](https://github.com/Pocket/terraform-modules/commit/f83453ec65f2d75c625b80e32d5a8d14d3ccd258))
+
 ### [3.4.32](https://github.com/Pocket/terraform-modules/compare/v3.4.31...v3.4.32) (2022-02-08)
 
 
