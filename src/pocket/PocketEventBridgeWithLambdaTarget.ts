@@ -31,7 +31,10 @@ export class PocketEventBridgeWithLambdaTarget extends PocketVersionedLambda {
     super(scope, name, config);
 
     const eventBridgeRule = this.createEventBridgeRule([this.lambda]);
-    this.createLambdaEventRuleResourcePermission(this.lambda, eventBridgeRule);
+    this.createLambdaEventRuleResourcePermission(
+      [this.lambda],
+      eventBridgeRule
+    );
   }
 
   /**
@@ -41,16 +44,18 @@ export class PocketEventBridgeWithLambdaTarget extends PocketVersionedLambda {
    * @private
    */
   private createLambdaEventRuleResourcePermission(
-    lambda: ApplicationVersionedLambda,
+    targetLambdas: ApplicationVersionedLambda[],
     eventBridgeRule: ApplicationEventBridgeRule
   ): void {
-    new lambdafunction.LambdaPermission(this, 'lambda-permission', {
-      action: 'lambda:InvokeFunction',
-      functionName: lambda.versionedLambda.functionName,
-      qualifier: lambda.versionedLambda.name,
-      principal: 'events.amazonaws.com',
-      sourceArn: eventBridgeRule.rule.arn,
-      dependsOn: [lambda.versionedLambda, eventBridgeRule.rule],
+    targetLambdas.forEach((lambda) => {
+      new lambdafunction.LambdaPermission(this, 'lambda-permission', {
+        action: 'lambda:InvokeFunction',
+        functionName: lambda.versionedLambda.functionName,
+        qualifier: lambda.versionedLambda.name,
+        principal: 'events.amazonaws.com',
+        sourceArn: eventBridgeRule.rule.arn,
+        dependsOn: [lambda.versionedLambda, eventBridgeRule.rule],
+      });
     });
   }
 
