@@ -1,17 +1,21 @@
 import { Resource, TerraformResource } from 'cdktf';
 import { Construct } from 'constructs';
 import { eventbridge } from '@cdktf/provider-aws';
+import { CloudwatchEventTargetDeadLetterConfig } from '@cdktf/provider-aws/lib/eventbridge/cloudwatch-event-target';
+
+export type Target = {
+  arn: string;
+  deadLetterArn?: string;
+  targetId?: string;
+  dependsOn: TerraformResource;
+};
 
 export interface ApplicationEventBridgeRuleProps {
   name: string;
   description?: string;
   eventBusName?: string;
   eventPattern: { [key: string]: any };
-  target?: {
-    arn: string;
-    targetId?: string;
-    dependsOn: TerraformResource;
-  };
+  targets?: Target[];
   tags?: { [key: string]: string };
 }
 
@@ -41,12 +45,18 @@ export class ApplicationEventBridgeRule extends Resource {
       }
     );
 
-    if (this.config.target) {
-      new eventbridge.CloudwatchEventTarget(this, 'event-bridge-target', {
-        rule: rule.name,
-        targetId: this.config.target.targetId,
-        arn: this.config.target.arn,
-        dependsOn: [this.config.target.dependsOn, rule],
+    if (this.config.targets) {
+      if (this.config.targets.length > 5) {
+        throw new Error('each rule can have only 5 targets');
+      }
+      this.config.targets.forEach((t) => {
+        new eventbridge.CloudwatchEventTarget(this, 'event-bridge-target', {
+          rule: rule.name,
+          targetId: t.targetId,
+          arn: t.arn,
+          deadLetterConfig: t.deadLetterArn ? { arn: t.deadLetterArn } : null,
+          dependsOn: [t.dependsOn, rule],
+        });
       });
     }
 
