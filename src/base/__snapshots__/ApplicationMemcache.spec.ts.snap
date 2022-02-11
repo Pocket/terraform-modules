@@ -56,7 +56,8 @@ exports[`ApplicationMemcache renders memcached with minimal config 1`] = `
             \\"ipv6_cidr_blocks\\": null,
             \\"prefix_list_ids\\": null,
             \\"protocol\\": \\"tcp\\",
-            \\"security_groups\\": [],
+            \\"security_groups\\": [
+            ],
             \\"self\\": null,
             \\"to_port\\": 11211
           }
@@ -125,7 +126,8 @@ exports[`ApplicationMemcache renders memcached with node change 1`] = `
             \\"ipv6_cidr_blocks\\": null,
             \\"prefix_list_ids\\": null,
             \\"protocol\\": \\"tcp\\",
-            \\"security_groups\\": [],
+            \\"security_groups\\": [
+            ],
             \\"self\\": null,
             \\"to_port\\": 11211
           }
@@ -198,7 +200,8 @@ exports[`ApplicationMemcache renders memcached with tags 1`] = `
             \\"ipv6_cidr_blocks\\": null,
             \\"prefix_list_ids\\": null,
             \\"protocol\\": \\"tcp\\",
-            \\"security_groups\\": [],
+            \\"security_groups\\": [
+            ],
             \\"self\\": null,
             \\"to_port\\": 11211
           }
