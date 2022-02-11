@@ -520,8 +520,8 @@ exports[`ApplicationVersionedLambda renders a versioned lambda with environment 
       \\"test-versioned-lambda_D818669D\\": {
         \\"environment\\": {
           \\"variables\\": {
-            \\"MY\\": \\"env_var\\",
-            \\"for\\": \\"test\\"
+            \\"for\\": \\"test\\",
+            \\"MY\\": \\"env_var\\"
           }
         },
         \\"filename\\": \\"\${data.archive_file.test-versioned-lambda_lambda-default-file_E2490368.output_path}\\",

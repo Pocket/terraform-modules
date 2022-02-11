@@ -42,6 +42,7 @@ exports[`AplicationEventBridgeRule renders an event bridge with sqs target 1`] =
     \\"aws_cloudwatch_event_target\\": {
       \\"test-event-bridge-rule_event-bridge-target_5807E31B\\": {
         \\"arn\\": \\"\${aws_sqs_queue.test-queue.arn}\\",
+        \\"dead_letter_config\\": {},
         \\"depends_on\\": [
           \\"aws_sqs_queue.test-queue\\",
           \\"aws_cloudwatch_event_rule.test-event-bridge-rule_DA4F2E87\\"

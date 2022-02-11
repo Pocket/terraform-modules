@@ -172,9 +172,9 @@ exports[`renders a Pocket ECS Codepipeline template 1`] = `
               {
                 \\"category\\": \\"Deploy\\",
                 \\"configuration\\": {
+                  \\"ApplicationName\\": \\"Test-Env-ECS\\",
                   \\"AppSpecTemplateArtifact\\": \\"CodeBuildOutput\\",
                   \\"AppSpecTemplatePath\\": \\"appspec.json\\",
-                  \\"ApplicationName\\": \\"Test-Env-ECS\\",
                   \\"DeploymentGroupName\\": \\"Test-Env-ECS\\",
                   \\"TaskDefinitionTemplateArtifact\\": \\"CodeBuildOutput\\",
                   \\"TaskDefinitionTemplatePath\\": \\"taskdef.json\\"
@@ -406,9 +406,9 @@ exports[`renders a Pocket ECS Codepipeline template with custom steps 1`] = `
               {
                 \\"category\\": \\"Deploy\\",
                 \\"configuration\\": {
+                  \\"ApplicationName\\": \\"Test-Env-ECS\\",
                   \\"AppSpecTemplateArtifact\\": \\"CodeBuildOutput\\",
                   \\"AppSpecTemplatePath\\": \\"appspec.json\\",
-                  \\"ApplicationName\\": \\"Test-Env-ECS\\",
                   \\"DeploymentGroupName\\": \\"Test-Env-ECS\\",
                   \\"TaskDefinitionTemplateArtifact\\": \\"CodeBuildOutput\\",
                   \\"TaskDefinitionTemplatePath\\": \\"taskdef.json\\"
@@ -641,9 +641,9 @@ exports[`renders a Pocket ECS Codepipeline template with tags 1`] = `
               {
                 \\"category\\": \\"Deploy\\",
                 \\"configuration\\": {
+                  \\"ApplicationName\\": \\"Test-Env-ECS\\",
                   \\"AppSpecTemplateArtifact\\": \\"CodeBuildOutput\\",
                   \\"AppSpecTemplatePath\\": \\"appspec.json\\",
-                  \\"ApplicationName\\": \\"Test-Env-ECS\\",
                   \\"DeploymentGroupName\\": \\"Test-Env-ECS\\",
                   \\"TaskDefinitionTemplateArtifact\\": \\"CodeBuildOutput\\",
                   \\"TaskDefinitionTemplatePath\\": \\"taskdef.json\\"
@@ -865,9 +865,9 @@ exports[`renders a Pocket ECS Codepipeline template with the provided CodeDeploy
               {
                 \\"category\\": \\"Deploy\\",
                 \\"configuration\\": {
+                  \\"ApplicationName\\": \\"TestAppName\\",
                   \\"AppSpecTemplateArtifact\\": \\"CodeBuildOutput\\",
                   \\"AppSpecTemplatePath\\": \\"appspec.json\\",
-                  \\"ApplicationName\\": \\"TestAppName\\",
                   \\"DeploymentGroupName\\": \\"Test-Env-ECS\\",
                   \\"TaskDefinitionTemplateArtifact\\": \\"CodeBuildOutput\\",
                   \\"TaskDefinitionTemplatePath\\": \\"taskdef.json\\"
@@ -1083,9 +1083,9 @@ exports[`renders a Pocket ECS Codepipeline template with the provided CodeDeploy
               {
                 \\"category\\": \\"Deploy\\",
                 \\"configuration\\": {
+                  \\"ApplicationName\\": \\"Test-Env-ECS\\",
                   \\"AppSpecTemplateArtifact\\": \\"CodeBuildOutput\\",
                   \\"AppSpecTemplatePath\\": \\"appspec.json\\",
-                  \\"ApplicationName\\": \\"Test-Env-ECS\\",
                   \\"DeploymentGroupName\\": \\"TestDeploymentGroupName\\",
                   \\"TaskDefinitionTemplateArtifact\\": \\"CodeBuildOutput\\",
                   \\"TaskDefinitionTemplatePath\\": \\"taskdef.json\\"
@@ -1301,9 +1301,9 @@ exports[`renders a Pocket ECS Codepipeline template with the provided appspec pa
               {
                 \\"category\\": \\"Deploy\\",
                 \\"configuration\\": {
+                  \\"ApplicationName\\": \\"Test-Env-ECS\\",
                   \\"AppSpecTemplateArtifact\\": \\"CodeBuildOutput\\",
                   \\"AppSpecTemplatePath\\": \\"testappspec.json\\",
-                  \\"ApplicationName\\": \\"Test-Env-ECS\\",
                   \\"DeploymentGroupName\\": \\"Test-Env-ECS\\",
                   \\"TaskDefinitionTemplateArtifact\\": \\"CodeBuildOutput\\",
                   \\"TaskDefinitionTemplatePath\\": \\"taskdef.json\\"
@@ -1519,9 +1519,9 @@ exports[`renders a Pocket ECS Codepipeline template with the provided code build
               {
                 \\"category\\": \\"Deploy\\",
                 \\"configuration\\": {
+                  \\"ApplicationName\\": \\"Test-Env-ECS\\",
                   \\"AppSpecTemplateArtifact\\": \\"CodeBuildOutput\\",
                   \\"AppSpecTemplatePath\\": \\"appspec.json\\",
-                  \\"ApplicationName\\": \\"Test-Env-ECS\\",
                   \\"DeploymentGroupName\\": \\"Test-Env-ECS\\",
                   \\"TaskDefinitionTemplateArtifact\\": \\"CodeBuildOutput\\",
                   \\"TaskDefinitionTemplatePath\\": \\"taskdef.json\\"
@@ -1737,9 +1737,9 @@ exports[`renders a Pocket ECS Codepipeline template with the provided taskdef pa
               {
                 \\"category\\": \\"Deploy\\",
                 \\"configuration\\": {
+                  \\"ApplicationName\\": \\"Test-Env-ECS\\",
                   \\"AppSpecTemplateArtifact\\": \\"CodeBuildOutput\\",
                   \\"AppSpecTemplatePath\\": \\"appspec.json\\",
-                  \\"ApplicationName\\": \\"Test-Env-ECS\\",
                   \\"DeploymentGroupName\\": \\"Test-Env-ECS\\",
                   \\"TaskDefinitionTemplateArtifact\\": \\"CodeBuildOutput\\",
                   \\"TaskDefinitionTemplatePath\\": \\"testtaskdef.json\\"

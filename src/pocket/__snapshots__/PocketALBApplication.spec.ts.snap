@@ -4,8 +4,7 @@ exports[`PocketALBApplication renders an Pocket App with code deploy 1`] = `
 "{
   \\"data\\": {
     \\"aws_caller_identity\\": {
-      \\"testPocketApp_pocket_vpc_current_identity_06D87057\\": {
-      }
+      \\"testPocketApp_pocket_vpc_current_identity_06D87057\\": {}
     },
     \\"aws_iam_policy_document\\": {
       \\"testPocketApp_autoscaling_autoscaling_assume_9DAB9CD7\\": {
@@ -51,6 +50,24 @@ exports[`PocketALBApplication renders an Pocket App with code deploy 1`] = `
           }
         ]
       },
+      \\"testPocketApp_ecs_service_ecs_codedeploy_codedeploy_assume_role_840D1ECF\\": {
+        \\"statement\\": [
+          {
+            \\"actions\\": [
+              \\"sts:AssumeRole\\"
+            ],
+            \\"effect\\": \\"Allow\\",
+            \\"principals\\": [
+              {
+                \\"identifiers\\": [
+                  \\"codedeploy.amazonaws.com\\"
+                ],
+                \\"type\\": \\"Service\\"
+              }
+            ]
+          }
+        ]
+      },
       \\"testPocketApp_ecs_service_ecs-iam_ecs-task-assume_ABB81680\\": {
         \\"statement\\": [
           {
@@ -69,24 +86,6 @@ exports[`PocketALBApplication renders an Pocket App with code deploy 1`] = `
           }
         ],
         \\"version\\": \\"2012-10-17\\"
-      },
-      \\"testPocketApp_ecs_service_ecs_codedeploy_codedeploy_assume_role_840D1ECF\\": {
-        \\"statement\\": [
-          {
-            \\"actions\\": [
-              \\"sts:AssumeRole\\"
-            ],
-            \\"effect\\": \\"Allow\\",
-            \\"principals\\": [
-              {
-                \\"identifiers\\": [
-                  \\"codedeploy.amazonaws.com\\"
-                ],
-                \\"type\\": \\"Service\\"
-              }
-            ]
-          }
-        ]
       }
     },
     \\"aws_kms_alias\\": {
@@ -95,8 +94,7 @@ exports[`PocketALBApplication renders an Pocket App with code deploy 1`] = `
       }
     },
     \\"aws_region\\": {
-      \\"testPocketApp_pocket_vpc_current_region_8ED435E7\\": {
-      }
+      \\"testPocketApp_pocket_vpc_current_region_8ED435E7\\": {}
     },
     \\"aws_route53_zone\\": {
       \\"testPocketApp_base_dns_main_hosted_zone_9442EEB0\\": {
@@ -194,7 +192,7 @@ exports[`PocketALBApplication renders an Pocket App with code deploy 1`] = `
         \\"security_groups\\": [
           \\"\${aws_security_group.testPocketApp_application_load_balancer_alb_security_group_91A27046.id}\\"
         ],
-        \\"subnets\\": \\"\${tolist(data.aws_subnet_ids.testPocketApp_pocket_vpc_public_subnet_ids_01F0B902.ids)}\\"
+        \\"subnets\\": \\"\${data.aws_subnet_ids.testPocketApp_pocket_vpc_public_subnet_ids_01F0B902.ids}\\"
       }
     },
     \\"aws_alb_listener\\": {
@@ -498,7 +496,7 @@ exports[`PocketALBApplication renders an Pocket App with code deploy 1`] = `
           \\"security_groups\\": [
             \\"\${aws_security_group.testPocketApp_ecs_service_ecs_security_group_9C016FA8.id}\\"
           ],
-          \\"subnets\\": \\"\${tolist(data.aws_subnet_ids.testPocketApp_pocket_vpc_private_subnet_ids_EB1E3A65.ids)}\\"
+          \\"subnets\\": \\"\${data.aws_subnet_ids.testPocketApp_pocket_vpc_private_subnet_ids_EB1E3A65.ids}\\"
         },
         \\"propagate_tags\\": \\"SERVICE\\",
         \\"task_definition\\": \\"\${aws_ecs_task_definition.testPocketApp_ecs_service_ecs-task_A7E74E45.arn}\\"
@@ -508,8 +506,7 @@ exports[`PocketALBApplication renders an Pocket App with code deploy 1`] = `
       \\"testPocketApp_ecs_service_ecs-task_A7E74E45\\": {
         \\"container_definitions\\": \\"[]\\",
         \\"cpu\\": \\"512\\",
-        \\"depends_on\\": [
-        ],
+        \\"depends_on\\": [],
         \\"execution_role_arn\\": \\"\${aws_iam_role.testPocketApp_ecs_service_ecs-iam_ecs-execution-role_EB461A0C.arn}\\",
         \\"family\\": \\"testapp\\",
         \\"memory\\": \\"2048\\",
@@ -518,14 +515,17 @@ exports[`PocketALBApplication renders an Pocket App with code deploy 1`] = `
           \\"FARGATE\\"
         ],
         \\"task_role_arn\\": \\"\${aws_iam_role.testPocketApp_ecs_service_ecs-iam_ecs-task-role_7DB93963.arn}\\",
-        \\"volume\\": [
-        ]
+        \\"volume\\": []
       }
     },
     \\"aws_iam_role\\": {
       \\"testPocketApp_autoscaling_autoscaling_role_2A822527\\": {
         \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.testPocketApp_autoscaling_autoscaling_assume_9DAB9CD7.json}\\",
         \\"name\\": \\"testapp-AutoScalingRole\\"
+      },
+      \\"testPocketApp_ecs_service_ecs_codedeploy_ecs_code_deploy_role_287C837D\\": {
+        \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.testPocketApp_ecs_service_ecs_codedeploy_codedeploy_assume_role_840D1ECF.json}\\",
+        \\"name\\": \\"testapp-ECSCodeDeployRole\\"
       },
       \\"testPocketApp_ecs_service_ecs-iam_ecs-execution-role_EB461A0C\\": {
         \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.testPocketApp_ecs_service_ecs-iam_ecs-task-assume_ABB81680.json}\\",
@@ -534,10 +534,6 @@ exports[`PocketALBApplication renders an Pocket App with code deploy 1`] = `
       \\"testPocketApp_ecs_service_ecs-iam_ecs-task-role_7DB93963\\": {
         \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.testPocketApp_ecs_service_ecs-iam_ecs-task-assume_ABB81680.json}\\",
         \\"name\\": \\"testapp-TaskRole\\"
-      },
-      \\"testPocketApp_ecs_service_ecs_codedeploy_ecs_code_deploy_role_287C837D\\": {
-        \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.testPocketApp_ecs_service_ecs_codedeploy_codedeploy_assume_role_840D1ECF.json}\\",
-        \\"name\\": \\"testapp-ECSCodeDeployRole\\"
       }
     },
     \\"aws_iam_role_policy\\": {
@@ -615,13 +611,10 @@ exports[`PocketALBApplication renders an Pocket App with code deploy 1`] = `
             ],
             \\"description\\": \\"required\\",
             \\"from_port\\": 0,
-            \\"ipv6_cidr_blocks\\": [
-            ],
-            \\"prefix_list_ids\\": [
-            ],
+            \\"ipv6_cidr_blocks\\": [],
+            \\"prefix_list_ids\\": [],
             \\"protocol\\": \\"-1\\",
-            \\"security_groups\\": [
-            ],
+            \\"security_groups\\": [],
             \\"self\\": null,
             \\"to_port\\": 0
           }
@@ -672,27 +665,21 @@ exports[`PocketALBApplication renders an Pocket App with code deploy 1`] = `
             ],
             \\"description\\": \\"required\\",
             \\"from_port\\": 0,
-            \\"ipv6_cidr_blocks\\": [
-            ],
-            \\"prefix_list_ids\\": [
-            ],
+            \\"ipv6_cidr_blocks\\": [],
+            \\"prefix_list_ids\\": [],
             \\"protocol\\": \\"-1\\",
-            \\"security_groups\\": [
-            ],
+            \\"security_groups\\": [],
             \\"self\\": null,
             \\"to_port\\": 0
           }
         ],
         \\"ingress\\": [
           {
-            \\"cidr_blocks\\": [
-            ],
+            \\"cidr_blocks\\": [],
             \\"description\\": \\"required\\",
             \\"from_port\\": 80,
-            \\"ipv6_cidr_blocks\\": [
-            ],
-            \\"prefix_list_ids\\": [
-            ],
+            \\"ipv6_cidr_blocks\\": [],
+            \\"prefix_list_ids\\": [],
             \\"protocol\\": \\"TCP\\",
             \\"security_groups\\": [
               \\"\${aws_security_group.testPocketApp_application_load_balancer_alb_security_group_91A27046.id}\\"
@@ -715,8 +702,7 @@ exports[`PocketALBApplication renders an Pocket App with code deploy 1`] = `
       }
     },
     \\"null_resource\\": {
-      \\"testPocketApp_ecs_service_8F213571\\": {
-      },
+      \\"testPocketApp_ecs_service_8F213571\\": {},
       \\"testPocketApp_ecs_service_create-task-definition-file_5769615D\\": {
         \\"depends_on\\": [
           \\"aws_ecs_task_definition.testPocketApp_ecs_service_ecs-task_A7E74E45\\"
@@ -754,8 +740,7 @@ exports[`PocketALBApplication renders an Pocket App with code deploy and creates
 "{
   \\"data\\": {
     \\"aws_caller_identity\\": {
-      \\"testPocketApp_pocket_vpc_current_identity_06D87057\\": {
-      }
+      \\"testPocketApp_pocket_vpc_current_identity_06D87057\\": {}
     },
     \\"aws_iam_policy_document\\": {
       \\"testPocketApp_autoscaling_autoscaling_assume_9DAB9CD7\\": {
@@ -801,6 +786,24 @@ exports[`PocketALBApplication renders an Pocket App with code deploy and creates
           }
         ]
       },
+      \\"testPocketApp_ecs_service_ecs_codedeploy_codedeploy_assume_role_840D1ECF\\": {
+        \\"statement\\": [
+          {
+            \\"actions\\": [
+              \\"sts:AssumeRole\\"
+            ],
+            \\"effect\\": \\"Allow\\",
+            \\"principals\\": [
+              {
+                \\"identifiers\\": [
+                  \\"codedeploy.amazonaws.com\\"
+                ],
+                \\"type\\": \\"Service\\"
+              }
+            ]
+          }
+        ]
+      },
       \\"testPocketApp_ecs_service_ecs-iam_ecs-task-assume_ABB81680\\": {
         \\"statement\\": [
           {
@@ -819,24 +822,6 @@ exports[`PocketALBApplication renders an Pocket App with code deploy and creates
           }
         ],
         \\"version\\": \\"2012-10-17\\"
-      },
-      \\"testPocketApp_ecs_service_ecs_codedeploy_codedeploy_assume_role_840D1ECF\\": {
-        \\"statement\\": [
-          {
-            \\"actions\\": [
-              \\"sts:AssumeRole\\"
-            ],
-            \\"effect\\": \\"Allow\\",
-            \\"principals\\": [
-              {
-                \\"identifiers\\": [
-                  \\"codedeploy.amazonaws.com\\"
-                ],
-                \\"type\\": \\"Service\\"
-              }
-            ]
-          }
-        ]
       }
     },
     \\"aws_kms_alias\\": {
@@ -845,8 +830,7 @@ exports[`PocketALBApplication renders an Pocket App with code deploy and creates
       }
     },
     \\"aws_region\\": {
-      \\"testPocketApp_pocket_vpc_current_region_8ED435E7\\": {
-      }
+      \\"testPocketApp_pocket_vpc_current_region_8ED435E7\\": {}
     },
     \\"aws_route53_zone\\": {
       \\"testPocketApp_base_dns_main_hosted_zone_9442EEB0\\": {
@@ -944,7 +928,7 @@ exports[`PocketALBApplication renders an Pocket App with code deploy and creates
         \\"security_groups\\": [
           \\"\${aws_security_group.testPocketApp_application_load_balancer_alb_security_group_91A27046.id}\\"
         ],
-        \\"subnets\\": \\"\${tolist(data.aws_subnet_ids.testPocketApp_pocket_vpc_public_subnet_ids_01F0B902.ids)}\\"
+        \\"subnets\\": \\"\${data.aws_subnet_ids.testPocketApp_pocket_vpc_public_subnet_ids_01F0B902.ids}\\"
       }
     },
     \\"aws_alb_listener\\": {
@@ -1248,7 +1232,7 @@ exports[`PocketALBApplication renders an Pocket App with code deploy and creates
           \\"security_groups\\": [
             \\"\${aws_security_group.testPocketApp_ecs_service_ecs_security_group_9C016FA8.id}\\"
           ],
-          \\"subnets\\": \\"\${tolist(data.aws_subnet_ids.testPocketApp_pocket_vpc_private_subnet_ids_EB1E3A65.ids)}\\"
+          \\"subnets\\": \\"\${data.aws_subnet_ids.testPocketApp_pocket_vpc_private_subnet_ids_EB1E3A65.ids}\\"
         },
         \\"propagate_tags\\": \\"SERVICE\\",
         \\"task_definition\\": \\"\${aws_ecs_task_definition.testPocketApp_ecs_service_ecs-task_A7E74E45.arn}\\"
@@ -1258,8 +1242,7 @@ exports[`PocketALBApplication renders an Pocket App with code deploy and creates
       \\"testPocketApp_ecs_service_ecs-task_A7E74E45\\": {
         \\"container_definitions\\": \\"[]\\",
         \\"cpu\\": \\"512\\",
-        \\"depends_on\\": [
-        ],
+        \\"depends_on\\": [],
         \\"execution_role_arn\\": \\"\${aws_iam_role.testPocketApp_ecs_service_ecs-iam_ecs-execution-role_EB461A0C.arn}\\",
         \\"family\\": \\"testapp\\",
         \\"memory\\": \\"2048\\",
@@ -1268,14 +1251,17 @@ exports[`PocketALBApplication renders an Pocket App with code deploy and creates
           \\"FARGATE\\"
         ],
         \\"task_role_arn\\": \\"\${aws_iam_role.testPocketApp_ecs_service_ecs-iam_ecs-task-role_7DB93963.arn}\\",
-        \\"volume\\": [
-        ]
+        \\"volume\\": []
       }
     },
     \\"aws_iam_role\\": {
       \\"testPocketApp_autoscaling_autoscaling_role_2A822527\\": {
         \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.testPocketApp_autoscaling_autoscaling_assume_9DAB9CD7.json}\\",
         \\"name\\": \\"testapp-AutoScalingRole\\"
+      },
+      \\"testPocketApp_ecs_service_ecs_codedeploy_ecs_code_deploy_role_287C837D\\": {
+        \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.testPocketApp_ecs_service_ecs_codedeploy_codedeploy_assume_role_840D1ECF.json}\\",
+        \\"name\\": \\"testapp-ECSCodeDeployRole\\"
       },
       \\"testPocketApp_ecs_service_ecs-iam_ecs-execution-role_EB461A0C\\": {
         \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.testPocketApp_ecs_service_ecs-iam_ecs-task-assume_ABB81680.json}\\",
@@ -1284,10 +1270,6 @@ exports[`PocketALBApplication renders an Pocket App with code deploy and creates
       \\"testPocketApp_ecs_service_ecs-iam_ecs-task-role_7DB93963\\": {
         \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.testPocketApp_ecs_service_ecs-iam_ecs-task-assume_ABB81680.json}\\",
         \\"name\\": \\"testapp-TaskRole\\"
-      },
-      \\"testPocketApp_ecs_service_ecs_codedeploy_ecs_code_deploy_role_287C837D\\": {
-        \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.testPocketApp_ecs_service_ecs_codedeploy_codedeploy_assume_role_840D1ECF.json}\\",
-        \\"name\\": \\"testapp-ECSCodeDeployRole\\"
       }
     },
     \\"aws_iam_role_policy\\": {
@@ -1365,13 +1347,10 @@ exports[`PocketALBApplication renders an Pocket App with code deploy and creates
             ],
             \\"description\\": \\"required\\",
             \\"from_port\\": 0,
-            \\"ipv6_cidr_blocks\\": [
-            ],
-            \\"prefix_list_ids\\": [
-            ],
+            \\"ipv6_cidr_blocks\\": [],
+            \\"prefix_list_ids\\": [],
             \\"protocol\\": \\"-1\\",
-            \\"security_groups\\": [
-            ],
+            \\"security_groups\\": [],
             \\"self\\": null,
             \\"to_port\\": 0
           }
@@ -1422,27 +1401,21 @@ exports[`PocketALBApplication renders an Pocket App with code deploy and creates
             ],
             \\"description\\": \\"required\\",
             \\"from_port\\": 0,
-            \\"ipv6_cidr_blocks\\": [
-            ],
-            \\"prefix_list_ids\\": [
-            ],
+            \\"ipv6_cidr_blocks\\": [],
+            \\"prefix_list_ids\\": [],
             \\"protocol\\": \\"-1\\",
-            \\"security_groups\\": [
-            ],
+            \\"security_groups\\": [],
             \\"self\\": null,
             \\"to_port\\": 0
           }
         ],
         \\"ingress\\": [
           {
-            \\"cidr_blocks\\": [
-            ],
+            \\"cidr_blocks\\": [],
             \\"description\\": \\"required\\",
             \\"from_port\\": 80,
-            \\"ipv6_cidr_blocks\\": [
-            ],
-            \\"prefix_list_ids\\": [
-            ],
+            \\"ipv6_cidr_blocks\\": [],
+            \\"prefix_list_ids\\": [],
             \\"protocol\\": \\"TCP\\",
             \\"security_groups\\": [
               \\"\${aws_security_group.testPocketApp_application_load_balancer_alb_security_group_91A27046.id}\\"
@@ -1465,8 +1438,7 @@ exports[`PocketALBApplication renders an Pocket App with code deploy and creates
       }
     },
     \\"null_resource\\": {
-      \\"testPocketApp_ecs_service_8F213571\\": {
-      },
+      \\"testPocketApp_ecs_service_8F213571\\": {},
       \\"testPocketApp_ecs_service_create-task-definition-file_5769615D\\": {
         \\"depends_on\\": [
           \\"aws_ecs_task_definition.testPocketApp_ecs_service_ecs-task_A7E74E45\\"
@@ -1489,8 +1461,7 @@ exports[`PocketALBApplication renders an Pocket App with custom Alarm Descriptio
 "{
   \\"data\\": {
     \\"aws_caller_identity\\": {
-      \\"testPocketApp_pocket_vpc_current_identity_06D87057\\": {
-      }
+      \\"testPocketApp_pocket_vpc_current_identity_06D87057\\": {}
     },
     \\"aws_iam_policy_document\\": {
       \\"testPocketApp_autoscaling_autoscaling_assume_9DAB9CD7\\": {
@@ -1562,8 +1533,7 @@ exports[`PocketALBApplication renders an Pocket App with custom Alarm Descriptio
       }
     },
     \\"aws_region\\": {
-      \\"testPocketApp_pocket_vpc_current_region_8ED435E7\\": {
-      }
+      \\"testPocketApp_pocket_vpc_current_region_8ED435E7\\": {}
     },
     \\"aws_route53_zone\\": {
       \\"testPocketApp_base_dns_main_hosted_zone_9442EEB0\\": {
@@ -1661,7 +1631,7 @@ exports[`PocketALBApplication renders an Pocket App with custom Alarm Descriptio
         \\"security_groups\\": [
           \\"\${aws_security_group.testPocketApp_application_load_balancer_alb_security_group_91A27046.id}\\"
         ],
-        \\"subnets\\": \\"\${tolist(data.aws_subnet_ids.testPocketApp_pocket_vpc_public_subnet_ids_01F0B902.ids)}\\"
+        \\"subnets\\": \\"\${data.aws_subnet_ids.testPocketApp_pocket_vpc_public_subnet_ids_01F0B902.ids}\\"
       }
     },
     \\"aws_alb_listener\\": {
@@ -1808,8 +1778,7 @@ exports[`PocketALBApplication renders an Pocket App with custom Alarm Descriptio
     },
     \\"aws_cloudwatch_metric_alarm\\": {
       \\"testPocketApp_alarm-httpresponsetime_327A4315\\": {
-        \\"alarm_actions\\": [
-        ],
+        \\"alarm_actions\\": [],
         \\"alarm_description\\": \\"Uh oh. This is very slow.\\",
         \\"alarm_name\\": \\"testapp-Alarm-HTTPResponseTime\\",
         \\"comparison_operator\\": \\"GreaterThanThreshold\\",
@@ -1818,26 +1787,22 @@ exports[`PocketALBApplication renders an Pocket App with custom Alarm Descriptio
           \\"LoadBalancer\\": \\"\${aws_alb.testPocketApp_application_load_balancer_alb_D538DEEE.arn_suffix}\\"
         },
         \\"evaluation_periods\\": 1,
-        \\"insufficient_data_actions\\": [
-        ],
+        \\"insufficient_data_actions\\": [],
         \\"metric_name\\": \\"TargetResponseTime\\",
         \\"namespace\\": \\"AWS/ApplicationELB\\",
-        \\"ok_actions\\": [
-        ],
+        \\"ok_actions\\": [],
         \\"period\\": 300,
         \\"statistic\\": \\"Average\\",
         \\"threshold\\": 300
       },
       \\"testPocketApp_alarm-httptarget5xxerrorrate_39F471E9\\": {
-        \\"alarm_actions\\": [
-        ],
+        \\"alarm_actions\\": [],
         \\"alarm_description\\": \\"Uh oh. something bad happened.\\",
         \\"alarm_name\\": \\"testapp-Alarm-HTTPTarget5xxErrorRate\\",
         \\"comparison_operator\\": \\"GreaterThanOrEqualToThreshold\\",
         \\"datapoints_to_alarm\\": 5,
         \\"evaluation_periods\\": 5,
-        \\"insufficient_data_actions\\": [
-        ],
+        \\"insufficient_data_actions\\": [],
         \\"metric_query\\": [
           {
             \\"id\\": \\"requests\\",
@@ -1872,8 +1837,7 @@ exports[`PocketALBApplication renders an Pocket App with custom Alarm Descriptio
             \\"return_data\\": true
           }
         ],
-        \\"ok_actions\\": [
-        ],
+        \\"ok_actions\\": [],
         \\"threshold\\": 5
       },
       \\"testPocketApp_autoscaling_scale_in_alarm_69B5F00D\\": {
@@ -1958,7 +1922,7 @@ exports[`PocketALBApplication renders an Pocket App with custom Alarm Descriptio
           \\"security_groups\\": [
             \\"\${aws_security_group.testPocketApp_ecs_service_ecs_security_group_9C016FA8.id}\\"
           ],
-          \\"subnets\\": \\"\${tolist(data.aws_subnet_ids.testPocketApp_pocket_vpc_private_subnet_ids_EB1E3A65.ids)}\\"
+          \\"subnets\\": \\"\${data.aws_subnet_ids.testPocketApp_pocket_vpc_private_subnet_ids_EB1E3A65.ids}\\"
         },
         \\"propagate_tags\\": \\"SERVICE\\",
         \\"task_definition\\": \\"\${aws_ecs_task_definition.testPocketApp_ecs_service_ecs-task_A7E74E45.arn}\\"
@@ -1968,8 +1932,7 @@ exports[`PocketALBApplication renders an Pocket App with custom Alarm Descriptio
       \\"testPocketApp_ecs_service_ecs-task_A7E74E45\\": {
         \\"container_definitions\\": \\"[]\\",
         \\"cpu\\": \\"512\\",
-        \\"depends_on\\": [
-        ],
+        \\"depends_on\\": [],
         \\"execution_role_arn\\": \\"\${aws_iam_role.testPocketApp_ecs_service_ecs-iam_ecs-execution-role_EB461A0C.arn}\\",
         \\"family\\": \\"testapp\\",
         \\"memory\\": \\"2048\\",
@@ -1978,8 +1941,7 @@ exports[`PocketALBApplication renders an Pocket App with custom Alarm Descriptio
           \\"FARGATE\\"
         ],
         \\"task_role_arn\\": \\"\${aws_iam_role.testPocketApp_ecs_service_ecs-iam_ecs-task-role_7DB93963.arn}\\",
-        \\"volume\\": [
-        ]
+        \\"volume\\": []
       }
     },
     \\"aws_iam_role\\": {
@@ -2062,13 +2024,10 @@ exports[`PocketALBApplication renders an Pocket App with custom Alarm Descriptio
             ],
             \\"description\\": \\"required\\",
             \\"from_port\\": 0,
-            \\"ipv6_cidr_blocks\\": [
-            ],
-            \\"prefix_list_ids\\": [
-            ],
+            \\"ipv6_cidr_blocks\\": [],
+            \\"prefix_list_ids\\": [],
             \\"protocol\\": \\"-1\\",
-            \\"security_groups\\": [
-            ],
+            \\"security_groups\\": [],
             \\"self\\": null,
             \\"to_port\\": 0
           }
@@ -2119,27 +2078,21 @@ exports[`PocketALBApplication renders an Pocket App with custom Alarm Descriptio
             ],
             \\"description\\": \\"required\\",
             \\"from_port\\": 0,
-            \\"ipv6_cidr_blocks\\": [
-            ],
-            \\"prefix_list_ids\\": [
-            ],
+            \\"ipv6_cidr_blocks\\": [],
+            \\"prefix_list_ids\\": [],
             \\"protocol\\": \\"-1\\",
-            \\"security_groups\\": [
-            ],
+            \\"security_groups\\": [],
             \\"self\\": null,
             \\"to_port\\": 0
           }
         ],
         \\"ingress\\": [
           {
-            \\"cidr_blocks\\": [
-            ],
+            \\"cidr_blocks\\": [],
             \\"description\\": \\"required\\",
             \\"from_port\\": 80,
-            \\"ipv6_cidr_blocks\\": [
-            ],
-            \\"prefix_list_ids\\": [
-            ],
+            \\"ipv6_cidr_blocks\\": [],
+            \\"prefix_list_ids\\": [],
             \\"protocol\\": \\"TCP\\",
             \\"security_groups\\": [
               \\"\${aws_security_group.testPocketApp_application_load_balancer_alb_security_group_91A27046.id}\\"
@@ -2156,8 +2109,7 @@ exports[`PocketALBApplication renders an Pocket App with custom Alarm Descriptio
       }
     },
     \\"null_resource\\": {
-      \\"testPocketApp_ecs_service_8F213571\\": {
-      }
+      \\"testPocketApp_ecs_service_8F213571\\": {}
     }
   }
 }"
@@ -2167,8 +2119,7 @@ exports[`PocketALBApplication renders an Pocket App with logs and dashboard in a
 "{
   \\"data\\": {
     \\"aws_caller_identity\\": {
-      \\"testPocketApp_pocket_vpc_current_identity_06D87057\\": {
-      }
+      \\"testPocketApp_pocket_vpc_current_identity_06D87057\\": {}
     },
     \\"aws_iam_policy_document\\": {
       \\"testPocketApp_autoscaling_autoscaling_assume_9DAB9CD7\\": {
@@ -2240,8 +2191,7 @@ exports[`PocketALBApplication renders an Pocket App with logs and dashboard in a
       }
     },
     \\"aws_region\\": {
-      \\"testPocketApp_pocket_vpc_current_region_8ED435E7\\": {
-      }
+      \\"testPocketApp_pocket_vpc_current_region_8ED435E7\\": {}
     },
     \\"aws_route53_zone\\": {
       \\"testPocketApp_base_dns_main_hosted_zone_9442EEB0\\": {
@@ -2339,7 +2289,7 @@ exports[`PocketALBApplication renders an Pocket App with logs and dashboard in a
         \\"security_groups\\": [
           \\"\${aws_security_group.testPocketApp_application_load_balancer_alb_security_group_91A27046.id}\\"
         ],
-        \\"subnets\\": \\"\${tolist(data.aws_subnet_ids.testPocketApp_pocket_vpc_public_subnet_ids_01F0B902.ids)}\\"
+        \\"subnets\\": \\"\${data.aws_subnet_ids.testPocketApp_pocket_vpc_public_subnet_ids_01F0B902.ids}\\"
       }
     },
     \\"aws_alb_listener\\": {
@@ -2567,7 +2517,7 @@ exports[`PocketALBApplication renders an Pocket App with logs and dashboard in a
           \\"security_groups\\": [
             \\"\${aws_security_group.testPocketApp_ecs_service_ecs_security_group_9C016FA8.id}\\"
           ],
-          \\"subnets\\": \\"\${tolist(data.aws_subnet_ids.testPocketApp_pocket_vpc_private_subnet_ids_EB1E3A65.ids)}\\"
+          \\"subnets\\": \\"\${data.aws_subnet_ids.testPocketApp_pocket_vpc_private_subnet_ids_EB1E3A65.ids}\\"
         },
         \\"propagate_tags\\": \\"SERVICE\\",
         \\"task_definition\\": \\"\${aws_ecs_task_definition.testPocketApp_ecs_service_ecs-task_A7E74E45.arn}\\"
@@ -2577,8 +2527,7 @@ exports[`PocketALBApplication renders an Pocket App with logs and dashboard in a
       \\"testPocketApp_ecs_service_ecs-task_A7E74E45\\": {
         \\"container_definitions\\": \\"[]\\",
         \\"cpu\\": \\"512\\",
-        \\"depends_on\\": [
-        ],
+        \\"depends_on\\": [],
         \\"execution_role_arn\\": \\"\${aws_iam_role.testPocketApp_ecs_service_ecs-iam_ecs-execution-role_EB461A0C.arn}\\",
         \\"family\\": \\"testapp\\",
         \\"memory\\": \\"2048\\",
@@ -2587,8 +2536,7 @@ exports[`PocketALBApplication renders an Pocket App with logs and dashboard in a
           \\"FARGATE\\"
         ],
         \\"task_role_arn\\": \\"\${aws_iam_role.testPocketApp_ecs_service_ecs-iam_ecs-task-role_7DB93963.arn}\\",
-        \\"volume\\": [
-        ]
+        \\"volume\\": []
       }
     },
     \\"aws_iam_role\\": {
@@ -2671,13 +2619,10 @@ exports[`PocketALBApplication renders an Pocket App with logs and dashboard in a
             ],
             \\"description\\": \\"required\\",
             \\"from_port\\": 0,
-            \\"ipv6_cidr_blocks\\": [
-            ],
-            \\"prefix_list_ids\\": [
-            ],
+            \\"ipv6_cidr_blocks\\": [],
+            \\"prefix_list_ids\\": [],
             \\"protocol\\": \\"-1\\",
-            \\"security_groups\\": [
-            ],
+            \\"security_groups\\": [],
             \\"self\\": null,
             \\"to_port\\": 0
           }
@@ -2728,27 +2673,21 @@ exports[`PocketALBApplication renders an Pocket App with logs and dashboard in a
             ],
             \\"description\\": \\"required\\",
             \\"from_port\\": 0,
-            \\"ipv6_cidr_blocks\\": [
-            ],
-            \\"prefix_list_ids\\": [
-            ],
+            \\"ipv6_cidr_blocks\\": [],
+            \\"prefix_list_ids\\": [],
             \\"protocol\\": \\"-1\\",
-            \\"security_groups\\": [
-            ],
+            \\"security_groups\\": [],
             \\"self\\": null,
             \\"to_port\\": 0
           }
         ],
         \\"ingress\\": [
           {
-            \\"cidr_blocks\\": [
-            ],
+            \\"cidr_blocks\\": [],
             \\"description\\": \\"required\\",
             \\"from_port\\": 80,
-            \\"ipv6_cidr_blocks\\": [
-            ],
-            \\"prefix_list_ids\\": [
-            ],
+            \\"ipv6_cidr_blocks\\": [],
+            \\"prefix_list_ids\\": [],
             \\"protocol\\": \\"TCP\\",
             \\"security_groups\\": [
               \\"\${aws_security_group.testPocketApp_application_load_balancer_alb_security_group_91A27046.id}\\"
@@ -2765,8 +2704,7 @@ exports[`PocketALBApplication renders an Pocket App with logs and dashboard in a
       }
     },
     \\"null_resource\\": {
-      \\"testPocketApp_ecs_service_8F213571\\": {
-      }
+      \\"testPocketApp_ecs_service_8F213571\\": {}
     }
   }
 }"
@@ -2776,8 +2714,7 @@ exports[`PocketALBApplication renders an application alarms 1`] = `
 "{
   \\"data\\": {
     \\"aws_caller_identity\\": {
-      \\"testPocketApp_pocket_vpc_current_identity_06D87057\\": {
-      }
+      \\"testPocketApp_pocket_vpc_current_identity_06D87057\\": {}
     },
     \\"aws_iam_policy_document\\": {
       \\"testPocketApp_autoscaling_autoscaling_assume_9DAB9CD7\\": {
@@ -2849,8 +2786,7 @@ exports[`PocketALBApplication renders an application alarms 1`] = `
       }
     },
     \\"aws_region\\": {
-      \\"testPocketApp_pocket_vpc_current_region_8ED435E7\\": {
-      }
+      \\"testPocketApp_pocket_vpc_current_region_8ED435E7\\": {}
     },
     \\"aws_route53_zone\\": {
       \\"testPocketApp_base_dns_main_hosted_zone_9442EEB0\\": {
@@ -2948,7 +2884,7 @@ exports[`PocketALBApplication renders an application alarms 1`] = `
         \\"security_groups\\": [
           \\"\${aws_security_group.testPocketApp_application_load_balancer_alb_security_group_91A27046.id}\\"
         ],
-        \\"subnets\\": \\"\${tolist(data.aws_subnet_ids.testPocketApp_pocket_vpc_public_subnet_ids_01F0B902.ids)}\\"
+        \\"subnets\\": \\"\${data.aws_subnet_ids.testPocketApp_pocket_vpc_public_subnet_ids_01F0B902.ids}\\"
       }
     },
     \\"aws_alb_listener\\": {
@@ -3106,8 +3042,7 @@ exports[`PocketALBApplication renders an application alarms 1`] = `
           \\"LoadBalancer\\": \\"\${aws_alb.testPocketApp_application_load_balancer_alb_D538DEEE.arn_suffix}\\"
         },
         \\"evaluation_periods\\": 2,
-        \\"insufficient_data_actions\\": [
-        ],
+        \\"insufficient_data_actions\\": [],
         \\"metric_name\\": \\"TargetResponseTime\\",
         \\"namespace\\": \\"AWS/ApplicationELB\\",
         \\"ok_actions\\": [
@@ -3199,7 +3134,7 @@ exports[`PocketALBApplication renders an application alarms 1`] = `
           \\"security_groups\\": [
             \\"\${aws_security_group.testPocketApp_ecs_service_ecs_security_group_9C016FA8.id}\\"
           ],
-          \\"subnets\\": \\"\${tolist(data.aws_subnet_ids.testPocketApp_pocket_vpc_private_subnet_ids_EB1E3A65.ids)}\\"
+          \\"subnets\\": \\"\${data.aws_subnet_ids.testPocketApp_pocket_vpc_private_subnet_ids_EB1E3A65.ids}\\"
         },
         \\"propagate_tags\\": \\"SERVICE\\",
         \\"task_definition\\": \\"\${aws_ecs_task_definition.testPocketApp_ecs_service_ecs-task_A7E74E45.arn}\\"
@@ -3209,8 +3144,7 @@ exports[`PocketALBApplication renders an application alarms 1`] = `
       \\"testPocketApp_ecs_service_ecs-task_A7E74E45\\": {
         \\"container_definitions\\": \\"[]\\",
         \\"cpu\\": \\"512\\",
-        \\"depends_on\\": [
-        ],
+        \\"depends_on\\": [],
         \\"execution_role_arn\\": \\"\${aws_iam_role.testPocketApp_ecs_service_ecs-iam_ecs-execution-role_EB461A0C.arn}\\",
         \\"family\\": \\"testapp\\",
         \\"memory\\": \\"2048\\",
@@ -3219,8 +3153,7 @@ exports[`PocketALBApplication renders an application alarms 1`] = `
           \\"FARGATE\\"
         ],
         \\"task_role_arn\\": \\"\${aws_iam_role.testPocketApp_ecs_service_ecs-iam_ecs-task-role_7DB93963.arn}\\",
-        \\"volume\\": [
-        ]
+        \\"volume\\": []
       }
     },
     \\"aws_iam_role\\": {
@@ -3303,13 +3236,10 @@ exports[`PocketALBApplication renders an application alarms 1`] = `
             ],
             \\"description\\": \\"required\\",
             \\"from_port\\": 0,
-            \\"ipv6_cidr_blocks\\": [
-            ],
-            \\"prefix_list_ids\\": [
-            ],
+            \\"ipv6_cidr_blocks\\": [],
+            \\"prefix_list_ids\\": [],
             \\"protocol\\": \\"-1\\",
-            \\"security_groups\\": [
-            ],
+            \\"security_groups\\": [],
             \\"self\\": null,
             \\"to_port\\": 0
           }
@@ -3360,27 +3290,21 @@ exports[`PocketALBApplication renders an application alarms 1`] = `
             ],
             \\"description\\": \\"required\\",
             \\"from_port\\": 0,
-            \\"ipv6_cidr_blocks\\": [
-            ],
-            \\"prefix_list_ids\\": [
-            ],
+            \\"ipv6_cidr_blocks\\": [],
+            \\"prefix_list_ids\\": [],
             \\"protocol\\": \\"-1\\",
-            \\"security_groups\\": [
-            ],
+            \\"security_groups\\": [],
             \\"self\\": null,
             \\"to_port\\": 0
           }
         ],
         \\"ingress\\": [
           {
-            \\"cidr_blocks\\": [
-            ],
+            \\"cidr_blocks\\": [],
             \\"description\\": \\"required\\",
             \\"from_port\\": 80,
-            \\"ipv6_cidr_blocks\\": [
-            ],
-            \\"prefix_list_ids\\": [
-            ],
+            \\"ipv6_cidr_blocks\\": [],
+            \\"prefix_list_ids\\": [],
             \\"protocol\\": \\"TCP\\",
             \\"security_groups\\": [
               \\"\${aws_security_group.testPocketApp_application_load_balancer_alb_security_group_91A27046.id}\\"
@@ -3397,8 +3321,7 @@ exports[`PocketALBApplication renders an application alarms 1`] = `
       }
     },
     \\"null_resource\\": {
-      \\"testPocketApp_ecs_service_8F213571\\": {
-      }
+      \\"testPocketApp_ecs_service_8F213571\\": {}
     }
   }
 }"
@@ -3408,8 +3331,7 @@ exports[`PocketALBApplication renders an application custom default alarms 1`] =
 "{
   \\"data\\": {
     \\"aws_caller_identity\\": {
-      \\"testPocketApp_pocket_vpc_current_identity_06D87057\\": {
-      }
+      \\"testPocketApp_pocket_vpc_current_identity_06D87057\\": {}
     },
     \\"aws_iam_policy_document\\": {
       \\"testPocketApp_autoscaling_autoscaling_assume_9DAB9CD7\\": {
@@ -3481,8 +3403,7 @@ exports[`PocketALBApplication renders an application custom default alarms 1`] =
       }
     },
     \\"aws_region\\": {
-      \\"testPocketApp_pocket_vpc_current_region_8ED435E7\\": {
-      }
+      \\"testPocketApp_pocket_vpc_current_region_8ED435E7\\": {}
     },
     \\"aws_route53_zone\\": {
       \\"testPocketApp_base_dns_main_hosted_zone_9442EEB0\\": {
@@ -3580,7 +3501,7 @@ exports[`PocketALBApplication renders an application custom default alarms 1`] =
         \\"security_groups\\": [
           \\"\${aws_security_group.testPocketApp_application_load_balancer_alb_security_group_91A27046.id}\\"
         ],
-        \\"subnets\\": \\"\${tolist(data.aws_subnet_ids.testPocketApp_pocket_vpc_public_subnet_ids_01F0B902.ids)}\\"
+        \\"subnets\\": \\"\${data.aws_subnet_ids.testPocketApp_pocket_vpc_public_subnet_ids_01F0B902.ids}\\"
       }
     },
     \\"aws_alb_listener\\": {
@@ -3821,7 +3742,7 @@ exports[`PocketALBApplication renders an application custom default alarms 1`] =
           \\"security_groups\\": [
             \\"\${aws_security_group.testPocketApp_ecs_service_ecs_security_group_9C016FA8.id}\\"
           ],
-          \\"subnets\\": \\"\${tolist(data.aws_subnet_ids.testPocketApp_pocket_vpc_private_subnet_ids_EB1E3A65.ids)}\\"
+          \\"subnets\\": \\"\${data.aws_subnet_ids.testPocketApp_pocket_vpc_private_subnet_ids_EB1E3A65.ids}\\"
         },
         \\"propagate_tags\\": \\"SERVICE\\",
         \\"task_definition\\": \\"\${aws_ecs_task_definition.testPocketApp_ecs_service_ecs-task_A7E74E45.arn}\\"
@@ -3831,8 +3752,7 @@ exports[`PocketALBApplication renders an application custom default alarms 1`] =
       \\"testPocketApp_ecs_service_ecs-task_A7E74E45\\": {
         \\"container_definitions\\": \\"[]\\",
         \\"cpu\\": \\"512\\",
-        \\"depends_on\\": [
-        ],
+        \\"depends_on\\": [],
         \\"execution_role_arn\\": \\"\${aws_iam_role.testPocketApp_ecs_service_ecs-iam_ecs-execution-role_EB461A0C.arn}\\",
         \\"family\\": \\"testapp\\",
         \\"memory\\": \\"2048\\",
@@ -3841,8 +3761,7 @@ exports[`PocketALBApplication renders an application custom default alarms 1`] =
           \\"FARGATE\\"
         ],
         \\"task_role_arn\\": \\"\${aws_iam_role.testPocketApp_ecs_service_ecs-iam_ecs-task-role_7DB93963.arn}\\",
-        \\"volume\\": [
-        ]
+        \\"volume\\": []
       }
     },
     \\"aws_iam_role\\": {
@@ -3925,13 +3844,10 @@ exports[`PocketALBApplication renders an application custom default alarms 1`] =
             ],
             \\"description\\": \\"required\\",
             \\"from_port\\": 0,
-            \\"ipv6_cidr_blocks\\": [
-            ],
-            \\"prefix_list_ids\\": [
-            ],
+            \\"ipv6_cidr_blocks\\": [],
+            \\"prefix_list_ids\\": [],
             \\"protocol\\": \\"-1\\",
-            \\"security_groups\\": [
-            ],
+            \\"security_groups\\": [],
             \\"self\\": null,
             \\"to_port\\": 0
           }
@@ -3982,27 +3898,21 @@ exports[`PocketALBApplication renders an application custom default alarms 1`] =
             ],
             \\"description\\": \\"required\\",
             \\"from_port\\": 0,
-            \\"ipv6_cidr_blocks\\": [
-            ],
-            \\"prefix_list_ids\\": [
-            ],
+            \\"ipv6_cidr_blocks\\": [],
+            \\"prefix_list_ids\\": [],
             \\"protocol\\": \\"-1\\",
-            \\"security_groups\\": [
-            ],
+            \\"security_groups\\": [],
             \\"self\\": null,
             \\"to_port\\": 0
           }
         ],
         \\"ingress\\": [
           {
-            \\"cidr_blocks\\": [
-            ],
+            \\"cidr_blocks\\": [],
             \\"description\\": \\"required\\",
             \\"from_port\\": 80,
-            \\"ipv6_cidr_blocks\\": [
-            ],
-            \\"prefix_list_ids\\": [
-            ],
+            \\"ipv6_cidr_blocks\\": [],
+            \\"prefix_list_ids\\": [],
             \\"protocol\\": \\"TCP\\",
             \\"security_groups\\": [
               \\"\${aws_security_group.testPocketApp_application_load_balancer_alb_security_group_91A27046.id}\\"
@@ -4019,8 +3929,7 @@ exports[`PocketALBApplication renders an application custom default alarms 1`] =
       }
     },
     \\"null_resource\\": {
-      \\"testPocketApp_ecs_service_8F213571\\": {
-      }
+      \\"testPocketApp_ecs_service_8F213571\\": {}
     }
   }
 }"
@@ -4030,8 +3939,7 @@ exports[`PocketALBApplication renders an application with autoscaling group and 
 "{
   \\"data\\": {
     \\"aws_caller_identity\\": {
-      \\"testPocketApp_pocket_vpc_current_identity_06D87057\\": {
-      }
+      \\"testPocketApp_pocket_vpc_current_identity_06D87057\\": {}
     },
     \\"aws_iam_policy_document\\": {
       \\"testPocketApp_autoscaling_autoscaling_assume_9DAB9CD7\\": {
@@ -4103,8 +4011,7 @@ exports[`PocketALBApplication renders an application with autoscaling group and 
       }
     },
     \\"aws_region\\": {
-      \\"testPocketApp_pocket_vpc_current_region_8ED435E7\\": {
-      }
+      \\"testPocketApp_pocket_vpc_current_region_8ED435E7\\": {}
     },
     \\"aws_route53_zone\\": {
       \\"testPocketApp_base_dns_main_hosted_zone_9442EEB0\\": {
@@ -4206,7 +4113,7 @@ exports[`PocketALBApplication renders an application with autoscaling group and 
         \\"security_groups\\": [
           \\"\${aws_security_group.testPocketApp_application_load_balancer_alb_security_group_91A27046.id}\\"
         ],
-        \\"subnets\\": \\"\${tolist(data.aws_subnet_ids.testPocketApp_pocket_vpc_public_subnet_ids_01F0B902.ids)}\\",
+        \\"subnets\\": \\"\${data.aws_subnet_ids.testPocketApp_pocket_vpc_public_subnet_ids_01F0B902.ids}\\",
         \\"tags\\": {
           \\"hobby\\": \\"bowling\\",
           \\"name\\": \\"thedude\\"
@@ -4452,7 +4359,7 @@ exports[`PocketALBApplication renders an application with autoscaling group and 
           \\"security_groups\\": [
             \\"\${aws_security_group.testPocketApp_ecs_service_ecs_security_group_9C016FA8.id}\\"
           ],
-          \\"subnets\\": \\"\${tolist(data.aws_subnet_ids.testPocketApp_pocket_vpc_private_subnet_ids_EB1E3A65.ids)}\\"
+          \\"subnets\\": \\"\${data.aws_subnet_ids.testPocketApp_pocket_vpc_private_subnet_ids_EB1E3A65.ids}\\"
         },
         \\"propagate_tags\\": \\"SERVICE\\",
         \\"tags\\": {
@@ -4466,8 +4373,7 @@ exports[`PocketALBApplication renders an application with autoscaling group and 
       \\"testPocketApp_ecs_service_ecs-task_A7E74E45\\": {
         \\"container_definitions\\": \\"[]\\",
         \\"cpu\\": \\"512\\",
-        \\"depends_on\\": [
-        ],
+        \\"depends_on\\": [],
         \\"execution_role_arn\\": \\"\${aws_iam_role.testPocketApp_ecs_service_ecs-iam_ecs-execution-role_EB461A0C.arn}\\",
         \\"family\\": \\"testapp\\",
         \\"memory\\": \\"2048\\",
@@ -4480,8 +4386,7 @@ exports[`PocketALBApplication renders an application with autoscaling group and 
           \\"name\\": \\"thedude\\"
         },
         \\"task_role_arn\\": \\"\${aws_iam_role.testPocketApp_ecs_service_ecs-iam_ecs-task-role_7DB93963.arn}\\",
-        \\"volume\\": [
-        ]
+        \\"volume\\": []
       }
     },
     \\"aws_iam_role\\": {
@@ -4576,13 +4481,10 @@ exports[`PocketALBApplication renders an application with autoscaling group and 
             ],
             \\"description\\": \\"required\\",
             \\"from_port\\": 0,
-            \\"ipv6_cidr_blocks\\": [
-            ],
-            \\"prefix_list_ids\\": [
-            ],
+            \\"ipv6_cidr_blocks\\": [],
+            \\"prefix_list_ids\\": [],
             \\"protocol\\": \\"-1\\",
-            \\"security_groups\\": [
-            ],
+            \\"security_groups\\": [],
             \\"self\\": null,
             \\"to_port\\": 0
           }
@@ -4620,9 +4522,9 @@ exports[`PocketALBApplication renders an application with autoscaling group and 
         },
         \\"name_prefix\\": \\"testapp-HTTP/S Security Group\\",
         \\"tags\\": {
-          \\"Name\\": \\"testapp-HTTP/S Security Group\\",
           \\"hobby\\": \\"bowling\\",
-          \\"name\\": \\"thedude\\"
+          \\"name\\": \\"thedude\\",
+          \\"Name\\": \\"testapp-HTTP/S Security Group\\"
         },
         \\"vpc_id\\": \\"\${data.aws_vpc.testPocketApp_pocket_vpc_C4E157E3.id}\\"
       },
@@ -4635,27 +4537,21 @@ exports[`PocketALBApplication renders an application with autoscaling group and 
             ],
             \\"description\\": \\"required\\",
             \\"from_port\\": 0,
-            \\"ipv6_cidr_blocks\\": [
-            ],
-            \\"prefix_list_ids\\": [
-            ],
+            \\"ipv6_cidr_blocks\\": [],
+            \\"prefix_list_ids\\": [],
             \\"protocol\\": \\"-1\\",
-            \\"security_groups\\": [
-            ],
+            \\"security_groups\\": [],
             \\"self\\": null,
             \\"to_port\\": 0
           }
         ],
         \\"ingress\\": [
           {
-            \\"cidr_blocks\\": [
-            ],
+            \\"cidr_blocks\\": [],
             \\"description\\": \\"required\\",
             \\"from_port\\": 80,
-            \\"ipv6_cidr_blocks\\": [
-            ],
-            \\"prefix_list_ids\\": [
-            ],
+            \\"ipv6_cidr_blocks\\": [],
+            \\"prefix_list_ids\\": [],
             \\"protocol\\": \\"TCP\\",
             \\"security_groups\\": [
               \\"\${aws_security_group.testPocketApp_application_load_balancer_alb_security_group_91A27046.id}\\"
@@ -4676,8 +4572,7 @@ exports[`PocketALBApplication renders an application with autoscaling group and 
       }
     },
     \\"null_resource\\": {
-      \\"testPocketApp_ecs_service_8F213571\\": {
-      }
+      \\"testPocketApp_ecs_service_8F213571\\": {}
     }
   }
 }"
@@ -4687,8 +4582,7 @@ exports[`PocketALBApplication renders an application with custom task sizes 1`] 
 "{
   \\"data\\": {
     \\"aws_caller_identity\\": {
-      \\"testPocketApp_pocket_vpc_current_identity_06D87057\\": {
-      }
+      \\"testPocketApp_pocket_vpc_current_identity_06D87057\\": {}
     },
     \\"aws_iam_policy_document\\": {
       \\"testPocketApp_autoscaling_autoscaling_assume_9DAB9CD7\\": {
@@ -4760,8 +4654,7 @@ exports[`PocketALBApplication renders an application with custom task sizes 1`] 
       }
     },
     \\"aws_region\\": {
-      \\"testPocketApp_pocket_vpc_current_region_8ED435E7\\": {
-      }
+      \\"testPocketApp_pocket_vpc_current_region_8ED435E7\\": {}
     },
     \\"aws_route53_zone\\": {
       \\"testPocketApp_base_dns_main_hosted_zone_9442EEB0\\": {
@@ -4859,7 +4752,7 @@ exports[`PocketALBApplication renders an application with custom task sizes 1`] 
         \\"security_groups\\": [
           \\"\${aws_security_group.testPocketApp_application_load_balancer_alb_security_group_91A27046.id}\\"
         ],
-        \\"subnets\\": \\"\${tolist(data.aws_subnet_ids.testPocketApp_pocket_vpc_public_subnet_ids_01F0B902.ids)}\\"
+        \\"subnets\\": \\"\${data.aws_subnet_ids.testPocketApp_pocket_vpc_public_subnet_ids_01F0B902.ids}\\"
       }
     },
     \\"aws_alb_listener\\": {
@@ -5087,7 +4980,7 @@ exports[`PocketALBApplication renders an application with custom task sizes 1`] 
           \\"security_groups\\": [
             \\"\${aws_security_group.testPocketApp_ecs_service_ecs_security_group_9C016FA8.id}\\"
           ],
-          \\"subnets\\": \\"\${tolist(data.aws_subnet_ids.testPocketApp_pocket_vpc_private_subnet_ids_EB1E3A65.ids)}\\"
+          \\"subnets\\": \\"\${data.aws_subnet_ids.testPocketApp_pocket_vpc_private_subnet_ids_EB1E3A65.ids}\\"
         },
         \\"propagate_tags\\": \\"SERVICE\\",
         \\"task_definition\\": \\"\${aws_ecs_task_definition.testPocketApp_ecs_service_ecs-task_A7E74E45.arn}\\"
@@ -5097,8 +4990,7 @@ exports[`PocketALBApplication renders an application with custom task sizes 1`] 
       \\"testPocketApp_ecs_service_ecs-task_A7E74E45\\": {
         \\"container_definitions\\": \\"[]\\",
         \\"cpu\\": \\"8675\\",
-        \\"depends_on\\": [
-        ],
+        \\"depends_on\\": [],
         \\"execution_role_arn\\": \\"\${aws_iam_role.testPocketApp_ecs_service_ecs-iam_ecs-execution-role_EB461A0C.arn}\\",
         \\"family\\": \\"testapp\\",
         \\"memory\\": \\"309\\",
@@ -5107,8 +4999,7 @@ exports[`PocketALBApplication renders an application with custom task sizes 1`] 
           \\"FARGATE\\"
         ],
         \\"task_role_arn\\": \\"\${aws_iam_role.testPocketApp_ecs_service_ecs-iam_ecs-task-role_7DB93963.arn}\\",
-        \\"volume\\": [
-        ]
+        \\"volume\\": []
       }
     },
     \\"aws_iam_role\\": {
@@ -5191,13 +5082,10 @@ exports[`PocketALBApplication renders an application with custom task sizes 1`] 
             ],
             \\"description\\": \\"required\\",
             \\"from_port\\": 0,
-            \\"ipv6_cidr_blocks\\": [
-            ],
-            \\"prefix_list_ids\\": [
-            ],
+            \\"ipv6_cidr_blocks\\": [],
+            \\"prefix_list_ids\\": [],
             \\"protocol\\": \\"-1\\",
-            \\"security_groups\\": [
-            ],
+            \\"security_groups\\": [],
             \\"self\\": null,
             \\"to_port\\": 0
           }
@@ -5248,27 +5136,21 @@ exports[`PocketALBApplication renders an application with custom task sizes 1`] 
             ],
             \\"description\\": \\"required\\",
             \\"from_port\\": 0,
-            \\"ipv6_cidr_blocks\\": [
-            ],
-            \\"prefix_list_ids\\": [
-            ],
+            \\"ipv6_cidr_blocks\\": [],
+            \\"prefix_list_ids\\": [],
             \\"protocol\\": \\"-1\\",
-            \\"security_groups\\": [
-            ],
+            \\"security_groups\\": [],
             \\"self\\": null,
             \\"to_port\\": 0
           }
         ],
         \\"ingress\\": [
           {
-            \\"cidr_blocks\\": [
-            ],
+            \\"cidr_blocks\\": [],
             \\"description\\": \\"required\\",
             \\"from_port\\": 80,
-            \\"ipv6_cidr_blocks\\": [
-            ],
-            \\"prefix_list_ids\\": [
-            ],
+            \\"ipv6_cidr_blocks\\": [],
+            \\"prefix_list_ids\\": [],
             \\"protocol\\": \\"TCP\\",
             \\"security_groups\\": [
               \\"\${aws_security_group.testPocketApp_application_load_balancer_alb_security_group_91A27046.id}\\"
@@ -5285,8 +5167,7 @@ exports[`PocketALBApplication renders an application with custom task sizes 1`] 
       }
     },
     \\"null_resource\\": {
-      \\"testPocketApp_ecs_service_8F213571\\": {
-      }
+      \\"testPocketApp_ecs_service_8F213571\\": {}
     }
   }
 }"
@@ -5296,8 +5177,7 @@ exports[`PocketALBApplication renders an application with default autoscaling gr
 "{
   \\"data\\": {
     \\"aws_caller_identity\\": {
-      \\"testPocketApp_pocket_vpc_current_identity_06D87057\\": {
-      }
+      \\"testPocketApp_pocket_vpc_current_identity_06D87057\\": {}
     },
     \\"aws_iam_policy_document\\": {
       \\"testPocketApp_autoscaling_autoscaling_assume_9DAB9CD7\\": {
@@ -5369,8 +5249,7 @@ exports[`PocketALBApplication renders an application with default autoscaling gr
       }
     },
     \\"aws_region\\": {
-      \\"testPocketApp_pocket_vpc_current_region_8ED435E7\\": {
-      }
+      \\"testPocketApp_pocket_vpc_current_region_8ED435E7\\": {}
     },
     \\"aws_route53_zone\\": {
       \\"testPocketApp_base_dns_main_hosted_zone_9442EEB0\\": {
@@ -5472,7 +5351,7 @@ exports[`PocketALBApplication renders an application with default autoscaling gr
         \\"security_groups\\": [
           \\"\${aws_security_group.testPocketApp_application_load_balancer_alb_security_group_91A27046.id}\\"
         ],
-        \\"subnets\\": \\"\${tolist(data.aws_subnet_ids.testPocketApp_pocket_vpc_public_subnet_ids_01F0B902.ids)}\\",
+        \\"subnets\\": \\"\${data.aws_subnet_ids.testPocketApp_pocket_vpc_public_subnet_ids_01F0B902.ids}\\",
         \\"tags\\": {
           \\"hobby\\": \\"bowling\\",
           \\"name\\": \\"thedude\\"
@@ -5718,7 +5597,7 @@ exports[`PocketALBApplication renders an application with default autoscaling gr
           \\"security_groups\\": [
             \\"\${aws_security_group.testPocketApp_ecs_service_ecs_security_group_9C016FA8.id}\\"
           ],
-          \\"subnets\\": \\"\${tolist(data.aws_subnet_ids.testPocketApp_pocket_vpc_private_subnet_ids_EB1E3A65.ids)}\\"
+          \\"subnets\\": \\"\${data.aws_subnet_ids.testPocketApp_pocket_vpc_private_subnet_ids_EB1E3A65.ids}\\"
         },
         \\"propagate_tags\\": \\"SERVICE\\",
         \\"tags\\": {
@@ -5732,8 +5611,7 @@ exports[`PocketALBApplication renders an application with default autoscaling gr
       \\"testPocketApp_ecs_service_ecs-task_A7E74E45\\": {
         \\"container_definitions\\": \\"[]\\",
         \\"cpu\\": \\"512\\",
-        \\"depends_on\\": [
-        ],
+        \\"depends_on\\": [],
         \\"execution_role_arn\\": \\"\${aws_iam_role.testPocketApp_ecs_service_ecs-iam_ecs-execution-role_EB461A0C.arn}\\",
         \\"family\\": \\"testapp\\",
         \\"memory\\": \\"2048\\",
@@ -5746,8 +5624,7 @@ exports[`PocketALBApplication renders an application with default autoscaling gr
           \\"name\\": \\"thedude\\"
         },
         \\"task_role_arn\\": \\"\${aws_iam_role.testPocketApp_ecs_service_ecs-iam_ecs-task-role_7DB93963.arn}\\",
-        \\"volume\\": [
-        ]
+        \\"volume\\": []
       }
     },
     \\"aws_iam_role\\": {
@@ -5842,13 +5719,10 @@ exports[`PocketALBApplication renders an application with default autoscaling gr
             ],
             \\"description\\": \\"required\\",
             \\"from_port\\": 0,
-            \\"ipv6_cidr_blocks\\": [
-            ],
-            \\"prefix_list_ids\\": [
-            ],
+            \\"ipv6_cidr_blocks\\": [],
+            \\"prefix_list_ids\\": [],
             \\"protocol\\": \\"-1\\",
-            \\"security_groups\\": [
-            ],
+            \\"security_groups\\": [],
             \\"self\\": null,
             \\"to_port\\": 0
           }
@@ -5886,9 +5760,9 @@ exports[`PocketALBApplication renders an application with default autoscaling gr
         },
         \\"name_prefix\\": \\"testapp-HTTP/S Security Group\\",
         \\"tags\\": {
-          \\"Name\\": \\"testapp-HTTP/S Security Group\\",
           \\"hobby\\": \\"bowling\\",
-          \\"name\\": \\"thedude\\"
+          \\"name\\": \\"thedude\\",
+          \\"Name\\": \\"testapp-HTTP/S Security Group\\"
         },
         \\"vpc_id\\": \\"\${data.aws_vpc.testPocketApp_pocket_vpc_C4E157E3.id}\\"
       },
@@ -5901,27 +5775,21 @@ exports[`PocketALBApplication renders an application with default autoscaling gr
             ],
             \\"description\\": \\"required\\",
             \\"from_port\\": 0,
-            \\"ipv6_cidr_blocks\\": [
-            ],
-            \\"prefix_list_ids\\": [
-            ],
+            \\"ipv6_cidr_blocks\\": [],
+            \\"prefix_list_ids\\": [],
             \\"protocol\\": \\"-1\\",
-            \\"security_groups\\": [
-            ],
+            \\"security_groups\\": [],
             \\"self\\": null,
             \\"to_port\\": 0
           }
         ],
         \\"ingress\\": [
           {
-            \\"cidr_blocks\\": [
-            ],
+            \\"cidr_blocks\\": [],
             \\"description\\": \\"required\\",
             \\"from_port\\": 80,
-            \\"ipv6_cidr_blocks\\": [
-            ],
-            \\"prefix_list_ids\\": [
-            ],
+            \\"ipv6_cidr_blocks\\": [],
+            \\"prefix_list_ids\\": [],
             \\"protocol\\": \\"TCP\\",
             \\"security_groups\\": [
               \\"\${aws_security_group.testPocketApp_application_load_balancer_alb_security_group_91A27046.id}\\"
@@ -5942,8 +5810,7 @@ exports[`PocketALBApplication renders an application with default autoscaling gr
       }
     },
     \\"null_resource\\": {
-      \\"testPocketApp_ecs_service_8F213571\\": {
-      }
+      \\"testPocketApp_ecs_service_8F213571\\": {}
     }
   }
 }"
@@ -5953,8 +5820,7 @@ exports[`PocketALBApplication renders an application with minimal config 1`] = `
 "{
   \\"data\\": {
     \\"aws_caller_identity\\": {
-      \\"testPocketApp_pocket_vpc_current_identity_06D87057\\": {
-      }
+      \\"testPocketApp_pocket_vpc_current_identity_06D87057\\": {}
     },
     \\"aws_iam_policy_document\\": {
       \\"testPocketApp_autoscaling_autoscaling_assume_9DAB9CD7\\": {
@@ -6026,8 +5892,7 @@ exports[`PocketALBApplication renders an application with minimal config 1`] = `
       }
     },
     \\"aws_region\\": {
-      \\"testPocketApp_pocket_vpc_current_region_8ED435E7\\": {
-      }
+      \\"testPocketApp_pocket_vpc_current_region_8ED435E7\\": {}
     },
     \\"aws_route53_zone\\": {
       \\"testPocketApp_base_dns_main_hosted_zone_9442EEB0\\": {
@@ -6125,7 +5990,7 @@ exports[`PocketALBApplication renders an application with minimal config 1`] = `
         \\"security_groups\\": [
           \\"\${aws_security_group.testPocketApp_application_load_balancer_alb_security_group_91A27046.id}\\"
         ],
-        \\"subnets\\": \\"\${tolist(data.aws_subnet_ids.testPocketApp_pocket_vpc_public_subnet_ids_01F0B902.ids)}\\"
+        \\"subnets\\": \\"\${data.aws_subnet_ids.testPocketApp_pocket_vpc_public_subnet_ids_01F0B902.ids}\\"
       }
     },
     \\"aws_alb_listener\\": {
@@ -6353,7 +6218,7 @@ exports[`PocketALBApplication renders an application with minimal config 1`] = `
           \\"security_groups\\": [
             \\"\${aws_security_group.testPocketApp_ecs_service_ecs_security_group_9C016FA8.id}\\"
           ],
-          \\"subnets\\": \\"\${tolist(data.aws_subnet_ids.testPocketApp_pocket_vpc_private_subnet_ids_EB1E3A65.ids)}\\"
+          \\"subnets\\": \\"\${data.aws_subnet_ids.testPocketApp_pocket_vpc_private_subnet_ids_EB1E3A65.ids}\\"
         },
         \\"propagate_tags\\": \\"SERVICE\\",
         \\"task_definition\\": \\"\${aws_ecs_task_definition.testPocketApp_ecs_service_ecs-task_A7E74E45.arn}\\"
@@ -6363,8 +6228,7 @@ exports[`PocketALBApplication renders an application with minimal config 1`] = `
       \\"testPocketApp_ecs_service_ecs-task_A7E74E45\\": {
         \\"container_definitions\\": \\"[]\\",
         \\"cpu\\": \\"512\\",
-        \\"depends_on\\": [
-        ],
+        \\"depends_on\\": [],
         \\"execution_role_arn\\": \\"\${aws_iam_role.testPocketApp_ecs_service_ecs-iam_ecs-execution-role_EB461A0C.arn}\\",
         \\"family\\": \\"testapp\\",
         \\"memory\\": \\"2048\\",
@@ -6373,8 +6237,7 @@ exports[`PocketALBApplication renders an application with minimal config 1`] = `
           \\"FARGATE\\"
         ],
         \\"task_role_arn\\": \\"\${aws_iam_role.testPocketApp_ecs_service_ecs-iam_ecs-task-role_7DB93963.arn}\\",
-        \\"volume\\": [
-        ]
+        \\"volume\\": []
       }
     },
     \\"aws_iam_role\\": {
@@ -6457,13 +6320,10 @@ exports[`PocketALBApplication renders an application with minimal config 1`] = `
             ],
             \\"description\\": \\"required\\",
             \\"from_port\\": 0,
-            \\"ipv6_cidr_blocks\\": [
-            ],
-            \\"prefix_list_ids\\": [
-            ],
+            \\"ipv6_cidr_blocks\\": [],
+            \\"prefix_list_ids\\": [],
             \\"protocol\\": \\"-1\\",
-            \\"security_groups\\": [
-            ],
+            \\"security_groups\\": [],
             \\"self\\": null,
             \\"to_port\\": 0
           }
@@ -6514,27 +6374,21 @@ exports[`PocketALBApplication renders an application with minimal config 1`] = `
             ],
             \\"description\\": \\"required\\",
             \\"from_port\\": 0,
-            \\"ipv6_cidr_blocks\\": [
-            ],
-            \\"prefix_list_ids\\": [
-            ],
+            \\"ipv6_cidr_blocks\\": [],
+            \\"prefix_list_ids\\": [],
             \\"protocol\\": \\"-1\\",
-            \\"security_groups\\": [
-            ],
+            \\"security_groups\\": [],
             \\"self\\": null,
             \\"to_port\\": 0
           }
         ],
         \\"ingress\\": [
           {
-            \\"cidr_blocks\\": [
-            ],
+            \\"cidr_blocks\\": [],
             \\"description\\": \\"required\\",
             \\"from_port\\": 80,
-            \\"ipv6_cidr_blocks\\": [
-            ],
-            \\"prefix_list_ids\\": [
-            ],
+            \\"ipv6_cidr_blocks\\": [],
+            \\"prefix_list_ids\\": [],
             \\"protocol\\": \\"TCP\\",
             \\"security_groups\\": [
               \\"\${aws_security_group.testPocketApp_application_load_balancer_alb_security_group_91A27046.id}\\"
@@ -6551,8 +6405,7 @@ exports[`PocketALBApplication renders an application with minimal config 1`] = `
       }
     },
     \\"null_resource\\": {
-      \\"testPocketApp_ecs_service_8F213571\\": {
-      }
+      \\"testPocketApp_ecs_service_8F213571\\": {}
     }
   }
 }"
@@ -6562,8 +6415,7 @@ exports[`PocketALBApplication renders an application with modified container def
 "{
   \\"data\\": {
     \\"aws_caller_identity\\": {
-      \\"testPocketApp_pocket_vpc_current_identity_06D87057\\": {
-      }
+      \\"testPocketApp_pocket_vpc_current_identity_06D87057\\": {}
     },
     \\"aws_iam_policy_document\\": {
       \\"testPocketApp_autoscaling_autoscaling_assume_9DAB9CD7\\": {
@@ -6635,8 +6487,7 @@ exports[`PocketALBApplication renders an application with modified container def
       }
     },
     \\"aws_region\\": {
-      \\"testPocketApp_pocket_vpc_current_region_8ED435E7\\": {
-      }
+      \\"testPocketApp_pocket_vpc_current_region_8ED435E7\\": {}
     },
     \\"aws_route53_zone\\": {
       \\"testPocketApp_base_dns_main_hosted_zone_9442EEB0\\": {
@@ -6734,7 +6585,7 @@ exports[`PocketALBApplication renders an application with modified container def
         \\"security_groups\\": [
           \\"\${aws_security_group.testPocketApp_application_load_balancer_alb_security_group_91A27046.id}\\"
         ],
-        \\"subnets\\": \\"\${tolist(data.aws_subnet_ids.testPocketApp_pocket_vpc_public_subnet_ids_01F0B902.ids)}\\"
+        \\"subnets\\": \\"\${data.aws_subnet_ids.testPocketApp_pocket_vpc_public_subnet_ids_01F0B902.ids}\\"
       }
     },
     \\"aws_alb_listener\\": {
@@ -6986,7 +6837,7 @@ exports[`PocketALBApplication renders an application with modified container def
           \\"security_groups\\": [
             \\"\${aws_security_group.testPocketApp_ecs_service_ecs_security_group_9C016FA8.id}\\"
           ],
-          \\"subnets\\": \\"\${tolist(data.aws_subnet_ids.testPocketApp_pocket_vpc_private_subnet_ids_EB1E3A65.ids)}\\"
+          \\"subnets\\": \\"\${data.aws_subnet_ids.testPocketApp_pocket_vpc_private_subnet_ids_EB1E3A65.ids}\\"
         },
         \\"propagate_tags\\": \\"SERVICE\\",
         \\"task_definition\\": \\"\${aws_ecs_task_definition.testPocketApp_ecs_service_ecs-task_A7E74E45.arn}\\"
@@ -7007,8 +6858,7 @@ exports[`PocketALBApplication renders an application with modified container def
           \\"FARGATE\\"
         ],
         \\"task_role_arn\\": \\"\${aws_iam_role.testPocketApp_ecs_service_ecs-iam_ecs-task-role_7DB93963.arn}\\",
-        \\"volume\\": [
-        ]
+        \\"volume\\": []
       }
     },
     \\"aws_iam_role\\": {
@@ -7091,13 +6941,10 @@ exports[`PocketALBApplication renders an application with modified container def
             ],
             \\"description\\": \\"required\\",
             \\"from_port\\": 0,
-            \\"ipv6_cidr_blocks\\": [
-            ],
-            \\"prefix_list_ids\\": [
-            ],
+            \\"ipv6_cidr_blocks\\": [],
+            \\"prefix_list_ids\\": [],
             \\"protocol\\": \\"-1\\",
-            \\"security_groups\\": [
-            ],
+            \\"security_groups\\": [],
             \\"self\\": null,
             \\"to_port\\": 0
           }
@@ -7148,27 +6995,21 @@ exports[`PocketALBApplication renders an application with modified container def
             ],
             \\"description\\": \\"required\\",
             \\"from_port\\": 0,
-            \\"ipv6_cidr_blocks\\": [
-            ],
-            \\"prefix_list_ids\\": [
-            ],
+            \\"ipv6_cidr_blocks\\": [],
+            \\"prefix_list_ids\\": [],
             \\"protocol\\": \\"-1\\",
-            \\"security_groups\\": [
-            ],
+            \\"security_groups\\": [],
             \\"self\\": null,
             \\"to_port\\": 0
           }
         ],
         \\"ingress\\": [
           {
-            \\"cidr_blocks\\": [
-            ],
+            \\"cidr_blocks\\": [],
             \\"description\\": \\"required\\",
             \\"from_port\\": 80,
-            \\"ipv6_cidr_blocks\\": [
-            ],
-            \\"prefix_list_ids\\": [
-            ],
+            \\"ipv6_cidr_blocks\\": [],
+            \\"prefix_list_ids\\": [],
             \\"protocol\\": \\"TCP\\",
             \\"security_groups\\": [
               \\"\${aws_security_group.testPocketApp_application_load_balancer_alb_security_group_91A27046.id}\\"
@@ -7185,8 +7026,7 @@ exports[`PocketALBApplication renders an application with modified container def
       }
     },
     \\"null_resource\\": {
-      \\"testPocketApp_ecs_service_8F213571\\": {
-      }
+      \\"testPocketApp_ecs_service_8F213571\\": {}
     }
   }
 }"
@@ -7196,8 +7036,7 @@ exports[`PocketALBApplication renders an external application 1`] = `
 "{
   \\"data\\": {
     \\"aws_caller_identity\\": {
-      \\"testPocketApp_pocket_vpc_current_identity_06D87057\\": {
-      }
+      \\"testPocketApp_pocket_vpc_current_identity_06D87057\\": {}
     },
     \\"aws_iam_policy_document\\": {
       \\"testPocketApp_autoscaling_autoscaling_assume_9DAB9CD7\\": {
@@ -7269,8 +7108,7 @@ exports[`PocketALBApplication renders an external application 1`] = `
       }
     },
     \\"aws_region\\": {
-      \\"testPocketApp_pocket_vpc_current_region_8ED435E7\\": {
-      }
+      \\"testPocketApp_pocket_vpc_current_region_8ED435E7\\": {}
     },
     \\"aws_route53_zone\\": {
       \\"testPocketApp_base_dns_main_hosted_zone_9442EEB0\\": {
@@ -7385,7 +7223,7 @@ exports[`PocketALBApplication renders an external application 1`] = `
         \\"security_groups\\": [
           \\"\${aws_security_group.testPocketApp_application_load_balancer_alb_security_group_91A27046.id}\\"
         ],
-        \\"subnets\\": \\"\${tolist(data.aws_subnet_ids.testPocketApp_pocket_vpc_public_subnet_ids_01F0B902.ids)}\\"
+        \\"subnets\\": \\"\${data.aws_subnet_ids.testPocketApp_pocket_vpc_public_subnet_ids_01F0B902.ids}\\"
       }
     },
     \\"aws_alb_listener\\": {
@@ -7681,7 +7519,7 @@ exports[`PocketALBApplication renders an external application 1`] = `
           \\"security_groups\\": [
             \\"\${aws_security_group.testPocketApp_ecs_service_ecs_security_group_9C016FA8.id}\\"
           ],
-          \\"subnets\\": \\"\${tolist(data.aws_subnet_ids.testPocketApp_pocket_vpc_private_subnet_ids_EB1E3A65.ids)}\\"
+          \\"subnets\\": \\"\${data.aws_subnet_ids.testPocketApp_pocket_vpc_private_subnet_ids_EB1E3A65.ids}\\"
         },
         \\"propagate_tags\\": \\"SERVICE\\",
         \\"task_definition\\": \\"\${aws_ecs_task_definition.testPocketApp_ecs_service_ecs-task_A7E74E45.arn}\\"
@@ -7691,8 +7529,7 @@ exports[`PocketALBApplication renders an external application 1`] = `
       \\"testPocketApp_ecs_service_ecs-task_A7E74E45\\": {
         \\"container_definitions\\": \\"[]\\",
         \\"cpu\\": \\"512\\",
-        \\"depends_on\\": [
-        ],
+        \\"depends_on\\": [],
         \\"execution_role_arn\\": \\"\${aws_iam_role.testPocketApp_ecs_service_ecs-iam_ecs-execution-role_EB461A0C.arn}\\",
         \\"family\\": \\"testapp\\",
         \\"memory\\": \\"2048\\",
@@ -7701,8 +7538,7 @@ exports[`PocketALBApplication renders an external application 1`] = `
           \\"FARGATE\\"
         ],
         \\"task_role_arn\\": \\"\${aws_iam_role.testPocketApp_ecs_service_ecs-iam_ecs-task-role_7DB93963.arn}\\",
-        \\"volume\\": [
-        ]
+        \\"volume\\": []
       }
     },
     \\"aws_iam_role\\": {
@@ -7820,13 +7656,10 @@ exports[`PocketALBApplication renders an external application 1`] = `
             ],
             \\"description\\": \\"required\\",
             \\"from_port\\": 0,
-            \\"ipv6_cidr_blocks\\": [
-            ],
-            \\"prefix_list_ids\\": [
-            ],
+            \\"ipv6_cidr_blocks\\": [],
+            \\"prefix_list_ids\\": [],
             \\"protocol\\": \\"-1\\",
-            \\"security_groups\\": [
-            ],
+            \\"security_groups\\": [],
             \\"self\\": null,
             \\"to_port\\": 0
           }
@@ -7877,27 +7710,21 @@ exports[`PocketALBApplication renders an external application 1`] = `
             ],
             \\"description\\": \\"required\\",
             \\"from_port\\": 0,
-            \\"ipv6_cidr_blocks\\": [
-            ],
-            \\"prefix_list_ids\\": [
-            ],
+            \\"ipv6_cidr_blocks\\": [],
+            \\"prefix_list_ids\\": [],
             \\"protocol\\": \\"-1\\",
-            \\"security_groups\\": [
-            ],
+            \\"security_groups\\": [],
             \\"self\\": null,
             \\"to_port\\": 0
           }
         ],
         \\"ingress\\": [
           {
-            \\"cidr_blocks\\": [
-            ],
+            \\"cidr_blocks\\": [],
             \\"description\\": \\"required\\",
             \\"from_port\\": 80,
-            \\"ipv6_cidr_blocks\\": [
-            ],
-            \\"prefix_list_ids\\": [
-            ],
+            \\"ipv6_cidr_blocks\\": [],
+            \\"prefix_list_ids\\": [],
             \\"protocol\\": \\"TCP\\",
             \\"security_groups\\": [
               \\"\${aws_security_group.testPocketApp_application_load_balancer_alb_security_group_91A27046.id}\\"
@@ -7914,8 +7741,7 @@ exports[`PocketALBApplication renders an external application 1`] = `
       }
     },
     \\"null_resource\\": {
-      \\"testPocketApp_ecs_service_8F213571\\": {
-      }
+      \\"testPocketApp_ecs_service_8F213571\\": {}
     }
   }
 }"
@@ -7925,8 +7751,7 @@ exports[`PocketALBApplication renders an internal application 1`] = `
 "{
   \\"data\\": {
     \\"aws_caller_identity\\": {
-      \\"testPocketApp_pocket_vpc_current_identity_06D87057\\": {
-      }
+      \\"testPocketApp_pocket_vpc_current_identity_06D87057\\": {}
     },
     \\"aws_iam_policy_document\\": {
       \\"testPocketApp_autoscaling_autoscaling_assume_9DAB9CD7\\": {
@@ -7998,8 +7823,7 @@ exports[`PocketALBApplication renders an internal application 1`] = `
       }
     },
     \\"aws_region\\": {
-      \\"testPocketApp_pocket_vpc_current_region_8ED435E7\\": {
-      }
+      \\"testPocketApp_pocket_vpc_current_region_8ED435E7\\": {}
     },
     \\"aws_route53_zone\\": {
       \\"testPocketApp_base_dns_main_hosted_zone_9442EEB0\\": {
@@ -8097,7 +7921,7 @@ exports[`PocketALBApplication renders an internal application 1`] = `
         \\"security_groups\\": [
           \\"\${aws_security_group.testPocketApp_application_load_balancer_alb_security_group_91A27046.id}\\"
         ],
-        \\"subnets\\": \\"\${tolist(data.aws_subnet_ids.testPocketApp_pocket_vpc_private_subnet_ids_EB1E3A65.ids)}\\"
+        \\"subnets\\": \\"\${data.aws_subnet_ids.testPocketApp_pocket_vpc_private_subnet_ids_EB1E3A65.ids}\\"
       }
     },
     \\"aws_alb_listener\\": {
@@ -8325,7 +8149,7 @@ exports[`PocketALBApplication renders an internal application 1`] = `
           \\"security_groups\\": [
             \\"\${aws_security_group.testPocketApp_ecs_service_ecs_security_group_9C016FA8.id}\\"
           ],
-          \\"subnets\\": \\"\${tolist(data.aws_subnet_ids.testPocketApp_pocket_vpc_private_subnet_ids_EB1E3A65.ids)}\\"
+          \\"subnets\\": \\"\${data.aws_subnet_ids.testPocketApp_pocket_vpc_private_subnet_ids_EB1E3A65.ids}\\"
         },
         \\"propagate_tags\\": \\"SERVICE\\",
         \\"task_definition\\": \\"\${aws_ecs_task_definition.testPocketApp_ecs_service_ecs-task_A7E74E45.arn}\\"
@@ -8335,8 +8159,7 @@ exports[`PocketALBApplication renders an internal application 1`] = `
       \\"testPocketApp_ecs_service_ecs-task_A7E74E45\\": {
         \\"container_definitions\\": \\"[]\\",
         \\"cpu\\": \\"512\\",
-        \\"depends_on\\": [
-        ],
+        \\"depends_on\\": [],
         \\"execution_role_arn\\": \\"\${aws_iam_role.testPocketApp_ecs_service_ecs-iam_ecs-execution-role_EB461A0C.arn}\\",
         \\"family\\": \\"testapp\\",
         \\"memory\\": \\"2048\\",
@@ -8345,8 +8168,7 @@ exports[`PocketALBApplication renders an internal application 1`] = `
           \\"FARGATE\\"
         ],
         \\"task_role_arn\\": \\"\${aws_iam_role.testPocketApp_ecs_service_ecs-iam_ecs-task-role_7DB93963.arn}\\",
-        \\"volume\\": [
-        ]
+        \\"volume\\": []
       }
     },
     \\"aws_iam_role\\": {
@@ -8429,13 +8251,10 @@ exports[`PocketALBApplication renders an internal application 1`] = `
             ],
             \\"description\\": \\"required\\",
             \\"from_port\\": 0,
-            \\"ipv6_cidr_blocks\\": [
-            ],
-            \\"prefix_list_ids\\": [
-            ],
+            \\"ipv6_cidr_blocks\\": [],
+            \\"prefix_list_ids\\": [],
             \\"protocol\\": \\"-1\\",
-            \\"security_groups\\": [
-            ],
+            \\"security_groups\\": [],
             \\"self\\": null,
             \\"to_port\\": 0
           }
@@ -8486,27 +8305,21 @@ exports[`PocketALBApplication renders an internal application 1`] = `
             ],
             \\"description\\": \\"required\\",
             \\"from_port\\": 0,
-            \\"ipv6_cidr_blocks\\": [
-            ],
-            \\"prefix_list_ids\\": [
-            ],
+            \\"ipv6_cidr_blocks\\": [],
+            \\"prefix_list_ids\\": [],
             \\"protocol\\": \\"-1\\",
-            \\"security_groups\\": [
-            ],
+            \\"security_groups\\": [],
             \\"self\\": null,
             \\"to_port\\": 0
           }
         ],
         \\"ingress\\": [
           {
-            \\"cidr_blocks\\": [
-            ],
+            \\"cidr_blocks\\": [],
             \\"description\\": \\"required\\",
             \\"from_port\\": 80,
-            \\"ipv6_cidr_blocks\\": [
-            ],
-            \\"prefix_list_ids\\": [
-            ],
+            \\"ipv6_cidr_blocks\\": [],
+            \\"prefix_list_ids\\": [],
             \\"protocol\\": \\"TCP\\",
             \\"security_groups\\": [
               \\"\${aws_security_group.testPocketApp_application_load_balancer_alb_security_group_91A27046.id}\\"
@@ -8523,8 +8336,7 @@ exports[`PocketALBApplication renders an internal application 1`] = `
       }
     },
     \\"null_resource\\": {
-      \\"testPocketApp_ecs_service_8F213571\\": {
-      }
+      \\"testPocketApp_ecs_service_8F213571\\": {}
     }
   }
 }"
@@ -8534,8 +8346,7 @@ exports[`PocketALBApplication renders an internal application with tags 1`] = `
 "{
   \\"data\\": {
     \\"aws_caller_identity\\": {
-      \\"testPocketApp_pocket_vpc_current_identity_06D87057\\": {
-      }
+      \\"testPocketApp_pocket_vpc_current_identity_06D87057\\": {}
     },
     \\"aws_iam_policy_document\\": {
       \\"testPocketApp_autoscaling_autoscaling_assume_9DAB9CD7\\": {
@@ -8607,8 +8418,7 @@ exports[`PocketALBApplication renders an internal application with tags 1`] = `
       }
     },
     \\"aws_region\\": {
-      \\"testPocketApp_pocket_vpc_current_region_8ED435E7\\": {
-      }
+      \\"testPocketApp_pocket_vpc_current_region_8ED435E7\\": {}
     },
     \\"aws_route53_zone\\": {
       \\"testPocketApp_base_dns_main_hosted_zone_9442EEB0\\": {
@@ -8710,7 +8520,7 @@ exports[`PocketALBApplication renders an internal application with tags 1`] = `
         \\"security_groups\\": [
           \\"\${aws_security_group.testPocketApp_application_load_balancer_alb_security_group_91A27046.id}\\"
         ],
-        \\"subnets\\": \\"\${tolist(data.aws_subnet_ids.testPocketApp_pocket_vpc_private_subnet_ids_EB1E3A65.ids)}\\",
+        \\"subnets\\": \\"\${data.aws_subnet_ids.testPocketApp_pocket_vpc_private_subnet_ids_EB1E3A65.ids}\\",
         \\"tags\\": {
           \\"hobby\\": \\"bowling\\",
           \\"name\\": \\"thedude\\"
@@ -8956,7 +8766,7 @@ exports[`PocketALBApplication renders an internal application with tags 1`] = `
           \\"security_groups\\": [
             \\"\${aws_security_group.testPocketApp_ecs_service_ecs_security_group_9C016FA8.id}\\"
           ],
-          \\"subnets\\": \\"\${tolist(data.aws_subnet_ids.testPocketApp_pocket_vpc_private_subnet_ids_EB1E3A65.ids)}\\"
+          \\"subnets\\": \\"\${data.aws_subnet_ids.testPocketApp_pocket_vpc_private_subnet_ids_EB1E3A65.ids}\\"
         },
         \\"propagate_tags\\": \\"SERVICE\\",
         \\"tags\\": {
@@ -8970,8 +8780,7 @@ exports[`PocketALBApplication renders an internal application with tags 1`] = `
       \\"testPocketApp_ecs_service_ecs-task_A7E74E45\\": {
         \\"container_definitions\\": \\"[]\\",
         \\"cpu\\": \\"512\\",
-        \\"depends_on\\": [
-        ],
+        \\"depends_on\\": [],
         \\"execution_role_arn\\": \\"\${aws_iam_role.testPocketApp_ecs_service_ecs-iam_ecs-execution-role_EB461A0C.arn}\\",
         \\"family\\": \\"testapp\\",
         \\"memory\\": \\"2048\\",
@@ -8984,8 +8793,7 @@ exports[`PocketALBApplication renders an internal application with tags 1`] = `
           \\"name\\": \\"thedude\\"
         },
         \\"task_role_arn\\": \\"\${aws_iam_role.testPocketApp_ecs_service_ecs-iam_ecs-task-role_7DB93963.arn}\\",
-        \\"volume\\": [
-        ]
+        \\"volume\\": []
       }
     },
     \\"aws_iam_role\\": {
@@ -9080,13 +8888,10 @@ exports[`PocketALBApplication renders an internal application with tags 1`] = `
             ],
             \\"description\\": \\"required\\",
             \\"from_port\\": 0,
-            \\"ipv6_cidr_blocks\\": [
-            ],
-            \\"prefix_list_ids\\": [
-            ],
+            \\"ipv6_cidr_blocks\\": [],
+            \\"prefix_list_ids\\": [],
             \\"protocol\\": \\"-1\\",
-            \\"security_groups\\": [
-            ],
+            \\"security_groups\\": [],
             \\"self\\": null,
             \\"to_port\\": 0
           }
@@ -9124,9 +8929,9 @@ exports[`PocketALBApplication renders an internal application with tags 1`] = `
         },
         \\"name_prefix\\": \\"testapp-HTTP/S Security Group\\",
         \\"tags\\": {
-          \\"Name\\": \\"testapp-HTTP/S Security Group\\",
           \\"hobby\\": \\"bowling\\",
-          \\"name\\": \\"thedude\\"
+          \\"name\\": \\"thedude\\",
+          \\"Name\\": \\"testapp-HTTP/S Security Group\\"
         },
         \\"vpc_id\\": \\"\${data.aws_vpc.testPocketApp_pocket_vpc_C4E157E3.id}\\"
       },
@@ -9139,27 +8944,21 @@ exports[`PocketALBApplication renders an internal application with tags 1`] = `
             ],
             \\"description\\": \\"required\\",
             \\"from_port\\": 0,
-            \\"ipv6_cidr_blocks\\": [
-            ],
-            \\"prefix_list_ids\\": [
-            ],
+            \\"ipv6_cidr_blocks\\": [],
+            \\"prefix_list_ids\\": [],
             \\"protocol\\": \\"-1\\",
-            \\"security_groups\\": [
-            ],
+            \\"security_groups\\": [],
             \\"self\\": null,
             \\"to_port\\": 0
           }
         ],
         \\"ingress\\": [
           {
-            \\"cidr_blocks\\": [
-            ],
+            \\"cidr_blocks\\": [],
             \\"description\\": \\"required\\",
             \\"from_port\\": 80,
-            \\"ipv6_cidr_blocks\\": [
-            ],
-            \\"prefix_list_ids\\": [
-            ],
+            \\"ipv6_cidr_blocks\\": [],
+            \\"prefix_list_ids\\": [],
             \\"protocol\\": \\"TCP\\",
             \\"security_groups\\": [
               \\"\${aws_security_group.testPocketApp_application_load_balancer_alb_security_group_91A27046.id}\\"
@@ -9180,8 +8979,7 @@ exports[`PocketALBApplication renders an internal application with tags 1`] = `
       }
     },
     \\"null_resource\\": {
-      \\"testPocketApp_ecs_service_8F213571\\": {
-      }
+      \\"testPocketApp_ecs_service_8F213571\\": {}
     }
   }
 }"

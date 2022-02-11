@@ -283,8 +283,7 @@ exports[`PocketApiGatewayLambdaIntegration renders an api gateway with a lambda 
       }
     },
     \\"null_resource\\": {
-      \\"test-api-lambda\\": {
-      }
+      \\"test-api-lambda\\": {}
     }
   }
 }"

@@ -57,8 +57,7 @@ exports[`ApplicationRedis renders redis with minimal config 1`] = `
             \\"ipv6_cidr_blocks\\": null,
             \\"prefix_list_ids\\": null,
             \\"protocol\\": \\"tcp\\",
-            \\"security_groups\\": [
-            ],
+            \\"security_groups\\": [],
             \\"self\\": null,
             \\"to_port\\": 6379
           }
@@ -128,8 +127,7 @@ exports[`ApplicationRedis renders redis with node change 1`] = `
             \\"ipv6_cidr_blocks\\": null,
             \\"prefix_list_ids\\": null,
             \\"protocol\\": \\"tcp\\",
-            \\"security_groups\\": [
-            ],
+            \\"security_groups\\": [],
             \\"self\\": null,
             \\"to_port\\": 6379
           }
@@ -203,8 +201,7 @@ exports[`ApplicationRedis renders redis with tags 1`] = `
             \\"ipv6_cidr_blocks\\": null,
             \\"prefix_list_ids\\": null,
             \\"protocol\\": \\"tcp\\",
-            \\"security_groups\\": [
-            ],
+            \\"security_groups\\": [],
             \\"self\\": null,
             \\"to_port\\": 6379
           }

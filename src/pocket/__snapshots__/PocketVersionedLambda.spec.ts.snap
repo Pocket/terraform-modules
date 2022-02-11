@@ -67,8 +67,7 @@ exports[`it can treat missing data as breaching 1`] = `
     },
     \\"aws_cloudwatch_metric_alarm\\": {
       \\"test-lambda_invocations_D15DE20B\\": {
-        \\"alarm_actions\\": [
-        ],
+        \\"alarm_actions\\": [],
         \\"alarm_description\\": \\"Total invocations breaches threshold\\",
         \\"alarm_name\\": \\"test-lambda-Lambda-Invocations-Alarm\\",
         \\"comparison_operator\\": \\"GreaterThanThreshold\\",
@@ -78,12 +77,10 @@ exports[`it can treat missing data as breaching 1`] = `
           \\"Resource\\": \\"\${aws_lambda_alias.test-lambda_alias_CCFDFCE9.function_name}:\${aws_lambda_alias.test-lambda_alias_CCFDFCE9.name}\\"
         },
         \\"evaluation_periods\\": 1,
-        \\"insufficient_data_actions\\": [
-        ],
+        \\"insufficient_data_actions\\": [],
         \\"metric_name\\": \\"Invocations\\",
         \\"namespace\\": \\"AWS/Lambda\\",
-        \\"ok_actions\\": [
-        ],
+        \\"ok_actions\\": [],
         \\"period\\": 60,
         \\"statistic\\": \\"Sum\\",
         \\"threshold\\": 1,
@@ -514,8 +511,7 @@ exports[`renders a lambda with alarms 1`] = `
     },
     \\"aws_cloudwatch_metric_alarm\\": {
       \\"test-lambda_concurrentexecutions_B7910145\\": {
-        \\"alarm_actions\\": [
-        ],
+        \\"alarm_actions\\": [],
         \\"alarm_description\\": \\"Total concurrentexecutions breaches threshold\\",
         \\"alarm_name\\": \\"test-lambda-Lambda-ConcurrentExecutions-Alarm\\",
         \\"comparison_operator\\": \\"GreaterThanThreshold\\",
@@ -525,20 +521,17 @@ exports[`renders a lambda with alarms 1`] = `
           \\"Resource\\": \\"\${aws_lambda_alias.test-lambda_alias_CCFDFCE9.function_name}:\${aws_lambda_alias.test-lambda_alias_CCFDFCE9.name}\\"
         },
         \\"evaluation_periods\\": 1,
-        \\"insufficient_data_actions\\": [
-        ],
+        \\"insufficient_data_actions\\": [],
         \\"metric_name\\": \\"ConcurrentExecutions\\",
         \\"namespace\\": \\"AWS/Lambda\\",
-        \\"ok_actions\\": [
-        ],
+        \\"ok_actions\\": [],
         \\"period\\": 60,
         \\"statistic\\": \\"Sum\\",
         \\"threshold\\": 1,
         \\"treat_missing_data\\": \\"missing\\"
       },
       \\"test-lambda_duration_E92A1EBB\\": {
-        \\"alarm_actions\\": [
-        ],
+        \\"alarm_actions\\": [],
         \\"alarm_description\\": \\"Total duration breaches threshold\\",
         \\"alarm_name\\": \\"test-lambda-Lambda-Duration-Alarm\\",
         \\"comparison_operator\\": \\"GreaterThanThreshold\\",
@@ -548,20 +541,17 @@ exports[`renders a lambda with alarms 1`] = `
           \\"Resource\\": \\"\${aws_lambda_alias.test-lambda_alias_CCFDFCE9.function_name}:\${aws_lambda_alias.test-lambda_alias_CCFDFCE9.name}\\"
         },
         \\"evaluation_periods\\": 1,
-        \\"insufficient_data_actions\\": [
-        ],
+        \\"insufficient_data_actions\\": [],
         \\"metric_name\\": \\"Duration\\",
         \\"namespace\\": \\"AWS/Lambda\\",
-        \\"ok_actions\\": [
-        ],
+        \\"ok_actions\\": [],
         \\"period\\": 60,
         \\"statistic\\": \\"Sum\\",
         \\"threshold\\": 1,
         \\"treat_missing_data\\": \\"missing\\"
       },
       \\"test-lambda_errors_E579F2B3\\": {
-        \\"alarm_actions\\": [
-        ],
+        \\"alarm_actions\\": [],
         \\"alarm_description\\": \\"Total errors breaches threshold\\",
         \\"alarm_name\\": \\"test-lambda-Lambda-Errors-Alarm\\",
         \\"comparison_operator\\": \\"GreaterThanThreshold\\",
@@ -571,20 +561,17 @@ exports[`renders a lambda with alarms 1`] = `
           \\"Resource\\": \\"\${aws_lambda_alias.test-lambda_alias_CCFDFCE9.function_name}:\${aws_lambda_alias.test-lambda_alias_CCFDFCE9.name}\\"
         },
         \\"evaluation_periods\\": 1,
-        \\"insufficient_data_actions\\": [
-        ],
+        \\"insufficient_data_actions\\": [],
         \\"metric_name\\": \\"Errors\\",
         \\"namespace\\": \\"AWS/Lambda\\",
-        \\"ok_actions\\": [
-        ],
+        \\"ok_actions\\": [],
         \\"period\\": 60,
         \\"statistic\\": \\"Sum\\",
         \\"threshold\\": 1,
         \\"treat_missing_data\\": \\"missing\\"
       },
       \\"test-lambda_invocations_D15DE20B\\": {
-        \\"alarm_actions\\": [
-        ],
+        \\"alarm_actions\\": [],
         \\"alarm_description\\": \\"Total invocations breaches threshold\\",
         \\"alarm_name\\": \\"test-lambda-Lambda-Invocations-Alarm\\",
         \\"comparison_operator\\": \\"GreaterThanThreshold\\",
@@ -594,20 +581,17 @@ exports[`renders a lambda with alarms 1`] = `
           \\"Resource\\": \\"\${aws_lambda_alias.test-lambda_alias_CCFDFCE9.function_name}:\${aws_lambda_alias.test-lambda_alias_CCFDFCE9.name}\\"
         },
         \\"evaluation_periods\\": 1,
-        \\"insufficient_data_actions\\": [
-        ],
+        \\"insufficient_data_actions\\": [],
         \\"metric_name\\": \\"Invocations\\",
         \\"namespace\\": \\"AWS/Lambda\\",
-        \\"ok_actions\\": [
-        ],
+        \\"ok_actions\\": [],
         \\"period\\": 60,
         \\"statistic\\": \\"Sum\\",
         \\"threshold\\": 1,
         \\"treat_missing_data\\": \\"missing\\"
       },
       \\"test-lambda_throttles_562A3BCE\\": {
-        \\"alarm_actions\\": [
-        ],
+        \\"alarm_actions\\": [],
         \\"alarm_description\\": \\"Total throttles breaches threshold\\",
         \\"alarm_name\\": \\"test-lambda-Lambda-Throttles-Alarm\\",
         \\"comparison_operator\\": \\"GreaterThanThreshold\\",
@@ -617,12 +601,10 @@ exports[`renders a lambda with alarms 1`] = `
           \\"Resource\\": \\"\${aws_lambda_alias.test-lambda_alias_CCFDFCE9.function_name}:\${aws_lambda_alias.test-lambda_alias_CCFDFCE9.name}\\"
         },
         \\"evaluation_periods\\": 1,
-        \\"insufficient_data_actions\\": [
-        ],
+        \\"insufficient_data_actions\\": [],
         \\"metric_name\\": \\"Throttles\\",
         \\"namespace\\": \\"AWS/Lambda\\",
-        \\"ok_actions\\": [
-        ],
+        \\"ok_actions\\": [],
         \\"period\\": 60,
         \\"statistic\\": \\"Sum\\",
         \\"threshold\\": 1,

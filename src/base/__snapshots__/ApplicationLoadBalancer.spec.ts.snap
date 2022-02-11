@@ -30,13 +30,10 @@ exports[`ApplicationLoadBalancer renders an ALB with tags 1`] = `
             ],
             \\"description\\": \\"required\\",
             \\"from_port\\": 0,
-            \\"ipv6_cidr_blocks\\": [
-            ],
-            \\"prefix_list_ids\\": [
-            ],
+            \\"ipv6_cidr_blocks\\": [],
+            \\"prefix_list_ids\\": [],
             \\"protocol\\": \\"-1\\",
-            \\"security_groups\\": [
-            ],
+            \\"security_groups\\": [],
             \\"self\\": null,
             \\"to_port\\": 0
           }
@@ -74,9 +71,9 @@ exports[`ApplicationLoadBalancer renders an ALB with tags 1`] = `
         },
         \\"name_prefix\\": \\"test--HTTP/S Security Group\\",
         \\"tags\\": {
-          \\"Name\\": \\"test--HTTP/S Security Group\\",
           \\"hobby\\": \\"bowling\\",
-          \\"name\\": \\"thedude\\"
+          \\"name\\": \\"thedude\\",
+          \\"Name\\": \\"test--HTTP/S Security Group\\"
         },
         \\"vpc_id\\": \\"123\\"
       }
@@ -111,13 +108,10 @@ exports[`ApplicationLoadBalancer renders an ALB without tags 1`] = `
             ],
             \\"description\\": \\"required\\",
             \\"from_port\\": 0,
-            \\"ipv6_cidr_blocks\\": [
-            ],
-            \\"prefix_list_ids\\": [
-            ],
+            \\"ipv6_cidr_blocks\\": [],
+            \\"prefix_list_ids\\": [],
             \\"protocol\\": \\"-1\\",
-            \\"security_groups\\": [
-            ],
+            \\"security_groups\\": [],
             \\"self\\": null,
             \\"to_port\\": 0
           }

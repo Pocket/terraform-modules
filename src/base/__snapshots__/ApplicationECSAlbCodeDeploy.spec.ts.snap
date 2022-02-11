@@ -4,8 +4,7 @@ exports[`ApplicationECSAlbCodeDeploy renders a CodeDeploy with a sns 1`] = `
 "{
   \\"data\\": {
     \\"aws_caller_identity\\": {
-      \\"testCodeDeploy_current_account_0C0AC491\\": {
-      }
+      \\"testCodeDeploy_current_account_0C0AC491\\": {}
     },
     \\"aws_iam_policy_document\\": {
       \\"testCodeDeploy_codedeploy_assume_role_E9FEDA7F\\": {
@@ -28,8 +27,7 @@ exports[`ApplicationECSAlbCodeDeploy renders a CodeDeploy with a sns 1`] = `
       }
     },
     \\"aws_region\\": {
-      \\"testCodeDeploy_current_region_B8533BBF\\": {
-      }
+      \\"testCodeDeploy_current_region_B8533BBF\\": {}
     }
   },
   \\"resource\\": {
@@ -127,8 +125,7 @@ exports[`ApplicationECSAlbCodeDeploy renders a CodeDeploy with tags 1`] = `
 "{
   \\"data\\": {
     \\"aws_caller_identity\\": {
-      \\"testCodeDeploy_current_account_0C0AC491\\": {
-      }
+      \\"testCodeDeploy_current_account_0C0AC491\\": {}
     },
     \\"aws_iam_policy_document\\": {
       \\"testCodeDeploy_codedeploy_assume_role_E9FEDA7F\\": {
@@ -151,8 +148,7 @@ exports[`ApplicationECSAlbCodeDeploy renders a CodeDeploy with tags 1`] = `
       }
     },
     \\"aws_region\\": {
-      \\"testCodeDeploy_current_region_B8533BBF\\": {
-      }
+      \\"testCodeDeploy_current_region_B8533BBF\\": {}
     }
   },
   \\"resource\\": {
