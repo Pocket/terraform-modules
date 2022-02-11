@@ -1,7 +1,7 @@
 import { IResolvable, Resource } from 'cdktf';
 import { appautoscaling, iam, dynamodb } from '@cdktf/provider-aws';
 import { Construct } from 'constructs';
-import {DynamodbTableGlobalSecondaryIndex} from "@cdktf/provider-aws/lib/dynamodb";
+import { DynamodbTableGlobalSecondaryIndex } from '@cdktf/provider-aws/lib/dynamodb';
 
 /**
  * Enum to determine the capacity type for autoscaling
