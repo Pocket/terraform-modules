@@ -66,7 +66,8 @@ exports[`renders an event bridge and lambda target with event bus name 1`] = `
     \\"aws_cloudwatch_event_target\\": {
       \\"test-event-bridge-lambda_event-bridge-rule_event-bridge-target-lambda_30D0509D\\": {
         \\"arn\\": \\"\${aws_lambda_alias.test-event-bridge-lambda_alias_2EC274FC.arn}\\",
-        \\"dead_letter_config\\": {},
+        \\"dead_letter_config\\": {
+        },
         \\"depends_on\\": [
           \\"aws_lambda_alias.test-event-bridge-lambda_alias_2EC274FC\\",
           \\"aws_cloudwatch_event_rule.test-event-bridge-lambda_event-bridge-rule_529FF7C2\\"
@@ -237,7 +238,8 @@ exports[`renders an event bridge and lambda target with rule description 1`] = `
     \\"aws_cloudwatch_event_target\\": {
       \\"test-event-bridge-lambda_event-bridge-rule_event-bridge-target-lambda_30D0509D\\": {
         \\"arn\\": \\"\${aws_lambda_alias.test-event-bridge-lambda_alias_2EC274FC.arn}\\",
-        \\"dead_letter_config\\": {},
+        \\"dead_letter_config\\": {
+        },
         \\"depends_on\\": [
           \\"aws_lambda_alias.test-event-bridge-lambda_alias_2EC274FC\\",
           \\"aws_cloudwatch_event_rule.test-event-bridge-lambda_event-bridge-rule_529FF7C2\\"

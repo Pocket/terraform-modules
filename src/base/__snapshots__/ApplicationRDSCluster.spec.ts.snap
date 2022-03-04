@@ -76,10 +76,13 @@ exports[`ApplicationRDSCluster renders a RDS cluster 1`] = `
             ],
             \\"description\\": \\"required\\",
             \\"from_port\\": 0,
-            \\"ipv6_cidr_blocks\\": [],
-            \\"prefix_list_ids\\": [],
+            \\"ipv6_cidr_blocks\\": [
+            ],
+            \\"prefix_list_ids\\": [
+            ],
             \\"protocol\\": \\"-1\\",
-            \\"security_groups\\": [],
+            \\"security_groups\\": [
+            ],
             \\"self\\": null,
             \\"to_port\\": 0
           }
@@ -184,10 +187,13 @@ exports[`ApplicationRDSCluster renders a RDS cluster with a database URL 1`] = `
             ],
             \\"description\\": \\"required\\",
             \\"from_port\\": 0,
-            \\"ipv6_cidr_blocks\\": [],
-            \\"prefix_list_ids\\": [],
+            \\"ipv6_cidr_blocks\\": [
+            ],
+            \\"prefix_list_ids\\": [
+            ],
             \\"protocol\\": \\"-1\\",
-            \\"security_groups\\": [],
+            \\"security_groups\\": [
+            ],
             \\"self\\": null,
             \\"to_port\\": 0
           }
