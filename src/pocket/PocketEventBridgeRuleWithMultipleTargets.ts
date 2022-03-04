@@ -1,9 +1,16 @@
-import { Resource } from 'cdktf';
+import { Resource, TerraformResource } from 'cdktf';
 import { Construct } from 'constructs';
 import {
   ApplicationEventBridgeRule,
   Target,
 } from '../base/ApplicationEventBridgeRule';
+
+export type PocketEventBridgeTargets = {
+  targetId: string;
+  arn: string;
+  terraformResource: TerraformResource;
+  deadLetterArn?: string;
+};
 
 export interface PocketEventBridgeProps {
   eventRule: {
@@ -12,16 +19,15 @@ export interface PocketEventBridgeProps {
     eventBusName?: string;
     pattern: { [key: string]: any };
   };
-  targets: [
-    {
-      targetId: string;
-      arn: string;
-      type: string;
-    }
-  ];
+  targets?: PocketEventBridgeTargets[];
   tags?: { [key: string]: string };
 }
 
+/**
+ * class to role out event bridge rule with multiple AWS resources as targets
+ * Note: the targets need to be created prior and passed to this function.
+ * This class does not handle IAM, they have to be handled at the consuming function
+ */
 export class PocketEventBridgeRuleWithMultipleTargets extends Resource {
   constructor(
     scope: Construct,
@@ -29,24 +35,26 @@ export class PocketEventBridgeRuleWithMultipleTargets extends Resource {
     protected readonly config: PocketEventBridgeProps
   ) {
     super(scope, name);
-
     const eventBridgeRule = this.createEventBridgeRule(config.targets);
   }
 
   /**
-   * Creates the actual rule for event bridge to trigger the given target
-   * @param lambda
+   * Creates the actual rule for event bridge to trigger the given target.
+   * @param eventRuleTargets
    * @private
    */
-  private createEventBridgeRule(target?: any): ApplicationEventBridgeRule {
+  private createEventBridgeRule(
+    eventRuleTargets?: any
+  ): ApplicationEventBridgeRule {
     const eventRuleConfig = this.config.eventRule;
     const targets: Target[] = [];
 
-    target.forEach((t) =>
+    eventRuleTargets.forEach((t) =>
       targets.push({
-        targetId: target.type,
-        arn: t.versionedLambda.arn,
-        dependsOn: t.versionedLambda,
+        targetId: t.targetId,
+        arn: t.arn,
+        dependsOn: t.terraformResource,
+        deadLetterArn: t.deadLetterArn,
       })
     );
 

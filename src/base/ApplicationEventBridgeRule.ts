@@ -51,13 +51,17 @@ export class ApplicationEventBridgeRule extends Resource {
 
     if (this.config.targets) {
       this.config.targets.forEach((t) => {
-        new eventbridge.CloudwatchEventTarget(this, 'event-bridge-target', {
-          rule: rule.name,
-          targetId: t.targetId,
-          arn: t.arn,
-          deadLetterConfig: t.deadLetterArn ? { arn: t.deadLetterArn } : {},
-          dependsOn: [t.dependsOn, rule],
-        });
+        new eventbridge.CloudwatchEventTarget(
+          this,
+          `event-bridge-target-${t.targetId}`,
+          {
+            rule: rule.name,
+            targetId: t.targetId,
+            arn: t.arn,
+            deadLetterConfig: t.deadLetterArn ? { arn: t.deadLetterArn } : {},
+            dependsOn: [t.dependsOn, rule],
+          }
+        );
       });
     }
 
