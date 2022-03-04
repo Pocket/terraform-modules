@@ -92,6 +92,8 @@ jobs:
           # Flag to enable or disable the linting process of the TypeScript language. (Utilizing: eslint)
           VALIDATE_TYPESCRIPT_ES: true
 
+          FILTER_REGEX_EXCLUDE: "*snapshot*"
+
           # Flag to enable or disable the linting process of the YAML language.
           # Note - disabled as of 26 Jan, 2022
           # VALIDATE_YAML: true
