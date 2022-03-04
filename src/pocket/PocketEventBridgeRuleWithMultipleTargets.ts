@@ -35,7 +35,7 @@ export class PocketEventBridgeRuleWithMultipleTargets extends Resource {
     protected readonly config: PocketEventBridgeProps
   ) {
     super(scope, name);
-    const eventBridgeRule = this.createEventBridgeRule(config.targets);
+    this.createEventBridgeRule(config.targets);
   }
 
   /**

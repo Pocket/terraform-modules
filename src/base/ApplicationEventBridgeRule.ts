@@ -1,7 +1,6 @@
 import { Resource, TerraformResource } from 'cdktf';
 import { Construct } from 'constructs';
 import { eventbridge } from '@cdktf/provider-aws';
-import { CloudwatchEventTargetDeadLetterConfig } from '@cdktf/provider-aws/lib/eventbridge/cloudwatch-event-target';
 
 export type Target = {
   arn: string;
