@@ -1,3 +1,10 @@
+## [3.6.0](https://github.com/Pocket/terraform-modules/compare/v3.5.2...v3.6.0) (2022-03-14)
+
+
+### Features
+
+* **sqsLambda:** make functionResponseTypes configurable ([#896](https://github.com/Pocket/terraform-modules/issues/896)) ([ae844a4](https://github.com/Pocket/terraform-modules/commit/ae844a4e669d2e3e43a85aafbb15be317cb8adc3))
+
 ### [3.5.2](https://github.com/Pocket/terraform-modules/compare/v3.5.1...v3.5.2) (2022-02-25)
 
 
