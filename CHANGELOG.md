@@ -1,3 +1,10 @@
+### [3.6.1](https://github.com/Pocket/terraform-modules/compare/v3.6.0...v3.6.1) (2022-03-16)
+
+
+### Bug Fixes
+
+* **deps:** update cdktf ([#895](https://github.com/Pocket/terraform-modules/issues/895)) ([713d68a](https://github.com/Pocket/terraform-modules/commit/713d68a9f96e1b7abc7bd370d1ebd5992c532e91))
+
 ## [3.6.0](https://github.com/Pocket/terraform-modules/compare/v3.5.2...v3.6.0) (2022-03-14)
 
 
