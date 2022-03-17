@@ -24,8 +24,6 @@ export interface ApplicationBackupProps {
     tags?: { [key: string]: string };
   }
 
-
-// export class ApplicationBackup extends TerraformStack {
 export class ApplicationBackup extends Resource {    
 
     public backupPlan: Backup.BackupPlan;
@@ -72,10 +70,6 @@ export class ApplicationBackup extends Resource {
                 selectionTag: plan.selectionTag
               });
             });
-          }
-
-
-         
+          }         
 }
-    
-  
+      
