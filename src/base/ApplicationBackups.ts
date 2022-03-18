@@ -29,9 +29,8 @@ export class ApplicationBackup extends Resource {
     public backupPlan: Backup.BackupPlan;
     public backupSelection: Backup.BackupSelection;
     public backupPlanRule: Backup.BackupPlanRule;
-    // private static vault: Backup.BackupVault=null;
     private static vault: Backup.BackupVault;
-    // public readonly config: ApplicationBackupProps;
+
 
     constructor(
       scope: Construct, 

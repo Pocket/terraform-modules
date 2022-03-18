@@ -3,8 +3,8 @@ import { TestResource } from '../testHelpers';
 import { ApplicationBackup } from './ApplicationBackups';
 
 describe('ApplicationBackup', () => {
-    it('renders vault with plans without tags', () => {
-        const synthed = Testing.synthScope((stack ) => {
+it('renders vault with plans without tags', () => {
+        const synthed = Testing.synthScope((stack) => {
             new ApplicationBackup(stack, 'testBackup', {
                 name: 'test-',
                 kmsKeyArn: 'arn:aws:kms:us-east-1:1234567890:key/mrk-1234',
@@ -23,7 +23,7 @@ describe('ApplicationBackup', () => {
                             key: 'backups',
                             type: 'STRINGEQUALS',
                             value: 'True'
-                          }]
+                        }]
                     }
                 ]
             })
@@ -31,7 +31,7 @@ describe('ApplicationBackup', () => {
     })
 
     it('renders vault with plans with tags', () => {
-        const synthed = Testing.synthScope((stack ) => {
+        const synthed = Testing.synthScope((stack) => {
             new ApplicationBackup(stack, 'testBackup', {
                 name: 'test-',
                 kmsKeyArn: 'arn:aws:kms:us-east-1:1234567890:key/mrk-1234',
@@ -50,11 +50,12 @@ describe('ApplicationBackup', () => {
                             key: 'backups',
                             type: 'STRINGEQUALS',
                             value: 'True'
-                          }]
+                        }]
                     }
                 ],
-                tags: { name: 'thedude',
-                        hobby: 'bowling'
+                tags: {
+                    name: 'thedude',
+                    hobby: 'bowling'
                 }
             })
         })
