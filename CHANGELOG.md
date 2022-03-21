@@ -1,3 +1,10 @@
+## [3.7.0](https://github.com/Pocket/terraform-modules/compare/v3.6.1...v3.7.0) (2022-03-21)
+
+
+### Features
+
+* **event-bridge:** add multiple lambda target to same eventBridgeRule ([#888](https://github.com/Pocket/terraform-modules/issues/888)) ([02c1233](https://github.com/Pocket/terraform-modules/commit/02c1233942f57a860961e260f6b58b21e14da1e5))
+
 ### [3.6.1](https://github.com/Pocket/terraform-modules/compare/v3.6.0...v3.6.1) (2022-03-16)
 
 
