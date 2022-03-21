@@ -5,9 +5,9 @@ describe('ApplicationBackup', () => {
   it('renders vault with plans without tags', () => {
     const synthed = Testing.synthScope((stack) => {
       new ApplicationBackup(stack, 'testBackup', {
-        name: 'test-',
+        name: 'name',
         kmsKeyArn: 'arn:aws:kms:us-east-1:1234567890:key/mrk-1234',
-        prefix: 'TEST',
+        prefix: 'prefix',
         accountId: '1234567890',
         vaultPolicy:
           '{"Version": "2012-10-17","Statement": [{"Effect": "Allow","Action": "backup:CopyIntoBackupVault","Resource": "*","Principal": "*","Condition": {"StringEquals": {"aws:PrincipalOrgID": ["o-1234567890"]}}}]}',
@@ -38,9 +38,9 @@ describe('ApplicationBackup', () => {
   it('renders vault with plans with tags', () => {
     const synthed = Testing.synthScope((stack) => {
       new ApplicationBackup(stack, 'testBackup', {
-        name: 'test-',
+        name: 'name',
         kmsKeyArn: 'arn:aws:kms:us-east-1:1234567890:key/mrk-1234',
-        prefix: 'TEST',
+        prefix: 'prefix',
         accountId: '1234567890',
         vaultPolicy:
           '{"Version": "2012-10-17","Statement": [{"Effect": "Allow","Action": "backup:CopyIntoBackupVault","Resource": "*","Principal": "*","Condition": {"StringEquals": {"aws:PrincipalOrgID": ["o-1234567890"]}}}]}',
