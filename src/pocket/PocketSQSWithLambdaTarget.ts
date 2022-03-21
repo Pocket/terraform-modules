@@ -23,6 +23,8 @@ export interface PocketSQSWithLambdaTargetProps
   sqsQueue?: PocketSQSProps;
   batchSize?: number;
   batchWindow?: number;
+  // https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lambda_event_source_mapping#function_response_types
+  functionResponseTypes?: string[];
 }
 
 export interface PocketSQSProps {
@@ -134,6 +136,7 @@ export class PocketSQSWithLambdaTarget extends PocketVersionedLambda {
         functionName: lambda.versionedLambda.arn,
         batchSize: config.batchSize,
         maximumBatchingWindowInSeconds: config.batchWindow,
+        functionResponseTypes: config.functionResponseTypes,
       }
     );
   }
