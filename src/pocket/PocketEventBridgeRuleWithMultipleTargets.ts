@@ -24,7 +24,7 @@ export interface PocketEventBridgeProps {
 }
 
 /**
- * class to role out event bridge rule with multiple AWS resources as targets
+ * class to roll out event bridge rule with multiple AWS resources as targets
  * Note: the targets need to be created prior and passed to this function.
  * This class does not handle IAM, they have to be handled at the consuming function
  */
