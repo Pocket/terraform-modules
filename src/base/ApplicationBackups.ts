@@ -41,10 +41,11 @@ export class ApplicationBackup extends Resource {
       tags: config.tags,
     });
 
-    const vaultPolicy = new BackupVaultPolicy(this, 'backup-vault-policy', {
-      backupVaultName: `${config.prefix}-${config.name}`,
+    new BackupVaultPolicy(this, 'backup-vault-policy', {
+      backupVaultName: vault.name,
       policy: config.vaultPolicy,
     });
+    
     config.backupPlans.forEach((plan) => {
       const backupPlan = new BackupPlan(this, 'backup-plan', {
         name: plan.name,
