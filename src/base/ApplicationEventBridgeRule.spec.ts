@@ -29,11 +29,13 @@ describe('AplicationEventBridgeRule', () => {
 
       new ApplicationEventBridgeRule(stack, 'test-event-bridge-rule', {
         ...config,
-        target: {
-          dependsOn: appSqs,
-          arn: appSqs.arn,
-          targetId: 'sqs',
-        },
+        targets: [
+          {
+            dependsOn: appSqs,
+            arn: appSqs.arn,
+            targetId: 'sqs',
+          },
+        ],
       });
     });
     expect(synthed).toMatchSnapshot();
