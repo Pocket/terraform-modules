@@ -29,13 +29,18 @@ export interface PocketEventBridgeProps {
  * This class does not handle IAM, they have to be handled at the consuming function
  */
 export class PocketEventBridgeRuleWithMultipleTargets extends Resource {
+  private eventBridgeRule: ApplicationEventBridgeRule;
   constructor(
     scope: Construct,
     name: string,
     protected readonly config: PocketEventBridgeProps
   ) {
     super(scope, name);
-    this.createEventBridgeRule(config.targets);
+    this.eventBridgeRule = this.createEventBridgeRule(config.targets);
+  }
+
+  public getEventBridge() {
+    return this.eventBridgeRule;
   }
 
   /**
