@@ -6,7 +6,6 @@ import BackupVaultPolicy = Backup.BackupVaultPolicy;
 import BackupPlan = Backup.BackupPlan;
 import BackupSelection = Backup.BackupSelection;
 import BackupPlanRule = Backup.BackupPlanRule;
-import { type } from 'os';
 
 export interface ApplicationBackupProps {
     name: string;
@@ -69,5 +68,5 @@ export class ApplicationBackup extends Resource {
                 selectionTag: plan.selectionTag
               });
             });
-          }         
+          }
 }
