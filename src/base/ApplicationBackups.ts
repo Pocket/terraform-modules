@@ -17,38 +17,34 @@ export interface ApplicationBackupProps {
     name: string;
     resources: string[];
     rules: Omit<BackupPlanRule, 'targetVaultName'>[];
-    // selectionTag?: Omit<BackupPlanRule, 'targetVaultName'>[];
-    selectionTag: any
+    selectionTag: Backup.BackupSelectionSelectionTag[];
   }[];
   tags?: { [key: string]: string };
 }
 
 export class ApplicationBackup extends Resource {
-
   public backupPlan: Backup.BackupPlan;
   public backupSelection: Backup.BackupSelection;
   public backupPlanRule: Backup.BackupPlanRule;
   private static vault: Backup.BackupVault;
 
-
   constructor(
     scope: Construct,
     name: string,
-    private config: ApplicationBackupProps) {
+    private config: ApplicationBackupProps
+  ) {
     super(scope, name);
 
     const vault = new BackupVault(this, 'backup-vault', {
       name: `${config.prefix}-${config.name}`,
       kmsKeyArn: config.kmsKeyArn,
       tags: config.tags,
-    })
+    });
 
     const vaultPolicy = new BackupVaultPolicy(this, 'backup-vault-policy', {
       backupVaultName: `${config.prefix}-${config.name}`,
-      policy: config.vaultPolicy
-    })
-      ;
-
+      policy: config.vaultPolicy,
+    });
     config.backupPlans.forEach((plan) => {
       const backupPlan = new BackupPlan(this, 'backup-plan', {
         name: plan.name,
@@ -64,7 +60,7 @@ export class ApplicationBackup extends Resource {
         planId: backupPlan.id,
         iamRoleArn: `arn:aws:iam::${config.accountId}:role/service-role/AWSBackupDefaultServiceRole`,
         resources: plan.resources,
-        selectionTag: plan.selectionTag
+        selectionTag: plan.selectionTag,
       });
     });
   }
