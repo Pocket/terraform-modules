@@ -3,6 +3,7 @@
 export * from './pocket/PocketApiGatewayLambdaIntegration';
 export * from './pocket/PocketALBApplication';
 export * from './pocket/PocketECSCodePipeline';
+export * from './pocket/PocketEventBridgeRuleWithMultipleTargets';
 export * from './pocket/PocketEventBridgeWithLambdaTarget';
 export * from './pocket/PocketPagerDuty';
 export * from './pocket/PocketSQSWithLambdaTarget';
