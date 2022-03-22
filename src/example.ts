@@ -1,59 +1,96 @@
 import { Construct } from 'constructs';
-import { App, TerraformStack } from 'cdktf';
-import { AwsProvider } from '@cdktf/provider-aws';
+import { App, TerraformResource, TerraformStack } from 'cdktf';
+import { AwsProvider, lambdafunction, sqs } from '@cdktf/provider-aws';
 import { PocketALBApplication } from './pocket/PocketALBApplication';
 import { ApplicationECSContainerDefinitionProps } from './base/ApplicationECSContainerDefinition';
 import { LocalProvider } from '@cdktf/provider-local';
 import { NullProvider } from '@cdktf/provider-null';
+import { ArchiveProvider } from '@cdktf/provider-archive';
+import { PocketVPC } from './pocket/PocketVPC';
+import { PocketEventBridgeWithLambdaTarget } from './pocket/PocketEventBridgeWithLambdaTarget';
+import { LAMBDA_RUNTIMES } from './base/ApplicationVersionedLambda';
+import { PocketVersionedLambda, PocketVersionedLambdaProps } from './pocket/PocketVersionedLambda';
+import {
+  PocketEventBridgeProps,
+  PocketEventBridgeRuleWithMultipleTargets,
+  PocketEventBridgeTargets
+} from './pocket/PocketEventBridgeRuleWithMultipleTargets';
+import { ApplicationEventBus } from './base/ApplicationEventBus';
 
 class Example extends TerraformStack {
   constructor(scope: Construct, name: string) {
     super(scope, name);
 
     new AwsProvider(this, 'aws', {
-      region: 'us-east-1',
+      region: 'us-east-1'
     });
     new LocalProvider(this, 'local', {});
     new NullProvider(this, 'null', {});
+    new ArchiveProvider(this, 'archive');
 
-    const containerConfigBlue: ApplicationECSContainerDefinitionProps = {
-      name: 'blueContainer',
-      containerImage: 'bitnami/node-example:0.0.1',
-      portMappings: [
-        {
-          hostPort: 3000,
-          containerPort: 3000,
-        },
-      ],
-      envVars: [
-        {
-          name: 'foo',
-          value: 'bar',
-        },
-      ],
+    const vpc = new PocketVPC(this, 'pocket-shared-vpc');
+
+    const lambdaConfig: PocketVersionedLambdaProps = {
+      name: 'test-datasync-lambda',
+      lambda: {
+        runtime: LAMBDA_RUNTIMES.PYTHON38,
+        handler: 'index.handler'
+      }
+    };
+    const targetLambda = new PocketVersionedLambda(
+      this,
+      'datasync-target-lambda',
+      lambdaConfig
+    );
+
+    const targetLambdaDLQ = new sqs.SqsQueue(this, 'datasync-target-lambda-dlq', {
+      name: 'datasync-target-lambda-dlq'
+    });
+
+
+    let eventBridgeTarget: PocketEventBridgeTargets = {
+      targetId: 'datasync-lambda-id',
+      arn: targetLambda.lambda.versionedLambda.arn,
+      terraformResource: targetLambda.lambda.versionedLambda,
+      deadLetterArn: targetLambdaDLQ.arn
     };
 
-    new PocketALBApplication(this, 'example', {
-      exposedContainer: {
-        name: 'blueContainer',
-        port: 3000,
-        healthCheckPath: '/',
-      },
-      codeDeploy: {
-        useCodeDeploy: true,
-      },
-      cdn: false, // maybe make this false if you're testing an actual terraform apply - cdn's take a loooong time to spin up
-      alb6CharacterPrefix: 'ACMECO',
-      internal: false,
-      domain: 'acme.getpocket.dev',
-      prefix: 'ACME-Dev', // Prefix is a combo of the `Name-Environment`
-      containerConfigs: [containerConfigBlue],
-      ecsIamConfig: {
-        prefix: 'ACME-Dev',
-        taskExecutionRolePolicyStatements: [],
-        taskRolePolicyStatements: [],
-      },
+    let dataSyncEventBus = new ApplicationEventBus(this, 'test-datasync-event-bus', {
+      name: 'test-datasync-event-bus'
     });
+
+    const datasyncConfig: PocketEventBridgeProps = {
+      eventRule: {
+        name: 'test-event-bridge-rule-multiple-targets',
+        pattern: {
+          source: ['curation-migration-datasync-2'],
+          'detail-type': ['add-scheduled-item', 'update-scheduled-item']
+        },
+        eventBusName: dataSyncEventBus.bus.name
+      },
+      targets: [
+        { ...eventBridgeTarget }
+      ]
+    };
+
+    let eventBridgeRuleObj = new PocketEventBridgeRuleWithMultipleTargets(
+      this,
+      'datasync-event-bridge-with-multiple-targets',
+      datasyncConfig
+    );
+
+    let eventBridgeRule =  eventBridgeRuleObj.getEventBridge();
+
+    new lambdafunction.LambdaPermission(this, 'test-datasync-lambda-Function-permission', {
+      action: 'lambda:InvokeFunction',
+      functionName: targetLambda.lambda.versionedLambda.functionName,
+      qualifier: targetLambda.lambda.versionedLambda.name,
+      principal: 'events.amazonaws.com',
+      sourceArn: eventBridgeRule.rule.arn,
+      dependsOn: [targetLambda.lambda.versionedLambda, eventBridgeRule.rule],
+    });
+
+    //to test dlq: setup lambda iam permission to publish to dlq.
   }
 }
 
