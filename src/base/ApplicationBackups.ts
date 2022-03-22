@@ -1,11 +1,11 @@
 import { Construct } from 'constructs';
 import { Resource } from 'cdktf';
-import {backup } from '@cdktf/provider-aws';
-import BackupVault = backup.BackupVault;
-import BackupVaultPolicy = backup.BackupVaultPolicy;
-import BackupPlan = backup.BackupPlan;
-import BackupSelection = backup.BackupSelection;
-import BackupPlanRule = backup.BackupPlanRule;
+import { Backup } from '@cdktf/provider-aws';
+import BackupVault = Backup.BackupVault;
+import BackupVaultPolicy = Backup.BackupVaultPolicy;
+import BackupPlan = Backup.BackupPlan;
+import BackupSelection = Backup.BackupSelection;
+import BackupPlanRule = Backup.BackupPlanRule;
 
 export interface ApplicationBackupProps {
   name: string;
@@ -17,16 +17,16 @@ export interface ApplicationBackupProps {
     name: string;
     resources: string[];
     rules: Omit<BackupPlanRule, 'targetVaultName'>[];
-    selectionTag: backup.BackupSelectionSelectionTag[];
+    selectionTag: Backup.BackupSelectionSelectionTag[];
   }[];
   tags?: { [key: string]: string };
 }
 
 export class ApplicationBackup extends Resource {
-  public backupPlan: backup.BackupPlan;
-  public backupSelection: backup.BackupSelection;
-  public backupPlanRule: backup.BackupPlanRule;
-  private static vault: backup.BackupVault;
+  public backupPlan: Backup.BackupPlan;
+  public backupSelection: Backup.BackupSelection;
+  public backupPlanRule: Backup.BackupPlanRule;
+  private static vault: Backup.BackupVault;
 
   constructor(
     scope: Construct,
