@@ -1,3 +1,10 @@
+### [3.7.1](https://github.com/Pocket/terraform-modules/compare/v3.7.0...v3.7.1) (2022-03-22)
+
+
+### Bug Fixes
+
+* **event bridge with multiple targets:** export PocketEventBridgeWithLambdaTarget construct ([#900](https://github.com/Pocket/terraform-modules/issues/900)) ([dd7460e](https://github.com/Pocket/terraform-modules/commit/dd7460e86b2e59f2f2328921f447780fda2201a2))
+
 ## [3.7.0](https://github.com/Pocket/terraform-modules/compare/v3.6.1...v3.7.0) (2022-03-21)
 
 
