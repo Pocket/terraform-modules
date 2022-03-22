@@ -4,7 +4,7 @@ import {
   ApplicationVersionedLambda,
   LAMBDA_RUNTIMES,
 } from '../base/ApplicationVersionedLambda';
-import { CloudWatch, IAM, LambdaFunction } from '@cdktf/provider-aws';
+import { cloudwatch, iam, lambdafunction } from '@cdktf/provider-aws';
 import { ApplicationLambdaCodeDeploy } from '../base/ApplicationLambdaCodeDeploy';
 
 export interface PocketVersionedLambdaDefaultAlarmProps {
@@ -33,8 +33,8 @@ export interface PocketVersionedLambdaProps {
     handler: string;
     timeout?: number;
     environment?: { [key: string]: string };
-    vpcConfig?: LambdaFunction.LambdaFunctionVpcConfig;
-    executionPolicyStatements?: IAM.DataAwsIamPolicyDocumentStatement[];
+    vpcConfig?: lambdafunction.LambdaFunctionVpcConfig;
+    executionPolicyStatements?: iam.DataAwsIamPolicyDocumentStatement[];
     logRetention?: number;
     s3Bucket?: string;
     codeDeploy?: {
@@ -133,7 +133,7 @@ export class PocketVersionedLambda extends Resource {
     const props = config.props;
     const defaultEvaluationPeriods = 1;
 
-    new CloudWatch.CloudwatchMetricAlarm(
+    new cloudwatch.CloudwatchMetricAlarm(
       this,
       config.metricName.toLowerCase(),
       {

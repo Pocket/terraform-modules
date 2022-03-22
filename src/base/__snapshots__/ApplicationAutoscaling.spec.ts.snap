@@ -70,7 +70,8 @@ exports[`ApplicationAutoscaling constructor renders autoscaling without tags 1`]
               \\"scaling_adjustment\\": -1
             }
           ]
-        }
+        },
+        \\"target_tracking_scaling_policy_configuration\\": null
       },
       \\"testAutoscaling_scale_out_policy_DE69B04C\\": {
         \\"depends_on\\": [
@@ -91,7 +92,8 @@ exports[`ApplicationAutoscaling constructor renders autoscaling without tags 1`]
               \\"scaling_adjustment\\": 2
             }
           ]
-        }
+        },
+        \\"target_tracking_scaling_policy_configuration\\": null
       }
     },
     \\"aws_appautoscaling_target\\": {
@@ -206,7 +208,8 @@ exports[`ApplicationAutoscaling generateAutoScalingPolicy renders a scale-in Aut
               \\"scaling_adjustment\\": -1
             }
           ]
-        }
+        },
+        \\"target_tracking_scaling_policy_configuration\\": null
       }
     },
     \\"aws_appautoscaling_target\\": {
@@ -274,7 +277,8 @@ exports[`ApplicationAutoscaling generateAutoScalingPolicy renders a scale-out Au
               \\"scaling_adjustment\\": 2
             }
           ]
-        }
+        },
+        \\"target_tracking_scaling_policy_configuration\\": null
       }
     },
     \\"aws_appautoscaling_target\\": {
@@ -387,7 +391,8 @@ exports[`ApplicationAutoscaling generateCloudwatchMetricAlarm renders a scale-in
               \\"scaling_adjustment\\": -1
             }
           ]
-        }
+        },
+        \\"target_tracking_scaling_policy_configuration\\": null
       }
     },
     \\"aws_appautoscaling_target\\": {
@@ -476,7 +481,8 @@ exports[`ApplicationAutoscaling generateCloudwatchMetricAlarm renders a scale-ou
               \\"scaling_adjustment\\": 2
             }
           ]
-        }
+        },
+        \\"target_tracking_scaling_policy_configuration\\": null
       }
     },
     \\"aws_appautoscaling_target\\": {

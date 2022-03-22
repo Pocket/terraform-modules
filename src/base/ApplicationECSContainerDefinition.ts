@@ -48,6 +48,8 @@ export interface ApplicationECSContainerDefinitionProps {
   healthCheck?: HealthcheckVariable;
   mountPoints?: MountPoint[];
   dependsOn?: DependsOn[];
+  entryPoint?: string[];
+  essential?: boolean;
 }
 
 export function buildDefinitionJSON(
@@ -70,7 +72,7 @@ export function buildDefinitionJSON(
         'awslogs-stream-prefix': 'ecs',
       },
     },
-    entryPoint: null,
+    entryPoint: config.entryPoint ?? null,
     portMappings: config.portMappings ?? [],
     linuxParameters: null,
     cpu: config.cpu ?? 0,
@@ -96,7 +98,7 @@ export function buildDefinitionJSON(
     disableNetworking: null,
     interactive: null,
     healthCheck: config.healthCheck ?? null,
-    essential: true,
+    essential: config.essential ?? true,
     links: null,
     hostname: null,
     extraHosts: null,

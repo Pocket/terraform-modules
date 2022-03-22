@@ -133,5 +133,27 @@ describe('ApplicationECSContainerDefinition', () => {
           `"sourceVolume":"/[{}].txt"}`
       );
     });
+
+    it('passes entryPoint', () => {
+      config.entryPoint = ['/bin/bash'];
+
+      const result = buildDefinitionJSON(config);
+
+      expect(result).to.contain(`"entryPoint":["/bin/bash"]`);
+    });
+
+    it('passes essential', () => {
+      config.essential = false;
+
+      const result = buildDefinitionJSON(config);
+
+      expect(result).to.contain(`"essential":false`);
+    });
+
+    it('essential defaults to true', () => {
+      const result = buildDefinitionJSON(config);
+
+      expect(result).to.contain(`"essential":true`);
+    });
   });
 });

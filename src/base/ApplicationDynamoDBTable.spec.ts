@@ -113,6 +113,7 @@ describe('ApplicationDynamoDBTable', () => {
       min: 3,
     };
 
+    //@ts-ignore Ignoring because cdktf 0.9 added IResolvable to the types for globalSecondaryIndex and it just causes issies with arrays
     BASE_CONFIG.tableConfig.globalSecondaryIndex.push({
       name: 'card-index',
       hashKey: 'card-type',
@@ -142,6 +143,7 @@ describe('ApplicationDynamoDBTable', () => {
     };
 
     //This test runs after the first secondary index test, so here we just add another index which gives us 2
+    //@ts-ignore Ignoring because cdktf 0.9 added IResolvable to the types for globalSecondaryIndex and it just causes issies with arrays
     BASE_CONFIG.tableConfig.globalSecondaryIndex.push({
       name: 'card-index-2',
       hashKey: 'card-type-123',

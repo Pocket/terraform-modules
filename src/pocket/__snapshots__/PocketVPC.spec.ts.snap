@@ -4,7 +4,8 @@ exports[`renders a VPC with minimal config 1`] = `
 "{
   \\"data\\": {
     \\"aws_caller_identity\\": {
-      \\"testPocketVPC_current_identity_433574E3\\": {}
+      \\"testPocketVPC_current_identity_433574E3\\": {
+      }
     },
     \\"aws_kms_alias\\": {
       \\"testPocketVPC_secrets_manager_key_3F5AECFC\\": {
@@ -12,7 +13,8 @@ exports[`renders a VPC with minimal config 1`] = `
       }
     },
     \\"aws_region\\": {
-      \\"testPocketVPC_current_region_1C1E28CD\\": {}
+      \\"testPocketVPC_current_region_1C1E28CD\\": {
+      }
     },
     \\"aws_security_groups\\": {
       \\"testPocketVPC_default_security_groups_48E7EA82\\": {

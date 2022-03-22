@@ -1,6 +1,6 @@
 import { Resource } from 'cdktf';
 import { Construct } from 'constructs';
-import { ECR } from '@cdktf/provider-aws';
+import { ecr } from '@cdktf/provider-aws';
 
 export interface ECRProps {
   name: string;
@@ -8,12 +8,12 @@ export interface ECRProps {
 }
 
 export class ApplicationECR extends Resource {
-  public readonly repo: ECR.EcrRepository;
+  public readonly repo: ecr.EcrRepository;
 
   constructor(scope: Construct, name: string, config: ECRProps) {
     super(scope, name);
 
-    const ecrConfig: ECR.EcrRepositoryConfig = {
+    const ecrConfig: ecr.EcrRepositoryConfig = {
       name: config.name,
       tags: config.tags,
       imageScanningConfiguration: {
@@ -21,7 +21,7 @@ export class ApplicationECR extends Resource {
       },
     };
 
-    this.repo = new ECR.EcrRepository(this, 'ecr-repo', ecrConfig);
+    this.repo = new ecr.EcrRepository(this, 'ecr-repo', ecrConfig);
 
     // this is our default policy
     // perhaps this should be defined elsewhere? or allow to be overwritten?
@@ -43,13 +43,13 @@ export class ApplicationECR extends Resource {
       ],
     };
 
-    const ecrPolicyConfig: ECR.EcrLifecyclePolicyConfig = {
+    const ecrPolicyConfig: ecr.EcrLifecyclePolicyConfig = {
       repository: this.repo.name,
       policy: JSON.stringify(policy),
       dependsOn: [this.repo],
     };
 
-    new ECR.EcrLifecyclePolicy(
+    new ecr.EcrLifecyclePolicy(
       this,
       'ecr-repo-lifecyclepolicy',
       ecrPolicyConfig

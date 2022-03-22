@@ -1,26 +1,26 @@
 import { Fn, Resource } from 'cdktf';
-import { AwsProvider, DataSources, KMS, SSM, VPC } from '@cdktf/provider-aws';
+import { AwsProvider, datasources, kms, ssm, vpc } from '@cdktf/provider-aws';
 import { Construct } from 'constructs';
 
 export class PocketVPC extends Resource {
-  public readonly vpc: VPC.DataAwsVpc;
+  public readonly vpc: vpc.DataAwsVpc;
 
   public readonly region: string;
   public readonly accountId: string;
   public readonly privateSubnetIds: string[];
   public readonly publicSubnetIds: string[];
-  public readonly secretsManagerSecretKey: KMS.DataAwsKmsAlias;
-  public readonly defaultSecurityGroups: VPC.DataAwsSecurityGroups;
+  public readonly secretsManagerSecretKey: kms.DataAwsKmsAlias;
+  public readonly defaultSecurityGroups: vpc.DataAwsSecurityGroups;
 
   constructor(scope: Construct, name: string, awsProvider?: AwsProvider) {
     super(scope, name);
 
-    const vpcSSMParam = new SSM.DataAwsSsmParameter(this, `vpc_ssm_param`, {
+    const vpcSSMParam = new ssm.DataAwsSsmParameter(this, `vpc_ssm_param`, {
       provider: awsProvider,
       name: '/Shared/Vpc',
     });
 
-    this.vpc = new VPC.DataAwsVpc(this, `vpc`, {
+    this.vpc = new vpc.DataAwsVpc(this, `vpc`, {
       provider: awsProvider,
       filter: [
         {
@@ -30,12 +30,12 @@ export class PocketVPC extends Resource {
       ],
     });
 
-    const privateString = new SSM.DataAwsSsmParameter(this, `private_subnets`, {
+    const privateString = new ssm.DataAwsSsmParameter(this, `private_subnets`, {
       provider: awsProvider,
       name: '/Shared/PrivateSubnets',
     });
 
-    const privateSubnets = new VPC.DataAwsSubnetIds(
+    const privateSubnets = new vpc.DataAwsSubnetIds(
       this,
       `private_subnet_ids`,
       {
@@ -52,12 +52,12 @@ export class PocketVPC extends Resource {
 
     this.privateSubnetIds = privateSubnets.ids;
 
-    const publicString = new SSM.DataAwsSsmParameter(this, `public_subnets`, {
+    const publicString = new ssm.DataAwsSsmParameter(this, `public_subnets`, {
       provider: awsProvider,
       name: '/Shared/PublicSubnets',
     });
 
-    const publicSubnets = new VPC.DataAwsSubnetIds(this, `public_subnet_ids`, {
+    const publicSubnets = new vpc.DataAwsSubnetIds(this, `public_subnet_ids`, {
       provider: awsProvider,
       vpcId: this.vpc.id,
       filter: [
@@ -70,7 +70,7 @@ export class PocketVPC extends Resource {
 
     this.publicSubnetIds = publicSubnets.ids;
 
-    const identity = new DataSources.DataAwsCallerIdentity(
+    const identity = new datasources.DataAwsCallerIdentity(
       this,
       `current_identity`,
       {
@@ -79,12 +79,12 @@ export class PocketVPC extends Resource {
     );
     this.accountId = identity.accountId;
 
-    const region = new DataSources.DataAwsRegion(this, 'current_region', {
+    const region = new datasources.DataAwsRegion(this, 'current_region', {
       provider: awsProvider,
     });
     this.region = region.name;
 
-    this.secretsManagerSecretKey = new KMS.DataAwsKmsAlias(
+    this.secretsManagerSecretKey = new kms.DataAwsKmsAlias(
       this,
       'secrets_manager_key',
       {
@@ -93,7 +93,7 @@ export class PocketVPC extends Resource {
       }
     );
 
-    this.defaultSecurityGroups = new VPC.DataAwsSecurityGroups(
+    this.defaultSecurityGroups = new vpc.DataAwsSecurityGroups(
       this,
       'default_security_groups',
       {

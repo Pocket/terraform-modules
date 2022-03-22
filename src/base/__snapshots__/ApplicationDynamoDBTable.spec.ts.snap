@@ -130,16 +130,16 @@ exports[`ApplicationDynamoDBTable renders dynamo db table global secondary index
           \\"target_value\\": 1
         }
       },
-      \\"testDynamoDBTable_TfTokenTOKEN79_ReadCapacity_table_policy_E8855CD8\\": {
+      \\"testDynamoDBTable_testDynamoDBTable_dynamodb_table_A3DD49A4_ReadCapacity_table_policy_558BE4C0\\": {
         \\"depends_on\\": [
-          \\"aws_appautoscaling_target.testDynamoDBTable_TfTokenTOKEN79_ReadCapacity_table_target_2A3A6607\\",
+          \\"aws_appautoscaling_target.testDynamoDBTable_testDynamoDBTable_dynamodb_table_A3DD49A4_ReadCapacity_table_target_5A95550B\\",
           \\"aws_dynamodb_table.testDynamoDBTable_dynamodb_table_A3DD49A4\\"
         ],
-        \\"name\\": \\"DynamoDBReadCapacityUtilization:\${aws_appautoscaling_target.testDynamoDBTable_TfTokenTOKEN79_ReadCapacity_table_target_2A3A6607.resource_id}\\",
+        \\"name\\": \\"DynamoDBReadCapacityUtilization:\${aws_appautoscaling_target.testDynamoDBTable_testDynamoDBTable_dynamodb_table_A3DD49A4_ReadCapacity_table_target_5A95550B.resource_id}\\",
         \\"policy_type\\": \\"TargetTrackingScaling\\",
-        \\"resource_id\\": \\"\${aws_appautoscaling_target.testDynamoDBTable_TfTokenTOKEN79_ReadCapacity_table_target_2A3A6607.resource_id}\\",
-        \\"scalable_dimension\\": \\"\${aws_appautoscaling_target.testDynamoDBTable_TfTokenTOKEN79_ReadCapacity_table_target_2A3A6607.scalable_dimension}\\",
-        \\"service_namespace\\": \\"\${aws_appautoscaling_target.testDynamoDBTable_TfTokenTOKEN79_ReadCapacity_table_target_2A3A6607.service_namespace}\\",
+        \\"resource_id\\": \\"\${aws_appautoscaling_target.testDynamoDBTable_testDynamoDBTable_dynamodb_table_A3DD49A4_ReadCapacity_table_target_5A95550B.resource_id}\\",
+        \\"scalable_dimension\\": \\"\${aws_appautoscaling_target.testDynamoDBTable_testDynamoDBTable_dynamodb_table_A3DD49A4_ReadCapacity_table_target_5A95550B.scalable_dimension}\\",
+        \\"service_namespace\\": \\"\${aws_appautoscaling_target.testDynamoDBTable_testDynamoDBTable_dynamodb_table_A3DD49A4_ReadCapacity_table_target_5A95550B.service_namespace}\\",
         \\"target_tracking_scaling_policy_configuration\\": {
           \\"predefined_metric_specification\\": {
             \\"predefined_metric_type\\": \\"DynamoDBReadCapacityUtilization\\"
@@ -147,16 +147,16 @@ exports[`ApplicationDynamoDBTable renders dynamo db table global secondary index
           \\"target_value\\": 1
         }
       },
-      \\"testDynamoDBTable_TfTokenTOKEN96_WriteCapacity_table_policy_0BA00C8E\\": {
+      \\"testDynamoDBTable_testDynamoDBTable_dynamodb_table_A3DD49A4_WriteCapacity_table_policy_45352666\\": {
         \\"depends_on\\": [
-          \\"aws_appautoscaling_target.testDynamoDBTable_TfTokenTOKEN96_WriteCapacity_table_target_06EC8735\\",
+          \\"aws_appautoscaling_target.testDynamoDBTable_testDynamoDBTable_dynamodb_table_A3DD49A4_WriteCapacity_table_target_EC052FEE\\",
           \\"aws_dynamodb_table.testDynamoDBTable_dynamodb_table_A3DD49A4\\"
         ],
-        \\"name\\": \\"DynamoDBWriteCapacityUtilization:\${aws_appautoscaling_target.testDynamoDBTable_TfTokenTOKEN96_WriteCapacity_table_target_06EC8735.resource_id}\\",
+        \\"name\\": \\"DynamoDBWriteCapacityUtilization:\${aws_appautoscaling_target.testDynamoDBTable_testDynamoDBTable_dynamodb_table_A3DD49A4_WriteCapacity_table_target_EC052FEE.resource_id}\\",
         \\"policy_type\\": \\"TargetTrackingScaling\\",
-        \\"resource_id\\": \\"\${aws_appautoscaling_target.testDynamoDBTable_TfTokenTOKEN96_WriteCapacity_table_target_06EC8735.resource_id}\\",
-        \\"scalable_dimension\\": \\"\${aws_appautoscaling_target.testDynamoDBTable_TfTokenTOKEN96_WriteCapacity_table_target_06EC8735.scalable_dimension}\\",
-        \\"service_namespace\\": \\"\${aws_appautoscaling_target.testDynamoDBTable_TfTokenTOKEN96_WriteCapacity_table_target_06EC8735.service_namespace}\\",
+        \\"resource_id\\": \\"\${aws_appautoscaling_target.testDynamoDBTable_testDynamoDBTable_dynamodb_table_A3DD49A4_WriteCapacity_table_target_EC052FEE.resource_id}\\",
+        \\"scalable_dimension\\": \\"\${aws_appautoscaling_target.testDynamoDBTable_testDynamoDBTable_dynamodb_table_A3DD49A4_WriteCapacity_table_target_EC052FEE.scalable_dimension}\\",
+        \\"service_namespace\\": \\"\${aws_appautoscaling_target.testDynamoDBTable_testDynamoDBTable_dynamodb_table_A3DD49A4_WriteCapacity_table_target_EC052FEE.service_namespace}\\",
         \\"target_tracking_scaling_policy_configuration\\": {
           \\"predefined_metric_specification\\": {
             \\"predefined_metric_type\\": \\"DynamoDBWriteCapacityUtilization\\"
@@ -188,7 +188,7 @@ exports[`ApplicationDynamoDBTable renders dynamo db table global secondary index
         \\"scalable_dimension\\": \\"dynamodb:index:WriteCapacityUnits\\",
         \\"service_namespace\\": \\"dynamodb\\"
       },
-      \\"testDynamoDBTable_TfTokenTOKEN79_ReadCapacity_table_target_2A3A6607\\": {
+      \\"testDynamoDBTable_testDynamoDBTable_dynamodb_table_A3DD49A4_ReadCapacity_table_target_5A95550B\\": {
         \\"depends_on\\": [
           \\"aws_dynamodb_table.testDynamoDBTable_dynamodb_table_A3DD49A4\\"
         ],
@@ -199,7 +199,7 @@ exports[`ApplicationDynamoDBTable renders dynamo db table global secondary index
         \\"scalable_dimension\\": \\"dynamodb:table:ReadCapacityUnits\\",
         \\"service_namespace\\": \\"dynamodb\\"
       },
-      \\"testDynamoDBTable_TfTokenTOKEN96_WriteCapacity_table_target_06EC8735\\": {
+      \\"testDynamoDBTable_testDynamoDBTable_dynamodb_table_A3DD49A4_WriteCapacity_table_target_EC052FEE\\": {
         \\"depends_on\\": [
           \\"aws_dynamodb_table.testDynamoDBTable_dynamodb_table_A3DD49A4\\"
         ],
@@ -295,7 +295,8 @@ exports[`ApplicationDynamoDBTable renders dynamo db table that is not protected 
           }
         ],
         \\"billing_mode\\": \\"PROVISIONED\\",
-        \\"global_secondary_index\\": [],
+        \\"global_secondary_index\\": [
+        ],
         \\"hash_key\\": \\"123\\",
         \\"lifecycle\\": {
           \\"ignore_changes\\": [
@@ -441,16 +442,16 @@ exports[`ApplicationDynamoDBTable renders dynamo db table with 2 global secondar
           \\"target_value\\": 1
         }
       },
-      \\"testDynamoDBTable_TfTokenTOKEN113_ReadCapacity_table_policy_EFE71026\\": {
+      \\"testDynamoDBTable_testDynamoDBTable_dynamodb_table_A3DD49A4_ReadCapacity_table_policy_558BE4C0\\": {
         \\"depends_on\\": [
-          \\"aws_appautoscaling_target.testDynamoDBTable_TfTokenTOKEN113_ReadCapacity_table_target_82AB08EB\\",
+          \\"aws_appautoscaling_target.testDynamoDBTable_testDynamoDBTable_dynamodb_table_A3DD49A4_ReadCapacity_table_target_5A95550B\\",
           \\"aws_dynamodb_table.testDynamoDBTable_dynamodb_table_A3DD49A4\\"
         ],
-        \\"name\\": \\"DynamoDBReadCapacityUtilization:\${aws_appautoscaling_target.testDynamoDBTable_TfTokenTOKEN113_ReadCapacity_table_target_82AB08EB.resource_id}\\",
+        \\"name\\": \\"DynamoDBReadCapacityUtilization:\${aws_appautoscaling_target.testDynamoDBTable_testDynamoDBTable_dynamodb_table_A3DD49A4_ReadCapacity_table_target_5A95550B.resource_id}\\",
         \\"policy_type\\": \\"TargetTrackingScaling\\",
-        \\"resource_id\\": \\"\${aws_appautoscaling_target.testDynamoDBTable_TfTokenTOKEN113_ReadCapacity_table_target_82AB08EB.resource_id}\\",
-        \\"scalable_dimension\\": \\"\${aws_appautoscaling_target.testDynamoDBTable_TfTokenTOKEN113_ReadCapacity_table_target_82AB08EB.scalable_dimension}\\",
-        \\"service_namespace\\": \\"\${aws_appautoscaling_target.testDynamoDBTable_TfTokenTOKEN113_ReadCapacity_table_target_82AB08EB.service_namespace}\\",
+        \\"resource_id\\": \\"\${aws_appautoscaling_target.testDynamoDBTable_testDynamoDBTable_dynamodb_table_A3DD49A4_ReadCapacity_table_target_5A95550B.resource_id}\\",
+        \\"scalable_dimension\\": \\"\${aws_appautoscaling_target.testDynamoDBTable_testDynamoDBTable_dynamodb_table_A3DD49A4_ReadCapacity_table_target_5A95550B.scalable_dimension}\\",
+        \\"service_namespace\\": \\"\${aws_appautoscaling_target.testDynamoDBTable_testDynamoDBTable_dynamodb_table_A3DD49A4_ReadCapacity_table_target_5A95550B.service_namespace}\\",
         \\"target_tracking_scaling_policy_configuration\\": {
           \\"predefined_metric_specification\\": {
             \\"predefined_metric_type\\": \\"DynamoDBReadCapacityUtilization\\"
@@ -458,16 +459,16 @@ exports[`ApplicationDynamoDBTable renders dynamo db table with 2 global secondar
           \\"target_value\\": 1
         }
       },
-      \\"testDynamoDBTable_TfTokenTOKEN130_WriteCapacity_table_policy_E6E1DF4B\\": {
+      \\"testDynamoDBTable_testDynamoDBTable_dynamodb_table_A3DD49A4_WriteCapacity_table_policy_45352666\\": {
         \\"depends_on\\": [
-          \\"aws_appautoscaling_target.testDynamoDBTable_TfTokenTOKEN130_WriteCapacity_table_target_1D9B3792\\",
+          \\"aws_appautoscaling_target.testDynamoDBTable_testDynamoDBTable_dynamodb_table_A3DD49A4_WriteCapacity_table_target_EC052FEE\\",
           \\"aws_dynamodb_table.testDynamoDBTable_dynamodb_table_A3DD49A4\\"
         ],
-        \\"name\\": \\"DynamoDBWriteCapacityUtilization:\${aws_appautoscaling_target.testDynamoDBTable_TfTokenTOKEN130_WriteCapacity_table_target_1D9B3792.resource_id}\\",
+        \\"name\\": \\"DynamoDBWriteCapacityUtilization:\${aws_appautoscaling_target.testDynamoDBTable_testDynamoDBTable_dynamodb_table_A3DD49A4_WriteCapacity_table_target_EC052FEE.resource_id}\\",
         \\"policy_type\\": \\"TargetTrackingScaling\\",
-        \\"resource_id\\": \\"\${aws_appautoscaling_target.testDynamoDBTable_TfTokenTOKEN130_WriteCapacity_table_target_1D9B3792.resource_id}\\",
-        \\"scalable_dimension\\": \\"\${aws_appautoscaling_target.testDynamoDBTable_TfTokenTOKEN130_WriteCapacity_table_target_1D9B3792.scalable_dimension}\\",
-        \\"service_namespace\\": \\"\${aws_appautoscaling_target.testDynamoDBTable_TfTokenTOKEN130_WriteCapacity_table_target_1D9B3792.service_namespace}\\",
+        \\"resource_id\\": \\"\${aws_appautoscaling_target.testDynamoDBTable_testDynamoDBTable_dynamodb_table_A3DD49A4_WriteCapacity_table_target_EC052FEE.resource_id}\\",
+        \\"scalable_dimension\\": \\"\${aws_appautoscaling_target.testDynamoDBTable_testDynamoDBTable_dynamodb_table_A3DD49A4_WriteCapacity_table_target_EC052FEE.scalable_dimension}\\",
+        \\"service_namespace\\": \\"\${aws_appautoscaling_target.testDynamoDBTable_testDynamoDBTable_dynamodb_table_A3DD49A4_WriteCapacity_table_target_EC052FEE.service_namespace}\\",
         \\"target_tracking_scaling_policy_configuration\\": {
           \\"predefined_metric_specification\\": {
             \\"predefined_metric_type\\": \\"DynamoDBWriteCapacityUtilization\\"
@@ -499,7 +500,7 @@ exports[`ApplicationDynamoDBTable renders dynamo db table with 2 global secondar
         \\"scalable_dimension\\": \\"dynamodb:index:WriteCapacityUnits\\",
         \\"service_namespace\\": \\"dynamodb\\"
       },
-      \\"testDynamoDBTable_TfTokenTOKEN113_ReadCapacity_table_target_82AB08EB\\": {
+      \\"testDynamoDBTable_testDynamoDBTable_dynamodb_table_A3DD49A4_ReadCapacity_table_target_5A95550B\\": {
         \\"depends_on\\": [
           \\"aws_dynamodb_table.testDynamoDBTable_dynamodb_table_A3DD49A4\\"
         ],
@@ -510,7 +511,7 @@ exports[`ApplicationDynamoDBTable renders dynamo db table with 2 global secondar
         \\"scalable_dimension\\": \\"dynamodb:table:ReadCapacityUnits\\",
         \\"service_namespace\\": \\"dynamodb\\"
       },
-      \\"testDynamoDBTable_TfTokenTOKEN130_WriteCapacity_table_target_1D9B3792\\": {
+      \\"testDynamoDBTable_testDynamoDBTable_dynamodb_table_A3DD49A4_WriteCapacity_table_target_EC052FEE\\": {
         \\"depends_on\\": [
           \\"aws_dynamodb_table.testDynamoDBTable_dynamodb_table_A3DD49A4\\"
         ],
@@ -606,7 +607,8 @@ exports[`ApplicationDynamoDBTable renders dynamo db table with minimal config 1`
           }
         ],
         \\"billing_mode\\": \\"PROVISIONED\\",
-        \\"global_secondary_index\\": [],
+        \\"global_secondary_index\\": [
+        ],
         \\"hash_key\\": \\"123\\",
         \\"lifecycle\\": {
           \\"ignore_changes\\": [
@@ -634,7 +636,8 @@ exports[`ApplicationDynamoDBTable renders dynamo db table with on-demand capacit
           }
         ],
         \\"billing_mode\\": \\"PAY_PER_REQUEST\\",
-        \\"global_secondary_index\\": [],
+        \\"global_secondary_index\\": [
+        ],
         \\"hash_key\\": \\"123\\",
         \\"lifecycle\\": {
           \\"ignore_changes\\": [
@@ -746,16 +749,16 @@ exports[`ApplicationDynamoDBTable renders dynamo db table with read and write ca
   },
   \\"resource\\": {
     \\"aws_appautoscaling_policy\\": {
-      \\"testDynamoDBTable_TfTokenTOKEN31_ReadCapacity_table_policy_605F58DC\\": {
+      \\"testDynamoDBTable_testDynamoDBTable_dynamodb_table_A3DD49A4_ReadCapacity_table_policy_558BE4C0\\": {
         \\"depends_on\\": [
-          \\"aws_appautoscaling_target.testDynamoDBTable_TfTokenTOKEN31_ReadCapacity_table_target_BA5529B1\\",
+          \\"aws_appautoscaling_target.testDynamoDBTable_testDynamoDBTable_dynamodb_table_A3DD49A4_ReadCapacity_table_target_5A95550B\\",
           \\"aws_dynamodb_table.testDynamoDBTable_dynamodb_table_A3DD49A4\\"
         ],
-        \\"name\\": \\"DynamoDBReadCapacityUtilization:\${aws_appautoscaling_target.testDynamoDBTable_TfTokenTOKEN31_ReadCapacity_table_target_BA5529B1.resource_id}\\",
+        \\"name\\": \\"DynamoDBReadCapacityUtilization:\${aws_appautoscaling_target.testDynamoDBTable_testDynamoDBTable_dynamodb_table_A3DD49A4_ReadCapacity_table_target_5A95550B.resource_id}\\",
         \\"policy_type\\": \\"TargetTrackingScaling\\",
-        \\"resource_id\\": \\"\${aws_appautoscaling_target.testDynamoDBTable_TfTokenTOKEN31_ReadCapacity_table_target_BA5529B1.resource_id}\\",
-        \\"scalable_dimension\\": \\"\${aws_appautoscaling_target.testDynamoDBTable_TfTokenTOKEN31_ReadCapacity_table_target_BA5529B1.scalable_dimension}\\",
-        \\"service_namespace\\": \\"\${aws_appautoscaling_target.testDynamoDBTable_TfTokenTOKEN31_ReadCapacity_table_target_BA5529B1.service_namespace}\\",
+        \\"resource_id\\": \\"\${aws_appautoscaling_target.testDynamoDBTable_testDynamoDBTable_dynamodb_table_A3DD49A4_ReadCapacity_table_target_5A95550B.resource_id}\\",
+        \\"scalable_dimension\\": \\"\${aws_appautoscaling_target.testDynamoDBTable_testDynamoDBTable_dynamodb_table_A3DD49A4_ReadCapacity_table_target_5A95550B.scalable_dimension}\\",
+        \\"service_namespace\\": \\"\${aws_appautoscaling_target.testDynamoDBTable_testDynamoDBTable_dynamodb_table_A3DD49A4_ReadCapacity_table_target_5A95550B.service_namespace}\\",
         \\"target_tracking_scaling_policy_configuration\\": {
           \\"predefined_metric_specification\\": {
             \\"predefined_metric_type\\": \\"DynamoDBReadCapacityUtilization\\"
@@ -763,16 +766,16 @@ exports[`ApplicationDynamoDBTable renders dynamo db table with read and write ca
           \\"target_value\\": 1
         }
       },
-      \\"testDynamoDBTable_TfTokenTOKEN43_WriteCapacity_table_policy_6B9ED344\\": {
+      \\"testDynamoDBTable_testDynamoDBTable_dynamodb_table_A3DD49A4_WriteCapacity_table_policy_45352666\\": {
         \\"depends_on\\": [
-          \\"aws_appautoscaling_target.testDynamoDBTable_TfTokenTOKEN43_WriteCapacity_table_target_D4306FA7\\",
+          \\"aws_appautoscaling_target.testDynamoDBTable_testDynamoDBTable_dynamodb_table_A3DD49A4_WriteCapacity_table_target_EC052FEE\\",
           \\"aws_dynamodb_table.testDynamoDBTable_dynamodb_table_A3DD49A4\\"
         ],
-        \\"name\\": \\"DynamoDBWriteCapacityUtilization:\${aws_appautoscaling_target.testDynamoDBTable_TfTokenTOKEN43_WriteCapacity_table_target_D4306FA7.resource_id}\\",
+        \\"name\\": \\"DynamoDBWriteCapacityUtilization:\${aws_appautoscaling_target.testDynamoDBTable_testDynamoDBTable_dynamodb_table_A3DD49A4_WriteCapacity_table_target_EC052FEE.resource_id}\\",
         \\"policy_type\\": \\"TargetTrackingScaling\\",
-        \\"resource_id\\": \\"\${aws_appautoscaling_target.testDynamoDBTable_TfTokenTOKEN43_WriteCapacity_table_target_D4306FA7.resource_id}\\",
-        \\"scalable_dimension\\": \\"\${aws_appautoscaling_target.testDynamoDBTable_TfTokenTOKEN43_WriteCapacity_table_target_D4306FA7.scalable_dimension}\\",
-        \\"service_namespace\\": \\"\${aws_appautoscaling_target.testDynamoDBTable_TfTokenTOKEN43_WriteCapacity_table_target_D4306FA7.service_namespace}\\",
+        \\"resource_id\\": \\"\${aws_appautoscaling_target.testDynamoDBTable_testDynamoDBTable_dynamodb_table_A3DD49A4_WriteCapacity_table_target_EC052FEE.resource_id}\\",
+        \\"scalable_dimension\\": \\"\${aws_appautoscaling_target.testDynamoDBTable_testDynamoDBTable_dynamodb_table_A3DD49A4_WriteCapacity_table_target_EC052FEE.scalable_dimension}\\",
+        \\"service_namespace\\": \\"\${aws_appautoscaling_target.testDynamoDBTable_testDynamoDBTable_dynamodb_table_A3DD49A4_WriteCapacity_table_target_EC052FEE.service_namespace}\\",
         \\"target_tracking_scaling_policy_configuration\\": {
           \\"predefined_metric_specification\\": {
             \\"predefined_metric_type\\": \\"DynamoDBWriteCapacityUtilization\\"
@@ -782,7 +785,7 @@ exports[`ApplicationDynamoDBTable renders dynamo db table with read and write ca
       }
     },
     \\"aws_appautoscaling_target\\": {
-      \\"testDynamoDBTable_TfTokenTOKEN31_ReadCapacity_table_target_BA5529B1\\": {
+      \\"testDynamoDBTable_testDynamoDBTable_dynamodb_table_A3DD49A4_ReadCapacity_table_target_5A95550B\\": {
         \\"depends_on\\": [
           \\"aws_dynamodb_table.testDynamoDBTable_dynamodb_table_A3DD49A4\\"
         ],
@@ -793,7 +796,7 @@ exports[`ApplicationDynamoDBTable renders dynamo db table with read and write ca
         \\"scalable_dimension\\": \\"dynamodb:table:ReadCapacityUnits\\",
         \\"service_namespace\\": \\"dynamodb\\"
       },
-      \\"testDynamoDBTable_TfTokenTOKEN43_WriteCapacity_table_target_D4306FA7\\": {
+      \\"testDynamoDBTable_testDynamoDBTable_dynamodb_table_A3DD49A4_WriteCapacity_table_target_EC052FEE\\": {
         \\"depends_on\\": [
           \\"aws_dynamodb_table.testDynamoDBTable_dynamodb_table_A3DD49A4\\"
         ],
@@ -814,7 +817,8 @@ exports[`ApplicationDynamoDBTable renders dynamo db table with read and write ca
           }
         ],
         \\"billing_mode\\": \\"PROVISIONED\\",
-        \\"global_secondary_index\\": [],
+        \\"global_secondary_index\\": [
+        ],
         \\"hash_key\\": \\"123\\",
         \\"lifecycle\\": {
           \\"ignore_changes\\": [
@@ -964,16 +968,16 @@ exports[`ApplicationDynamoDBTable renders dynamo db table with read and write ca
   },
   \\"resource\\": {
     \\"aws_appautoscaling_policy\\": {
-      \\"testDynamoDBTable_TfTokenTOKEN55_ReadCapacity_table_policy_DB7E9419\\": {
+      \\"testDynamoDBTable_testDynamoDBTable_dynamodb_table_A3DD49A4_ReadCapacity_table_policy_558BE4C0\\": {
         \\"depends_on\\": [
-          \\"aws_appautoscaling_target.testDynamoDBTable_TfTokenTOKEN55_ReadCapacity_table_target_42A5C3BC\\",
+          \\"aws_appautoscaling_target.testDynamoDBTable_testDynamoDBTable_dynamodb_table_A3DD49A4_ReadCapacity_table_target_5A95550B\\",
           \\"aws_dynamodb_table.testDynamoDBTable_dynamodb_table_A3DD49A4\\"
         ],
-        \\"name\\": \\"DynamoDBReadCapacityUtilization:\${aws_appautoscaling_target.testDynamoDBTable_TfTokenTOKEN55_ReadCapacity_table_target_42A5C3BC.resource_id}\\",
+        \\"name\\": \\"DynamoDBReadCapacityUtilization:\${aws_appautoscaling_target.testDynamoDBTable_testDynamoDBTable_dynamodb_table_A3DD49A4_ReadCapacity_table_target_5A95550B.resource_id}\\",
         \\"policy_type\\": \\"TargetTrackingScaling\\",
-        \\"resource_id\\": \\"\${aws_appautoscaling_target.testDynamoDBTable_TfTokenTOKEN55_ReadCapacity_table_target_42A5C3BC.resource_id}\\",
-        \\"scalable_dimension\\": \\"\${aws_appautoscaling_target.testDynamoDBTable_TfTokenTOKEN55_ReadCapacity_table_target_42A5C3BC.scalable_dimension}\\",
-        \\"service_namespace\\": \\"\${aws_appautoscaling_target.testDynamoDBTable_TfTokenTOKEN55_ReadCapacity_table_target_42A5C3BC.service_namespace}\\",
+        \\"resource_id\\": \\"\${aws_appautoscaling_target.testDynamoDBTable_testDynamoDBTable_dynamodb_table_A3DD49A4_ReadCapacity_table_target_5A95550B.resource_id}\\",
+        \\"scalable_dimension\\": \\"\${aws_appautoscaling_target.testDynamoDBTable_testDynamoDBTable_dynamodb_table_A3DD49A4_ReadCapacity_table_target_5A95550B.scalable_dimension}\\",
+        \\"service_namespace\\": \\"\${aws_appautoscaling_target.testDynamoDBTable_testDynamoDBTable_dynamodb_table_A3DD49A4_ReadCapacity_table_target_5A95550B.service_namespace}\\",
         \\"target_tracking_scaling_policy_configuration\\": {
           \\"predefined_metric_specification\\": {
             \\"predefined_metric_type\\": \\"DynamoDBReadCapacityUtilization\\"
@@ -981,16 +985,16 @@ exports[`ApplicationDynamoDBTable renders dynamo db table with read and write ca
           \\"target_value\\": 1
         }
       },
-      \\"testDynamoDBTable_TfTokenTOKEN67_WriteCapacity_table_policy_4E889EFF\\": {
+      \\"testDynamoDBTable_testDynamoDBTable_dynamodb_table_A3DD49A4_WriteCapacity_table_policy_45352666\\": {
         \\"depends_on\\": [
-          \\"aws_appautoscaling_target.testDynamoDBTable_TfTokenTOKEN67_WriteCapacity_table_target_58F67B68\\",
+          \\"aws_appautoscaling_target.testDynamoDBTable_testDynamoDBTable_dynamodb_table_A3DD49A4_WriteCapacity_table_target_EC052FEE\\",
           \\"aws_dynamodb_table.testDynamoDBTable_dynamodb_table_A3DD49A4\\"
         ],
-        \\"name\\": \\"DynamoDBWriteCapacityUtilization:\${aws_appautoscaling_target.testDynamoDBTable_TfTokenTOKEN67_WriteCapacity_table_target_58F67B68.resource_id}\\",
+        \\"name\\": \\"DynamoDBWriteCapacityUtilization:\${aws_appautoscaling_target.testDynamoDBTable_testDynamoDBTable_dynamodb_table_A3DD49A4_WriteCapacity_table_target_EC052FEE.resource_id}\\",
         \\"policy_type\\": \\"TargetTrackingScaling\\",
-        \\"resource_id\\": \\"\${aws_appautoscaling_target.testDynamoDBTable_TfTokenTOKEN67_WriteCapacity_table_target_58F67B68.resource_id}\\",
-        \\"scalable_dimension\\": \\"\${aws_appautoscaling_target.testDynamoDBTable_TfTokenTOKEN67_WriteCapacity_table_target_58F67B68.scalable_dimension}\\",
-        \\"service_namespace\\": \\"\${aws_appautoscaling_target.testDynamoDBTable_TfTokenTOKEN67_WriteCapacity_table_target_58F67B68.service_namespace}\\",
+        \\"resource_id\\": \\"\${aws_appautoscaling_target.testDynamoDBTable_testDynamoDBTable_dynamodb_table_A3DD49A4_WriteCapacity_table_target_EC052FEE.resource_id}\\",
+        \\"scalable_dimension\\": \\"\${aws_appautoscaling_target.testDynamoDBTable_testDynamoDBTable_dynamodb_table_A3DD49A4_WriteCapacity_table_target_EC052FEE.scalable_dimension}\\",
+        \\"service_namespace\\": \\"\${aws_appautoscaling_target.testDynamoDBTable_testDynamoDBTable_dynamodb_table_A3DD49A4_WriteCapacity_table_target_EC052FEE.service_namespace}\\",
         \\"target_tracking_scaling_policy_configuration\\": {
           \\"predefined_metric_specification\\": {
             \\"predefined_metric_type\\": \\"DynamoDBWriteCapacityUtilization\\"
@@ -1000,7 +1004,7 @@ exports[`ApplicationDynamoDBTable renders dynamo db table with read and write ca
       }
     },
     \\"aws_appautoscaling_target\\": {
-      \\"testDynamoDBTable_TfTokenTOKEN55_ReadCapacity_table_target_42A5C3BC\\": {
+      \\"testDynamoDBTable_testDynamoDBTable_dynamodb_table_A3DD49A4_ReadCapacity_table_target_5A95550B\\": {
         \\"depends_on\\": [
           \\"aws_dynamodb_table.testDynamoDBTable_dynamodb_table_A3DD49A4\\"
         ],
@@ -1011,7 +1015,7 @@ exports[`ApplicationDynamoDBTable renders dynamo db table with read and write ca
         \\"scalable_dimension\\": \\"dynamodb:table:ReadCapacityUnits\\",
         \\"service_namespace\\": \\"dynamodb\\"
       },
-      \\"testDynamoDBTable_TfTokenTOKEN67_WriteCapacity_table_target_58F67B68\\": {
+      \\"testDynamoDBTable_testDynamoDBTable_dynamodb_table_A3DD49A4_WriteCapacity_table_target_EC052FEE\\": {
         \\"depends_on\\": [
           \\"aws_dynamodb_table.testDynamoDBTable_dynamodb_table_A3DD49A4\\"
         ],
@@ -1032,7 +1036,8 @@ exports[`ApplicationDynamoDBTable renders dynamo db table with read and write ca
           }
         ],
         \\"billing_mode\\": \\"PROVISIONED\\",
-        \\"global_secondary_index\\": [],
+        \\"global_secondary_index\\": [
+        ],
         \\"hash_key\\": \\"123\\",
         \\"lifecycle\\": {
           \\"ignore_changes\\": [
@@ -1150,16 +1155,16 @@ exports[`ApplicationDynamoDBTable renders dynamo db table with read capacity 1`]
   },
   \\"resource\\": {
     \\"aws_appautoscaling_policy\\": {
-      \\"testDynamoDBTable_TfTokenTOKEN7_ReadCapacity_table_policy_294834B0\\": {
+      \\"testDynamoDBTable_testDynamoDBTable_dynamodb_table_A3DD49A4_ReadCapacity_table_policy_558BE4C0\\": {
         \\"depends_on\\": [
-          \\"aws_appautoscaling_target.testDynamoDBTable_TfTokenTOKEN7_ReadCapacity_table_target_F5B6296D\\",
+          \\"aws_appautoscaling_target.testDynamoDBTable_testDynamoDBTable_dynamodb_table_A3DD49A4_ReadCapacity_table_target_5A95550B\\",
           \\"aws_dynamodb_table.testDynamoDBTable_dynamodb_table_A3DD49A4\\"
         ],
-        \\"name\\": \\"DynamoDBReadCapacityUtilization:\${aws_appautoscaling_target.testDynamoDBTable_TfTokenTOKEN7_ReadCapacity_table_target_F5B6296D.resource_id}\\",
+        \\"name\\": \\"DynamoDBReadCapacityUtilization:\${aws_appautoscaling_target.testDynamoDBTable_testDynamoDBTable_dynamodb_table_A3DD49A4_ReadCapacity_table_target_5A95550B.resource_id}\\",
         \\"policy_type\\": \\"TargetTrackingScaling\\",
-        \\"resource_id\\": \\"\${aws_appautoscaling_target.testDynamoDBTable_TfTokenTOKEN7_ReadCapacity_table_target_F5B6296D.resource_id}\\",
-        \\"scalable_dimension\\": \\"\${aws_appautoscaling_target.testDynamoDBTable_TfTokenTOKEN7_ReadCapacity_table_target_F5B6296D.scalable_dimension}\\",
-        \\"service_namespace\\": \\"\${aws_appautoscaling_target.testDynamoDBTable_TfTokenTOKEN7_ReadCapacity_table_target_F5B6296D.service_namespace}\\",
+        \\"resource_id\\": \\"\${aws_appautoscaling_target.testDynamoDBTable_testDynamoDBTable_dynamodb_table_A3DD49A4_ReadCapacity_table_target_5A95550B.resource_id}\\",
+        \\"scalable_dimension\\": \\"\${aws_appautoscaling_target.testDynamoDBTable_testDynamoDBTable_dynamodb_table_A3DD49A4_ReadCapacity_table_target_5A95550B.scalable_dimension}\\",
+        \\"service_namespace\\": \\"\${aws_appautoscaling_target.testDynamoDBTable_testDynamoDBTable_dynamodb_table_A3DD49A4_ReadCapacity_table_target_5A95550B.service_namespace}\\",
         \\"target_tracking_scaling_policy_configuration\\": {
           \\"predefined_metric_specification\\": {
             \\"predefined_metric_type\\": \\"DynamoDBReadCapacityUtilization\\"
@@ -1169,7 +1174,7 @@ exports[`ApplicationDynamoDBTable renders dynamo db table with read capacity 1`]
       }
     },
     \\"aws_appautoscaling_target\\": {
-      \\"testDynamoDBTable_TfTokenTOKEN7_ReadCapacity_table_target_F5B6296D\\": {
+      \\"testDynamoDBTable_testDynamoDBTable_dynamodb_table_A3DD49A4_ReadCapacity_table_target_5A95550B\\": {
         \\"depends_on\\": [
           \\"aws_dynamodb_table.testDynamoDBTable_dynamodb_table_A3DD49A4\\"
         ],
@@ -1190,7 +1195,8 @@ exports[`ApplicationDynamoDBTable renders dynamo db table with read capacity 1`]
           }
         ],
         \\"billing_mode\\": \\"PROVISIONED\\",
-        \\"global_secondary_index\\": [],
+        \\"global_secondary_index\\": [
+        ],
         \\"hash_key\\": \\"123\\",
         \\"lifecycle\\": {
           \\"ignore_changes\\": [
@@ -1280,16 +1286,16 @@ exports[`ApplicationDynamoDBTable renders dynamo db table with write capacity 1`
   },
   \\"resource\\": {
     \\"aws_appautoscaling_policy\\": {
-      \\"testDynamoDBTable_TfTokenTOKEN19_WriteCapacity_table_policy_238B6436\\": {
+      \\"testDynamoDBTable_testDynamoDBTable_dynamodb_table_A3DD49A4_WriteCapacity_table_policy_45352666\\": {
         \\"depends_on\\": [
-          \\"aws_appautoscaling_target.testDynamoDBTable_TfTokenTOKEN19_WriteCapacity_table_target_5EFBF06D\\",
+          \\"aws_appautoscaling_target.testDynamoDBTable_testDynamoDBTable_dynamodb_table_A3DD49A4_WriteCapacity_table_target_EC052FEE\\",
           \\"aws_dynamodb_table.testDynamoDBTable_dynamodb_table_A3DD49A4\\"
         ],
-        \\"name\\": \\"DynamoDBWriteCapacityUtilization:\${aws_appautoscaling_target.testDynamoDBTable_TfTokenTOKEN19_WriteCapacity_table_target_5EFBF06D.resource_id}\\",
+        \\"name\\": \\"DynamoDBWriteCapacityUtilization:\${aws_appautoscaling_target.testDynamoDBTable_testDynamoDBTable_dynamodb_table_A3DD49A4_WriteCapacity_table_target_EC052FEE.resource_id}\\",
         \\"policy_type\\": \\"TargetTrackingScaling\\",
-        \\"resource_id\\": \\"\${aws_appautoscaling_target.testDynamoDBTable_TfTokenTOKEN19_WriteCapacity_table_target_5EFBF06D.resource_id}\\",
-        \\"scalable_dimension\\": \\"\${aws_appautoscaling_target.testDynamoDBTable_TfTokenTOKEN19_WriteCapacity_table_target_5EFBF06D.scalable_dimension}\\",
-        \\"service_namespace\\": \\"\${aws_appautoscaling_target.testDynamoDBTable_TfTokenTOKEN19_WriteCapacity_table_target_5EFBF06D.service_namespace}\\",
+        \\"resource_id\\": \\"\${aws_appautoscaling_target.testDynamoDBTable_testDynamoDBTable_dynamodb_table_A3DD49A4_WriteCapacity_table_target_EC052FEE.resource_id}\\",
+        \\"scalable_dimension\\": \\"\${aws_appautoscaling_target.testDynamoDBTable_testDynamoDBTable_dynamodb_table_A3DD49A4_WriteCapacity_table_target_EC052FEE.scalable_dimension}\\",
+        \\"service_namespace\\": \\"\${aws_appautoscaling_target.testDynamoDBTable_testDynamoDBTable_dynamodb_table_A3DD49A4_WriteCapacity_table_target_EC052FEE.service_namespace}\\",
         \\"target_tracking_scaling_policy_configuration\\": {
           \\"predefined_metric_specification\\": {
             \\"predefined_metric_type\\": \\"DynamoDBWriteCapacityUtilization\\"
@@ -1299,7 +1305,7 @@ exports[`ApplicationDynamoDBTable renders dynamo db table with write capacity 1`
       }
     },
     \\"aws_appautoscaling_target\\": {
-      \\"testDynamoDBTable_TfTokenTOKEN19_WriteCapacity_table_target_5EFBF06D\\": {
+      \\"testDynamoDBTable_testDynamoDBTable_dynamodb_table_A3DD49A4_WriteCapacity_table_target_EC052FEE\\": {
         \\"depends_on\\": [
           \\"aws_dynamodb_table.testDynamoDBTable_dynamodb_table_A3DD49A4\\"
         ],
@@ -1320,7 +1326,8 @@ exports[`ApplicationDynamoDBTable renders dynamo db table with write capacity 1`
           }
         ],
         \\"billing_mode\\": \\"PROVISIONED\\",
-        \\"global_secondary_index\\": [],
+        \\"global_secondary_index\\": [
+        ],
         \\"hash_key\\": \\"123\\",
         \\"lifecycle\\": {
           \\"ignore_changes\\": [

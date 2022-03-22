@@ -1,7 +1,7 @@
 import { Resource } from 'cdktf';
-import { Route53, ACM } from '@cdktf/provider-aws';
-const { DataAwsRoute53Zone, Route53Record } = Route53;
-const { AcmCertificate, AcmCertificateValidation } = ACM;
+import { route53, acm } from '@cdktf/provider-aws';
+const { DataAwsRoute53Zone, Route53Record } = route53;
+const { AcmCertificate, AcmCertificateValidation } = acm;
 import { Construct } from 'constructs';
 
 export interface ApplicationCertificateProps {
@@ -19,6 +19,9 @@ export interface ApplicationCertificateProps {
  */
 export class ApplicationCertificate extends Resource {
   public readonly arn: string;
+  // Use `certificateValidation` in `dependsOn` to block on the
+  // complete certificate for any downstream dependencies
+  public readonly certificateValidation: acm.AcmCertificateValidation;
 
   constructor(
     scope: Construct,
@@ -48,20 +51,21 @@ export class ApplicationCertificate extends Resource {
       certificate
     );
 
-    ApplicationCertificate.generateAcmCertificateValidation(
+    const validation = ApplicationCertificate.generateAcmCertificateValidation(
       this,
       certificate,
       certificateRecord
     );
 
     this.arn = certificate.arn;
+    this.certificateValidation = validation;
   }
 
   static generateAcmCertificate(
     resource: Resource,
     domain: string,
     tags?: { [key: string]: string }
-  ): ACM.AcmCertificate {
+  ): acm.AcmCertificate {
     return new AcmCertificate(resource, `certificate`, {
       domainName: domain,
       validationMethod: 'DNS',
@@ -75,8 +79,8 @@ export class ApplicationCertificate extends Resource {
   static generateRoute53Record(
     resource: Resource,
     zoneId: string,
-    cert: ACM.AcmCertificate
-  ): Route53.Route53Record {
+    cert: acm.AcmCertificate
+  ): route53.Route53Record {
     const record = new Route53Record(resource, `certificate_record`, {
       name: cert.domainValidationOptions('0').resourceRecordName,
       type: cert.domainValidationOptions('0').resourceRecordType,
@@ -108,10 +112,10 @@ export class ApplicationCertificate extends Resource {
 
   static generateAcmCertificateValidation(
     resource: Resource,
-    cert: ACM.AcmCertificate,
-    record: Route53.Route53Record
-  ): void {
-    new AcmCertificateValidation(resource, `certificate_validation`, {
+    cert: acm.AcmCertificate,
+    record: route53.Route53Record
+  ): acm.AcmCertificateValidation {
+    return new AcmCertificateValidation(resource, `certificate_validation`, {
       certificateArn: cert.arn,
       validationRecordFqdns: [record.fqdn],
       dependsOn: [record, cert],

@@ -42,7 +42,7 @@ exports[`renders a Pocket ECS Codepipeline template 1`] = `
             ],
             \\"effect\\": \\"Allow\\",
             \\"resources\\": [
-              \\"arn:aws:codebuild:*:*:project/Test-Env\\"
+              \\"arn:aws:codebuild:*:*:project/Test-Env*\\"
             ]
           },
           {
@@ -160,7 +160,7 @@ exports[`renders a Pocket ECS Codepipeline template 1`] = `
                 \\"input_artifacts\\": [
                   \\"SourceOutput\\"
                 ],
-                \\"name\\": \\"CodeBuild\\",
+                \\"name\\": \\"Deploy_CDK\\",
                 \\"output_artifacts\\": [
                   \\"CodeBuildOutput\\"
                 ],
@@ -172,9 +172,9 @@ exports[`renders a Pocket ECS Codepipeline template 1`] = `
               {
                 \\"category\\": \\"Deploy\\",
                 \\"configuration\\": {
-                  \\"ApplicationName\\": \\"Test-Env-ECS\\",
                   \\"AppSpecTemplateArtifact\\": \\"CodeBuildOutput\\",
                   \\"AppSpecTemplatePath\\": \\"appspec.json\\",
+                  \\"ApplicationName\\": \\"Test-Env-ECS\\",
                   \\"DeploymentGroupName\\": \\"Test-Env-ECS\\",
                   \\"TaskDefinitionTemplateArtifact\\": \\"CodeBuildOutput\\",
                   \\"TaskDefinitionTemplatePath\\": \\"taskdef.json\\"
@@ -190,6 +190,257 @@ exports[`renders a Pocket ECS Codepipeline template 1`] = `
               }
             ],
             \\"name\\": \\"Deploy\\"
+          }
+        ]
+      }
+    },
+    \\"aws_iam_role\\": {
+      \\"test-codepipeline_codepipeline-role_4D3D2364\\": {
+        \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.test-codepipeline_codepipeline-assume-role-policy_AB972C21.json}\\",
+        \\"name\\": \\"Test-Env-CodePipelineRole\\"
+      }
+    },
+    \\"aws_iam_role_policy\\": {
+      \\"test-codepipeline_codepipeline-role-policy_76FC5FBB\\": {
+        \\"name\\": \\"Test-Env-CodePipeline-Role-Policy\\",
+        \\"policy\\": \\"\${data.aws_iam_policy_document.test-codepipeline_codepipeline-role-policy-document_DD4EB3DB.json}\\",
+        \\"role\\": \\"\${aws_iam_role.test-codepipeline_codepipeline-role_4D3D2364.id}\\"
+      }
+    },
+    \\"aws_s3_bucket\\": {
+      \\"test-codepipeline_codepipeline-bucket_D4671464\\": {
+        \\"acl\\": \\"private\\",
+        \\"bucket\\": \\"pocket-codepipeline-e7e6d80d49c8787d2f7a7aca123082dd\\",
+        \\"force_destroy\\": true
+      }
+    }
+  }
+}"
+`;
+
+exports[`renders a Pocket ECS Codepipeline template with custom steps 1`] = `
+"{
+  \\"data\\": {
+    \\"aws_iam_policy_document\\": {
+      \\"test-codepipeline_codepipeline-assume-role-policy_AB972C21\\": {
+        \\"statement\\": [
+          {
+            \\"actions\\": [
+              \\"sts:AssumeRole\\"
+            ],
+            \\"effect\\": \\"Allow\\",
+            \\"principals\\": [
+              {
+                \\"identifiers\\": [
+                  \\"codepipeline.amazonaws.com\\"
+                ],
+                \\"type\\": \\"Service\\"
+              }
+            ]
+          }
+        ]
+      },
+      \\"test-codepipeline_codepipeline-role-policy-document_DD4EB3DB\\": {
+        \\"statement\\": [
+          {
+            \\"actions\\": [
+              \\"codestar-connections:UseConnection\\"
+            ],
+            \\"effect\\": \\"Allow\\",
+            \\"resources\\": [
+              \\"arn:codestart-connection:*\\"
+            ]
+          },
+          {
+            \\"actions\\": [
+              \\"codebuild:BatchGetBuilds\\",
+              \\"codebuild:StartBuild\\",
+              \\"codebuild:BatchGetBuildBatches\\",
+              \\"codebuild:StartBuildBatch\\"
+            ],
+            \\"effect\\": \\"Allow\\",
+            \\"resources\\": [
+              \\"arn:aws:codebuild:*:*:project/Test-Env*\\"
+            ]
+          },
+          {
+            \\"actions\\": [
+              \\"codedeploy:CreateDeployment\\",
+              \\"codedeploy:GetApplication\\",
+              \\"codedeploy:GetApplicationRevision\\",
+              \\"codedeploy:GetDeployment\\",
+              \\"codedeploy:RegisterApplicationRevision\\",
+              \\"codedeploy:GetDeploymentConfig\\"
+            ],
+            \\"effect\\": \\"Allow\\",
+            \\"resources\\": [
+              \\"arn:aws:codedeploy:*:*:application:Test-Env-ECS\\",
+              \\"arn:aws:codedeploy:*:*:deploymentgroup:Test-Env-ECS/Test-Env-ECS\\",
+              \\"arn:aws:codedeploy:*:*:deploymentconfig:*\\"
+            ]
+          },
+          {
+            \\"actions\\": [
+              \\"s3:GetObject\\",
+              \\"s3:GetObjectVersion\\",
+              \\"s3:GetBucketVersioning\\",
+              \\"s3:PutObjectAcl\\",
+              \\"s3:PutObject\\"
+            ],
+            \\"effect\\": \\"Allow\\",
+            \\"resources\\": [
+              \\"\${aws_s3_bucket.test-codepipeline_codepipeline-bucket_D4671464.arn}\\",
+              \\"\${aws_s3_bucket.test-codepipeline_codepipeline-bucket_D4671464.arn}/*\\"
+            ]
+          },
+          {
+            \\"actions\\": [
+              \\"iam:PassRole\\"
+            ],
+            \\"condition\\": [
+              {
+                \\"test\\": \\"StringEqualsIfExists\\",
+                \\"values\\": [
+                  \\"ecs-tasks.amazonaws.com\\"
+                ],
+                \\"variable\\": \\"iam:PassedToService\\"
+              }
+            ],
+            \\"effect\\": \\"Allow\\",
+            \\"resources\\": [
+              \\"*\\"
+            ]
+          },
+          {
+            \\"actions\\": [
+              \\"ecs:RegisterTaskDefinition\\"
+            ],
+            \\"effect\\": \\"Allow\\",
+            \\"resources\\": [
+              \\"*\\"
+            ]
+          }
+        ]
+      }
+    },
+    \\"aws_kms_alias\\": {
+      \\"test-codepipeline_kms_s3_alias_6C922DC1\\": {
+        \\"name\\": \\"alias/aws/s3\\"
+      }
+    }
+  },
+  \\"resource\\": {
+    \\"aws_codepipeline\\": {
+      \\"test-codepipeline_367BF1E2\\": {
+        \\"artifact_store\\": [
+          {
+            \\"encryption_key\\": {
+              \\"id\\": \\"\${data.aws_kms_alias.test-codepipeline_kms_s3_alias_6C922DC1.arn}\\",
+              \\"type\\": \\"KMS\\"
+            },
+            \\"location\\": \\"\${aws_s3_bucket.test-codepipeline_codepipeline-bucket_D4671464.bucket}\\",
+            \\"type\\": \\"S3\\"
+          }
+        ],
+        \\"name\\": \\"Test-Env-CodePipeline\\",
+        \\"role_arn\\": \\"\${aws_iam_role.test-codepipeline_codepipeline-role_4D3D2364.arn}\\",
+        \\"stage\\": [
+          {
+            \\"action\\": [
+              {
+                \\"category\\": \\"Source\\",
+                \\"configuration\\": {
+                  \\"BranchName\\": \\"test\\",
+                  \\"ConnectionArn\\": \\"arn:codestart-connection:*\\",
+                  \\"DetectChanges\\": \\"false\\",
+                  \\"FullRepositoryId\\": \\"string\\"
+                },
+                \\"name\\": \\"GitHub_Checkout\\",
+                \\"namespace\\": \\"SourceVariables\\",
+                \\"output_artifacts\\": [
+                  \\"SourceOutput\\"
+                ],
+                \\"owner\\": \\"AWS\\",
+                \\"provider\\": \\"CodeStarSourceConnection\\",
+                \\"version\\": \\"1\\"
+              }
+            ],
+            \\"name\\": \\"Source\\"
+          },
+          {
+            \\"action\\": [
+              {
+                \\"category\\": \\"Deploy\\",
+                \\"configuration\\": {
+                  \\"projectName\\": \\"Test-Env-MyBuild\\"
+                },
+                \\"name\\": \\"MyBuild\\",
+                \\"owner\\": \\"AWS\\",
+                \\"provider\\": \\"CodeBuild\\",
+                \\"run_order\\": 1,
+                \\"version\\": \\"1\\"
+              }
+            ],
+            \\"name\\": \\"Custom_PreDeploy_Stage\\"
+          },
+          {
+            \\"action\\": [
+              {
+                \\"category\\": \\"Build\\",
+                \\"configuration\\": {
+                  \\"EnvironmentVariables\\": \\"[{\\\\\\"name\\\\\\":\\\\\\"GIT_BRANCH\\\\\\",\\\\\\"value\\\\\\":\\\\\\"#{SourceVariables.BranchName}\\\\\\"}]\\",
+                  \\"ProjectName\\": \\"Test-Env\\"
+                },
+                \\"input_artifacts\\": [
+                  \\"SourceOutput\\"
+                ],
+                \\"name\\": \\"Deploy_CDK\\",
+                \\"output_artifacts\\": [
+                  \\"CodeBuildOutput\\"
+                ],
+                \\"owner\\": \\"AWS\\",
+                \\"provider\\": \\"CodeBuild\\",
+                \\"run_order\\": 1,
+                \\"version\\": \\"1\\"
+              },
+              {
+                \\"category\\": \\"Deploy\\",
+                \\"configuration\\": {
+                  \\"AppSpecTemplateArtifact\\": \\"CodeBuildOutput\\",
+                  \\"AppSpecTemplatePath\\": \\"appspec.json\\",
+                  \\"ApplicationName\\": \\"Test-Env-ECS\\",
+                  \\"DeploymentGroupName\\": \\"Test-Env-ECS\\",
+                  \\"TaskDefinitionTemplateArtifact\\": \\"CodeBuildOutput\\",
+                  \\"TaskDefinitionTemplatePath\\": \\"taskdef.json\\"
+                },
+                \\"input_artifacts\\": [
+                  \\"CodeBuildOutput\\"
+                ],
+                \\"name\\": \\"Deploy_ECS\\",
+                \\"owner\\": \\"AWS\\",
+                \\"provider\\": \\"CodeDeployToECS\\",
+                \\"run_order\\": 2,
+                \\"version\\": \\"1\\"
+              }
+            ],
+            \\"name\\": \\"Deploy\\"
+          },
+          {
+            \\"action\\": [
+              {
+                \\"category\\": \\"Deploy\\",
+                \\"configuration\\": {
+                  \\"ExecutionNamePrefix\\": \\"CodePipelineDeploy\\",
+                  \\"stateMachineArn\\": \\"myStateMachineArn123\\"
+                },
+                \\"name\\": \\"Custom_Action\\",
+                \\"owner\\": \\"AWS\\",
+                \\"provider\\": \\"StepFunctions\\",
+                \\"run_order\\": 1,
+                \\"version\\": \\"1\\"
+              }
+            ],
+            \\"name\\": \\"Custom_PostDeploy_Stage\\"
           }
         ]
       }
@@ -260,7 +511,7 @@ exports[`renders a Pocket ECS Codepipeline template with tags 1`] = `
             ],
             \\"effect\\": \\"Allow\\",
             \\"resources\\": [
-              \\"arn:aws:codebuild:*:*:project/Test-Env\\"
+              \\"arn:aws:codebuild:*:*:project/Test-Env*\\"
             ]
           },
           {
@@ -378,7 +629,7 @@ exports[`renders a Pocket ECS Codepipeline template with tags 1`] = `
                 \\"input_artifacts\\": [
                   \\"SourceOutput\\"
                 ],
-                \\"name\\": \\"CodeBuild\\",
+                \\"name\\": \\"Deploy_CDK\\",
                 \\"output_artifacts\\": [
                   \\"CodeBuildOutput\\"
                 ],
@@ -390,9 +641,9 @@ exports[`renders a Pocket ECS Codepipeline template with tags 1`] = `
               {
                 \\"category\\": \\"Deploy\\",
                 \\"configuration\\": {
-                  \\"ApplicationName\\": \\"Test-Env-ECS\\",
                   \\"AppSpecTemplateArtifact\\": \\"CodeBuildOutput\\",
                   \\"AppSpecTemplatePath\\": \\"appspec.json\\",
+                  \\"ApplicationName\\": \\"Test-Env-ECS\\",
                   \\"DeploymentGroupName\\": \\"Test-Env-ECS\\",
                   \\"TaskDefinitionTemplateArtifact\\": \\"CodeBuildOutput\\",
                   \\"TaskDefinitionTemplatePath\\": \\"taskdef.json\\"
@@ -484,7 +735,7 @@ exports[`renders a Pocket ECS Codepipeline template with the provided CodeDeploy
             ],
             \\"effect\\": \\"Allow\\",
             \\"resources\\": [
-              \\"arn:aws:codebuild:*:*:project/Test-Env\\"
+              \\"arn:aws:codebuild:*:*:project/Test-Env*\\"
             ]
           },
           {
@@ -602,7 +853,7 @@ exports[`renders a Pocket ECS Codepipeline template with the provided CodeDeploy
                 \\"input_artifacts\\": [
                   \\"SourceOutput\\"
                 ],
-                \\"name\\": \\"CodeBuild\\",
+                \\"name\\": \\"Deploy_CDK\\",
                 \\"output_artifacts\\": [
                   \\"CodeBuildOutput\\"
                 ],
@@ -614,9 +865,9 @@ exports[`renders a Pocket ECS Codepipeline template with the provided CodeDeploy
               {
                 \\"category\\": \\"Deploy\\",
                 \\"configuration\\": {
-                  \\"ApplicationName\\": \\"TestAppName\\",
                   \\"AppSpecTemplateArtifact\\": \\"CodeBuildOutput\\",
                   \\"AppSpecTemplatePath\\": \\"appspec.json\\",
+                  \\"ApplicationName\\": \\"TestAppName\\",
                   \\"DeploymentGroupName\\": \\"Test-Env-ECS\\",
                   \\"TaskDefinitionTemplateArtifact\\": \\"CodeBuildOutput\\",
                   \\"TaskDefinitionTemplatePath\\": \\"taskdef.json\\"
@@ -702,7 +953,7 @@ exports[`renders a Pocket ECS Codepipeline template with the provided CodeDeploy
             ],
             \\"effect\\": \\"Allow\\",
             \\"resources\\": [
-              \\"arn:aws:codebuild:*:*:project/Test-Env\\"
+              \\"arn:aws:codebuild:*:*:project/Test-Env*\\"
             ]
           },
           {
@@ -820,7 +1071,7 @@ exports[`renders a Pocket ECS Codepipeline template with the provided CodeDeploy
                 \\"input_artifacts\\": [
                   \\"SourceOutput\\"
                 ],
-                \\"name\\": \\"CodeBuild\\",
+                \\"name\\": \\"Deploy_CDK\\",
                 \\"output_artifacts\\": [
                   \\"CodeBuildOutput\\"
                 ],
@@ -832,9 +1083,9 @@ exports[`renders a Pocket ECS Codepipeline template with the provided CodeDeploy
               {
                 \\"category\\": \\"Deploy\\",
                 \\"configuration\\": {
-                  \\"ApplicationName\\": \\"Test-Env-ECS\\",
                   \\"AppSpecTemplateArtifact\\": \\"CodeBuildOutput\\",
                   \\"AppSpecTemplatePath\\": \\"appspec.json\\",
+                  \\"ApplicationName\\": \\"Test-Env-ECS\\",
                   \\"DeploymentGroupName\\": \\"TestDeploymentGroupName\\",
                   \\"TaskDefinitionTemplateArtifact\\": \\"CodeBuildOutput\\",
                   \\"TaskDefinitionTemplatePath\\": \\"taskdef.json\\"
@@ -920,7 +1171,7 @@ exports[`renders a Pocket ECS Codepipeline template with the provided appspec pa
             ],
             \\"effect\\": \\"Allow\\",
             \\"resources\\": [
-              \\"arn:aws:codebuild:*:*:project/Test-Env\\"
+              \\"arn:aws:codebuild:*:*:project/Test-Env*\\"
             ]
           },
           {
@@ -1038,7 +1289,7 @@ exports[`renders a Pocket ECS Codepipeline template with the provided appspec pa
                 \\"input_artifacts\\": [
                   \\"SourceOutput\\"
                 ],
-                \\"name\\": \\"CodeBuild\\",
+                \\"name\\": \\"Deploy_CDK\\",
                 \\"output_artifacts\\": [
                   \\"CodeBuildOutput\\"
                 ],
@@ -1050,9 +1301,9 @@ exports[`renders a Pocket ECS Codepipeline template with the provided appspec pa
               {
                 \\"category\\": \\"Deploy\\",
                 \\"configuration\\": {
-                  \\"ApplicationName\\": \\"Test-Env-ECS\\",
                   \\"AppSpecTemplateArtifact\\": \\"CodeBuildOutput\\",
                   \\"AppSpecTemplatePath\\": \\"testappspec.json\\",
+                  \\"ApplicationName\\": \\"Test-Env-ECS\\",
                   \\"DeploymentGroupName\\": \\"Test-Env-ECS\\",
                   \\"TaskDefinitionTemplateArtifact\\": \\"CodeBuildOutput\\",
                   \\"TaskDefinitionTemplatePath\\": \\"taskdef.json\\"
@@ -1138,7 +1389,7 @@ exports[`renders a Pocket ECS Codepipeline template with the provided code build
             ],
             \\"effect\\": \\"Allow\\",
             \\"resources\\": [
-              \\"arn:aws:codebuild:*:*:project/TestBuildName\\"
+              \\"arn:aws:codebuild:*:*:project/TestBuildName*\\"
             ]
           },
           {
@@ -1256,7 +1507,7 @@ exports[`renders a Pocket ECS Codepipeline template with the provided code build
                 \\"input_artifacts\\": [
                   \\"SourceOutput\\"
                 ],
-                \\"name\\": \\"CodeBuild\\",
+                \\"name\\": \\"Deploy_CDK\\",
                 \\"output_artifacts\\": [
                   \\"CodeBuildOutput\\"
                 ],
@@ -1268,9 +1519,9 @@ exports[`renders a Pocket ECS Codepipeline template with the provided code build
               {
                 \\"category\\": \\"Deploy\\",
                 \\"configuration\\": {
-                  \\"ApplicationName\\": \\"Test-Env-ECS\\",
                   \\"AppSpecTemplateArtifact\\": \\"CodeBuildOutput\\",
                   \\"AppSpecTemplatePath\\": \\"appspec.json\\",
+                  \\"ApplicationName\\": \\"Test-Env-ECS\\",
                   \\"DeploymentGroupName\\": \\"Test-Env-ECS\\",
                   \\"TaskDefinitionTemplateArtifact\\": \\"CodeBuildOutput\\",
                   \\"TaskDefinitionTemplatePath\\": \\"taskdef.json\\"
@@ -1356,7 +1607,7 @@ exports[`renders a Pocket ECS Codepipeline template with the provided taskdef pa
             ],
             \\"effect\\": \\"Allow\\",
             \\"resources\\": [
-              \\"arn:aws:codebuild:*:*:project/Test-Env\\"
+              \\"arn:aws:codebuild:*:*:project/Test-Env*\\"
             ]
           },
           {
@@ -1474,7 +1725,7 @@ exports[`renders a Pocket ECS Codepipeline template with the provided taskdef pa
                 \\"input_artifacts\\": [
                   \\"SourceOutput\\"
                 ],
-                \\"name\\": \\"CodeBuild\\",
+                \\"name\\": \\"Deploy_CDK\\",
                 \\"output_artifacts\\": [
                   \\"CodeBuildOutput\\"
                 ],
@@ -1486,9 +1737,9 @@ exports[`renders a Pocket ECS Codepipeline template with the provided taskdef pa
               {
                 \\"category\\": \\"Deploy\\",
                 \\"configuration\\": {
-                  \\"ApplicationName\\": \\"Test-Env-ECS\\",
                   \\"AppSpecTemplateArtifact\\": \\"CodeBuildOutput\\",
                   \\"AppSpecTemplatePath\\": \\"appspec.json\\",
+                  \\"ApplicationName\\": \\"Test-Env-ECS\\",
                   \\"DeploymentGroupName\\": \\"Test-Env-ECS\\",
                   \\"TaskDefinitionTemplateArtifact\\": \\"CodeBuildOutput\\",
                   \\"TaskDefinitionTemplatePath\\": \\"testtaskdef.json\\"

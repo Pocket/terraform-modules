@@ -1,4 +1,4 @@
-import { ECS, ECR, CloudWatch, VPC, ELB } from '@cdktf/provider-aws';
+import { ecs, ecr, cloudwatch, vpc, elb } from '@cdktf/provider-aws';
 import { Resource } from '@cdktf/provider-null';
 import { Construct } from 'constructs';
 import { ApplicationECR, ECRProps } from './ApplicationECR';
@@ -12,6 +12,8 @@ import { ApplicationECSAlbCodeDeploy } from './ApplicationECSAlbCodeDeploy';
 import { TerraformResource } from 'cdktf';
 import { truncateString } from '../utilities';
 import { File } from '@cdktf/provider-local';
+
+const defaultRegion = 'us-east-1';
 
 export interface ApplicationECSServiceProps {
   prefix: string;
@@ -44,16 +46,16 @@ export interface ApplicationECSServiceProps {
 }
 
 interface ECSTaskDefinitionResponse {
-  taskDef: ECS.EcsTaskDefinition;
-  ecrRepos: ECR.EcrRepository[];
+  taskDef: ecs.EcsTaskDefinition;
+  ecrRepos: ecr.EcrRepository[];
 }
 
 /**
  * Generates an Application Certificate given a domain name and zoneId
  */
 export class ApplicationECSService extends Resource {
-  public readonly service: ECS.EcsService;
-  public readonly ecsSecurityGroup: VPC.SecurityGroup;
+  public readonly service: ecs.EcsService;
+  public readonly ecsSecurityGroup: vpc.SecurityGroup;
   public readonly mainTargetGroup?: ApplicationTargetGroup;
   public readonly codeDeployApp?: ApplicationECSAlbCodeDeploy;
   private readonly config: ApplicationECSServiceProps;
@@ -68,18 +70,21 @@ export class ApplicationECSService extends Resource {
     // populate defaults for some values if not provided
     this.config = ApplicationECSService.hydrateConfig(config);
 
+    // set default region
+    this.config.region = this.config.region ?? defaultRegion;
+
     this.ecsSecurityGroup = this.setupECSSecurityGroups();
     const { taskDef, ecrRepos } = this.setupECSTaskDefinition();
 
     //Setup an array of resources that the ecs service will need to depend on
     const ecsServiceDependsOn: TerraformResource[] = [...ecrRepos];
 
-    const ecsNetworkConfig: ECS.EcsServiceNetworkConfiguration = {
+    const ecsNetworkConfig: ecs.EcsServiceNetworkConfiguration = {
       securityGroups: [this.ecsSecurityGroup.id],
       subnets: config.privateSubnetIds,
     };
 
-    const ecsLoadBalancerConfig: ECS.EcsServiceLoadBalancer[] = [];
+    const ecsLoadBalancerConfig: ecs.EcsServiceLoadBalancer[] = [];
 
     const targetGroupNames: string[] = [];
 
@@ -88,7 +93,7 @@ export class ApplicationECSService extends Resource {
       this.mainTargetGroup = this.createTargetGroup('blue');
       ecsServiceDependsOn.push(this.mainTargetGroup.targetGroup);
       // Now that we have our service created, we append the alb listener rule to our HTTPS listener.
-      const listenerRule = new ELB.AlbListenerRule(this, 'listener_rule', {
+      const listenerRule = new elb.AlbListenerRule(this, 'listener_rule', {
         listenerArn: this.config.albConfig.listenerArn,
         priority: 1,
         condition: [
@@ -116,7 +121,7 @@ export class ApplicationECSService extends Resource {
     }
 
     //create ecs service
-    this.service = new ECS.EcsService(this, 'ecs-service', {
+    this.service = new ecs.EcsService(this, 'ecs-service', {
       name: `${this.config.prefix}`,
       taskDefinition: taskDef.arn,
       deploymentController: this.config.useCodeDeploy
@@ -177,7 +182,7 @@ export class ApplicationECSService extends Resource {
 
         nullECSTaskUpdate.addOverride(
           'provisioner.local-exec.command',
-          `export app_spec_content_string='{"version":1,"Resources":[{"TargetService":{"Type":"AWS::ECS::Service","Properties":{"TaskDefinition":"${taskDef.arn}","LoadBalancerInfo":{"ContainerName":"${this.config.albConfig.containerName}","ContainerPort":${this.config.albConfig.containerPort}}}}}]}' && export revision="revisionType=AppSpecContent,appSpecContent={content='$app_spec_content_string'}" && aws deploy create-deployment  --application-name="${codeDeployApp.codeDeployApp.name}"  --deployment-group-name="${codeDeployApp.codeDeployDeploymentGroup.deploymentGroupName}" --description="Triggered from Terraform/CodeBuild due to a task definition update" --revision="$revision"`
+          `export app_spec_content_string='{"version":1,"Resources":[{"TargetService":{"Type":"AWS::ECS::Service","Properties":{"TaskDefinition":"${taskDef.arn}","LoadBalancerInfo":{"ContainerName":"${this.config.albConfig.containerName}","ContainerPort":${this.config.albConfig.containerPort}}}}}]}' && export revision="revisionType=AppSpecContent,appSpecContent={content='$app_spec_content_string'}" && aws --region ${this.config.region} deploy create-deployment  --application-name="${codeDeployApp.codeDeployApp.name}"  --deployment-group-name="${codeDeployApp.codeDeployDeploymentGroup.deploymentGroupName}" --description="Triggered from Terraform/CodeBuild due to a task definition update" --revision="$revision"`
         );
       }
 
@@ -232,7 +237,7 @@ export class ApplicationECSService extends Resource {
    * @private
    */
   private generateAppSpecAndTaskDefFiles(
-    taskDef: ECS.EcsTaskDefinition,
+    taskDef: ecs.EcsTaskDefinition,
     config: ApplicationECSServiceProps
   ) {
     const nullCreateTaskDef = new Resource(
@@ -253,7 +258,7 @@ export class ApplicationECSService extends Resource {
     // Task definition ARN in the app spec file. But you know. Amazon is amazon and we must obey the law.
     nullCreateTaskDef.addOverride(
       'provisioner.local-exec.command',
-      `aws ecs describe-task-definition --task-definition ${taskDef.family} --query 'taskDefinition' >> taskdef.json`
+      `aws --region ${this.config.region} ecs describe-task-definition --task-definition ${taskDef.family} --query 'taskDefinition' >> taskdef.json`
     );
 
     new File(this, 'appspec', {
@@ -282,8 +287,8 @@ export class ApplicationECSService extends Resource {
    * Sets up the required ECS Security Groups
    * @private
    */
-  private setupECSSecurityGroups(): VPC.SecurityGroup {
-    let ingress: VPC.SecurityGroupIngress[] = [];
+  private setupECSSecurityGroups(): vpc.SecurityGroup {
+    let ingress: vpc.SecurityGroupIngress[] = [];
     if (this.config.albConfig) {
       ingress = [
         {
@@ -301,7 +306,7 @@ export class ApplicationECSService extends Resource {
       ];
     }
 
-    const egress: VPC.SecurityGroupEgress[] = [
+    const egress: vpc.SecurityGroupEgress[] = [
       {
         fromPort: 0,
         protocol: '-1',
@@ -316,7 +321,7 @@ export class ApplicationECSService extends Resource {
       },
     ];
 
-    const securityGroup = new VPC.SecurityGroup(this, `ecs_security_group`, {
+    return new vpc.SecurityGroup(this, `ecs_security_group`, {
       namePrefix: `${this.config.prefix}-ECSSecurityGroup`,
       description: 'Internal ECS Security Group (Managed by Terraform)',
       vpcId: this.config.vpcId,
@@ -327,7 +332,6 @@ export class ApplicationECSService extends Resource {
         createBeforeDestroy: true,
       },
     });
-    return securityGroup;
   }
 
   /**
@@ -335,11 +339,11 @@ export class ApplicationECSService extends Resource {
    * @private
    */
   private setupECSTaskDefinition(): ECSTaskDefinitionResponse {
-    const ecrRepos: ECR.EcrRepository[] = [];
+    const ecrRepos: ecr.EcrRepository[] = [];
 
     const containerDefs = [];
     // Set of unique volumes by volume name
-    const volumes: { [key: string]: ECS.EcsTaskDefinitionVolume } = {};
+    const volumes: { [key: string]: ecs.EcsTaskDefinitionVolume } = {};
 
     // figure out if we need to create an ECR for each container definition
     // also build a container definition JSON for each container
@@ -360,7 +364,7 @@ export class ApplicationECSService extends Resource {
 
       // if a log group was given, it must already exist so we don't need to create it
       if (!def.logGroup) {
-        const cloudwatch = new CloudWatch.CloudwatchLogGroup(
+        const cloudwatchLogGroup = new cloudwatch.CloudwatchLogGroup(
           this,
           `ecs-${def.name}`,
           {
@@ -369,7 +373,7 @@ export class ApplicationECSService extends Resource {
             tags: this.config.tags,
           }
         );
-        def.logGroup = cloudwatch.name;
+        def.logGroup = cloudwatchLogGroup.name;
         def.logGroupRegion = this.config.region;
       }
 
@@ -395,7 +399,7 @@ export class ApplicationECSService extends Resource {
     });
 
     //Create task definition
-    const taskDef = new ECS.EcsTaskDefinition(this, 'ecs-task', {
+    const taskDef = new ecs.EcsTaskDefinition(this, 'ecs-task', {
       // why are container definitions just JSON? can we get a real construct? sheesh.
       containerDefinitions: `[${containerDefs}]`,
       family: `${this.config.prefix}`,

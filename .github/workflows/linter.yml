@@ -11,10 +11,12 @@ name: Lint Code Base
 # https://help.github.com/en/articles/workflow-syntax-for-github-actions
 #
 
-####################################
-# Start the job on all prs to main #
-####################################
+#############################
+# Start the job on all pull requests #
+#############################
 on:
+  # Run on every pull request created or updated
+  # https://docs.github.com/en/actions/learn-github-actions/events-that-trigger-workflows#pull_request
   pull_request:
     branches:
       - main
@@ -37,30 +39,61 @@ jobs:
       # Checkout the code base #
       ##########################
       - name: Checkout Code
-        uses: actions/checkout@v2
+        uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579 # renovate: tag=v2
 
       ##########################
       # Github Super Linter needs
       # the latest definitions installed
       ##########################
-      - name: Use Node.js 14.x
-        uses: actions/setup-node@v2.4.1
+      - name: Use Node.js 16.x
+        uses: actions/setup-node@1f8c6b94b26d0feae1e387ca63ccbdc44d27b561 # renovate: tag=v2.5.1
         with:
-          node-version: 14.x
+          node-version: 16.x
+      # Install our eslint packages.
+      # We may have custom tsconfigs, eslints that are brought in via a package.
       - run: npm install
 
       ################################
       # Run Linter against code base #
       ################################
       - name: Lint Code Base
-        uses: docker://ghcr.io/github/super-linter:slim-v4
+
+        # We use the Github super linter, it can be cranky at times, so in that moment here are the docs https://github.com/github/super-linter
+        uses: docker://ghcr.io/github/super-linter:slim-v4@sha256:79524dcb8c1d321dfe4a66598aa4447d033cca9423d90be9d4e8dd91cb7e69fc
+
+        # All Environment variables are defined here https://github.com/github/super-linter#environment-variables
         env:
+          # The name of the repository default branch.
           DEFAULT_BRANCH: main
+
+          # Directory for all linter configuration rules.
+          # This is the root of our codebase.
+          LINTER_RULES_PATH: /
+
+          # Will parse the entire repository and find all files to validate across all types.
+          # NOTE: When set to false, only new or edited files will be parsed for validation.
           VALIDATE_ALL_CODEBASE: true
+
+          # Filename for ESLint configuration (ex: .eslintrc.yml, .eslintrc.json)
           TYPESCRIPT_ES_CONFIG_FILE: .eslintrc.js
-          VALIDATE_TERRAFORM: true
+
+          #####
+          # Note: All the VALIDATE[LANGUAGE] variables behave in a specific way.
+          # If none of them are passed, then they all default to true.
+          # However if any one of the variables are set, we default to leaving any unset variable to false.
+          # This means that if you run the linter “out of the box”, all languages will be checked.
+          # But if you wish to select specific linters, we give you full control to choose which linters are run, and won’t run anything unexpected.
+          ####
+
+          # Flag to enable or disable the linting process of the JavaScript language. (Utilizing: eslint)
+          # Will validate any raw *.js in the repo like a jest.config.js
           VALIDATE_JAVASCRIPT_ES: true
-          #VALIDATE_JSON: true  #We use some terraform json files that is not valid json....
-          VALIDATE_MD: true
+
+          # Flag to enable or disable the linting process of the TypeScript language. (Utilizing: eslint)
           VALIDATE_TYPESCRIPT_ES: true
-          VALIDATE_YAML: true
+
+          FILTER_REGEX_EXCLUDE: "*snapshot*"
+
+          # Flag to enable or disable the linting process of the YAML language.
+          # Note - disabled as of 26 Jan, 2022
+          # VALIDATE_YAML: true
