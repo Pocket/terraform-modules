@@ -1,3 +1,10 @@
+## [3.8.0](https://github.com/Pocket/terraform-modules/compare/v3.7.1...v3.8.0) (2022-03-24)
+
+
+### Features
+
+* **aws/backups:** aws backup integration ([05d1a94](https://github.com/Pocket/terraform-modules/commit/05d1a9414632e93ec8c213cb1f9b0ef6b013e2ac))
+
 ### [3.7.1](https://github.com/Pocket/terraform-modules/compare/v3.7.0...v3.7.1) (2022-03-22)
 
 
