@@ -206,9 +206,13 @@ export class ApplicationVersionedLambda extends Resource {
   private createCodeBucket() {
     const codeBucket = new s3.S3Bucket(this, 'code-bucket', {
       bucket: this.config.s3Bucket,
-      acl: 'private',
       tags: this.config.tags,
       forceDestroy: true,
+    });
+
+    new s3.S3BucketAcl(this, 'code-bucket-acl', {
+      acl: 'private',
+      bucket: codeBucket.bucket,
     });
 
     new s3.S3BucketPublicAccessBlock(this, `code-bucket-public-access-block`, {

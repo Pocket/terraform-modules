@@ -209,9 +209,14 @@ exports[`renders a Pocket ECS Codepipeline template 1`] = `
     },
     \\"aws_s3_bucket\\": {
       \\"test-codepipeline_codepipeline-bucket_D4671464\\": {
-        \\"acl\\": \\"private\\",
         \\"bucket\\": \\"pocket-codepipeline-e7e6d80d49c8787d2f7a7aca123082dd\\",
         \\"force_destroy\\": true
+      }
+    },
+    \\"aws_s3_bucket_acl\\": {
+      \\"test-codepipeline_codepipeline-bucket-acl_DFB52316\\": {
+        \\"acl\\": \\"private\\",
+        \\"bucket\\": \\"\${aws_s3_bucket.test-codepipeline_codepipeline-bucket_D4671464.bucket}\\"
       }
     }
   }
@@ -460,9 +465,14 @@ exports[`renders a Pocket ECS Codepipeline template with custom steps 1`] = `
     },
     \\"aws_s3_bucket\\": {
       \\"test-codepipeline_codepipeline-bucket_D4671464\\": {
-        \\"acl\\": \\"private\\",
         \\"bucket\\": \\"pocket-codepipeline-e7e6d80d49c8787d2f7a7aca123082dd\\",
         \\"force_destroy\\": true
+      }
+    },
+    \\"aws_s3_bucket_acl\\": {
+      \\"test-codepipeline_codepipeline-bucket-acl_DFB52316\\": {
+        \\"acl\\": \\"private\\",
+        \\"bucket\\": \\"\${aws_s3_bucket.test-codepipeline_codepipeline-bucket_D4671464.bucket}\\"
       }
     }
   }
@@ -681,12 +691,17 @@ exports[`renders a Pocket ECS Codepipeline template with tags 1`] = `
     },
     \\"aws_s3_bucket\\": {
       \\"test-codepipeline_codepipeline-bucket_D4671464\\": {
-        \\"acl\\": \\"private\\",
         \\"bucket\\": \\"pocket-codepipeline-e7e6d80d49c8787d2f7a7aca123082dd\\",
         \\"force_destroy\\": true,
         \\"tags\\": {
           \\"yup\\": \\"a tag\\"
         }
+      }
+    },
+    \\"aws_s3_bucket_acl\\": {
+      \\"test-codepipeline_codepipeline-bucket-acl_DFB52316\\": {
+        \\"acl\\": \\"private\\",
+        \\"bucket\\": \\"\${aws_s3_bucket.test-codepipeline_codepipeline-bucket_D4671464.bucket}\\"
       }
     }
   }
@@ -902,9 +917,14 @@ exports[`renders a Pocket ECS Codepipeline template with the provided CodeDeploy
     },
     \\"aws_s3_bucket\\": {
       \\"test-codepipeline_codepipeline-bucket_D4671464\\": {
-        \\"acl\\": \\"private\\",
         \\"bucket\\": \\"pocket-codepipeline-e7e6d80d49c8787d2f7a7aca123082dd\\",
         \\"force_destroy\\": true
+      }
+    },
+    \\"aws_s3_bucket_acl\\": {
+      \\"test-codepipeline_codepipeline-bucket-acl_DFB52316\\": {
+        \\"acl\\": \\"private\\",
+        \\"bucket\\": \\"\${aws_s3_bucket.test-codepipeline_codepipeline-bucket_D4671464.bucket}\\"
       }
     }
   }
@@ -1120,9 +1140,14 @@ exports[`renders a Pocket ECS Codepipeline template with the provided CodeDeploy
     },
     \\"aws_s3_bucket\\": {
       \\"test-codepipeline_codepipeline-bucket_D4671464\\": {
-        \\"acl\\": \\"private\\",
         \\"bucket\\": \\"pocket-codepipeline-e7e6d80d49c8787d2f7a7aca123082dd\\",
         \\"force_destroy\\": true
+      }
+    },
+    \\"aws_s3_bucket_acl\\": {
+      \\"test-codepipeline_codepipeline-bucket-acl_DFB52316\\": {
+        \\"acl\\": \\"private\\",
+        \\"bucket\\": \\"\${aws_s3_bucket.test-codepipeline_codepipeline-bucket_D4671464.bucket}\\"
       }
     }
   }
@@ -1338,9 +1363,14 @@ exports[`renders a Pocket ECS Codepipeline template with the provided appspec pa
     },
     \\"aws_s3_bucket\\": {
       \\"test-codepipeline_codepipeline-bucket_D4671464\\": {
-        \\"acl\\": \\"private\\",
         \\"bucket\\": \\"pocket-codepipeline-e7e6d80d49c8787d2f7a7aca123082dd\\",
         \\"force_destroy\\": true
+      }
+    },
+    \\"aws_s3_bucket_acl\\": {
+      \\"test-codepipeline_codepipeline-bucket-acl_DFB52316\\": {
+        \\"acl\\": \\"private\\",
+        \\"bucket\\": \\"\${aws_s3_bucket.test-codepipeline_codepipeline-bucket_D4671464.bucket}\\"
       }
     }
   }
@@ -1556,9 +1586,14 @@ exports[`renders a Pocket ECS Codepipeline template with the provided code build
     },
     \\"aws_s3_bucket\\": {
       \\"test-codepipeline_codepipeline-bucket_D4671464\\": {
-        \\"acl\\": \\"private\\",
         \\"bucket\\": \\"pocket-codepipeline-e7e6d80d49c8787d2f7a7aca123082dd\\",
         \\"force_destroy\\": true
+      }
+    },
+    \\"aws_s3_bucket_acl\\": {
+      \\"test-codepipeline_codepipeline-bucket-acl_DFB52316\\": {
+        \\"acl\\": \\"private\\",
+        \\"bucket\\": \\"\${aws_s3_bucket.test-codepipeline_codepipeline-bucket_D4671464.bucket}\\"
       }
     }
   }
@@ -1774,9 +1809,14 @@ exports[`renders a Pocket ECS Codepipeline template with the provided taskdef pa
     },
     \\"aws_s3_bucket\\": {
       \\"test-codepipeline_codepipeline-bucket_D4671464\\": {
-        \\"acl\\": \\"private\\",
         \\"bucket\\": \\"pocket-codepipeline-e7e6d80d49c8787d2f7a7aca123082dd\\",
         \\"force_destroy\\": true
+      }
+    },
+    \\"aws_s3_bucket_acl\\": {
+      \\"test-codepipeline_codepipeline-bucket-acl_DFB52316\\": {
+        \\"acl\\": \\"private\\",
+        \\"bucket\\": \\"\${aws_s3_bucket.test-codepipeline_codepipeline-bucket_D4671464.bucket}\\"
       }
     }
   }

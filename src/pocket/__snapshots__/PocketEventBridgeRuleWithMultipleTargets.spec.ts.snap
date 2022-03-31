@@ -154,9 +154,14 @@ exports[`renders an event bridge and multiple target 1`] = `
     },
     \\"aws_s3_bucket\\": {
       \\"test-lambda_code-bucket_177F316E\\": {
-        \\"acl\\": \\"private\\",
         \\"bucket\\": \\"pocket-test-lambda\\",
         \\"force_destroy\\": true
+      }
+    },
+    \\"aws_s3_bucket_acl\\": {
+      \\"test-lambda_code-bucket-acl_C73BD0DB\\": {
+        \\"acl\\": \\"private\\",
+        \\"bucket\\": \\"\${aws_s3_bucket.test-lambda_code-bucket_177F316E.bucket}\\"
       }
     },
     \\"aws_s3_bucket_public_access_block\\": {

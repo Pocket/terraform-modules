@@ -165,9 +165,14 @@ exports[`renders a lambda triggered by an existing sqs queue 1`] = `
     },
     \\"aws_s3_bucket\\": {
       \\"test-sqs-lambda_code-bucket_34D549A2\\": {
-        \\"acl\\": \\"private\\",
         \\"bucket\\": \\"pocket-test-sqs-lambda\\",
         \\"force_destroy\\": true
+      }
+    },
+    \\"aws_s3_bucket_acl\\": {
+      \\"test-sqs-lambda_code-bucket-acl_B5F709DD\\": {
+        \\"acl\\": \\"private\\",
+        \\"bucket\\": \\"\${aws_s3_bucket.test-sqs-lambda_code-bucket_34D549A2.bucket}\\"
       }
     },
     \\"aws_s3_bucket_public_access_block\\": {
@@ -341,9 +346,14 @@ exports[`renders a plain sqs queue and lambda target 1`] = `
     },
     \\"aws_s3_bucket\\": {
       \\"test-sqs-lambda_code-bucket_34D549A2\\": {
-        \\"acl\\": \\"private\\",
         \\"bucket\\": \\"pocket-test-sqs-lambda\\",
         \\"force_destroy\\": true
+      }
+    },
+    \\"aws_s3_bucket_acl\\": {
+      \\"test-sqs-lambda_code-bucket-acl_B5F709DD\\": {
+        \\"acl\\": \\"private\\",
+        \\"bucket\\": \\"\${aws_s3_bucket.test-sqs-lambda_code-bucket_34D549A2.bucket}\\"
       }
     },
     \\"aws_s3_bucket_public_access_block\\": {
@@ -523,9 +533,14 @@ exports[`renders a plain sqs queue with a deadletter and lambda target 1`] = `
     },
     \\"aws_s3_bucket\\": {
       \\"test-sqs-lambda_code-bucket_34D549A2\\": {
-        \\"acl\\": \\"private\\",
         \\"bucket\\": \\"pocket-test-sqs-lambda\\",
         \\"force_destroy\\": true
+      }
+    },
+    \\"aws_s3_bucket_acl\\": {
+      \\"test-sqs-lambda_code-bucket-acl_B5F709DD\\": {
+        \\"acl\\": \\"private\\",
+        \\"bucket\\": \\"\${aws_s3_bucket.test-sqs-lambda_code-bucket_34D549A2.bucket}\\"
       }
     },
     \\"aws_s3_bucket_public_access_block\\": {

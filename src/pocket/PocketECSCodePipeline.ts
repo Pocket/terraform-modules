@@ -124,12 +124,18 @@ export class PocketECSCodePipeline extends Resource {
       .update(this.config.prefix)
       .digest('hex');
 
-    return new s3.S3Bucket(this, 'codepipeline-bucket', {
+    const bucket = new s3.S3Bucket(this, 'codepipeline-bucket', {
       bucket: `pocket-codepipeline-${prefixHash}`,
-      acl: 'private',
       forceDestroy: true,
       tags: this.config.tags,
     });
+
+    new s3.S3BucketAcl(this, 'codepipeline-bucket-acl', {
+      acl: 'private',
+      bucket: bucket.bucket,
+    });
+
+    return bucket;
   }
 
   /**
