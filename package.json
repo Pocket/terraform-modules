@@ -12,7 +12,7 @@
     "synth": "cdktf synth",
     "compile": "tsc --pretty",
     "watch": "tsc -w",
-    "test-ci": "npm test -- --no-cache --maxWorkers=3",
+    "test-ci": "node --expose-gc ./node_modules/.bin/jest --ci --maxWorkers=4 --logHeapUsage",
     "test:watch": "npm test -- --watch --watch-extensions ts -R min --watch-files src",
     "test": "jest",
     "upgrade": "npm i cdktf@latest cdktf-cli@latest",
