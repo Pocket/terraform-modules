@@ -97,16 +97,16 @@
     "constructs": "10.0.100"
   },
   "dependencies": {
-    "@cdktf/provider-archive": "0.4.0",
-    "@cdktf/provider-aws": "5.0.52",
-    "@cdktf/provider-local": "0.4.0",
-    "@cdktf/provider-newrelic": "0.4.3",
-    "@cdktf/provider-null": "0.6.0",
+    "@cdktf/provider-archive": "0.4.1",
+    "@cdktf/provider-aws": "7.0.0",
+    "@cdktf/provider-local": "0.4.1",
+    "@cdktf/provider-newrelic": "0.4.4",
+    "@cdktf/provider-null": "0.6.1",
     "@cdktf/provider-pagerduty": "0.4.0",
     "@sinonjs/commons": "^1.8.3",
     "cdktf": "0.10.0",
     "cdktf-cli": "0.10.0",
-    "constructs": "10.0.100",
+    "constructs": "10.0.101",
     "crypto-random-string": "^4.0.0",
     "parse-domain": "^4.1.0"
   },
