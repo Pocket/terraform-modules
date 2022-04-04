@@ -39,7 +39,7 @@ export interface PocketSQSProps {
  * Extends the base pocket versioned lambda class to add a sqs based trigger on top of the lambda
  */
 export class PocketSQSWithLambdaTarget extends PocketVersionedLambda {
-  private readonly sqsQueueResource: sqs.SqsQueue | sqs.DataAwsSqsQueue;
+  public readonly sqsQueueResource: sqs.SqsQueue | sqs.DataAwsSqsQueue;
 
   constructor(
     scope: Construct,
