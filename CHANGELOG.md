@@ -1,3 +1,10 @@
+## [3.9.0](https://github.com/Pocket/terraform-modules/compare/v3.8.0...v3.9.0) (2022-04-04)
+
+
+### Features
+
+* expose sqsQueueResource on PocketSQSWithLambdaTarget ([#909](https://github.com/Pocket/terraform-modules/issues/909)) ([b414f0c](https://github.com/Pocket/terraform-modules/commit/b414f0c9259753f9fb7cf3eda458c926bbecaa28))
+
 ## [3.8.0](https://github.com/Pocket/terraform-modules/compare/v3.7.1...v3.8.0) (2022-03-24)
 
 
