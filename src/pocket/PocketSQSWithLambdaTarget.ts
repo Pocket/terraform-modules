@@ -40,6 +40,7 @@ export interface PocketSQSProps {
  */
 export class PocketSQSWithLambdaTarget extends PocketVersionedLambda {
   public readonly sqsQueueResource: sqs.SqsQueue | sqs.DataAwsSqsQueue;
+  public readonly applicationSqsQueue: ApplicationSQSQueue;
 
   constructor(
     scope: Construct,
@@ -54,11 +55,13 @@ export class PocketSQSWithLambdaTarget extends PocketVersionedLambda {
         ...config.configFromPreexistingSqsQueue,
       });
     } else {
-      this.sqsQueueResource = this.createSqsQueue({
+      this.applicationSqsQueue = this.createSqsQueue({
         ...config.sqsQueue,
         name: `${config.name}-Queue`,
         tags: config.tags,
       });
+
+      this.sqsQueueResource = this.applicationSqsQueue.sqsQueue;
     }
 
     this.createSQSExecutionPolicyOnLambda(
@@ -75,9 +78,8 @@ export class PocketSQSWithLambdaTarget extends PocketVersionedLambda {
    */
   private createSqsQueue(
     sqsQueueConfig: ApplicationSQSQueueProps
-  ): sqs.SqsQueue {
-    return new ApplicationSQSQueue(this, 'lambda_sqs_queue', sqsQueueConfig)
-      .sqsQueue;
+  ): ApplicationSQSQueue {
+    return new ApplicationSQSQueue(this, 'lambda_sqs_queue', sqsQueueConfig);
   }
 
   /**
