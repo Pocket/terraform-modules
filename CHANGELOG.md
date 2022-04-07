@@ -1,3 +1,10 @@
+### [3.9.1](https://github.com/Pocket/terraform-modules/compare/v3.9.0...v3.9.1) (2022-04-07)
+
+
+### Bug Fixes
+
+* **application sqs queue:** expose dead letter queue ([#910](https://github.com/Pocket/terraform-modules/issues/910)) ([ff53596](https://github.com/Pocket/terraform-modules/commit/ff53596d25afdeb01537c3f4ea5d5f814f4d2387))
+
 ## [3.9.0](https://github.com/Pocket/terraform-modules/compare/v3.8.0...v3.9.0) (2022-04-04)
 
 
