@@ -11,6 +11,9 @@ export interface ApplicationECSAlbCodeDeployProps {
   targetGroupNames: string[];
   tags?: { [key: string]: string };
   dependsOn?: TerraformResource[];
+  notifyOnStarted?: boolean;
+  notifyOnSucceeded?: boolean;
+  notifyOnFailed?: boolean;
 }
 
 interface CodeDeployResponse {
@@ -82,6 +85,36 @@ export class ApplicationECSAlbCodeDeploy extends Resource {
   }
 
   /**
+   * Set configuration for code deploy notifications
+   * @param notifyOnStarted
+   * @param notifyOnSucceeded
+   * @param notifyOnFailed
+   * @returns An array of EventTypeIds
+   */
+
+  private getEventTypeIds(
+    notifyOnStarted = true,
+    notifyOnSucceeded = true,
+    notifyOnFailed = true
+  ): string[] {
+    const eventTypeIds: string[] = [];
+
+    if (notifyOnFailed) {
+      eventTypeIds.push('codedeploy-application-deployment-failed');
+    }
+
+    if (notifyOnSucceeded) {
+      eventTypeIds.push('codedeploy-application-deployment-succeeded');
+    }
+
+    if (notifyOnStarted) {
+      eventTypeIds.push('codedeploy-application-deployment-started');
+    }
+
+    return eventTypeIds;
+  }
+
+  /**
    * Setup the codedeploy app, permissions, and notifications
    * @private
    */
@@ -135,11 +168,11 @@ export class ApplicationECSAlbCodeDeploy extends Resource {
         `ecs_codedeploy_notifications`,
         {
           detailType: 'BASIC',
-          eventTypeIds: [
-            'codedeploy-application-deployment-failed',
-            'codedeploy-application-deployment-succeeded',
-            'codedeploy-application-deployment-started',
-          ],
+          eventTypeIds: this.getEventTypeIds(
+            this.config.notifyOnStarted,
+            this.config.notifyOnSucceeded,
+            this.config.notifyOnFailed
+          ),
           name: codeDeployApp.name,
           resource: `arn:aws:codedeploy:${region.name}:${account.accountId}:application:${codeDeployApp.name}`,
           target: [
