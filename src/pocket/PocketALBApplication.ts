@@ -82,6 +82,19 @@ export interface PocketALBApplicationProps {
      * Optional SNS topic for CodeDeploy notifications.
      */
     snsNotificationTopicArn?: string;
+
+    /**
+     * Option to send CodeDeploy notifications on Started event, defaults to true.
+     */
+    notifyOnStarted?: boolean;
+    /**
+     * Option to send CodeDeploy notifications on Succeeded event, defaults to true.
+     */
+    notifyOnSucceeded?: boolean;
+    /**
+     * Option to send CodeDeploy notifications on Failed event, defaults to true.
+     */
+    notifyOnFailed?: boolean;
   };
   /**
    * Tags for all resources created by this construct.
@@ -515,6 +528,9 @@ export class PocketALBApplication extends Resource {
       ecsClusterArn: ecsCluster.cluster.arn,
       ecsClusterName: ecsCluster.cluster.name,
       useCodeDeploy: this.config.codeDeploy.useCodeDeploy,
+      notifyOnStarted: this.config.codeDeploy.notifyOnStarted,
+      notifyOnSucceeded: this.config.codeDeploy.notifyOnSucceeded,
+      notifyOnFailed: this.config.codeDeploy.notifyOnFailed,
       useCodePipeline: this.config.codeDeploy.useCodePipeline,
       codeDeploySnsNotificationTopicArn:
         this.config.codeDeploy.snsNotificationTopicArn,

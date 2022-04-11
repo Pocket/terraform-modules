@@ -319,6 +319,21 @@ describe('PocketALBApplication', () => {
     expect(synthed).toMatchSnapshot();
   });
 
+  it('renders an Pocket App with code deploy notifications set to failed only', () => {
+    const synthed = Testing.synthScope((stack) => {
+      new PocketALBApplication(stack, 'testPocketApp', {
+        ...BASE_CONFIG,
+        codeDeploy: {
+          useCodeDeploy: true,
+          notifyOnFailed: true,
+          notifyOnStarted: false,
+          notifyOnSucceeded: false,
+        },
+      });
+    });
+    expect(synthed).toMatchSnapshot();
+  });
+
   it('renders an Pocket App with code deploy and creates appspec.json and taskdef.json when using code pipeline', () => {
     const synthed = Testing.synthScope((stack) => {
       new PocketALBApplication(stack, 'testPocketApp', {

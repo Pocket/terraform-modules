@@ -42,6 +42,9 @@ export interface ApplicationECSServiceProps {
   ecsIamConfig: ApplicationECSIAMProps;
   useCodeDeploy: boolean; //defaults to true
   useCodePipeline?: boolean;
+  notifyOnStarted?: boolean; //defaults to true
+  notifyOnSucceeded?: boolean; //defaults to true
+  notifyOnFailed?: boolean; //defaults to true
   codeDeploySnsNotificationTopicArn?: string;
 }
 
@@ -159,6 +162,9 @@ export class ApplicationECSService extends Resource {
             this.config.codeDeploySnsNotificationTopicArn,
           tags: this.config.tags,
           dependsOn: [this.service],
+          notifyOnStarted: this.config.notifyOnStarted,
+          notifyOnSucceeded: this.config.notifyOnSucceeded,
+          notifyOnFailed: this.config.notifyOnFailed,
         }));
 
       if (!this.config.useCodePipeline) {
