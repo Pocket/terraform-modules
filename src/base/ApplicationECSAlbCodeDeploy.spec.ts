@@ -60,9 +60,11 @@ describe('ApplicationECSAlbCodeDeploy', () => {
           test: '1234',
           tag: 'me',
         },
-        notifyOnFailed: true,
-        notifyOnStarted: false,
-        notifyOnSucceeded: false,
+        notifications: {
+          notifyOnFailed: true,
+          notifyOnStarted: false,
+          notifyOnSucceeded: false,
+        },
       });
     });
     expect(synthed).toMatchSnapshot();
@@ -81,9 +83,11 @@ describe('ApplicationECSAlbCodeDeploy', () => {
           test: '1234',
           tag: 'me',
         },
-        notifyOnFailed: false,
-        notifyOnStarted: false,
-        notifyOnSucceeded: true,
+        notifications: {
+          notifyOnFailed: false,
+          notifyOnStarted: false,
+          notifyOnSucceeded: true,
+        },
       });
     });
     expect(synthed).toMatchSnapshot();
@@ -102,9 +106,11 @@ describe('ApplicationECSAlbCodeDeploy', () => {
           test: '1234',
           tag: 'me',
         },
-        notifyOnFailed: false,
-        notifyOnStarted: true,
-        notifyOnSucceeded: false,
+        notifications: {
+          notifyOnFailed: false,
+          notifyOnStarted: true,
+          notifyOnSucceeded: false,
+        },
       });
     });
     expect(synthed).toMatchSnapshot();
@@ -123,9 +129,11 @@ describe('ApplicationECSAlbCodeDeploy', () => {
           test: '1234',
           tag: 'me',
         },
-        notifyOnFailed: false,
-        notifyOnStarted: false,
-        notifyOnSucceeded: false,
+        notifications: {
+          notifyOnFailed: false,
+          notifyOnStarted: false,
+          notifyOnSucceeded: false,
+        },
       });
     });
     expect(synthed).toMatchSnapshot();

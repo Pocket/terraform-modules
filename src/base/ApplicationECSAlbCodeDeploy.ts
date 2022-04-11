@@ -11,9 +11,11 @@ export interface ApplicationECSAlbCodeDeployProps {
   targetGroupNames: string[];
   tags?: { [key: string]: string };
   dependsOn?: TerraformResource[];
-  notifyOnStarted?: boolean;
-  notifyOnSucceeded?: boolean;
-  notifyOnFailed?: boolean;
+  notifications?: {
+    notifyOnStarted?: boolean;
+    notifyOnSucceeded?: boolean;
+    notifyOnFailed?: boolean;
+  };
 }
 
 interface CodeDeployResponse {
@@ -169,9 +171,9 @@ export class ApplicationECSAlbCodeDeploy extends Resource {
         {
           detailType: 'BASIC',
           eventTypeIds: this.getEventTypeIds(
-            this.config.notifyOnStarted,
-            this.config.notifyOnSucceeded,
-            this.config.notifyOnFailed
+            this.config.notifications?.notifyOnStarted,
+            this.config.notifications?.notifyOnSucceeded,
+            this.config.notifications?.notifyOnFailed
           ),
           name: codeDeployApp.name,
           resource: `arn:aws:codedeploy:${region.name}:${account.accountId}:application:${codeDeployApp.name}`,

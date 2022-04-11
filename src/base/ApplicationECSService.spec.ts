@@ -249,9 +249,11 @@ describe('ApplicationECSService', () => {
         ...BASE_CONFIG,
         ...testAlbConfig,
         useCodeDeploy: true,
-        notifyOnFailed: true,
-        notifyOnStarted: false,
-        notifyOnSucceeded: false,
+        codeDeployNotifications: {
+          notifyOnFailed: true,
+          notifyOnStarted: false,
+          notifyOnSucceeded: false,
+        },
       });
     });
     expect(synthed).toMatchSnapshot();

@@ -325,9 +325,11 @@ describe('PocketALBApplication', () => {
         ...BASE_CONFIG,
         codeDeploy: {
           useCodeDeploy: true,
-          notifyOnFailed: true,
-          notifyOnStarted: false,
-          notifyOnSucceeded: false,
+          notifications: {
+            notifyOnFailed: true,
+            notifyOnStarted: false,
+            notifyOnSucceeded: false,
+          },
         },
       });
     });
