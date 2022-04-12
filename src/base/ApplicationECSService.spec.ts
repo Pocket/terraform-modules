@@ -243,6 +243,22 @@ describe('ApplicationECSService', () => {
     expect(synthed).toMatchSnapshot();
   });
 
+  it('renders an ECS service with code deploy notifications set for failed only', () => {
+    const synthed = Testing.synthScope((stack) => {
+      new ApplicationECSService(stack, 'testECSService', {
+        ...BASE_CONFIG,
+        ...testAlbConfig,
+        useCodeDeploy: true,
+        codeDeployNotifications: {
+          notifyOnFailed: true,
+          notifyOnStarted: false,
+          notifyOnSucceeded: false,
+        },
+      });
+    });
+    expect(synthed).toMatchSnapshot();
+  });
+
   it('renders an ECS service with code deploy and excludes the code deployment command resource when useCodePipeline is true', () => {
     const synthed = Testing.synthScope((stack) => {
       new ApplicationECSService(stack, 'testECSService', {
