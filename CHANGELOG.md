@@ -1,3 +1,10 @@
+## [3.10.0](https://github.com/Pocket/terraform-modules/compare/v3.9.1...v3.10.0) (2022-04-12)
+
+
+### Features
+
+* **notifications:** [INFRA-419] make code deploy notifications configurable ([#911](https://github.com/Pocket/terraform-modules/issues/911)) ([3716e4f](https://github.com/Pocket/terraform-modules/commit/3716e4f85493d3fad18fa7c0c6f985279b120b90))
+
 ### [3.9.1](https://github.com/Pocket/terraform-modules/compare/v3.9.0...v3.9.1) (2022-04-07)
 
 
