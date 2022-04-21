@@ -73,6 +73,7 @@ exports[`renders an event bridge and multiple target 1`] = `
           \\"aws_lambda_alias.test-lambda_alias_CCFDFCE9\\",
           \\"aws_cloudwatch_event_rule.test-event-bridge-for-multiple-targets-1_event-bridge-rule_1CCF9D7B\\"
         ],
+        \\"event_bus_name\\": \\"default\\",
         \\"rule\\": \\"\${aws_cloudwatch_event_rule.test-event-bridge-for-multiple-targets-1_event-bridge-rule_1CCF9D7B.name}\\",
         \\"target_id\\": \\"test-lambda-id\\"
       },
@@ -84,6 +85,7 @@ exports[`renders an event bridge and multiple target 1`] = `
           \\"aws_sqs_queue.test-queue\\",
           \\"aws_cloudwatch_event_rule.test-event-bridge-for-multiple-targets-1_event-bridge-rule_1CCF9D7B\\"
         ],
+        \\"event_bus_name\\": \\"default\\",
         \\"rule\\": \\"\${aws_cloudwatch_event_rule.test-event-bridge-for-multiple-targets-1_event-bridge-rule_1CCF9D7B.name}\\",
         \\"target_id\\": \\"test-sqs-id\\"
       }
