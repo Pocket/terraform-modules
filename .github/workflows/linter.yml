@@ -39,7 +39,7 @@ jobs:
       # Checkout the code base #
       ##########################
       - name: Checkout Code
-        uses: actions/checkout@f25a3a9f25bd5f4c5d77189cab02ff357b5aedeb # tag=v2
+        uses: actions/checkout@7884fcad6b5d53d10323aee724dc68d8b9096a2e # tag=v2
 
       ##########################
       # Github Super Linter needs
