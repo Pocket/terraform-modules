@@ -1,21 +1,10 @@
 import { Construct } from 'constructs';
 import { App, TerraformStack } from 'cdktf';
-import { AwsProvider, lambdafunction, sqs } from '@cdktf/provider-aws';
+import { AwsProvider } from '@cdktf/provider-aws';
+import { PocketALBApplication } from './pocket/PocketALBApplication';
+import { ApplicationECSContainerDefinitionProps } from './base/ApplicationECSContainerDefinition';
 import { LocalProvider } from '@cdktf/provider-local';
 import { NullProvider } from '@cdktf/provider-null';
-import { ArchiveProvider } from '@cdktf/provider-archive';
-import { PocketVPC } from './pocket/PocketVPC';
-import { LAMBDA_RUNTIMES } from './base/ApplicationVersionedLambda';
-import {
-  PocketVersionedLambda,
-  PocketVersionedLambdaProps,
-} from './pocket/PocketVersionedLambda';
-import {
-  PocketEventBridgeProps,
-  PocketEventBridgeRuleWithMultipleTargets,
-  PocketEventBridgeTargets,
-} from './pocket/PocketEventBridgeRuleWithMultipleTargets';
-import { ApplicationEventBus } from './base/ApplicationEventBus';
 
 class Example extends TerraformStack {
   constructor(scope: Construct, name: string) {
@@ -26,70 +15,45 @@ class Example extends TerraformStack {
     });
     new LocalProvider(this, 'local', {});
     new NullProvider(this, 'null', {});
-    new ArchiveProvider(this, 'archive');
 
-    const vpc = new PocketVPC(this, 'pocket-shared-vpc');
-
-    const lambdaConfig: PocketVersionedLambdaProps = {
-      name: 'test-lambda',
-      lambda: {
-        runtime: LAMBDA_RUNTIMES.PYTHON38,
-        handler: 'index.handler',
-      },
-    };
-    const targetLambda = new PocketVersionedLambda(
-      this,
-      'test-target-lambda',
-      lambdaConfig
-    );
-
-    const targetLambdaDLQ = new sqs.SqsQueue(this, 'test-target-lambda-dlq', {
-      name: 'test-target-lambda-dlq',
-    });
-
-    const eventBridgeTarget: PocketEventBridgeTargets = {
-      targetId: 'test-lambda-id',
-      arn: targetLambda.lambda.versionedLambda.arn,
-      terraformResource: targetLambda.lambda.versionedLambda,
-      deadLetterArn: targetLambdaDLQ.arn,
-    };
-
-    const testEventBus = new ApplicationEventBus(this, 'test-event-bus', {
-      name: 'test-event-bus',
-    });
-
-    const datasyncConfig: PocketEventBridgeProps = {
-      eventRule: {
-        name: 'test-event-bridge-rule-multiple-targets',
-        pattern: {
-          source: ['test-custom-bus-events'],
-          'detail-type': ['add-item', 'update-item'],
+    const containerConfigBlue: ApplicationECSContainerDefinitionProps = {
+      name: 'blueContainer',
+      containerImage: 'bitnami/node-example:0.0.1',
+      portMappings: [
+        {
+          hostPort: 3000,
+          containerPort: 3000,
         },
-        eventBusName: testEventBus.bus.name,
-      },
-      targets: [{ ...eventBridgeTarget }],
+      ],
+      envVars: [
+        {
+          name: 'foo',
+          value: 'bar',
+        },
+      ],
     };
 
-    const eventBridgeRuleObj = new PocketEventBridgeRuleWithMultipleTargets(
-      this,
-      'test-event-bridge-rule-multiple-targets',
-      datasyncConfig
-    );
-
-    const eventBridgeRule = eventBridgeRuleObj.getEventBridge();
-
-    new lambdafunction.LambdaPermission(
-      this,
-      'test-lambda-Function-permission',
-      {
-        action: 'lambda:InvokeFunction',
-        functionName: targetLambda.lambda.versionedLambda.functionName,
-        qualifier: targetLambda.lambda.versionedLambda.name,
-        principal: 'events.amazonaws.com',
-        sourceArn: eventBridgeRule.rule.arn,
-        dependsOn: [targetLambda.lambda.versionedLambda, eventBridgeRule.rule],
-      }
-    );
+    new PocketALBApplication(this, 'example', {
+      exposedContainer: {
+        name: 'blueContainer',
+        port: 3000,
+        healthCheckPath: '/',
+      },
+      codeDeploy: {
+        useCodeDeploy: true,
+      },
+      cdn: false, // maybe make this false if you're testing an actual terraform apply - cdn's take a loooong time to spin up
+      alb6CharacterPrefix: 'ACMECO',
+      internal: false,
+      domain: 'acme.getpocket.dev',
+      prefix: 'ACME-Dev', // Prefix is a combo of the `Name-Environment`
+      containerConfigs: [containerConfigBlue],
+      ecsIamConfig: {
+        prefix: 'ACME-Dev',
+        taskExecutionRolePolicyStatements: [],
+        taskRolePolicyStatements: [],
+      },
+    });
   }
 }
 
