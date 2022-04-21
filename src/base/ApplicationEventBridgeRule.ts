@@ -35,7 +35,7 @@ export class ApplicationEventBridgeRule extends Resource {
     if (this.config.targets?.length > 5) {
       throw new Error('AWS allows only up to 5 targets per event bridge rule');
     }
-
+    const eventBus = this.config.eventBusName ?? 'default';
     const rule = new eventbridge.CloudwatchEventRule(
       this,
       'event-bridge-rule',
@@ -43,7 +43,7 @@ export class ApplicationEventBridgeRule extends Resource {
         name: `${this.config.name}-Rule`,
         description: this.config.description,
         eventPattern: JSON.stringify(this.config.eventPattern),
-        eventBusName: this.config.eventBusName ?? 'default',
+        eventBusName: eventBus,
         tags: this.config.tags,
       }
     );
@@ -59,6 +59,7 @@ export class ApplicationEventBridgeRule extends Resource {
             arn: t.arn,
             deadLetterConfig: t.deadLetterArn ? { arn: t.deadLetterArn } : {},
             dependsOn: [t.dependsOn, rule],
+            eventBusName: eventBus,
           }
         );
       });

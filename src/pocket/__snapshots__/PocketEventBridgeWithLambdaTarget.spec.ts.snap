@@ -72,6 +72,7 @@ exports[`renders an event bridge and lambda target with event bus name 1`] = `
           \\"aws_lambda_alias.test-event-bridge-lambda_alias_2EC274FC\\",
           \\"aws_cloudwatch_event_rule.test-event-bridge-lambda_event-bridge-rule_529FF7C2\\"
         ],
+        \\"event_bus_name\\": \\"test-bus\\",
         \\"rule\\": \\"\${aws_cloudwatch_event_rule.test-event-bridge-lambda_event-bridge-rule_529FF7C2.name}\\",
         \\"target_id\\": \\"lambda\\"
       }
@@ -244,6 +245,7 @@ exports[`renders an event bridge and lambda target with rule description 1`] = `
           \\"aws_lambda_alias.test-event-bridge-lambda_alias_2EC274FC\\",
           \\"aws_cloudwatch_event_rule.test-event-bridge-lambda_event-bridge-rule_529FF7C2\\"
         ],
+        \\"event_bus_name\\": \\"default\\",
         \\"rule\\": \\"\${aws_cloudwatch_event_rule.test-event-bridge-lambda_event-bridge-rule_529FF7C2.name}\\",
         \\"target_id\\": \\"lambda\\"
       }

@@ -3,7 +3,7 @@ import { eventbridge } from '@cdktf/provider-aws';
 import { Construct } from 'constructs';
 
 export interface ApplicationEventBusProps {
-  name: string,
+  name: string;
   tags?: { [key: string]: string };
 }
 
@@ -17,16 +17,16 @@ export class ApplicationEventBus extends Resource {
   ) {
     super(scope, name);
 
-    this.bus = this.createCloudwatchEventRule();
+    this.bus = this.createCloudWatchEventBus();
   }
 
-  private createCloudwatchEventRule() : eventbridge.CloudwatchEventBus{
+  private createCloudWatchEventBus(): eventbridge.CloudwatchEventBus {
     return new eventbridge.CloudwatchEventBus(
       this,
       `event-bus-${this.config.name}`,
       {
         name: this.config.name,
-        tags: this.config.tags
+        tags: this.config.tags,
       }
     );
   }
