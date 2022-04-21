@@ -1,3 +1,10 @@
+## [3.11.0](https://github.com/Pocket/terraform-modules/compare/v3.10.0...v3.11.0) (2022-04-21)
+
+
+### Features
+
+* **event-bus:** add event bus application construct ([#899](https://github.com/Pocket/terraform-modules/issues/899)) ([1dae564](https://github.com/Pocket/terraform-modules/commit/1dae564b55d7b763ee2eb232dbd22f64562bdb34))
+
 ## [3.10.0](https://github.com/Pocket/terraform-modules/compare/v3.9.1...v3.10.0) (2022-04-12)
 
 
