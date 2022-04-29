@@ -270,4 +270,31 @@ describe('ApplicationECSService', () => {
     });
     expect(synthed).toMatchSnapshot();
   });
+
+  it('exposes ECR repos and task definition as public fields', () => {
+    BASE_CONFIG.containerConfigs = [
+      {
+        portMappings: [
+          {
+            containerPort: 3002,
+            hostPort: 3001,
+          },
+        ],
+        name: 'lebowski',
+      },
+    ];
+
+    Testing.synthScope((stack) => {
+      const applicationECSService = new ApplicationECSService(
+        stack,
+        'testECSService',
+        BASE_CONFIG
+      );
+
+      expect(applicationECSService.ecrRepos.length).toEqual(1);
+      expect(
+        applicationECSService.taskDefinition.terraformResourceType
+      ).toEqual('aws_ecs_task_definition');
+    });
+  });
 });
