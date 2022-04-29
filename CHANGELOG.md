@@ -1,3 +1,10 @@
+### [3.11.1](https://github.com/Pocket/terraform-modules/compare/v3.11.0...v3.11.1) (2022-04-29)
+
+
+### Bug Fixes
+
+* **application ecs service:** expose ECR repos and task definition ([#918](https://github.com/Pocket/terraform-modules/issues/918)) ([e69a4fe](https://github.com/Pocket/terraform-modules/commit/e69a4fe4d9a9c66315fa38118d16adf00edf2374))
+
 ## [3.11.0](https://github.com/Pocket/terraform-modules/compare/v3.10.0...v3.11.0) (2022-04-21)
 
 
