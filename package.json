@@ -87,7 +87,7 @@
   },
   "peerDependencies": {
     "@cdktf/provider-archive": "0.4.36",
-    "@cdktf/provider-aws": "5.0.52",
+    "@cdktf/provider-aws": "7.0.41",
     "@cdktf/provider-local": "0.4.36",
     "@cdktf/provider-newrelic": "0.4.194",
     "@cdktf/provider-null": "0.6.36",
@@ -98,7 +98,7 @@
   },
   "dependencies": {
     "@cdktf/provider-archive": "0.4.36",
-    "@cdktf/provider-aws": "5.0.52",
+    "@cdktf/provider-aws": "7.0.41",
     "@cdktf/provider-local": "0.4.36",
     "@cdktf/provider-newrelic": "0.4.194",
     "@cdktf/provider-null": "0.6.36",

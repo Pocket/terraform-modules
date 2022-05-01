@@ -82,8 +82,8 @@ export class ApplicationCertificate extends Resource {
     cert: acm.AcmCertificate
   ): route53.Route53Record {
     const record = new Route53Record(resource, `certificate_record`, {
-      name: cert.domainValidationOptions('0').resourceRecordName,
-      type: cert.domainValidationOptions('0').resourceRecordType,
+      name: cert.domainValidationOptions.get(0).resourceRecordName,
+      type: cert.domainValidationOptions.get(0).resourceRecordType,
       zoneId,
       records: [],
       ttl: 60,
