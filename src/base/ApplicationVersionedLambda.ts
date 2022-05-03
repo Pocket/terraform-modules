@@ -18,7 +18,7 @@ export interface ApplicationVersionedLambdaProps {
   runtime: LAMBDA_RUNTIMES;
   handler: string;
   timeout?: number;
-  reservedConcurrencyLimit? : number;
+  reservedConcurrencyLimit?: number;
   memorySizeInMb?: number;
   environment?: { [key: string]: string };
   vpcConfig?: lambdafunction.LambdaFunctionVpcConfig;
@@ -77,7 +77,8 @@ export class ApplicationVersionedLambda extends Resource {
       sourceCodeHash: defaultLambda.outputBase64Sha256,
       role: this.lambdaExecutionRole.arn,
       memorySize: this.config.memorySizeInMb ?? DEFAULT_MEMORY_SIZE,
-      reservedConcurrentExecutions: this.config.reservedConcurrencyLimit ?? DEFAULT_CONCURRENCY_LIMIT,
+      reservedConcurrentExecutions:
+        this.config.reservedConcurrencyLimit ?? DEFAULT_CONCURRENCY_LIMIT,
       vpcConfig: this.config.vpcConfig,
       publish: true,
       lifecycle: {

@@ -32,8 +32,8 @@ export interface PocketVersionedLambdaProps {
     runtime: LAMBDA_RUNTIMES;
     handler: string;
     timeout?: number;
-    reservedConcurrencyLimit?: number,
-    memorySizeInMb?: number,
+    reservedConcurrencyLimit?: number;
+    memorySizeInMb?: number;
     environment?: { [key: string]: string };
     vpcConfig?: lambdafunction.LambdaFunctionVpcConfig;
     executionPolicyStatements?: iam.DataAwsIamPolicyDocumentStatement[];
@@ -194,7 +194,7 @@ export class PocketVersionedLambda extends Resource {
       tags: this.config.tags,
       usesCodeDeploy: !!lambdaConfig.codeDeploy,
       memorySizeInMb: lambdaConfig.memorySizeInMb,
-      reservedConcurrencyLimit: lambdaConfig.reservedConcurrencyLimit
+      reservedConcurrencyLimit: lambdaConfig.reservedConcurrencyLimit,
     });
   }
 }
