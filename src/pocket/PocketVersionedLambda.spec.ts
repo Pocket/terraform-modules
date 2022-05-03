@@ -199,33 +199,32 @@ test('it can treat missing data as breaching', () => {
     });
   });
   expect(synthed).toMatchSnapshot();
+});
 
-
-  test('renders a lambda with concurrencyLimit', () => {
-    const synthed = Testing.synthScope((stack) => {
-      new PocketVersionedLambda(stack, 'test-lambda', {
-        ...config,
-        lambda: {
-          ...config.lambda,
-          reservedConcurrencyLimit: 10,
-        },
-      });
+test('renders a lambda with concurrencyLimit', () => {
+  const synthed = Testing.synthScope((stack) => {
+    new PocketVersionedLambda(stack, 'test-lambda', {
+      ...config,
+      lambda: {
+        ...config.lambda,
+        reservedConcurrencyLimit: 10,
+      },
     });
-    expect(synthed).toMatchSnapshot();
   });
+  expect(synthed).toMatchSnapshot();
+});
 
-  test('renders a lambda with memorySizeInMb', () => {
-    const synthed = Testing.synthScope((stack) => {
-      new PocketVersionedLambda(stack, 'test-lambda', {
-        ...config,
-        lambda: {
-          ...config.lambda,
-          memorySizeInMb: 512,
-        },
-      });
+test('renders a lambda with memorySizeInMb', () => {
+  const synthed = Testing.synthScope((stack) => {
+    new PocketVersionedLambda(stack, 'test-lambda', {
+      ...config,
+      lambda: {
+        ...config.lambda,
+        memorySizeInMb: 512,
+      },
     });
-    expect(synthed).toMatchSnapshot();
   });
+  expect(synthed).toMatchSnapshot();
 });
 
 const testAlarmValidation = (alarmType: string) => {
