@@ -18,6 +18,8 @@ export interface ApplicationVersionedLambdaProps {
   runtime: LAMBDA_RUNTIMES;
   handler: string;
   timeout?: number;
+  reservedConcurrencyLimit?: number;
+  memorySizeInMb?: number;
   environment?: { [key: string]: string };
   vpcConfig?: lambdafunction.LambdaFunctionVpcConfig;
   executionPolicyStatements?: iam.DataAwsIamPolicyDocumentStatement[];
@@ -29,6 +31,9 @@ export interface ApplicationVersionedLambdaProps {
 
 const DEFAULT_TIMEOUT = 5;
 const DEFAULT_RETENTION = 14;
+//https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lambda_function#reserved_concurrent_executions
+const DEFAULT_CONCURRENCY_LIMIT = -1; //unreserved concurrency
+const DEFAULT_MEMORY_SIZE = 128;
 
 export class ApplicationVersionedLambda extends Resource {
   public readonly versionedLambda: lambdafunction.LambdaAlias;
@@ -71,6 +76,9 @@ export class ApplicationVersionedLambda extends Resource {
       timeout: this.config.timeout ?? DEFAULT_TIMEOUT,
       sourceCodeHash: defaultLambda.outputBase64Sha256,
       role: this.lambdaExecutionRole.arn,
+      memorySize: this.config.memorySizeInMb ?? DEFAULT_MEMORY_SIZE,
+      reservedConcurrentExecutions:
+        this.config.reservedConcurrencyLimit ?? DEFAULT_CONCURRENCY_LIMIT,
       vpcConfig: this.config.vpcConfig,
       publish: true,
       lifecycle: {
