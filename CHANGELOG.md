@@ -1,3 +1,10 @@
+## [3.12.0](https://github.com/Pocket/terraform-modules/compare/v3.11.2...v3.12.0) (2022-05-03)
+
+
+### Features
+
+* **lambda:** expose reservedConcurrencyLimit and memorySize (in MB) to lambda props ([#920](https://github.com/Pocket/terraform-modules/issues/920)) ([9f72e3d](https://github.com/Pocket/terraform-modules/commit/9f72e3da1a776942a2a646d1d4cc794a1215f99b))
+
 ### [3.11.2](https://github.com/Pocket/terraform-modules/compare/v3.11.1...v3.11.2) (2022-05-02)
 
 
