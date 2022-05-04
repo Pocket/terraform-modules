@@ -211,7 +211,9 @@ exports[`PocketApiGatewayLambdaIntegration renders an api gateway with a lambda 
             \\"source_code_hash\\"
           ]
         },
+        \\"memory_size\\": 128,
         \\"publish\\": true,
+        \\"reserved_concurrent_executions\\": -1,
         \\"role\\": \\"\${aws_iam_role.test-api-lambda_endpoint-lambda_execution-role_46759F27.arn}\\",
         \\"runtime\\": \\"python3.8\\",
         \\"source_code_hash\\": \\"\${data.archive_file.test-api-lambda_endpoint-lambda_lambda-default-file_8FD40136.output_base64sha256}\\",

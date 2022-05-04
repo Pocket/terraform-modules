@@ -39,7 +39,7 @@ jobs:
       # Checkout the code base #
       ##########################
       - name: Checkout Code
-        uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579 # renovate: tag=v2
+        uses: actions/checkout@7884fcad6b5d53d10323aee724dc68d8b9096a2e # tag=v2
 
       ##########################
       # Github Super Linter needs
@@ -59,7 +59,7 @@ jobs:
       - name: Lint Code Base
 
         # We use the Github super linter, it can be cranky at times, so in that moment here are the docs https://github.com/github/super-linter
-        uses: docker://ghcr.io/github/super-linter:slim-v4@sha256:cdc4467cc01fc49d1d852c66e68dd0bf6d2febf9f294d33ddae007321134a6e0
+        uses: docker://ghcr.io/github/super-linter:slim-v4@sha256:63904379c7293d35915599bb9a27cb166431a4ef2891a960dec89adf26a3af67
 
         # All Environment variables are defined here https://github.com/github/super-linter#environment-variables
         env:
@@ -91,6 +91,8 @@ jobs:
 
           # Flag to enable or disable the linting process of the TypeScript language. (Utilizing: eslint)
           VALIDATE_TYPESCRIPT_ES: true
+
+          FILTER_REGEX_EXCLUDE: "*snapshot*"
 
           # Flag to enable or disable the linting process of the YAML language.
           # Note - disabled as of 26 Jan, 2022

@@ -1,5 +1,8 @@
 import { Construct } from 'constructs';
-import { ApplicationEventBridgeRule } from '../base/ApplicationEventBridgeRule';
+import {
+  ApplicationEventBridgeRule,
+  Target,
+} from '../base/ApplicationEventBridgeRule';
 import { ApplicationVersionedLambda } from '../base/ApplicationVersionedLambda';
 import { lambdafunction } from '@cdktf/provider-aws';
 import {
@@ -27,8 +30,11 @@ export class PocketEventBridgeWithLambdaTarget extends PocketVersionedLambda {
   ) {
     super(scope, name, config);
 
-    const eventBridgeRule = this.createEventBridgeRule(this.lambda);
-    this.createLambdaEventRuleResourcePermission(this.lambda, eventBridgeRule);
+    const eventBridgeRule = this.createEventBridgeRule([this.lambda]);
+    this.createLambdaEventRuleResourcePermission(
+      [this.lambda],
+      eventBridgeRule
+    );
   }
 
   /**
@@ -38,16 +44,18 @@ export class PocketEventBridgeWithLambdaTarget extends PocketVersionedLambda {
    * @private
    */
   private createLambdaEventRuleResourcePermission(
-    lambda: ApplicationVersionedLambda,
+    targetLambdas: ApplicationVersionedLambda[],
     eventBridgeRule: ApplicationEventBridgeRule
   ): void {
-    new lambdafunction.LambdaPermission(this, 'lambda-permission', {
-      action: 'lambda:InvokeFunction',
-      functionName: lambda.versionedLambda.functionName,
-      qualifier: lambda.versionedLambda.name,
-      principal: 'events.amazonaws.com',
-      sourceArn: eventBridgeRule.rule.arn,
-      dependsOn: [lambda.versionedLambda, eventBridgeRule.rule],
+    targetLambdas.forEach((lambda) => {
+      new lambdafunction.LambdaPermission(this, 'lambda-permission', {
+        action: 'lambda:InvokeFunction',
+        functionName: lambda.versionedLambda.functionName,
+        qualifier: lambda.versionedLambda.name,
+        principal: 'events.amazonaws.com',
+        sourceArn: eventBridgeRule.rule.arn,
+        dependsOn: [lambda.versionedLambda, eventBridgeRule.rule],
+      });
     });
   }
 
@@ -57,20 +65,24 @@ export class PocketEventBridgeWithLambdaTarget extends PocketVersionedLambda {
    * @private
    */
   private createEventBridgeRule(
-    lambda: ApplicationVersionedLambda
+    targetLambdas: ApplicationVersionedLambda[]
   ): ApplicationEventBridgeRule {
     const eventRuleConfig = this.config.eventRule;
+    const targets: Target[] = [];
+    targetLambdas.forEach((t) =>
+      targets.push({
+        targetId: 'lambda',
+        arn: t.versionedLambda.arn,
+        dependsOn: t.versionedLambda,
+      })
+    );
 
     return new ApplicationEventBridgeRule(this, 'event-bridge-rule', {
       name: this.config.name,
       description: eventRuleConfig.description,
       eventBusName: eventRuleConfig.eventBusName,
       eventPattern: eventRuleConfig.pattern,
-      target: {
-        targetId: 'lambda',
-        arn: lambda.versionedLambda.arn,
-        dependsOn: lambda.versionedLambda,
-      },
+      targets: targets,
       tags: this.config.tags,
     });
   }

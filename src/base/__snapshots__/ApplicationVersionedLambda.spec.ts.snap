@@ -113,7 +113,9 @@ exports[`ApplicationVersionedLambda renders a lambda with a node v14 runtime 1`]
             \\"source_code_hash\\"
           ]
         },
+        \\"memory_size\\": 128,
         \\"publish\\": true,
+        \\"reserved_concurrent_executions\\": -1,
         \\"role\\": \\"\${aws_iam_role.test-versioned-lambda_execution-role_068103E3.arn}\\",
         \\"runtime\\": \\"nodejs14.x\\",
         \\"source_code_hash\\": \\"\${data.archive_file.test-versioned-lambda_lambda-default-file_E2490368.output_base64sha256}\\",
@@ -251,7 +253,9 @@ exports[`ApplicationVersionedLambda renders a versioned lambda 1`] = `
             \\"source_code_hash\\"
           ]
         },
+        \\"memory_size\\": 128,
         \\"publish\\": true,
+        \\"reserved_concurrent_executions\\": -1,
         \\"role\\": \\"\${aws_iam_role.test-versioned-lambda_execution-role_068103E3.arn}\\",
         \\"runtime\\": \\"python3.8\\",
         \\"source_code_hash\\": \\"\${data.archive_file.test-versioned-lambda_lambda-default-file_E2490368.output_base64sha256}\\",
@@ -389,7 +393,9 @@ exports[`ApplicationVersionedLambda renders a versioned lambda with description 
             \\"source_code_hash\\"
           ]
         },
+        \\"memory_size\\": 128,
         \\"publish\\": true,
+        \\"reserved_concurrent_executions\\": -1,
         \\"role\\": \\"\${aws_iam_role.test-versioned-lambda_execution-role_068103E3.arn}\\",
         \\"runtime\\": \\"python3.8\\",
         \\"source_code_hash\\": \\"\${data.archive_file.test-versioned-lambda_lambda-default-file_E2490368.output_base64sha256}\\",
@@ -533,7 +539,9 @@ exports[`ApplicationVersionedLambda renders a versioned lambda with environment 
             \\"source_code_hash\\"
           ]
         },
+        \\"memory_size\\": 128,
         \\"publish\\": true,
+        \\"reserved_concurrent_executions\\": -1,
         \\"role\\": \\"\${aws_iam_role.test-versioned-lambda_execution-role_068103E3.arn}\\",
         \\"runtime\\": \\"python3.8\\",
         \\"source_code_hash\\": \\"\${data.archive_file.test-versioned-lambda_lambda-default-file_E2490368.output_base64sha256}\\",
@@ -680,7 +688,9 @@ exports[`ApplicationVersionedLambda renders a versioned lambda with execution po
             \\"source_code_hash\\"
           ]
         },
+        \\"memory_size\\": 128,
         \\"publish\\": true,
+        \\"reserved_concurrent_executions\\": -1,
         \\"role\\": \\"\${aws_iam_role.test-versioned-lambda_execution-role_068103E3.arn}\\",
         \\"runtime\\": \\"python3.8\\",
         \\"source_code_hash\\": \\"\${data.archive_file.test-versioned-lambda_lambda-default-file_E2490368.output_base64sha256}\\",
@@ -818,7 +828,9 @@ exports[`ApplicationVersionedLambda renders a versioned lambda with log retentio
             \\"source_code_hash\\"
           ]
         },
+        \\"memory_size\\": 128,
         \\"publish\\": true,
+        \\"reserved_concurrent_executions\\": -1,
         \\"role\\": \\"\${aws_iam_role.test-versioned-lambda_execution-role_068103E3.arn}\\",
         \\"runtime\\": \\"python3.8\\",
         \\"source_code_hash\\": \\"\${data.archive_file.test-versioned-lambda_lambda-default-file_E2490368.output_base64sha256}\\",
@@ -957,7 +969,9 @@ exports[`ApplicationVersionedLambda renders a versioned lambda with publish igno
             \\"publish\\"
           ]
         },
+        \\"memory_size\\": 128,
         \\"publish\\": true,
+        \\"reserved_concurrent_executions\\": -1,
         \\"role\\": \\"\${aws_iam_role.test-versioned-lambda_execution-role_068103E3.arn}\\",
         \\"runtime\\": \\"python3.8\\",
         \\"source_code_hash\\": \\"\${data.archive_file.test-versioned-lambda_lambda-default-file_E2490368.output_base64sha256}\\",
@@ -1095,7 +1109,9 @@ exports[`ApplicationVersionedLambda renders a versioned lambda with s3 bucket 1`
             \\"source_code_hash\\"
           ]
         },
+        \\"memory_size\\": 128,
         \\"publish\\": true,
+        \\"reserved_concurrent_executions\\": -1,
         \\"role\\": \\"\${aws_iam_role.test-versioned-lambda_execution-role_068103E3.arn}\\",
         \\"runtime\\": \\"python3.8\\",
         \\"source_code_hash\\": \\"\${data.archive_file.test-versioned-lambda_lambda-default-file_E2490368.output_base64sha256}\\",
@@ -1233,7 +1249,9 @@ exports[`ApplicationVersionedLambda renders a versioned lambda with tags 1`] = `
             \\"source_code_hash\\"
           ]
         },
+        \\"memory_size\\": 128,
         \\"publish\\": true,
+        \\"reserved_concurrent_executions\\": -1,
         \\"role\\": \\"\${aws_iam_role.test-versioned-lambda_execution-role_068103E3.arn}\\",
         \\"runtime\\": \\"python3.8\\",
         \\"source_code_hash\\": \\"\${data.archive_file.test-versioned-lambda_lambda-default-file_E2490368.output_base64sha256}\\",
@@ -1379,7 +1397,9 @@ exports[`ApplicationVersionedLambda renders a versioned lambda with timeout 1`] 
             \\"source_code_hash\\"
           ]
         },
+        \\"memory_size\\": 128,
         \\"publish\\": true,
+        \\"reserved_concurrent_executions\\": -1,
         \\"role\\": \\"\${aws_iam_role.test-versioned-lambda_execution-role_068103E3.arn}\\",
         \\"runtime\\": \\"python3.8\\",
         \\"source_code_hash\\": \\"\${data.archive_file.test-versioned-lambda_lambda-default-file_E2490368.output_base64sha256}\\",
@@ -1530,7 +1550,9 @@ exports[`ApplicationVersionedLambda renders a versioned lambda with vpc 1`] = `
             \\"source_code_hash\\"
           ]
         },
+        \\"memory_size\\": 128,
         \\"publish\\": true,
+        \\"reserved_concurrent_executions\\": -1,
         \\"role\\": \\"\${aws_iam_role.test-versioned-lambda_execution-role_068103E3.arn}\\",
         \\"runtime\\": \\"python3.8\\",
         \\"source_code_hash\\": \\"\${data.archive_file.test-versioned-lambda_lambda-default-file_E2490368.output_base64sha256}\\",

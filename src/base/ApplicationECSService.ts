@@ -42,6 +42,12 @@ export interface ApplicationECSServiceProps {
   ecsIamConfig: ApplicationECSIAMProps;
   useCodeDeploy: boolean; //defaults to true
   useCodePipeline?: boolean;
+  codeDeployNotifications?: {
+    notifyOnStarted?: boolean; //defaults to true
+    notifyOnSucceeded?: boolean; //defaults to true
+    notifyOnFailed?: boolean; //defaults to true
+  };
+
   codeDeploySnsNotificationTopicArn?: string;
 }
 
@@ -58,6 +64,8 @@ export class ApplicationECSService extends Resource {
   public readonly ecsSecurityGroup: vpc.SecurityGroup;
   public readonly mainTargetGroup?: ApplicationTargetGroup;
   public readonly codeDeployApp?: ApplicationECSAlbCodeDeploy;
+  public readonly ecrRepos: ecr.EcrRepository[];
+  public readonly taskDefinition: ecs.EcsTaskDefinition;
   private readonly config: ApplicationECSServiceProps;
 
   constructor(
@@ -75,6 +83,8 @@ export class ApplicationECSService extends Resource {
 
     this.ecsSecurityGroup = this.setupECSSecurityGroups();
     const { taskDef, ecrRepos } = this.setupECSTaskDefinition();
+    this.taskDefinition = taskDef;
+    this.ecrRepos = ecrRepos;
 
     //Setup an array of resources that the ecs service will need to depend on
     const ecsServiceDependsOn: TerraformResource[] = [...ecrRepos];
@@ -159,6 +169,7 @@ export class ApplicationECSService extends Resource {
             this.config.codeDeploySnsNotificationTopicArn,
           tags: this.config.tags,
           dependsOn: [this.service],
+          notifications: this.config.codeDeployNotifications,
         }));
 
       if (!this.config.useCodePipeline) {

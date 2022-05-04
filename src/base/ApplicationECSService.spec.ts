@@ -243,6 +243,22 @@ describe('ApplicationECSService', () => {
     expect(synthed).toMatchSnapshot();
   });
 
+  it('renders an ECS service with code deploy notifications set for failed only', () => {
+    const synthed = Testing.synthScope((stack) => {
+      new ApplicationECSService(stack, 'testECSService', {
+        ...BASE_CONFIG,
+        ...testAlbConfig,
+        useCodeDeploy: true,
+        codeDeployNotifications: {
+          notifyOnFailed: true,
+          notifyOnStarted: false,
+          notifyOnSucceeded: false,
+        },
+      });
+    });
+    expect(synthed).toMatchSnapshot();
+  });
+
   it('renders an ECS service with code deploy and excludes the code deployment command resource when useCodePipeline is true', () => {
     const synthed = Testing.synthScope((stack) => {
       new ApplicationECSService(stack, 'testECSService', {
@@ -253,5 +269,32 @@ describe('ApplicationECSService', () => {
       });
     });
     expect(synthed).toMatchSnapshot();
+  });
+
+  it('exposes ECR repos and task definition as public fields', () => {
+    BASE_CONFIG.containerConfigs = [
+      {
+        portMappings: [
+          {
+            containerPort: 3002,
+            hostPort: 3001,
+          },
+        ],
+        name: 'lebowski',
+      },
+    ];
+
+    Testing.synthScope((stack) => {
+      const applicationECSService = new ApplicationECSService(
+        stack,
+        'testECSService',
+        BASE_CONFIG
+      );
+
+      expect(applicationECSService.ecrRepos.length).toEqual(1);
+      expect(
+        applicationECSService.taskDefinition.terraformResourceType
+      ).toEqual('aws_ecs_task_definition');
+    });
   });
 });

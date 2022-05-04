@@ -64,12 +64,15 @@ exports[`renders an event bridge and lambda target with event bus name 1`] = `
       }
     },
     \\"aws_cloudwatch_event_target\\": {
-      \\"test-event-bridge-lambda_event-bridge-rule_event-bridge-target_84D24AD3\\": {
+      \\"test-event-bridge-lambda_event-bridge-rule_event-bridge-target-lambda_30D0509D\\": {
         \\"arn\\": \\"\${aws_lambda_alias.test-event-bridge-lambda_alias_2EC274FC.arn}\\",
+        \\"dead_letter_config\\": {
+        },
         \\"depends_on\\": [
           \\"aws_lambda_alias.test-event-bridge-lambda_alias_2EC274FC\\",
           \\"aws_cloudwatch_event_rule.test-event-bridge-lambda_event-bridge-rule_529FF7C2\\"
         ],
+        \\"event_bus_name\\": \\"test-bus\\",
         \\"rule\\": \\"\${aws_cloudwatch_event_rule.test-event-bridge-lambda_event-bridge-rule_529FF7C2.name}\\",
         \\"target_id\\": \\"lambda\\"
       }
@@ -131,7 +134,9 @@ exports[`renders an event bridge and lambda target with event bus name 1`] = `
             \\"source_code_hash\\"
           ]
         },
+        \\"memory_size\\": 128,
         \\"publish\\": true,
+        \\"reserved_concurrent_executions\\": -1,
         \\"role\\": \\"\${aws_iam_role.test-event-bridge-lambda_execution-role_7936A26A.arn}\\",
         \\"runtime\\": \\"python3.8\\",
         \\"source_code_hash\\": \\"\${data.archive_file.test-event-bridge-lambda_lambda-default-file_57164BB7.output_base64sha256}\\",
@@ -234,12 +239,15 @@ exports[`renders an event bridge and lambda target with rule description 1`] = `
       }
     },
     \\"aws_cloudwatch_event_target\\": {
-      \\"test-event-bridge-lambda_event-bridge-rule_event-bridge-target_84D24AD3\\": {
+      \\"test-event-bridge-lambda_event-bridge-rule_event-bridge-target-lambda_30D0509D\\": {
         \\"arn\\": \\"\${aws_lambda_alias.test-event-bridge-lambda_alias_2EC274FC.arn}\\",
+        \\"dead_letter_config\\": {
+        },
         \\"depends_on\\": [
           \\"aws_lambda_alias.test-event-bridge-lambda_alias_2EC274FC\\",
           \\"aws_cloudwatch_event_rule.test-event-bridge-lambda_event-bridge-rule_529FF7C2\\"
         ],
+        \\"event_bus_name\\": \\"default\\",
         \\"rule\\": \\"\${aws_cloudwatch_event_rule.test-event-bridge-lambda_event-bridge-rule_529FF7C2.name}\\",
         \\"target_id\\": \\"lambda\\"
       }
@@ -301,7 +309,9 @@ exports[`renders an event bridge and lambda target with rule description 1`] = `
             \\"source_code_hash\\"
           ]
         },
+        \\"memory_size\\": 128,
         \\"publish\\": true,
+        \\"reserved_concurrent_executions\\": -1,
         \\"role\\": \\"\${aws_iam_role.test-event-bridge-lambda_execution-role_7936A26A.arn}\\",
         \\"runtime\\": \\"python3.8\\",
         \\"source_code_hash\\": \\"\${data.archive_file.test-event-bridge-lambda_lambda-default-file_57164BB7.output_base64sha256}\\",

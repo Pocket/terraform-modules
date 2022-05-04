@@ -1,3 +1,108 @@
+### [3.12.1](https://github.com/Pocket/terraform-modules/compare/v3.12.0...v3.12.1) (2022-05-04)
+
+
+### Bug Fixes
+
+* **deps:** update cdktf ([#919](https://github.com/Pocket/terraform-modules/issues/919)) ([9c7e38c](https://github.com/Pocket/terraform-modules/commit/9c7e38c4d522dfbc2a5facfc6888184398492083))
+
+## [3.12.0](https://github.com/Pocket/terraform-modules/compare/v3.11.2...v3.12.0) (2022-05-03)
+
+
+### Features
+
+* **lambda:** expose reservedConcurrencyLimit and memorySize (in MB) to lambda props ([#920](https://github.com/Pocket/terraform-modules/issues/920)) ([9f72e3d](https://github.com/Pocket/terraform-modules/commit/9f72e3da1a776942a2a646d1d4cc794a1215f99b))
+
+### [3.11.2](https://github.com/Pocket/terraform-modules/compare/v3.11.1...v3.11.2) (2022-05-02)
+
+
+### Bug Fixes
+
+* **deps:** update cdktf ([#907](https://github.com/Pocket/terraform-modules/issues/907)) ([c8ba70d](https://github.com/Pocket/terraform-modules/commit/c8ba70d21b0f6e4838e7717d4c10624102217f2e))
+
+### [3.11.1](https://github.com/Pocket/terraform-modules/compare/v3.11.0...v3.11.1) (2022-04-29)
+
+
+### Bug Fixes
+
+* **application ecs service:** expose ECR repos and task definition ([#918](https://github.com/Pocket/terraform-modules/issues/918)) ([e69a4fe](https://github.com/Pocket/terraform-modules/commit/e69a4fe4d9a9c66315fa38118d16adf00edf2374))
+
+## [3.11.0](https://github.com/Pocket/terraform-modules/compare/v3.10.0...v3.11.0) (2022-04-21)
+
+
+### Features
+
+* **event-bus:** add event bus application construct ([#899](https://github.com/Pocket/terraform-modules/issues/899)) ([1dae564](https://github.com/Pocket/terraform-modules/commit/1dae564b55d7b763ee2eb232dbd22f64562bdb34))
+
+## [3.10.0](https://github.com/Pocket/terraform-modules/compare/v3.9.1...v3.10.0) (2022-04-12)
+
+
+### Features
+
+* **notifications:** [INFRA-419] make code deploy notifications configurable ([#911](https://github.com/Pocket/terraform-modules/issues/911)) ([3716e4f](https://github.com/Pocket/terraform-modules/commit/3716e4f85493d3fad18fa7c0c6f985279b120b90))
+
+### [3.9.1](https://github.com/Pocket/terraform-modules/compare/v3.9.0...v3.9.1) (2022-04-07)
+
+
+### Bug Fixes
+
+* **application sqs queue:** expose dead letter queue ([#910](https://github.com/Pocket/terraform-modules/issues/910)) ([ff53596](https://github.com/Pocket/terraform-modules/commit/ff53596d25afdeb01537c3f4ea5d5f814f4d2387))
+
+## [3.9.0](https://github.com/Pocket/terraform-modules/compare/v3.8.0...v3.9.0) (2022-04-04)
+
+
+### Features
+
+* expose sqsQueueResource on PocketSQSWithLambdaTarget ([#909](https://github.com/Pocket/terraform-modules/issues/909)) ([b414f0c](https://github.com/Pocket/terraform-modules/commit/b414f0c9259753f9fb7cf3eda458c926bbecaa28))
+
+## [3.8.0](https://github.com/Pocket/terraform-modules/compare/v3.7.1...v3.8.0) (2022-03-24)
+
+
+### Features
+
+* **aws/backups:** aws backup integration ([05d1a94](https://github.com/Pocket/terraform-modules/commit/05d1a9414632e93ec8c213cb1f9b0ef6b013e2ac))
+
+### [3.7.1](https://github.com/Pocket/terraform-modules/compare/v3.7.0...v3.7.1) (2022-03-22)
+
+
+### Bug Fixes
+
+* **event bridge with multiple targets:** export PocketEventBridgeWithLambdaTarget construct ([#900](https://github.com/Pocket/terraform-modules/issues/900)) ([dd7460e](https://github.com/Pocket/terraform-modules/commit/dd7460e86b2e59f2f2328921f447780fda2201a2))
+
+## [3.7.0](https://github.com/Pocket/terraform-modules/compare/v3.6.1...v3.7.0) (2022-03-21)
+
+
+### Features
+
+* **event-bridge:** add multiple lambda target to same eventBridgeRule ([#888](https://github.com/Pocket/terraform-modules/issues/888)) ([02c1233](https://github.com/Pocket/terraform-modules/commit/02c1233942f57a860961e260f6b58b21e14da1e5))
+
+### [3.6.1](https://github.com/Pocket/terraform-modules/compare/v3.6.0...v3.6.1) (2022-03-16)
+
+
+### Bug Fixes
+
+* **deps:** update cdktf ([#895](https://github.com/Pocket/terraform-modules/issues/895)) ([713d68a](https://github.com/Pocket/terraform-modules/commit/713d68a9f96e1b7abc7bd370d1ebd5992c532e91))
+
+## [3.6.0](https://github.com/Pocket/terraform-modules/compare/v3.5.2...v3.6.0) (2022-03-14)
+
+
+### Features
+
+* **sqsLambda:** make functionResponseTypes configurable ([#896](https://github.com/Pocket/terraform-modules/issues/896)) ([ae844a4](https://github.com/Pocket/terraform-modules/commit/ae844a4e669d2e3e43a85aafbb15be317cb8adc3))
+
+### [3.5.2](https://github.com/Pocket/terraform-modules/compare/v3.5.1...v3.5.2) (2022-02-25)
+
+
+### Bug Fixes
+
+* **deps:** update cdktf ([#892](https://github.com/Pocket/terraform-modules/issues/892)) ([4c6587d](https://github.com/Pocket/terraform-modules/commit/4c6587d2fe6d21243b51b196b0541636626738d5))
+
+### [3.5.1](https://github.com/Pocket/terraform-modules/compare/v3.5.0...v3.5.1) (2022-02-17)
+
+
+### Bug Fixes
+
+* **deps:** update cdktf ([#886](https://github.com/Pocket/terraform-modules/issues/886)) ([beedee1](https://github.com/Pocket/terraform-modules/commit/beedee1b5936263d8a449eee18d1f91534447d9c))
+
 ## [3.5.0](https://github.com/Pocket/terraform-modules/compare/v3.4.32...v3.5.0) (2022-02-11)
 
 

@@ -23,6 +23,8 @@ export interface PocketSQSWithLambdaTargetProps
   sqsQueue?: PocketSQSProps;
   batchSize?: number;
   batchWindow?: number;
+  // https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lambda_event_source_mapping#function_response_types
+  functionResponseTypes?: string[];
 }
 
 export interface PocketSQSProps {
@@ -37,7 +39,8 @@ export interface PocketSQSProps {
  * Extends the base pocket versioned lambda class to add a sqs based trigger on top of the lambda
  */
 export class PocketSQSWithLambdaTarget extends PocketVersionedLambda {
-  private readonly sqsQueueResource: sqs.SqsQueue | sqs.DataAwsSqsQueue;
+  public readonly sqsQueueResource: sqs.SqsQueue | sqs.DataAwsSqsQueue;
+  public readonly applicationSqsQueue: ApplicationSQSQueue;
 
   constructor(
     scope: Construct,
@@ -52,11 +55,13 @@ export class PocketSQSWithLambdaTarget extends PocketVersionedLambda {
         ...config.configFromPreexistingSqsQueue,
       });
     } else {
-      this.sqsQueueResource = this.createSqsQueue({
+      this.applicationSqsQueue = this.createSqsQueue({
         ...config.sqsQueue,
         name: `${config.name}-Queue`,
         tags: config.tags,
       });
+
+      this.sqsQueueResource = this.applicationSqsQueue.sqsQueue;
     }
 
     this.createSQSExecutionPolicyOnLambda(
@@ -73,9 +78,8 @@ export class PocketSQSWithLambdaTarget extends PocketVersionedLambda {
    */
   private createSqsQueue(
     sqsQueueConfig: ApplicationSQSQueueProps
-  ): sqs.SqsQueue {
-    return new ApplicationSQSQueue(this, 'lambda_sqs_queue', sqsQueueConfig)
-      .sqsQueue;
+  ): ApplicationSQSQueue {
+    return new ApplicationSQSQueue(this, 'lambda_sqs_queue', sqsQueueConfig);
   }
 
   /**
@@ -134,6 +138,7 @@ export class PocketSQSWithLambdaTarget extends PocketVersionedLambda {
         functionName: lambda.versionedLambda.arn,
         batchSize: config.batchSize,
         maximumBatchingWindowInSeconds: config.batchWindow,
+        functionResponseTypes: config.functionResponseTypes,
       }
     );
   }

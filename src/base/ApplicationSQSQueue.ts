@@ -72,6 +72,7 @@ const validations: {
  */
 export class ApplicationSQSQueue extends Resource {
   public readonly sqsQueue: sqs.SqsQueue;
+  public deadLetterQueue: sqs.SqsQueue | undefined;
 
   constructor(
     scope: Construct,
@@ -118,10 +119,10 @@ export class ApplicationSQSQueue extends Resource {
     };
 
     if (config.maxReceiveCount && config.maxReceiveCount > 0) {
-      const deadLetterQueue = this.createDeadLetterSQSQueue(config);
+      this.deadLetterQueue = this.createDeadLetterSQSQueue(config);
       sqsConfig.redrivePolicy = JSON.stringify({
         maxReceiveCount: config.maxReceiveCount,
-        deadLetterTargetArn: deadLetterQueue.arn,
+        deadLetterTargetArn: this.deadLetterQueue.arn,
       });
     }
 
