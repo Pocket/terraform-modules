@@ -64,6 +64,16 @@ test('renders a Pocket ECS Codepipeline template with the provided CodeDeploy de
   expect(synthed).toMatchSnapshot();
 });
 
+test('renders a Pocket ECS Codepipeline template with the provided artifact bucket prefix', () => {
+  const synthed = Testing.synthScope((stack) => {
+    new PocketECSCodePipeline(stack, 'test-codepipeline', {
+      ...config,
+      artifactBucketPrefix: 'my-codepipeline',
+    });
+  });
+  expect(synthed).toMatchSnapshot();
+});
+
 test('renders a Pocket ECS Codepipeline template with the provided appspec path', () => {
   const synthed = Testing.synthScope((stack) => {
     new PocketECSCodePipeline(stack, 'test-codepipeline', {
