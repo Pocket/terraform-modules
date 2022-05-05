@@ -1,3 +1,10 @@
+## [3.13.0](https://github.com/Pocket/terraform-modules/compare/v3.12.1...v3.13.0) (2022-05-05)
+
+
+### Features
+
+* **PocketECSCodePipeline:** add parameter for custom artifact bucket name [FFRECSV2-218] ([#923](https://github.com/Pocket/terraform-modules/issues/923)) ([363e3eb](https://github.com/Pocket/terraform-modules/commit/363e3eb9fabdd25416beda1d863cc7f969c1b43b))
+
 ### [3.12.1](https://github.com/Pocket/terraform-modules/compare/v3.12.0...v3.12.1) (2022-05-04)
 
 
