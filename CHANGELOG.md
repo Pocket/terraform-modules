@@ -1,3 +1,10 @@
+### [3.13.1](https://github.com/Pocket/terraform-modules/compare/v3.13.0...v3.13.1) (2022-05-13)
+
+
+### Bug Fixes
+
+* **sns:** create SNS to SQS subscription construct ([#925](https://github.com/Pocket/terraform-modules/issues/925)) ([778e309](https://github.com/Pocket/terraform-modules/commit/778e3090f3258fdf641eb21c5ab01283abee0095))
+
 ## [3.13.0](https://github.com/Pocket/terraform-modules/compare/v3.12.1...v3.13.0) (2022-05-05)
 
 
