@@ -1,3 +1,10 @@
+### [3.13.2](https://github.com/Pocket/terraform-modules/compare/v3.13.1...v3.13.2) (2022-05-16)
+
+
+### Bug Fixes
+
+* **lambda:** add NodeJS 16 support ([#926](https://github.com/Pocket/terraform-modules/issues/926)) ([afd4f44](https://github.com/Pocket/terraform-modules/commit/afd4f44200f845a6e63857acafce75fb41d5f1d3))
+
 ### [3.13.1](https://github.com/Pocket/terraform-modules/compare/v3.13.0...v3.13.1) (2022-05-13)
 
 
