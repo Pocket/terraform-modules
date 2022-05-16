@@ -120,7 +120,7 @@
     "@semantic-release/release-notes-generator": "10.0.3",
     "@types/chai": "4.3.1",
     "@types/jest": "27.4.1",
-    "@types/node": "16.11.33",
+    "@types/node": "16.11.35",
     "@typescript-eslint/eslint-plugin": "5.22.0",
     "@typescript-eslint/parser": "5.22.0",
     "chai": "4.3.6",
