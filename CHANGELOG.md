@@ -1,3 +1,10 @@
+### [3.13.4](https://github.com/Pocket/terraform-modules/compare/v3.13.3...v3.13.4) (2022-05-19)
+
+
+### Bug Fixes
+
+* **standards:** updating to latest pocket standards ([#929](https://github.com/Pocket/terraform-modules/issues/929)) ([5ecc36c](https://github.com/Pocket/terraform-modules/commit/5ecc36c60a4919b011bb35d489e34095ccb31b52))
+
 ### [3.13.3](https://github.com/Pocket/terraform-modules/compare/v3.13.2...v3.13.3) (2022-05-19)
 
 
