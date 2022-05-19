@@ -311,8 +311,6 @@ export class ApplicationECSService extends Resource {
           cidrBlocks: [],
           ipv6CidrBlocks: [],
           prefixListIds: [],
-          // @ts-ignore: https://github.com/hashicorp/terraform-cdk/issues/282
-          self: false,
         },
       ];
     }
@@ -327,8 +325,6 @@ export class ApplicationECSService extends Resource {
         ipv6CidrBlocks: [],
         prefixListIds: [],
         securityGroups: [],
-        // @ts-ignore: https://github.com/hashicorp/terraform-cdk/issues/282
-        self: false,
       },
     ];
 
