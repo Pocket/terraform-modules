@@ -107,7 +107,6 @@
     "cdktf": "0.10.4",
     "cdktf-cli": "0.10.4",
     "constructs": "10.1.11",
-    "crypto-random-string": "^4.0.0",
     "parse-domain": "^4.1.0"
   },
   "devDependencies": {
