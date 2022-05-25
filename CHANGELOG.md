@@ -1,3 +1,10 @@
+### [3.13.6](https://github.com/Pocket/terraform-modules/compare/v3.13.5...v3.13.6) (2022-05-25)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @cdktf/provider-aws to v8.0.1 ([#937](https://github.com/Pocket/terraform-modules/issues/937)) ([e88ffde](https://github.com/Pocket/terraform-modules/commit/e88ffde31bb7494c93584e946e1dee7daa618a5e))
+
 ### [3.13.5](https://github.com/Pocket/terraform-modules/compare/v3.13.4...v3.13.5) (2022-05-25)
 
 
