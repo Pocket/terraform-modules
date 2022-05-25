@@ -85,27 +85,10 @@ export class ApplicationCertificate extends Resource {
       name: cert.domainValidationOptions.get(0).resourceRecordName,
       type: cert.domainValidationOptions.get(0).resourceRecordType,
       zoneId,
-      records: [],
+      records: [cert.domainValidationOptions.get(0).resourceRecordValue],
       ttl: 60,
       dependsOn: [cert],
     });
-
-    // there appears to be an aws / cdk versioning mismatch .the above references to
-    // certificate.domainValidationOptions fail due to aws using a set instead of a list
-    // (but cdk doesn't know this yet). so, we force it.
-    record.addOverride(
-      'name',
-      `\${tolist(${cert.fqn}.domain_validation_options)[0].resource_record_name}`
-    );
-
-    record.addOverride(
-      'type',
-      `\${tolist(${cert.fqn}.domain_validation_options)[0].resource_record_type}`
-    );
-
-    record.addOverride('records', [
-      `\${tolist(${cert.fqn}.domain_validation_options)[0].resource_record_value}`,
-    ]);
 
     return record;
   }
