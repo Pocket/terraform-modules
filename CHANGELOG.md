@@ -1,3 +1,31 @@
+### [3.13.6](https://github.com/Pocket/terraform-modules/compare/v3.13.5...v3.13.6) (2022-05-25)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @cdktf/provider-aws to v8.0.1 ([#937](https://github.com/Pocket/terraform-modules/issues/937)) ([e88ffde](https://github.com/Pocket/terraform-modules/commit/e88ffde31bb7494c93584e946e1dee7daa618a5e))
+
+### [3.13.5](https://github.com/Pocket/terraform-modules/compare/v3.13.4...v3.13.5) (2022-05-25)
+
+
+### Bug Fixes
+
+* **deps:** update cdktf ([#930](https://github.com/Pocket/terraform-modules/issues/930)) ([bbcc3f3](https://github.com/Pocket/terraform-modules/commit/bbcc3f3849e5dd89ff764c2bdcabc3674de03d6b))
+
+### [3.13.4](https://github.com/Pocket/terraform-modules/compare/v3.13.3...v3.13.4) (2022-05-19)
+
+
+### Bug Fixes
+
+* **standards:** updating to latest pocket standards ([#929](https://github.com/Pocket/terraform-modules/issues/929)) ([5ecc36c](https://github.com/Pocket/terraform-modules/commit/5ecc36c60a4919b011bb35d489e34095ccb31b52))
+
+### [3.13.3](https://github.com/Pocket/terraform-modules/compare/v3.13.2...v3.13.3) (2022-05-19)
+
+
+### Bug Fixes
+
+* **deps:** update cdktf ([#921](https://github.com/Pocket/terraform-modules/issues/921)) ([40b70b1](https://github.com/Pocket/terraform-modules/commit/40b70b18c96943afdc24602f22177542b7c1f235))
+
 ### [3.13.2](https://github.com/Pocket/terraform-modules/compare/v3.13.1...v3.13.2) (2022-05-16)
 
 

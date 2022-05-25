@@ -1,3 +1,4 @@
+import { dynamodb } from '@cdktf/provider-aws';
 import { Testing } from 'cdktf';
 import {
   ApplicationDynamoDBTable,
@@ -113,8 +114,10 @@ describe('ApplicationDynamoDBTable', () => {
       min: 3,
     };
 
-    //@ts-ignore Ignoring because cdktf 0.9 added IResolvable to the types for globalSecondaryIndex and it just causes issies with arrays
-    BASE_CONFIG.tableConfig.globalSecondaryIndex.push({
+    (
+      BASE_CONFIG.tableConfig
+        .globalSecondaryIndex as dynamodb.DynamodbTableGlobalSecondaryIndex[]
+    ).push({
       name: 'card-index',
       hashKey: 'card-type',
       rangeKey: 'home_on_the_range',
@@ -143,8 +146,10 @@ describe('ApplicationDynamoDBTable', () => {
     };
 
     //This test runs after the first secondary index test, so here we just add another index which gives us 2
-    //@ts-ignore Ignoring because cdktf 0.9 added IResolvable to the types for globalSecondaryIndex and it just causes issies with arrays
-    BASE_CONFIG.tableConfig.globalSecondaryIndex.push({
+    (
+      BASE_CONFIG.tableConfig
+        .globalSecondaryIndex as dynamodb.DynamodbTableGlobalSecondaryIndex[]
+    ).push({
       name: 'card-index-2',
       hashKey: 'card-type-123',
       rangeKey: 'home_home_on_the_range',
