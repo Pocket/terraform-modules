@@ -12,14 +12,10 @@ import {
 import { PocketVPC } from './PocketVPC';
 import { CloudwatchMetricAlarmConfig } from '@cdktf/provider-aws/lib/cloudwatch';
 
-export interface PocketECSApplicationAlarmProps {
-  threshold?: number;
-  period?: number;
-  evaluationPeriods?: number;
-  datapointsToAlarm?: number;
-  actions?: string[];
-  alarmDescription?: string;
-}
+export type CreateECSServiceArgs = {
+  ecs: ApplicationECSService;
+  cluster: ApplicationECSCluster;
+};
 
 export interface PocketECSApplicationProps {
   /**
@@ -196,13 +192,10 @@ export class PocketECSApplication extends Resource {
   }
 
   /**
-   * Create the ECS service and attach it to the ALB
+   * Create the ECS service
    * @private
    */
-  private createECSService(): {
-    ecs: ApplicationECSService;
-    cluster: ApplicationECSCluster;
-  } {
+  private createECSService(): CreateECSServiceArgs {
     const ecsCluster = new ApplicationECSCluster(this, 'ecs_cluster', {
       prefix: this.config.prefix,
       tags: this.config.tags,
