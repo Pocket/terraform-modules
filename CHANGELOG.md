@@ -1,3 +1,10 @@
+### [3.13.8](https://github.com/Pocket/terraform-modules/compare/v3.13.7...v3.13.8) (2022-05-26)
+
+
+### Bug Fixes
+
+* **ECS IAM:** Expose ECS IAM role from the ApplicationECSService construct ([#940](https://github.com/Pocket/terraform-modules/issues/940)) ([ae5912f](https://github.com/Pocket/terraform-modules/commit/ae5912f1e764afa2d5a6621ed3c180d24983d75e))
+
 ### [3.13.7](https://github.com/Pocket/terraform-modules/compare/v3.13.6...v3.13.7) (2022-05-26)
 
 
