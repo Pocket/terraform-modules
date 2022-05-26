@@ -2,6 +2,7 @@
 // anything we want consumable (module, type, class, etc) should be exported here
 export * from './pocket/PocketApiGatewayLambdaIntegration';
 export * from './pocket/PocketALBApplication';
+export * from './pocket/PocketECSApplication';
 export * from './pocket/PocketECSCodePipeline';
 export * from './pocket/PocketEventBridgeRuleWithMultipleTargets';
 export * from './pocket/PocketEventBridgeWithLambdaTarget';

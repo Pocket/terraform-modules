@@ -66,6 +66,7 @@ export class ApplicationECSService extends Resource {
   public readonly codeDeployApp?: ApplicationECSAlbCodeDeploy;
   public readonly ecrRepos: ecr.EcrRepository[];
   public readonly taskDefinition: ecs.EcsTaskDefinition;
+  public ecsIam: ApplicationECSIAM;
   private readonly config: ApplicationECSServiceProps;
 
   constructor(
@@ -394,7 +395,7 @@ export class ApplicationECSService extends Resource {
       containerDefs.push(buildDefinitionJSON(def));
     });
 
-    const ecsIam = new ApplicationECSIAM(this, 'ecs-iam', {
+    this.ecsIam = new ApplicationECSIAM(this, 'ecs-iam', {
       prefix: this.config.prefix,
       tags: this.config.tags,
       taskExecutionDefaultAttachmentArn:
@@ -410,8 +411,8 @@ export class ApplicationECSService extends Resource {
       // why are container definitions just JSON? can we get a real construct? sheesh.
       containerDefinitions: `[${containerDefs}]`,
       family: `${this.config.prefix}`,
-      executionRoleArn: ecsIam.taskExecutionRoleArn,
-      taskRoleArn: ecsIam.taskRoleArn,
+      executionRoleArn: this.ecsIam.taskExecutionRoleArn,
+      taskRoleArn: this.ecsIam.taskRoleArn,
       cpu: this.config.cpu.toString(),
       memory: this.config.memory.toString(),
       requiresCompatibilities: ['FARGATE'],

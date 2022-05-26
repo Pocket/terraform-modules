@@ -13,6 +13,7 @@ export interface ApplicationECSIAMProps {
 export class ApplicationECSIAM extends Resource {
   public readonly taskExecutionRoleArn;
   public readonly taskRoleArn;
+  public readonly taskRole: iam.IamRole;
 
   constructor(scope: Construct, name: string, config: ApplicationECSIAMProps) {
     super(scope, name);
@@ -118,5 +119,6 @@ export class ApplicationECSIAM extends Resource {
     // make arns available to other modules
     this.taskExecutionRoleArn = ecsTaskExecutionRole.arn;
     this.taskRoleArn = ecsTaskRole.arn;
+    this.taskRole = ecsTaskRole;
   }
 }
