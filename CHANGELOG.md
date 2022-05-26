@@ -1,3 +1,10 @@
+### [3.13.7](https://github.com/Pocket/terraform-modules/compare/v3.13.6...v3.13.7) (2022-05-26)
+
+
+### Bug Fixes
+
+* **ECS Application:** Add a basic ECS application construct ([#939](https://github.com/Pocket/terraform-modules/issues/939)) ([ec44aad](https://github.com/Pocket/terraform-modules/commit/ec44aad75206c15e5dde1ce6689de314f8259240))
+
 ### [3.13.6](https://github.com/Pocket/terraform-modules/compare/v3.13.5...v3.13.6) (2022-05-25)
 
 
