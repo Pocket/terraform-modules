@@ -127,7 +127,7 @@
     "jest": "28.1.0",
     "semantic-release": "19.0.2",
     "sinon": "14.0.0",
-    "ts-jest": "28.0.2",
+    "ts-jest": "28.0.3",
     "ts-node": "10.8.0"
   },
   "repository": {
