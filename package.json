@@ -123,7 +123,7 @@
     "@types/jest": "27.5.1",
     "@types/node": "16.11.38",
     "chai": "4.3.6",
-    "conventional-changelog-conventionalcommits": "4.6.3",
+    "conventional-changelog-conventionalcommits": "5.0.0",
     "jest": "28.1.0",
     "semantic-release": "19.0.2",
     "sinon": "14.0.0",
