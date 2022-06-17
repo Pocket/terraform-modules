@@ -1,3 +1,14 @@
+## [4.0.0](https://github.com/Pocket/terraform-modules/compare/v3.13.10...v4.0.0) (2022-06-17)
+
+
+### ⚠ BREAKING CHANGES
+
+* **peer:** we are moving to direct dependencies instead of relying on peer dependencies
+
+### Bug Fixes
+
+* **peer:** removing peer depedencies in favor of direct usage ([#958](https://github.com/Pocket/terraform-modules/issues/958)) ([96b7fe0](https://github.com/Pocket/terraform-modules/commit/96b7fe04f41611fad40508609752b78ac557ae12))
+
 ## [3.13.10](https://github.com/Pocket/terraform-modules/compare/v3.13.9...v3.13.10) (2022-06-17)
 
 
