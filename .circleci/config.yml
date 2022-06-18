@@ -41,13 +41,10 @@ jobs:
           password: $DOCKERHUB_PASSWORD
     steps:
       - setup_dependencies
-      - run: npx semantic-release
-      ## Let's update the package.json and then publish with a different name to npm registry.
-      - run: echo $(jq '.name = "@pocket-tools/terraform-modules" | del(.publishConfig)' package.json) > package.json
       - run:
           name: Setup NPM Token
           command: echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" >> ~/.npmrc
-      - run: '(test -f .version && npm publish --access=public) || echo .version does not exist, no release was made, skipping npm registry publish'
+      - run: npx semantic-release
 
   test:
     resource_class: large
@@ -75,4 +72,3 @@ workflows:
       - publish:
           context: pocket
           name: Publish NPM package
-
