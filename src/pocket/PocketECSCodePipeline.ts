@@ -5,6 +5,7 @@ import crypto from 'crypto';
 
 export interface PocketECSCodePipelineProps {
   prefix: string;
+  artifactBucketPrefix?: string;
   source: {
     repository: string;
     branchName: string;
@@ -69,6 +70,9 @@ export class PocketECSCodePipeline extends Resource {
   private getCodeBuildProjectName = () =>
     this.config.codeBuildProjectName ?? this.config.prefix;
 
+  private getArtifactBucketPrefix = () =>
+    this.config.artifactBucketPrefix ?? 'pocket-codepipeline';
+
   private getCodeDeployApplicationName = () =>
     this.config.codeDeploy?.applicationName ?? `${this.config.prefix}-ECS`;
 
@@ -125,7 +129,7 @@ export class PocketECSCodePipeline extends Resource {
       .digest('hex');
 
     return new s3.S3Bucket(this, 'codepipeline-bucket', {
-      bucket: `pocket-codepipeline-${prefixHash}`,
+      bucket: `${this.getArtifactBucketPrefix()}-${prefixHash}`,
       acl: 'private',
       forceDestroy: true,
       tags: this.config.tags,

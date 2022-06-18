@@ -53,8 +53,6 @@ export class ApplicationLoadBalancer extends Resource {
           ipv6CidrBlocks: [],
           prefixListIds: [],
           securityGroups: [],
-          // @ts-ignore: https://github.com/hashicorp/terraform-cdk/issues/282
-          self: false,
         },
       ],
       tags: {

@@ -234,12 +234,12 @@ exports[`PocketApiGatewayLambdaIntegration renders an api gateway with a lambda 
         \\"depends_on\\": [
           \\"aws_acm_certificate.test-api-lambda_api-gateway-certificate_8D77B940\\"
         ],
-        \\"name\\": \\"\${tolist(aws_acm_certificate.test-api-lambda_api-gateway-certificate_8D77B940.domain_validation_options)[0].resource_record_name}\\",
+        \\"name\\": \\"\${tolist(aws_acm_certificate.test-api-lambda_api-gateway-certificate_8D77B940.domain_validation_options)[0][\\\\\\"resource_record_name\\\\\\"]}\\",
         \\"records\\": [
-          \\"\${tolist(aws_acm_certificate.test-api-lambda_api-gateway-certificate_8D77B940.domain_validation_options)[0].resource_record_value}\\"
+          \\"\${tolist(aws_acm_certificate.test-api-lambda_api-gateway-certificate_8D77B940.domain_validation_options)[0][\\\\\\"resource_record_value\\\\\\"]}\\"
         ],
         \\"ttl\\": 60,
-        \\"type\\": \\"\${tolist(aws_acm_certificate.test-api-lambda_api-gateway-certificate_8D77B940.domain_validation_options)[0].resource_record_type}\\",
+        \\"type\\": \\"\${tolist(aws_acm_certificate.test-api-lambda_api-gateway-certificate_8D77B940.domain_validation_options)[0][\\\\\\"resource_record_type\\\\\\"]}\\",
         \\"zone_id\\": \\"\${aws_route53_zone.test-api-lambda_base-dns_subhosted_zone_B29688D6.zone_id}\\"
       },
       \\"test-api-lambda_apigateway-route53-domain-record_A8180A05\\": {

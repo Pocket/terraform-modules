@@ -2,6 +2,7 @@
 // anything we want consumable (module, type, class, etc) should be exported here
 export * from './pocket/PocketApiGatewayLambdaIntegration';
 export * from './pocket/PocketALBApplication';
+export * from './pocket/PocketECSApplication';
 export * from './pocket/PocketECSCodePipeline';
 export * from './pocket/PocketEventBridgeRuleWithMultipleTargets';
 export * from './pocket/PocketEventBridgeWithLambdaTarget';
@@ -22,11 +23,13 @@ export * from './base/ApplicationECSIAM';
 export * from './base/ApplicationECSService';
 export * from './base/ApplicationElasticacheCluster';
 export * from './base/ApplicationEventBridgeRule';
+export * from './base/ApplicationEventBus';
 export * from './base/ApplicationLambdaCodeDeploy';
 export * from './base/ApplicationLoadBalancer';
 export * from './base/ApplicationMemcache';
 export * from './base/ApplicationRDSCluster';
 export * from './base/ApplicationRedis';
 export * from './base/ApplicationSQSQueue';
+export * from './base/ApplicationSqsSnsTopicSubscription';
 export * from './base/ApplicationTargetGroup';
 export * from './base/ApplicationVersionedLambda';

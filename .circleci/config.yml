@@ -1,7 +1,7 @@
 version: 2.1
 
 orbs:
-  terraform: circleci/terraform@3.0.1
+  terraform: circleci/terraform@3.1.0
 
 commands:
   setup_dependencies:

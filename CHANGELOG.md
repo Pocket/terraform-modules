@@ -1,3 +1,91 @@
+## [4.0.0](https://github.com/Pocket/terraform-modules/compare/v3.13.10...v4.0.0) (2022-06-17)
+
+
+### ⚠ BREAKING CHANGES
+
+* **peer:** we are moving to direct dependencies instead of relying on peer dependencies
+
+### Bug Fixes
+
+* **peer:** removing peer depedencies in favor of direct usage ([#958](https://github.com/Pocket/terraform-modules/issues/958)) ([96b7fe0](https://github.com/Pocket/terraform-modules/commit/96b7fe04f41611fad40508609752b78ac557ae12))
+
+## [3.13.10](https://github.com/Pocket/terraform-modules/compare/v3.13.9...v3.13.10) (2022-06-17)
+
+
+### Bug Fixes
+
+* **deps:** update cdktf ([#947](https://github.com/Pocket/terraform-modules/issues/947)) ([43667bd](https://github.com/Pocket/terraform-modules/commit/43667bd5b74fbc7712fd7a2940958ed336e5aaa8))
+
+## [3.13.9](https://github.com/Pocket/terraform-modules/compare/v3.13.8...v3.13.9) (2022-06-02)
+
+
+### Bug Fixes
+
+* **deps:** update cdktf ([#938](https://github.com/Pocket/terraform-modules/issues/938)) ([85b7d77](https://github.com/Pocket/terraform-modules/commit/85b7d770f699e136b4f7b4a60b7cd5d64e0d08cd))
+
+### [3.13.8](https://github.com/Pocket/terraform-modules/compare/v3.13.7...v3.13.8) (2022-05-26)
+
+
+### Bug Fixes
+
+* **ECS IAM:** Expose ECS IAM role from the ApplicationECSService construct ([#940](https://github.com/Pocket/terraform-modules/issues/940)) ([ae5912f](https://github.com/Pocket/terraform-modules/commit/ae5912f1e764afa2d5a6621ed3c180d24983d75e))
+
+### [3.13.7](https://github.com/Pocket/terraform-modules/compare/v3.13.6...v3.13.7) (2022-05-26)
+
+
+### Bug Fixes
+
+* **ECS Application:** Add a basic ECS application construct ([#939](https://github.com/Pocket/terraform-modules/issues/939)) ([ec44aad](https://github.com/Pocket/terraform-modules/commit/ec44aad75206c15e5dde1ce6689de314f8259240))
+
+### [3.13.6](https://github.com/Pocket/terraform-modules/compare/v3.13.5...v3.13.6) (2022-05-25)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @cdktf/provider-aws to v8.0.1 ([#937](https://github.com/Pocket/terraform-modules/issues/937)) ([e88ffde](https://github.com/Pocket/terraform-modules/commit/e88ffde31bb7494c93584e946e1dee7daa618a5e))
+
+### [3.13.5](https://github.com/Pocket/terraform-modules/compare/v3.13.4...v3.13.5) (2022-05-25)
+
+
+### Bug Fixes
+
+* **deps:** update cdktf ([#930](https://github.com/Pocket/terraform-modules/issues/930)) ([bbcc3f3](https://github.com/Pocket/terraform-modules/commit/bbcc3f3849e5dd89ff764c2bdcabc3674de03d6b))
+
+### [3.13.4](https://github.com/Pocket/terraform-modules/compare/v3.13.3...v3.13.4) (2022-05-19)
+
+
+### Bug Fixes
+
+* **standards:** updating to latest pocket standards ([#929](https://github.com/Pocket/terraform-modules/issues/929)) ([5ecc36c](https://github.com/Pocket/terraform-modules/commit/5ecc36c60a4919b011bb35d489e34095ccb31b52))
+
+### [3.13.3](https://github.com/Pocket/terraform-modules/compare/v3.13.2...v3.13.3) (2022-05-19)
+
+
+### Bug Fixes
+
+* **deps:** update cdktf ([#921](https://github.com/Pocket/terraform-modules/issues/921)) ([40b70b1](https://github.com/Pocket/terraform-modules/commit/40b70b18c96943afdc24602f22177542b7c1f235))
+
+### [3.13.2](https://github.com/Pocket/terraform-modules/compare/v3.13.1...v3.13.2) (2022-05-16)
+
+
+### Bug Fixes
+
+* **lambda:** add NodeJS 16 support ([#926](https://github.com/Pocket/terraform-modules/issues/926)) ([afd4f44](https://github.com/Pocket/terraform-modules/commit/afd4f44200f845a6e63857acafce75fb41d5f1d3))
+
+### [3.13.1](https://github.com/Pocket/terraform-modules/compare/v3.13.0...v3.13.1) (2022-05-13)
+
+
+### Bug Fixes
+
+* **sns:** create SNS to SQS subscription construct ([#925](https://github.com/Pocket/terraform-modules/issues/925)) ([778e309](https://github.com/Pocket/terraform-modules/commit/778e3090f3258fdf641eb21c5ab01283abee0095))
+
+## [3.13.0](https://github.com/Pocket/terraform-modules/compare/v3.12.1...v3.13.0) (2022-05-05)
+
+
+### Features
+
+* **PocketECSCodePipeline:** add parameter for custom artifact bucket name [FFRECSV2-218] ([#923](https://github.com/Pocket/terraform-modules/issues/923)) ([363e3eb](https://github.com/Pocket/terraform-modules/commit/363e3eb9fabdd25416beda1d863cc7f969c1b43b))
+
 ### [3.12.1](https://github.com/Pocket/terraform-modules/compare/v3.12.0...v3.12.1) (2022-05-04)
 
 
