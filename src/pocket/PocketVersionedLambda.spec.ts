@@ -148,6 +148,29 @@ test('renders a lambda with code deploy', () => {
   expect(synthed).toMatchSnapshot();
 });
 
+test('renders a lambda with code deploy with all deploy notifications turned on', () => {
+  const synthed = Testing.synthScope((stack) => {
+    new PocketVersionedLambda(stack, 'test-lambda', {
+      ...config,
+      lambda: {
+        ...config.lambda,
+        codeDeploy: {
+          deploySnsTopicArn: 'arn:test',
+          detailType: 'FULL',
+          region: 'us-east-1',
+          accountId: 'test-account',
+          notifications: {
+            // omitting notifyOnFailed since it's set to true by default if not provided
+            notifyOnStarted: true,
+            notifyOnSucceeded: true,
+          },
+        },
+      },
+    });
+  });
+  expect(synthed).toMatchSnapshot();
+});
+
 test('renders a lambda with alarms', () => {
   const synthed = Testing.synthScope((stack) => {
     new PocketVersionedLambda(stack, 'test-lambda', {
