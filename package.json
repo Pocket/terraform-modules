@@ -99,7 +99,7 @@
     "parse-domain": "^4.1.0"
   },
   "devDependencies": {
-    "@pocket-tools/eslint-config": "1.1.0",
+    "@pocket-tools/eslint-config": "2.0.0",
     "@pocket-tools/tsconfig": "2.0.1",
     "@semantic-release/changelog": "6.0.1",
     "@semantic-release/commit-analyzer": "9.0.2",
