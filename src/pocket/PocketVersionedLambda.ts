@@ -44,6 +44,11 @@ export interface PocketVersionedLambdaProps {
       detailType?: 'BASIC' | 'FULL';
       region: string;
       accountId: string;
+      notifications?: {
+        notifyOnStarted?: boolean;
+        notifyOnSucceeded?: boolean;
+        notifyOnFailed?: boolean;
+      };
     };
     alarms?: {
       invocations?: PocketVersionedLambdaDefaultAlarmProps;
@@ -173,6 +178,7 @@ export class PocketVersionedLambda extends Resource {
       detailType: lambdaConfig.codeDeploy.detailType,
       region: lambdaConfig.codeDeploy.region,
       accountId: lambdaConfig.codeDeploy.accountId,
+      notifications: lambdaConfig.codeDeploy.notifications,
     });
   }
 

@@ -8,6 +8,20 @@ export interface ApplicationVersionedLambdaCodeDeployProps {
   detailType?: 'BASIC' | 'FULL';
   region: string;
   accountId: string;
+  notifications?: {
+    /**
+     * Option to send CodeDeploy notifications on Started event, defaults to false.
+     */
+    notifyOnStarted?: boolean;
+    /**
+     * Option to send CodeDeploy notifications on Succeeded event, defaults to false.
+     */
+    notifyOnSucceeded?: boolean;
+    /**
+     * Option to send CodeDeploy notifications on Failed event, defaults to true.
+     */
+    notifyOnFailed?: boolean;
+  };
 }
 
 export class ApplicationLambdaCodeDeploy extends Resource {
@@ -100,9 +114,27 @@ export class ApplicationLambdaCodeDeploy extends Resource {
   private setupCodeDeployNotifications(
     codeDeployApp: codedeploy.CodedeployApp
   ) {
+    const eventTypeIds = [];
+
+    // the OR condition here sets the notification for failed deploys which is a default when no notification preferences are provided
+    if (
+      this.config.notifications?.notifyOnFailed ||
+      this.config.notifications?.notifyOnFailed === undefined
+    ) {
+      eventTypeIds.push('codedeploy-application-deployment-failed');
+    }
+
+    if (this.config.notifications?.notifyOnSucceeded) {
+      eventTypeIds.push('codedeploy-application-deployment-succeeded');
+    }
+
+    if (this.config.notifications?.notifyOnStarted) {
+      eventTypeIds.push('codedeploy-application-deployment-started');
+    }
+
     new codestar.CodestarnotificationsNotificationRule(this, 'notifications', {
       detailType: this.config.detailType ?? 'BASIC',
-      eventTypeIds: ['codedeploy-application-deployment-failed'],
+      eventTypeIds: eventTypeIds,
       name: codeDeployApp.name,
       resource: `arn:aws:codedeploy:${this.config.region}:${this.config.accountId}:application:${codeDeployApp.name}`,
       target: [
