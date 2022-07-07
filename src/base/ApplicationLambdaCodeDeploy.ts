@@ -10,11 +10,11 @@ export interface ApplicationVersionedLambdaCodeDeployProps {
   accountId: string;
   notifications?: {
     /**
-     * Option to send CodeDeploy notifications on Started event, defaults to true.
+     * Option to send CodeDeploy notifications on Started event, defaults to false.
      */
     notifyOnStarted?: boolean;
     /**
-     * Option to send CodeDeploy notifications on Succeeded event, defaults to true.
+     * Option to send CodeDeploy notifications on Succeeded event, defaults to false.
      */
     notifyOnSucceeded?: boolean;
     /**
