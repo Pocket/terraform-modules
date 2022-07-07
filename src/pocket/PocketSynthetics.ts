@@ -13,10 +13,13 @@ export interface PocketSyntheticProps {
   nrqlConfig?: {
     query?: string;
     evaluationOffset?: number;
-    valueFunction?: string;
     violationTimeLimitSeconds?: number;
     closeViolationsOnExpiration?: boolean;
     expirationDuration?: number;
+    slideBy: number;
+    aggregationWindow: number;
+    aggregationMethod: string;
+    aggregationDelay: string;
     critical?: {
       operator?: string;
       threshold?: number;
@@ -64,8 +67,10 @@ export class PocketSyntheticCheck extends Resource {
 
     const defaultNrqlConfig = {
       query: `SELECT count(result) from SyntheticCheck where result = 'FAILED' and monitorName = '${pocketMonitor.name}'`,
-      evaluationOffset: 3,
-      valueFunction: 'sum',
+      aggregationMethod: 'cadence',
+      aggregationWindow: 3000,
+      aggregationDelay: '180',
+      slideBy: 60,
       violationTimeLimitSeconds: 2592000,
       closeViolationsOnExpiration: true,
       expirationDuration: 600,
@@ -87,11 +92,13 @@ export class PocketSyntheticCheck extends Resource {
       policyId: this.config.policyId,
       fillValue: 0,
       fillOption: 'static',
+      aggregationWindow: this.config.nrqlConfig.aggregationWindow,
+      aggregationMethod: this.config.nrqlConfig.aggregationMethod,
+      aggregationDelay: this.config.nrqlConfig.aggregationDelay,
+      slideBy: this.config.nrqlConfig.slideBy,
       nrql: {
         query: this.config.nrqlConfig.query,
-        evaluationOffset: this.config.nrqlConfig.evaluationOffset,
       },
-      valueFunction: this.config.nrqlConfig.valueFunction,
       violationTimeLimitSeconds:
         this.config.nrqlConfig.violationTimeLimitSeconds,
       closeViolationsOnExpiration:
