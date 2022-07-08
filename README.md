@@ -64,10 +64,10 @@ Note that this isn't a full end-to-end verification, and will hang on domain cer
 Sometimes it is useful to develop the module while consuming it in another repo.
 
 1. Run `npm link` in the root of this repo
-2. In the consumer repo run `npm link @pocket/terraform-modules`
+2. In the consumer repo run `npm link @pocket-tools/terraform-modules`
 3. In this repo run `npm run watch`
 4. Profit in the consumer repo - meaning, test deploying your application to AWS (probably in the dev account)
 
 When you are done be sure to:
 1. `npm unlink` in this repo
-2. `npm unlink @pocket/terraform-modules` in the consuming repo
+2. `npm unlink @pocket-tools/terraform-modules` in the consuming repo

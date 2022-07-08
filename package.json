@@ -1,5 +1,5 @@
 {
-  "name": "@pocket/terraform-modules",
+  "name": "@pocket-tools/terraform-modules",
   "version": "0.0.0-development",
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/"
