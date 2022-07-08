@@ -1,3 +1,10 @@
+## [4.0.2](https://github.com/Pocket/terraform-modules/compare/v4.0.1...v4.0.2) (2022-07-08)
+
+
+### Bug Fixes
+
+* **newrelic:** Update sum to slideBy ([#968](https://github.com/Pocket/terraform-modules/issues/968)) ([31bd9cf](https://github.com/Pocket/terraform-modules/commit/31bd9cf836dc5fcfd88c414697e5cecff60a0dd9))
+
 ## [4.0.1](https://github.com/Pocket/terraform-modules/compare/v4.0.0...v4.0.1) (2022-07-06)
 
 
