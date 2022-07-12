@@ -41,6 +41,25 @@ describe('AplicationEventBridgeRule', () => {
     expect(synthed).toMatchSnapshot();
   });
 
+  it('renders an event bridge with pre-existing sqs target', () => {
+    const synthed = Testing.synthScope((stack) => {
+      const appSqs = new sqs.SqsQueue(stack, 'test-queue', {
+        name: 'Test-SQS-Queue',
+      });
+
+      new ApplicationEventBridgeRule(stack, 'test-event-bridge-rule', {
+        ...config,
+        targets: [
+          {
+            arn: appSqs.arn,
+            targetId: 'sqs',
+          },
+        ],
+      });
+    });
+    expect(synthed).toMatchSnapshot();
+  });
+
   it('renders an event bridge with description', () => {
     const synthed = Testing.synthScope((stack) => {
       new ApplicationEventBridgeRule(stack, 'test-event-bridge-rule', {

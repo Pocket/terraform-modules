@@ -1,12 +1,15 @@
 import { Resource, TerraformResource } from 'cdktf';
 import { Construct } from 'constructs';
 import { eventbridge } from '@cdktf/provider-aws';
+import { CloudwatchEventTargetConfig } from '@cdktf/provider-aws/lib/eventbridge';
 
 export type Target = {
   arn: string;
   deadLetterArn?: string;
   targetId?: string;
-  dependsOn: TerraformResource;
+  // an event bridge rule may have a target that already exists. in this case,
+  // we don't need a dependsOn value.
+  dependsOn?: TerraformResource;
 };
 
 export interface ApplicationEventBridgeRuleProps {
@@ -50,17 +53,30 @@ export class ApplicationEventBridgeRule extends Resource {
 
     if (this.config.targets) {
       this.config.targets.forEach((t) => {
+        // this is semi-terrible.
+        //
+        // the CloudwatchEventTargetConfig type will not allow us to add the
+        // `dependsOn` property after object creation (due to it being
+        // readonly). so we create a generic object, optionally add the
+        // `dependsOn` property, then later cast it as the required
+        // CloudwatchEventTargetConfig type.
+        const eventTargetConfig: { [key: string]: any } = {
+          rule: rule.name,
+          targetId: t.targetId,
+          arn: t.arn,
+          deadLetterConfig: t.deadLetterArn ? { arn: t.deadLetterArn } : {},
+          eventBusName: eventBus,
+        };
+
+        if (t.dependsOn) {
+          eventTargetConfig.dependsOn = [t.dependsOn, rule];
+        }
+
         new eventbridge.CloudwatchEventTarget(
           this,
           `event-bridge-target-${t.targetId}`,
-          {
-            rule: rule.name,
-            targetId: t.targetId,
-            arn: t.arn,
-            deadLetterConfig: t.deadLetterArn ? { arn: t.deadLetterArn } : {},
-            dependsOn: [t.dependsOn, rule],
-            eventBusName: eventBus,
-          }
+          // yuck!
+          eventTargetConfig as CloudwatchEventTargetConfig
         );
       });
     }
