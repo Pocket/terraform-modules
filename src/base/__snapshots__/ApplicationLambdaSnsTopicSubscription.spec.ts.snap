@@ -39,7 +39,7 @@ exports[`ApplicationSqsSnsTopicSubscription renders an Lambda <> SNS subscriptio
       }
     },
     \\"aws_lambda_function\\": {
-      \\"sqs\\": {
+      \\"lambda\\": {
         \\"function_name\\": \\"test-lambda\\"
       }
     }
@@ -48,10 +48,9 @@ exports[`ApplicationSqsSnsTopicSubscription renders an Lambda <> SNS subscriptio
     \\"aws_sns_topic_subscription\\": {
       \\"lambda-sns-subscription_1ED18AE9\\": {
         \\"depends_on\\": [
-          \\"aws_sqs_queue.lambda-sns-subscription_sns-topic-dlq_C5D5F199\\",
-          \\"data.aws_lambda_function.sqs\\"
+          \\"aws_sqs_queue.lambda-sns-subscription_sns-topic-dlq_C5D5F199\\"
         ],
-        \\"endpoint\\": \\"\${data.aws_lambda_function.sqs.arn}\\",
+        \\"endpoint\\": \\"\${data.aws_lambda_function.lambda.arn}\\",
         \\"protocol\\": \\"lambda\\",
         \\"redrive_policy\\": \\"{\\\\\\"deadLetterTargetArn\\\\\\":\\\\\\"\${aws_sqs_queue.lambda-sns-subscription_sns-topic-dlq_C5D5F199.arn}\\\\\\"}\\",
         \\"topic_arn\\": \\"arn:aws:sns:TopicName\\"
@@ -111,7 +110,7 @@ exports[`ApplicationSqsSnsTopicSubscription renders an SQS SNS subscription with
       }
     },
     \\"aws_lambda_function\\": {
-      \\"sqs\\": {
+      \\"lambda\\": {
         \\"function_name\\": \\"test-lambda\\"
       }
     }
@@ -120,10 +119,9 @@ exports[`ApplicationSqsSnsTopicSubscription renders an SQS SNS subscription with
     \\"aws_sns_topic_subscription\\": {
       \\"lambda-sns-subscription_1ED18AE9\\": {
         \\"depends_on\\": [
-          \\"aws_sqs_queue.lambda-sns-subscription_sns-topic-dlq_C5D5F199\\",
-          \\"data.aws_lambda_function.sqs\\"
+          \\"aws_sqs_queue.lambda-sns-subscription_sns-topic-dlq_C5D5F199\\"
         ],
-        \\"endpoint\\": \\"\${data.aws_lambda_function.sqs.arn}\\",
+        \\"endpoint\\": \\"\${data.aws_lambda_function.lambda.arn}\\",
         \\"protocol\\": \\"lambda\\",
         \\"redrive_policy\\": \\"{\\\\\\"deadLetterTargetArn\\\\\\":\\\\\\"\${aws_sqs_queue.lambda-sns-subscription_sns-topic-dlq_C5D5F199.arn}\\\\\\"}\\",
         \\"topic_arn\\": \\"arn:aws:sns:TopicName\\"

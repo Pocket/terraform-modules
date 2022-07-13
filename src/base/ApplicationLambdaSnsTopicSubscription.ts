@@ -1,12 +1,12 @@
 import { Resource, TerraformResource } from 'cdktf';
 import { Construct } from 'constructs';
-import { sqs, sns, iam, lambdafunction } from '@cdktf/provider-aws';
+import { sqs, sns, iam } from '@cdktf/provider-aws';
 import { SnsTopicSubscriptionConfig } from '@cdktf/provider-aws/lib/sns';
 
 export interface ApplicationLambdaSnsTopicSubscriptionProps {
   name: string;
   snsTopicArn: string;
-  lambda: lambdafunction.LambdaFunction | lambdafunction.LambdaAlias;
+  lambdaArn: string;
   tags?: { [key: string]: string };
   dependsOn?: TerraformResource[];
 }
@@ -51,13 +51,13 @@ export class ApplicationLambdaSnsTopicSubscription extends Resource {
     return new sns.SnsTopicSubscription(this, 'sns-subscription', {
       topicArn: this.config.snsTopicArn,
       protocol: 'lambda',
-      endpoint: this.config.lambda.arn,
+      endpoint: this.config.lambdaArn,
       redrivePolicy: JSON.stringify({
         deadLetterTargetArn: snsTopicDlq.arn,
       }),
       dependsOn: [
         snsTopicDlq,
-        this.config.lambda,
+        this.config.lambdaArn,
         ...(this.config.dependsOn ? this.config.dependsOn : []),
       ],
     } as SnsTopicSubscriptionConfig);
