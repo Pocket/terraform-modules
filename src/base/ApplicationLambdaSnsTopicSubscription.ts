@@ -1,12 +1,15 @@
 import { Resource, TerraformResource } from 'cdktf';
 import { Construct } from 'constructs';
-import { sqs, sns, iam } from '@cdktf/provider-aws';
+import { sqs, sns, iam, lambdafunction } from '@cdktf/provider-aws';
 import { SnsTopicSubscriptionConfig } from '@cdktf/provider-aws/lib/sns';
 
 export interface ApplicationLambdaSnsTopicSubscriptionProps {
   name: string;
   snsTopicArn: string;
-  lambdaArn: string;
+  lambda:
+    | lambdafunction.DataAwsLambdaFunction
+    | lambdafunction.LambdaFunction
+    | lambdafunction.LambdaAlias;
   tags?: { [key: string]: string };
   dependsOn?: TerraformResource[];
 }
@@ -19,14 +22,15 @@ export class ApplicationLambdaSnsTopicSubscription extends Resource {
 
   constructor(
     scope: Construct,
-    name: string,
+    private name: string,
     private config: ApplicationLambdaSnsTopicSubscriptionProps
   ) {
     super(scope, name);
 
     const snsTopicDlq = this.createSqsSubscriptionDlq();
     this.snsTopicSubscription = this.createSnsTopicSubscription(snsTopicDlq);
-    this.createPoliciesForSnsToSqs(snsTopicDlq);
+    this.createDlqPolicy(snsTopicDlq);
+    this.createLambdaPolicy(config.lambda);
   }
 
   /**
@@ -51,16 +55,34 @@ export class ApplicationLambdaSnsTopicSubscription extends Resource {
     return new sns.SnsTopicSubscription(this, 'sns-subscription', {
       topicArn: this.config.snsTopicArn,
       protocol: 'lambda',
-      endpoint: this.config.lambdaArn,
+      endpoint: this.config.lambda.arn,
       redrivePolicy: JSON.stringify({
         deadLetterTargetArn: snsTopicDlq.arn,
       }),
       dependsOn: [
         snsTopicDlq,
-        this.config.lambdaArn,
+        this.config.lambda.arn,
         ...(this.config.dependsOn ? this.config.dependsOn : []),
       ],
     } as SnsTopicSubscriptionConfig);
+  }
+
+  private createLambdaPolicy(
+    lambda:
+      | lambdafunction.DataAwsLambdaFunction
+      | lambdafunction.LambdaFunction
+      | lambdafunction.LambdaAlias
+  ): void {
+    new lambdafunction.LambdaPermission(
+      this,
+      `${this.name}-lambda-permission`,
+      {
+        principal: 'sns.amazonaws.com',
+        action: 'lambda:InvokeFunction',
+        functionName: lambda.functionName,
+        sourceArn: this.snsTopicSubscription.arn,
+      }
+    );
   }
 
   /**
@@ -68,7 +90,7 @@ export class ApplicationLambdaSnsTopicSubscription extends Resource {
    * @param snsTopicDlq
    * @private
    */
-  private createPoliciesForSnsToSqs(snsTopicDlq: sqs.SqsQueue): void {
+  private createDlqPolicy(snsTopicDlq: sqs.SqsQueue): void {
     const queue = { name: 'sns-dlq', resource: snsTopicDlq };
     const policy = new iam.DataAwsIamPolicyDocument(
       this,
