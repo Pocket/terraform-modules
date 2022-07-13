@@ -6,9 +6,9 @@ describe('ApplicationSqsSnsTopicSubscription', () => {
   const getConfig = (stack) => ({
     name: 'test-sns-subscription',
     snsTopicArn: 'arn:aws:sns:TopicName',
-    lambdaArn: new lambdafunction.DataAwsLambdaFunction(stack, 'lambda', {
+    lambda: new lambdafunction.DataAwsLambdaFunction(stack, 'lambda', {
       functionName: 'test-lambda',
-    }).arn,
+    }),
   });
 
   it('renders an Lambda <> SNS subscription without tags', () => {
