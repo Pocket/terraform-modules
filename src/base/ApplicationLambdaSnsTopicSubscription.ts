@@ -6,7 +6,7 @@ import { SnsTopicSubscriptionConfig } from '@cdktf/provider-aws/lib/sns';
 export interface ApplicationLambdaSnsTopicSubscriptionProps {
   name: string;
   snsTopicArn: string;
-  lambda: lambdafunction.DataAwsLambdaFunction;
+  lambda: lambdafunction.LambdaFunction | lambdafunction.LambdaAlias;
   tags?: { [key: string]: string };
   dependsOn?: TerraformResource[];
 }
