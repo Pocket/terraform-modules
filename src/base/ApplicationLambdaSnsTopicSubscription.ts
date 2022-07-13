@@ -26,7 +26,7 @@ export class ApplicationLambdaSnsTopicSubscription extends Resource {
 
     const snsTopicDlq = this.createSqsSubscriptionDlq();
     this.snsTopicSubscription = this.createSnsTopicSubscription(snsTopicDlq);
-    this.createPoliciesForSnsToLambda(snsTopicDlq);
+    this.createPoliciesForSnsToSqs(snsTopicDlq);
   }
 
   /**
@@ -34,7 +34,7 @@ export class ApplicationLambdaSnsTopicSubscription extends Resource {
    * @private
    */
   private createSqsSubscriptionDlq(): sqs.SqsQueue {
-    return new sqs.SqsQueue(this, 'sns-topic-dql', {
+    return new sqs.SqsQueue(this, 'sns-topic-dlq', {
       name: `${this.config.name}-SNS-Topic-DLQ`,
       tags: this.config.tags,
     });
@@ -68,7 +68,7 @@ export class ApplicationLambdaSnsTopicSubscription extends Resource {
    * @param snsTopicDlq
    * @private
    */
-  private createPoliciesForSnsToLambda(snsTopicDlq: sqs.SqsQueue): void {
+  private createPoliciesForSnsToSqs(snsTopicDlq: sqs.SqsQueue): void {
     const queue = { name: 'sns-dlq', resource: snsTopicDlq };
     const policy = new iam.DataAwsIamPolicyDocument(
       this,
