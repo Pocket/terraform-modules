@@ -1,3 +1,10 @@
+## [4.0.5](https://github.com/Pocket/terraform-modules/compare/v4.0.4...v4.0.5) (2022-07-14)
+
+
+### Bug Fixes
+
+* remove validation as its done during terraform apply  ([#977](https://github.com/Pocket/terraform-modules/issues/977)) ([56e74e6](https://github.com/Pocket/terraform-modules/commit/56e74e646bebb8ad2defd09f39e17e89ff0347c2))
+
 ## [4.0.4](https://github.com/Pocket/terraform-modules/compare/v4.0.3...v4.0.4) (2022-07-14)
 
 
