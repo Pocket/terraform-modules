@@ -1,3 +1,10 @@
+## [4.0.4](https://github.com/Pocket/terraform-modules/compare/v4.0.3...v4.0.4) (2022-07-14)
+
+
+### Bug Fixes
+
+* **EventBridgeRule:** make terraform resource optional ([#972](https://github.com/Pocket/terraform-modules/issues/972)) ([3458b6a](https://github.com/Pocket/terraform-modules/commit/3458b6a29c203aa90357fc70f10096739ec3e0b3))
+
 ## [4.0.3](https://github.com/Pocket/terraform-modules/compare/v4.0.2...v4.0.3) (2022-07-08)
 
 
