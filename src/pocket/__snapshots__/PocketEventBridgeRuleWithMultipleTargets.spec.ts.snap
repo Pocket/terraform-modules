@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`renders an event bridge and multiple target 1`] = `
+exports[`PocketEventBridgeRuleWithMultipleTargets renders an event bridge and multiple targets 1`] = `
 "{
   \\"data\\": {
     \\"archive_file\\": {
@@ -173,6 +173,39 @@ exports[`renders an event bridge and multiple target 1`] = `
     \\"aws_sqs_queue\\": {
       \\"test-queue\\": {
         \\"name\\": \\"Test-SQS-Queue\\"
+      }
+    }
+  }
+}"
+`;
+
+exports[`PocketEventBridgeRuleWithMultipleTargets renders an event bridge and pre-existing targets 1`] = `
+"{
+  \\"resource\\": {
+    \\"aws_cloudwatch_event_rule\\": {
+      \\"test-event-bridge-for-multiple-targets-1_event-bridge-rule_1CCF9D7B\\": {
+        \\"description\\": \\"Test description\\",
+        \\"event_bus_name\\": \\"default\\",
+        \\"event_pattern\\": \\"{\\\\\\"source\\\\\\":[\\\\\\"aws.states\\\\\\"],\\\\\\"detail-type\\\\\\":[\\\\\\"Step Functions Execution Status Change\\\\\\"]}\\",
+        \\"name\\": \\"test-event-bridge-rule-multiple-targets-Rule\\"
+      }
+    },
+    \\"aws_cloudwatch_event_target\\": {
+      \\"test-event-bridge-for-multiple-targets-1_event-bridge-rule_event-bridge-target-test-lambda-id_DE65E71F\\": {
+        \\"arn\\": \\"lambda.arn\\",
+        \\"dead_letter_config\\": {
+        },
+        \\"event_bus_name\\": \\"default\\",
+        \\"rule\\": \\"\${aws_cloudwatch_event_rule.test-event-bridge-for-multiple-targets-1_event-bridge-rule_1CCF9D7B.name}\\",
+        \\"target_id\\": \\"test-lambda-id\\"
+      },
+      \\"test-event-bridge-for-multiple-targets-1_event-bridge-rule_event-bridge-target-test-sqs-id_2DE721FF\\": {
+        \\"arn\\": \\"testSqs.arn\\",
+        \\"dead_letter_config\\": {
+        },
+        \\"event_bus_name\\": \\"default\\",
+        \\"rule\\": \\"\${aws_cloudwatch_event_rule.test-event-bridge-for-multiple-targets-1_event-bridge-rule_1CCF9D7B.name}\\",
+        \\"target_id\\": \\"test-sqs-id\\"
       }
     }
   }

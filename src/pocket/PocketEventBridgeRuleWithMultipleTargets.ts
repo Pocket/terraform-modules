@@ -8,7 +8,9 @@ import {
 export type PocketEventBridgeTargets = {
   targetId: string;
   arn: string;
-  terraformResource: TerraformResource;
+  // when the target is a pre-existing construct, we don't need to pass
+  // in a terraform resource.
+  terraformResource?: TerraformResource;
   deadLetterArn?: string;
 };
 
@@ -54,14 +56,19 @@ export class PocketEventBridgeRuleWithMultipleTargets extends Resource {
     const eventRuleConfig = this.config.eventRule;
     const targets: Target[] = [];
 
-    eventRuleTargets.forEach((t) =>
-      targets.push({
+    eventRuleTargets.forEach((t) => {
+      const target: Target = {
         targetId: t.targetId,
         arn: t.arn,
-        dependsOn: t.terraformResource,
         deadLetterArn: t.deadLetterArn,
-      })
-    );
+      };
+
+      if (t.terraformResource) {
+        target.dependsOn = t.terraformResource;
+      }
+
+      targets.push(target);
+    });
 
     return new ApplicationEventBridgeRule(this, 'event-bridge-rule', {
       name: this.config.eventRule.name,
