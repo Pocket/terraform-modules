@@ -51,7 +51,7 @@ const validations: {
   },
   messageRetentionSeconds: {
     min: 60,
-    max: 43200,
+    max: 1209600,
   },
   maxMessageSize: {
     min: 1024,
