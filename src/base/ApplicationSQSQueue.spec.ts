@@ -58,7 +58,7 @@ describe('ApplicationSQSQueue', () => {
     testFieldValidation({ visibilityTimeoutSeconds: 43201 });
 
     testFieldValidation({ messageRetentionSeconds: 59 });
-    testFieldValidation({ messageRetentionSeconds: 43201 });
+    testFieldValidation({ messageRetentionSeconds: 1209601 });
 
     testFieldValidation({ maxMessageSize: 234 });
     testFieldValidation({ maxMessageSize: 262145 });
