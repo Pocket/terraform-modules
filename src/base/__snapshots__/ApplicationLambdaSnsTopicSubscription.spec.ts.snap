@@ -45,6 +45,14 @@ exports[`ApplicationSqsSnsTopicSubscription renders an Lambda <> SNS subscriptio
     }
   },
   \\"resource\\": {
+    \\"aws_lambda_permission\\": {
+      \\"lambda-sns-subscription_lambda-sns-subscription-lambda-permission_03B5A953\\": {
+        \\"action\\": \\"lambda:InvokeFunction\\",
+        \\"function_name\\": \\"\${data.aws_lambda_function.lambda.function_name}\\",
+        \\"principal\\": \\"sns.amazonaws.com\\",
+        \\"source_arn\\": \\"arn:aws:sns:TopicName\\"
+      }
+    },
     \\"aws_sns_topic_subscription\\": {
       \\"lambda-sns-subscription_1ED18AE9\\": {
         \\"depends_on\\": [
@@ -116,6 +124,14 @@ exports[`ApplicationSqsSnsTopicSubscription renders an SQS SNS subscription with
     }
   },
   \\"resource\\": {
+    \\"aws_lambda_permission\\": {
+      \\"lambda-sns-subscription_lambda-sns-subscription-lambda-permission_03B5A953\\": {
+        \\"action\\": \\"lambda:InvokeFunction\\",
+        \\"function_name\\": \\"\${data.aws_lambda_function.lambda.function_name}\\",
+        \\"principal\\": \\"sns.amazonaws.com\\",
+        \\"source_arn\\": \\"arn:aws:sns:TopicName\\"
+      }
+    },
     \\"aws_sns_topic_subscription\\": {
       \\"lambda-sns-subscription_1ED18AE9\\": {
         \\"depends_on\\": [

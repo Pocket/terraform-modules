@@ -38,6 +38,7 @@ const DEFAULT_MEMORY_SIZE = 128;
 
 export class ApplicationVersionedLambda extends Resource {
   public readonly versionedLambda: lambdafunction.LambdaAlias;
+  public readonly defaultLambda: lambdafunction.LambdaFunction;
   public lambdaExecutionRole: iam.IamRole;
 
   constructor(
@@ -48,7 +49,9 @@ export class ApplicationVersionedLambda extends Resource {
     super(scope, name);
 
     this.createCodeBucket();
-    this.versionedLambda = this.createLambdaFunction();
+    const { versionedLambda, lambda } = this.createLambdaFunction();
+    this.versionedLambda = versionedLambda;
+    this.defaultLambda = lambda;
   }
 
   private createLambdaFunction() {
@@ -107,7 +110,7 @@ export class ApplicationVersionedLambda extends Resource {
       dependsOn: [lambda],
     });
 
-    return new lambdafunction.LambdaAlias(this, 'alias', {
+    const versionedLambda = new lambdafunction.LambdaAlias(this, 'alias', {
       functionName: lambda.functionName,
       functionVersion: Fn.element(Fn.split(':', lambda.qualifiedArn), 7),
       name: 'DEPLOYED',
@@ -116,6 +119,7 @@ export class ApplicationVersionedLambda extends Resource {
       },
       dependsOn: [lambda],
     });
+    return { versionedLambda, lambda };
   }
 
   private shouldIgnorePublish() {

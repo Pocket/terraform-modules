@@ -3,19 +3,31 @@ import { Construct } from 'constructs';
 import { sqs, sns, iam, lambdafunction } from '@cdktf/provider-aws';
 import { SnsTopicSubscriptionConfig } from '@cdktf/provider-aws/lib/sns';
 
+/** The config props type of [[`ApplicationLambdaSnsTopicSubscription]] */
 export interface ApplicationLambdaSnsTopicSubscriptionProps {
+  /** The prefix used to help identify related resources */
   name: string;
+  /** The SNS topic to subscribe the Lambda to */
   snsTopicArn: string;
-  lambda:
-    | lambdafunction.DataAwsLambdaFunction
-    | lambdafunction.LambdaFunction
-    | lambdafunction.LambdaAlias;
+  /** The Lambda that should be invoked by incoming messages to the SNS topic */
+  lambda: lambdafunction.DataAwsLambdaFunction | lambdafunction.LambdaFunction;
+  /** Tags to apply to the resource(s), where applicable (in this case only the DLQ for the SNS) */
   tags?: { [key: string]: string };
+  /** Optional list of resource dependencies */
   dependsOn?: TerraformResource[];
 }
 
 /**
- * Creates an SNS to Lambda subscription
+ * Creates an SNS to Lambda subscription with a DLQ for any messages
+ * that failed to send to the Lambda (e.g. due to permissions error).
+ * Automatically adds policies/permissions for the SNS topic to send
+ * messages to the DLQ and invoke the Lambda function.
+ *
+ * Artifacts:
+ *  * {@link https://www.terraform.io/docs/providers/aws/r/sns_topic_subscription aws_sns_topic_subscription} Resource to subscribe Lambda to SNS topic
+ *  * {@link https://www.terraform.io/docs/providers/aws/r/sqs_queue aws_sqs_queue} Resource (DLQ for the SNS topic)
+ *  * {@link https://www.terraform.io/docs/providers/aws/r/sqs_queue_policy aws_sqs_queue_policy} Resource policy for SNS to send messages to DLQ
+ *  * {@link https://www.terraform.io/docs/providers/aws/r/lambda_permission aws_lambda_permission} Resource permission for SNS to invoke Lambda
  */
 export class ApplicationLambdaSnsTopicSubscription extends Resource {
   public readonly snsTopicSubscription: sns.SnsTopicSubscription;
@@ -30,7 +42,7 @@ export class ApplicationLambdaSnsTopicSubscription extends Resource {
     const snsTopicDlq = this.createSqsSubscriptionDlq();
     this.snsTopicSubscription = this.createSnsTopicSubscription(snsTopicDlq);
     this.createDlqPolicy(snsTopicDlq);
-    this.createLambdaPolicy(config.lambda);
+    this.createLambdaPolicy();
   }
 
   /**
@@ -67,27 +79,26 @@ export class ApplicationLambdaSnsTopicSubscription extends Resource {
     } as SnsTopicSubscriptionConfig);
   }
 
-  private createLambdaPolicy(
-    lambda:
-      | lambdafunction.DataAwsLambdaFunction
-      | lambdafunction.LambdaFunction
-      | lambdafunction.LambdaAlias
-  ): void {
+  /**
+   * Grant permissions for SNS topic to invoke lambda
+   * Cannot be applied to an alias; must use the base lambda function
+   */
+  private createLambdaPolicy(): void {
     new lambdafunction.LambdaPermission(
       this,
       `${this.name}-lambda-permission`,
       {
         principal: 'sns.amazonaws.com',
         action: 'lambda:InvokeFunction',
-        functionName: lambda.functionName,
-        sourceArn: this.snsTopicSubscription.arn,
+        functionName: this.config.lambda.functionName,
+        sourceArn: this.config.snsTopicArn,
       }
     );
   }
 
   /**
    * Create IAM policies to allow SNS write to the dead-letter queue
-   * @param snsTopicDlq
+   * @param snsTopicDlq the SQS resource (used as DLQ) to grant permissions on
    * @private
    */
   private createDlqPolicy(snsTopicDlq: sqs.SqsQueue): void {
