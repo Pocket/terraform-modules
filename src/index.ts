@@ -33,3 +33,4 @@ export * from './base/ApplicationSQSQueue';
 export * from './base/ApplicationSqsSnsTopicSubscription';
 export * from './base/ApplicationTargetGroup';
 export * from './base/ApplicationVersionedLambda';
+export * from './base/ApplicationLambdaSnsTopicSubscription';
