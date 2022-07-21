@@ -1,3 +1,10 @@
+## [4.1.0](https://github.com/Pocket/terraform-modules/compare/v4.0.5...v4.1.0) (2022-07-21)
+
+
+### Features
+
+* Lambda subscription on SNS topic ([#974](https://github.com/Pocket/terraform-modules/issues/974)) ([5abb010](https://github.com/Pocket/terraform-modules/commit/5abb0104fb77005d7b7e5b231003df305ac7761d))
+
 ## [4.0.5](https://github.com/Pocket/terraform-modules/compare/v4.0.4...v4.0.5) (2022-07-14)
 
 
