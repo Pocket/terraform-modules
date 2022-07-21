@@ -30,7 +30,10 @@ export interface ApplicationLambdaSnsTopicSubscriptionProps {
  *  * {@link https://www.terraform.io/docs/providers/aws/r/lambda_permission aws_lambda_permission} Resource permission for SNS to invoke Lambda
  */
 export class ApplicationLambdaSnsTopicSubscription extends Resource {
+  /** the {@link https://www.terraform.io/docs/providers/aws/r/sns_topic_subscription aws_sns_topic_subscription} resource */
   public readonly snsTopicSubscription: sns.SnsTopicSubscription;
+  /** the {@link https://www.terraform.io/docs/providers/aws/r/sqs_queue aws_sqs_queue} (DLQ) resource */
+  public readonly snsTopicDlq: sqs.SqsQueue;
 
   constructor(
     scope: Construct,
@@ -39,9 +42,11 @@ export class ApplicationLambdaSnsTopicSubscription extends Resource {
   ) {
     super(scope, name);
 
-    const snsTopicDlq = this.createSqsSubscriptionDlq();
-    this.snsTopicSubscription = this.createSnsTopicSubscription(snsTopicDlq);
-    this.createDlqPolicy(snsTopicDlq);
+    this.snsTopicDlq = this.createSqsSubscriptionDlq();
+    this.snsTopicSubscription = this.createSnsTopicSubscription(
+      this.snsTopicDlq
+    );
+    this.createDlqPolicy(this.snsTopicDlq);
     this.createLambdaPolicy();
   }
 
