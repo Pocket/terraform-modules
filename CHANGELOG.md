@@ -1,3 +1,10 @@
+## [4.1.1](https://github.com/Pocket/terraform-modules/compare/v4.1.0...v4.1.1) (2022-07-21)
+
+
+### Bug Fixes
+
+* export ApplicationLambdaSnsTopicSubscription ([#981](https://github.com/Pocket/terraform-modules/issues/981)) ([936df5a](https://github.com/Pocket/terraform-modules/commit/936df5a88c188eb8ddae7f9b4fcdf00123d991e7))
+
 ## [4.1.0](https://github.com/Pocket/terraform-modules/compare/v4.0.5...v4.1.0) (2022-07-21)
 
 
