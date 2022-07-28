@@ -90,9 +90,9 @@
     "@cdktf/provider-null": "2.0.2",
     "@cdktf/provider-pagerduty": "2.0.2",
     "@sinonjs/commons": "^1.8.3",
-    "cdktf": "0.11.2",
-    "cdktf-cli": "0.11.2",
-    "constructs": "10.1.53",
+    "cdktf": "0.12.0",
+    "cdktf-cli": "0.12.0",
+    "constructs": "10.1.59",
     "parse-domain": "^4.1.0"
   },
   "devDependencies": {
