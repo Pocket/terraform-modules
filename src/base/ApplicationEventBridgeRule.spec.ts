@@ -92,4 +92,13 @@ describe('AplicationEventBridgeRule', () => {
     });
     expect(synthed).toMatchSnapshot();
   });
+  it('renders an event bridge with scheduleExpression', () => {
+    const synthed = Testing.synthScope((stack) => {
+      new ApplicationEventBridgeRule(stack, 'test-event-bridge-rule', {
+        name: 'Test-EventBridge',
+        scheduleExpression: 'rate(1 minute)',
+      });
+    });
+    expect(synthed).toMatchSnapshot();
+  });
 });

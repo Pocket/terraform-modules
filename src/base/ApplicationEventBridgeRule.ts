@@ -16,7 +16,16 @@ export interface ApplicationEventBridgeRuleProps {
   name: string;
   description?: string;
   eventBusName?: string;
-  eventPattern: { [key: string]: any };
+  /**
+   * (Optional) The event pattern described a JSON object.
+   * At least one of `schedule_expression` or `event_pattern` is required. */
+  eventPattern?: { [key: string]: any };
+  /**
+   * (Optional) The scheduling expression.
+   * For example, cron(0 20 * * ? *) or rate(5 minutes).
+   * At least one of `schedule_expression` or `event_pattern` is required.
+   * Only available on the default event bus. */
+  scheduleExpression?: string;
   targets?: Target[];
   tags?: { [key: string]: string };
 }
@@ -39,13 +48,15 @@ export class ApplicationEventBridgeRule extends Resource {
       throw new Error('AWS allows only up to 5 targets per event bridge rule');
     }
     const eventBus = this.config.eventBusName ?? 'default';
+    const { scheduleExpression, eventPattern } = this.config;
     const rule = new eventbridge.CloudwatchEventRule(
       this,
       'event-bridge-rule',
       {
         name: `${this.config.name}-Rule`,
         description: this.config.description,
-        eventPattern: JSON.stringify(this.config.eventPattern),
+        eventPattern: eventPattern ? JSON.stringify(eventPattern) : undefined,
+        scheduleExpression,
         eventBusName: eventBus,
         tags: this.config.tags,
       }
