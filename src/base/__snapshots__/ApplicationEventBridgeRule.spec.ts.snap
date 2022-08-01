@@ -58,6 +58,20 @@ exports[`AplicationEventBridgeRule renders an event bridge with pre-existing sqs
 }"
 `;
 
+exports[`AplicationEventBridgeRule renders an event bridge with scheduleExpression 1`] = `
+"{
+  \\"resource\\": {
+    \\"aws_cloudwatch_event_rule\\": {
+      \\"test-event-bridge-rule_DA4F2E87\\": {
+        \\"event_bus_name\\": \\"default\\",
+        \\"name\\": \\"Test-EventBridge-Rule\\",
+        \\"schedule_expression\\": \\"rate(1 minute)\\"
+      }
+    }
+  }
+}"
+`;
+
 exports[`AplicationEventBridgeRule renders an event bridge with sqs target 1`] = `
 "{
   \\"resource\\": {
