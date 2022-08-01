@@ -1,3 +1,10 @@
+## [4.2.0](https://github.com/Pocket/terraform-modules/compare/v4.1.4...v4.2.0) (2022-08-01)
+
+
+### Features
+
+* **ApplicationEventBridgeRule:** expose scheduleExpression ([#989](https://github.com/Pocket/terraform-modules/issues/989)) ([92b6c21](https://github.com/Pocket/terraform-modules/commit/92b6c2179baecd928b554101954a58187807e8ab))
+
 ## [4.1.4](https://github.com/Pocket/terraform-modules/compare/v4.1.3...v4.1.4) (2022-08-01)
 
 
