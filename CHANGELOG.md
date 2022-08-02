@@ -1,3 +1,10 @@
+## [4.2.1](https://github.com/Pocket/terraform-modules/compare/v4.2.0...v4.2.1) (2022-08-02)
+
+
+### Bug Fixes
+
+* **eventBridgeRule:** expose scheduleExpression through Pocket- constructs ([#991](https://github.com/Pocket/terraform-modules/issues/991)) ([06c044f](https://github.com/Pocket/terraform-modules/commit/06c044f45fe10c4b3d7a8860aa865f1a9e8149e2))
+
 ## [4.2.0](https://github.com/Pocket/terraform-modules/compare/v4.1.4...v4.2.0) (2022-08-01)
 
 
