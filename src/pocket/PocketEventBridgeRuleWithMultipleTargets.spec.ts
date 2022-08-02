@@ -33,7 +33,7 @@ describe('PocketEventBridgeRuleWithMultipleTargets', () => {
       const testConfig: PocketEventBridgeProps = {
         eventRule: {
           name: 'test-event-bridge-rule-multiple-targets',
-          pattern: {
+          eventPattern: {
             source: ['aws.states'],
             'detail-type': ['Step Functions Execution Status Change'],
           },
@@ -72,7 +72,7 @@ describe('PocketEventBridgeRuleWithMultipleTargets', () => {
       const testConfig: PocketEventBridgeProps = {
         eventRule: {
           name: 'test-event-bridge-rule-multiple-targets',
-          pattern: {
+          eventPattern: {
             source: ['aws.states'],
             'detail-type': ['Step Functions Execution Status Change'],
           },
