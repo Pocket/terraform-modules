@@ -1,6 +1,7 @@
 import { Construct } from 'constructs';
 import {
   ApplicationEventBridgeRule,
+  ApplicationEventBridgeRuleProps,
   Target,
 } from '../base/ApplicationEventBridgeRule';
 import { ApplicationVersionedLambda } from '../base/ApplicationVersionedLambda';
@@ -12,11 +13,7 @@ import {
 
 export interface PocketEventBridgeWithLambdaTargetProps
   extends PocketVersionedLambdaProps {
-  eventRule: {
-    description?: string;
-    eventBusName?: string;
-    pattern: { [key: string]: any };
-  };
+  eventRule: Omit<ApplicationEventBridgeRuleProps, 'name' | 'targets' | 'tags'>;
 }
 
 /**
@@ -78,10 +75,8 @@ export class PocketEventBridgeWithLambdaTarget extends PocketVersionedLambda {
     );
 
     return new ApplicationEventBridgeRule(this, 'event-bridge-rule', {
+      ...eventRuleConfig,
       name: this.config.name,
-      description: eventRuleConfig.description,
-      eventBusName: eventRuleConfig.eventBusName,
-      eventPattern: eventRuleConfig.pattern,
       targets: targets,
       tags: this.config.tags,
     });

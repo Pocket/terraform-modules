@@ -8,7 +8,7 @@ import { LAMBDA_RUNTIMES } from '../base/ApplicationVersionedLambda';
 const config: PocketEventBridgeWithLambdaTargetProps = {
   name: 'test-event-bridge-lambda',
   eventRule: {
-    pattern: {
+    eventPattern: {
       source: ['aws.states'],
       'detail-type': ['Step Functions Execution Status Change'],
     },

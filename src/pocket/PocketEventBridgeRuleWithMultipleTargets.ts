@@ -2,6 +2,7 @@ import { Resource, TerraformResource } from 'cdktf';
 import { Construct } from 'constructs';
 import {
   ApplicationEventBridgeRule,
+  ApplicationEventBridgeRuleProps,
   Target,
 } from '../base/ApplicationEventBridgeRule';
 
@@ -15,12 +16,7 @@ export type PocketEventBridgeTargets = {
 };
 
 export interface PocketEventBridgeProps {
-  eventRule: {
-    name: string;
-    description?: string;
-    eventBusName?: string;
-    pattern: { [key: string]: any };
-  };
+  eventRule: Omit<ApplicationEventBridgeRuleProps, 'targets' | 'tags'>;
   targets?: PocketEventBridgeTargets[];
   tags?: { [key: string]: string };
 }
@@ -71,10 +67,7 @@ export class PocketEventBridgeRuleWithMultipleTargets extends Resource {
     });
 
     return new ApplicationEventBridgeRule(this, 'event-bridge-rule', {
-      name: this.config.eventRule.name,
-      description: eventRuleConfig.description,
-      eventBusName: eventRuleConfig.eventBusName,
-      eventPattern: eventRuleConfig.pattern,
+      ...eventRuleConfig,
       targets: targets,
       tags: this.config.tags,
     });
