@@ -105,7 +105,7 @@
     "@semantic-release/github": "8.0.5",
     "@semantic-release/npm": "9.0.1",
     "@semantic-release/release-notes-generator": "10.0.3",
-    "@types/chai": "4.3.1",
+    "@types/chai": "4.3.3",
     "@types/jest": "28.1.6",
     "@types/node": "16.11.47",
     "chai": "4.3.6",
