@@ -83,16 +83,16 @@
     "node": ">=14"
   },
   "dependencies": {
-    "@cdktf/provider-archive": "2.0.39",
-    "@cdktf/provider-aws": "9.0.16",
-    "@cdktf/provider-local": "2.0.40",
-    "@cdktf/provider-newrelic": "2.0.73",
-    "@cdktf/provider-null": "2.0.39",
-    "@cdktf/provider-pagerduty": "2.0.42",
+    "@cdktf/provider-archive": "2.0.48",
+    "@cdktf/provider-aws": "9.0.23",
+    "@cdktf/provider-local": "2.0.49",
+    "@cdktf/provider-newrelic": "2.0.91",
+    "@cdktf/provider-null": "2.0.48",
+    "@cdktf/provider-pagerduty": "2.0.51",
     "@sinonjs/commons": "^1.8.3",
     "cdktf": "0.12.2",
     "cdktf-cli": "0.12.2",
-    "constructs": "10.1.90",
+    "constructs": "10.1.96",
     "parse-domain": "^4.1.0"
   },
   "devDependencies": {
