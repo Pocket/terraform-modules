@@ -7,6 +7,7 @@ export interface ApplicationSqsSnsTopicSubscriptionProps {
   name: string;
   snsTopicArn: string;
   sqsQueue: sqs.SqsQueue | sqs.DataAwsSqsQueue;
+  snsDlq?: sqs.SqsQueue;
   tags?: { [key: string]: string };
   dependsOn?: TerraformResource[];
 }
@@ -24,7 +25,7 @@ export class ApplicationSqsSnsTopicSubscription extends Resource {
   ) {
     super(scope, name);
 
-    const snsTopicDlq = this.createSqsSubscriptionDlq();
+    const snsTopicDlq = this.config.snsDlq ?? this.createSqsSubscriptionDlq();
     this.snsTopicSubscription = this.createSnsTopicSubscription(snsTopicDlq);
     this.createPoliciesForSnsToSQS(snsTopicDlq);
   }
