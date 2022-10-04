@@ -59,7 +59,7 @@ jobs:
       - name: Lint Code Base
 
         # We use the Github super linter, it can be cranky at times, so in that moment here are the docs https://github.com/github/super-linter
-        uses: docker://ghcr.io/github/super-linter:slim-v4@sha256:8a81df9ee59ad4d2e51f540344f316b27ce80a85245410988c1d9c8359e61cda
+        uses: docker://ghcr.io/github/super-linter:slim-v4@sha256:900277f36d47d5ddc460d901ea9dfcb1d348f7390066f800a0895cd88866b31f
 
         # All Environment variables are defined here https://github.com/github/super-linter#environment-variables
         env:
