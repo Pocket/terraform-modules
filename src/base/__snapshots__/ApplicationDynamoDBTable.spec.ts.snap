@@ -1,5 +1,27 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`ApplicationDynamoDBTable renders a dynamodb table with streams enabled 1`] = `
+"{
+  \\"resource\\": {
+    \\"aws_dynamodb_table\\": {
+      \\"testDynamoDBTable_dynamodb_table_A3DD49A4\\": {
+        \\"billing_mode\\": \\"PROVISIONED\\",
+        \\"lifecycle\\": {
+          \\"ignore_changes\\": [
+            \\"read_capacity\\",
+            \\"write_capacity\\"
+          ],
+          \\"prevent_destroy\\": true
+        },
+        \\"name\\": \\"abides-\\",
+        \\"stream_enabled\\": true,
+        \\"stream_view_type\\": \\"NEW_AND_OLD_IMAGES\\"
+      }
+    }
+  }
+}"
+`;
+
 exports[`ApplicationDynamoDBTable renders dynamo db table global secondary indexes 1`] = `
 "{
   \\"data\\": {
