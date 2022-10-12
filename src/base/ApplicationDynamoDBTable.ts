@@ -16,6 +16,13 @@ export enum ApplicationDynamoDBTableCapacityMode {
   ON_DEMAND = 'PAY_PER_REQUEST', // Confusingly, on-demand is called "PAY_PER_REQUEST" in TF and CloudFormation.
 }
 
+export enum ApplicationDynamoDBTableStreamViewType {
+  KEYS_ONLY = 'KEYS_ONLY',
+  NEW_IMAGE = 'NEW_IMAGE',
+  OLD_IMAGE = 'OLD_IMAGE',
+  NEW_AND_OLD_IMAGES = 'NEW_AND_OLD_IMAGES',
+}
+
 export interface ApplicationDynamoDBTableAutoScaleProps {
   tracking: number;
   max: number;
@@ -55,6 +62,12 @@ export class ApplicationDynamoDBTable extends Resource {
     config: ApplicationDynamoDBProps
   ) {
     super(scope, name);
+
+    // validate stream config (if enabled)
+    ApplicationDynamoDBTable.validateStreamConfig(
+      config.tableConfig,
+      ApplicationDynamoDBTableStreamViewType
+    );
 
     const billingMode: string = (
       config.capacityMode ?? ApplicationDynamoDBTableCapacityMode.PROVISIONED
@@ -333,5 +346,32 @@ export class ApplicationDynamoDBTable extends Resource {
     });
 
     return role.arn;
+  }
+
+  /**
+   * If streams are enabled, validates the stream view type is present and
+   * contains an expected value.
+   * @param tableConfig
+   * @param streamViewTypeValues
+   */
+  private static validateStreamConfig(
+    tableConfig: ApplicationDynamoDBTableConfig,
+    streamViewTypeValues: typeof ApplicationDynamoDBTableStreamViewType
+  ): void {
+    if (tableConfig.streamEnabled) {
+      if (!tableConfig.streamViewType) {
+        throw new Error(
+          'you must specify a stream view type if streams are enabled'
+        );
+      }
+
+      if (
+        !Object.values<string>(streamViewTypeValues).includes(
+          tableConfig.streamViewType
+        )
+      ) {
+        throw new Error('you must specify a valid stream view type');
+      }
+    }
   }
 }

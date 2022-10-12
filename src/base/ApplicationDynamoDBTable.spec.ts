@@ -4,6 +4,7 @@ import {
   ApplicationDynamoDBTable,
   ApplicationDynamoDBProps,
   ApplicationDynamoDBTableCapacityMode,
+  ApplicationDynamoDBTableStreamViewType,
 } from './ApplicationDynamoDBTable';
 
 describe('ApplicationDynamoDBTable', () => {
@@ -187,5 +188,52 @@ describe('ApplicationDynamoDBTable', () => {
       new ApplicationDynamoDBTable(stack, 'testDynamoDBTable', BASE_CONFIG);
     });
     expect(synthed).toMatchSnapshot();
+  });
+
+  it('renders a dynamodb table with streams enabled', () => {
+    const config: ApplicationDynamoDBProps = {
+      ...BASE_CONFIG,
+      tableConfig: {
+        streamEnabled: true,
+        streamViewType:
+          ApplicationDynamoDBTableStreamViewType.NEW_AND_OLD_IMAGES,
+      },
+    };
+
+    const synthed = Testing.synthScope((stack) => {
+      new ApplicationDynamoDBTable(stack, 'testDynamoDBTable', config);
+    });
+    expect(synthed).toMatchSnapshot();
+  });
+
+  it('fails to render a dynamodb table with streams enabled if stream view type is not specified', () => {
+    const config: ApplicationDynamoDBProps = {
+      ...BASE_CONFIG,
+      tableConfig: {
+        streamEnabled: true,
+      },
+    };
+
+    expect(() => {
+      Testing.synthScope((stack) => {
+        new ApplicationDynamoDBTable(stack, 'testDynamoDBTable', config);
+      });
+    }).toThrow('you must specify a stream view type if streams are enabled');
+  });
+
+  it('fails to render a dynamodb table with streams enabled if stream view type is invalid', () => {
+    const config: ApplicationDynamoDBProps = {
+      ...BASE_CONFIG,
+      tableConfig: {
+        streamEnabled: true,
+        streamViewType: 'PURPLE_MONKEY_DISHWASHER',
+      },
+    };
+
+    expect(() => {
+      Testing.synthScope((stack) => {
+        new ApplicationDynamoDBTable(stack, 'testDynamoDBTable', config);
+      });
+    }).toThrow('you must specify a valid stream view type');
   });
 });
