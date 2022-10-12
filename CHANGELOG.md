@@ -1,3 +1,10 @@
+## [4.4.0](https://github.com/Pocket/terraform-modules/compare/v4.3.0...v4.4.0) (2022-10-12)
+
+
+### Features
+
+* **dynamodb streams:** expose enum of stream types & add error checking ([#1009](https://github.com/Pocket/terraform-modules/issues/1009)) ([8f8d244](https://github.com/Pocket/terraform-modules/commit/8f8d244e97371ce9fb58533cc278270172e70fea))
+
 ## [4.3.0](https://github.com/Pocket/terraform-modules/compare/v4.2.6...v4.3.0) (2022-09-24)
 
 
