@@ -316,7 +316,7 @@ describe('ApplicationECSService', () => {
     };
 
     const synthed = Testing.synthScope((stack) => {
-      new ApplicationECSService( stack, 'testECSService', BASE_CONFIG );
+      new ApplicationECSService(stack, 'testECSService', BASE_CONFIG);
     });
     expect(synthed).toMatchSnapshot();
   });
