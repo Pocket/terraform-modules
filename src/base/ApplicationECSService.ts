@@ -10,7 +10,7 @@ import {
 } from './ApplicationECSContainerDefinition';
 import { ApplicationTargetGroup } from './ApplicationTargetGroup';
 import { ApplicationECSAlbCodeDeploy } from './ApplicationECSAlbCodeDeploy';
-import { TerraformResource } from 'cdktf';
+import { TerraformResource, TerraformIterator } from 'cdktf';
 import { truncateString } from '../utilities';
 import { File } from '@cdktf/provider-local';
 
@@ -444,6 +444,7 @@ export class ApplicationECSService extends Resource {
         this.ecsIam.taskRoleArn,
         this.config.prefix
       );
+      this.createEfsMount(this.config.efsConfig.efs);
     }
     return { taskDef, ecrRepos };
   }
@@ -459,6 +460,60 @@ export class ApplicationECSService extends Resource {
       healthCheckPath: this.config.albConfig.healthCheckPath,
       tags: { ...this.config.tags, type: name },
     });
+  }
+
+  private createEfsMount(
+    efsFs: efs.EfsFileSystem
+  ) {
+
+    const ingress: vpc.SecurityGroupIngress[] = [
+        {
+          fromPort: 2049,
+          protocol: 'TCP',
+          toPort: 2049,
+          securityGroups: [this.ecsSecurityGroup.id],
+          description: 'required',
+          cidrBlocks: [],
+          ipv6CidrBlocks: [],
+          prefixListIds: [],
+        },
+    ];
+
+    const egress: vpc.SecurityGroupEgress[] = [
+      {
+        fromPort: 0,
+        protocol: '-1',
+        toPort: 0,
+        cidrBlocks: ['0.0.0.0/0'],
+        description: 'required',
+        ipv6CidrBlocks: [],
+        prefixListIds: [],
+        securityGroups: [],
+      },
+    ];
+
+    const mountSecurityGroup = new vpc.SecurityGroup(this, 'efs_mount_sg', {
+      namePrefix: `${this.config.prefix}-ECSSMountPoint`,
+      description: 'ECS EFS Mount (Managed by Terraform)',
+      vpcId: this.config.vpcId,
+      ingress,
+      egress,
+      tags: this.config.tags,
+      lifecycle: {
+        createBeforeDestroy: true,
+      },
+    });
+
+    // https://developer.hashicorp.com/terraform/cdktf/concepts/iterators
+    const iterator = TerraformIterator.fromList(this.config.privateSubnetIds);
+
+    new efs.EfsMountTarget(this, 'efs_mount_target', {
+      forEach: iterator,
+      fileSystemId: efsFs.id,
+      subnetId: iterator.value,
+      securityGroups: [mountSecurityGroup.id],
+    });
+    return efsFs;
   }
 
   private efsFilePolicy(
