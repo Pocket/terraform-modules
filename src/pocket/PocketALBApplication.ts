@@ -5,7 +5,6 @@ import {
   cloudwatch,
   route53,
   efs,
-  ecs,
 } from '@cdktf/provider-aws';
 import { Construct } from 'constructs';
 import {
@@ -584,7 +583,7 @@ export class PocketALBApplication extends Resource {
 
     if (this.config.efsConfig) {
       ecsConfig.efsConfig = {
-        efs: {id: this.efs.id, arn: this.efs.arn},
+        efs: { id: this.efs.id, arn: this.efs.arn },
         volumeName: this.config.efsConfig.volumeName,
       };
     }

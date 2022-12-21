@@ -293,7 +293,9 @@ describe('ApplicationECSService', () => {
 
       expect(applicationECSService.ecrRepos.length).toEqual(1);
       expect(
-        applicationECSService.taskDefinition.terraformResourceType).toEqual('aws_ecs_task_definition'); });
+        applicationECSService.taskDefinition.terraformResourceType
+      ).toEqual('aws_ecs_task_definition');
+    });
   });
 
   it('attaches persistent (efs) storage to a ECS task', () => {
@@ -301,15 +303,15 @@ describe('ApplicationECSService', () => {
       {
         mountPoints: [
           {
-            containerPath: "/someMountPoint",
-            sourceVolume: "sourceVolume",
+            containerPath: '/someMountPoint',
+            sourceVolume: 'sourceVolume',
           },
         ],
         name: 'lebowski',
       },
     ];
     BASE_CONFIG.efsConfig = {
-      efs: {arn: 'fakeArn', id: 'someId'},
+      efs: { arn: 'fakeArn', id: 'someId' },
       volumeName: 'sourceVolume',
     };
 
@@ -321,6 +323,5 @@ describe('ApplicationECSService', () => {
       );
     });
     expect(synthed).toMatchSnapshot();
-  })
+  });
 });
-

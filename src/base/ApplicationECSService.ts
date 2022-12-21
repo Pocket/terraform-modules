@@ -466,21 +466,18 @@ export class ApplicationECSService extends Resource {
     });
   }
 
-  private createEfsMount(
-    efsFs: EFSProps,
-  ) {
-
+  private createEfsMount(efsFs: EFSProps) {
     const ingress: vpc.SecurityGroupIngress[] = [
-        {
-          fromPort: 2049,
-          protocol: 'TCP',
-          toPort: 2049,
-          securityGroups: [this.ecsSecurityGroup.id],
-          description: 'required',
-          cidrBlocks: [],
-          ipv6CidrBlocks: [],
-          prefixListIds: [],
-        },
+      {
+        fromPort: 2049,
+        protocol: 'TCP',
+        toPort: 2049,
+        securityGroups: [this.ecsSecurityGroup.id],
+        description: 'required',
+        cidrBlocks: [],
+        ipv6CidrBlocks: [],
+        prefixListIds: [],
+      },
     ];
 
     const egress: vpc.SecurityGroupEgress[] = [

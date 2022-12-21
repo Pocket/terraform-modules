@@ -22,7 +22,8 @@ class Example extends TerraformStack {
     const containerConfigBlue: ApplicationECSContainerDefinitionProps = {
       name: 'blueContainer',
       containerImage: 'n0coast/node-example',
-      repositoryCredentialsParam: 'arn:aws:secretsmanager:us-east-1:410318598490:secret:Shared/DockerHub-79jJxy',
+      repositoryCredentialsParam:
+        'arn:aws:secretsmanager:us-east-1:410318598490:secret:Shared/DockerHub-79jJxy',
       portMappings: [
         {
           hostPort: 3000,
@@ -37,8 +38,8 @@ class Example extends TerraformStack {
       ],
       mountPoints: [
         {
-          containerPath: "/qdrant/storage",
-          sourceVolume: "data",
+          containerPath: '/qdrant/storage',
+          sourceVolume: 'data',
         },
       ],
     };
@@ -60,20 +61,23 @@ class Example extends TerraformStack {
       containerConfigs: [containerConfigBlue],
       ecsIamConfig: {
         prefix: 'ACME-Dev',
-        taskExecutionRolePolicyStatements: [,
+        taskExecutionRolePolicyStatements: [
           {
             effect: 'Allow',
             actions: [
-              "secretsmanager:GetResourcePolicy",
-              "secretsmanager:GetSecretValue",
-              "secretsmanager:DescribeSecret",
-              "secretsmanager:ListSecretVersionIds"
+              'secretsmanager:GetResourcePolicy',
+              'secretsmanager:GetSecretValue',
+              'secretsmanager:DescribeSecret',
+              'secretsmanager:ListSecretVersionIds',
             ],
-            resources: ['arn:aws:secretsmanager:us-east-1:410318598490:secret:Shared/DockerHub-79jJxy']
-          }
+            resources: [
+              'arn:aws:secretsmanager:us-east-1:410318598490:secret:Shared/DockerHub-79jJxy',
+            ],
+          },
         ],
         taskRolePolicyStatements: [],
-      taskExecutionDefaultAttachmentArn: 'arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy',
+        taskExecutionDefaultAttachmentArn:
+          'arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy',
       },
       efsConfig: {
         creationToken: 'ACME-Dev',
