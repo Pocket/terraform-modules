@@ -584,7 +584,7 @@ export class PocketALBApplication extends Resource {
 
     if (this.config.efsConfig) {
       ecsConfig.efsConfig = {
-        efs: this.efs,
+        efs: {id: this.efs.id, arn: this.efs.arn},
         volumeName: this.config.efsConfig.volumeName,
       };
     }

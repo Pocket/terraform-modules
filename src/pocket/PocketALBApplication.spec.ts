@@ -375,4 +375,28 @@ describe('PocketALBApplication', () => {
     });
     expect(synthed).toMatchSnapshot();
   });
+
+  it('renders a Pocket App with attached persistent storage', () => {
+    const synthed = Testing.synthScope((stack) => {
+      new PocketALBApplication(stack, 'testPocketApp', {
+        ...BASE_CONFIG,
+        efsConfig: {
+          volumeName: 'sourceVolume',
+          creationToken: 'someToken',
+        },
+        containerConfigs: [
+          {
+            name: 'someMountPoint',
+            mountPoints: [
+              {
+                containerPath: '/qdrant/storage',
+                sourceVolume: 'sourceVolume',
+              },
+            ],
+          },
+        ],
+      });
+    });
+    expect(synthed).toMatchSnapshot();
+  });
 });

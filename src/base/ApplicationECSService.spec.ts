@@ -293,8 +293,34 @@ describe('ApplicationECSService', () => {
 
       expect(applicationECSService.ecrRepos.length).toEqual(1);
       expect(
-        applicationECSService.taskDefinition.terraformResourceType
-      ).toEqual('aws_ecs_task_definition');
-    });
+        applicationECSService.taskDefinition.terraformResourceType).toEqual('aws_ecs_task_definition'); });
   });
+
+  it('attaches persistent (efs) storage to a ECS task', () => {
+    BASE_CONFIG.containerConfigs = [
+      {
+        mountPoints: [
+          {
+            containerPath: "/someMountPoint",
+            sourceVolume: "sourceVolume",
+          },
+        ],
+        name: 'lebowski',
+      },
+    ];
+    BASE_CONFIG.efsConfig = {
+      efs: {arn: 'fakeArn', id: 'someId'},
+      volumeName: 'sourceVolume',
+    };
+
+    const synthed = Testing.synthScope((stack) => {
+      const applicationECSService = new ApplicationECSService(
+        stack,
+        'testECSService',
+        BASE_CONFIG
+      );
+    });
+    expect(synthed).toMatchSnapshot();
+  })
 });
+

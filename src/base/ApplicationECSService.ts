@@ -49,13 +49,17 @@ export interface ApplicationECSServiceProps {
     notifyOnFailed?: boolean; //defaults to true
   };
   efsConfig?: {
-    efs: efs.EfsFileSystem;
+    efs: EFSProps;
     volumeName: string;
   };
 
   codeDeploySnsNotificationTopicArn?: string;
 }
 
+export interface EFSProps {
+  id: string;
+  arn: string;
+}
 interface ECSTaskDefinitionResponse {
   taskDef: ecs.EcsTaskDefinition;
   ecrRepos: ecr.EcrRepository[];
@@ -463,7 +467,7 @@ export class ApplicationECSService extends Resource {
   }
 
   private createEfsMount(
-    efsFs: efs.EfsFileSystem
+    efsFs: EFSProps,
   ) {
 
     const ingress: vpc.SecurityGroupIngress[] = [
@@ -513,11 +517,10 @@ export class ApplicationECSService extends Resource {
       subnetId: iterator.value,
       securityGroups: [mountSecurityGroup.id],
     });
-    return efsFs;
   }
 
   private efsFilePolicy(
-    efsFs: efs.EfsFileSystem,
+    efsFs: EFSProps,
     roleArn: string,
     creationToken: string
   ) {
