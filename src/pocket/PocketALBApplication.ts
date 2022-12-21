@@ -1,5 +1,12 @@
 import { Fn, Resource } from 'cdktf';
-import { elb, cloudfront, cloudwatch, route53, efs, ecs } from '@cdktf/provider-aws';
+import {
+  elb,
+  cloudfront,
+  cloudwatch,
+  route53,
+  efs,
+  ecs,
+} from '@cdktf/provider-aws';
 import { Construct } from 'constructs';
 import {
   ApplicationAutoscaling,
@@ -208,7 +215,7 @@ export class PocketALBApplication extends Resource {
     if (config.cdn) {
       this.createCDN(albRecord);
     }
-    
+
     if (config.efsConfig) {
       this.efs = this.createEfs(config);
     }
@@ -297,16 +304,14 @@ export class PocketALBApplication extends Resource {
     );
   }
 
-  private createEfs(
-    config: PocketALBApplicationProps
-  ): efs.EfsFileSystem {
+  private createEfs(config: PocketALBApplicationProps): efs.EfsFileSystem {
     const efsFs = new efs.EfsFileSystem(this, 'efsFs', {
       creationToken: config.efsConfig.creationToken,
       encrypted: true,
       tags: config.tags,
     });
-   
-    this.pocketVPC.privateSubnetIds.forEach((id, index) => { 
+
+    this.pocketVPC.privateSubnetIds.forEach((id, index) => {
       new efs.EfsMountTarget(this, 'efsMt' + index, {
         fileSystemId: efsFs.id,
         subnetId: Fn.element(this.pocketVPC.privateSubnetIds, index),
@@ -315,7 +320,7 @@ export class PocketALBApplication extends Resource {
 
     return efsFs;
   }
-  
+
   private static validateCachedALB(
     config: PocketALBApplicationProps
   ): PocketALBApplicationProps {
@@ -589,7 +594,7 @@ export class PocketALBApplication extends Resource {
         efs: this.efs,
         volumeName: this.config.efsConfig.volumeName,
       };
-    };
+    }
 
     const ecsService = new ApplicationECSService(
       this,

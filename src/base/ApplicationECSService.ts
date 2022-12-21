@@ -394,16 +394,19 @@ export class ApplicationECSService extends Resource {
         def.mountPoints.forEach((mountPoint) => {
           // We currently only set the volume names, but more configuration is available in EcsTaskDefinitionVolume.
           volumes[mountPoint.sourceVolume] = { name: mountPoint.sourceVolume };
-          if (this.config.efsConfig && (this.config.efsConfig.volumeName == mountPoint.sourceVolume)) {
+          if (
+            this.config.efsConfig &&
+            this.config.efsConfig.volumeName == mountPoint.sourceVolume
+          ) {
             volumes[mountPoint.sourceVolume] = {
-             name: mountPoint.sourceVolume,
-             efsVolumeConfiguration: {
-              fileSystemId: this.config.efsConfig.efs.id,
-             },
+              name: mountPoint.sourceVolume,
+              efsVolumeConfiguration: {
+                fileSystemId: this.config.efsConfig.efs.id,
+              },
             };
-           }
-          })
-        }
+          }
+        });
+      }
 
       containerDefs.push(buildDefinitionJSON(def));
     });
@@ -436,7 +439,11 @@ export class ApplicationECSService extends Resource {
     });
 
     if (this.config.efsConfig) {
-      this.efsFilePolicy(this.config.efsConfig.efs, this.ecsIam.taskRoleArn, this.config.prefix)
+      this.efsFilePolicy(
+        this.config.efsConfig.efs,
+        this.ecsIam.taskRoleArn,
+        this.config.prefix
+      );
     }
     return { taskDef, ecrRepos };
   }
@@ -457,7 +464,7 @@ export class ApplicationECSService extends Resource {
   private efsFilePolicy(
     efsFs: efs.EfsFileSystem,
     roleArn: string,
-    creationToken: string,
+    creationToken: string
   ) {
     const FsPolicy = {
       Version: '2012-10-17',
@@ -471,17 +478,17 @@ export class ApplicationECSService extends Resource {
           },
           Resource: efsFs.arn,
           Action: [
-            "elasticfilesystem:ClientMount",
-            "elasticfilesystem:ClientWrite",
+            'elasticfilesystem:ClientMount',
+            'elasticfilesystem:ClientWrite',
           ],
           Condition: {
             Bool: {
-              'elasticfilesystem:AccessedViaMountTarget': 'true'
-            }
-          }
-        }
-      ]
-    }
+              'elasticfilesystem:AccessedViaMountTarget': 'true',
+            },
+          },
+        },
+      ],
+    };
 
     const wait2Minutes = new Sleep(this, 'wait2Minutes', {
       createDuration: '2m',
