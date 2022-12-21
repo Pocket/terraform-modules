@@ -1,5 +1,6 @@
-import { ecs, ecr, cloudwatch, vpc, elb } from '@cdktf/provider-aws';
+import { ecs, ecr, cloudwatch, vpc, elb, efs } from '@cdktf/provider-aws';
 import { Resource } from '@cdktf/provider-null';
+import { Sleep } from '@cdktf/provider-time';
 import { Construct } from 'constructs';
 import { ApplicationECR, ECRProps } from './ApplicationECR';
 import { ApplicationECSIAM, ApplicationECSIAMProps } from './ApplicationECSIAM';
@@ -46,6 +47,10 @@ export interface ApplicationECSServiceProps {
     notifyOnStarted?: boolean; //defaults to true
     notifyOnSucceeded?: boolean; //defaults to true
     notifyOnFailed?: boolean; //defaults to true
+  };
+  efsConfig?: {
+    efs: efs.EfsFileSystem;
+    volumeName: string;
   };
 
   codeDeploySnsNotificationTopicArn?: string;
@@ -389,8 +394,16 @@ export class ApplicationECSService extends Resource {
         def.mountPoints.forEach((mountPoint) => {
           // We currently only set the volume names, but more configuration is available in EcsTaskDefinitionVolume.
           volumes[mountPoint.sourceVolume] = { name: mountPoint.sourceVolume };
-        });
-      }
+          if (this.config.efsConfig && (this.config.efsConfig.volumeName == mountPoint.sourceVolume)) {
+            volumes[mountPoint.sourceVolume] = {
+             name: mountPoint.sourceVolume,
+             efsVolumeConfiguration: {
+              fileSystemId: this.config.efsConfig.efs.id,
+             },
+            };
+           }
+          })
+        }
 
       containerDefs.push(buildDefinitionJSON(def));
     });
@@ -422,6 +435,9 @@ export class ApplicationECSService extends Resource {
       dependsOn: ecrRepos,
     });
 
+    if (this.config.efsConfig) {
+      this.efsFilePolicy(this.config.efsConfig.efs, this.ecsIam.taskRoleArn, this.config.prefix)
+    }
     return { taskDef, ecrRepos };
   }
 
@@ -435,6 +451,48 @@ export class ApplicationECSService extends Resource {
       vpcId: this.config.vpcId,
       healthCheckPath: this.config.albConfig.healthCheckPath,
       tags: { ...this.config.tags, type: name },
+    });
+  }
+
+  private efsFilePolicy(
+    efsFs: efs.EfsFileSystem,
+    roleArn: string,
+    creationToken: string,
+  ) {
+    const FsPolicy = {
+      Version: '2012-10-17',
+      Id: creationToken,
+      Statement: [
+        {
+          Sid: creationToken,
+          Effect: 'Allow',
+          Principal: {
+            AWS: roleArn,
+          },
+          Resource: efsFs.arn,
+          Action: [
+            "elasticfilesystem:ClientMount",
+            "elasticfilesystem:ClientWrite",
+          ],
+          Condition: {
+            Bool: {
+              'elasticfilesystem:AccessedViaMountTarget': 'true'
+            }
+          }
+        }
+      ]
+    }
+
+    const wait2Minutes = new Sleep(this, 'wait2Minutes', {
+      createDuration: '2m',
+      dependsOn: [this.ecsIam.taskRoleArn],
+    });
+
+    new efs.EfsFileSystemPolicy(this, 'efsFsPolicy', {
+      fileSystemId: efsFs.id,
+      policy: JSON.stringify(FsPolicy),
+      // https://github.com/hashicorp/terraform-provider-aws/pull/21734
+      dependsOn: [wait2Minutes],
     });
   }
 }

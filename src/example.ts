@@ -5,6 +5,7 @@ import { PocketALBApplication } from './pocket/PocketALBApplication';
 import { ApplicationECSContainerDefinitionProps } from './base/ApplicationECSContainerDefinition';
 import { LocalProvider } from '@cdktf/provider-local';
 import { NullProvider } from '@cdktf/provider-null';
+import { TimeProvider } from '@cdktf/provider-time';
 
 class Example extends TerraformStack {
   constructor(scope: Construct, name: string) {
@@ -15,10 +16,11 @@ class Example extends TerraformStack {
     });
     new LocalProvider(this, 'local', {});
     new NullProvider(this, 'null', {});
+    new TimeProvider(this, 'timeProvider', {});
 
     const containerConfigBlue: ApplicationECSContainerDefinitionProps = {
       name: 'blueContainer',
-      containerImage: 'bitnami/node-example:0.0.1',
+      containerImage: 'n0coast/node-example',
       portMappings: [
         {
           hostPort: 3000,
@@ -29,6 +31,12 @@ class Example extends TerraformStack {
         {
           name: 'foo',
           value: 'bar',
+        },
+      ],
+      mountPoints: [
+        {
+          containerPath: "/qdrant/storage",
+          sourceVolume: "data",
         },
       ],
     };
@@ -52,6 +60,11 @@ class Example extends TerraformStack {
         prefix: 'ACME-Dev',
         taskExecutionRolePolicyStatements: [],
         taskRolePolicyStatements: [],
+      taskExecutionDefaultAttachmentArn: 'arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy',
+      },
+      efsConfig: {
+        creationToken: 'ACME-Dev',
+        volumeName: 'data',
       },
     });
   }

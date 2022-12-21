@@ -89,6 +89,7 @@
     "@cdktf/provider-newrelic": "2.0.91",
     "@cdktf/provider-null": "2.0.48",
     "@cdktf/provider-pagerduty": "2.0.51",
+    "@cdktf/provider-time": "^2",
     "@sinonjs/commons": "^1.8.3",
     "cdktf": "0.12.2",
     "cdktf-cli": "0.12.2",
