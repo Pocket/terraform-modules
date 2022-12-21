@@ -1,11 +1,5 @@
 import { Resource } from 'cdktf';
-import {
-  elb,
-  cloudfront,
-  cloudwatch,
-  route53,
-  efs,
-} from '@cdktf/provider-aws';
+import { elb, cloudfront, cloudwatch, route53, efs } from '@cdktf/provider-aws';
 import { Construct } from 'constructs';
 import {
   ApplicationAutoscaling,

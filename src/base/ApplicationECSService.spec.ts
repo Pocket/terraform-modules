@@ -316,7 +316,7 @@ describe('ApplicationECSService', () => {
     };
 
     const synthed = Testing.synthScope((stack) => {
-      const applicationECSService = new ApplicationECSService(
+      new ApplicationECSService(
         stack,
         'testECSService',
         BASE_CONFIG
