@@ -1,4 +1,4 @@
-import { Fn, Resource } from 'cdktf';
+import { Resource, TerraformIterator } from 'cdktf';
 import {
   elb,
   cloudfront,
@@ -311,13 +311,14 @@ export class PocketALBApplication extends Resource {
       tags: config.tags,
     });
 
-    this.pocketVPC.privateSubnetIds.forEach((id, index) => {
-      new efs.EfsMountTarget(this, 'efsMt' + index, {
-        fileSystemId: efsFs.id,
-        subnetId: Fn.element(this.pocketVPC.privateSubnetIds, index),
-      });
-    });
+    // https://developer.hashicorp.com/terraform/cdktf/concepts/iterators
+    const iterator = TerraformIterator.fromList(this.pocketVPC.privateSubnetIds);
 
+    new efs.EfsMountTarget(this, 'efs_mount_target', {
+      forEach: iterator,
+      fileSystemId: efsFs.id,
+      subnetId: iterator.value,
+    });
     return efsFs;
   }
 
