@@ -530,7 +530,7 @@ export class ApplicationECSService extends Resource {
           Sid: creationToken,
           Effect: 'Allow',
           Principal: {
-            AWS: roleArn,
+            AWS: '*',
           },
           Resource: efsFs.arn,
           Action: [
