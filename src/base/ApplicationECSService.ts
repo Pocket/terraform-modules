@@ -400,7 +400,7 @@ export class ApplicationECSService extends Resource {
           volumes[mountPoint.sourceVolume] = { name: mountPoint.sourceVolume };
           if (
             this.config.efsConfig &&
-            this.config.efsConfig.volumeName == mountPoint.sourceVolume
+            this.config.efsConfig.volumeName === mountPoint.sourceVolume
           ) {
             volumes[mountPoint.sourceVolume] = {
               name: mountPoint.sourceVolume,
@@ -469,6 +469,7 @@ export class ApplicationECSService extends Resource {
   private createEfsMount(efsFs: EFSProps) {
     const ingress: vpc.SecurityGroupIngress[] = [
       {
+        // EFS port is not configurable in AWS
         fromPort: 2049,
         protocol: 'TCP',
         toPort: 2049,
@@ -545,7 +546,7 @@ export class ApplicationECSService extends Resource {
       ],
     };
 
-    const wait2Minutes = new Sleep(this, 'wait2Minutes', {
+    const waitTwoMinutes = new Sleep(this, 'waitTwoMinutes', {
       createDuration: '2m',
       dependsOn: [this.ecsIam.taskRoleArn],
     });
@@ -554,7 +555,7 @@ export class ApplicationECSService extends Resource {
       fileSystemId: efsFs.id,
       policy: JSON.stringify(FsPolicy),
       // https://github.com/hashicorp/terraform-provider-aws/pull/21734
-      dependsOn: [wait2Minutes],
+      dependsOn: [waitTwoMinutes],
     });
   }
 }

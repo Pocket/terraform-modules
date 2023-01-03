@@ -468,10 +468,10 @@ exports[`PocketALBApplication renders a Pocket App with attached persistent stor
     \\"aws_efs_file_system_policy\\": {
       \\"testPocketApp_ecs_service_efsFsPolicy_CDE65D86\\": {
         \\"depends_on\\": [
-          \\"time_sleep.testPocketApp_ecs_service_wait2Minutes_048D2698\\"
+          \\"time_sleep.testPocketApp_ecs_service_waitTwoMinutes_E07A2D17\\"
         ],
         \\"file_system_id\\": \\"\${aws_efs_file_system.testPocketApp_efsFs_92747227.id}\\",
-        \\"policy\\": \\"{\\\\\\"Version\\\\\\":\\\\\\"2012-10-17\\\\\\",\\\\\\"Id\\\\\\":\\\\\\"testapp\\\\\\",\\\\\\"Statement\\\\\\":[{\\\\\\"Sid\\\\\\":\\\\\\"testapp\\\\\\",\\\\\\"Effect\\\\\\":\\\\\\"Allow\\\\\\",\\\\\\"Principal\\\\\\":{\\\\\\"AWS\\\\\\":\\\\\\"\${aws_iam_role.testPocketApp_ecs_service_ecs-iam_ecs-task-role_7DB93963.arn}\\\\\\"},\\\\\\"Resource\\\\\\":\\\\\\"\${aws_efs_file_system.testPocketApp_efsFs_92747227.arn}\\\\\\",\\\\\\"Action\\\\\\":[\\\\\\"elasticfilesystem:ClientMount\\\\\\",\\\\\\"elasticfilesystem:ClientWrite\\\\\\"],\\\\\\"Condition\\\\\\":{\\\\\\"Bool\\\\\\":{\\\\\\"elasticfilesystem:AccessedViaMountTarget\\\\\\":\\\\\\"true\\\\\\"}}}]}\\"
+        \\"policy\\": \\"{\\\\\\"Version\\\\\\":\\\\\\"2012-10-17\\\\\\",\\\\\\"Id\\\\\\":\\\\\\"testapp\\\\\\",\\\\\\"Statement\\\\\\":[{\\\\\\"Sid\\\\\\":\\\\\\"testapp\\\\\\",\\\\\\"Effect\\\\\\":\\\\\\"Allow\\\\\\",\\\\\\"Principal\\\\\\":{\\\\\\"AWS\\\\\\":\\\\\\"*\\\\\\"},\\\\\\"Resource\\\\\\":\\\\\\"\${aws_efs_file_system.testPocketApp_efsFs_92747227.arn}\\\\\\",\\\\\\"Action\\\\\\":[\\\\\\"elasticfilesystem:ClientMount\\\\\\",\\\\\\"elasticfilesystem:ClientWrite\\\\\\"],\\\\\\"Condition\\\\\\":{\\\\\\"Bool\\\\\\":{\\\\\\"elasticfilesystem:AccessedViaMountTarget\\\\\\":\\\\\\"true\\\\\\"}}}]}\\"
       }
     },
     \\"aws_efs_mount_target\\": {
@@ -706,7 +706,7 @@ exports[`PocketALBApplication renders a Pocket App with attached persistent stor
       }
     },
     \\"time_sleep\\": {
-      \\"testPocketApp_ecs_service_wait2Minutes_048D2698\\": {
+      \\"testPocketApp_ecs_service_waitTwoMinutes_E07A2D17\\": {
         \\"create_duration\\": \\"2m\\",
         \\"depends_on\\": [
         ]
