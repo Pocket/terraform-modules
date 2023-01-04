@@ -471,7 +471,7 @@ exports[`PocketALBApplication renders a Pocket App with attached persistent stor
           \\"time_sleep.testPocketApp_ecs_service_waitTwoMinutes_E07A2D17\\"
         ],
         \\"file_system_id\\": \\"\${aws_efs_file_system.testPocketApp_efsFs_92747227.id}\\",
-        \\"policy\\": \\"{\\\\\\"Version\\\\\\":\\\\\\"2012-10-17\\\\\\",\\\\\\"Id\\\\\\":\\\\\\"testapp\\\\\\",\\\\\\"Statement\\\\\\":[{\\\\\\"Sid\\\\\\":\\\\\\"testapp\\\\\\",\\\\\\"Effect\\\\\\":\\\\\\"Allow\\\\\\",\\\\\\"Principal\\\\\\":{\\\\\\"AWS\\\\\\":\\\\\\"*\\\\\\"},\\\\\\"Resource\\\\\\":\\\\\\"\${aws_efs_file_system.testPocketApp_efsFs_92747227.arn}\\\\\\",\\\\\\"Action\\\\\\":[\\\\\\"elasticfilesystem:ClientMount\\\\\\",\\\\\\"elasticfilesystem:ClientWrite\\\\\\"],\\\\\\"Condition\\\\\\":{\\\\\\"Bool\\\\\\":{\\\\\\"elasticfilesystem:AccessedViaMountTarget\\\\\\":\\\\\\"true\\\\\\"}}}]}\\"
+        \\"policy\\": \\"{\\\\\\"Version\\\\\\":\\\\\\"2012-10-17\\\\\\",\\\\\\"Id\\\\\\":\\\\\\"testapp\\\\\\",\\\\\\"Statement\\\\\\":[{\\\\\\"Sid\\\\\\":\\\\\\"testapp\\\\\\",\\\\\\"Effect\\\\\\":\\\\\\"Allow\\\\\\",\\\\\\"Principal\\\\\\":{\\\\\\"AWS\\\\\\":\\\\\\"*\\\\\\"},\\\\\\"Resource\\\\\\":\\\\\\"\${aws_efs_file_system.testPocketApp_efsFs_92747227.arn}\\\\\\",\\\\\\"Action\\\\\\":[\\\\\\"elasticfilesystem:ClientMount\\\\\\",\\\\\\"elasticfilesystem:ClientWrite\\\\\\",\\\\\\"elasticfilesystem:ClientRootAccess\\\\\\"],\\\\\\"Condition\\\\\\":{\\\\\\"Bool\\\\\\":{\\\\\\"elasticfilesystem:AccessedViaMountTarget\\\\\\":\\\\\\"true\\\\\\"}}}]}\\"
       }
     },
     \\"aws_efs_mount_target\\": {
