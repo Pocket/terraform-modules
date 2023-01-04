@@ -1,3 +1,10 @@
+## [4.5.2](https://github.com/Pocket/terraform-modules/compare/v4.5.1...v4.5.2) (2023-01-04)
+
+
+### Bug Fixes
+
+* missing efs policy action ([#1022](https://github.com/Pocket/terraform-modules/issues/1022)) ([1183ae9](https://github.com/Pocket/terraform-modules/commit/1183ae9c39362299c59b0de12ba729e7bbc00191))
+
 ## [4.5.1](https://github.com/Pocket/terraform-modules/compare/v4.5.0...v4.5.1) (2023-01-04)
 
 
