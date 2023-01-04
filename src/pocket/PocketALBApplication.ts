@@ -1,5 +1,5 @@
 import { Resource } from 'cdktf';
-import { elb, cloudfront, cloudwatch, route53 } from '@cdktf/provider-aws';
+import { elb, cloudfront, cloudwatch, route53, efs } from '@cdktf/provider-aws';
 import { Construct } from 'constructs';
 import {
   ApplicationAutoscaling,
@@ -145,6 +145,11 @@ export interface PocketALBApplicationProps {
     httpLatency?: PocketALBApplicationAlarmProps;
     customAlarms?: cloudwatch.CloudwatchMetricAlarmConfig[];
   };
+  efsConfig?: {
+    creationToken?: string;
+    throughputMode?: string;
+    volumeName: string;
+  };
 }
 
 interface CreateALBReturn {
@@ -170,6 +175,7 @@ export class PocketALBApplication extends Resource {
   public readonly listeners: elb.AlbListener[];
   private readonly config: PocketALBApplicationProps;
   private readonly pocketVPC: PocketALBApplicationProps['vpcConfig'];
+  private readonly efs: efs.EfsFileSystem;
 
   constructor(
     scope: Construct,
@@ -201,6 +207,10 @@ export class PocketALBApplication extends Resource {
 
     if (config.cdn) {
       this.createCDN(albRecord);
+    }
+
+    if (config.efsConfig) {
+      this.efs = this.createEfs(config);
     }
 
     const ecsService = this.createECSService(alb, albCertificate);
@@ -285,6 +295,16 @@ export class PocketALBApplication extends Resource {
         }
       }
     );
+  }
+
+  private createEfs(config: PocketALBApplicationProps): efs.EfsFileSystem {
+    const efsFs = new efs.EfsFileSystem(this, 'efsFs', {
+      creationToken: config.efsConfig.creationToken,
+      encrypted: true,
+      tags: config.tags,
+    });
+
+    return efsFs;
   }
 
   private static validateCachedALB(
@@ -552,6 +572,13 @@ export class PocketALBApplication extends Resource {
       ecsConfig = {
         ...this.config.taskSize,
         ...ecsConfig,
+      };
+    }
+
+    if (this.config.efsConfig) {
+      ecsConfig.efsConfig = {
+        efs: { id: this.efs.id, arn: this.efs.arn },
+        volumeName: this.config.efsConfig.volumeName,
       };
     }
 

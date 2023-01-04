@@ -5,6 +5,7 @@ import { PocketALBApplication } from './pocket/PocketALBApplication';
 import { ApplicationECSContainerDefinitionProps } from './base/ApplicationECSContainerDefinition';
 import { LocalProvider } from '@cdktf/provider-local';
 import { NullProvider } from '@cdktf/provider-null';
+import { TimeProvider } from '@cdktf/provider-time';
 
 class Example extends TerraformStack {
   constructor(scope: Construct, name: string) {
@@ -13,12 +14,16 @@ class Example extends TerraformStack {
     new AwsProvider(this, 'aws', {
       region: 'us-east-1',
     });
+
     new LocalProvider(this, 'local', {});
     new NullProvider(this, 'null', {});
+    new TimeProvider(this, 'timeProvider', {});
 
     const containerConfigBlue: ApplicationECSContainerDefinitionProps = {
       name: 'blueContainer',
-      containerImage: 'bitnami/node-example:0.0.1',
+      containerImage: 'n0coast/node-example',
+      repositoryCredentialsParam:
+        'arn:aws:secretsmanager:us-east-1:410318598490:secret:Shared/DockerHub-79jJxy',
       portMappings: [
         {
           hostPort: 3000,
@@ -29,6 +34,12 @@ class Example extends TerraformStack {
         {
           name: 'foo',
           value: 'bar',
+        },
+      ],
+      mountPoints: [
+        {
+          containerPath: '/qdrant/storage',
+          sourceVolume: 'data',
         },
       ],
     };
@@ -50,8 +61,27 @@ class Example extends TerraformStack {
       containerConfigs: [containerConfigBlue],
       ecsIamConfig: {
         prefix: 'ACME-Dev',
-        taskExecutionRolePolicyStatements: [],
+        taskExecutionRolePolicyStatements: [
+          {
+            effect: 'Allow',
+            actions: [
+              'secretsmanager:GetResourcePolicy',
+              'secretsmanager:GetSecretValue',
+              'secretsmanager:DescribeSecret',
+              'secretsmanager:ListSecretVersionIds',
+            ],
+            resources: [
+              'arn:aws:secretsmanager:us-east-1:410318598490:secret:Shared/DockerHub-79jJxy',
+            ],
+          },
+        ],
         taskRolePolicyStatements: [],
+        taskExecutionDefaultAttachmentArn:
+          'arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy',
+      },
+      efsConfig: {
+        creationToken: 'ACME-Dev',
+        volumeName: 'data',
       },
     });
   }

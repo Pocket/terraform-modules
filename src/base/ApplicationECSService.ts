@@ -1,5 +1,6 @@
-import { ecs, ecr, cloudwatch, vpc, elb } from '@cdktf/provider-aws';
+import { ecs, ecr, cloudwatch, vpc, elb, efs } from '@cdktf/provider-aws';
 import { Resource } from '@cdktf/provider-null';
+import { Sleep } from '@cdktf/provider-time';
 import { Construct } from 'constructs';
 import { ApplicationECR, ECRProps } from './ApplicationECR';
 import { ApplicationECSIAM, ApplicationECSIAMProps } from './ApplicationECSIAM';
@@ -9,7 +10,7 @@ import {
 } from './ApplicationECSContainerDefinition';
 import { ApplicationTargetGroup } from './ApplicationTargetGroup';
 import { ApplicationECSAlbCodeDeploy } from './ApplicationECSAlbCodeDeploy';
-import { TerraformResource } from 'cdktf';
+import { TerraformResource, TerraformIterator } from 'cdktf';
 import { truncateString } from '../utilities';
 import { File } from '@cdktf/provider-local';
 
@@ -47,10 +48,18 @@ export interface ApplicationECSServiceProps {
     notifyOnSucceeded?: boolean; //defaults to true
     notifyOnFailed?: boolean; //defaults to true
   };
+  efsConfig?: {
+    efs: EFSProps;
+    volumeName: string;
+  };
 
   codeDeploySnsNotificationTopicArn?: string;
 }
 
+export interface EFSProps {
+  id: string;
+  arn: string;
+}
 interface ECSTaskDefinitionResponse {
   taskDef: ecs.EcsTaskDefinition;
   ecrRepos: ecr.EcrRepository[];
@@ -389,6 +398,17 @@ export class ApplicationECSService extends Resource {
         def.mountPoints.forEach((mountPoint) => {
           // We currently only set the volume names, but more configuration is available in EcsTaskDefinitionVolume.
           volumes[mountPoint.sourceVolume] = { name: mountPoint.sourceVolume };
+          if (
+            this.config.efsConfig &&
+            this.config.efsConfig.volumeName === mountPoint.sourceVolume
+          ) {
+            volumes[mountPoint.sourceVolume] = {
+              name: mountPoint.sourceVolume,
+              efsVolumeConfiguration: {
+                fileSystemId: this.config.efsConfig.efs.id,
+              },
+            };
+          }
         });
       }
 
@@ -422,6 +442,14 @@ export class ApplicationECSService extends Resource {
       dependsOn: ecrRepos,
     });
 
+    if (this.config.efsConfig) {
+      this.efsFilePolicy(
+        this.config.efsConfig.efs,
+        this.ecsIam.taskRoleArn,
+        this.config.prefix
+      );
+      this.createEfsMount(this.config.efsConfig.efs);
+    }
     return { taskDef, ecrRepos };
   }
 
@@ -435,6 +463,99 @@ export class ApplicationECSService extends Resource {
       vpcId: this.config.vpcId,
       healthCheckPath: this.config.albConfig.healthCheckPath,
       tags: { ...this.config.tags, type: name },
+    });
+  }
+
+  private createEfsMount(efsFs: EFSProps) {
+    const ingress: vpc.SecurityGroupIngress[] = [
+      {
+        // EFS port is not configurable in AWS
+        fromPort: 2049,
+        protocol: 'TCP',
+        toPort: 2049,
+        securityGroups: [this.ecsSecurityGroup.id],
+        description: 'required',
+        cidrBlocks: [],
+        ipv6CidrBlocks: [],
+        prefixListIds: [],
+      },
+    ];
+
+    const egress: vpc.SecurityGroupEgress[] = [
+      {
+        fromPort: 0,
+        protocol: '-1',
+        toPort: 0,
+        cidrBlocks: ['0.0.0.0/0'],
+        description: 'required',
+        ipv6CidrBlocks: [],
+        prefixListIds: [],
+        securityGroups: [],
+      },
+    ];
+
+    const mountSecurityGroup = new vpc.SecurityGroup(this, 'efs_mount_sg', {
+      namePrefix: `${this.config.prefix}-ECSSMountPoint`,
+      description: 'ECS EFS Mount (Managed by Terraform)',
+      vpcId: this.config.vpcId,
+      ingress,
+      egress,
+      tags: this.config.tags,
+      lifecycle: {
+        createBeforeDestroy: true,
+      },
+    });
+
+    // https://developer.hashicorp.com/terraform/cdktf/concepts/iterators
+    const iterator = TerraformIterator.fromList(this.config.privateSubnetIds);
+
+    new efs.EfsMountTarget(this, 'efs_mount_target', {
+      forEach: iterator,
+      fileSystemId: efsFs.id,
+      subnetId: iterator.value,
+      securityGroups: [mountSecurityGroup.id],
+    });
+  }
+
+  private efsFilePolicy(
+    efsFs: EFSProps,
+    roleArn: string,
+    creationToken: string
+  ) {
+    const FsPolicy = {
+      Version: '2012-10-17',
+      Id: creationToken,
+      Statement: [
+        {
+          Sid: creationToken,
+          Effect: 'Allow',
+          Principal: {
+            AWS: '*',
+          },
+          Resource: efsFs.arn,
+          Action: [
+            'elasticfilesystem:ClientMount',
+            'elasticfilesystem:ClientWrite',
+          ],
+          Condition: {
+            Bool: {
+              'elasticfilesystem:AccessedViaMountTarget': 'true',
+            },
+          },
+        },
+      ],
+    };
+
+    const waitTwoMinutes = new Sleep(this, 'waitTwoMinutes', {
+      createDuration: '2m',
+      dependsOn: [this.ecsIam.taskRoleArn],
+    });
+
+    new efs.EfsFileSystemPolicy(this, 'efsFsPolicy', {
+      fileSystemId: efsFs.id,
+      policy: JSON.stringify(FsPolicy),
+      // https://github.com/hashicorp/terraform-provider-aws/pull/21734
+      dependsOn: [waitTwoMinutes],
     });
   }
 }

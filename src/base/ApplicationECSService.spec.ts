@@ -297,4 +297,27 @@ describe('ApplicationECSService', () => {
       ).toEqual('aws_ecs_task_definition');
     });
   });
+
+  it('attaches persistent (efs) storage to a ECS task', () => {
+    BASE_CONFIG.containerConfigs = [
+      {
+        mountPoints: [
+          {
+            containerPath: '/someMountPoint',
+            sourceVolume: 'sourceVolume',
+          },
+        ],
+        name: 'lebowski',
+      },
+    ];
+    BASE_CONFIG.efsConfig = {
+      efs: { arn: 'fakeArn', id: 'someId' },
+      volumeName: 'sourceVolume',
+    };
+
+    const synthed = Testing.synthScope((stack) => {
+      new ApplicationECSService(stack, 'testECSService', BASE_CONFIG);
+    });
+    expect(synthed).toMatchSnapshot();
+  });
 });
