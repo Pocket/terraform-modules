@@ -536,6 +536,7 @@ export class ApplicationECSService extends Resource {
           Action: [
             'elasticfilesystem:ClientMount',
             'elasticfilesystem:ClientWrite',
+            'elasticfilesystem:ClientRootAccess',
           ],
           Condition: {
             Bool: {

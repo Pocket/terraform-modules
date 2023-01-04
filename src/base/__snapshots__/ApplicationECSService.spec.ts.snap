@@ -115,7 +115,7 @@ exports[`ApplicationECSService attaches persistent (efs) storage to a ECS task 1
           \\"time_sleep.testECSService_waitTwoMinutes_F8D60FA5\\"
         ],
         \\"file_system_id\\": \\"someId\\",
-        \\"policy\\": \\"{\\\\\\"Version\\\\\\":\\\\\\"2012-10-17\\\\\\",\\\\\\"Id\\\\\\":\\\\\\"abides-dev\\\\\\",\\\\\\"Statement\\\\\\":[{\\\\\\"Sid\\\\\\":\\\\\\"abides-dev\\\\\\",\\\\\\"Effect\\\\\\":\\\\\\"Allow\\\\\\",\\\\\\"Principal\\\\\\":{\\\\\\"AWS\\\\\\":\\\\\\"*\\\\\\"},\\\\\\"Resource\\\\\\":\\\\\\"fakeArn\\\\\\",\\\\\\"Action\\\\\\":[\\\\\\"elasticfilesystem:ClientMount\\\\\\",\\\\\\"elasticfilesystem:ClientWrite\\\\\\"],\\\\\\"Condition\\\\\\":{\\\\\\"Bool\\\\\\":{\\\\\\"elasticfilesystem:AccessedViaMountTarget\\\\\\":\\\\\\"true\\\\\\"}}}]}\\"
+        \\"policy\\": \\"{\\\\\\"Version\\\\\\":\\\\\\"2012-10-17\\\\\\",\\\\\\"Id\\\\\\":\\\\\\"abides-dev\\\\\\",\\\\\\"Statement\\\\\\":[{\\\\\\"Sid\\\\\\":\\\\\\"abides-dev\\\\\\",\\\\\\"Effect\\\\\\":\\\\\\"Allow\\\\\\",\\\\\\"Principal\\\\\\":{\\\\\\"AWS\\\\\\":\\\\\\"*\\\\\\"},\\\\\\"Resource\\\\\\":\\\\\\"fakeArn\\\\\\",\\\\\\"Action\\\\\\":[\\\\\\"elasticfilesystem:ClientMount\\\\\\",\\\\\\"elasticfilesystem:ClientWrite\\\\\\",\\\\\\"elasticfilesystem:ClientRootAccess\\\\\\"],\\\\\\"Condition\\\\\\":{\\\\\\"Bool\\\\\\":{\\\\\\"elasticfilesystem:AccessedViaMountTarget\\\\\\":\\\\\\"true\\\\\\"}}}]}\\"
       }
     },
     \\"aws_efs_mount_target\\": {
