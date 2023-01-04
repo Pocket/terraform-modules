@@ -60,6 +60,8 @@ exports[`renders an event bridge and lambda target with event bus name 1`] = `
       \\"test-event-bridge-lambda_event-bridge-rule_529FF7C2\\": {
         \\"event_bus_name\\": \\"test-bus\\",
         \\"event_pattern\\": \\"{\\\\\\"source\\\\\\":[\\\\\\"aws.states\\\\\\"],\\\\\\"detail-type\\\\\\":[\\\\\\"Step Functions Execution Status Change\\\\\\"]}\\",
+        \\"lifecycle\\": {
+        },
         \\"name\\": \\"test-event-bridge-lambda-Rule\\"
       }
     },
@@ -235,6 +237,8 @@ exports[`renders an event bridge and lambda target with rule description 1`] = `
         \\"description\\": \\"Test description\\",
         \\"event_bus_name\\": \\"default\\",
         \\"event_pattern\\": \\"{\\\\\\"source\\\\\\":[\\\\\\"aws.states\\\\\\"],\\\\\\"detail-type\\\\\\":[\\\\\\"Step Functions Execution Status Change\\\\\\"]}\\",
+        \\"lifecycle\\": {
+        },
         \\"name\\": \\"test-event-bridge-lambda-Rule\\"
       }
     },
