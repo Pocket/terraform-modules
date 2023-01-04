@@ -1,3 +1,10 @@
+## [4.5.1](https://github.com/Pocket/terraform-modules/compare/v4.5.0...v4.5.1) (2023-01-04)
+
+
+### Bug Fixes
+
+* have empty commit with `fix` to force version update ([#1020](https://github.com/Pocket/terraform-modules/issues/1020)) ([21bdcdd](https://github.com/Pocket/terraform-modules/commit/21bdcdd896ddff7c87aa01d2625b2b291b89309d))
+
 ## [4.5.0](https://github.com/Pocket/terraform-modules/compare/v4.4.0...v4.5.0) (2023-01-04)
 
 
