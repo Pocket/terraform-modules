@@ -1,3 +1,10 @@
+## [4.5.0](https://github.com/Pocket/terraform-modules/compare/v4.4.0...v4.5.0) (2023-01-04)
+
+
+### Features
+
+* **efs:** Adding persistent storage option for ApplicationECSService ([#1017](https://github.com/Pocket/terraform-modules/issues/1017)) ([fdc7966](https://github.com/Pocket/terraform-modules/commit/fdc7966e3301cb2bb5468d60fb122db055da4c7b))
+
 ## [4.4.0](https://github.com/Pocket/terraform-modules/compare/v4.3.0...v4.4.0) (2022-10-12)
 
 
