@@ -28,7 +28,7 @@ export interface ApplicationEventBridgeRuleProps {
   scheduleExpression?: string;
   targets?: Target[];
   tags?: { [key: string]: string };
-  preventDestroy? : boolean;
+  preventDestroy?: boolean;
 }
 
 export class ApplicationEventBridgeRule extends Resource {
@@ -60,7 +60,7 @@ export class ApplicationEventBridgeRule extends Resource {
         scheduleExpression,
         eventBusName: eventBus,
         lifecycle: {
-          preventDestroy: this.config.preventDestroy
+          preventDestroy: this.config.preventDestroy,
         },
         tags: this.config.tags,
       }
