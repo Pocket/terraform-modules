@@ -61,6 +61,8 @@ exports[`PocketEventBridgeRuleWithMultipleTargets renders an event bridge and mu
         \\"description\\": \\"Test description\\",
         \\"event_bus_name\\": \\"default\\",
         \\"event_pattern\\": \\"{\\\\\\"source\\\\\\":[\\\\\\"aws.states\\\\\\"],\\\\\\"detail-type\\\\\\":[\\\\\\"Step Functions Execution Status Change\\\\\\"]}\\",
+        \\"lifecycle\\": {
+        },
         \\"name\\": \\"test-event-bridge-rule-multiple-targets-Rule\\"
       }
     },
@@ -187,6 +189,44 @@ exports[`PocketEventBridgeRuleWithMultipleTargets renders an event bridge and pr
         \\"description\\": \\"Test description\\",
         \\"event_bus_name\\": \\"default\\",
         \\"event_pattern\\": \\"{\\\\\\"source\\\\\\":[\\\\\\"aws.states\\\\\\"],\\\\\\"detail-type\\\\\\":[\\\\\\"Step Functions Execution Status Change\\\\\\"]}\\",
+        \\"lifecycle\\": {
+        },
+        \\"name\\": \\"test-event-bridge-rule-multiple-targets-Rule\\"
+      }
+    },
+    \\"aws_cloudwatch_event_target\\": {
+      \\"test-event-bridge-for-multiple-targets-1_event-bridge-rule_event-bridge-target-test-lambda-id_DE65E71F\\": {
+        \\"arn\\": \\"lambda.arn\\",
+        \\"dead_letter_config\\": {
+        },
+        \\"event_bus_name\\": \\"default\\",
+        \\"rule\\": \\"\${aws_cloudwatch_event_rule.test-event-bridge-for-multiple-targets-1_event-bridge-rule_1CCF9D7B.name}\\",
+        \\"target_id\\": \\"test-lambda-id\\"
+      },
+      \\"test-event-bridge-for-multiple-targets-1_event-bridge-rule_event-bridge-target-test-sqs-id_2DE721FF\\": {
+        \\"arn\\": \\"testSqs.arn\\",
+        \\"dead_letter_config\\": {
+        },
+        \\"event_bus_name\\": \\"default\\",
+        \\"rule\\": \\"\${aws_cloudwatch_event_rule.test-event-bridge-for-multiple-targets-1_event-bridge-rule_1CCF9D7B.name}\\",
+        \\"target_id\\": \\"test-sqs-id\\"
+      }
+    }
+  }
+}"
+`;
+
+exports[`PocketEventBridgeRuleWithMultipleTargets renders an event bridge rule with prevent destroy flag 1`] = `
+"{
+  \\"resource\\": {
+    \\"aws_cloudwatch_event_rule\\": {
+      \\"test-event-bridge-for-multiple-targets-1_event-bridge-rule_1CCF9D7B\\": {
+        \\"description\\": \\"Test description\\",
+        \\"event_bus_name\\": \\"default\\",
+        \\"event_pattern\\": \\"{\\\\\\"source\\\\\\":[\\\\\\"aws.states\\\\\\"],\\\\\\"detail-type\\\\\\":[\\\\\\"Step Functions Execution Status Change\\\\\\"]}\\",
+        \\"lifecycle\\": {
+          \\"prevent_destroy\\": true
+        },
         \\"name\\": \\"test-event-bridge-rule-multiple-targets-Rule\\"
       }
     },

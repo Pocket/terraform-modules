@@ -103,4 +103,42 @@ describe('PocketEventBridgeRuleWithMultipleTargets', () => {
     });
     expect(synthed).toMatchSnapshot();
   });
+
+  test('renders an event bridge rule with prevent destroy flag', () => {
+    const synthed = Testing.synthScope((stack) => {
+      const testConfig: PocketEventBridgeProps = {
+        eventRule: {
+          name: 'test-event-bridge-rule-multiple-targets',
+          eventPattern: {
+            source: ['aws.states'],
+            'detail-type': ['Step Functions Execution Status Change'],
+          },
+          preventDestroy: true,
+        },
+        targets: [
+          {
+            targetId: 'test-lambda-id',
+            arn: 'lambda.arn',
+          },
+          {
+            targetId: 'test-sqs-id',
+            arn: 'testSqs.arn',
+          },
+        ],
+      };
+
+      new PocketEventBridgeRuleWithMultipleTargets(
+        stack,
+        'test-event-bridge-for-multiple-targets-1',
+        {
+          ...testConfig,
+          eventRule: {
+            ...testConfig.eventRule,
+            description: 'Test description',
+          },
+        }
+      );
+    });
+    expect(synthed).toMatchSnapshot();
+  });
 });
