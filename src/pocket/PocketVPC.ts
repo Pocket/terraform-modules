@@ -11,6 +11,7 @@ export class PocketVPC extends Resource {
   public readonly publicSubnetIds: string[];
   public readonly secretsManagerSecretKey: kms.DataAwsKmsAlias;
   public readonly defaultSecurityGroups: vpc.DataAwsSecurityGroups;
+  public readonly internalSecurityGroups: vpc.DataAwsSecurityGroups;
 
   constructor(scope: Construct, name: string, awsProvider?: AwsProvider) {
     super(scope, name);
@@ -110,5 +111,24 @@ export class PocketVPC extends Resource {
         ],
       }
     );
+
+    this.internalSecurityGroups = new vpc.DataAwsSecurityGroups(
+      this,
+      'internal_security_groups',
+      {
+        provider: awsProvider,
+        filter: [
+          {
+            name: 'group-name',
+            values: ['pocket-vpc-internal'],
+          },
+          {
+            name: 'vpc-id',
+            values: [this.vpc.id],
+          },
+        ],
+      }
+    );
+
   }
 }
