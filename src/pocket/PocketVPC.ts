@@ -129,6 +129,5 @@ export class PocketVPC extends Resource {
         ],
       }
     );
-
   }
 }
