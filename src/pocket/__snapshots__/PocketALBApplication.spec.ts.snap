@@ -101,6 +101,22 @@ exports[`PocketALBApplication renders a Pocket App with attached persistent stor
             ]
           }
         ]
+      },
+      \\"testPocketApp_pocket_vpc_internal_security_groups_12F7F666\\": {
+        \\"filter\\": [
+          {
+            \\"name\\": \\"group-name\\",
+            \\"values\\": [
+              \\"pocket-vpc-internal\\"
+            ]
+          },
+          {
+            \\"name\\": \\"vpc-id\\",
+            \\"values\\": [
+              \\"\${data.aws_vpc.testPocketApp_pocket_vpc_C4E157E3.id}\\"
+            ]
+          }
+        ]
       }
     },
     \\"aws_ssm_parameter\\": {
@@ -826,6 +842,22 @@ exports[`PocketALBApplication renders an Pocket App with code deploy 1`] = `
             \\"name\\": \\"group-name\\",
             \\"values\\": [
               \\"default\\"
+            ]
+          },
+          {
+            \\"name\\": \\"vpc-id\\",
+            \\"values\\": [
+              \\"\${data.aws_vpc.testPocketApp_pocket_vpc_C4E157E3.id}\\"
+            ]
+          }
+        ]
+      },
+      \\"testPocketApp_pocket_vpc_internal_security_groups_12F7F666\\": {
+        \\"filter\\": [
+          {
+            \\"name\\": \\"group-name\\",
+            \\"values\\": [
+              \\"pocket-vpc-internal\\"
             ]
           },
           {
@@ -1585,6 +1617,22 @@ exports[`PocketALBApplication renders an Pocket App with code deploy and creates
             ]
           }
         ]
+      },
+      \\"testPocketApp_pocket_vpc_internal_security_groups_12F7F666\\": {
+        \\"filter\\": [
+          {
+            \\"name\\": \\"group-name\\",
+            \\"values\\": [
+              \\"pocket-vpc-internal\\"
+            ]
+          },
+          {
+            \\"name\\": \\"vpc-id\\",
+            \\"values\\": [
+              \\"\${data.aws_vpc.testPocketApp_pocket_vpc_C4E157E3.id}\\"
+            ]
+          }
+        ]
       }
     },
     \\"aws_ssm_parameter\\": {
@@ -2311,6 +2359,22 @@ exports[`PocketALBApplication renders an Pocket App with code deploy notificatio
             \\"name\\": \\"group-name\\",
             \\"values\\": [
               \\"default\\"
+            ]
+          },
+          {
+            \\"name\\": \\"vpc-id\\",
+            \\"values\\": [
+              \\"\${data.aws_vpc.testPocketApp_pocket_vpc_C4E157E3.id}\\"
+            ]
+          }
+        ]
+      },
+      \\"testPocketApp_pocket_vpc_internal_security_groups_12F7F666\\": {
+        \\"filter\\": [
+          {
+            \\"name\\": \\"group-name\\",
+            \\"values\\": [
+              \\"pocket-vpc-internal\\"
             ]
           },
           {
@@ -3052,6 +3116,22 @@ exports[`PocketALBApplication renders an Pocket App with custom Alarm Descriptio
             ]
           }
         ]
+      },
+      \\"testPocketApp_pocket_vpc_internal_security_groups_12F7F666\\": {
+        \\"filter\\": [
+          {
+            \\"name\\": \\"group-name\\",
+            \\"values\\": [
+              \\"pocket-vpc-internal\\"
+            ]
+          },
+          {
+            \\"name\\": \\"vpc-id\\",
+            \\"values\\": [
+              \\"\${data.aws_vpc.testPocketApp_pocket_vpc_C4E157E3.id}\\"
+            ]
+          }
+        ]
       }
     },
     \\"aws_ssm_parameter\\": {
@@ -3730,6 +3810,22 @@ exports[`PocketALBApplication renders an Pocket App with logs and dashboard in a
             ]
           }
         ]
+      },
+      \\"testPocketApp_pocket_vpc_internal_security_groups_12F7F666\\": {
+        \\"filter\\": [
+          {
+            \\"name\\": \\"group-name\\",
+            \\"values\\": [
+              \\"pocket-vpc-internal\\"
+            ]
+          },
+          {
+            \\"name\\": \\"vpc-id\\",
+            \\"values\\": [
+              \\"\${data.aws_vpc.testPocketApp_pocket_vpc_C4E157E3.id}\\"
+            ]
+          }
+        ]
       }
     },
     \\"aws_ssm_parameter\\": {
@@ -4330,6 +4426,22 @@ exports[`PocketALBApplication renders an application alarms 1`] = `
             \\"name\\": \\"group-name\\",
             \\"values\\": [
               \\"default\\"
+            ]
+          },
+          {
+            \\"name\\": \\"vpc-id\\",
+            \\"values\\": [
+              \\"\${data.aws_vpc.testPocketApp_pocket_vpc_C4E157E3.id}\\"
+            ]
+          }
+        ]
+      },
+      \\"testPocketApp_pocket_vpc_internal_security_groups_12F7F666\\": {
+        \\"filter\\": [
+          {
+            \\"name\\": \\"group-name\\",
+            \\"values\\": [
+              \\"pocket-vpc-internal\\"
             ]
           },
           {
@@ -4971,6 +5083,22 @@ exports[`PocketALBApplication renders an application custom default alarms 1`] =
             ]
           }
         ]
+      },
+      \\"testPocketApp_pocket_vpc_internal_security_groups_12F7F666\\": {
+        \\"filter\\": [
+          {
+            \\"name\\": \\"group-name\\",
+            \\"values\\": [
+              \\"pocket-vpc-internal\\"
+            ]
+          },
+          {
+            \\"name\\": \\"vpc-id\\",
+            \\"values\\": [
+              \\"\${data.aws_vpc.testPocketApp_pocket_vpc_C4E157E3.id}\\"
+            ]
+          }
+        ]
       }
     },
     \\"aws_ssm_parameter\\": {
@@ -5584,6 +5712,22 @@ exports[`PocketALBApplication renders an application with autoscaling group and 
             \\"name\\": \\"group-name\\",
             \\"values\\": [
               \\"default\\"
+            ]
+          },
+          {
+            \\"name\\": \\"vpc-id\\",
+            \\"values\\": [
+              \\"\${data.aws_vpc.testPocketApp_pocket_vpc_C4E157E3.id}\\"
+            ]
+          }
+        ]
+      },
+      \\"testPocketApp_pocket_vpc_internal_security_groups_12F7F666\\": {
+        \\"filter\\": [
+          {
+            \\"name\\": \\"group-name\\",
+            \\"values\\": [
+              \\"pocket-vpc-internal\\"
             ]
           },
           {
@@ -6250,6 +6394,22 @@ exports[`PocketALBApplication renders an application with custom task sizes 1`] 
             ]
           }
         ]
+      },
+      \\"testPocketApp_pocket_vpc_internal_security_groups_12F7F666\\": {
+        \\"filter\\": [
+          {
+            \\"name\\": \\"group-name\\",
+            \\"values\\": [
+              \\"pocket-vpc-internal\\"
+            ]
+          },
+          {
+            \\"name\\": \\"vpc-id\\",
+            \\"values\\": [
+              \\"\${data.aws_vpc.testPocketApp_pocket_vpc_C4E157E3.id}\\"
+            ]
+          }
+        ]
       }
     },
     \\"aws_ssm_parameter\\": {
@@ -6850,6 +7010,22 @@ exports[`PocketALBApplication renders an application with default autoscaling gr
             \\"name\\": \\"group-name\\",
             \\"values\\": [
               \\"default\\"
+            ]
+          },
+          {
+            \\"name\\": \\"vpc-id\\",
+            \\"values\\": [
+              \\"\${data.aws_vpc.testPocketApp_pocket_vpc_C4E157E3.id}\\"
+            ]
+          }
+        ]
+      },
+      \\"testPocketApp_pocket_vpc_internal_security_groups_12F7F666\\": {
+        \\"filter\\": [
+          {
+            \\"name\\": \\"group-name\\",
+            \\"values\\": [
+              \\"pocket-vpc-internal\\"
             ]
           },
           {
@@ -7516,6 +7692,22 @@ exports[`PocketALBApplication renders an application with minimal config 1`] = `
             ]
           }
         ]
+      },
+      \\"testPocketApp_pocket_vpc_internal_security_groups_12F7F666\\": {
+        \\"filter\\": [
+          {
+            \\"name\\": \\"group-name\\",
+            \\"values\\": [
+              \\"pocket-vpc-internal\\"
+            ]
+          },
+          {
+            \\"name\\": \\"vpc-id\\",
+            \\"values\\": [
+              \\"\${data.aws_vpc.testPocketApp_pocket_vpc_C4E157E3.id}\\"
+            ]
+          }
+        ]
       }
     },
     \\"aws_ssm_parameter\\": {
@@ -8116,6 +8308,22 @@ exports[`PocketALBApplication renders an application with modified container def
             \\"name\\": \\"group-name\\",
             \\"values\\": [
               \\"default\\"
+            ]
+          },
+          {
+            \\"name\\": \\"vpc-id\\",
+            \\"values\\": [
+              \\"\${data.aws_vpc.testPocketApp_pocket_vpc_C4E157E3.id}\\"
+            ]
+          }
+        ]
+      },
+      \\"testPocketApp_pocket_vpc_internal_security_groups_12F7F666\\": {
+        \\"filter\\": [
+          {
+            \\"name\\": \\"group-name\\",
+            \\"values\\": [
+              \\"pocket-vpc-internal\\"
             ]
           },
           {
@@ -8750,6 +8958,22 @@ exports[`PocketALBApplication renders an external application 1`] = `
             \\"name\\": \\"group-name\\",
             \\"values\\": [
               \\"default\\"
+            ]
+          },
+          {
+            \\"name\\": \\"vpc-id\\",
+            \\"values\\": [
+              \\"\${data.aws_vpc.testPocketApp_pocket_vpc_C4E157E3.id}\\"
+            ]
+          }
+        ]
+      },
+      \\"testPocketApp_pocket_vpc_internal_security_groups_12F7F666\\": {
+        \\"filter\\": [
+          {
+            \\"name\\": \\"group-name\\",
+            \\"values\\": [
+              \\"pocket-vpc-internal\\"
             ]
           },
           {
@@ -9488,6 +9712,22 @@ exports[`PocketALBApplication renders an internal application 1`] = `
             ]
           }
         ]
+      },
+      \\"testPocketApp_pocket_vpc_internal_security_groups_12F7F666\\": {
+        \\"filter\\": [
+          {
+            \\"name\\": \\"group-name\\",
+            \\"values\\": [
+              \\"pocket-vpc-internal\\"
+            ]
+          },
+          {
+            \\"name\\": \\"vpc-id\\",
+            \\"values\\": [
+              \\"\${data.aws_vpc.testPocketApp_pocket_vpc_C4E157E3.id}\\"
+            ]
+          }
+        ]
       }
     },
     \\"aws_ssm_parameter\\": {
@@ -10088,6 +10328,22 @@ exports[`PocketALBApplication renders an internal application with tags 1`] = `
             \\"name\\": \\"group-name\\",
             \\"values\\": [
               \\"default\\"
+            ]
+          },
+          {
+            \\"name\\": \\"vpc-id\\",
+            \\"values\\": [
+              \\"\${data.aws_vpc.testPocketApp_pocket_vpc_C4E157E3.id}\\"
+            ]
+          }
+        ]
+      },
+      \\"testPocketApp_pocket_vpc_internal_security_groups_12F7F666\\": {
+        \\"filter\\": [
+          {
+            \\"name\\": \\"group-name\\",
+            \\"values\\": [
+              \\"pocket-vpc-internal\\"
             ]
           },
           {

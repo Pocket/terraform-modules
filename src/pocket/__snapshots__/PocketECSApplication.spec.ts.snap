@@ -96,6 +96,22 @@ exports[`PocketECSApplication renders an Pocket App with logs and dashboard in a
             ]
           }
         ]
+      },
+      \\"testPocketApp_pocket_vpc_internal_security_groups_12F7F666\\": {
+        \\"filter\\": [
+          {
+            \\"name\\": \\"group-name\\",
+            \\"values\\": [
+              \\"pocket-vpc-internal\\"
+            ]
+          },
+          {
+            \\"name\\": \\"vpc-id\\",
+            \\"values\\": [
+              \\"\${data.aws_vpc.testPocketApp_pocket_vpc_C4E157E3.id}\\"
+            ]
+          }
+        ]
       }
     },
     \\"aws_ssm_parameter\\": {
@@ -451,6 +467,22 @@ exports[`PocketECSApplication renders an application with autoscaling group and 
             \\"name\\": \\"group-name\\",
             \\"values\\": [
               \\"default\\"
+            ]
+          },
+          {
+            \\"name\\": \\"vpc-id\\",
+            \\"values\\": [
+              \\"\${data.aws_vpc.testPocketApp_pocket_vpc_C4E157E3.id}\\"
+            ]
+          }
+        ]
+      },
+      \\"testPocketApp_pocket_vpc_internal_security_groups_12F7F666\\": {
+        \\"filter\\": [
+          {
+            \\"name\\": \\"group-name\\",
+            \\"values\\": [
+              \\"pocket-vpc-internal\\"
             ]
           },
           {
@@ -856,6 +888,22 @@ exports[`PocketECSApplication renders an application with custom task sizes 1`] 
             ]
           }
         ]
+      },
+      \\"testPocketApp_pocket_vpc_internal_security_groups_12F7F666\\": {
+        \\"filter\\": [
+          {
+            \\"name\\": \\"group-name\\",
+            \\"values\\": [
+              \\"pocket-vpc-internal\\"
+            ]
+          },
+          {
+            \\"name\\": \\"vpc-id\\",
+            \\"values\\": [
+              \\"\${data.aws_vpc.testPocketApp_pocket_vpc_C4E157E3.id}\\"
+            ]
+          }
+        ]
       }
     },
     \\"aws_ssm_parameter\\": {
@@ -1211,6 +1259,22 @@ exports[`PocketECSApplication renders an application with default autoscaling gr
             \\"name\\": \\"group-name\\",
             \\"values\\": [
               \\"default\\"
+            ]
+          },
+          {
+            \\"name\\": \\"vpc-id\\",
+            \\"values\\": [
+              \\"\${data.aws_vpc.testPocketApp_pocket_vpc_C4E157E3.id}\\"
+            ]
+          }
+        ]
+      },
+      \\"testPocketApp_pocket_vpc_internal_security_groups_12F7F666\\": {
+        \\"filter\\": [
+          {
+            \\"name\\": \\"group-name\\",
+            \\"values\\": [
+              \\"pocket-vpc-internal\\"
             ]
           },
           {
@@ -1616,6 +1680,22 @@ exports[`PocketECSApplication renders an application with minimal config 1`] = `
             ]
           }
         ]
+      },
+      \\"testPocketApp_pocket_vpc_internal_security_groups_12F7F666\\": {
+        \\"filter\\": [
+          {
+            \\"name\\": \\"group-name\\",
+            \\"values\\": [
+              \\"pocket-vpc-internal\\"
+            ]
+          },
+          {
+            \\"name\\": \\"vpc-id\\",
+            \\"values\\": [
+              \\"\${data.aws_vpc.testPocketApp_pocket_vpc_C4E157E3.id}\\"
+            ]
+          }
+        ]
       }
     },
     \\"aws_ssm_parameter\\": {
@@ -1971,6 +2051,22 @@ exports[`PocketECSApplication renders an application with modified container def
             \\"name\\": \\"group-name\\",
             \\"values\\": [
               \\"default\\"
+            ]
+          },
+          {
+            \\"name\\": \\"vpc-id\\",
+            \\"values\\": [
+              \\"\${data.aws_vpc.testPocketApp_pocket_vpc_C4E157E3.id}\\"
+            ]
+          }
+        ]
+      },
+      \\"testPocketApp_pocket_vpc_internal_security_groups_12F7F666\\": {
+        \\"filter\\": [
+          {
+            \\"name\\": \\"group-name\\",
+            \\"values\\": [
+              \\"pocket-vpc-internal\\"
             ]
           },
           {
