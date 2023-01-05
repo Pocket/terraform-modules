@@ -1,3 +1,10 @@
+## [4.6.0](https://github.com/Pocket/terraform-modules/compare/v4.5.2...v4.6.0) (2023-01-05)
+
+
+### Features
+
+* **accessLogs:** adding in access log to s3 support for ALBs ([#1024](https://github.com/Pocket/terraform-modules/issues/1024)) ([816781b](https://github.com/Pocket/terraform-modules/commit/816781b0041f21fc45a833b3c49d7c65b5db9deb))
+
 ## [4.5.2](https://github.com/Pocket/terraform-modules/compare/v4.5.1...v4.5.2) (2023-01-04)
 
 
