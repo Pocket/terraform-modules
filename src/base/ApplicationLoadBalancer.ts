@@ -1,5 +1,5 @@
 import { Resource } from 'cdktf';
-import { vpc, elb } from '@cdktf/provider-aws';
+import { vpc, elb, datasources, s3, iam } from '@cdktf/provider-aws';
 import { Construct } from 'constructs';
 
 export interface ApplicationLoadBalancerProps {
@@ -8,6 +8,26 @@ export interface ApplicationLoadBalancerProps {
   vpcId: string;
   subnetIds: string[];
   internal?: boolean;
+  /**
+   * Optional config to dump alb logs to a bucket.
+   */
+  accessLogs?: {
+    /**
+     * Existing bucket to dump alb logs too, one of existingBucket or bucket must be chosen.
+     */
+    existingBucket?: string;
+
+    /**
+     * Bucket to dump alb logs too, one of existingBucket or bucket must be chosen.
+     */
+    bucket?: string;
+
+    /**
+     * Optional bucket path prefix. If not defined will use server-logs/{service-name}/internal-alb/AWSLogs/{awsaccountid}/elasticloadbalancing/
+     * Be sure to include a trailing /
+     */
+    prefix?: string;
+  };
   tags?: { [key: string]: string };
 }
 
@@ -64,12 +84,95 @@ export class ApplicationLoadBalancer extends Resource {
       },
     });
 
-    this.alb = new elb.Alb(this, `alb`, {
+    let logsConfig: elb.AlbAccessLogs = undefined;
+    if (config.accessLogs !== undefined) {
+      //If logs were configured lets set them up
+      const accountId = new datasources.DataAwsCallerIdentity(this, 'caller')
+        .accountId;
+
+      const accessLogsPrefix = `server-logs/${config.prefix.toLowerCase()}/internal-alb/AWSLogs/${accountId}/elasticloadbalancing/`;
+      const prefix =
+        config.accessLogs.prefix !== undefined ? accessLogsPrefix : '';
+
+      const bucket = this.getOrCreateBucket({
+        bucket: config.accessLogs.bucket,
+        existingBucket: config.accessLogs.existingBucket,
+        prefix,
+        accountId,
+      });
+
+      logsConfig = {
+        bucket,
+        enabled: true,
+        prefix,
+      };
+    }
+
+    const albConfig: elb.AlbConfig = {
       namePrefix: config.alb6CharacterPrefix,
       securityGroups: [this.securityGroup.id],
       internal: config.internal !== undefined ? config.internal : false,
       subnets: config.subnetIds,
       tags: config.tags,
+      accessLogs: logsConfig,
+    };
+    this.alb = new elb.Alb(this, `alb`, albConfig);
+  }
+
+  /**
+   *
+   * @param config Creates a bucket according to https://docs.aws.amazon.com/elasticloadbalancing/latest/application/enable-access-logging.html#attach-bucket-policy if one does not exist
+   * @returns
+   */
+  private getOrCreateBucket(config: {
+    existingBucket?: string;
+    bucket?: string;
+    accountId: string;
+    prefix: string;
+  }): string {
+    if (config.existingBucket === undefined && config.bucket === undefined) {
+      throw new Error(
+        'If you are configuring access logs you need to define either an existing bucket or a new one to store the logs'
+      );
+    }
+
+    if (config.existingBucket !== undefined) {
+      return new s3.DataAwsS3Bucket(this, 'log-bucket', {
+        bucket: config.existingBucket,
+      }).bucket;
+    }
+
+    const s3Bucket = new s3.S3Bucket(this, 'log-bucket', {
+      bucket: config.bucket,
     });
+
+    const s3IAMDocument = new iam.DataAwsIamPolicyDocument(
+      this,
+      'iam-log-bucket-policy-document',
+      {
+        statement: [
+          {
+            effect: 'Allow',
+            principals: [
+              {
+                type: 'AWS',
+                identifiers: [`arn:aws:iam::${config.accountId}:root`],
+              },
+            ],
+            actions: ['s3:PutObject'],
+            resources: [
+              `arn:aws:s3:::${s3Bucket.bucket}/${config.prefix}AWSLogs/${config.accountId}/*`,
+            ],
+          },
+        ],
+      }
+    );
+
+    new s3.S3BucketPolicy(this, 'log-bucket-policy', {
+      bucket: s3Bucket.bucket,
+      policy: s3IAMDocument.json,
+    });
+
+    return s3Bucket.bucket;
   }
 }
