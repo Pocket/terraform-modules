@@ -65,6 +65,31 @@ export interface PocketALBApplicationProps {
    * Optional config to create a CDN. By default no CDN is created.
    */
   cdn?: boolean;
+
+  /**
+   * Optional config to dump alb logs to a bucket.
+
+   */
+  accessLogs?: {
+    /**
+     * Existing bucket to dump alb logs too, one of existingBucket or bucket must be chosen.
+     * If using this options, this module assumes that the bucket already exists in your AWS account and has IAM setup according
+     * to https://docs.aws.amazon.com/elasticloadbalancing/latest/application/enable-access-logging.html#attach-bucket-policy which is account wide.
+     */
+    existingBucket?: string;
+
+    /**
+     * Bucket to dump alb logs too, one of existingBucket or bucket must be chosen.
+     */
+    bucket?: string;
+
+    /**
+     * Optional bucket path prefix. If not defined will use server-logs/{service-name}/internal-alb/AWSLogs/{awsaccountid}/elasticloadbalancing/
+     * Be sure to include a trailing /
+     */
+    prefix?: string;
+  };
+
   /**
    * Option for how the service created by this construct should be
    * deployed.
@@ -342,6 +367,7 @@ export class PocketALBApplication extends Resource {
         : this.pocketVPC.publicSubnetIds,
       internal: this.config.internal,
       tags: this.config.tags,
+      accessLogs: this.config.accessLogs,
     });
 
     //When the app uses a CDN we set the ALB to be direct.app-domain
