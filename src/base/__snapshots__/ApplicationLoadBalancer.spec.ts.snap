@@ -3,10 +3,6 @@
 exports[`ApplicationLoadBalancer renders an ALB with logs with a new bucket 1`] = `
 "{
   \\"data\\": {
-    \\"aws_caller_identity\\": {
-      \\"testALB_caller_823E8516\\": {
-      }
-    },
     \\"aws_iam_policy_document\\": {
       \\"testALB_iam-log-bucket-policy-document_C7E41154\\": {
         \\"statement\\": [
@@ -18,16 +14,20 @@ exports[`ApplicationLoadBalancer renders an ALB with logs with a new bucket 1`] 
             \\"principals\\": [
               {
                 \\"identifiers\\": [
-                  \\"arn:aws:iam::\${data.aws_caller_identity.testALB_caller_823E8516.account_id}:root\\"
+                  \\"arn:aws:iam::\${lookup(var.testALB_region_map_2EA0F802, replace(data.aws_region.testALB_region_2A5476DE.name, \\\\\\"-\\\\\\", \\\\\\"_\\\\\\"), \\\\\\"us_east_1\\\\\\")}:root\\"
                 ],
                 \\"type\\": \\"AWS\\"
               }
             ],
             \\"resources\\": [
-              \\"arn:aws:s3:::\${aws_s3_bucket.testALB_log-bucket_E9787BB1.bucket}/server-logs/test-/internal-alb/AWSLogs/\${data.aws_caller_identity.testALB_caller_823E8516.account_id}/elasticloadbalancing/AWSLogs/\${data.aws_caller_identity.testALB_caller_823E8516.account_id}/*\\"
+              \\"arn:aws:s3:::\${aws_s3_bucket.testALB_log-bucket_E9787BB1.bucket}/*\\"
             ]
           }
         ]
+      }
+    },
+    \\"aws_region\\": {
+      \\"testALB_region_2A5476DE\\": {
       }
     }
   },
@@ -37,7 +37,7 @@ exports[`ApplicationLoadBalancer renders an ALB with logs with a new bucket 1`] 
         \\"access_logs\\": {
           \\"bucket\\": \\"\${aws_s3_bucket.testALB_log-bucket_E9787BB1.bucket}\\",
           \\"enabled\\": true,
-          \\"prefix\\": \\"server-logs/test-/internal-alb/AWSLogs/\${data.aws_caller_identity.testALB_caller_823E8516.account_id}/elasticloadbalancing/\\"
+          \\"prefix\\": \\"server-logs/test-/alb\\"
         },
         \\"internal\\": false,
         \\"name_prefix\\": \\"TEST\\",
@@ -125,6 +125,16 @@ exports[`ApplicationLoadBalancer renders an ALB with logs with a new bucket 1`] 
         },
         \\"vpc_id\\": \\"123\\"
       }
+    }
+  },
+  \\"variable\\": {
+    \\"testALB_region_map_2EA0F802\\": {
+      \\"default\\": {
+        \\"us_east_1\\": \\"127311923021\\",
+        \\"us_west_1\\": \\"027434742980\\",
+        \\"us_west_2\\": \\"797873946194\\"
+      },
+      \\"type\\": \\"map(string)\\"
     }
   }
 }"
@@ -133,10 +143,6 @@ exports[`ApplicationLoadBalancer renders an ALB with logs with a new bucket 1`] 
 exports[`ApplicationLoadBalancer renders an ALB with logs with a new bucket and prefix 1`] = `
 "{
   \\"data\\": {
-    \\"aws_caller_identity\\": {
-      \\"testALB_caller_823E8516\\": {
-      }
-    },
     \\"aws_iam_policy_document\\": {
       \\"testALB_iam-log-bucket-policy-document_C7E41154\\": {
         \\"statement\\": [
@@ -148,16 +154,20 @@ exports[`ApplicationLoadBalancer renders an ALB with logs with a new bucket and 
             \\"principals\\": [
               {
                 \\"identifiers\\": [
-                  \\"arn:aws:iam::\${data.aws_caller_identity.testALB_caller_823E8516.account_id}:root\\"
+                  \\"arn:aws:iam::\${lookup(var.testALB_region_map_2EA0F802, replace(data.aws_region.testALB_region_2A5476DE.name, \\\\\\"-\\\\\\", \\\\\\"_\\\\\\"), \\\\\\"us_east_1\\\\\\")}:root\\"
                 ],
                 \\"type\\": \\"AWS\\"
               }
             ],
             \\"resources\\": [
-              \\"arn:aws:s3:::\${aws_s3_bucket.testALB_log-bucket_E9787BB1.bucket}/logs/ahoy/cool/service/AWSLogs/\${data.aws_caller_identity.testALB_caller_823E8516.account_id}/*\\"
+              \\"arn:aws:s3:::\${aws_s3_bucket.testALB_log-bucket_E9787BB1.bucket}/*\\"
             ]
           }
         ]
+      }
+    },
+    \\"aws_region\\": {
+      \\"testALB_region_2A5476DE\\": {
       }
     }
   },
@@ -167,7 +177,7 @@ exports[`ApplicationLoadBalancer renders an ALB with logs with a new bucket and 
         \\"access_logs\\": {
           \\"bucket\\": \\"\${aws_s3_bucket.testALB_log-bucket_E9787BB1.bucket}\\",
           \\"enabled\\": true,
-          \\"prefix\\": \\"logs/ahoy/cool/service/\\"
+          \\"prefix\\": \\"logs/ahoy/cool/service\\"
         },
         \\"internal\\": false,
         \\"name_prefix\\": \\"TEST\\",
@@ -256,6 +266,16 @@ exports[`ApplicationLoadBalancer renders an ALB with logs with a new bucket and 
         \\"vpc_id\\": \\"123\\"
       }
     }
+  },
+  \\"variable\\": {
+    \\"testALB_region_map_2EA0F802\\": {
+      \\"default\\": {
+        \\"us_east_1\\": \\"127311923021\\",
+        \\"us_west_1\\": \\"027434742980\\",
+        \\"us_west_2\\": \\"797873946194\\"
+      },
+      \\"type\\": \\"map(string)\\"
+    }
   }
 }"
 `;
@@ -263,10 +283,6 @@ exports[`ApplicationLoadBalancer renders an ALB with logs with a new bucket and 
 exports[`ApplicationLoadBalancer renders an ALB with logs with an existing bucket 1`] = `
 "{
   \\"data\\": {
-    \\"aws_caller_identity\\": {
-      \\"testALB_caller_823E8516\\": {
-      }
-    },
     \\"aws_s3_bucket\\": {
       \\"testALB_log-bucket_E9787BB1\\": {
         \\"bucket\\": \\"logging-bucket\\"
@@ -279,7 +295,7 @@ exports[`ApplicationLoadBalancer renders an ALB with logs with an existing bucke
         \\"access_logs\\": {
           \\"bucket\\": \\"\${data.aws_s3_bucket.testALB_log-bucket_E9787BB1.bucket}\\",
           \\"enabled\\": true,
-          \\"prefix\\": \\"server-logs/test-/internal-alb/AWSLogs/\${data.aws_caller_identity.testALB_caller_823E8516.account_id}/elasticloadbalancing/\\"
+          \\"prefix\\": \\"server-logs/test-/alb\\"
         },
         \\"internal\\": false,
         \\"name_prefix\\": \\"TEST\\",
@@ -364,10 +380,6 @@ exports[`ApplicationLoadBalancer renders an ALB with logs with an existing bucke
 exports[`ApplicationLoadBalancer renders an ALB with logs with an existing bucket and prefix 1`] = `
 "{
   \\"data\\": {
-    \\"aws_caller_identity\\": {
-      \\"testALB_caller_823E8516\\": {
-      }
-    },
     \\"aws_s3_bucket\\": {
       \\"testALB_log-bucket_E9787BB1\\": {
         \\"bucket\\": \\"logging-bucket\\"
@@ -380,7 +392,7 @@ exports[`ApplicationLoadBalancer renders an ALB with logs with an existing bucke
         \\"access_logs\\": {
           \\"bucket\\": \\"\${data.aws_s3_bucket.testALB_log-bucket_E9787BB1.bucket}\\",
           \\"enabled\\": true,
-          \\"prefix\\": \\"logs/ahoy/cool/service/\\"
+          \\"prefix\\": \\"logs/ahoy/cool/service\\"
         },
         \\"internal\\": false,
         \\"name_prefix\\": \\"TEST\\",

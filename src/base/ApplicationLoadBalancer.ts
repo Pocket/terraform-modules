@@ -1,6 +1,12 @@
-import { Resource } from 'cdktf';
+import { Resource, TerraformVariable, VariableType, Fn } from 'cdktf';
 import { vpc, elb, datasources, s3, iam } from '@cdktf/provider-aws';
 import { Construct } from 'constructs';
+
+const ALB_ACCOUNT_ID_MAP = {
+  us_east_1: '127311923021',
+  us_west_1: '027434742980',
+  us_west_2: '797873946194',
+};
 
 export interface ApplicationLoadBalancerProps {
   prefix: string;
@@ -86,25 +92,23 @@ export class ApplicationLoadBalancer extends Resource {
 
     let logsConfig: elb.AlbAccessLogs = undefined;
     if (config.accessLogs !== undefined) {
-      //If logs were configured lets set them up
-      const accountId = new datasources.DataAwsCallerIdentity(this, 'caller')
-        .accountId;
+      const defaultPrefix = `server-logs/${config.prefix.toLowerCase()}/alb`;
 
-      let prefix =
+      const prefix =
         config.accessLogs.prefix === undefined
-          ? `server-logs/${config.prefix.toLowerCase()}/internal-alb/AWSLogs/${accountId}/elasticloadbalancing/`
+          ? defaultPrefix
           : config.accessLogs.prefix;
 
-      if (prefix.charAt(prefix.length - 1) !== '/') {
-        //prefix must end in a slash
-        prefix = `${prefix}/`;
+      if (
+        prefix.charAt(prefix.length - 1) === '/' ||
+        prefix.charAt(0) === '/'
+      ) {
+        throw new Error("Logs prefix cannot start or end with '/'");
       }
 
       const bucket = this.getOrCreateBucket({
         bucket: config.accessLogs.bucket,
         existingBucket: config.accessLogs.existingBucket,
-        prefix,
-        accountId,
       });
 
       logsConfig = {
@@ -133,8 +137,6 @@ export class ApplicationLoadBalancer extends Resource {
   private getOrCreateBucket(config: {
     existingBucket?: string;
     bucket?: string;
-    accountId: string;
-    prefix: string;
   }): string {
     if (config.existingBucket === undefined && config.bucket === undefined) {
       throw new Error(
@@ -152,6 +154,19 @@ export class ApplicationLoadBalancer extends Resource {
       bucket: config.bucket,
     });
 
+    // Need to convert to a map so we can use the region name on demand
+    const albAccountRegionMap = new TerraformVariable(this, 'region_map', {
+      type: VariableType.MAP_STRING,
+      default: ALB_ACCOUNT_ID_MAP,
+    });
+
+    // we need to replace from - to _ because in the map terraform would auto move
+    const albAccountId = Fn.lookup(
+      albAccountRegionMap.fqn,
+      Fn.replace(new datasources.DataAwsRegion(this, 'region').name, '-', '_'),
+      'us_east_1' //default if not found a value in the map
+    );
+
     const s3IAMDocument = new iam.DataAwsIamPolicyDocument(
       this,
       'iam-log-bucket-policy-document',
@@ -162,13 +177,11 @@ export class ApplicationLoadBalancer extends Resource {
             principals: [
               {
                 type: 'AWS',
-                identifiers: [`arn:aws:iam::${config.accountId}:root`],
+                identifiers: [`arn:aws:iam::${albAccountId}:root`],
               },
             ],
             actions: ['s3:PutObject'],
-            resources: [
-              `arn:aws:s3:::${s3Bucket.bucket}/${config.prefix}AWSLogs/${config.accountId}/*`,
-            ],
+            resources: [`arn:aws:s3:::${s3Bucket.bucket}/*`],
           },
         ],
       }
