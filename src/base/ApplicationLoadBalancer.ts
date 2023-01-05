@@ -90,9 +90,15 @@ export class ApplicationLoadBalancer extends Resource {
       const accountId = new datasources.DataAwsCallerIdentity(this, 'caller')
         .accountId;
 
-      const accessLogsPrefix = `server-logs/${config.prefix.toLowerCase()}/internal-alb/AWSLogs/${accountId}/elasticloadbalancing/`;
-      const prefix =
-        config.accessLogs.prefix !== undefined ? accessLogsPrefix : '';
+      let prefix =
+        config.accessLogs.prefix === undefined
+          ? `server-logs/${config.prefix.toLowerCase()}/internal-alb/AWSLogs/${accountId}/elasticloadbalancing/`
+          : config.accessLogs.prefix;
+
+      if (prefix.charAt(prefix.length - 1) !== '/') {
+        //prefix must end in a slash
+        prefix = `${prefix}/`;
+      }
 
       const bucket = this.getOrCreateBucket({
         bucket: config.accessLogs.bucket,
