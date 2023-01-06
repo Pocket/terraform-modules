@@ -3,6 +3,10 @@
 exports[`ApplicationLoadBalancer renders an ALB with logs with a new bucket 1`] = `
 "{
   \\"data\\": {
+    \\"aws_elb_service_account\\": {
+      \\"testALB_elb-service-account_4BDD06CE\\": {
+      }
+    },
     \\"aws_iam_policy_document\\": {
       \\"testALB_iam-log-bucket-policy-document_C7E41154\\": {
         \\"statement\\": [
@@ -14,7 +18,7 @@ exports[`ApplicationLoadBalancer renders an ALB with logs with a new bucket 1`] 
             \\"principals\\": [
               {
                 \\"identifiers\\": [
-                  \\"arn:aws:iam::\${lookup(var.testALB_region_map_2EA0F802, replace(data.aws_region.testALB_region_2A5476DE.name, \\\\\\"-\\\\\\", \\\\\\"_\\\\\\"), \\\\\\"us_east_1\\\\\\")}:root\\"
+                  \\"arn:aws:iam::\${data.aws_elb_service_account.testALB_elb-service-account_4BDD06CE.id}:root\\"
                 ],
                 \\"type\\": \\"AWS\\"
               }
@@ -24,10 +28,6 @@ exports[`ApplicationLoadBalancer renders an ALB with logs with a new bucket 1`] 
             ]
           }
         ]
-      }
-    },
-    \\"aws_region\\": {
-      \\"testALB_region_2A5476DE\\": {
       }
     }
   },
@@ -126,16 +126,6 @@ exports[`ApplicationLoadBalancer renders an ALB with logs with a new bucket 1`] 
         \\"vpc_id\\": \\"123\\"
       }
     }
-  },
-  \\"variable\\": {
-    \\"testALB_region_map_2EA0F802\\": {
-      \\"default\\": {
-        \\"us_east_1\\": \\"127311923021\\",
-        \\"us_west_1\\": \\"027434742980\\",
-        \\"us_west_2\\": \\"797873946194\\"
-      },
-      \\"type\\": \\"map(string)\\"
-    }
   }
 }"
 `;
@@ -143,6 +133,10 @@ exports[`ApplicationLoadBalancer renders an ALB with logs with a new bucket 1`] 
 exports[`ApplicationLoadBalancer renders an ALB with logs with a new bucket and prefix 1`] = `
 "{
   \\"data\\": {
+    \\"aws_elb_service_account\\": {
+      \\"testALB_elb-service-account_4BDD06CE\\": {
+      }
+    },
     \\"aws_iam_policy_document\\": {
       \\"testALB_iam-log-bucket-policy-document_C7E41154\\": {
         \\"statement\\": [
@@ -154,7 +148,7 @@ exports[`ApplicationLoadBalancer renders an ALB with logs with a new bucket and 
             \\"principals\\": [
               {
                 \\"identifiers\\": [
-                  \\"arn:aws:iam::\${lookup(var.testALB_region_map_2EA0F802, replace(data.aws_region.testALB_region_2A5476DE.name, \\\\\\"-\\\\\\", \\\\\\"_\\\\\\"), \\\\\\"us_east_1\\\\\\")}:root\\"
+                  \\"arn:aws:iam::\${data.aws_elb_service_account.testALB_elb-service-account_4BDD06CE.id}:root\\"
                 ],
                 \\"type\\": \\"AWS\\"
               }
@@ -164,10 +158,6 @@ exports[`ApplicationLoadBalancer renders an ALB with logs with a new bucket and 
             ]
           }
         ]
-      }
-    },
-    \\"aws_region\\": {
-      \\"testALB_region_2A5476DE\\": {
       }
     }
   },
@@ -265,16 +255,6 @@ exports[`ApplicationLoadBalancer renders an ALB with logs with a new bucket and 
         },
         \\"vpc_id\\": \\"123\\"
       }
-    }
-  },
-  \\"variable\\": {
-    \\"testALB_region_map_2EA0F802\\": {
-      \\"default\\": {
-        \\"us_east_1\\": \\"127311923021\\",
-        \\"us_west_1\\": \\"027434742980\\",
-        \\"us_west_2\\": \\"797873946194\\"
-      },
-      \\"type\\": \\"map(string)\\"
     }
   }
 }"

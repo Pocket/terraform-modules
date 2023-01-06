@@ -1,12 +1,6 @@
-import { Resource, TerraformVariable, VariableType, Fn } from 'cdktf';
+import { Resource } from 'cdktf';
 import { vpc, elb, datasources, s3, iam } from '@cdktf/provider-aws';
 import { Construct } from 'constructs';
-
-const ALB_ACCOUNT_ID_MAP = {
-  us_east_1: '127311923021',
-  us_west_1: '027434742980',
-  us_west_2: '797873946194',
-};
 
 export interface ApplicationLoadBalancerProps {
   prefix: string;
@@ -154,18 +148,10 @@ export class ApplicationLoadBalancer extends Resource {
       bucket: config.bucket,
     });
 
-    // Need to convert to a map so we can use the region name on demand
-    const albAccountRegionMap = new TerraformVariable(this, 'region_map', {
-      type: VariableType.MAP_STRING,
-      default: ALB_ACCOUNT_ID_MAP,
-    });
-
-    // we need to replace from - to _ because in the map terraform would auto move
-    const albAccountId = Fn.lookup(
-      albAccountRegionMap.fqn,
-      Fn.replace(new datasources.DataAwsRegion(this, 'region').name, '-', '_'),
-      'us_east_1' //default if not found a value in the map
-    );
+    const albAccountId = new datasources.DataAwsElbServiceAccount(
+      this,
+      'elb-service-account'
+    ).id;
 
     const s3IAMDocument = new iam.DataAwsIamPolicyDocument(
       this,
