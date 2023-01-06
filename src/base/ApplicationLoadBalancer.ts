@@ -86,25 +86,23 @@ export class ApplicationLoadBalancer extends Resource {
 
     let logsConfig: elb.AlbAccessLogs = undefined;
     if (config.accessLogs !== undefined) {
-      //If logs were configured lets set them up
-      const accountId = new datasources.DataAwsCallerIdentity(this, 'caller')
-        .accountId;
+      const defaultPrefix = `server-logs/${config.prefix.toLowerCase()}/alb`;
 
-      let prefix =
+      const prefix =
         config.accessLogs.prefix === undefined
-          ? `server-logs/${config.prefix.toLowerCase()}/internal-alb/AWSLogs/${accountId}/elasticloadbalancing/`
+          ? defaultPrefix
           : config.accessLogs.prefix;
 
-      if (prefix.charAt(prefix.length - 1) !== '/') {
-        //prefix must end in a slash
-        prefix = `${prefix}/`;
+      if (
+        prefix.charAt(prefix.length - 1) === '/' ||
+        prefix.charAt(0) === '/'
+      ) {
+        throw new Error("Logs prefix cannot start or end with '/'");
       }
 
       const bucket = this.getOrCreateBucket({
         bucket: config.accessLogs.bucket,
         existingBucket: config.accessLogs.existingBucket,
-        prefix,
-        accountId,
       });
 
       logsConfig = {
@@ -133,8 +131,6 @@ export class ApplicationLoadBalancer extends Resource {
   private getOrCreateBucket(config: {
     existingBucket?: string;
     bucket?: string;
-    accountId: string;
-    prefix: string;
   }): string {
     if (config.existingBucket === undefined && config.bucket === undefined) {
       throw new Error(
@@ -152,6 +148,11 @@ export class ApplicationLoadBalancer extends Resource {
       bucket: config.bucket,
     });
 
+    const albAccountId = new datasources.DataAwsElbServiceAccount(
+      this,
+      'elb-service-account'
+    ).id;
+
     const s3IAMDocument = new iam.DataAwsIamPolicyDocument(
       this,
       'iam-log-bucket-policy-document',
@@ -162,13 +163,11 @@ export class ApplicationLoadBalancer extends Resource {
             principals: [
               {
                 type: 'AWS',
-                identifiers: [`arn:aws:iam::${config.accountId}:root`],
+                identifiers: [`arn:aws:iam::${albAccountId}:root`],
               },
             ],
             actions: ['s3:PutObject'],
-            resources: [
-              `arn:aws:s3:::${s3Bucket.bucket}/${config.prefix}AWSLogs/${config.accountId}/*`,
-            ],
+            resources: [`arn:aws:s3:::${s3Bucket.bucket}/*`],
           },
         ],
       }

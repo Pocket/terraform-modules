@@ -53,6 +53,9 @@ class Example extends TerraformStack {
       codeDeploy: {
         useCodeDeploy: true,
       },
+      accessLogs: {
+        bucket: 'pocket-dev-blah',
+      },
       cdn: false, // maybe make this false if you're testing an actual terraform apply - cdn's take a loooong time to spin up
       alb6CharacterPrefix: 'ACMECO',
       internal: false,
