@@ -1,3 +1,10 @@
+## [4.6.1](https://github.com/Pocket/terraform-modules/compare/v4.6.0...v4.6.1) (2023-01-06)
+
+
+### Bug Fixes
+
+* **alb:** fixing up mistake in alb logs ([#1025](https://github.com/Pocket/terraform-modules/issues/1025)) ([ac29708](https://github.com/Pocket/terraform-modules/commit/ac297087bb8ea437e5d7830a5f1f00a93832ff04))
+
 ## [4.6.0](https://github.com/Pocket/terraform-modules/compare/v4.5.2...v4.6.0) (2023-01-05)
 
 
