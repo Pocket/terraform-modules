@@ -1,3 +1,10 @@
+## [4.8.0](https://github.com/Pocket/terraform-modules/compare/v4.7.0...v4.8.0) (2023-01-10)
+
+
+### Features
+
+* **cdktf0.14:** upgrading cdktf to 0.14 ([#1028](https://github.com/Pocket/terraform-modules/issues/1028)) ([db0a7af](https://github.com/Pocket/terraform-modules/commit/db0a7af698287f56c918a4e395d825be58e1ce0a))
+
 ## [4.7.0](https://github.com/Pocket/terraform-modules/compare/v4.6.1...v4.7.0) (2023-01-10)
 
 
