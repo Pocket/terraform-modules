@@ -1,3 +1,10 @@
+## [4.7.0](https://github.com/Pocket/terraform-modules/compare/v4.6.1...v4.7.0) (2023-01-10)
+
+
+### Features
+
+* **provider:** ensure the provider is propogated through ([#1027](https://github.com/Pocket/terraform-modules/issues/1027)) ([cadf570](https://github.com/Pocket/terraform-modules/commit/cadf5705fc201f2c90d7b3d7f87fe8a90d4683b1))
+
 ## [4.6.1](https://github.com/Pocket/terraform-modules/compare/v4.6.0...v4.6.1) (2023-01-06)
 
 
