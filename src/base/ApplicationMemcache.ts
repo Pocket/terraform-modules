@@ -75,6 +75,7 @@ export class ApplicationMemcache extends ApplicationElasticacheCluster {
       tags: config.tags,
       applyImmediately: true,
       dependsOn: [subnetGroup, securityGroup],
+      provider: config.provider,
     });
   }
 }

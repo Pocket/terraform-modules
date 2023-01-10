@@ -1,8 +1,8 @@
-import { Resource } from 'cdktf';
+import { Resource, TerraformMetaArguments } from 'cdktf';
 import { eventbridge } from '@cdktf/provider-aws';
 import { Construct } from 'constructs';
 
-export interface ApplicationEventBusProps {
+export interface ApplicationEventBusProps extends TerraformMetaArguments {
   name: string;
   tags?: { [key: string]: string };
 }
@@ -27,6 +27,7 @@ export class ApplicationEventBus extends Resource {
       {
         name: this.config.name,
         tags: this.config.tags,
+        provider: this.config.provider,
       }
     );
   }

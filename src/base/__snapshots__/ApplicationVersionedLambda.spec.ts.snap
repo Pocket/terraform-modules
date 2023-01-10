@@ -1198,19 +1198,31 @@ exports[`ApplicationVersionedLambda renders a versioned lambda with tags 1`] = `
           \\"aws_lambda_function.test-versioned-lambda_D818669D\\"
         ],
         \\"name\\": \\"/aws/lambda/\${aws_lambda_function.test-versioned-lambda_D818669D.function_name}\\",
-        \\"retention_in_days\\": 14
+        \\"retention_in_days\\": 14,
+        \\"tags\\": {
+          \\"for\\": \\"test\\",
+          \\"my\\": \\"tag\\"
+        }
       }
     },
     \\"aws_iam_policy\\": {
       \\"test-versioned-lambda_execution-policy_A934214F\\": {
         \\"name\\": \\"Test-Lambda-ExecutionRolePolicy\\",
-        \\"policy\\": \\"\${data.aws_iam_policy_document.test-versioned-lambda_execution-policy-document_BA37CD4D.json}\\"
+        \\"policy\\": \\"\${data.aws_iam_policy_document.test-versioned-lambda_execution-policy-document_BA37CD4D.json}\\",
+        \\"tags\\": {
+          \\"for\\": \\"test\\",
+          \\"my\\": \\"tag\\"
+        }
       }
     },
     \\"aws_iam_role\\": {
       \\"test-versioned-lambda_execution-role_068103E3\\": {
         \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.test-versioned-lambda_assume-policy-document_54E2E6E3.json}\\",
-        \\"name\\": \\"Test-Lambda-ExecutionRole\\"
+        \\"name\\": \\"Test-Lambda-ExecutionRole\\",
+        \\"tags\\": {
+          \\"for\\": \\"test\\",
+          \\"my\\": \\"tag\\"
+        }
       }
     },
     \\"aws_iam_role_policy_attachment\\": {

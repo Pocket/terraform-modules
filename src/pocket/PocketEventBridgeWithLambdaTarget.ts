@@ -52,6 +52,7 @@ export class PocketEventBridgeWithLambdaTarget extends PocketVersionedLambda {
         principal: 'events.amazonaws.com',
         sourceArn: eventBridgeRule.rule.arn,
         dependsOn: [lambda.versionedLambda, eventBridgeRule.rule],
+        provider: lambda.versionedLambda.provider,
       });
     });
   }
@@ -79,6 +80,7 @@ export class PocketEventBridgeWithLambdaTarget extends PocketVersionedLambda {
       name: this.config.name,
       targets: targets,
       tags: this.config.tags,
+      provider: this.config.provider,
     });
   }
 }

@@ -1,5 +1,5 @@
-import { Resource } from 'cdktf';
-import { cloudwatch } from '@cdktf/provider-aws';
+import { Resource, TerraformMetaArguments } from 'cdktf';
+import { AwsProvider, cloudwatch } from '@cdktf/provider-aws';
 import { Construct } from 'constructs';
 import {
   ApplicationAutoscaling,
@@ -17,7 +17,7 @@ export type CreateECSServiceArgs = {
   cluster: ApplicationECSCluster;
 };
 
-export interface PocketECSApplicationProps {
+export interface PocketECSApplicationProps extends TerraformMetaArguments {
   /**
    * This is the prefix for the names of all the resources
    * created by this construct.
@@ -139,7 +139,11 @@ export class PocketECSApplication extends Resource {
         publicSubnetIds: config.vpcConfig.publicSubnetIds,
       };
     } else {
-      const pocketVpc = new PocketVPC(this, `pocket_vpc`);
+      const pocketVpc = new PocketVPC(
+        this,
+        `pocket_vpc`,
+        config.provider as AwsProvider
+      );
       return {
         vpcId: pocketVpc.vpc.id,
         privateSubnetIds: pocketVpc.privateSubnetIds,
@@ -213,6 +217,7 @@ export class PocketECSApplication extends Resource {
       privateSubnetIds: this.pocketVPC.privateSubnetIds,
       ecsIamConfig: this.config.ecsIamConfig,
       tags: this.config.tags,
+      provider: this.config.provider,
     };
 
     if (this.config.taskSize) {
@@ -242,6 +247,7 @@ export class PocketECSApplication extends Resource {
       scaleInThreshold: this.config.autoscalingConfig.scaleInThreshold,
       scaleOutThreshold: this.config.autoscalingConfig.scaleOutThreshold,
       tags: this.config.tags,
+      provider: this.config.provider,
     });
 
     return {
@@ -334,6 +340,7 @@ export class PocketECSApplication extends Resource {
     return new cloudwatch.CloudwatchDashboard(this, 'cloudwatch-dashboard', {
       dashboardName: `${this.config.prefix}-ALBDashboard`,
       dashboardBody: JSON.stringify(dashboardJSON),
+      provider: this.config.provider,
     });
   }
 

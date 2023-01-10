@@ -1,8 +1,8 @@
-import { Resource } from 'cdktf';
+import { Resource, TerraformMetaArguments } from 'cdktf';
 import { Construct } from 'constructs';
 import { sqs } from '@cdktf/provider-aws';
 
-export interface ApplicationSQSQueueProps {
+export interface ApplicationSQSQueueProps extends TerraformMetaArguments {
   /**
    * Name of the sqs queue
    */
@@ -116,6 +116,7 @@ export class ApplicationSQSQueue extends Resource {
       visibilityTimeoutSeconds: config.visibilityTimeoutSeconds,
       tags: config.tags,
       fifoQueue: false,
+      provider: config.provider,
     };
 
     if (config.maxReceiveCount && config.maxReceiveCount > 0) {
@@ -139,6 +140,7 @@ export class ApplicationSQSQueue extends Resource {
       name: `${config.name}-Deadletter`,
       tags: config.tags,
       fifoQueue: false,
+      provider: config.provider,
     });
   }
 }

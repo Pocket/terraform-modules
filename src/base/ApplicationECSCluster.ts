@@ -1,8 +1,8 @@
-import { Resource } from 'cdktf';
+import { Resource, TerraformMetaArguments } from 'cdktf';
 import { ecs } from '@cdktf/provider-aws';
 import { Construct } from 'constructs';
 
-export interface ApplicationECSClusterProps {
+export interface ApplicationECSClusterProps extends TerraformMetaArguments {
   prefix: string;
   tags?: { [key: string]: string };
 }
@@ -29,6 +29,7 @@ export class ApplicationECSCluster extends Resource {
           value: 'enabled',
         },
       ],
+      provider: config.provider,
     });
   }
 }

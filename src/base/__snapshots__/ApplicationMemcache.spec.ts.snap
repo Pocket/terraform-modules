@@ -186,7 +186,11 @@ exports[`ApplicationMemcache renders memcached with tags 1`] = `
         \\"name\\": \\"abides-dev-ElasticacheSubnetGroup\\",
         \\"subnet_ids\\": [
           \\"1234-123\\"
-        ]
+        ],
+        \\"tags\\": {
+          \\"donnie\\": \\"throwinrockstonight\\",
+          \\"letsgo\\": \\"bowling\\"
+        }
       }
     },
     \\"aws_security_group\\": {

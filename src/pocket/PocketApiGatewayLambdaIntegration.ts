@@ -9,7 +9,7 @@ import {
   ApplicationCertificate,
 } from '..';
 import ApiGatewayDeploymentConfig = apigateway.ApiGatewayDeploymentConfig;
-import { Fn } from 'cdktf';
+import { Fn, TerraformMetaArguments } from 'cdktf';
 
 export interface ApiGatewayLambdaRoute {
   path: string;
@@ -22,7 +22,7 @@ export interface ApiGatewayLambdaRoute {
   // requestParams: Map<string, any>;
 }
 
-export interface PocketApiGatewayProps {
+export interface PocketApiGatewayProps extends TerraformMetaArguments {
   name: string;
   stage: string; // https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/api_gateway_stage#stage_name
   routes: ApiGatewayLambdaRoute[];
@@ -62,6 +62,7 @@ export class PocketApiGateway extends Resource {
       {
         name: config.name,
         tags: config.tags,
+        provider: config.provider,
       }
     );
 
@@ -94,6 +95,7 @@ export class PocketApiGateway extends Resource {
         },
         lifecycle: { createBeforeDestroy: true },
         dependsOn: routeDependencies,
+        provider: config.provider,
       }
     );
     this.apiGatewayStage = new apigateway.ApiGatewayStage(
@@ -103,6 +105,8 @@ export class PocketApiGateway extends Resource {
         deploymentId: this.apiGatewayDeployment.id,
         restApiId: this.apiGatewayRestApi.id,
         stageName: config.stage,
+        provider: config.provider,
+        tags: config.tags,
       }
     );
     if (config.domain != null) {
@@ -121,6 +125,7 @@ export class PocketApiGateway extends Resource {
     const baseDNS = new ApplicationBaseDNS(this, `base-dns`, {
       domain: config.domain,
       tags: config.tags,
+      provider: config.provider,
     });
 
     //Creates the Certificate for API gateway
@@ -131,6 +136,7 @@ export class PocketApiGateway extends Resource {
         zoneId: baseDNS.zoneId,
         domain: config.domain,
         tags: this.config.tags,
+        provider: config.provider,
       }
     );
 
@@ -142,6 +148,8 @@ export class PocketApiGateway extends Resource {
         domainName: config.domain,
         certificateArn: apiGatewayCertificate.arn,
         dependsOn: [apiGatewayCertificate.certificateValidation],
+        provider: config.provider,
+        tags: config.tags,
       }
     );
 
@@ -157,6 +165,7 @@ export class PocketApiGateway extends Resource {
         },
       ],
       dependsOn: [apiGatewayCertificate.certificateValidation],
+      provider: config.provider,
     });
 
     new apigateway.ApiGatewayBasePathMapping(
@@ -167,6 +176,7 @@ export class PocketApiGateway extends Resource {
         stageName: this.apiGatewayStage.stageName,
         domainName: customDomainName.domainName,
         basePath: config.basePath ?? '',
+        provider: config.provider,
       }
     );
   }
@@ -188,6 +198,7 @@ export class PocketApiGateway extends Resource {
           // note the resource path has a leading `/`
           sourceArn: `${this.apiGatewayRestApi.executionArn}/${this.apiGatewayStage.stageName}/${method.httpMethod}${resource.path}`,
           qualifier: lambda.lambda.versionedLambda.name,
+          provider: this.config.provider,
         }
       );
     });
@@ -209,6 +220,7 @@ export class PocketApiGateway extends Resource {
         parentId: this.apiGatewayRestApi.rootResourceId,
         pathPart: route.path,
         restApiId: this.apiGatewayRestApi.id,
+        provider: config.provider,
       });
       const method = new apigateway.ApiGatewayMethod(
         this,
@@ -219,6 +231,7 @@ export class PocketApiGateway extends Resource {
           // authorization: route.authorizationType,
           authorization: 'NONE',
           httpMethod: route.method,
+          provider: config.provider,
         }
       );
       const integration = new apigateway.ApiGatewayIntegration(
@@ -231,6 +244,7 @@ export class PocketApiGateway extends Resource {
           restApiId: this.apiGatewayRestApi.id,
           type: 'AWS_PROXY',
           uri: lambda.lambda.versionedLambda.invokeArn,
+          provider: config.provider,
         }
       );
       return { lambda, resource, method, integration };

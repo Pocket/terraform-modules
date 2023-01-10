@@ -1,8 +1,8 @@
-import { Resource } from 'cdktf';
+import { Resource, TerraformMetaArguments, TerraformProvider } from 'cdktf';
 import { vpc, elb, datasources, s3, iam } from '@cdktf/provider-aws';
 import { Construct } from 'constructs';
 
-export interface ApplicationLoadBalancerProps {
+export interface ApplicationLoadBalancerProps extends TerraformMetaArguments {
   prefix: string;
   alb6CharacterPrefix: string;
   vpcId: string;
@@ -82,6 +82,7 @@ export class ApplicationLoadBalancer extends Resource {
       lifecycle: {
         createBeforeDestroy: true,
       },
+      provider: config.provider,
     });
 
     let logsConfig: elb.AlbAccessLogs = undefined;
@@ -103,6 +104,8 @@ export class ApplicationLoadBalancer extends Resource {
       const bucket = this.getOrCreateBucket({
         bucket: config.accessLogs.bucket,
         existingBucket: config.accessLogs.existingBucket,
+        provider: config.provider,
+        tags: config.tags,
       });
 
       logsConfig = {
@@ -119,6 +122,7 @@ export class ApplicationLoadBalancer extends Resource {
       subnets: config.subnetIds,
       tags: config.tags,
       accessLogs: logsConfig,
+      provider: config.provider,
     };
     this.alb = new elb.Alb(this, `alb`, albConfig);
   }
@@ -131,6 +135,8 @@ export class ApplicationLoadBalancer extends Resource {
   private getOrCreateBucket(config: {
     existingBucket?: string;
     bucket?: string;
+    tags?: { [key: string]: string };
+    provider?: TerraformProvider;
   }): string {
     if (config.existingBucket === undefined && config.bucket === undefined) {
       throw new Error(
@@ -141,16 +147,20 @@ export class ApplicationLoadBalancer extends Resource {
     if (config.existingBucket !== undefined) {
       return new s3.DataAwsS3Bucket(this, 'log-bucket', {
         bucket: config.existingBucket,
+        provider: config.provider,
       }).bucket;
     }
 
     const s3Bucket = new s3.S3Bucket(this, 'log-bucket', {
       bucket: config.bucket,
+      provider: config.provider,
+      tags: config.tags,
     });
 
     const albAccountId = new datasources.DataAwsElbServiceAccount(
       this,
-      'elb-service-account'
+      'elb-service-account',
+      { provider: config.provider }
     ).id;
 
     const s3IAMDocument = new iam.DataAwsIamPolicyDocument(
@@ -170,12 +180,14 @@ export class ApplicationLoadBalancer extends Resource {
             resources: [`arn:aws:s3:::${s3Bucket.bucket}/*`],
           },
         ],
+        provider: config.provider,
       }
     );
 
     new s3.S3BucketPolicy(this, 'log-bucket-policy', {
       bucket: s3Bucket.bucket,
       policy: s3IAMDocument.json,
+      provider: config.provider,
     });
 
     return s3Bucket.bucket;

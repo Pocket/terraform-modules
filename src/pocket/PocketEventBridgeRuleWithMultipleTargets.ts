@@ -1,4 +1,4 @@
-import { Resource, TerraformResource } from 'cdktf';
+import { Resource, TerraformMetaArguments, TerraformResource } from 'cdktf';
 import { Construct } from 'constructs';
 import {
   ApplicationEventBridgeRule,
@@ -15,7 +15,7 @@ export type PocketEventBridgeTargets = {
   deadLetterArn?: string;
 };
 
-export interface PocketEventBridgeProps {
+export interface PocketEventBridgeProps extends TerraformMetaArguments {
   eventRule: Omit<ApplicationEventBridgeRuleProps, 'targets' | 'tags'>;
   targets?: PocketEventBridgeTargets[];
   tags?: { [key: string]: string };
@@ -70,6 +70,7 @@ export class PocketEventBridgeRuleWithMultipleTargets extends Resource {
       ...eventRuleConfig,
       targets: targets,
       tags: this.config.tags,
+      provider: this.config.provider,
     });
   }
 }

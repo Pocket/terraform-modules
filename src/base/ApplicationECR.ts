@@ -1,8 +1,8 @@
-import { Resource } from 'cdktf';
+import { Resource, TerraformMetaArguments } from 'cdktf';
 import { Construct } from 'constructs';
 import { ecr } from '@cdktf/provider-aws';
 
-export interface ECRProps {
+export interface ECRProps extends TerraformMetaArguments {
   name: string;
   tags?: { [key: string]: string };
 }
@@ -19,6 +19,7 @@ export class ApplicationECR extends Resource {
       imageScanningConfiguration: {
         scanOnPush: true, // scans docker image for vulnerabilities
       },
+      provider: config.provider,
     };
 
     this.repo = new ecr.EcrRepository(this, 'ecr-repo', ecrConfig);
@@ -47,6 +48,7 @@ export class ApplicationECR extends Resource {
       repository: this.repo.name,
       policy: JSON.stringify(policy),
       dependsOn: [this.repo],
+      provider: config.provider,
     };
 
     new ecr.EcrLifecyclePolicy(

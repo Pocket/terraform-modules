@@ -1,9 +1,9 @@
-import { Resource } from 'cdktf';
+import { Resource, TerraformMetaArguments } from 'cdktf';
 import { Construct } from 'constructs';
 import { codepipeline, iam, kms, s3 } from '@cdktf/provider-aws';
 import crypto from 'crypto';
 
-export interface PocketECSCodePipelineProps {
+export interface PocketECSCodePipelineProps extends TerraformMetaArguments {
   prefix: string;
   artifactBucketPrefix?: string;
   source: {
@@ -101,6 +101,7 @@ export class PocketECSCodePipeline extends Resource {
   private createS3KmsAlias() {
     return new kms.DataAwsKmsAlias(this, 'kms_s3_alias', {
       name: 'alias/aws/s3',
+      provider: this.config.provider,
     });
   }
 
@@ -115,6 +116,7 @@ export class PocketECSCodePipeline extends Resource {
       artifactStore: this.getArtifactStore(),
       stage: this.getStages(),
       tags: this.config.tags,
+      provider: this.config.provider,
     });
   }
 
@@ -133,6 +135,7 @@ export class PocketECSCodePipeline extends Resource {
       acl: 'private',
       forceDestroy: true,
       tags: this.config.tags,
+      provider: this.config.provider,
     });
   }
 
@@ -159,6 +162,7 @@ export class PocketECSCodePipeline extends Resource {
               ],
             },
           ],
+          provider: this.config.provider,
         }
       ).json,
     });
@@ -239,6 +243,7 @@ export class PocketECSCodePipeline extends Resource {
               resources: ['*'],
             },
           ],
+          provider: this.config.provider,
         }
       ).json,
     });

@@ -1,8 +1,9 @@
-import { Resource, TerraformResource } from 'cdktf';
+import { Resource, TerraformMetaArguments, TerraformResource } from 'cdktf';
 import { codedeploy, codestar, iam, datasources } from '@cdktf/provider-aws';
 import { Construct } from 'constructs';
 
-export interface ApplicationECSAlbCodeDeployProps {
+export interface ApplicationECSAlbCodeDeployProps
+  extends TerraformMetaArguments {
   prefix: string;
   clusterName: string;
   serviceName: string;
@@ -82,6 +83,8 @@ export class ApplicationECSAlbCodeDeploy extends Resource {
             }),
           },
         },
+        tags: this.config.tags,
+        provider: this.config.provider,
       }
     );
   }
@@ -141,12 +144,15 @@ export class ApplicationECSAlbCodeDeploy extends Resource {
           ],
         }
       ).json,
+      tags: this.config.tags,
+      provider: this.config.provider,
     });
 
     new iam.IamRolePolicyAttachment(this, 'ecs_codedeploy_role_attachment', {
       policyArn: 'arn:aws:iam::aws:policy/AWSCodeDeployRoleForECS',
       role: ecsCodeDeployRole.name,
       dependsOn: [ecsCodeDeployRole],
+      provider: this.config.provider,
     });
 
     const codeDeployApp = new codedeploy.CodedeployApp(
@@ -155,15 +161,19 @@ export class ApplicationECSAlbCodeDeploy extends Resource {
       {
         computePlatform: 'ECS',
         name: `${this.config.prefix}-ECS`,
+        tags: this.config.tags,
+        provider: this.config.provider,
       }
     );
 
     if (this.config.snsNotificationTopicArn) {
-      const region = new datasources.DataAwsRegion(this, 'current_region', {});
+      const region = new datasources.DataAwsRegion(this, 'current_region', {
+        provider: this.config.provider,
+      });
       const account = new datasources.DataAwsCallerIdentity(
         this,
         'current_account',
-        {}
+        { provider: this.config.provider }
       );
       new codestar.CodestarnotificationsNotificationRule(
         this,
@@ -182,6 +192,8 @@ export class ApplicationECSAlbCodeDeploy extends Resource {
               address: this.config.snsNotificationTopicArn,
             },
           ],
+          tags: this.config.tags,
+          provider: this.config.provider,
         }
       );
     }

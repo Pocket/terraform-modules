@@ -1,5 +1,5 @@
 import { Construct } from 'constructs';
-import { Resource } from 'cdktf';
+import { Resource, TerraformMetaArguments } from 'cdktf';
 import { backup } from '@cdktf/provider-aws';
 import BackupVault = backup.BackupVault;
 import BackupVaultPolicy = backup.BackupVaultPolicy;
@@ -7,7 +7,7 @@ import BackupPlan = backup.BackupPlan;
 import BackupSelection = backup.BackupSelection;
 import BackupPlanRule = backup.BackupPlanRule;
 
-export interface ApplicationBackupProps {
+export interface ApplicationBackupProps extends TerraformMetaArguments {
   name: string;
   kmsKeyArn: string;
   prefix: string;
@@ -39,11 +39,13 @@ export class ApplicationBackup extends Resource {
       name: `${config.prefix}-${config.name}`,
       kmsKeyArn: config.kmsKeyArn,
       tags: config.tags,
+      provider: config.provider,
     });
 
     new BackupVaultPolicy(this, 'backup-vault-policy', {
       backupVaultName: vault.name,
       policy: config.vaultPolicy,
+      provider: config.provider,
     });
 
     config.backupPlans.forEach((plan) => {
@@ -54,6 +56,7 @@ export class ApplicationBackup extends Resource {
           targetVaultName: vault.name,
         })),
         tags: config.tags,
+        provider: config.provider,
       });
 
       new BackupSelection(this, 'backup-selection', {
@@ -62,6 +65,7 @@ export class ApplicationBackup extends Resource {
         iamRoleArn: `arn:aws:iam::${config.accountId}:role/service-role/AWSBackupDefaultServiceRole`,
         resources: plan.resources,
         selectionTag: plan.selectionTag,
+        provider: config.provider,
       });
     });
   }

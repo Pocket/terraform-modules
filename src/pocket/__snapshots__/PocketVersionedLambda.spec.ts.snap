@@ -367,19 +367,31 @@ exports[`renders a lambda target with tags 1`] = `
           \\"aws_lambda_function.test-lambda_8915D118\\"
         ],
         \\"name\\": \\"/aws/lambda/\${aws_lambda_function.test-lambda_8915D118.function_name}\\",
-        \\"retention_in_days\\": 14
+        \\"retention_in_days\\": 14,
+        \\"tags\\": {
+          \\"for\\": \\"test\\",
+          \\"my\\": \\"tags\\"
+        }
       }
     },
     \\"aws_iam_policy\\": {
       \\"test-lambda_execution-policy_19C785A8\\": {
         \\"name\\": \\"test-lambda-ExecutionRolePolicy\\",
-        \\"policy\\": \\"\${data.aws_iam_policy_document.test-lambda_execution-policy-document_D94D17B4.json}\\"
+        \\"policy\\": \\"\${data.aws_iam_policy_document.test-lambda_execution-policy-document_D94D17B4.json}\\",
+        \\"tags\\": {
+          \\"for\\": \\"test\\",
+          \\"my\\": \\"tags\\"
+        }
       }
     },
     \\"aws_iam_role\\": {
       \\"test-lambda_execution-role_9D4EE856\\": {
         \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.test-lambda_assume-policy-document_D538087D.json}\\",
-        \\"name\\": \\"test-lambda-ExecutionRole\\"
+        \\"name\\": \\"test-lambda-ExecutionRole\\",
+        \\"tags\\": {
+          \\"for\\": \\"test\\",
+          \\"my\\": \\"tags\\"
+        }
       }
     },
     \\"aws_iam_role_policy_attachment\\": {

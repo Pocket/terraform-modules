@@ -79,6 +79,7 @@ export class ApplicationRedis extends ApplicationElasticacheCluster {
         dependsOn: [subnetGroup, securityGroup],
         numberCacheClusters: config.node.count ?? 2,
         multiAzEnabled: true,
+        provider: config.provider,
       }
     );
   }

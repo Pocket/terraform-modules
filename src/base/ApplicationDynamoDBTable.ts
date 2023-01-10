@@ -1,4 +1,9 @@
-import { IResolvable, Resource } from 'cdktf';
+import {
+  IResolvable,
+  Resource,
+  TerraformMetaArguments,
+  TerraformProvider,
+} from 'cdktf';
 import { appautoscaling, iam, dynamodb } from '@cdktf/provider-aws';
 import { Construct } from 'constructs';
 import { DynamodbTableGlobalSecondaryIndex } from '@cdktf/provider-aws/lib/dynamodb';
@@ -35,7 +40,7 @@ export type ApplicationDynamoDBTableConfig = Omit<
   'name' | 'tags' | 'lifecycle'
 >;
 
-export interface ApplicationDynamoDBProps {
+export interface ApplicationDynamoDBProps extends TerraformMetaArguments {
   tags?: { [key: string]: string };
   prefix: string;
   tableConfig: ApplicationDynamoDBTableConfig;
@@ -83,6 +88,7 @@ export class ApplicationDynamoDBTable extends Resource {
         // Protect the table from being removed, unless preventDestroyTable is explicitly set to false.
         preventDestroy: config.preventDestroyTable !== false,
       },
+      provider: config.provider,
     });
 
     if (config.readCapacity) {
@@ -93,7 +99,8 @@ export class ApplicationDynamoDBTable extends Resource {
         this.dynamodb,
         ApplicationDynamoDBTableCapacityType.Read,
         config.tableConfig.globalSecondaryIndex,
-        config.tags
+        config.tags,
+        config.provider
       );
     }
 
@@ -105,7 +112,8 @@ export class ApplicationDynamoDBTable extends Resource {
         this.dynamodb,
         ApplicationDynamoDBTableCapacityType.Write,
         config.tableConfig.globalSecondaryIndex,
-        config.tags
+        config.tags,
+        config.provider
       );
     }
   }
@@ -130,14 +138,16 @@ export class ApplicationDynamoDBTable extends Resource {
     globalSecondaryIndexes:
       | dynamodb.DynamodbTableGlobalSecondaryIndex[]
       | IResolvable,
-    tags?: { [key: string]: string }
+    tags?: { [key: string]: string },
+    provider?: TerraformProvider
   ): void {
     const roleArn = ApplicationDynamoDBTable.createAutoScalingRole(
       scope,
       capacityType,
       prefix,
       dynamoDB.arn,
-      tags
+      tags,
+      provider
     );
 
     // create an auto scaling policy for the table
@@ -149,7 +159,9 @@ export class ApplicationDynamoDBTable extends Resource {
       config.min,
       config.max,
       config.tracking,
-      dynamoDB
+      dynamoDB,
+      undefined,
+      provider
     );
 
     //cdktf 0.9 updated the types of Globalsecondary indexes to be IResolvable | DynamodbGlobalSecondaryIndexes[]
@@ -178,7 +190,8 @@ export class ApplicationDynamoDBTable extends Resource {
           config.max,
           config.tracking,
           dynamoDB,
-          gsIndex.name
+          gsIndex.name,
+          provider
         );
       });
     }
@@ -206,7 +219,8 @@ export class ApplicationDynamoDBTable extends Resource {
     maxCapacity: number,
     tracking: number,
     dynamoDB: dynamodb.DynamodbTable,
-    indexName?: string
+    indexName?: string,
+    provider?: TerraformProvider
   ): void {
     let resourceId = `table/${dynamoDB.name}`;
 
@@ -236,6 +250,7 @@ export class ApplicationDynamoDBTable extends Resource {
         roleArn: roleArn,
         serviceNamespace: 'dynamodb',
         dependsOn: [dynamoDB],
+        provider,
       }
     );
 
@@ -255,6 +270,7 @@ export class ApplicationDynamoDBTable extends Resource {
           targetValue: tracking,
         },
         dependsOn: [targetTracking, dynamoDB],
+        provider,
       }
     );
   }
@@ -273,7 +289,8 @@ export class ApplicationDynamoDBTable extends Resource {
     capacityType: ApplicationDynamoDBTableCapacityType,
     prefix: string,
     dynamoDBARN: string,
-    tags?: { [key: string]: string }
+    tags?: { [key: string]: string },
+    provider?: TerraformProvider
   ): string {
     const policy = new iam.IamPolicy(
       scope,
@@ -302,6 +319,7 @@ export class ApplicationDynamoDBTable extends Resource {
             ],
           }
         ).json,
+        provider,
       }
     );
 
@@ -337,12 +355,14 @@ export class ApplicationDynamoDBTable extends Resource {
           ],
         }
       ).json,
+      provider,
     });
 
     new iam.IamRolePolicyAttachment(scope, `${capacityType}_role_attachment`, {
       policyArn: policy.arn,
       role: role.name,
       dependsOn: [role, policy],
+      provider,
     });
 
     return role.arn;

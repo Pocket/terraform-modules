@@ -12,16 +12,16 @@ export class PocketVPC extends Resource {
   public readonly secretsManagerSecretKey: kms.DataAwsKmsAlias;
   public readonly defaultSecurityGroups: vpc.DataAwsSecurityGroups;
 
-  constructor(scope: Construct, name: string, awsProvider?: AwsProvider) {
+  constructor(scope: Construct, name: string, provider?: AwsProvider) {
     super(scope, name);
 
     const vpcSSMParam = new ssm.DataAwsSsmParameter(this, `vpc_ssm_param`, {
-      provider: awsProvider,
+      provider: provider,
       name: '/Shared/Vpc',
     });
 
     this.vpc = new vpc.DataAwsVpc(this, `vpc`, {
-      provider: awsProvider,
+      provider: provider,
       filter: [
         {
           name: 'vpc-id',
@@ -31,7 +31,7 @@ export class PocketVPC extends Resource {
     });
 
     const privateString = new ssm.DataAwsSsmParameter(this, `private_subnets`, {
-      provider: awsProvider,
+      provider: provider,
       name: '/Shared/PrivateSubnets',
     });
 
@@ -39,7 +39,7 @@ export class PocketVPC extends Resource {
       this,
       `private_subnet_ids`,
       {
-        provider: awsProvider,
+        provider: provider,
         vpcId: this.vpc.id,
         filter: [
           {
@@ -53,12 +53,12 @@ export class PocketVPC extends Resource {
     this.privateSubnetIds = privateSubnets.ids;
 
     const publicString = new ssm.DataAwsSsmParameter(this, `public_subnets`, {
-      provider: awsProvider,
+      provider: provider,
       name: '/Shared/PublicSubnets',
     });
 
     const publicSubnets = new vpc.DataAwsSubnetIds(this, `public_subnet_ids`, {
-      provider: awsProvider,
+      provider: provider,
       vpcId: this.vpc.id,
       filter: [
         {
@@ -74,13 +74,13 @@ export class PocketVPC extends Resource {
       this,
       `current_identity`,
       {
-        provider: awsProvider,
+        provider: provider,
       }
     );
     this.accountId = identity.accountId;
 
     const region = new datasources.DataAwsRegion(this, 'current_region', {
-      provider: awsProvider,
+      provider: provider,
     });
     this.region = region.name;
 
@@ -88,7 +88,7 @@ export class PocketVPC extends Resource {
       this,
       'secrets_manager_key',
       {
-        provider: awsProvider,
+        provider: provider,
         name: 'alias/aws/secretsmanager',
       }
     );
@@ -97,7 +97,7 @@ export class PocketVPC extends Resource {
       this,
       'default_security_groups',
       {
-        provider: awsProvider,
+        provider: provider,
         filter: [
           {
             name: 'group-name',

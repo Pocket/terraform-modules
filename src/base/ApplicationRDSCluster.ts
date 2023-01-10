@@ -1,4 +1,4 @@
-import { Resource } from 'cdktf';
+import { Resource, TerraformMetaArguments, TerraformProvider } from 'cdktf';
 import { vpc, rds, secretsmanager } from '@cdktf/provider-aws';
 import { Construct } from 'constructs';
 import crypto from 'crypto';
@@ -19,7 +19,7 @@ export type ApplicationRDSClusterConfig = Omit<
   engine?: 'aurora' | 'aurora-mysql' | 'aurora-postgresql';
 };
 
-export interface ApplicationRDSClusterProps {
+export interface ApplicationRDSClusterProps extends TerraformMetaArguments {
   prefix: string;
   vpcId: string;
   subnetIds: string[];
@@ -53,6 +53,7 @@ export class ApplicationRDSCluster extends Resource {
           values: [config.vpcId],
         },
       ],
+      provider: config.provider,
     });
 
     // Set the default port for mysql/postgresql based on the engine value for RDS
@@ -90,11 +91,15 @@ export class ApplicationRDSCluster extends Resource {
           securityGroups: [],
         },
       ],
+      provider: config.provider,
+      tags: config.tags,
     });
 
     const subnetGroup = new rds.DbSubnetGroup(this, 'rds_subnet_group', {
       namePrefix: config.prefix.toLowerCase(),
       subnetIds: config.subnetIds,
+      provider: config.provider,
+      tags: config.tags,
     });
 
     this.rds = new rds.RdsCluster(this, 'rds_cluster', {
@@ -110,6 +115,7 @@ export class ApplicationRDSCluster extends Resource {
       lifecycle: {
         ignoreChanges: ['master_username', 'master_password'],
       },
+      provider: config.provider,
     });
 
     // Create secrets manager resource for the RDS
@@ -120,7 +126,8 @@ export class ApplicationRDSCluster extends Resource {
       rdsPort,
       config.prefix,
       config.tags,
-      config.rdsConfig.engine
+      config.rdsConfig.engine,
+      config.provider
     );
 
     this.secretARN = secretARN;
@@ -143,7 +150,8 @@ export class ApplicationRDSCluster extends Resource {
     rdsPort: number,
     prefix: string,
     tags?: { [key: string]: string },
-    engine?: ApplicationRDSClusterConfig['engine']
+    engine?: ApplicationRDSClusterConfig['engine'],
+    provider?: TerraformProvider
   ): { secretARN: string } {
     //Create the secret
     const secret = new secretsmanager.SecretsmanagerSecret(
@@ -155,6 +163,8 @@ export class ApplicationRDSCluster extends Resource {
         //We dont auto rotate, because our apps dont have triggers to refresh yet.
         //This is mainly so we can rotate after we create the rds.
         dependsOn: [rds],
+        provider,
+        tags,
       }
     );
 
@@ -188,6 +198,7 @@ export class ApplicationRDSCluster extends Resource {
         secretId: secret.id,
         secretString: JSON.stringify(secretValues),
         dependsOn: [secret],
+        provider,
       }
     );
 

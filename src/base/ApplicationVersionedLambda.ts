@@ -1,4 +1,4 @@
-import { Fn, Resource } from 'cdktf';
+import { Fn, Resource, TerraformMetaArguments } from 'cdktf';
 import { Construct } from 'constructs';
 import { cloudwatch, iam, lambdafunction, s3 } from '@cdktf/provider-aws';
 import {
@@ -13,7 +13,8 @@ export enum LAMBDA_RUNTIMES {
   NODEJS16 = 'nodejs16.x',
 }
 
-export interface ApplicationVersionedLambdaProps {
+export interface ApplicationVersionedLambdaProps
+  extends TerraformMetaArguments {
   name: string;
   description?: string;
   runtime: LAMBDA_RUNTIMES;
@@ -58,17 +59,22 @@ export class ApplicationVersionedLambda extends Resource {
     this.lambdaExecutionRole = new iam.IamRole(this, 'execution-role', {
       name: `${this.config.name}-ExecutionRole`,
       assumeRolePolicy: this.getLambdaAssumePolicyDocument(),
+      provider: this.config.provider,
+      tags: this.config.tags,
     });
 
     const executionPolicy = new iam.IamPolicy(this, 'execution-policy', {
       name: `${this.config.name}-ExecutionRolePolicy`,
       policy: this.getLambdaExecutionPolicyDocument(),
+      provider: this.config.provider,
+      tags: this.config.tags,
     });
 
     new iam.IamRolePolicyAttachment(this, 'execution-role-policy-attachment', {
       role: this.lambdaExecutionRole.name,
       policyArn: executionPolicy.arn,
       dependsOn: [this.lambdaExecutionRole, executionPolicy],
+      provider: this.config.provider,
     });
 
     const defaultLambda = this.getDefaultLambda();
@@ -96,6 +102,7 @@ export class ApplicationVersionedLambda extends Resource {
       environment: this.config.environment
         ? { variables: this.config.environment }
         : undefined,
+      provider: this.config.provider,
     };
 
     const lambda = new lambdafunction.LambdaFunction(
@@ -108,6 +115,8 @@ export class ApplicationVersionedLambda extends Resource {
       name: `/aws/lambda/${lambda.functionName}`,
       retentionInDays: this.config.logRetention ?? DEFAULT_RETENTION,
       dependsOn: [lambda],
+      provider: this.config.provider,
+      tags: this.config.tags,
     });
 
     const versionedLambda = new lambdafunction.LambdaAlias(this, 'alias', {
@@ -118,6 +127,7 @@ export class ApplicationVersionedLambda extends Resource {
         ignoreChanges: ['function_version'],
       },
       dependsOn: [lambda],
+      provider: this.config.provider,
     });
     return { versionedLambda, lambda };
   }
@@ -145,6 +155,7 @@ export class ApplicationVersionedLambda extends Resource {
           ],
         },
       ],
+      provider: this.config.provider,
     }).json;
   }
 
@@ -164,6 +175,7 @@ export class ApplicationVersionedLambda extends Resource {
         },
         ...(this.config.executionPolicyStatements ?? []),
       ],
+      provider: this.config.provider,
     };
 
     if (this.config.vpcConfig) {
@@ -222,12 +234,14 @@ export class ApplicationVersionedLambda extends Resource {
       acl: 'private',
       tags: this.config.tags,
       forceDestroy: true,
+      provider: this.config.provider,
     });
 
     new s3.S3BucketPublicAccessBlock(this, `code-bucket-public-access-block`, {
       bucket: codeBucket.id,
       blockPublicAcls: true,
       blockPublicPolicy: true,
+      provider: this.config.provider,
     });
   }
 }

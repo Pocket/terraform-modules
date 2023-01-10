@@ -1,8 +1,8 @@
-import { Resource } from 'cdktf';
+import { Resource, TerraformMetaArguments } from 'cdktf';
 import { Construct } from 'constructs';
 import { iam } from '@cdktf/provider-aws';
 
-export interface ApplicationECSIAMProps {
+export interface ApplicationECSIAMProps extends TerraformMetaArguments {
   prefix: string;
   taskExecutionRolePolicyStatements: iam.DataAwsIamPolicyDocumentStatement[];
   taskRolePolicyStatements: iam.DataAwsIamPolicyDocumentStatement[];
@@ -36,6 +36,7 @@ export class ApplicationECSIAM extends Resource {
             ],
           },
         ],
+        provider: config.provider,
       }
     );
 
@@ -43,6 +44,7 @@ export class ApplicationECSIAM extends Resource {
       assumeRolePolicy: dataEcsTaskAssume.json,
       name: `${config.prefix}-TaskExecutionRole`,
       tags: config.tags,
+      provider: config.provider,
     });
 
     if (config.taskExecutionDefaultAttachmentArn) {
@@ -52,6 +54,7 @@ export class ApplicationECSIAM extends Resource {
         {
           policyArn: config.taskExecutionDefaultAttachmentArn,
           role: ecsTaskExecutionRole.id,
+          provider: config.provider,
         }
       );
     }
@@ -63,6 +66,7 @@ export class ApplicationECSIAM extends Resource {
         {
           version: '2012-10-17',
           statement: config.taskExecutionRolePolicyStatements,
+          provider: config.provider,
         }
       );
 
@@ -72,6 +76,8 @@ export class ApplicationECSIAM extends Resource {
         {
           name: `${config.prefix}-TaskExecutionRolePolicy`,
           policy: dataEcsTaskExecutionRolePolicy.json,
+          provider: config.provider,
+          tags: config.tags,
         }
       );
 
@@ -81,6 +87,7 @@ export class ApplicationECSIAM extends Resource {
         {
           policyArn: ecsTaskExecutionRolePolicy.arn,
           role: ecsTaskExecutionRole.id,
+          provider: config.provider,
         }
       );
     }
@@ -89,6 +96,7 @@ export class ApplicationECSIAM extends Resource {
       assumeRolePolicy: dataEcsTaskAssume.json,
       name: `${config.prefix}-TaskRole`,
       tags: config.tags,
+      provider: config.provider,
     });
 
     if (config.taskRolePolicyStatements.length > 0) {
@@ -98,6 +106,7 @@ export class ApplicationECSIAM extends Resource {
         {
           version: '2012-10-17',
           statement: config.taskRolePolicyStatements,
+          provider: config.provider,
         }
       );
 
@@ -107,12 +116,15 @@ export class ApplicationECSIAM extends Resource {
         {
           name: `${config.prefix}-TaskRolePolicy`,
           policy: dataEcsTaskRolePolicy.json,
+          provider: config.provider,
+          tags: config.tags,
         }
       );
 
       new iam.IamRolePolicyAttachment(this, 'ecs-task-custom-attachment', {
         policyArn: ecsTaskRolePolicy.arn,
         role: ecsTaskRole.id,
+        provider: config.provider,
       });
     }
 

@@ -1,4 +1,4 @@
-import { Resource } from 'cdktf';
+import { Resource, TerraformMetaArguments } from 'cdktf';
 import { vpc, elasticache } from '@cdktf/provider-aws';
 import { Construct } from 'constructs';
 
@@ -7,7 +7,8 @@ export enum ApplicationElasticacheEngine {
   REDIS = 'redis',
 }
 
-export interface ApplicationElasticacheClusterProps {
+export interface ApplicationElasticacheClusterProps
+  extends TerraformMetaArguments {
   prefix: string;
   vpcId: string;
   subnetIds: string[];
@@ -51,6 +52,7 @@ export abstract class ApplicationElasticacheCluster extends Resource {
           values: [config.vpcId],
         },
       ],
+      provider: config.provider,
     });
   }
 
@@ -150,6 +152,7 @@ export abstract class ApplicationElasticacheCluster extends Resource {
           },
         ],
         tags: config.tags,
+        provider: config.provider,
       }
     );
     const subnetGroup = new elasticache.ElasticacheSubnetGroup(
@@ -158,6 +161,8 @@ export abstract class ApplicationElasticacheCluster extends Resource {
       {
         name: `${config.prefix.toLowerCase()}-ElasticacheSubnetGroup`,
         subnetIds: config.subnetIds,
+        provider: config.provider,
+        tags: config.tags,
       }
     );
     return { securityGroup, subnetGroup };
