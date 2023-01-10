@@ -1,6 +1,15 @@
-import { Resource, TerraformMetaArguments } from 'cdktf';
+import {
+  CodepipelineStage,
+  Codepipeline,
+  CodepipelineStageAction,
+} from '@cdktf/provider-aws/lib/codepipeline';
+import { DataAwsIamPolicyDocument } from '@cdktf/provider-aws/lib/data-aws-iam-policy-document';
+import { DataAwsKmsAlias } from '@cdktf/provider-aws/lib/data-aws-kms-alias';
+import { IamRole } from '@cdktf/provider-aws/lib/iam-role';
+import { IamRolePolicy } from '@cdktf/provider-aws/lib/iam-role-policy';
+import { S3Bucket } from '@cdktf/provider-aws/lib/s3-bucket';
+import { TerraformMetaArguments } from 'cdktf';
 import { Construct } from 'constructs';
-import { codepipeline, iam, kms, s3 } from '@cdktf/provider-aws';
 import crypto from 'crypto';
 
 export interface PocketECSCodePipelineProps extends TerraformMetaArguments {
@@ -21,23 +30,23 @@ export interface PocketECSCodePipelineProps extends TerraformMetaArguments {
   /** Optional stages to run before the deploy stage.
    * For CodeBuild actions, ensure that the project name starts with `prefix`.
    */
-  preDeployStages?: codepipeline.CodepipelineStage[];
+  preDeployStages?: CodepipelineStage[];
   /** Optional stages to run after the deploy stage.
    * For CodeBuild actions, ensure that the project name starts with `prefix`.
    */
-  postDeployStages?: codepipeline.CodepipelineStage[];
+  postDeployStages?: CodepipelineStage[];
   tags?: { [key: string]: string };
 }
 
-export class PocketECSCodePipeline extends Resource {
+export class PocketECSCodePipeline extends Construct {
   private static DEFAULT_TASKDEF_PATH = 'taskdef.json';
   private static DEFAULT_APPSPEC_PATH = 'appspec.json';
 
-  public readonly codePipeline: codepipeline.Codepipeline;
-  public readonly stages: codepipeline.CodepipelineStage[];
-  private readonly pipelineArtifactBucket: s3.S3Bucket;
-  private readonly s3KmsAlias: kms.DataAwsKmsAlias;
-  private readonly pipelineRole: iam.IamRole;
+  public readonly codePipeline: Codepipeline;
+  public readonly stages: CodepipelineStage[];
+  private readonly pipelineArtifactBucket: S3Bucket;
+  private readonly s3KmsAlias: DataAwsKmsAlias;
+  private readonly pipelineRole: IamRole;
 
   private readonly codeBuildProjectName: string;
   private readonly codeDeployApplicationName: string;
@@ -99,7 +108,7 @@ export class PocketECSCodePipeline extends Resource {
   ];
 
   private createS3KmsAlias() {
-    return new kms.DataAwsKmsAlias(this, 'kms_s3_alias', {
+    return new DataAwsKmsAlias(this, 'kms_s3_alias', {
       name: 'alias/aws/s3',
       provider: this.config.provider,
     });
@@ -109,8 +118,8 @@ export class PocketECSCodePipeline extends Resource {
    * Create a CodePipeline that runs CodeBuild and ECS CodeDeploy
    * @private
    */
-  private createCodePipeline(): codepipeline.Codepipeline {
-    return new codepipeline.Codepipeline(this, 'codepipeline', {
+  private createCodePipeline(): Codepipeline {
+    return new Codepipeline(this, 'codepipeline', {
       name: this.getPipelineName(),
       roleArn: this.pipelineRole.arn,
       artifactStore: this.getArtifactStore(),
@@ -130,7 +139,7 @@ export class PocketECSCodePipeline extends Resource {
       .update(this.config.prefix)
       .digest('hex');
 
-    return new s3.S3Bucket(this, 'codepipeline-bucket', {
+    return new S3Bucket(this, 'codepipeline-bucket', {
       bucket: `${this.getArtifactBucketPrefix()}-${prefixHash}`,
       acl: 'private',
       forceDestroy: true,
@@ -144,9 +153,9 @@ export class PocketECSCodePipeline extends Resource {
    * @private
    */
   private createPipelineRole() {
-    const role = new iam.IamRole(this, 'codepipeline-role', {
+    const role = new IamRole(this, 'codepipeline-role', {
       name: `${this.config.prefix}-CodePipelineRole`,
-      assumeRolePolicy: new iam.DataAwsIamPolicyDocument(
+      assumeRolePolicy: new DataAwsIamPolicyDocument(
         this,
         `codepipeline-assume-role-policy`,
         {
@@ -156,7 +165,7 @@ export class PocketECSCodePipeline extends Resource {
               actions: ['sts:AssumeRole'],
               principals: [
                 {
-                  identifiers: ['codepipeline.amazonaws.com'],
+                  identifiers: ['amazonaws.com'],
                   type: 'Service',
                 },
               ],
@@ -167,10 +176,10 @@ export class PocketECSCodePipeline extends Resource {
       ).json,
     });
 
-    new iam.IamRolePolicy(this, 'codepipeline-role-policy', {
+    new IamRolePolicy(this, 'codepipeline-role-policy', {
       name: `${this.config.prefix}-CodePipeline-Role-Policy`,
       role: role.id,
-      policy: new iam.DataAwsIamPolicyDocument(
+      policy: new DataAwsIamPolicyDocument(
         this,
         `codepipeline-role-policy-document`,
         {
@@ -288,7 +297,7 @@ export class PocketECSCodePipeline extends Resource {
    * Get a stage that deploys the infrastructure and ECS service.
    * @private
    */
-  private getDeployStage = (): codepipeline.CodepipelineStage => ({
+  private getDeployStage = (): CodepipelineStage => ({
     name: 'Deploy',
     action: [this.getDeployCdkAction(), this.getDeployEcsAction()],
   });
@@ -297,7 +306,7 @@ export class PocketECSCodePipeline extends Resource {
    * Get the CDK for Terraform deployment step that runs `terraform apply`.
    * @private
    */
-  private getDeployCdkAction = (): codepipeline.CodepipelineStageAction => ({
+  private getDeployCdkAction = (): CodepipelineStageAction => ({
     name: 'Deploy_CDK',
     category: 'Build',
     owner: 'AWS',
@@ -319,7 +328,7 @@ export class PocketECSCodePipeline extends Resource {
    * Get the ECS CodeDeploy step that does a blue/green deployment.
    * @private
    */
-  private getDeployEcsAction = (): codepipeline.CodepipelineStageAction => ({
+  private getDeployEcsAction = (): CodepipelineStageAction => ({
     name: 'Deploy_ECS',
     category: 'Deploy',
     owner: 'AWS',

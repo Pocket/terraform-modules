@@ -355,10 +355,6 @@ exports[`PocketECSApplication renders an Pocket App with logs and dashboard in a
         \\"name_prefix\\": \\"testapp-ECSSecurityGroup\\",
         \\"vpc_id\\": \\"\${data.aws_vpc.testPocketApp_pocket_vpc_C4E157E3.id}\\"
       }
-    },
-    \\"null_resource\\": {
-      \\"testPocketApp_ecs_service_8F213571\\": {
-      }
     }
   }
 }"
@@ -751,10 +747,6 @@ exports[`PocketECSApplication renders an application with autoscaling group and 
         },
         \\"vpc_id\\": \\"\${data.aws_vpc.testPocketApp_pocket_vpc_C4E157E3.id}\\"
       }
-    },
-    \\"null_resource\\": {
-      \\"testPocketApp_ecs_service_8F213571\\": {
-      }
     }
   }
 }"
@@ -1114,10 +1106,6 @@ exports[`PocketECSApplication renders an application with custom task sizes 1`] 
         },
         \\"name_prefix\\": \\"testapp-ECSSecurityGroup\\",
         \\"vpc_id\\": \\"\${data.aws_vpc.testPocketApp_pocket_vpc_C4E157E3.id}\\"
-      }
-    },
-    \\"null_resource\\": {
-      \\"testPocketApp_ecs_service_8F213571\\": {
       }
     }
   }
@@ -1511,10 +1499,6 @@ exports[`PocketECSApplication renders an application with default autoscaling gr
         },
         \\"vpc_id\\": \\"\${data.aws_vpc.testPocketApp_pocket_vpc_C4E157E3.id}\\"
       }
-    },
-    \\"null_resource\\": {
-      \\"testPocketApp_ecs_service_8F213571\\": {
-      }
     }
   }
 }"
@@ -1874,10 +1858,6 @@ exports[`PocketECSApplication renders an application with minimal config 1`] = `
         },
         \\"name_prefix\\": \\"testapp-ECSSecurityGroup\\",
         \\"vpc_id\\": \\"\${data.aws_vpc.testPocketApp_pocket_vpc_C4E157E3.id}\\"
-      }
-    },
-    \\"null_resource\\": {
-      \\"testPocketApp_ecs_service_8F213571\\": {
       }
     }
   }
@@ -2263,10 +2243,6 @@ exports[`PocketECSApplication renders an application with modified container def
         },
         \\"name_prefix\\": \\"testapp-ECSSecurityGroup\\",
         \\"vpc_id\\": \\"\${data.aws_vpc.testPocketApp_pocket_vpc_C4E157E3.id}\\"
-      }
-    },
-    \\"null_resource\\": {
-      \\"testPocketApp_ecs_service_8F213571\\": {
       }
     }
   }

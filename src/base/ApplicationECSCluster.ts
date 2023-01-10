@@ -1,5 +1,5 @@
-import { Resource, TerraformMetaArguments } from 'cdktf';
-import { ecs } from '@cdktf/provider-aws';
+import { EcsCluster } from '@cdktf/provider-aws/lib/ecs-cluster';
+import { TerraformMetaArguments } from 'cdktf';
 import { Construct } from 'constructs';
 
 export interface ApplicationECSClusterProps extends TerraformMetaArguments {
@@ -10,8 +10,8 @@ export interface ApplicationECSClusterProps extends TerraformMetaArguments {
 /**
  * Generates an Application Certificate given a domain name and zoneId
  */
-export class ApplicationECSCluster extends Resource {
-  public readonly cluster: ecs.EcsCluster;
+export class ApplicationECSCluster extends Construct {
+  public readonly cluster: EcsCluster;
 
   constructor(
     scope: Construct,
@@ -20,7 +20,7 @@ export class ApplicationECSCluster extends Resource {
   ) {
     super(scope, name);
 
-    this.cluster = new ecs.EcsCluster(this, `ecs_cluster`, {
+    this.cluster = new EcsCluster(this, `ecs_cluster`, {
       tags: config.tags,
       name: config.prefix,
       setting: [

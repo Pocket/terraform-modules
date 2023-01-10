@@ -1,11 +1,15 @@
 import { Construct } from 'constructs';
-import { Resource, TerraformMetaArguments } from 'cdktf';
-import { backup } from '@cdktf/provider-aws';
-import BackupVault = backup.BackupVault;
-import BackupVaultPolicy = backup.BackupVaultPolicy;
-import BackupPlan = backup.BackupPlan;
-import BackupSelection = backup.BackupSelection;
-import BackupPlanRule = backup.BackupPlanRule;
+import { TerraformMetaArguments } from 'cdktf';
+import {
+  BackupPlanRule,
+  BackupPlan,
+} from '@cdktf/provider-aws/lib/backup-plan';
+import {
+  BackupSelection,
+  BackupSelectionSelectionTag,
+} from '@cdktf/provider-aws/lib/backup-selection';
+import { BackupVault } from '@cdktf/provider-aws/lib/backup-vault';
+import { BackupVaultPolicy } from '@cdktf/provider-aws/lib/backup-vault-policy';
 
 export interface ApplicationBackupProps extends TerraformMetaArguments {
   name: string;
@@ -17,16 +21,16 @@ export interface ApplicationBackupProps extends TerraformMetaArguments {
     name: string;
     resources: string[];
     rules: Omit<BackupPlanRule, 'targetVaultName'>[];
-    selectionTag: backup.BackupSelectionSelectionTag[];
+    selectionTag: BackupSelectionSelectionTag[];
   }[];
   tags?: { [key: string]: string };
 }
 
-export class ApplicationBackup extends Resource {
-  public backupPlan: backup.BackupPlan;
-  public backupSelection: backup.BackupSelection;
-  public backupPlanRule: backup.BackupPlanRule;
-  private static vault: backup.BackupVault;
+export class ApplicationBackup extends Construct {
+  public backupPlan: BackupPlan;
+  public backupSelection: BackupSelection;
+  public backupPlanRule: BackupPlanRule;
+  private static vault: BackupVault;
 
   constructor(
     scope: Construct,

@@ -1,6 +1,6 @@
-import { Resource, TerraformMetaArguments } from 'cdktf';
+import { SqsQueue } from '@cdktf/provider-aws/lib/sqs-queue';
+import { TerraformMetaArguments } from 'cdktf';
 import { Construct } from 'constructs';
-import { sqs } from '@cdktf/provider-aws';
 
 export interface ApplicationSQSQueueProps extends TerraformMetaArguments {
   /**
@@ -70,9 +70,9 @@ const validations: {
 /**
  * Creates an SQS Queue with a dead letter queue
  */
-export class ApplicationSQSQueue extends Resource {
-  public readonly sqsQueue: sqs.SqsQueue;
-  public deadLetterQueue: sqs.SqsQueue | undefined;
+export class ApplicationSQSQueue extends Construct {
+  public readonly sqsQueue: SqsQueue;
+  public deadLetterQueue: SqsQueue | undefined;
 
   constructor(
     scope: Construct,
@@ -127,7 +127,7 @@ export class ApplicationSQSQueue extends Resource {
       });
     }
 
-    return new sqs.SqsQueue(this, `sqs_queue`, sqsConfig);
+    return new SqsQueue(this, `sqs_queue`, sqsConfig);
   }
 
   /**
@@ -136,7 +136,7 @@ export class ApplicationSQSQueue extends Resource {
    * @private
    */
   private createDeadLetterSQSQueue(config: ApplicationSQSQueueProps) {
-    return new sqs.SqsQueue(this, `redrive_sqs_queue`, {
+    return new SqsQueue(this, `redrive_sqs_queue`, {
       name: `${config.name}-Deadletter`,
       tags: config.tags,
       fifoQueue: false,

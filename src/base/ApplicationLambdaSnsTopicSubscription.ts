@@ -1,7 +1,15 @@
-import { Resource, TerraformMetaArguments, TerraformResource } from 'cdktf';
+import { DataAwsIamPolicyDocument } from '@cdktf/provider-aws/lib/data-aws-iam-policy-document';
+import { DataAwsLambdaFunction } from '@cdktf/provider-aws/lib/data-aws-lambda-function';
+import { LambdaFunction } from '@cdktf/provider-aws/lib/lambda-function';
+import { LambdaPermission } from '@cdktf/provider-aws/lib/lambda-permission';
+import {
+  SnsTopicSubscription,
+  SnsTopicSubscriptionConfig,
+} from '@cdktf/provider-aws/lib/sns-topic-subscription';
+import { SqsQueue } from '@cdktf/provider-aws/lib/sqs-queue';
+import { SqsQueuePolicy } from '@cdktf/provider-aws/lib/sqs-queue-policy';
+import { TerraformMetaArguments, TerraformResource } from 'cdktf';
 import { Construct } from 'constructs';
-import { sqs, sns, iam, lambdafunction } from '@cdktf/provider-aws';
-import { SnsTopicSubscriptionConfig } from '@cdktf/provider-aws/lib/sns';
 
 /** The config props type of [[`ApplicationLambdaSnsTopicSubscription]] */
 export interface ApplicationLambdaSnsTopicSubscriptionProps
@@ -11,7 +19,7 @@ export interface ApplicationLambdaSnsTopicSubscriptionProps
   /** The SNS topic to subscribe the Lambda to */
   snsTopicArn: string;
   /** The Lambda that should be invoked by incoming messages to the SNS topic */
-  lambda: lambdafunction.DataAwsLambdaFunction | lambdafunction.LambdaFunction;
+  lambda: DataAwsLambdaFunction | LambdaFunction;
   /** Tags to apply to the resource(s), where applicable (in this case only the DLQ for the SNS) */
   tags?: { [key: string]: string };
   /** Optional list of resource dependencies */
@@ -30,11 +38,11 @@ export interface ApplicationLambdaSnsTopicSubscriptionProps
  *  * {@link https://www.terraform.io/docs/providers/aws/r/sqs_queue_policy aws_sqs_queue_policy} Resource policy for SNS to send messages to DLQ
  *  * {@link https://www.terraform.io/docs/providers/aws/r/lambda_permission aws_lambda_permission} Resource permission for SNS to invoke Lambda
  */
-export class ApplicationLambdaSnsTopicSubscription extends Resource {
+export class ApplicationLambdaSnsTopicSubscription extends Construct {
   /** the {@link https://www.terraform.io/docs/providers/aws/r/sns_topic_subscription aws_sns_topic_subscription} resource */
-  public readonly snsTopicSubscription: sns.SnsTopicSubscription;
+  public readonly snsTopicSubscription: SnsTopicSubscription;
   /** the {@link https://www.terraform.io/docs/providers/aws/r/sqs_queue aws_sqs_queue} (DLQ) resource */
-  public readonly snsTopicDlq: sqs.SqsQueue;
+  public readonly snsTopicDlq: SqsQueue;
 
   constructor(
     scope: Construct,
@@ -55,8 +63,8 @@ export class ApplicationLambdaSnsTopicSubscription extends Resource {
    * Create a dead-letter queue for failed SNS messages
    * @private
    */
-  private createSqsSubscriptionDlq(): sqs.SqsQueue {
-    return new sqs.SqsQueue(this, 'sns-topic-dlq', {
+  private createSqsSubscriptionDlq(): SqsQueue {
+    return new SqsQueue(this, 'sns-topic-dlq', {
       name: `${this.config.name}-SNS-Topic-DLQ`,
       tags: this.config.tags,
       provider: this.config.provider,
@@ -69,9 +77,9 @@ export class ApplicationLambdaSnsTopicSubscription extends Resource {
    * @private
    */
   private createSnsTopicSubscription(
-    snsTopicDlq: sqs.SqsQueue
-  ): sns.SnsTopicSubscription {
-    return new sns.SnsTopicSubscription(this, 'sns-subscription', {
+    snsTopicDlq: SqsQueue
+  ): SnsTopicSubscription {
+    return new SnsTopicSubscription(this, 'sns-subscription', {
       topicArn: this.config.snsTopicArn,
       protocol: 'lambda',
       endpoint: this.config.lambda.arn,
@@ -93,17 +101,13 @@ export class ApplicationLambdaSnsTopicSubscription extends Resource {
    * Cannot be applied to an alias; must use the base lambda function
    */
   private createLambdaPolicy(): void {
-    new lambdafunction.LambdaPermission(
-      this,
-      `${this.name}-lambda-permission`,
-      {
-        principal: 'sns.amazonaws.com',
-        action: 'lambda:InvokeFunction',
-        functionName: this.config.lambda.functionName,
-        sourceArn: this.config.snsTopicArn,
-        provider: this.config.provider,
-      }
-    );
+    new LambdaPermission(this, `${this.name}-lambda-permission`, {
+      principal: 'amazonaws.com',
+      action: 'lambda:InvokeFunction',
+      functionName: this.config.lambda.functionName,
+      sourceArn: this.config.snsTopicArn,
+      provider: this.config.provider,
+    });
   }
 
   /**
@@ -111,9 +115,9 @@ export class ApplicationLambdaSnsTopicSubscription extends Resource {
    * @param snsTopicDlq the SQS resource (used as DLQ) to grant permissions on
    * @private
    */
-  private createDlqPolicy(snsTopicDlq: sqs.SqsQueue): void {
+  private createDlqPolicy(snsTopicDlq: SqsQueue): void {
     const queue = { name: 'sns-dlq', resource: snsTopicDlq };
-    const policy = new iam.DataAwsIamPolicyDocument(
+    const policy = new DataAwsIamPolicyDocument(
       this,
       `${queue.name}-policy-document`,
       {
@@ -124,7 +128,7 @@ export class ApplicationLambdaSnsTopicSubscription extends Resource {
             resources: [queue.resource.arn],
             principals: [
               {
-                identifiers: ['sns.amazonaws.com'],
+                identifiers: ['amazonaws.com'],
                 type: 'Service',
               },
             ],
@@ -142,7 +146,7 @@ export class ApplicationLambdaSnsTopicSubscription extends Resource {
       }
     ).json;
 
-    new sqs.SqsQueuePolicy(this, `${queue.name}-policy`, {
+    new SqsQueuePolicy(this, `${queue.name}-policy`, {
       queueUrl: queue.resource.url,
       policy: policy,
       provider: this.config.provider,

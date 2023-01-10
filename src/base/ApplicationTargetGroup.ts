@@ -1,5 +1,5 @@
-import { elb } from '@cdktf/provider-aws';
-import { Resource, TerraformMetaArguments } from 'cdktf';
+import { AlbTargetGroup } from '@cdktf/provider-aws/lib/alb-target-group';
+import { TerraformMetaArguments } from 'cdktf';
 import { Construct } from 'constructs';
 
 export interface ApplicationTargetGroupProps extends TerraformMetaArguments {
@@ -9,8 +9,8 @@ export interface ApplicationTargetGroupProps extends TerraformMetaArguments {
   tags?: { [key: string]: string };
 }
 
-export class ApplicationTargetGroup extends Resource {
-  public readonly targetGroup: elb.AlbTargetGroup;
+export class ApplicationTargetGroup extends Construct {
+  public readonly targetGroup: AlbTargetGroup;
 
   constructor(
     scope: Construct,
@@ -19,7 +19,7 @@ export class ApplicationTargetGroup extends Resource {
   ) {
     super(scope, name);
 
-    this.targetGroup = new elb.AlbTargetGroup(this, 'ecs_target_group', {
+    this.targetGroup = new AlbTargetGroup(this, 'ecs_target_group', {
       namePrefix: config.shortName,
       protocol: 'HTTP',
       vpcId: config.vpcId,

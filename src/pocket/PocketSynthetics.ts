@@ -1,10 +1,6 @@
-import { Resource } from 'cdktf';
+import { NrqlAlertCondition } from '@cdktf/provider-newrelic/lib/nrql-alert-condition';
+import { SyntheticsMonitor } from '@cdktf/provider-newrelic/lib/synthetics-monitor';
 import { Construct } from 'constructs';
-
-import {
-  SyntheticsMonitor,
-  NrqlAlertCondition,
-} from '@cdktf/provider-newrelic';
 
 export interface PocketSyntheticProps {
   uri: string;
@@ -35,7 +31,7 @@ const globalCheckLocations = [
   'AWS_US_EAST_2',
 ];
 
-export class PocketSyntheticCheck extends Resource {
+export class PocketSyntheticCheck extends Construct {
   constructor(
     scope: Construct,
     private name: string,
@@ -57,9 +53,9 @@ export class PocketSyntheticCheck extends Resource {
       {
         name: `${this.name}-synthetics`,
         type: 'SIMPLE',
-        frequency: 5,
+        period: 'EVERY_5_MINUTES',
         status: 'ENABLED',
-        locations: globalCheckLocations,
+        locationsPublic: globalCheckLocations,
         uri: this.config.uri,
         verifySsl: this.config.verifySsl,
       }

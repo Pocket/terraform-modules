@@ -1,10 +1,25 @@
-import { Fn, Resource, TerraformMetaArguments } from 'cdktf';
-import { Construct } from 'constructs';
-import { cloudwatch, iam, lambdafunction, s3 } from '@cdktf/provider-aws';
 import {
   DataArchiveFile,
   DataArchiveFileSource,
-} from '@cdktf/provider-archive';
+} from '@cdktf/provider-archive/lib/data-archive-file';
+import { CloudwatchLogGroup } from '@cdktf/provider-aws/lib/cloudwatch-log-group';
+import {
+  DataAwsIamPolicyDocumentStatement,
+  DataAwsIamPolicyDocument,
+} from '@cdktf/provider-aws/lib/data-aws-iam-policy-document';
+import { IamPolicy } from '@cdktf/provider-aws/lib/iam-policy';
+import { IamRole } from '@cdktf/provider-aws/lib/iam-role';
+import { IamRolePolicyAttachment } from '@cdktf/provider-aws/lib/iam-role-policy-attachment';
+import { LambdaAlias } from '@cdktf/provider-aws/lib/lambda-alias';
+import {
+  LambdaFunctionVpcConfig,
+  LambdaFunction,
+  LambdaFunctionConfig,
+} from '@cdktf/provider-aws/lib/lambda-function';
+import { S3Bucket } from '@cdktf/provider-aws/lib/s3-bucket';
+import { S3BucketPublicAccessBlock } from '@cdktf/provider-aws/lib/s3-bucket-public-access-block';
+import { Fn, TerraformMetaArguments } from 'cdktf';
+import { Construct } from 'constructs';
 
 export enum LAMBDA_RUNTIMES {
   PYTHON38 = 'python3.8',
@@ -23,8 +38,8 @@ export interface ApplicationVersionedLambdaProps
   reservedConcurrencyLimit?: number;
   memorySizeInMb?: number;
   environment?: { [key: string]: string };
-  vpcConfig?: lambdafunction.LambdaFunctionVpcConfig;
-  executionPolicyStatements?: iam.DataAwsIamPolicyDocumentStatement[];
+  vpcConfig?: LambdaFunctionVpcConfig;
+  executionPolicyStatements?: DataAwsIamPolicyDocumentStatement[];
   tags?: { [key: string]: string };
   logRetention?: number;
   s3Bucket: string;
@@ -37,10 +52,10 @@ const DEFAULT_RETENTION = 14;
 const DEFAULT_CONCURRENCY_LIMIT = -1; //unreserved concurrency
 const DEFAULT_MEMORY_SIZE = 128;
 
-export class ApplicationVersionedLambda extends Resource {
-  public readonly versionedLambda: lambdafunction.LambdaAlias;
-  public readonly defaultLambda: lambdafunction.LambdaFunction;
-  public lambdaExecutionRole: iam.IamRole;
+export class ApplicationVersionedLambda extends Construct {
+  public readonly versionedLambda: LambdaAlias;
+  public readonly defaultLambda: LambdaFunction;
+  public lambdaExecutionRole: IamRole;
 
   constructor(
     scope: Construct,
@@ -56,21 +71,21 @@ export class ApplicationVersionedLambda extends Resource {
   }
 
   private createLambdaFunction() {
-    this.lambdaExecutionRole = new iam.IamRole(this, 'execution-role', {
+    this.lambdaExecutionRole = new IamRole(this, 'execution-role', {
       name: `${this.config.name}-ExecutionRole`,
       assumeRolePolicy: this.getLambdaAssumePolicyDocument(),
       provider: this.config.provider,
       tags: this.config.tags,
     });
 
-    const executionPolicy = new iam.IamPolicy(this, 'execution-policy', {
+    const executionPolicy = new IamPolicy(this, 'execution-policy', {
       name: `${this.config.name}-ExecutionRolePolicy`,
       policy: this.getLambdaExecutionPolicyDocument(),
       provider: this.config.provider,
       tags: this.config.tags,
     });
 
-    new iam.IamRolePolicyAttachment(this, 'execution-role-policy-attachment', {
+    new IamRolePolicyAttachment(this, 'execution-role-policy-attachment', {
       role: this.lambdaExecutionRole.name,
       policyArn: executionPolicy.arn,
       dependsOn: [this.lambdaExecutionRole, executionPolicy],
@@ -78,7 +93,7 @@ export class ApplicationVersionedLambda extends Resource {
     });
 
     const defaultLambda = this.getDefaultLambda();
-    const lambdaConfig: lambdafunction.LambdaFunctionConfig = {
+    const lambdaConfig: LambdaFunctionConfig = {
       functionName: `${this.config.name}-Function`,
       filename: defaultLambda.outputPath,
       handler: this.config.handler,
@@ -105,13 +120,9 @@ export class ApplicationVersionedLambda extends Resource {
       provider: this.config.provider,
     };
 
-    const lambda = new lambdafunction.LambdaFunction(
-      this,
-      'lambda',
-      lambdaConfig
-    );
+    const lambda = new LambdaFunction(this, 'lambda', lambdaConfig);
 
-    new cloudwatch.CloudwatchLogGroup(this, 'log-group', {
+    new CloudwatchLogGroup(this, 'log-group', {
       name: `/aws/lambda/${lambda.functionName}`,
       retentionInDays: this.config.logRetention ?? DEFAULT_RETENTION,
       dependsOn: [lambda],
@@ -119,7 +130,7 @@ export class ApplicationVersionedLambda extends Resource {
       tags: this.config.tags,
     });
 
-    const versionedLambda = new lambdafunction.LambdaAlias(this, 'alias', {
+    const versionedLambda = new LambdaAlias(this, 'alias', {
       functionName: lambda.functionName,
       functionVersion: Fn.element(Fn.split(':', lambda.qualifiedArn), 7),
       name: 'DEPLOYED',
@@ -141,7 +152,7 @@ export class ApplicationVersionedLambda extends Resource {
   }
 
   private getLambdaAssumePolicyDocument() {
-    return new iam.DataAwsIamPolicyDocument(this, 'assume-policy-document', {
+    return new DataAwsIamPolicyDocument(this, 'assume-policy-document', {
       version: '2012-10-17',
       statement: [
         {
@@ -192,7 +203,7 @@ export class ApplicationVersionedLambda extends Resource {
       });
     }
 
-    return new iam.DataAwsIamPolicyDocument(
+    return new DataAwsIamPolicyDocument(
       this,
       'execution-policy-document',
       document
@@ -229,7 +240,7 @@ export class ApplicationVersionedLambda extends Resource {
   }
 
   private createCodeBucket() {
-    const codeBucket = new s3.S3Bucket(this, 'code-bucket', {
+    const codeBucket = new S3Bucket(this, 'code-bucket', {
       bucket: this.config.s3Bucket,
       acl: 'private',
       tags: this.config.tags,
@@ -237,7 +248,7 @@ export class ApplicationVersionedLambda extends Resource {
       provider: this.config.provider,
     });
 
-    new s3.S3BucketPublicAccessBlock(this, `code-bucket-public-access-block`, {
+    new S3BucketPublicAccessBlock(this, `code-bucket-public-access-block`, {
       bucket: codeBucket.id,
       blockPublicAcls: true,
       blockPublicPolicy: true,

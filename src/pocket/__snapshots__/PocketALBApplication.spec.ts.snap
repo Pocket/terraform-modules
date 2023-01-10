@@ -701,10 +701,6 @@ exports[`PocketALBApplication renders a Pocket App with attached persistent stor
         \\"vpc_id\\": \\"\${data.aws_vpc.testPocketApp_pocket_vpc_C4E157E3.id}\\"
       }
     },
-    \\"null_resource\\": {
-      \\"testPocketApp_ecs_service_8F213571\\": {
-      }
-    },
     \\"time_sleep\\": {
       \\"testPocketApp_ecs_service_waitTwoMinutes_E07A2D17\\": {
         \\"create_duration\\": \\"2m\\",
@@ -796,7 +792,7 @@ exports[`PocketALBApplication renders an Pocket App with code deploy 1`] = `
             \\"principals\\": [
               {
                 \\"identifiers\\": [
-                  \\"codedeploy.amazonaws.com\\"
+                  \\"amazonaws.com\\"
                 ],
                 \\"type\\": \\"Service\\"
               }
@@ -1431,8 +1427,6 @@ exports[`PocketALBApplication renders an Pocket App with code deploy 1`] = `
       }
     },
     \\"null_resource\\": {
-      \\"testPocketApp_ecs_service_8F213571\\": {
-      },
       \\"testPocketApp_ecs_service_create-task-definition-file_5769615D\\": {
         \\"depends_on\\": [
           \\"aws_ecs_task_definition.testPocketApp_ecs_service_ecs-task_A7E74E45\\"
@@ -1546,7 +1540,7 @@ exports[`PocketALBApplication renders an Pocket App with code deploy and creates
             \\"principals\\": [
               {
                 \\"identifiers\\": [
-                  \\"codedeploy.amazonaws.com\\"
+                  \\"amazonaws.com\\"
                 ],
                 \\"type\\": \\"Service\\"
               }
@@ -2181,8 +2175,6 @@ exports[`PocketALBApplication renders an Pocket App with code deploy and creates
       }
     },
     \\"null_resource\\": {
-      \\"testPocketApp_ecs_service_8F213571\\": {
-      },
       \\"testPocketApp_ecs_service_create-task-definition-file_5769615D\\": {
         \\"depends_on\\": [
           \\"aws_ecs_task_definition.testPocketApp_ecs_service_ecs-task_A7E74E45\\"
@@ -2281,7 +2273,7 @@ exports[`PocketALBApplication renders an Pocket App with code deploy notificatio
             \\"principals\\": [
               {
                 \\"identifiers\\": [
-                  \\"codedeploy.amazonaws.com\\"
+                  \\"amazonaws.com\\"
                 ],
                 \\"type\\": \\"Service\\"
               }
@@ -2916,8 +2908,6 @@ exports[`PocketALBApplication renders an Pocket App with code deploy notificatio
       }
     },
     \\"null_resource\\": {
-      \\"testPocketApp_ecs_service_8F213571\\": {
-      },
       \\"testPocketApp_ecs_service_create-task-definition-file_5769615D\\": {
         \\"depends_on\\": [
           \\"aws_ecs_task_definition.testPocketApp_ecs_service_ecs-task_A7E74E45\\"
@@ -3620,10 +3610,6 @@ exports[`PocketALBApplication renders an Pocket App with custom Alarm Descriptio
         \\"name_prefix\\": \\"testapp-ECSSecurityGroup\\",
         \\"vpc_id\\": \\"\${data.aws_vpc.testPocketApp_pocket_vpc_C4E157E3.id}\\"
       }
-    },
-    \\"null_resource\\": {
-      \\"testPocketApp_ecs_service_8F213571\\": {
-      }
     }
   }
 }"
@@ -4228,10 +4214,6 @@ exports[`PocketALBApplication renders an Pocket App with logs and dashboard in a
         },
         \\"name_prefix\\": \\"testapp-ECSSecurityGroup\\",
         \\"vpc_id\\": \\"\${data.aws_vpc.testPocketApp_pocket_vpc_C4E157E3.id}\\"
-      }
-    },
-    \\"null_resource\\": {
-      \\"testPocketApp_ecs_service_8F213571\\": {
       }
     }
   }
@@ -4861,10 +4843,6 @@ exports[`PocketALBApplication renders an application alarms 1`] = `
         \\"name_prefix\\": \\"testapp-ECSSecurityGroup\\",
         \\"vpc_id\\": \\"\${data.aws_vpc.testPocketApp_pocket_vpc_C4E157E3.id}\\"
       }
-    },
-    \\"null_resource\\": {
-      \\"testPocketApp_ecs_service_8F213571\\": {
-      }
     }
   }
 }"
@@ -5482,10 +5460,6 @@ exports[`PocketALBApplication renders an application custom default alarms 1`] =
         },
         \\"name_prefix\\": \\"testapp-ECSSecurityGroup\\",
         \\"vpc_id\\": \\"\${data.aws_vpc.testPocketApp_pocket_vpc_C4E157E3.id}\\"
-      }
-    },
-    \\"null_resource\\": {
-      \\"testPocketApp_ecs_service_8F213571\\": {
       }
     }
   }
@@ -6152,10 +6126,6 @@ exports[`PocketALBApplication renders an application with autoscaling group and 
         },
         \\"vpc_id\\": \\"\${data.aws_vpc.testPocketApp_pocket_vpc_C4E157E3.id}\\"
       }
-    },
-    \\"null_resource\\": {
-      \\"testPocketApp_ecs_service_8F213571\\": {
-      }
     }
   }
 }"
@@ -6760,10 +6730,6 @@ exports[`PocketALBApplication renders an application with custom task sizes 1`] 
         },
         \\"name_prefix\\": \\"testapp-ECSSecurityGroup\\",
         \\"vpc_id\\": \\"\${data.aws_vpc.testPocketApp_pocket_vpc_C4E157E3.id}\\"
-      }
-    },
-    \\"null_resource\\": {
-      \\"testPocketApp_ecs_service_8F213571\\": {
       }
     }
   }
@@ -7430,10 +7396,6 @@ exports[`PocketALBApplication renders an application with default autoscaling gr
         },
         \\"vpc_id\\": \\"\${data.aws_vpc.testPocketApp_pocket_vpc_C4E157E3.id}\\"
       }
-    },
-    \\"null_resource\\": {
-      \\"testPocketApp_ecs_service_8F213571\\": {
-      }
     }
   }
 }"
@@ -8038,10 +8000,6 @@ exports[`PocketALBApplication renders an application with minimal config 1`] = `
         },
         \\"name_prefix\\": \\"testapp-ECSSecurityGroup\\",
         \\"vpc_id\\": \\"\${data.aws_vpc.testPocketApp_pocket_vpc_C4E157E3.id}\\"
-      }
-    },
-    \\"null_resource\\": {
-      \\"testPocketApp_ecs_service_8F213571\\": {
       }
     }
   }
@@ -8672,10 +8630,6 @@ exports[`PocketALBApplication renders an application with modified container def
         },
         \\"name_prefix\\": \\"testapp-ECSSecurityGroup\\",
         \\"vpc_id\\": \\"\${data.aws_vpc.testPocketApp_pocket_vpc_C4E157E3.id}\\"
-      }
-    },
-    \\"null_resource\\": {
-      \\"testPocketApp_ecs_service_8F213571\\": {
       }
     }
   }
@@ -9402,10 +9356,6 @@ exports[`PocketALBApplication renders an external application 1`] = `
         \\"name_prefix\\": \\"testapp-ECSSecurityGroup\\",
         \\"vpc_id\\": \\"\${data.aws_vpc.testPocketApp_pocket_vpc_C4E157E3.id}\\"
       }
-    },
-    \\"null_resource\\": {
-      \\"testPocketApp_ecs_service_8F213571\\": {
-      }
     }
   }
 }"
@@ -10010,10 +9960,6 @@ exports[`PocketALBApplication renders an internal application 1`] = `
         },
         \\"name_prefix\\": \\"testapp-ECSSecurityGroup\\",
         \\"vpc_id\\": \\"\${data.aws_vpc.testPocketApp_pocket_vpc_C4E157E3.id}\\"
-      }
-    },
-    \\"null_resource\\": {
-      \\"testPocketApp_ecs_service_8F213571\\": {
       }
     }
   }
@@ -10679,10 +10625,6 @@ exports[`PocketALBApplication renders an internal application with tags 1`] = `
           \\"name\\": \\"thedude\\"
         },
         \\"vpc_id\\": \\"\${data.aws_vpc.testPocketApp_pocket_vpc_C4E157E3.id}\\"
-      }
-    },
-    \\"null_resource\\": {
-      \\"testPocketApp_ecs_service_8F213571\\": {
       }
     }
   }

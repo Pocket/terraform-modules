@@ -8,7 +8,7 @@ import {
   PocketVersionedLambdaProps,
 } from './PocketVersionedLambda';
 import { LAMBDA_RUNTIMES } from '../base/ApplicationVersionedLambda';
-import { sqs } from '@cdktf/provider-aws';
+import { SqsQueue } from '@cdktf/provider-aws/lib/sqs-queue';
 
 describe('PocketEventBridgeRuleWithMultipleTargets', () => {
   test('renders an event bridge and multiple targets', () => {
@@ -26,7 +26,7 @@ describe('PocketEventBridgeRuleWithMultipleTargets', () => {
         lambdaConfig
       );
 
-      const testSqs = new sqs.SqsQueue(stack, 'test-queue', {
+      const testSqs = new SqsQueue(stack, 'test-queue', {
         name: 'Test-SQS-Queue',
       });
 

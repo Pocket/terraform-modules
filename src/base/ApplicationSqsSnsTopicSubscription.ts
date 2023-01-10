@@ -1,14 +1,20 @@
-import { Resource, TerraformMetaArguments, TerraformResource } from 'cdktf';
+import { DataAwsIamPolicyDocument } from '@cdktf/provider-aws/lib/data-aws-iam-policy-document';
+import { DataAwsSqsQueue } from '@cdktf/provider-aws/lib/data-aws-sqs-queue';
+import {
+  SnsTopicSubscription,
+  SnsTopicSubscriptionConfig,
+} from '@cdktf/provider-aws/lib/sns-topic-subscription';
+import { SqsQueue } from '@cdktf/provider-aws/lib/sqs-queue';
+import { SqsQueuePolicy } from '@cdktf/provider-aws/lib/sqs-queue-policy';
+import { TerraformMetaArguments, TerraformResource } from 'cdktf';
 import { Construct } from 'constructs';
-import { sqs, sns, iam } from '@cdktf/provider-aws';
-import { SnsTopicSubscriptionConfig } from '@cdktf/provider-aws/lib/sns';
 
 export interface ApplicationSqsSnsTopicSubscriptionProps
   extends TerraformMetaArguments {
   name: string;
   snsTopicArn: string;
-  sqsQueue: sqs.SqsQueue | sqs.DataAwsSqsQueue;
-  snsDlq?: sqs.SqsQueue;
+  sqsQueue: SqsQueue | DataAwsSqsQueue;
+  snsDlq?: SqsQueue;
   tags?: { [key: string]: string };
   dependsOn?: TerraformResource[];
 }
@@ -16,8 +22,8 @@ export interface ApplicationSqsSnsTopicSubscriptionProps
 /**
  * Creates an SNS to SQS subscription
  */
-export class ApplicationSqsSnsTopicSubscription extends Resource {
-  public readonly snsTopicSubscription: sns.SnsTopicSubscription;
+export class ApplicationSqsSnsTopicSubscription extends Construct {
+  public readonly snsTopicSubscription: SnsTopicSubscription;
 
   constructor(
     scope: Construct,
@@ -35,8 +41,8 @@ export class ApplicationSqsSnsTopicSubscription extends Resource {
    * Create a dead-letter queue for failed SNS messages
    * @private
    */
-  private createSqsSubscriptionDlq(): sqs.SqsQueue {
-    return new sqs.SqsQueue(this, 'sns-topic-dql', {
+  private createSqsSubscriptionDlq(): SqsQueue {
+    return new SqsQueue(this, 'sns-topic-dql', {
       name: `${this.config.name}-SNS-Topic-DLQ`,
       tags: this.config.tags,
       provider: this.config.provider,
@@ -49,9 +55,9 @@ export class ApplicationSqsSnsTopicSubscription extends Resource {
    * @private
    */
   private createSnsTopicSubscription(
-    snsTopicDlq: sqs.SqsQueue
-  ): sns.SnsTopicSubscription {
-    return new sns.SnsTopicSubscription(this, 'sns-subscription', {
+    snsTopicDlq: SqsQueue
+  ): SnsTopicSubscription {
+    return new SnsTopicSubscription(this, 'sns-subscription', {
       topicArn: this.config.snsTopicArn,
       protocol: 'sqs',
       endpoint: this.config.sqsQueue.arn,
@@ -72,12 +78,12 @@ export class ApplicationSqsSnsTopicSubscription extends Resource {
    * @param snsTopicDlq
    * @private
    */
-  private createPoliciesForSnsToSQS(snsTopicDlq: sqs.SqsQueue): void {
+  private createPoliciesForSnsToSQS(snsTopicDlq: SqsQueue): void {
     [
       { name: 'sns-sqs', resource: this.config.sqsQueue },
       { name: 'sns-dlq', resource: snsTopicDlq },
     ].forEach((queue) => {
-      const policy = new iam.DataAwsIamPolicyDocument(
+      const policy = new DataAwsIamPolicyDocument(
         this,
         `${queue.name}-policy-document`,
         {
@@ -88,7 +94,7 @@ export class ApplicationSqsSnsTopicSubscription extends Resource {
               resources: [queue.resource.arn],
               principals: [
                 {
-                  identifiers: ['sns.amazonaws.com'],
+                  identifiers: ['amazonaws.com'],
                   type: 'Service',
                 },
               ],
@@ -106,7 +112,7 @@ export class ApplicationSqsSnsTopicSubscription extends Resource {
         }
       ).json;
 
-      new sqs.SqsQueuePolicy(this, `${queue.name}-policy`, {
+      new SqsQueuePolicy(this, `${queue.name}-policy`, {
         queueUrl: queue.resource.url,
         policy: policy,
         provider: this.config.provider,

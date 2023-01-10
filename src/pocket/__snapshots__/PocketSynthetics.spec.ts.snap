@@ -29,13 +29,13 @@ exports[`allows passing different values for nrql config 1`] = `
     },
     \\"newrelic_synthetics_monitor\\": {
       \\"test-synthetic_test-synthetic-synthetics-monitor_914DC880\\": {
-        \\"frequency\\": 5,
-        \\"locations\\": [
+        \\"locations_public\\": [
           \\"AWS_US_WEST_2\\",
           \\"AWS_EU_WEST_2\\",
           \\"AWS_US_EAST_2\\"
         ],
         \\"name\\": \\"test-synthetic-synthetics\\",
+        \\"period\\": \\"EVERY_5_MINUTES\\",
         \\"status\\": \\"ENABLED\\",
         \\"type\\": \\"SIMPLE\\",
         \\"uri\\": \\"acme.getpocket.dev\\",
@@ -75,13 +75,13 @@ exports[`renders a Pocket New Relic synthetic check 1`] = `
     },
     \\"newrelic_synthetics_monitor\\": {
       \\"test-synthetic_test-synthetic-synthetics-monitor_914DC880\\": {
-        \\"frequency\\": 5,
-        \\"locations\\": [
+        \\"locations_public\\": [
           \\"AWS_US_WEST_2\\",
           \\"AWS_EU_WEST_2\\",
           \\"AWS_US_EAST_2\\"
         ],
         \\"name\\": \\"test-synthetic-synthetics\\",
+        \\"period\\": \\"EVERY_5_MINUTES\\",
         \\"status\\": \\"ENABLED\\",
         \\"type\\": \\"SIMPLE\\",
         \\"uri\\": \\"acme.getpocket.dev\\",

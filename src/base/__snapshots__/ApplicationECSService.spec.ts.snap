@@ -218,10 +218,6 @@ exports[`ApplicationECSService attaches persistent (efs) storage to a ECS task 1
         \\"vpc_id\\": \\"myhouse\\"
       }
     },
-    \\"null_resource\\": {
-      \\"testECSService\\": {
-      }
-    },
     \\"time_sleep\\": {
       \\"testECSService_waitTwoMinutes_F8D60FA5\\": {
         \\"create_duration\\": \\"2m\\",
@@ -357,10 +353,6 @@ exports[`ApplicationECSService renders an ECS service with code deploy 1`] = `
         \\"name_prefix\\": \\"abides-dev-ECSSecurityGroup\\",
         \\"vpc_id\\": \\"myhouse\\"
       }
-    },
-    \\"null_resource\\": {
-      \\"testECSService\\": {
-      }
     }
   }
 }"
@@ -489,10 +481,6 @@ exports[`ApplicationECSService renders an ECS service with code deploy and exclu
         },
         \\"name_prefix\\": \\"abides-dev-ECSSecurityGroup\\",
         \\"vpc_id\\": \\"myhouse\\"
-      }
-    },
-    \\"null_resource\\": {
-      \\"testECSService\\": {
       }
     }
   }
@@ -623,10 +611,6 @@ exports[`ApplicationECSService renders an ECS service with code deploy notificat
         \\"name_prefix\\": \\"abides-dev-ECSSecurityGroup\\",
         \\"vpc_id\\": \\"myhouse\\"
       }
-    },
-    \\"null_resource\\": {
-      \\"testECSService\\": {
-      }
     }
   }
 }"
@@ -755,10 +739,6 @@ exports[`ApplicationECSService renders an ECS service with full container defini
         },
         \\"name_prefix\\": \\"abides-dev-ECSSecurityGroup\\",
         \\"vpc_id\\": \\"myhouse\\"
-      }
-    },
-    \\"null_resource\\": {
-      \\"testECSService\\": {
       }
     }
   }
@@ -957,10 +937,6 @@ exports[`ApplicationECSService renders an ECS service with full container defini
         \\"name_prefix\\": \\"abides-dev-ECSSecurityGroup\\",
         \\"vpc_id\\": \\"myhouse\\"
       }
-    },
-    \\"null_resource\\": {
-      \\"testECSService\\": {
-      }
     }
   }
 }"
@@ -1088,10 +1064,6 @@ exports[`ApplicationECSService renders an ECS service with minimal config 1`] = 
         },
         \\"name_prefix\\": \\"abides-dev-ECSSecurityGroup\\",
         \\"vpc_id\\": \\"myhouse\\"
-      }
-    },
-    \\"null_resource\\": {
-      \\"testECSService\\": {
       }
     }
   }
@@ -1293,10 +1265,6 @@ exports[`ApplicationECSService renders an ECS service with mountPoints deduplica
         \\"name_prefix\\": \\"abides-dev-ECSSecurityGroup\\",
         \\"vpc_id\\": \\"myhouse\\"
       }
-    },
-    \\"null_resource\\": {
-      \\"testECSService\\": {
-      }
     }
   }
 }"
@@ -1431,10 +1399,6 @@ exports[`ApplicationECSService renders an ECS service without a log group contai
         },
         \\"name_prefix\\": \\"abides-dev-ECSSecurityGroup\\",
         \\"vpc_id\\": \\"myhouse\\"
-      }
-    },
-    \\"null_resource\\": {
-      \\"testECSService\\": {
       }
     }
   }
@@ -1583,10 +1547,6 @@ exports[`ApplicationECSService renders an ECS service without an image container
         },
         \\"name_prefix\\": \\"abides-dev-ECSSecurityGroup\\",
         \\"vpc_id\\": \\"myhouse\\"
-      }
-    },
-    \\"null_resource\\": {
-      \\"testECSService\\": {
       }
     }
   }

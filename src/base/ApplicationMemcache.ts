@@ -4,7 +4,8 @@ import {
   ApplicationElasticacheEngine,
 } from './ApplicationElasticacheCluster';
 import { Construct } from 'constructs';
-import { vpc, elasticache } from '@cdktf/provider-aws';
+import { DataAwsVpc } from '@cdktf/provider-aws/lib/data-aws-vpc';
+import { ElasticacheCluster } from '@cdktf/provider-aws/lib/elasticache-cluster';
 
 const DEFAULT_CONFIG = {
   node: {
@@ -14,7 +15,7 @@ const DEFAULT_CONFIG = {
 };
 
 export class ApplicationMemcache extends ApplicationElasticacheCluster {
-  public elasticacheCluster: elasticache.ElasticacheCluster;
+  public elasticacheCluster: ElasticacheCluster;
 
   constructor(
     scope: Construct,
@@ -47,9 +48,9 @@ export class ApplicationMemcache extends ApplicationElasticacheCluster {
    */
   private static createElasticacheCluster(
     scope: Construct,
-    appVpc: vpc.DataAwsVpc,
+    appVpc: DataAwsVpc,
     config: ApplicationElasticacheClusterProps
-  ): elasticache.ElasticacheCluster {
+  ): ElasticacheCluster {
     const engine = ApplicationElasticacheEngine.MEMCACHED;
     const port = ApplicationElasticacheCluster.getPortForEngine(engine);
 
@@ -60,7 +61,7 @@ export class ApplicationMemcache extends ApplicationElasticacheCluster {
       port
     );
 
-    return new elasticache.ElasticacheCluster(scope, `elasticache_cluster`, {
+    return new ElasticacheCluster(scope, `elasticache_cluster`, {
       clusterId: config.prefix.toLowerCase(),
       engine: engine.toString(),
       nodeType: config.node.size,

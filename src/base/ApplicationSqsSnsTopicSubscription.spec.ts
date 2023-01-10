@@ -1,12 +1,12 @@
+import { SqsQueue } from '@cdktf/provider-aws/lib/sqs-queue';
 import { Testing } from 'cdktf';
-import { sqs } from '@cdktf/provider-aws';
 import { ApplicationSqsSnsTopicSubscription } from './ApplicationSqsSnsTopicSubscription';
 
 describe('ApplicationSqsSnsTopicSubscription', () => {
   const getConfig = (stack) => ({
     name: 'test-sns-subscription',
     snsTopicArn: 'arn:aws:sns:TopicName',
-    sqsQueue: new sqs.SqsQueue(stack, 'sqs', {
+    sqsQueue: new SqsQueue(stack, 'sqs', {
       name: 'test-sqs',
     }),
   });
@@ -14,10 +14,10 @@ describe('ApplicationSqsSnsTopicSubscription', () => {
   const getConfigWithDlq = (stack) => ({
     name: 'test-sns-subscription',
     snsTopicArn: 'arn:aws:sns:TopicName',
-    sqsQueue: new sqs.SqsQueue(stack, 'sqs', {
+    sqsQueue: new SqsQueue(stack, 'sqs', {
       name: 'test-sqs',
     }),
-    snsDlq: new sqs.SqsQueue(stack, 'dlq', {
+    snsDlq: new SqsQueue(stack, 'dlq', {
       name: 'test-sqs-dlq',
     }),
   });

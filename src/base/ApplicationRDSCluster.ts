@@ -1,11 +1,19 @@
-import { Resource, TerraformMetaArguments, TerraformProvider } from 'cdktf';
-import { vpc, rds, secretsmanager } from '@cdktf/provider-aws';
+import { DataAwsVpc } from '@cdktf/provider-aws/lib/data-aws-vpc';
+import { DbSubnetGroup } from '@cdktf/provider-aws/lib/db-subnet-group';
+import {
+  RdsClusterConfig,
+  RdsCluster,
+} from '@cdktf/provider-aws/lib/rds-cluster';
+import { SecretsmanagerSecret } from '@cdktf/provider-aws/lib/secretsmanager-secret';
+import { SecretsmanagerSecretVersion } from '@cdktf/provider-aws/lib/secretsmanager-secret-version';
+import { SecurityGroup } from '@cdktf/provider-aws/lib/security-group';
+import { TerraformMetaArguments, TerraformProvider } from 'cdktf';
 import { Construct } from 'constructs';
 import crypto from 'crypto';
 
 //Override the default rds config but remove the items that we set ourselves.
 export type ApplicationRDSClusterConfig = Omit<
-  rds.RdsClusterConfig,
+  RdsClusterConfig,
   | 'clusterIdentifierPrefix'
   | 'vpcSecurityGroupIds'
   | 'dbSubnetGroupName'
@@ -35,8 +43,8 @@ export interface ApplicationRDSClusterProps extends TerraformMetaArguments {
  * If the database is Aurora or MySQL, a SecretsManager secret will be created with a rotation lambda
  * that you can invoke in the AWS console after creation to rotate the password
  */
-export class ApplicationRDSCluster extends Resource {
-  public readonly rds: rds.RdsCluster;
+export class ApplicationRDSCluster extends Construct {
+  public readonly rds: RdsCluster;
   public readonly secretARN?: string;
 
   constructor(
@@ -46,7 +54,7 @@ export class ApplicationRDSCluster extends Resource {
   ) {
     super(scope, name);
 
-    const appVpc = new vpc.DataAwsVpc(this, `vpc`, {
+    const appVpc = new DataAwsVpc(this, `vpc`, {
       filter: [
         {
           name: 'vpc-id',
@@ -61,7 +69,7 @@ export class ApplicationRDSCluster extends Resource {
       ? 5432
       : 3306;
 
-    const securityGroup = new vpc.SecurityGroup(this, 'rds_security_group', {
+    const securityGroup = new SecurityGroup(this, 'rds_security_group', {
       namePrefix: config.prefix,
       description: 'Managed by Terraform',
       vpcId: appVpc.id,
@@ -95,14 +103,14 @@ export class ApplicationRDSCluster extends Resource {
       tags: config.tags,
     });
 
-    const subnetGroup = new rds.DbSubnetGroup(this, 'rds_subnet_group', {
+    const subnetGroup = new DbSubnetGroup(this, 'rds_subnet_group', {
       namePrefix: config.prefix.toLowerCase(),
       subnetIds: config.subnetIds,
       provider: config.provider,
       tags: config.tags,
     });
 
-    this.rds = new rds.RdsCluster(this, 'rds_cluster', {
+    this.rds = new RdsCluster(this, 'rds_cluster', {
       ...config.rdsConfig,
       clusterIdentifierPrefix: config.prefix.toLowerCase(),
       tags: config.tags,
@@ -146,7 +154,7 @@ export class ApplicationRDSCluster extends Resource {
    */
   private static createRdsSecret(
     scope: Construct,
-    rds: rds.RdsCluster,
+    rds: RdsCluster,
     rdsPort: number,
     prefix: string,
     tags?: { [key: string]: string },
@@ -154,19 +162,15 @@ export class ApplicationRDSCluster extends Resource {
     provider?: TerraformProvider
   ): { secretARN: string } {
     //Create the secret
-    const secret = new secretsmanager.SecretsmanagerSecret(
-      scope,
-      `rds_secret`,
-      {
-        description: `Secret For ${rds.clusterIdentifier}`,
-        name: `${prefix}/${rds.clusterIdentifier}`,
-        //We dont auto rotate, because our apps dont have triggers to refresh yet.
-        //This is mainly so we can rotate after we create the rds.
-        dependsOn: [rds],
-        provider,
-        tags,
-      }
-    );
+    const secret = new SecretsmanagerSecret(scope, `rds_secret`, {
+      description: `Secret For ${rds.clusterIdentifier}`,
+      name: `${prefix}/${rds.clusterIdentifier}`,
+      //We dont auto rotate, because our apps dont have triggers to refresh yet.
+      //This is mainly so we can rotate after we create the
+      dependsOn: [rds],
+      provider,
+      tags,
+    });
 
     const secretValues: {
       engine: string;
@@ -177,7 +181,7 @@ export class ApplicationRDSCluster extends Resource {
       port: number;
       database_url?: string;
     } = {
-      engine: rds.engine,
+      engine: engine,
       host: rds.endpoint,
       username: rds.masterUsername,
       password: rds.masterPassword,
@@ -191,16 +195,12 @@ export class ApplicationRDSCluster extends Resource {
     }
 
     //Create the initial secret version
-    new secretsmanager.SecretsmanagerSecretVersion(
-      scope,
-      `rds_secret_version`,
-      {
-        secretId: secret.id,
-        secretString: JSON.stringify(secretValues),
-        dependsOn: [secret],
-        provider,
-      }
-    );
+    new SecretsmanagerSecretVersion(scope, `rds_secret_version`, {
+      secretId: secret.id,
+      secretString: JSON.stringify(secretValues),
+      dependsOn: [secret],
+      provider,
+    });
 
     return { secretARN: secret.arn };
   }
