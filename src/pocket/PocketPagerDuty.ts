@@ -1,4 +1,4 @@
-import { Resource } from 'cdktf';
+import { Resource, TerraformMetaArguments } from 'cdktf';
 import { Construct } from 'constructs';
 import {
   DataPagerdutyVendor,
@@ -7,7 +7,7 @@ import {
 } from '@cdktf/provider-pagerduty';
 import { sns } from '@cdktf/provider-aws';
 
-export interface PocketPagerDutyProps {
+export interface PocketPagerDutyProps extends TerraformMetaArguments {
   prefix: string;
   service: {
     autoResolveTimeout?: number;
@@ -115,6 +115,7 @@ export class PocketPagerDuty extends Resource {
           this.config.sns?.subscription?.confirmationTimeoutInMinutes ??
           PocketPagerDuty.SNS_SUBSCRIPTION_CONFIRMATION_TIMEOUT_IN_MINUTES,
         dependsOn: [topic, integration],
+        provider: this.config.provider,
       }
     );
   }
@@ -123,6 +124,7 @@ export class PocketPagerDuty extends Resource {
     return new sns.SnsTopic(this, `alarm-${urgency.toLowerCase()}-topic`, {
       name: `${this.config.prefix}-Infrastructure-Alarm-${urgency}`,
       tags: this.config.sns?.topic?.tags ?? {},
+      provider: this.config.provider,
     });
   }
 

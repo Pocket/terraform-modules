@@ -1,9 +1,10 @@
-import { Resource, TerraformResource } from 'cdktf';
+import { Resource, TerraformMetaArguments, TerraformResource } from 'cdktf';
 import { Construct } from 'constructs';
 import { sqs, sns, iam } from '@cdktf/provider-aws';
 import { SnsTopicSubscriptionConfig } from '@cdktf/provider-aws/lib/sns';
 
-export interface ApplicationSqsSnsTopicSubscriptionProps {
+export interface ApplicationSqsSnsTopicSubscriptionProps
+  extends TerraformMetaArguments {
   name: string;
   snsTopicArn: string;
   sqsQueue: sqs.SqsQueue | sqs.DataAwsSqsQueue;
@@ -38,6 +39,7 @@ export class ApplicationSqsSnsTopicSubscription extends Resource {
     return new sqs.SqsQueue(this, 'sns-topic-dql', {
       name: `${this.config.name}-SNS-Topic-DLQ`,
       tags: this.config.tags,
+      provider: this.config.provider,
     });
   }
 
@@ -60,6 +62,7 @@ export class ApplicationSqsSnsTopicSubscription extends Resource {
         snsTopicDlq,
         ...(this.config.dependsOn ? this.config.dependsOn : []),
       ],
+      provider: this.config.provider,
     } as SnsTopicSubscriptionConfig);
   }
 
@@ -99,12 +102,14 @@ export class ApplicationSqsSnsTopicSubscription extends Resource {
             },
           ],
           dependsOn: [queue.resource] as TerraformResource[],
+          provider: this.config.provider,
         }
       ).json;
 
       new sqs.SqsQueuePolicy(this, `${queue.name}-policy`, {
         queueUrl: queue.resource.url,
         policy: policy,
+        provider: this.config.provider,
       });
     });
   }

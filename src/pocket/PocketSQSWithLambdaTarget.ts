@@ -59,6 +59,7 @@ export class PocketSQSWithLambdaTarget extends PocketVersionedLambda {
         ...config.sqsQueue,
         name: `${config.name}-Queue`,
         tags: config.tags,
+        provider: this.config.provider,
       });
 
       this.sqsQueueResource = this.applicationSqsQueue.sqsQueue;
@@ -139,6 +140,7 @@ export class PocketSQSWithLambdaTarget extends PocketVersionedLambda {
         batchSize: config.batchSize,
         maximumBatchingWindowInSeconds: config.batchWindow,
         functionResponseTypes: config.functionResponseTypes,
+        provider: config.provider,
       }
     );
   }
@@ -171,6 +173,8 @@ export class PocketSQSWithLambdaTarget extends PocketVersionedLambda {
         ],
       }).json,
       dependsOn: [executionRole],
+      provider: this.config.provider,
+      tags: this.config.tags,
     });
 
     return new iam.IamRolePolicyAttachment(
@@ -180,6 +184,7 @@ export class PocketSQSWithLambdaTarget extends PocketVersionedLambda {
         role: executionRole.name,
         policyArn: lambdaSqsPolicy.arn,
         dependsOn: [executionRole, lambdaSqsPolicy],
+        provider: this.config.provider,
       }
     );
   }

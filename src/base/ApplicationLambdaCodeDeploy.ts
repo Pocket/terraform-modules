@@ -1,13 +1,15 @@
-import { Resource } from 'cdktf';
+import { Resource, TerraformMetaArguments } from 'cdktf';
 import { Construct } from 'constructs';
 import { codedeploy, codestar, iam } from '@cdktf/provider-aws';
 
-export interface ApplicationVersionedLambdaCodeDeployProps {
+export interface ApplicationVersionedLambdaCodeDeployProps
+  extends TerraformMetaArguments {
   name: string;
   deploySnsTopicArn?: string;
   detailType?: 'BASIC' | 'FULL';
   region: string;
   accountId: string;
+  tags?: { [key: string]: string };
   notifications?: {
     /**
      * Option to send CodeDeploy notifications on Started event, defaults to false.
@@ -44,6 +46,8 @@ export class ApplicationLambdaCodeDeploy extends Resource {
       {
         name: `${this.config.name}-Lambda`,
         computePlatform: 'Lambda',
+        provider: this.config.provider,
+        tags: this.config.tags,
       }
     );
 
@@ -71,6 +75,8 @@ export class ApplicationLambdaCodeDeploy extends Resource {
         events: ['DEPLOYMENT_FAILURE'],
       },
       dependsOn: [codeDeployApp],
+      provider: this.config.provider,
+      tags: this.config.tags,
     });
   }
 
@@ -78,6 +84,8 @@ export class ApplicationLambdaCodeDeploy extends Resource {
     const codeDeployRole = new iam.IamRole(this, 'code-deploy-role', {
       name: `${this.config.name}-CodeDeployRole`,
       assumeRolePolicy: this.getCodeDeployAssumePolicyDocument(),
+      provider: this.config.provider,
+      tags: this.config.tags,
     });
 
     new iam.IamRolePolicyAttachment(this, 'code-deploy-policy-attachment', {
@@ -85,6 +93,7 @@ export class ApplicationLambdaCodeDeploy extends Resource {
         'arn:aws:iam::aws:policy/service-role/AWSCodeDeployRoleForLambda',
       role: codeDeployRole.name,
       dependsOn: [codeDeployRole],
+      provider: this.config.provider,
     });
 
     return codeDeployRole;
@@ -107,6 +116,7 @@ export class ApplicationLambdaCodeDeploy extends Resource {
             ],
           },
         ],
+        provider: this.config.provider,
       }
     ).json;
   }
@@ -142,6 +152,8 @@ export class ApplicationLambdaCodeDeploy extends Resource {
           address: this.config.deploySnsTopicArn,
         },
       ],
+      provider: this.config.provider,
+      tags: this.config.tags,
     });
   }
 }

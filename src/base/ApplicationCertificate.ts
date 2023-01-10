@@ -1,10 +1,10 @@
-import { Resource } from 'cdktf';
+import { Resource, TerraformMetaArguments, TerraformProvider } from 'cdktf';
 import { route53, acm } from '@cdktf/provider-aws';
 const { DataAwsRoute53Zone, Route53Record } = route53;
 const { AcmCertificate, AcmCertificateValidation } = acm;
 import { Construct } from 'constructs';
 
-export interface ApplicationCertificateProps {
+export interface ApplicationCertificateProps extends TerraformMetaArguments {
   domain: string;
   /**
    * If zoneId is not passed then we use a data block and the zoneDomain to grab it.
@@ -33,6 +33,7 @@ export class ApplicationCertificate extends Resource {
     if (!config.zoneId && config.zoneDomain) {
       const route53Zone = new DataAwsRoute53Zone(this, `zone`, {
         name: config.zoneDomain,
+        provider: config.provider,
       });
       config.zoneId = route53Zone.zoneId;
     } else if (!config.zoneId && !config.zoneDomain) {
@@ -42,19 +43,22 @@ export class ApplicationCertificate extends Resource {
     const certificate = ApplicationCertificate.generateAcmCertificate(
       this,
       config.domain,
-      config.tags
+      config.tags,
+      config.provider
     );
 
     const certificateRecord = ApplicationCertificate.generateRoute53Record(
       this,
       config.zoneId,
-      certificate
+      certificate,
+      config.provider
     );
 
     const validation = ApplicationCertificate.generateAcmCertificateValidation(
       this,
       certificate,
-      certificateRecord
+      certificateRecord,
+      config.provider
     );
 
     this.arn = certificate.arn;
@@ -64,7 +68,8 @@ export class ApplicationCertificate extends Resource {
   static generateAcmCertificate(
     resource: Resource,
     domain: string,
-    tags?: { [key: string]: string }
+    tags?: { [key: string]: string },
+    provider?: TerraformProvider
   ): acm.AcmCertificate {
     return new AcmCertificate(resource, `certificate`, {
       domainName: domain,
@@ -73,13 +78,15 @@ export class ApplicationCertificate extends Resource {
       lifecycle: {
         createBeforeDestroy: true,
       },
+      provider: provider,
     });
   }
 
   static generateRoute53Record(
     resource: Resource,
     zoneId: string,
-    cert: acm.AcmCertificate
+    cert: acm.AcmCertificate,
+    provider?: TerraformProvider
   ): route53.Route53Record {
     const record = new Route53Record(resource, `certificate_record`, {
       name: cert.domainValidationOptions.get(0).resourceRecordName,
@@ -88,6 +95,7 @@ export class ApplicationCertificate extends Resource {
       records: [cert.domainValidationOptions.get(0).resourceRecordValue],
       ttl: 60,
       dependsOn: [cert],
+      provider: provider,
     });
 
     return record;
@@ -96,12 +104,14 @@ export class ApplicationCertificate extends Resource {
   static generateAcmCertificateValidation(
     resource: Resource,
     cert: acm.AcmCertificate,
-    record: route53.Route53Record
+    record: route53.Route53Record,
+    provider?: TerraformProvider
   ): acm.AcmCertificateValidation {
     return new AcmCertificateValidation(resource, `certificate_validation`, {
       certificateArn: cert.arn,
       validationRecordFqdns: [record.fqdn],
       dependsOn: [record, cert],
+      provider: provider,
     });
   }
 }

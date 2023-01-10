@@ -1,4 +1,4 @@
-import { Resource, TerraformResource } from 'cdktf';
+import { Resource, TerraformMetaArguments, TerraformResource } from 'cdktf';
 import { Construct } from 'constructs';
 import { eventbridge } from '@cdktf/provider-aws';
 import { CloudwatchEventTargetConfig } from '@cdktf/provider-aws/lib/eventbridge';
@@ -12,7 +12,8 @@ export type Target = {
   dependsOn?: TerraformResource;
 };
 
-export interface ApplicationEventBridgeRuleProps {
+export interface ApplicationEventBridgeRuleProps
+  extends TerraformMetaArguments {
   name: string;
   description?: string;
   eventBusName?: string;
@@ -63,6 +64,7 @@ export class ApplicationEventBridgeRule extends Resource {
           preventDestroy: this.config.preventDestroy,
         },
         tags: this.config.tags,
+        provider: this.config.provider,
       }
     );
 
@@ -81,6 +83,7 @@ export class ApplicationEventBridgeRule extends Resource {
           arn: t.arn,
           deadLetterConfig: t.deadLetterArn ? { arn: t.deadLetterArn } : {},
           eventBusName: eventBus,
+          provider: this.config.provider,
         };
 
         if (t.dependsOn) {

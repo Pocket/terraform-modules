@@ -1,5 +1,12 @@
-import { Resource } from 'cdktf';
-import { elb, cloudfront, cloudwatch, route53, efs } from '@cdktf/provider-aws';
+import { Resource, TerraformMetaArguments } from 'cdktf';
+import {
+  elb,
+  cloudfront,
+  cloudwatch,
+  route53,
+  efs,
+  AwsProvider,
+} from '@cdktf/provider-aws';
 import { Construct } from 'constructs';
 import {
   ApplicationAutoscaling,
@@ -14,7 +21,7 @@ import {
 } from '..';
 import { PocketVPC } from './PocketVPC';
 
-export interface PocketALBApplicationAlarmProps {
+export interface PocketALBApplicationAlarmProps extends TerraformMetaArguments {
   threshold?: number;
   period?: number;
   evaluationPeriods?: number;
@@ -23,7 +30,7 @@ export interface PocketALBApplicationAlarmProps {
   alarmDescription?: string;
 }
 
-export interface PocketALBApplicationProps {
+export interface PocketALBApplicationProps extends TerraformMetaArguments {
   /**
    * This is the prefix for the names of all the resources
    * created by this construct.
@@ -266,7 +273,11 @@ export class PocketALBApplication extends Resource {
         publicSubnetIds: config.vpcConfig.publicSubnetIds,
       };
     } else {
-      const pocketVpc = new PocketVPC(this, `pocket_vpc`);
+      const pocketVpc = new PocketVPC(
+        this,
+        `pocket_vpc`,
+        config.provider as AwsProvider
+      );
       return {
         vpcId: pocketVpc.vpc.id,
         privateSubnetIds: pocketVpc.privateSubnetIds,
@@ -327,6 +338,7 @@ export class PocketALBApplication extends Resource {
       creationToken: config.efsConfig.creationToken,
       encrypted: true,
       tags: config.tags,
+      provider: config.provider,
     });
 
     return efsFs;
@@ -368,6 +380,7 @@ export class PocketALBApplication extends Resource {
       internal: this.config.internal,
       tags: this.config.tags,
       accessLogs: this.config.accessLogs,
+      provider: this.config.provider,
     });
 
     //When the app uses a CDN we set the ALB to be direct.app-domain
@@ -397,6 +410,7 @@ export class PocketALBApplication extends Resource {
         ignoreChanges: ['weighted_routing_policy[0].weight'],
       },
       setIdentifier: '1',
+      provider: this.config.provider,
     });
 
     //Creates the Certificate for the ALB
@@ -404,6 +418,7 @@ export class PocketALBApplication extends Resource {
       zoneId: this.baseDNS.zoneId,
       domain: albDomainName,
       tags: this.config.tags,
+      provider: this.config.provider,
     });
 
     return {
@@ -425,6 +440,7 @@ export class PocketALBApplication extends Resource {
       zoneId: this.baseDNS.zoneId,
       domain: this.config.domain,
       tags: this.config.tags,
+      provider: this.config.provider,
     });
 
     //Create the CDN
@@ -486,6 +502,7 @@ export class PocketALBApplication extends Resource {
             restrictionType: 'none',
           },
         },
+        provider: this.config.provider,
       }
     );
 
@@ -515,6 +532,7 @@ export class PocketALBApplication extends Resource {
         ignoreChanges: ['weighted_routing_policy[0].weight'],
       },
       setIdentifier: '2',
+      provider: this.config.provider,
     });
   }
 
@@ -543,6 +561,8 @@ export class PocketALBApplication extends Resource {
           redirect: { port: '443', protocol: 'HTTPS', statusCode: 'HTTP_301' },
         },
       ],
+      provider: this.config.provider,
+      tags: this.config.tags,
     });
 
     const httpsListener = new elb.AlbListener(this, 'listener_https', {
@@ -564,6 +584,8 @@ export class PocketALBApplication extends Resource {
         },
       ],
       certificateArn: albCertificate.arn,
+      provider: this.config.provider,
+      tags: this.config.tags,
     });
 
     // We want to be able to make resource changes on the alb's listeners so we expose them
@@ -591,6 +613,7 @@ export class PocketALBApplication extends Resource {
       containerConfigs: this.config.containerConfigs,
       privateSubnetIds: this.pocketVPC.privateSubnetIds,
       ecsIamConfig: this.config.ecsIamConfig,
+      provider: this.config.provider,
       tags: this.config.tags,
     };
 
@@ -627,6 +650,7 @@ export class PocketALBApplication extends Resource {
         this.config.autoscalingConfig.stepScaleOutAdjustment,
       scaleInThreshold: this.config.autoscalingConfig.scaleInThreshold,
       scaleOutThreshold: this.config.autoscalingConfig.scaleOutThreshold,
+      provider: this.config.provider,
       tags: this.config.tags,
     });
 
@@ -866,6 +890,7 @@ export class PocketALBApplication extends Resource {
     return new cloudwatch.CloudwatchDashboard(this, 'cloudwatch-dashboard', {
       dashboardName: `${this.config.prefix}-ALBDashboard`,
       dashboardBody: JSON.stringify(dashboardJSON),
+      provider: this.config.provider,
     });
   }
 
@@ -921,6 +946,7 @@ export class PocketALBApplication extends Resource {
       alarmDescription:
         alarmsConfig?.http5xxErrorPercentage?.alarmDescription ??
         'Percentage of 5xx responses exceeds threshold',
+      provider: this.config.provider,
     };
     const latencyAlarm: cloudwatch.CloudwatchMetricAlarmConfig = {
       alarmName: 'Alarm-HTTPResponseTime',
@@ -941,6 +967,7 @@ export class PocketALBApplication extends Resource {
       insufficientDataActions: [],
       alarmActions: alarmsConfig?.httpLatency?.actions ?? [],
       okActions: alarmsConfig?.httpLatency?.actions ?? [],
+      provider: this.config.provider,
       tags: this.config.tags,
     };
 

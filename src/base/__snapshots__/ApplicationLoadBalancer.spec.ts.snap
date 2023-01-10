@@ -56,7 +56,11 @@ exports[`ApplicationLoadBalancer renders an ALB with logs with a new bucket 1`] 
     },
     \\"aws_s3_bucket\\": {
       \\"testALB_log-bucket_E9787BB1\\": {
-        \\"bucket\\": \\"logging-bucket\\"
+        \\"bucket\\": \\"logging-bucket\\",
+        \\"tags\\": {
+          \\"hobby\\": \\"bowling\\",
+          \\"name\\": \\"thedude\\"
+        }
       }
     },
     \\"aws_s3_bucket_policy\\": {
@@ -186,7 +190,11 @@ exports[`ApplicationLoadBalancer renders an ALB with logs with a new bucket and 
     },
     \\"aws_s3_bucket\\": {
       \\"testALB_log-bucket_E9787BB1\\": {
-        \\"bucket\\": \\"logging-bucket\\"
+        \\"bucket\\": \\"logging-bucket\\",
+        \\"tags\\": {
+          \\"hobby\\": \\"bowling\\",
+          \\"name\\": \\"thedude\\"
+        }
       }
     },
     \\"aws_s3_bucket_policy\\": {

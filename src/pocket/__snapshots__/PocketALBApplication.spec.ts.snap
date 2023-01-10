@@ -5693,7 +5693,11 @@ exports[`PocketALBApplication renders an application with autoscaling group and 
         ],
         \\"load_balancer_arn\\": \\"\${aws_alb.testPocketApp_application_load_balancer_alb_D538DEEE.arn}\\",
         \\"port\\": 80,
-        \\"protocol\\": \\"HTTP\\"
+        \\"protocol\\": \\"HTTP\\",
+        \\"tags\\": {
+          \\"hobby\\": \\"bowling\\",
+          \\"name\\": \\"thedude\\"
+        }
       },
       \\"testPocketApp_listener_https_7F49DE83\\": {
         \\"certificate_arn\\": \\"\${aws_acm_certificate.testPocketApp_alb_certificate_417C14FF.arn}\\",
@@ -5710,7 +5714,11 @@ exports[`PocketALBApplication renders an application with autoscaling group and 
         \\"load_balancer_arn\\": \\"\${aws_alb.testPocketApp_application_load_balancer_alb_D538DEEE.arn}\\",
         \\"port\\": 443,
         \\"protocol\\": \\"HTTPS\\",
-        \\"ssl_policy\\": \\"ELBSecurityPolicy-TLS-1-1-2017-01\\"
+        \\"ssl_policy\\": \\"ELBSecurityPolicy-TLS-1-1-2017-01\\",
+        \\"tags\\": {
+          \\"hobby\\": \\"bowling\\",
+          \\"name\\": \\"thedude\\"
+        }
       }
     },
     \\"aws_alb_listener_rule\\": {
@@ -5736,7 +5744,11 @@ exports[`PocketALBApplication renders an application with autoscaling group and 
           ]
         },
         \\"listener_arn\\": \\"\${aws_alb_listener.testPocketApp_listener_https_7F49DE83.arn}\\",
-        \\"priority\\": 1
+        \\"priority\\": 1,
+        \\"tags\\": {
+          \\"hobby\\": \\"bowling\\",
+          \\"name\\": \\"thedude\\"
+        }
       }
     },
     \\"aws_alb_target_group\\": {
@@ -6959,7 +6971,11 @@ exports[`PocketALBApplication renders an application with default autoscaling gr
         ],
         \\"load_balancer_arn\\": \\"\${aws_alb.testPocketApp_application_load_balancer_alb_D538DEEE.arn}\\",
         \\"port\\": 80,
-        \\"protocol\\": \\"HTTP\\"
+        \\"protocol\\": \\"HTTP\\",
+        \\"tags\\": {
+          \\"hobby\\": \\"bowling\\",
+          \\"name\\": \\"thedude\\"
+        }
       },
       \\"testPocketApp_listener_https_7F49DE83\\": {
         \\"certificate_arn\\": \\"\${aws_acm_certificate.testPocketApp_alb_certificate_417C14FF.arn}\\",
@@ -6976,7 +6992,11 @@ exports[`PocketALBApplication renders an application with default autoscaling gr
         \\"load_balancer_arn\\": \\"\${aws_alb.testPocketApp_application_load_balancer_alb_D538DEEE.arn}\\",
         \\"port\\": 443,
         \\"protocol\\": \\"HTTPS\\",
-        \\"ssl_policy\\": \\"ELBSecurityPolicy-TLS-1-1-2017-01\\"
+        \\"ssl_policy\\": \\"ELBSecurityPolicy-TLS-1-1-2017-01\\",
+        \\"tags\\": {
+          \\"hobby\\": \\"bowling\\",
+          \\"name\\": \\"thedude\\"
+        }
       }
     },
     \\"aws_alb_listener_rule\\": {
@@ -7002,7 +7022,11 @@ exports[`PocketALBApplication renders an application with default autoscaling gr
           ]
         },
         \\"listener_arn\\": \\"\${aws_alb_listener.testPocketApp_listener_https_7F49DE83.arn}\\",
-        \\"priority\\": 1
+        \\"priority\\": 1,
+        \\"tags\\": {
+          \\"hobby\\": \\"bowling\\",
+          \\"name\\": \\"thedude\\"
+        }
       }
     },
     \\"aws_alb_target_group\\": {
@@ -10197,7 +10221,11 @@ exports[`PocketALBApplication renders an internal application with tags 1`] = `
         ],
         \\"load_balancer_arn\\": \\"\${aws_alb.testPocketApp_application_load_balancer_alb_D538DEEE.arn}\\",
         \\"port\\": 80,
-        \\"protocol\\": \\"HTTP\\"
+        \\"protocol\\": \\"HTTP\\",
+        \\"tags\\": {
+          \\"hobby\\": \\"bowling\\",
+          \\"name\\": \\"thedude\\"
+        }
       },
       \\"testPocketApp_listener_https_7F49DE83\\": {
         \\"certificate_arn\\": \\"\${aws_acm_certificate.testPocketApp_alb_certificate_417C14FF.arn}\\",
@@ -10214,7 +10242,11 @@ exports[`PocketALBApplication renders an internal application with tags 1`] = `
         \\"load_balancer_arn\\": \\"\${aws_alb.testPocketApp_application_load_balancer_alb_D538DEEE.arn}\\",
         \\"port\\": 443,
         \\"protocol\\": \\"HTTPS\\",
-        \\"ssl_policy\\": \\"ELBSecurityPolicy-TLS-1-1-2017-01\\"
+        \\"ssl_policy\\": \\"ELBSecurityPolicy-TLS-1-1-2017-01\\",
+        \\"tags\\": {
+          \\"hobby\\": \\"bowling\\",
+          \\"name\\": \\"thedude\\"
+        }
       }
     },
     \\"aws_alb_listener_rule\\": {
@@ -10240,7 +10272,11 @@ exports[`PocketALBApplication renders an internal application with tags 1`] = `
           ]
         },
         \\"listener_arn\\": \\"\${aws_alb_listener.testPocketApp_listener_https_7F49DE83.arn}\\",
-        \\"priority\\": 1
+        \\"priority\\": 1,
+        \\"tags\\": {
+          \\"hobby\\": \\"bowling\\",
+          \\"name\\": \\"thedude\\"
+        }
       }
     },
     \\"aws_alb_target_group\\": {

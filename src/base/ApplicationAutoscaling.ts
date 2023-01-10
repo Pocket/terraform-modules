@@ -1,11 +1,11 @@
-import { Resource } from 'cdktf';
+import { Resource, TerraformMetaArguments } from 'cdktf';
 import { appautoscaling, cloudwatch, iam } from '@cdktf/provider-aws';
 const { AppautoscalingPolicy, AppautoscalingTarget } = appautoscaling;
 const { CloudwatchMetricAlarm } = cloudwatch;
 const { IamRole, IamRolePolicy, DataAwsIamPolicyDocument } = iam;
 import { Construct } from 'constructs';
 
-export interface ApplicationAutoscalingProps {
+export interface ApplicationAutoscalingProps extends TerraformMetaArguments {
   ecsClusterName: string;
   ecsServiceName: string;
   prefix: string;
@@ -111,6 +111,7 @@ export class ApplicationAutoscaling extends Resource {
           ],
         }
       ).json,
+      provider: config.provider,
     });
   }
 
@@ -149,6 +150,7 @@ export class ApplicationAutoscaling extends Resource {
           },
         ],
       }).json,
+      provider: config.provider,
     });
   }
 
@@ -171,6 +173,7 @@ export class ApplicationAutoscaling extends Resource {
       roleArn: iamRole.arn,
       scalableDimension: 'ecs:service:DesiredCount',
       serviceNamespace: 'ecs',
+      provider: config.provider,
     });
   }
 
@@ -223,6 +226,7 @@ export class ApplicationAutoscaling extends Resource {
           stepAdjustment,
         },
         dependsOn: [target],
+        provider: config.provider,
       }
     );
 
@@ -274,6 +278,7 @@ export class ApplicationAutoscaling extends Resource {
       },
       alarmActions: [arn],
       tags: config.tags,
+      provider: config.provider,
     });
   }
 }

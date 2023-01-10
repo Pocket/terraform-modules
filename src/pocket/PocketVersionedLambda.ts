@@ -1,4 +1,4 @@
-import { Resource } from 'cdktf';
+import { Resource, TerraformMetaArguments } from 'cdktf';
 import { Construct } from 'constructs';
 import {
   ApplicationVersionedLambda,
@@ -25,7 +25,7 @@ export interface PocketVersionedLambdaDefaultAlarmProps {
   treatMissingData?: 'missing' | 'notBreaching' | 'breaching' | 'ignore';
 }
 
-export interface PocketVersionedLambdaProps {
+export interface PocketVersionedLambdaProps extends TerraformMetaArguments {
   name: string;
   lambda: {
     description?: string;

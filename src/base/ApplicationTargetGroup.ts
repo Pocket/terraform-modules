@@ -1,8 +1,8 @@
 import { elb } from '@cdktf/provider-aws';
-import { Resource } from 'cdktf';
+import { Resource, TerraformMetaArguments } from 'cdktf';
 import { Construct } from 'constructs';
 
-export interface ApplicationTargetGroupProps {
+export interface ApplicationTargetGroupProps extends TerraformMetaArguments {
   shortName: string;
   vpcId: string;
   healthCheckPath: string;
@@ -34,6 +34,7 @@ export class ApplicationTargetGroup extends Resource {
         healthyThreshold: 5,
         unhealthyThreshold: 3,
       },
+      provider: config.provider,
     });
   }
 }

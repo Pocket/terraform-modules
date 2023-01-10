@@ -10,13 +10,17 @@ import {
 } from './ApplicationECSContainerDefinition';
 import { ApplicationTargetGroup } from './ApplicationTargetGroup';
 import { ApplicationECSAlbCodeDeploy } from './ApplicationECSAlbCodeDeploy';
-import { TerraformResource, TerraformIterator } from 'cdktf';
+import {
+  TerraformResource,
+  TerraformIterator,
+  TerraformMetaArguments,
+} from 'cdktf';
 import { truncateString } from '../utilities';
 import { File } from '@cdktf/provider-local';
 
 const defaultRegion = 'us-east-1';
 
-export interface ApplicationECSServiceProps {
+export interface ApplicationECSServiceProps extends TerraformMetaArguments {
   prefix: string;
   region?: string;
   shortName: string;
@@ -130,6 +134,8 @@ export class ApplicationECSService extends Resource {
         lifecycle: {
           ignoreChanges: ['action'],
         },
+        provider: config.provider,
+        tags: this.config.tags,
       });
       ecsServiceDependsOn.push(listenerRule);
       targetGroupNames.push(this.mainTargetGroup.targetGroup.name);
@@ -161,6 +167,7 @@ export class ApplicationECSService extends Resource {
       },
       tags: this.config.tags,
       dependsOn: ecsServiceDependsOn,
+      provider: this.config.provider,
     });
 
     if (this.config.useCodeDeploy && this.config.albConfig) {
@@ -180,6 +187,7 @@ export class ApplicationECSService extends Resource {
           tags: this.config.tags,
           dependsOn: [this.service],
           notifications: this.config.codeDeployNotifications,
+          provider: this.config.provider,
         }));
 
       if (!this.config.useCodePipeline) {
@@ -348,6 +356,7 @@ export class ApplicationECSService extends Resource {
       lifecycle: {
         createBeforeDestroy: true,
       },
+      provider: this.config.provider,
     });
   }
 
@@ -370,6 +379,7 @@ export class ApplicationECSService extends Resource {
         const ecrConfig: ECRProps = {
           name: `${this.config.prefix}-${def.name}`.toLowerCase(),
           tags: this.config.tags,
+          provider: this.config.provider,
         };
 
         const ecr = new ApplicationECR(this, `ecr-${def.name}`, ecrConfig);
@@ -388,6 +398,7 @@ export class ApplicationECSService extends Resource {
             namePrefix: `/ecs/${this.config.prefix}/${def.name}`,
             retentionInDays: 30,
             tags: this.config.tags,
+            provider: this.config.provider,
           }
         );
         def.logGroup = cloudwatchLogGroup.name;
@@ -424,6 +435,7 @@ export class ApplicationECSService extends Resource {
         this.config.ecsIamConfig.taskExecutionRolePolicyStatements,
       taskRolePolicyStatements:
         this.config.ecsIamConfig.taskRolePolicyStatements,
+      provider: this.config.provider,
     });
 
     //Create task definition
@@ -440,6 +452,7 @@ export class ApplicationECSService extends Resource {
       volume: Object.values(volumes),
       tags: this.config.tags,
       dependsOn: ecrRepos,
+      provider: this.config.provider,
     });
 
     if (this.config.efsConfig) {
@@ -463,6 +476,7 @@ export class ApplicationECSService extends Resource {
       vpcId: this.config.vpcId,
       healthCheckPath: this.config.albConfig.healthCheckPath,
       tags: { ...this.config.tags, type: name },
+      provider: this.config.provider,
     });
   }
 
@@ -504,6 +518,7 @@ export class ApplicationECSService extends Resource {
       lifecycle: {
         createBeforeDestroy: true,
       },
+      provider: this.config.provider,
     });
 
     // https://developer.hashicorp.com/terraform/cdktf/concepts/iterators
@@ -514,6 +529,7 @@ export class ApplicationECSService extends Resource {
       fileSystemId: efsFs.id,
       subnetId: iterator.value,
       securityGroups: [mountSecurityGroup.id],
+      provider: this.config.provider,
     });
   }
 
@@ -557,6 +573,7 @@ export class ApplicationECSService extends Resource {
       policy: JSON.stringify(FsPolicy),
       // https://github.com/hashicorp/terraform-provider-aws/pull/21734
       dependsOn: [waitTwoMinutes],
+      provider: this.config.provider,
     });
   }
 }

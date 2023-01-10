@@ -1,10 +1,11 @@
-import { Resource, TerraformResource } from 'cdktf';
+import { Resource, TerraformMetaArguments, TerraformResource } from 'cdktf';
 import { Construct } from 'constructs';
 import { sqs, sns, iam, lambdafunction } from '@cdktf/provider-aws';
 import { SnsTopicSubscriptionConfig } from '@cdktf/provider-aws/lib/sns';
 
 /** The config props type of [[`ApplicationLambdaSnsTopicSubscription]] */
-export interface ApplicationLambdaSnsTopicSubscriptionProps {
+export interface ApplicationLambdaSnsTopicSubscriptionProps
+  extends TerraformMetaArguments {
   /** The prefix used to help identify related resources */
   name: string;
   /** The SNS topic to subscribe the Lambda to */
@@ -58,6 +59,7 @@ export class ApplicationLambdaSnsTopicSubscription extends Resource {
     return new sqs.SqsQueue(this, 'sns-topic-dlq', {
       name: `${this.config.name}-SNS-Topic-DLQ`,
       tags: this.config.tags,
+      provider: this.config.provider,
     });
   }
 
@@ -81,6 +83,8 @@ export class ApplicationLambdaSnsTopicSubscription extends Resource {
         this.config.lambda.arn,
         ...(this.config.dependsOn ? this.config.dependsOn : []),
       ],
+      provider: this.config.provider,
+      tags: this.config.tags,
     } as SnsTopicSubscriptionConfig);
   }
 
@@ -97,6 +101,7 @@ export class ApplicationLambdaSnsTopicSubscription extends Resource {
         action: 'lambda:InvokeFunction',
         functionName: this.config.lambda.functionName,
         sourceArn: this.config.snsTopicArn,
+        provider: this.config.provider,
       }
     );
   }
@@ -133,12 +138,14 @@ export class ApplicationLambdaSnsTopicSubscription extends Resource {
           },
         ],
         dependsOn: [queue.resource] as TerraformResource[],
+        provider: this.config.provider,
       }
     ).json;
 
     new sqs.SqsQueuePolicy(this, `${queue.name}-policy`, {
       queueUrl: queue.resource.url,
       policy: policy,
+      provider: this.config.provider,
     });
   }
 }

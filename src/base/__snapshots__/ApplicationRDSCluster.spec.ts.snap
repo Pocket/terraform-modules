@@ -23,7 +23,10 @@ exports[`ApplicationRDSCluster renders a RDS cluster 1`] = `
         \\"subnet_ids\\": [
           \\"0\\",
           \\"1\\"
-        ]
+        ],
+        \\"tags\\": {
+          \\"whodis\\": \\"walter\\"
+        }
       }
     },
     \\"aws_rds_cluster\\": {
@@ -54,7 +57,10 @@ exports[`ApplicationRDSCluster renders a RDS cluster 1`] = `
           \\"aws_rds_cluster.testRDSCluster_rds_cluster_B5FD08B5\\"
         ],
         \\"description\\": \\"Secret For \${aws_rds_cluster.testRDSCluster_rds_cluster_B5FD08B5.cluster_identifier}\\",
-        \\"name\\": \\"bowling-/\${aws_rds_cluster.testRDSCluster_rds_cluster_B5FD08B5.cluster_identifier}\\"
+        \\"name\\": \\"bowling-/\${aws_rds_cluster.testRDSCluster_rds_cluster_B5FD08B5.cluster_identifier}\\",
+        \\"tags\\": {
+          \\"whodis\\": \\"walter\\"
+        }
       }
     },
     \\"aws_secretsmanager_secret_version\\": {
@@ -103,6 +109,9 @@ exports[`ApplicationRDSCluster renders a RDS cluster 1`] = `
           }
         ],
         \\"name_prefix\\": \\"bowling-\\",
+        \\"tags\\": {
+          \\"whodis\\": \\"walter\\"
+        },
         \\"vpc_id\\": \\"\${data.aws_vpc.testRDSCluster_vpc_F47EEEFE.id}\\"
       }
     }
@@ -133,7 +142,10 @@ exports[`ApplicationRDSCluster renders a RDS cluster with a database URL 1`] = `
         \\"subnet_ids\\": [
           \\"0\\",
           \\"1\\"
-        ]
+        ],
+        \\"tags\\": {
+          \\"whodis\\": \\"walter\\"
+        }
       }
     },
     \\"aws_rds_cluster\\": {
@@ -165,7 +177,10 @@ exports[`ApplicationRDSCluster renders a RDS cluster with a database URL 1`] = `
           \\"aws_rds_cluster.testRDSCluster_rds_cluster_B5FD08B5\\"
         ],
         \\"description\\": \\"Secret For \${aws_rds_cluster.testRDSCluster_rds_cluster_B5FD08B5.cluster_identifier}\\",
-        \\"name\\": \\"bowling-/\${aws_rds_cluster.testRDSCluster_rds_cluster_B5FD08B5.cluster_identifier}\\"
+        \\"name\\": \\"bowling-/\${aws_rds_cluster.testRDSCluster_rds_cluster_B5FD08B5.cluster_identifier}\\",
+        \\"tags\\": {
+          \\"whodis\\": \\"walter\\"
+        }
       }
     },
     \\"aws_secretsmanager_secret_version\\": {
@@ -214,6 +229,9 @@ exports[`ApplicationRDSCluster renders a RDS cluster with a database URL 1`] = `
           }
         ],
         \\"name_prefix\\": \\"bowling-\\",
+        \\"tags\\": {
+          \\"whodis\\": \\"walter\\"
+        },
         \\"vpc_id\\": \\"\${data.aws_vpc.testRDSCluster_vpc_F47EEEFE.id}\\"
       }
     }
