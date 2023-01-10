@@ -1,4 +1,4 @@
-import { Resource, TerraformMetaArguments, TerraformResource } from 'cdktf';
+import { TerraformMetaArguments, TerraformResource } from 'cdktf';
 import { Construct } from 'constructs';
 import {
   ApplicationEventBridgeRule,
@@ -26,7 +26,7 @@ export interface PocketEventBridgeProps extends TerraformMetaArguments {
  * Note: the targets need to be created prior and passed to this function.
  * This class does not handle IAM, they have to be handled at the consuming function
  */
-export class PocketEventBridgeRuleWithMultipleTargets extends Resource {
+export class PocketEventBridgeRuleWithMultipleTargets extends Construct {
   private eventBridgeRule: ApplicationEventBridgeRule;
   constructor(
     scope: Construct,

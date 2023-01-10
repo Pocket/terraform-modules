@@ -1,25 +1,31 @@
-import { Resource, TerraformMetaArguments } from 'cdktf';
+import {
+  DataAwsIamPolicyDocumentStatement,
+  DataAwsIamPolicyDocument,
+} from '@cdktf/provider-aws/lib/data-aws-iam-policy-document';
+import { IamPolicy } from '@cdktf/provider-aws/lib/iam-policy';
+import { IamRole } from '@cdktf/provider-aws/lib/iam-role';
+import { IamRolePolicyAttachment } from '@cdktf/provider-aws/lib/iam-role-policy-attachment';
+import { TerraformMetaArguments } from 'cdktf';
 import { Construct } from 'constructs';
-import { iam } from '@cdktf/provider-aws';
 
 export interface ApplicationECSIAMProps extends TerraformMetaArguments {
   prefix: string;
-  taskExecutionRolePolicyStatements: iam.DataAwsIamPolicyDocumentStatement[];
-  taskRolePolicyStatements: iam.DataAwsIamPolicyDocumentStatement[];
+  taskExecutionRolePolicyStatements: DataAwsIamPolicyDocumentStatement[];
+  taskRolePolicyStatements: DataAwsIamPolicyDocumentStatement[];
   taskExecutionDefaultAttachmentArn?: string;
   tags?: { [key: string]: string };
 }
 
-export class ApplicationECSIAM extends Resource {
+export class ApplicationECSIAM extends Construct {
   public readonly taskExecutionRoleArn;
   public readonly taskRoleArn;
-  public readonly taskRole: iam.IamRole;
+  public readonly taskRole: IamRole;
 
   constructor(scope: Construct, name: string, config: ApplicationECSIAMProps) {
     super(scope, name);
 
     // does anything here need to be in config?
-    const dataEcsTaskAssume = new iam.DataAwsIamPolicyDocument(
+    const dataEcsTaskAssume = new DataAwsIamPolicyDocument(
       this,
       'ecs-task-assume',
       {
@@ -40,7 +46,7 @@ export class ApplicationECSIAM extends Resource {
       }
     );
 
-    const ecsTaskExecutionRole = new iam.IamRole(this, 'ecs-execution-role', {
+    const ecsTaskExecutionRole = new IamRole(this, 'ecs-execution-role', {
       assumeRolePolicy: dataEcsTaskAssume.json,
       name: `${config.prefix}-TaskExecutionRole`,
       tags: config.tags,
@@ -48,7 +54,7 @@ export class ApplicationECSIAM extends Resource {
     });
 
     if (config.taskExecutionDefaultAttachmentArn) {
-      new iam.IamRolePolicyAttachment(
+      new IamRolePolicyAttachment(
         this,
         'ecs-task-execution-default-attachment',
         {
@@ -60,7 +66,7 @@ export class ApplicationECSIAM extends Resource {
     }
 
     if (config.taskExecutionRolePolicyStatements.length > 0) {
-      const dataEcsTaskExecutionRolePolicy = new iam.DataAwsIamPolicyDocument(
+      const dataEcsTaskExecutionRolePolicy = new DataAwsIamPolicyDocument(
         this,
         'data-ecs-task-execution-role-policy',
         {
@@ -70,7 +76,7 @@ export class ApplicationECSIAM extends Resource {
         }
       );
 
-      const ecsTaskExecutionRolePolicy = new iam.IamPolicy(
+      const ecsTaskExecutionRolePolicy = new IamPolicy(
         this,
         'ecs-task-execution-role-policy',
         {
@@ -81,7 +87,7 @@ export class ApplicationECSIAM extends Resource {
         }
       );
 
-      new iam.IamRolePolicyAttachment(
+      new IamRolePolicyAttachment(
         this,
         'ecs-task-execution-custom-attachment',
         {
@@ -92,7 +98,7 @@ export class ApplicationECSIAM extends Resource {
       );
     }
 
-    const ecsTaskRole = new iam.IamRole(this, 'ecs-task-role', {
+    const ecsTaskRole = new IamRole(this, 'ecs-task-role', {
       assumeRolePolicy: dataEcsTaskAssume.json,
       name: `${config.prefix}-TaskRole`,
       tags: config.tags,
@@ -100,7 +106,7 @@ export class ApplicationECSIAM extends Resource {
     });
 
     if (config.taskRolePolicyStatements.length > 0) {
-      const dataEcsTaskRolePolicy = new iam.DataAwsIamPolicyDocument(
+      const dataEcsTaskRolePolicy = new DataAwsIamPolicyDocument(
         this,
         'data-ecs-task-role-policy',
         {
@@ -110,18 +116,14 @@ export class ApplicationECSIAM extends Resource {
         }
       );
 
-      const ecsTaskRolePolicy = new iam.IamPolicy(
-        this,
-        'ecs-task-role-policy',
-        {
-          name: `${config.prefix}-TaskRolePolicy`,
-          policy: dataEcsTaskRolePolicy.json,
-          provider: config.provider,
-          tags: config.tags,
-        }
-      );
+      const ecsTaskRolePolicy = new IamPolicy(this, 'ecs-task-role-policy', {
+        name: `${config.prefix}-TaskRolePolicy`,
+        policy: dataEcsTaskRolePolicy.json,
+        provider: config.provider,
+        tags: config.tags,
+      });
 
-      new iam.IamRolePolicyAttachment(this, 'ecs-task-custom-attachment', {
+      new IamRolePolicyAttachment(this, 'ecs-task-custom-attachment', {
         policyArn: ecsTaskRolePolicy.arn,
         role: ecsTaskRole.id,
         provider: config.provider,

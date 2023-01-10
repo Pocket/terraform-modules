@@ -785,7 +785,7 @@ exports[`renders a lambda with code deploy 1`] = `
             \\"principals\\": [
               {
                 \\"identifiers\\": [
-                  \\"codedeploy.amazonaws.com\\"
+                  \\"amazonaws.com\\"
                 ],
                 \\"type\\": \\"Service\\"
               }
@@ -997,7 +997,7 @@ exports[`renders a lambda with code deploy with all deploy notifications turned 
             \\"principals\\": [
               {
                 \\"identifiers\\": [
-                  \\"codedeploy.amazonaws.com\\"
+                  \\"amazonaws.com\\"
                 ],
                 \\"type\\": \\"Service\\"
               }

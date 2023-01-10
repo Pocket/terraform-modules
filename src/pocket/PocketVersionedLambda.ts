@@ -1,11 +1,13 @@
-import { Resource, TerraformMetaArguments } from 'cdktf';
+import { TerraformMetaArguments } from 'cdktf';
 import { Construct } from 'constructs';
 import {
   ApplicationVersionedLambda,
   LAMBDA_RUNTIMES,
 } from '../base/ApplicationVersionedLambda';
-import { cloudwatch, iam, lambdafunction } from '@cdktf/provider-aws';
 import { ApplicationLambdaCodeDeploy } from '../base/ApplicationLambdaCodeDeploy';
+import { CloudwatchMetricAlarm } from '@cdktf/provider-aws/lib/cloudwatch-metric-alarm';
+import { DataAwsIamPolicyDocumentStatement } from '@cdktf/provider-aws/lib/data-aws-iam-policy-document';
+import { LambdaFunctionVpcConfig } from '@cdktf/provider-aws/lib/lambda-function';
 
 export interface PocketVersionedLambdaDefaultAlarmProps {
   threshold: number;
@@ -35,8 +37,8 @@ export interface PocketVersionedLambdaProps extends TerraformMetaArguments {
     reservedConcurrencyLimit?: number;
     memorySizeInMb?: number;
     environment?: { [key: string]: string };
-    vpcConfig?: lambdafunction.LambdaFunctionVpcConfig;
-    executionPolicyStatements?: iam.DataAwsIamPolicyDocumentStatement[];
+    vpcConfig?: LambdaFunctionVpcConfig;
+    executionPolicyStatements?: DataAwsIamPolicyDocumentStatement[];
     logRetention?: number;
     s3Bucket?: string;
     codeDeploy?: {
@@ -61,7 +63,7 @@ export interface PocketVersionedLambdaProps extends TerraformMetaArguments {
   tags?: { [key: string]: string };
 }
 
-export class PocketVersionedLambda extends Resource {
+export class PocketVersionedLambda extends Construct {
   public readonly lambda: ApplicationVersionedLambda;
   constructor(
     scope: Construct,
@@ -140,33 +142,29 @@ export class PocketVersionedLambda extends Resource {
     const props = config.props;
     const defaultEvaluationPeriods = 1;
 
-    new cloudwatch.CloudwatchMetricAlarm(
-      this,
-      config.metricName.toLowerCase(),
-      {
-        alarmName: `${this.config.name}-Lambda-${config.metricName}-Alarm`,
-        namespace: 'AWS/Lambda',
-        metricName: config.metricName,
-        dimensions: {
-          FunctionName: lambda.versionedLambda.functionName,
-          Resource: `${lambda.versionedLambda.functionName}:${lambda.versionedLambda.name}`,
-        },
-        period: props.period,
-        evaluationPeriods: props.evaluationPeriods ?? defaultEvaluationPeriods,
-        datapointsToAlarm: props.datapointsToAlarm ?? defaultEvaluationPeriods,
-        statistic: 'Sum',
-        comparisonOperator: props.comparisonOperator ?? 'GreaterThanThreshold',
-        threshold: props.threshold,
-        alarmDescription:
-          props.alarmDescription ??
-          `Total ${config.metricName.toLowerCase()} breaches threshold`,
-        insufficientDataActions: [],
-        alarmActions: props.actions ?? [],
-        okActions: props.actions ?? [],
-        tags: this.config.tags,
-        treatMissingData: props.treatMissingData ?? 'missing',
-      }
-    );
+    new CloudwatchMetricAlarm(this, config.metricName.toLowerCase(), {
+      alarmName: `${this.config.name}-Lambda-${config.metricName}-Alarm`,
+      namespace: 'AWS/Lambda',
+      metricName: config.metricName,
+      dimensions: {
+        FunctionName: lambda.versionedLambda.functionName,
+        Resource: `${lambda.versionedLambda.functionName}:${lambda.versionedLambda.name}`,
+      },
+      period: props.period,
+      evaluationPeriods: props.evaluationPeriods ?? defaultEvaluationPeriods,
+      datapointsToAlarm: props.datapointsToAlarm ?? defaultEvaluationPeriods,
+      statistic: 'Sum',
+      comparisonOperator: props.comparisonOperator ?? 'GreaterThanThreshold',
+      threshold: props.threshold,
+      alarmDescription:
+        props.alarmDescription ??
+        `Total ${config.metricName.toLowerCase()} breaches threshold`,
+      insufficientDataActions: [],
+      alarmActions: props.actions ?? [],
+      okActions: props.actions ?? [],
+      tags: this.config.tags,
+      treatMissingData: props.treatMissingData ?? 'missing',
+    });
   }
 
   private createLambdaCodeDeploy(): void {

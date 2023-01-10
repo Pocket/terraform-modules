@@ -1,6 +1,11 @@
-import { Resource, TerraformMetaArguments } from 'cdktf';
+import { CodedeployApp } from '@cdktf/provider-aws/lib/codedeploy-app';
+import { CodedeployDeploymentGroup } from '@cdktf/provider-aws/lib/codedeploy-deployment-group';
+import { CodestarnotificationsNotificationRule } from '@cdktf/provider-aws/lib/codestarnotifications-notification-rule';
+import { DataAwsIamPolicyDocument } from '@cdktf/provider-aws/lib/data-aws-iam-policy-document';
+import { IamRole } from '@cdktf/provider-aws/lib/iam-role';
+import { IamRolePolicyAttachment } from '@cdktf/provider-aws/lib/iam-role-policy-attachment';
+import { TerraformMetaArguments } from 'cdktf';
 import { Construct } from 'constructs';
-import { codedeploy, codestar, iam } from '@cdktf/provider-aws';
 
 export interface ApplicationVersionedLambdaCodeDeployProps
   extends TerraformMetaArguments {
@@ -26,8 +31,8 @@ export interface ApplicationVersionedLambdaCodeDeployProps
   };
 }
 
-export class ApplicationLambdaCodeDeploy extends Resource {
-  public readonly codeDeployApp: codedeploy.CodedeployApp;
+export class ApplicationLambdaCodeDeploy extends Construct {
+  public readonly codeDeployApp: CodedeployApp;
 
   constructor(
     scope: Construct,
@@ -40,16 +45,12 @@ export class ApplicationLambdaCodeDeploy extends Resource {
   }
 
   private setupCodeDeploy() {
-    const codeDeployApp = new codedeploy.CodedeployApp(
-      this,
-      'code-deploy-app',
-      {
-        name: `${this.config.name}-Lambda`,
-        computePlatform: 'Lambda',
-        provider: this.config.provider,
-        tags: this.config.tags,
-      }
-    );
+    const codeDeployApp = new CodedeployApp(this, 'code-deploy-app', {
+      name: `${this.config.name}-Lambda`,
+      computePlatform: 'Lambda',
+      provider: this.config.provider,
+      tags: this.config.tags,
+    });
 
     this.createCodeDeploymentGroup(codeDeployApp);
 
@@ -60,8 +61,8 @@ export class ApplicationLambdaCodeDeploy extends Resource {
     return codeDeployApp;
   }
 
-  private createCodeDeploymentGroup(codeDeployApp: codedeploy.CodedeployApp) {
-    new codedeploy.CodedeployDeploymentGroup(this, 'code-deployment-group', {
+  private createCodeDeploymentGroup(codeDeployApp: CodedeployApp) {
+    new CodedeployDeploymentGroup(this, 'code-deployment-group', {
       appName: codeDeployApp.name,
       deploymentConfigName: 'CodeDeployDefault.LambdaAllAtOnce',
       deploymentGroupName: codeDeployApp.name,
@@ -81,14 +82,14 @@ export class ApplicationLambdaCodeDeploy extends Resource {
   }
 
   private getCodeDeployRole() {
-    const codeDeployRole = new iam.IamRole(this, 'code-deploy-role', {
+    const codeDeployRole = new IamRole(this, 'code-deploy-role', {
       name: `${this.config.name}-CodeDeployRole`,
       assumeRolePolicy: this.getCodeDeployAssumePolicyDocument(),
       provider: this.config.provider,
       tags: this.config.tags,
     });
 
-    new iam.IamRolePolicyAttachment(this, 'code-deploy-policy-attachment', {
+    new IamRolePolicyAttachment(this, 'code-deploy-policy-attachment', {
       policyArn:
         'arn:aws:iam::aws:policy/service-role/AWSCodeDeployRoleForLambda',
       role: codeDeployRole.name,
@@ -100,7 +101,7 @@ export class ApplicationLambdaCodeDeploy extends Resource {
   }
 
   private getCodeDeployAssumePolicyDocument() {
-    return new iam.DataAwsIamPolicyDocument(
+    return new DataAwsIamPolicyDocument(
       this,
       'code-deploy-assume-role-policy-document',
       {
@@ -110,7 +111,7 @@ export class ApplicationLambdaCodeDeploy extends Resource {
             actions: ['sts:AssumeRole'],
             principals: [
               {
-                identifiers: ['codedeploy.amazonaws.com'],
+                identifiers: ['amazonaws.com'],
                 type: 'Service',
               },
             ],
@@ -121,9 +122,7 @@ export class ApplicationLambdaCodeDeploy extends Resource {
     ).json;
   }
 
-  private setupCodeDeployNotifications(
-    codeDeployApp: codedeploy.CodedeployApp
-  ) {
+  private setupCodeDeployNotifications(codeDeployApp: CodedeployApp) {
     const eventTypeIds = [];
 
     // the OR condition here sets the notification for failed deploys which is a default when no notification preferences are provided
@@ -142,7 +141,7 @@ export class ApplicationLambdaCodeDeploy extends Resource {
       eventTypeIds.push('codedeploy-application-deployment-started');
     }
 
-    new codestar.CodestarnotificationsNotificationRule(this, 'notifications', {
+    new CodestarnotificationsNotificationRule(this, 'notifications', {
       detailType: this.config.detailType ?? 'BASIC',
       eventTypeIds: eventTypeIds,
       name: codeDeployApp.name,

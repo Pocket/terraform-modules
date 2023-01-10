@@ -14,7 +14,7 @@ exports[`renders a Pocket ECS Codepipeline template 1`] = `
             \\"principals\\": [
               {
                 \\"identifiers\\": [
-                  \\"codepipeline.amazonaws.com\\"
+                  \\"amazonaws.com\\"
                 ],
                 \\"type\\": \\"Service\\"
               }
@@ -232,7 +232,7 @@ exports[`renders a Pocket ECS Codepipeline template with custom steps 1`] = `
             \\"principals\\": [
               {
                 \\"identifiers\\": [
-                  \\"codepipeline.amazonaws.com\\"
+                  \\"amazonaws.com\\"
                 ],
                 \\"type\\": \\"Service\\"
               }
@@ -483,7 +483,7 @@ exports[`renders a Pocket ECS Codepipeline template with tags 1`] = `
             \\"principals\\": [
               {
                 \\"identifiers\\": [
-                  \\"codepipeline.amazonaws.com\\"
+                  \\"amazonaws.com\\"
                 ],
                 \\"type\\": \\"Service\\"
               }
@@ -707,7 +707,7 @@ exports[`renders a Pocket ECS Codepipeline template with the provided CodeDeploy
             \\"principals\\": [
               {
                 \\"identifiers\\": [
-                  \\"codepipeline.amazonaws.com\\"
+                  \\"amazonaws.com\\"
                 ],
                 \\"type\\": \\"Service\\"
               }
@@ -925,7 +925,7 @@ exports[`renders a Pocket ECS Codepipeline template with the provided CodeDeploy
             \\"principals\\": [
               {
                 \\"identifiers\\": [
-                  \\"codepipeline.amazonaws.com\\"
+                  \\"amazonaws.com\\"
                 ],
                 \\"type\\": \\"Service\\"
               }
@@ -1143,7 +1143,7 @@ exports[`renders a Pocket ECS Codepipeline template with the provided appspec pa
             \\"principals\\": [
               {
                 \\"identifiers\\": [
-                  \\"codepipeline.amazonaws.com\\"
+                  \\"amazonaws.com\\"
                 ],
                 \\"type\\": \\"Service\\"
               }
@@ -1361,7 +1361,7 @@ exports[`renders a Pocket ECS Codepipeline template with the provided artifact b
             \\"principals\\": [
               {
                 \\"identifiers\\": [
-                  \\"codepipeline.amazonaws.com\\"
+                  \\"amazonaws.com\\"
                 ],
                 \\"type\\": \\"Service\\"
               }
@@ -1579,7 +1579,7 @@ exports[`renders a Pocket ECS Codepipeline template with the provided code build
             \\"principals\\": [
               {
                 \\"identifiers\\": [
-                  \\"codepipeline.amazonaws.com\\"
+                  \\"amazonaws.com\\"
                 ],
                 \\"type\\": \\"Service\\"
               }
@@ -1797,7 +1797,7 @@ exports[`renders a Pocket ECS Codepipeline template with the provided taskdef pa
             \\"principals\\": [
               {
                 \\"identifiers\\": [
-                  \\"codepipeline.amazonaws.com\\"
+                  \\"amazonaws.com\\"
                 ],
                 \\"type\\": \\"Service\\"
               }

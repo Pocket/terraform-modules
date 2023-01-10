@@ -1,6 +1,7 @@
-import { Resource, TerraformMetaArguments, TerraformProvider } from 'cdktf';
-import { route53 } from '@cdktf/provider-aws';
-const { DataAwsRoute53Zone, Route53Record, Route53Zone } = route53;
+import { DataAwsRoute53Zone } from '@cdktf/provider-aws/lib/data-aws-route53-zone';
+import { Route53Record } from '@cdktf/provider-aws/lib/route53-record';
+import { Route53Zone } from '@cdktf/provider-aws/lib/route53-zone';
+import { TerraformMetaArguments, TerraformProvider } from 'cdktf';
 import { Construct } from 'constructs';
 import { getRootDomain } from '../utilities';
 
@@ -9,7 +10,7 @@ export interface RootDNSProps extends TerraformMetaArguments {
   tags?: { [key: string]: string };
 }
 
-export class ApplicationBaseDNS extends Resource {
+export class ApplicationBaseDNS extends Construct {
   public readonly zoneId: string;
 
   constructor(scope: Construct, name: string, config: RootDNSProps) {
@@ -45,7 +46,7 @@ export class ApplicationBaseDNS extends Resource {
     name: string,
     domain: string,
     provider?: TerraformProvider
-  ): route53.DataAwsRoute53Zone {
+  ): DataAwsRoute53Zone {
     return new DataAwsRoute53Zone(scope, `${name}_main_hosted_zone`, {
       name: getRootDomain(domain),
       provider: provider,
@@ -53,12 +54,12 @@ export class ApplicationBaseDNS extends Resource {
   }
 
   static generateRoute53Zone(
-    resource: Resource,
+    scope: Construct,
     domain: string,
     tags?: { [key: string]: string },
     provider?: TerraformProvider
-  ): route53.Route53Zone {
-    return new Route53Zone(resource, `subhosted_zone`, {
+  ): Route53Zone {
+    return new Route53Zone(scope, `subhosted_zone`, {
       name: domain,
       tags: tags,
       provider: provider,
@@ -66,13 +67,13 @@ export class ApplicationBaseDNS extends Resource {
   }
 
   static generateRoute53Record(
-    resource: Resource,
+    scope: Construct,
     name: string,
     zoneId: string,
     records: string[],
     provider?: TerraformProvider
   ): void {
-    new Route53Record(resource, `subhosted_zone_ns`, {
+    new Route53Record(scope, `subhosted_zone_ns`, {
       name,
       type: 'NS',
       ttl: 86400,

@@ -1,7 +1,8 @@
-import { Resource, TerraformMetaArguments, TerraformProvider } from 'cdktf';
-import { route53, acm } from '@cdktf/provider-aws';
-const { DataAwsRoute53Zone, Route53Record } = route53;
-const { AcmCertificate, AcmCertificateValidation } = acm;
+import { AcmCertificate } from '@cdktf/provider-aws/lib/acm-certificate';
+import { AcmCertificateValidation } from '@cdktf/provider-aws/lib/acm-certificate-validation';
+import { DataAwsRoute53Zone } from '@cdktf/provider-aws/lib/data-aws-route53-zone';
+import { Route53Record } from '@cdktf/provider-aws/lib/route53-record';
+import { TerraformMetaArguments, TerraformProvider } from 'cdktf';
 import { Construct } from 'constructs';
 
 export interface ApplicationCertificateProps extends TerraformMetaArguments {
@@ -17,11 +18,11 @@ export interface ApplicationCertificateProps extends TerraformMetaArguments {
 /**
  * Generates an Application Certificate given a domain name and zoneId
  */
-export class ApplicationCertificate extends Resource {
+export class ApplicationCertificate extends Construct {
   public readonly arn: string;
   // Use `certificateValidation` in `dependsOn` to block on the
   // complete certificate for any downstream dependencies
-  public readonly certificateValidation: acm.AcmCertificateValidation;
+  public readonly certificateValidation: AcmCertificateValidation;
 
   constructor(
     scope: Construct,
@@ -66,12 +67,12 @@ export class ApplicationCertificate extends Resource {
   }
 
   static generateAcmCertificate(
-    resource: Resource,
+    scope: Construct,
     domain: string,
     tags?: { [key: string]: string },
     provider?: TerraformProvider
-  ): acm.AcmCertificate {
-    return new AcmCertificate(resource, `certificate`, {
+  ): AcmCertificate {
+    return new AcmCertificate(scope, `certificate`, {
       domainName: domain,
       validationMethod: 'DNS',
       tags: tags,
@@ -83,12 +84,12 @@ export class ApplicationCertificate extends Resource {
   }
 
   static generateRoute53Record(
-    resource: Resource,
+    scope: Construct,
     zoneId: string,
-    cert: acm.AcmCertificate,
+    cert: AcmCertificate,
     provider?: TerraformProvider
-  ): route53.Route53Record {
-    const record = new Route53Record(resource, `certificate_record`, {
+  ): Route53Record {
+    const record = new Route53Record(scope, `certificate_record`, {
       name: cert.domainValidationOptions.get(0).resourceRecordName,
       type: cert.domainValidationOptions.get(0).resourceRecordType,
       zoneId,
@@ -102,12 +103,12 @@ export class ApplicationCertificate extends Resource {
   }
 
   static generateAcmCertificateValidation(
-    resource: Resource,
-    cert: acm.AcmCertificate,
-    record: route53.Route53Record,
+    scope: Construct,
+    cert: AcmCertificate,
+    record: Route53Record,
     provider?: TerraformProvider
-  ): acm.AcmCertificateValidation {
-    return new AcmCertificateValidation(resource, `certificate_validation`, {
+  ): AcmCertificateValidation {
+    return new AcmCertificateValidation(scope, `certificate_validation`, {
       certificateArn: cert.arn,
       validationRecordFqdns: [record.fqdn],
       dependsOn: [record, cert],

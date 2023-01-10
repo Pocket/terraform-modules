@@ -1,26 +1,33 @@
-import { Fn, Resource } from 'cdktf';
-import { AwsProvider, datasources, kms, ssm, vpc } from '@cdktf/provider-aws';
+import { DataAwsCallerIdentity } from '@cdktf/provider-aws/lib/data-aws-caller-identity';
+import { DataAwsKmsAlias } from '@cdktf/provider-aws/lib/data-aws-kms-alias';
+import { DataAwsRegion } from '@cdktf/provider-aws/lib/data-aws-region';
+import { DataAwsSecurityGroups } from '@cdktf/provider-aws/lib/data-aws-security-groups';
+import { DataAwsSsmParameter } from '@cdktf/provider-aws/lib/data-aws-ssm-parameter';
+import { DataAwsSubnetIds } from '@cdktf/provider-aws/lib/data-aws-subnet-ids';
+import { DataAwsVpc } from '@cdktf/provider-aws/lib/data-aws-vpc';
+import { AwsProvider } from '@cdktf/provider-aws/lib/provider';
+import { Fn } from 'cdktf';
 import { Construct } from 'constructs';
 
-export class PocketVPC extends Resource {
-  public readonly vpc: vpc.DataAwsVpc;
+export class PocketVPC extends Construct {
+  public readonly vpc: DataAwsVpc;
 
   public readonly region: string;
   public readonly accountId: string;
   public readonly privateSubnetIds: string[];
   public readonly publicSubnetIds: string[];
-  public readonly secretsManagerSecretKey: kms.DataAwsKmsAlias;
-  public readonly defaultSecurityGroups: vpc.DataAwsSecurityGroups;
+  public readonly secretsManagerSecretKey: DataAwsKmsAlias;
+  public readonly defaultSecurityGroups: DataAwsSecurityGroups;
 
   constructor(scope: Construct, name: string, provider?: AwsProvider) {
     super(scope, name);
 
-    const vpcSSMParam = new ssm.DataAwsSsmParameter(this, `vpc_ssm_param`, {
+    const vpcSSMParam = new DataAwsSsmParameter(this, `vpc_ssm_param`, {
       provider: provider,
       name: '/Shared/Vpc',
     });
 
-    this.vpc = new vpc.DataAwsVpc(this, `vpc`, {
+    this.vpc = new DataAwsVpc(this, `vpc`, {
       provider: provider,
       filter: [
         {
@@ -30,34 +37,30 @@ export class PocketVPC extends Resource {
       ],
     });
 
-    const privateString = new ssm.DataAwsSsmParameter(this, `private_subnets`, {
+    const privateString = new DataAwsSsmParameter(this, `private_subnets`, {
       provider: provider,
       name: '/Shared/PrivateSubnets',
     });
 
-    const privateSubnets = new vpc.DataAwsSubnetIds(
-      this,
-      `private_subnet_ids`,
-      {
-        provider: provider,
-        vpcId: this.vpc.id,
-        filter: [
-          {
-            name: 'subnet-id',
-            values: Fn.split(',', privateString.value),
-          },
-        ],
-      }
-    );
+    const privateSubnets = new DataAwsSubnetIds(this, `private_subnet_ids`, {
+      provider: provider,
+      vpcId: this.vpc.id,
+      filter: [
+        {
+          name: 'subnet-id',
+          values: Fn.split(',', privateString.value),
+        },
+      ],
+    });
 
     this.privateSubnetIds = privateSubnets.ids;
 
-    const publicString = new ssm.DataAwsSsmParameter(this, `public_subnets`, {
+    const publicString = new DataAwsSsmParameter(this, `public_subnets`, {
       provider: provider,
       name: '/Shared/PublicSubnets',
     });
 
-    const publicSubnets = new vpc.DataAwsSubnetIds(this, `public_subnet_ids`, {
+    const publicSubnets = new DataAwsSubnetIds(this, `public_subnet_ids`, {
       provider: provider,
       vpcId: this.vpc.id,
       filter: [
@@ -70,21 +73,17 @@ export class PocketVPC extends Resource {
 
     this.publicSubnetIds = publicSubnets.ids;
 
-    const identity = new datasources.DataAwsCallerIdentity(
-      this,
-      `current_identity`,
-      {
-        provider: provider,
-      }
-    );
+    const identity = new DataAwsCallerIdentity(this, `current_identity`, {
+      provider: provider,
+    });
     this.accountId = identity.accountId;
 
-    const region = new datasources.DataAwsRegion(this, 'current_region', {
+    const region = new DataAwsRegion(this, 'current_region', {
       provider: provider,
     });
     this.region = region.name;
 
-    this.secretsManagerSecretKey = new kms.DataAwsKmsAlias(
+    this.secretsManagerSecretKey = new DataAwsKmsAlias(
       this,
       'secrets_manager_key',
       {
@@ -93,7 +92,7 @@ export class PocketVPC extends Resource {
       }
     );
 
-    this.defaultSecurityGroups = new vpc.DataAwsSecurityGroups(
+    this.defaultSecurityGroups = new DataAwsSecurityGroups(
       this,
       'default_security_groups',
       {

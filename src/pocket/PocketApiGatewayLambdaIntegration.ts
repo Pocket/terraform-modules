@@ -1,5 +1,3 @@
-import { apigateway, lambdafunction, route53 } from '@cdktf/provider-aws';
-import { Resource } from '@cdktf/provider-null';
 import { Construct } from 'constructs';
 
 import {
@@ -8,8 +6,20 @@ import {
   ApplicationBaseDNS,
   ApplicationCertificate,
 } from '..';
-import ApiGatewayDeploymentConfig = apigateway.ApiGatewayDeploymentConfig;
 import { Fn, TerraformMetaArguments } from 'cdktf';
+import { ApiGatewayBasePathMapping } from '@cdktf/provider-aws/lib/api-gateway-base-path-mapping';
+import {
+  ApiGatewayDeploymentConfig,
+  ApiGatewayDeployment,
+} from '@cdktf/provider-aws/lib/api-gateway-deployment';
+import { ApiGatewayDomainName } from '@cdktf/provider-aws/lib/api-gateway-domain-name';
+import { ApiGatewayIntegration } from '@cdktf/provider-aws/lib/api-gateway-integration';
+import { ApiGatewayMethod } from '@cdktf/provider-aws/lib/api-gateway-method';
+import { ApiGatewayResource } from '@cdktf/provider-aws/lib/api-gateway-resource';
+import { ApiGatewayRestApi } from '@cdktf/provider-aws/lib/api-gateway-rest-api';
+import { ApiGatewayStage } from '@cdktf/provider-aws/lib/api-gateway-stage';
+import { LambdaPermission } from '@cdktf/provider-aws/lib/lambda-permission';
+import { Route53Record } from '@cdktf/provider-aws/lib/route53-record';
 
 export interface ApiGatewayLambdaRoute {
   path: string;
@@ -35,20 +45,20 @@ export interface PocketApiGatewayProps extends TerraformMetaArguments {
 
 interface InitializedGatewayRoute {
   lambda: PocketVersionedLambda;
-  resource: apigateway.ApiGatewayResource;
-  method: apigateway.ApiGatewayMethod;
-  integration: apigateway.ApiGatewayIntegration;
+  resource: ApiGatewayResource;
+  method: ApiGatewayMethod;
+  integration: ApiGatewayIntegration;
 }
 
 /**
  * Create an API Gateway with lambda handlers, optionally assigned
  * to a custom domain owned by the account.
  */
-export class PocketApiGateway extends Resource {
-  private apiGatewayRestApi: apigateway.ApiGatewayRestApi;
+export class PocketApiGateway extends Construct {
+  private apiGatewayRestApi: ApiGatewayRestApi;
   private routes: InitializedGatewayRoute[];
-  private apiGatewayDeployment: apigateway.ApiGatewayDeployment;
-  private apiGatewayStage: apigateway.ApiGatewayStage;
+  private apiGatewayDeployment: ApiGatewayDeployment;
+  private apiGatewayStage: ApiGatewayStage;
 
   constructor(
     scope: Construct,
@@ -56,15 +66,11 @@ export class PocketApiGateway extends Resource {
     private readonly config: PocketApiGatewayProps
   ) {
     super(scope, name);
-    this.apiGatewayRestApi = new apigateway.ApiGatewayRestApi(
-      scope,
-      `api-gateway-rest`,
-      {
-        name: config.name,
-        tags: config.tags,
-        provider: config.provider,
-      }
-    );
+    this.apiGatewayRestApi = new ApiGatewayRestApi(scope, `api-gateway-rest`, {
+      name: config.name,
+      tags: config.tags,
+      provider: config.provider,
+    });
 
     // https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/api_gateway_deployment
     this.routes = this.createLambdaIntegrations(config);
@@ -80,7 +86,7 @@ export class PocketApiGateway extends Resource {
     const triggers = config.triggers ?? { deployedAt: Date.now().toString() };
 
     // Deployment before adding permissions so we can restrict to the stage
-    this.apiGatewayDeployment = new apigateway.ApiGatewayDeployment(
+    this.apiGatewayDeployment = new ApiGatewayDeployment(
       scope,
       'api-gateway-deployment',
       {
@@ -98,17 +104,13 @@ export class PocketApiGateway extends Resource {
         provider: config.provider,
       }
     );
-    this.apiGatewayStage = new apigateway.ApiGatewayStage(
-      scope,
-      'api-gateway-stage',
-      {
-        deploymentId: this.apiGatewayDeployment.id,
-        restApiId: this.apiGatewayRestApi.id,
-        stageName: config.stage,
-        provider: config.provider,
-        tags: config.tags,
-      }
-    );
+    this.apiGatewayStage = new ApiGatewayStage(scope, 'api-gateway-stage', {
+      deploymentId: this.apiGatewayDeployment.id,
+      restApiId: this.apiGatewayRestApi.id,
+      stageName: config.stage,
+      provider: config.provider,
+      tags: config.tags,
+    });
     if (config.domain != null) {
       this.createRoute53Record(config);
     }
@@ -141,7 +143,7 @@ export class PocketApiGateway extends Resource {
     );
 
     //setup custom domain name for API gateway
-    const customDomainName = new apigateway.ApiGatewayDomainName(
+    const customDomainName = new ApiGatewayDomainName(
       this,
       `api-gateway-domain-name`,
       {
@@ -153,7 +155,7 @@ export class PocketApiGateway extends Resource {
       }
     );
 
-    new route53.Route53Record(this, `apigateway-route53-domain-record`, {
+    new Route53Record(this, `apigateway-route53-domain-record`, {
       name: customDomainName.domainName,
       type: 'A',
       zoneId: baseDNS.zoneId,
@@ -168,17 +170,13 @@ export class PocketApiGateway extends Resource {
       provider: config.provider,
     });
 
-    new apigateway.ApiGatewayBasePathMapping(
-      this,
-      `api-gateway-base-path-mapping`,
-      {
-        apiId: this.apiGatewayRestApi.id,
-        stageName: this.apiGatewayStage.stageName,
-        domainName: customDomainName.domainName,
-        basePath: config.basePath ?? '',
-        provider: config.provider,
-      }
-    );
+    new ApiGatewayBasePathMapping(this, `api-gateway-base-path-mapping`, {
+      apiId: this.apiGatewayRestApi.id,
+      stageName: this.apiGatewayStage.stageName,
+      domainName: customDomainName.domainName,
+      basePath: config.basePath ?? '',
+      provider: config.provider,
+    });
   }
 
   /**
@@ -187,13 +185,13 @@ export class PocketApiGateway extends Resource {
   private addInvokePermissions() {
     this.routes.map(({ lambda, resource, method }) => {
       const friendlyUniqueId = lambda.lambda.versionedLambda.friendlyUniqueId;
-      new lambdafunction.LambdaPermission(
+      new LambdaPermission(
         this,
         `${friendlyUniqueId}-allow-gateway-lambda-invoke`,
         {
           functionName: lambda.lambda.versionedLambda.functionName,
           action: 'lambda:InvokeFunction',
-          principal: 'apigateway.amazonaws.com',
+          principal: 'amazonaws.com',
           // Grants access to invoke lambda on specified stage, method, resource path
           // note the resource path has a leading `/`
           sourceArn: `${this.apiGatewayRestApi.executionArn}/${this.apiGatewayStage.stageName}/${method.httpMethod}${resource.path}`,
@@ -216,25 +214,21 @@ export class PocketApiGateway extends Resource {
         `${route.path}-lambda`,
         route.eventHandler
       );
-      const resource = new apigateway.ApiGatewayResource(this, route.path, {
+      const resource = new ApiGatewayResource(this, route.path, {
         parentId: this.apiGatewayRestApi.rootResourceId,
         pathPart: route.path,
         restApiId: this.apiGatewayRestApi.id,
         provider: config.provider,
       });
-      const method = new apigateway.ApiGatewayMethod(
-        this,
-        `${route.path}-method`,
-        {
-          restApiId: this.apiGatewayRestApi.id,
-          resourceId: resource.id,
-          // authorization: route.authorizationType,
-          authorization: 'NONE',
-          httpMethod: route.method,
-          provider: config.provider,
-        }
-      );
-      const integration = new apigateway.ApiGatewayIntegration(
+      const method = new ApiGatewayMethod(this, `${route.path}-method`, {
+        restApiId: this.apiGatewayRestApi.id,
+        resourceId: resource.id,
+        // authorization: route.authorizationType,
+        authorization: 'NONE',
+        httpMethod: route.method,
+        provider: config.provider,
+      });
+      const integration = new ApiGatewayIntegration(
         this,
         `${route.path}-integration`,
         {

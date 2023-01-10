@@ -1,11 +1,10 @@
-import { Resource, TerraformMetaArguments } from 'cdktf';
+import { TerraformMetaArguments } from 'cdktf';
 import { Construct } from 'constructs';
-import {
-  DataPagerdutyVendor,
-  Service,
-  ServiceIntegration,
-} from '@cdktf/provider-pagerduty';
-import { sns } from '@cdktf/provider-aws';
+import { SnsTopic } from '@cdktf/provider-aws/lib/sns-topic';
+import { SnsTopicSubscription } from '@cdktf/provider-aws/lib/sns-topic-subscription';
+import { DataPagerdutyVendor } from '@cdktf/provider-pagerduty/lib/data-pagerduty-vendor';
+import { Service } from '@cdktf/provider-pagerduty/lib/service';
+import { ServiceIntegration } from '@cdktf/provider-pagerduty/lib/service-integration';
 
 export interface PocketPagerDutyProps extends TerraformMetaArguments {
   prefix: string;
@@ -30,12 +29,12 @@ export enum PAGERDUTY_SERVICE_URGENCY {
   NON_CRITICAL = 'Non-Critical',
 }
 
-export class PocketPagerDuty extends Resource {
+export class PocketPagerDuty extends Construct {
   static readonly SERVICE_AUTO_RESOLVE_TIMEOUT = '14400';
   static readonly SERVICE_ACKNOWLEDGEMENT_TIMEOUT = '600';
   static readonly SNS_SUBSCRIPTION_CONFIRMATION_TIMEOUT_IN_MINUTES = 2;
-  public readonly snsCriticalAlarmTopic: sns.SnsTopic;
-  public readonly snsNonCriticalAlarmTopic: sns.SnsTopic;
+  public readonly snsCriticalAlarmTopic: SnsTopic;
+  public readonly snsNonCriticalAlarmTopic: SnsTopic;
   private config: PocketPagerDutyProps;
 
   constructor(scope: Construct, name: string, config: PocketPagerDutyProps) {
@@ -99,11 +98,11 @@ export class PocketPagerDuty extends Resource {
   }
 
   private createSnsTopicSubscription(
-    topic: sns.SnsTopic,
+    topic: SnsTopic,
     integration: ServiceIntegration,
     urgency: PAGERDUTY_SERVICE_URGENCY
-  ): sns.SnsTopicSubscription {
-    return new sns.SnsTopicSubscription(
+  ): SnsTopicSubscription {
+    return new SnsTopicSubscription(
       this,
       `alarm-${urgency.toLowerCase()}-subscription`,
       {
@@ -120,8 +119,8 @@ export class PocketPagerDuty extends Resource {
     );
   }
 
-  private createSnsTopic(urgency: PAGERDUTY_SERVICE_URGENCY): sns.SnsTopic {
-    return new sns.SnsTopic(this, `alarm-${urgency.toLowerCase()}-topic`, {
+  private createSnsTopic(urgency: PAGERDUTY_SERVICE_URGENCY): SnsTopic {
+    return new SnsTopic(this, `alarm-${urgency.toLowerCase()}-topic`, {
       name: `${this.config.prefix}-Infrastructure-Alarm-${urgency}`,
       tags: this.config.sns?.topic?.tags ?? {},
       provider: this.config.provider,

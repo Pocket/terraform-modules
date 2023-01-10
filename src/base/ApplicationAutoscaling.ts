@@ -1,8 +1,10 @@
-import { Resource, TerraformMetaArguments } from 'cdktf';
-import { appautoscaling, cloudwatch, iam } from '@cdktf/provider-aws';
-const { AppautoscalingPolicy, AppautoscalingTarget } = appautoscaling;
-const { CloudwatchMetricAlarm } = cloudwatch;
-const { IamRole, IamRolePolicy, DataAwsIamPolicyDocument } = iam;
+import { TerraformMetaArguments } from 'cdktf';
+import { AppautoscalingPolicy } from '@cdktf/provider-aws/lib/appautoscaling-policy';
+import { AppautoscalingTarget } from '@cdktf/provider-aws/lib/appautoscaling-target';
+import { CloudwatchMetricAlarm } from '@cdktf/provider-aws/lib/cloudwatch-metric-alarm';
+import { IamRole } from '@cdktf/provider-aws/lib/iam-role';
+import { IamRolePolicy } from '@cdktf/provider-aws/lib/iam-role-policy';
+import { DataAwsIamPolicyDocument } from '@cdktf/provider-aws/lib/data-aws-iam-policy-document';
 import { Construct } from 'constructs';
 
 export interface ApplicationAutoscalingProps extends TerraformMetaArguments {
@@ -23,7 +25,7 @@ export interface ApplicationAutoscalingProps extends TerraformMetaArguments {
  * Generates an AutoScaling group
  */
 
-export class ApplicationAutoscaling extends Resource {
+export class ApplicationAutoscaling extends Construct {
   constructor(
     scope: Construct,
     name: string,
@@ -88,13 +90,13 @@ export class ApplicationAutoscaling extends Resource {
    * @returns IamRole
    */
   static generateIamRole(
-    resource: Resource,
+    scope: Construct,
     config: ApplicationAutoscalingProps
-  ): iam.IamRole {
-    return new IamRole(resource, `autoscaling_role`, {
+  ): IamRole {
+    return new IamRole(scope, `autoscaling_role`, {
       name: `${config.prefix}-AutoScalingRole`,
       assumeRolePolicy: new DataAwsIamPolicyDocument(
-        resource,
+        scope,
         `autoscaling_assume`,
         {
           statement: [
@@ -123,14 +125,14 @@ export class ApplicationAutoscaling extends Resource {
    * @param iamRole
    */
   static generateIamRolePolicy(
-    resource: Resource,
+    scope: Construct,
     config: ApplicationAutoscalingProps,
-    iamRole: iam.IamRole
+    iamRole: IamRole
   ): void {
-    new IamRolePolicy(resource, `autoscaling_role_policy`, {
+    new IamRolePolicy(scope, `autoscaling_role_policy`, {
       name: `${config.prefix}-AutoScalingPolicy`,
       role: iamRole.id,
-      policy: new DataAwsIamPolicyDocument(resource, `role_policy`, {
+      policy: new DataAwsIamPolicyDocument(scope, `role_policy`, {
         statement: [
           {
             effect: 'Allow',
@@ -162,11 +164,11 @@ export class ApplicationAutoscaling extends Resource {
    * @returns AppautoscalingTarget
    */
   static generateAutoScalingTarget(
-    resource: Resource,
+    scope: Construct,
     config: ApplicationAutoscalingProps,
-    iamRole: iam.IamRole
-  ): appautoscaling.AppautoscalingTarget {
-    return new AppautoscalingTarget(resource, `autoscaling_target`, {
+    iamRole: IamRole
+  ): AppautoscalingTarget {
+    return new AppautoscalingTarget(scope, `autoscaling_target`, {
       maxCapacity: config.targetMaxCapacity,
       minCapacity: config.targetMinCapacity,
       resourceId: `service/${config.ecsClusterName}/${config.ecsServiceName}`,
@@ -186,11 +188,11 @@ export class ApplicationAutoscaling extends Resource {
    * @returns AppautoscalingPolicy
    */
   static generateAutoSclaingPolicy(
-    resource: Resource,
+    scope: Construct,
     config: ApplicationAutoscalingProps,
-    target: appautoscaling.AppautoscalingTarget,
+    target: AppautoscalingTarget,
     type: 'In' | 'Out'
-  ): appautoscaling.AppautoscalingPolicy {
+  ): AppautoscalingPolicy {
     let stepAdjustment;
 
     if (type === 'In') {
@@ -210,7 +212,7 @@ export class ApplicationAutoscaling extends Resource {
     }
 
     const appAutoscaling = new AppautoscalingPolicy(
-      resource,
+      scope,
       `scale_${type.toLowerCase()}_policy`,
       {
         name: `${config.prefix}-Scale${type}Policy`,
@@ -252,7 +254,7 @@ export class ApplicationAutoscaling extends Resource {
    * @param arn
    */
   static generateCloudwatchMetricAlarm(
-    resource: Resource,
+    scope: Construct,
     config: ApplicationAutoscalingProps,
     id: string,
     name: string,
@@ -261,7 +263,7 @@ export class ApplicationAutoscaling extends Resource {
     threshold: number,
     arn: string
   ): void {
-    new CloudwatchMetricAlarm(resource, id, {
+    new CloudwatchMetricAlarm(scope, id, {
       alarmName: name,
       alarmDescription: desc,
       comparisonOperator: operator,

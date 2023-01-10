@@ -80,20 +80,20 @@
     ]
   },
   "engines": {
-    "node": ">=14"
+    "node": ">=16.18"
   },
   "dependencies": {
-    "@cdktf/provider-archive": "2.0.48",
-    "@cdktf/provider-aws": "9.0.23",
-    "@cdktf/provider-local": "2.0.49",
-    "@cdktf/provider-newrelic": "2.0.91",
-    "@cdktf/provider-null": "2.0.48",
-    "@cdktf/provider-pagerduty": "2.0.51",
-    "@cdktf/provider-time": "^2",
+    "@cdktf/provider-archive": "4.0.0",
+    "@cdktf/provider-aws": "11.0.9",
+    "@cdktf/provider-local": "4.0.0",
+    "@cdktf/provider-newrelic": "5.0.3",
+    "@cdktf/provider-null": "4.0.1",
+    "@cdktf/provider-pagerduty": "4.0.3",
+    "@cdktf/provider-time": "4.0.0",
     "@sinonjs/commons": "^1.8.3",
-    "cdktf": "0.12.2",
-    "cdktf-cli": "0.12.2",
-    "constructs": "10.1.96",
+    "cdktf": "0.14.3",
+    "cdktf-cli": "0.14.3",
+    "constructs": "10.1.215",
     "parse-domain": "^4.1.0"
   },
   "devDependencies": {
@@ -108,7 +108,7 @@
     "@semantic-release/release-notes-generator": "10.0.3",
     "@types/chai": "4.3.4",
     "@types/jest": "28.1.8",
-    "@types/node": "16.11.47",
+    "@types/node": "16.18.11",
     "chai": "4.3.7",
     "conventional-changelog-conventionalcommits": "5.0.0",
     "jest": "28.1.3",

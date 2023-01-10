@@ -26,7 +26,7 @@ exports[`ApplicationSqsSnsTopicSubscription renders an SQS SNS subscription witg
             \\"principals\\": [
               {
                 \\"identifiers\\": [
-                  \\"sns.amazonaws.com\\"
+                  \\"amazonaws.com\\"
                 ],
                 \\"type\\": \\"Service\\"
               }
@@ -59,7 +59,7 @@ exports[`ApplicationSqsSnsTopicSubscription renders an SQS SNS subscription witg
             \\"principals\\": [
               {
                 \\"identifiers\\": [
-                  \\"sns.amazonaws.com\\"
+                  \\"amazonaws.com\\"
                 ],
                 \\"type\\": \\"Service\\"
               }
@@ -132,7 +132,7 @@ exports[`ApplicationSqsSnsTopicSubscription renders an SQS SNS subscription with
             \\"principals\\": [
               {
                 \\"identifiers\\": [
-                  \\"sns.amazonaws.com\\"
+                  \\"amazonaws.com\\"
                 ],
                 \\"type\\": \\"Service\\"
               }
@@ -165,7 +165,7 @@ exports[`ApplicationSqsSnsTopicSubscription renders an SQS SNS subscription with
             \\"principals\\": [
               {
                 \\"identifiers\\": [
-                  \\"sns.amazonaws.com\\"
+                  \\"amazonaws.com\\"
                 ],
                 \\"type\\": \\"Service\\"
               }
@@ -241,7 +241,7 @@ exports[`ApplicationSqsSnsTopicSubscription renders an SQS SNS subscription with
             \\"principals\\": [
               {
                 \\"identifiers\\": [
-                  \\"sns.amazonaws.com\\"
+                  \\"amazonaws.com\\"
                 ],
                 \\"type\\": \\"Service\\"
               }
@@ -274,7 +274,7 @@ exports[`ApplicationSqsSnsTopicSubscription renders an SQS SNS subscription with
             \\"principals\\": [
               {
                 \\"identifiers\\": [
-                  \\"sns.amazonaws.com\\"
+                  \\"amazonaws.com\\"
                 ],
                 \\"type\\": \\"Service\\"
               }

@@ -1,5 +1,10 @@
-import { Resource, TerraformMetaArguments } from 'cdktf';
-import { AwsProvider, cloudwatch } from '@cdktf/provider-aws';
+import { CloudwatchDashboard } from '@cdktf/provider-aws/lib/cloudwatch-dashboard';
+import {
+  CloudwatchMetricAlarmConfig,
+  CloudwatchMetricAlarm,
+} from '@cdktf/provider-aws/lib/cloudwatch-metric-alarm';
+import { AwsProvider } from '@cdktf/provider-aws/lib/provider';
+import { TerraformMetaArguments } from 'cdktf';
 import { Construct } from 'constructs';
 import {
   ApplicationAutoscaling,
@@ -10,7 +15,6 @@ import {
   ApplicationECSServiceProps,
 } from '../';
 import { PocketVPC } from './PocketVPC';
-import { CloudwatchMetricAlarmConfig } from '@cdktf/provider-aws/lib/cloudwatch';
 
 export type CreateECSServiceArgs = {
   ecs: ApplicationECSService;
@@ -76,7 +80,7 @@ export interface PocketECSApplicationProps extends TerraformMetaArguments {
    * Option for defining Cloudwatch alarms
    */
   alarms?: {
-    alarms?: cloudwatch.CloudwatchMetricAlarmConfig[];
+    alarms?: CloudwatchMetricAlarmConfig[];
   };
 }
 
@@ -90,7 +94,7 @@ const DEFAULT_AUTOSCALING_CONFIG = {
   stepScaleOutAdjustment: 2,
 };
 
-export class PocketECSApplication extends Resource {
+export class PocketECSApplication extends Construct {
   public readonly ecsService: ApplicationECSService;
   private readonly config: PocketECSApplicationProps;
   private readonly pocketVPC: PocketECSApplicationProps['vpcConfig'];
@@ -188,7 +192,7 @@ export class PocketECSApplication extends Resource {
       }
     });
 
-    config.alarms?.forEach((alarm: cloudwatch.CloudwatchMetricAlarmConfig) => {
+    config.alarms?.forEach((alarm: CloudwatchMetricAlarmConfig) => {
       if (alarm.datapointsToAlarm > alarm.evaluationPeriods) {
         throw new Error(`${alarm.alarmName}: ${errorMessage}`);
       }
@@ -265,7 +269,7 @@ export class PocketECSApplication extends Resource {
   private createCloudwatchDashboard(
     ecsServiceName: string,
     ecsServiceClusterName: string
-  ): cloudwatch.CloudwatchDashboard {
+  ): CloudwatchDashboard {
     // don't love having this big ol' JSON object here, but it is the simplest way to achieve the result
     const dashboardJSON = {
       widgets: [
@@ -337,7 +341,7 @@ export class PocketECSApplication extends Resource {
       ],
     };
 
-    return new cloudwatch.CloudwatchDashboard(this, 'cloudwatch-dashboard', {
+    return new CloudwatchDashboard(this, 'cloudwatch-dashboard', {
       dashboardName: `${this.config.prefix}-ALBDashboard`,
       dashboardBody: JSON.stringify(dashboardJSON),
       provider: this.config.provider,
@@ -350,7 +354,7 @@ export class PocketECSApplication extends Resource {
   private createCloudwatchAlarms(): void {
     const alarmsConfig = this.config.alarms;
 
-    const defaultAlarms: cloudwatch.CloudwatchMetricAlarmConfig[] = [];
+    const defaultAlarms: CloudwatchMetricAlarmConfig[] = [];
 
     if (alarmsConfig?.alarms) {
       defaultAlarms.push(...alarmsConfig.alarms);
@@ -363,16 +367,12 @@ export class PocketECSApplication extends Resource {
    * @param alarms
    * @private
    */
-  private createAlarms(alarms: cloudwatch.CloudwatchMetricAlarmConfig[]): void {
+  private createAlarms(alarms: CloudwatchMetricAlarmConfig[]): void {
     alarms.forEach((alarmConfig) => {
-      new cloudwatch.CloudwatchMetricAlarm(
-        this,
-        alarmConfig.alarmName.toLowerCase(),
-        {
-          ...alarmConfig,
-          alarmName: `${this.config.prefix}-${alarmConfig.alarmName}`,
-        } as CloudwatchMetricAlarmConfig
-      );
+      new CloudwatchMetricAlarm(this, alarmConfig.alarmName.toLowerCase(), {
+        ...alarmConfig,
+        alarmName: `${this.config.prefix}-${alarmConfig.alarmName}`,
+      } as CloudwatchMetricAlarmConfig);
     });
   }
 }

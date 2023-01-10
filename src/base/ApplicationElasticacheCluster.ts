@@ -1,5 +1,7 @@
-import { Resource, TerraformMetaArguments } from 'cdktf';
-import { vpc, elasticache } from '@cdktf/provider-aws';
+import { DataAwsVpc } from '@cdktf/provider-aws/lib/data-aws-vpc';
+import { ElasticacheSubnetGroup } from '@cdktf/provider-aws/lib/elasticache-subnet-group';
+import { SecurityGroup } from '@cdktf/provider-aws/lib/security-group';
+import { TerraformMetaArguments } from 'cdktf';
 import { Construct } from 'constructs';
 
 export enum ApplicationElasticacheEngine {
@@ -30,7 +32,7 @@ export interface ApplicationElasticacheClusterProps
 /**
  * Generates an elasticache cluster with the desired engine
  */
-export abstract class ApplicationElasticacheCluster extends Resource {
+export abstract class ApplicationElasticacheCluster extends Construct {
   protected constructor(scope: Construct, name: string) {
     super(scope, name);
   }
@@ -44,8 +46,8 @@ export abstract class ApplicationElasticacheCluster extends Resource {
   protected static getVpc(
     scope: Construct,
     config: ApplicationElasticacheClusterProps
-  ): vpc.DataAwsVpc {
-    return new vpc.DataAwsVpc(scope, `vpc`, {
+  ): DataAwsVpc {
+    return new DataAwsVpc(scope, `vpc`, {
       filter: [
         {
           name: 'vpc-id',
@@ -115,13 +117,13 @@ export abstract class ApplicationElasticacheCluster extends Resource {
   protected static createSecurityGroupAndSubnet(
     scope: Construct,
     config: ApplicationElasticacheClusterProps,
-    appVpc: vpc.DataAwsVpc,
+    appVpc: DataAwsVpc,
     port: number
   ): {
-    securityGroup: vpc.SecurityGroup;
-    subnetGroup: elasticache.ElasticacheSubnetGroup;
+    securityGroup: SecurityGroup;
+    subnetGroup: ElasticacheSubnetGroup;
   } {
-    const securityGroup = new vpc.SecurityGroup(
+    const securityGroup = new SecurityGroup(
       scope,
       'elasticache_security_group',
       {
@@ -155,7 +157,7 @@ export abstract class ApplicationElasticacheCluster extends Resource {
         provider: config.provider,
       }
     );
-    const subnetGroup = new elasticache.ElasticacheSubnetGroup(
+    const subnetGroup = new ElasticacheSubnetGroup(
       scope,
       'elasticache_subnet_group',
       {
