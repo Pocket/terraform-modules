@@ -1,3 +1,10 @@
+## [4.8.1](https://github.com/Pocket/terraform-modules/compare/v4.8.0...v4.8.1) (2023-01-11)
+
+
+### Bug Fixes
+
+* **provider:** applying a missing provider ([#1029](https://github.com/Pocket/terraform-modules/issues/1029)) ([342536b](https://github.com/Pocket/terraform-modules/commit/342536bf730f863802c1913e877479677cdb18ea))
+
 ## [4.8.0](https://github.com/Pocket/terraform-modules/compare/v4.7.0...v4.8.0) (2023-01-10)
 
 
