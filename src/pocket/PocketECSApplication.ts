@@ -207,6 +207,7 @@ export class PocketECSApplication extends Construct {
     const ecsCluster = new ApplicationECSCluster(this, 'ecs_cluster', {
       prefix: this.config.prefix,
       tags: this.config.tags,
+      provider: this.config.provider,
     });
 
     let ecsConfig: ApplicationECSServiceProps = {
