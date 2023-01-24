@@ -65,6 +65,7 @@ export interface ApplicationECSServiceProps extends TerraformMetaArguments {
   ecsIamConfig: ApplicationECSIAMProps;
   useCodeDeploy: boolean; //defaults to true
   useCodePipeline?: boolean;
+  successTerminationWaitTimeInMinutes?: number;
   codeDeployNotifications?: {
     notifyOnStarted?: boolean; //defaults to true
     notifyOnSucceeded?: boolean; //defaults to true
@@ -204,6 +205,7 @@ export class ApplicationECSService extends Construct {
             this.config.codeDeploySnsNotificationTopicArn,
           tags: this.config.tags,
           dependsOn: [this.service],
+          successTerminationWaitTimeInMinutes: this.config.successTerminationWaitTimeInMinutes,
           notifications: this.config.codeDeployNotifications,
           provider: this.config.provider,
         }));

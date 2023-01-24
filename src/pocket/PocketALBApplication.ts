@@ -116,6 +116,10 @@ export interface PocketALBApplicationProps extends TerraformMetaArguments {
      * Optional SNS topic for CodeDeploy notifications.
      */
     snsNotificationTopicArn?: string;
+    /**
+     * Optional wait time after replacement task completion. Default is 5 minutes.
+     */
+    successTerminationWaitTimeInMinutes?: number;
 
     notifications?: {
       /**
@@ -596,6 +600,7 @@ export class PocketALBApplication extends Construct {
       useCodeDeploy: this.config.codeDeploy.useCodeDeploy,
       codeDeployNotifications: this.config.codeDeploy.notifications,
       useCodePipeline: this.config.codeDeploy.useCodePipeline,
+      successTerminationWaitTimeInMinutes: this.config.codeDeploy.successTerminationWaitTimeInMinutes,
       codeDeploySnsNotificationTopicArn:
         this.config.codeDeploy.snsNotificationTopicArn,
       albConfig: {
