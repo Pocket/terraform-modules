@@ -1,3 +1,10 @@
+## [4.9.0](https://github.com/Pocket/terraform-modules/compare/v4.8.1...v4.9.0) (2023-01-24)
+
+
+### Features
+
+* add prop to configure success termination timeout value ([#1031](https://github.com/Pocket/terraform-modules/issues/1031)) ([6223ac8](https://github.com/Pocket/terraform-modules/commit/6223ac85e4a2d8ad40d6685d5a9289089402dcb9))
+
 ## [4.8.1](https://github.com/Pocket/terraform-modules/compare/v4.8.0...v4.8.1) (2023-01-11)
 
 
