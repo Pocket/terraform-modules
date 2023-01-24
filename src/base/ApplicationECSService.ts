@@ -205,7 +205,8 @@ export class ApplicationECSService extends Construct {
             this.config.codeDeploySnsNotificationTopicArn,
           tags: this.config.tags,
           dependsOn: [this.service],
-          successTerminationWaitTimeInMinutes: this.config.successTerminationWaitTimeInMinutes,
+          successTerminationWaitTimeInMinutes:
+            this.config.successTerminationWaitTimeInMinutes,
           notifications: this.config.codeDeployNotifications,
           provider: this.config.provider,
         }));
