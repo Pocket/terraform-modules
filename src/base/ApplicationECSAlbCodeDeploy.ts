@@ -19,6 +19,7 @@ export interface ApplicationECSAlbCodeDeployProps
   targetGroupNames: string[];
   tags?: { [key: string]: string };
   dependsOn?: TerraformResource[];
+  successTerminationWaitTimeInMinutes?: number;
   notifications?: {
     notifyOnStarted?: boolean;
     notifyOnSucceeded?: boolean;
@@ -71,7 +72,8 @@ export class ApplicationECSAlbCodeDeploy extends Construct {
           },
           terminateBlueInstancesOnDeploymentSuccess: {
             action: 'TERMINATE',
-            terminationWaitTimeInMinutes: 5,
+            terminationWaitTimeInMinutes:
+              (this.config.successTerminationWaitTimeInMinutes ??= 5),
           },
         },
         deploymentStyle: {
