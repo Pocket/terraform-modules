@@ -72,7 +72,8 @@ export class ApplicationECSAlbCodeDeploy extends Construct {
           },
           terminateBlueInstancesOnDeploymentSuccess: {
             action: 'TERMINATE',
-            terminationWaitTimeInMinutes: (this.config.successTerminationWaitTimeInMinutes ??= 5),
+            terminationWaitTimeInMinutes:
+              (this.config.successTerminationWaitTimeInMinutes ??= 5),
           },
         },
         deploymentStyle: {
