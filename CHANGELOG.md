@@ -1,3 +1,10 @@
+## [4.9.1](https://github.com/Pocket/terraform-modules/compare/v4.9.0...v4.9.1) (2023-01-26)
+
+
+### Bug Fixes
+
+* Empty commit to force release ([#1033](https://github.com/Pocket/terraform-modules/issues/1033)) ([0f8b04b](https://github.com/Pocket/terraform-modules/commit/0f8b04b9707112bb31ae2cc59f18c2f14bfa7b4b))
+
 ## [4.9.0](https://github.com/Pocket/terraform-modules/compare/v4.8.1...v4.9.0) (2023-01-24)
 
 
