@@ -165,7 +165,7 @@ export class PocketECSCodePipeline extends Construct {
               actions: ['sts:AssumeRole'],
               principals: [
                 {
-                  identifiers: ['amazonaws.com'],
+                  identifiers: ['codepipeline.amazonaws.com'],
                   type: 'Service',
                 },
               ],
