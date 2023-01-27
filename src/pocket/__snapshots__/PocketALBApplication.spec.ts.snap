@@ -792,7 +792,7 @@ exports[`PocketALBApplication renders an Pocket App with code deploy 1`] = `
             \\"principals\\": [
               {
                 \\"identifiers\\": [
-                  \\"amazonaws.com\\"
+                  \\"codedeploy.amazonaws.com\\"
                 ],
                 \\"type\\": \\"Service\\"
               }
@@ -1540,7 +1540,7 @@ exports[`PocketALBApplication renders an Pocket App with code deploy and creates
             \\"principals\\": [
               {
                 \\"identifiers\\": [
-                  \\"amazonaws.com\\"
+                  \\"codedeploy.amazonaws.com\\"
                 ],
                 \\"type\\": \\"Service\\"
               }
@@ -2273,7 +2273,7 @@ exports[`PocketALBApplication renders an Pocket App with code deploy notificatio
             \\"principals\\": [
               {
                 \\"identifiers\\": [
-                  \\"amazonaws.com\\"
+                  \\"codedeploy.amazonaws.com\\"
                 ],
                 \\"type\\": \\"Service\\"
               }

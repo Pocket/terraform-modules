@@ -14,7 +14,7 @@ exports[`ApplicationLambdaCodeDeploy renders a lambda code deploy app 1`] = `
             \\"principals\\": [
               {
                 \\"identifiers\\": [
-                  \\"amazonaws.com\\"
+                  \\"codedeploy.amazonaws.com\\"
                 ],
                 \\"type\\": \\"Service\\"
               }
@@ -85,7 +85,7 @@ exports[`ApplicationLambdaCodeDeploy renders a lambda code deploy app with all n
             \\"principals\\": [
               {
                 \\"identifiers\\": [
-                  \\"amazonaws.com\\"
+                  \\"codedeploy.amazonaws.com\\"
                 ],
                 \\"type\\": \\"Service\\"
               }
@@ -173,7 +173,7 @@ exports[`ApplicationLambdaCodeDeploy renders a lambda code deploy app with defau
             \\"principals\\": [
               {
                 \\"identifiers\\": [
-                  \\"amazonaws.com\\"
+                  \\"codedeploy.amazonaws.com\\"
                 ],
                 \\"type\\": \\"Service\\"
               }
@@ -259,7 +259,7 @@ exports[`ApplicationLambdaCodeDeploy renders a lambda code deploy app with sns t
             \\"principals\\": [
               {
                 \\"identifiers\\": [
-                  \\"amazonaws.com\\"
+                  \\"codedeploy.amazonaws.com\\"
                 ],
                 \\"type\\": \\"Service\\"
               }
@@ -345,7 +345,7 @@ exports[`ApplicationLambdaCodeDeploy renders a lambda code deploy app with sns t
             \\"principals\\": [
               {
                 \\"identifiers\\": [
-                  \\"amazonaws.com\\"
+                  \\"codedeploy.amazonaws.com\\"
                 ],
                 \\"type\\": \\"Service\\"
               }
@@ -431,7 +431,7 @@ exports[`ApplicationLambdaCodeDeploy renders a lambda code deploy app with start
             \\"principals\\": [
               {
                 \\"identifiers\\": [
-                  \\"amazonaws.com\\"
+                  \\"codedeploy.amazonaws.com\\"
                 ],
                 \\"type\\": \\"Service\\"
               }
