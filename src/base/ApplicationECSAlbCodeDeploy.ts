@@ -145,7 +145,7 @@ export class ApplicationECSAlbCodeDeploy extends Construct {
               actions: ['sts:AssumeRole'],
               principals: [
                 {
-                  identifiers: ['amazonaws.com'],
+                  identifiers: ['codedeploy.amazonaws.com'],
                   type: 'Service',
                 },
               ],
