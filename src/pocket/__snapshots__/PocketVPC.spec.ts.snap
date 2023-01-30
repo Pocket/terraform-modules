@@ -32,6 +32,22 @@ exports[`renders a VPC with minimal config 1`] = `
             ]
           }
         ]
+      },
+      \\"testPocketVPC_internal_security_groups_2506B665\\": {
+        \\"filter\\": [
+          {
+            \\"name\\": \\"group-name\\",
+            \\"values\\": [
+              \\"pocket-vpc-internal\\"
+            ]
+          },
+          {
+            \\"name\\": \\"vpc-id\\",
+            \\"values\\": [
+              \\"\${data.aws_vpc.testPocketVPC_vpc_52CB41F5.id}\\"
+            ]
+          }
+        ]
       }
     },
     \\"aws_ssm_parameter\\": {
