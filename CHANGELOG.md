@@ -1,3 +1,10 @@
+## [4.9.2](https://github.com/Pocket/terraform-modules/compare/v4.9.1...v4.9.2) (2023-01-30)
+
+
+### Bug Fixes
+
+* additional principal identifiers needing 'codedeploy.' prepended. ([#1034](https://github.com/Pocket/terraform-modules/issues/1034)) ([1f26c21](https://github.com/Pocket/terraform-modules/commit/1f26c216b79f1e34ff2b544ec001e0d9084e7638))
+
 ## [4.9.1](https://github.com/Pocket/terraform-modules/compare/v4.9.0...v4.9.1) (2023-01-26)
 
 
