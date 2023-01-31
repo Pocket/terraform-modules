@@ -1,3 +1,10 @@
+## [4.10.0](https://github.com/Pocket/terraform-modules/compare/v4.9.2...v4.10.0) (2023-01-31)
+
+
+### Features
+
+* **security group:** add internal security group ([#1036](https://github.com/Pocket/terraform-modules/issues/1036)) ([30e201e](https://github.com/Pocket/terraform-modules/commit/30e201ed39b50d66b71b36a527d056aa4d5070c3))
+
 ## [4.9.2](https://github.com/Pocket/terraform-modules/compare/v4.9.1...v4.9.2) (2023-01-30)
 
 
