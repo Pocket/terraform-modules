@@ -224,7 +224,7 @@ exports[`PocketApiGatewayLambdaIntegration renders an api gateway with a lambda 
       \\"test-api-lambda_test-api-lambda_endpoint-lambda_alias_A14F4FF8-allow-gateway-lambda-invoke_F4009ED6\\": {
         \\"action\\": \\"lambda:InvokeFunction\\",
         \\"function_name\\": \\"\${aws_lambda_alias.test-api-lambda_endpoint-lambda_alias_A14F4FF8.function_name}\\",
-        \\"principal\\": \\"amazonaws.com\\",
+        \\"principal\\": \\"apigateway.amazonaws.com\\",
         \\"qualifier\\": \\"\${aws_lambda_alias.test-api-lambda_endpoint-lambda_alias_A14F4FF8.name}\\",
         \\"source_arn\\": \\"\${aws_api_gateway_rest_api.api-gateway-rest.execution_arn}/\${aws_api_gateway_stage.api-gateway-stage.stage_name}/\${aws_api_gateway_method.test-api-lambda_endpoint-method_B2F73D1A.http_method}\${aws_api_gateway_resource.test-api-lambda_endpoint_02B05EB1.path}\\"
       }
