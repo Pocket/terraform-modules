@@ -191,7 +191,7 @@ export class PocketApiGateway extends Construct {
         {
           functionName: lambda.lambda.versionedLambda.functionName,
           action: 'lambda:InvokeFunction',
-          principal: 'amazonaws.com',
+          principal: 'apigateway.amazonaws.com',
           // Grants access to invoke lambda on specified stage, method, resource path
           // note the resource path has a leading `/`
           sourceArn: `${this.apiGatewayRestApi.executionArn}/${this.apiGatewayStage.stageName}/${method.httpMethod}${resource.path}`,
