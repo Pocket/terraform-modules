@@ -1,3 +1,10 @@
+## [4.10.1](https://github.com/Pocket/terraform-modules/compare/v4.10.0...v4.10.1) (2023-02-23)
+
+
+### Bug Fixes
+
+* **lambda perm:** api gateway lambda permission needs more specific principle ([#1037](https://github.com/Pocket/terraform-modules/issues/1037)) ([91ec1a2](https://github.com/Pocket/terraform-modules/commit/91ec1a22c13d25e1dcb33deb4d08d45b971be8f3))
+
 ## [4.10.0](https://github.com/Pocket/terraform-modules/compare/v4.9.2...v4.10.0) (2023-01-31)
 
 
