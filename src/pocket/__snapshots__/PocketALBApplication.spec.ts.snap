@@ -3343,6 +3343,54 @@ exports[`PocketALBApplication renders an Pocket App with custom Alarm Descriptio
       }
     },
     \\"aws_cloudwatch_metric_alarm\\": {
+      \\"testPocketApp_alarm-elb5xxerrorrate_4B261705\\": {
+        \\"alarm_actions\\": [
+        ],
+        \\"alarm_description\\": \\"Uh oh. something bad happened.\\",
+        \\"alarm_name\\": \\"testapp-Alarm-ELB5xxErrorRate\\",
+        \\"comparison_operator\\": \\"GreaterThanOrEqualToThreshold\\",
+        \\"datapoints_to_alarm\\": 5,
+        \\"evaluation_periods\\": 5,
+        \\"insufficient_data_actions\\": [
+        ],
+        \\"metric_query\\": [
+          {
+            \\"id\\": \\"requests\\",
+            \\"metric\\": {
+              \\"dimensions\\": {
+                \\"LoadBalancer\\": \\"\${aws_alb.testPocketApp_application_load_balancer_alb_D538DEEE.arn_suffix}\\"
+              },
+              \\"metric_name\\": \\"RequestCount\\",
+              \\"namespace\\": \\"AWS/ApplicationELB\\",
+              \\"period\\": 60,
+              \\"stat\\": \\"Sum\\",
+              \\"unit\\": \\"Count\\"
+            }
+          },
+          {
+            \\"id\\": \\"errors\\",
+            \\"metric\\": {
+              \\"dimensions\\": {
+                \\"LoadBalancer\\": \\"\${aws_alb.testPocketApp_application_load_balancer_alb_D538DEEE.arn_suffix}\\"
+              },
+              \\"metric_name\\": \\"HTTPCode_ELB_5XX_Count\\",
+              \\"namespace\\": \\"AWS/ApplicationELB\\",
+              \\"period\\": 60,
+              \\"stat\\": \\"Sum\\",
+              \\"unit\\": \\"Count\\"
+            }
+          },
+          {
+            \\"expression\\": \\"errors/requests*100\\",
+            \\"id\\": \\"expression\\",
+            \\"label\\": \\"ELB 5xx Error Rate\\",
+            \\"return_data\\": true
+          }
+        ],
+        \\"ok_actions\\": [
+        ],
+        \\"threshold\\": 5
+      },
       \\"testPocketApp_alarm-httpresponsetime_327A4315\\": {
         \\"alarm_actions\\": [
         ],

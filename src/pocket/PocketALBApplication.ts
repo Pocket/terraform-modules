@@ -903,6 +903,53 @@ export class PocketALBApplication extends Construct {
         alarmsConfig?.http5xxErrorPercentage?.evaluationPeriods ?? 5,
       httpLatency: alarmsConfig?.httpLatency?.evaluationPeriods ?? 1,
     };
+    const elb5xxAlarm: CloudwatchMetricAlarmConfig = {
+      alarmName: 'Alarm-ELB5xxErrorRate',
+      metricQuery: [
+        {
+          id: 'requests',
+          metric: {
+            metricName: 'RequestCount',
+            namespace: 'AWS/ApplicationELB',
+            period: alarmsConfig?.http5xxErrorPercentage?.period ?? 60, // alert on same metric for target or LB errors
+            stat: 'Sum',
+            unit: 'Count',
+            dimensions: { LoadBalancer: this.alb.alb.arnSuffix },
+          },
+        },
+        {
+          id: 'errors',
+          metric: {
+            metricName: 'HTTPCode_ELB_5XX_Count', // 5xx codes from LBs
+            namespace: 'AWS/ApplicationELB',
+            period: alarmsConfig?.http5xxErrorPercentage?.period ?? 60,
+            stat: 'Sum',
+            unit: 'Count',
+            dimensions: { LoadBalancer: this.alb.alb.arnSuffix },
+          },
+        },
+        {
+          id: 'expression',
+          expression: 'errors/requests*100',
+          label: 'ELB 5xx Error Rate',
+          returnData: true,
+        },
+      ],
+      comparisonOperator: 'GreaterThanOrEqualToThreshold',
+      evaluationPeriods: evaluationPeriods.http5xxErrorPercentage, // same period on target or LB errors
+      datapointsToAlarm:
+        alarmsConfig?.http5xxErrorPercentage?.datapointsToAlarm ??
+        evaluationPeriods.http5xxErrorPercentage, // same number of datapoints breaching on target or LB errors
+      threshold: alarmsConfig?.http5xxErrorPercentage?.threshold ?? 5, // same threshhold
+      insufficientDataActions: [], // same action on target or LB errors
+      alarmActions: alarmsConfig?.http5xxErrorPercentage?.actions ?? [], // same action on target or LB errors
+      okActions: alarmsConfig?.http5xxErrorPercentage?.actions ?? [], // same action on target or LB errors
+      tags: this.config.tags,
+      alarmDescription:
+        alarmsConfig?.http5xxErrorPercentage?.alarmDescription ??
+        'Percentage of ELB 5xx responses exceeds threshold',
+      provider: this.config.provider,
+    };
     const http5xxAlarm: CloudwatchMetricAlarmConfig = {
       alarmName: 'Alarm-HTTPTarget5xxErrorRate',
       metricQuery: [
@@ -920,7 +967,7 @@ export class PocketALBApplication extends Construct {
         {
           id: 'errors',
           metric: {
-            metricName: 'HTTPCode_Target_5XX_Count',
+            metricName: 'HTTPCode_Target_5XX_Count', // 5xx codes from containers themselves
             namespace: 'AWS/ApplicationELB',
             period: alarmsConfig?.http5xxErrorPercentage?.period ?? 60,
             stat: 'Sum',
@@ -975,8 +1022,8 @@ export class PocketALBApplication extends Construct {
 
     const defaultAlarms: CloudwatchMetricAlarmConfig[] = [];
 
-    if (alarmsConfig?.http5xxErrorPercentage) defaultAlarms.push(http5xxAlarm);
-
+    if (alarmsConfig?.http5xxErrorPercentage)
+      defaultAlarms.push(http5xxAlarm, elb5xxAlarm);
     if (alarmsConfig?.httpLatency) defaultAlarms.push(latencyAlarm);
 
     if (alarmsConfig?.customAlarms) {
