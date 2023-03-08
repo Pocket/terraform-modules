@@ -74,11 +74,11 @@ export function buildDefinitionJSON(
         'awslogs-stream-prefix': 'ecs',
         // datetime takes precedence if datetime and multiline defined
         ...(config.logDatetimeFormat && {
-          'awslogs-datetime-format': config.logDatetimeFormat
+          'awslogs-datetime-format': config.logDatetimeFormat,
         }),
         // regex parsing - may have negative impact on logging performance
         ...(config.logMultilinePattern && {
-          'awslogs-multiline-pattern': config.logMultilinePattern
+          'awslogs-multiline-pattern': config.logMultilinePattern,
         }),
       },
     },
