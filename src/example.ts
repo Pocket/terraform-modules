@@ -42,6 +42,7 @@ class Example extends TerraformStack {
           sourceVolume: 'data',
         },
       ],
+      logMultilinePattern: '^\\S.+',
     };
 
     new PocketALBApplication(this, 'example', {

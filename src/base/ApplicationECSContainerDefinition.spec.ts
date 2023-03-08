@@ -12,6 +12,7 @@ describe('ApplicationECSContainerDefinition', () => {
       config = {
         containerImage: 'testImage',
         logGroup: 'bowlingGroup',
+        logMultilinePattern: '^\\S.+',
         portMappings: [
           {
             hostPort: 3000,
@@ -27,6 +28,7 @@ describe('ApplicationECSContainerDefinition', () => {
       const result = buildDefinitionJSON(config);
 
       expect(result).to.contain('"awslogs-group":"bowlingGroup"');
+      expect(result).to.contain('"awslogs-multiline-pattern":"^\\\\S.+"');
       expect(result).to.contain('"hostPort":3000');
       expect(result).to.contain('"containerPort":4000');
       expect(result).to.contain('"image":"testImage"');
