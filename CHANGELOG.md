@@ -1,3 +1,10 @@
+## [4.11.0](https://github.com/Pocket/terraform-modules/compare/v4.10.1...v4.11.0) (2023-03-08)
+
+
+### Features
+
+* **ECSContainer:** add datetime and multiline log options to ECS def. ([#1039](https://github.com/Pocket/terraform-modules/issues/1039)) ([3fcb65a](https://github.com/Pocket/terraform-modules/commit/3fcb65addb5b4c85800631dba5bb7c52dc750279))
+
 ## [4.10.1](https://github.com/Pocket/terraform-modules/compare/v4.10.0...v4.10.1) (2023-02-23)
 
 
