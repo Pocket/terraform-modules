@@ -73,9 +73,13 @@ export function buildDefinitionJSON(
         'awslogs-region': config.logGroupRegion ?? 'us-east-1',
         'awslogs-stream-prefix': 'ecs',
         // datetime takes precedence if datetime and multiline defined
-        ...(config.logDatetimeFormat && {'awslogs-datetime-format': config.logDatetimeFormat}),
+        ...(config.logDatetimeFormat && {
+          'awslogs-datetime-format': config.logDatetimeFormat
+        }),
         // regex parsing - may have negative impact on logging performance
-        ...(config.logMultilinePattern && {'awslogs-multiline-pattern': config.logMultilinePattern}),
+        ...(config.logMultilinePattern && {
+          'awslogs-multiline-pattern': config.logMultilinePattern
+        }),
       },
     },
     entryPoint: config.entryPoint ?? null,
