@@ -88,7 +88,7 @@ export abstract class ApplicationElasticacheCluster extends Construct {
       case ApplicationElasticacheEngine.MEMCACHED:
         return 'default.memcached1.6';
       case ApplicationElasticacheEngine.REDIS:
-        return 'default.redis7.x';
+        return 'default.redis7';
     }
   }
 
@@ -104,7 +104,7 @@ export abstract class ApplicationElasticacheCluster extends Construct {
       case ApplicationElasticacheEngine.MEMCACHED:
         return '1.6.6';
       case ApplicationElasticacheEngine.REDIS:
-        return '7.x';
+        return '7.0';
     }
   }
 
