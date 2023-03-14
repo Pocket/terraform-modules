@@ -33,6 +33,12 @@ interface DependsOn {
   condition: 'START' | 'COMPLETE' | 'SUCCESS' | 'HEALTHY';
 }
 
+interface Ulimit {
+  name: string;
+  softLimit: number;
+  hardLimit: number;
+}
+
 export interface ApplicationECSContainerDefinitionProps {
   containerImage?: string;
   logGroup?: string;
@@ -52,6 +58,7 @@ export interface ApplicationECSContainerDefinitionProps {
   dependsOn?: DependsOn[];
   entryPoint?: string[];
   essential?: boolean;
+  ulimits?: Ulimit[];
 }
 
 export function buildDefinitionJSON(
@@ -88,7 +95,7 @@ export function buildDefinitionJSON(
     cpu: config.cpu ?? 0,
     environment: config.envVars ?? [],
     resourceRequirements: null,
-    ulimits: null,
+    ulimits: config.ulimits ?? null,
     repositoryCredentials: config.repositoryCredentialsParam
       ? { credentialsParameter: config.repositoryCredentialsParam }
       : null,
