@@ -44,11 +44,13 @@ class Example extends TerraformStack {
       ],
       logMultilinePattern: '^\\S.+',
       logDatetimeFormat: '[%b %d, %Y %H:%M:%S]',
-      ulimits: [{
-        hardLimit: 65535,
-        name: 'nofile',
-        softLimit: 65535
-      }],
+      ulimits: [
+        {
+          hardLimit: 65535,
+          name: 'nofile',
+          softLimit: 65535,
+        },
+      ],
     };
 
     new PocketALBApplication(this, 'example', {
