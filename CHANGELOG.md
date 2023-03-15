@@ -1,3 +1,10 @@
+## [4.12.0](https://github.com/Pocket/terraform-modules/compare/v4.11.0...v4.12.0) (2023-03-15)
+
+
+### Features
+
+* **ECSContDef:** Adding ulimit interface to AppECSContDef ([#1040](https://github.com/Pocket/terraform-modules/issues/1040)) ([588ad98](https://github.com/Pocket/terraform-modules/commit/588ad98e93fad351803eb7b10568101a7a1a1e8a))
+
 ## [4.11.0](https://github.com/Pocket/terraform-modules/compare/v4.10.1...v4.11.0) (2023-03-08)
 
 
