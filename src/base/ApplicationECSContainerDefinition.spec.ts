@@ -20,6 +20,18 @@ describe('ApplicationECSContainerDefinition', () => {
             containerPort: 4000,
           },
         ],
+        ulimits: [
+          {
+            name: 'nproc',
+            softLimit: 2048,
+            hardLimit: 2048,
+          },
+          {
+            name: 'nofile',
+            softLimit: 65535,
+            hardLimit: 65535,
+          },
+        ],
         name: 'lebowski',
         repositoryCredentialsParam: 'someArn',
       };
@@ -40,6 +52,8 @@ describe('ApplicationECSContainerDefinition', () => {
       expect(result).to.contain('"credentialsParameter":"someArn"');
       expect(result).to.contain('"environment":[]');
       expect(result).to.contain('"secrets":null');
+      expect(result).to.contain('"softLimit":2048');
+      expect(result).to.contain('"hardLimit":65535');
       expect(result).not.to.contain('"command":');
     });
 
