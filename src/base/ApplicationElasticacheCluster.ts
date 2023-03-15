@@ -27,6 +27,8 @@ export interface ApplicationElasticacheClusterProps
     count?: number;
   };
   tags?: { [key: string]: string };
+  overrideEngineVersion?: string; // overrides lookup by engine type, below
+  overrideParameterGroupName?: string; // overides lookup by engine type, below
 }
 
 /**
@@ -86,7 +88,7 @@ export abstract class ApplicationElasticacheCluster extends Construct {
       case ApplicationElasticacheEngine.MEMCACHED:
         return 'default.memcached1.6';
       case ApplicationElasticacheEngine.REDIS:
-        return 'default.redis6.x';
+        return 'default.redis7';
     }
   }
 
@@ -102,7 +104,7 @@ export abstract class ApplicationElasticacheCluster extends Construct {
       case ApplicationElasticacheEngine.MEMCACHED:
         return '1.6.6';
       case ApplicationElasticacheEngine.REDIS:
-        return '6.x';
+        return '7.0';
     }
   }
 
