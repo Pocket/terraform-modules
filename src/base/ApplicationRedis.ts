@@ -71,7 +71,16 @@ export class ApplicationRedis extends ApplicationElasticacheCluster {
         replicationGroupDescription: `${config.prefix.toLowerCase()} | Managed by terraform`,
         nodeType: config.node.size,
         port: port,
-        parameterGroupName: ApplicationRedis.getParameterGroupForEngine(engine),
+        engineVersion:
+          config.overrideEngineVersion === null ||
+          config.overrideEngineVersion === undefined
+            ? ApplicationRedis.getEngineVersionForEngine(engine)
+            : config.overrideEngineVersion,
+        parameterGroupName:
+          config.overrideParameterGroupName === null ||
+          config.overrideParameterGroupName === undefined
+            ? ApplicationRedis.getParameterGroupForEngine(engine)
+            : config.overrideParameterGroupName,
         automaticFailoverEnabled: true,
         subnetGroupName: subnetGroup.name,
         securityGroupIds: [securityGroup.id],
