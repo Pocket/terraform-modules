@@ -51,7 +51,7 @@ exports[`renders a Pocket PagerDuty for critical and non-critical actions 1`] = 
     },
     \\"pagerduty_service\\": {
       \\"test-pagerduty_pagerduty-critical_3EB714BD\\": {
-        \\"acknowledgement_timeout\\": \\"600\\",
+        \\"acknowledgement_timeout\\": \\"1800\\",
         \\"alert_creation\\": \\"create_incidents\\",
         \\"auto_resolve_timeout\\": \\"14400\\",
         \\"description\\": \\"PagerDuty Critical\\",
@@ -63,7 +63,7 @@ exports[`renders a Pocket PagerDuty for critical and non-critical actions 1`] = 
         \\"name\\": \\"Test-Env-PagerDuty-Critical\\"
       },
       \\"test-pagerduty_pagerduty-non-critical_BBC21A2B\\": {
-        \\"acknowledgement_timeout\\": \\"600\\",
+        \\"acknowledgement_timeout\\": \\"1800\\",
         \\"alert_creation\\": \\"create_incidents\\",
         \\"auto_resolve_timeout\\": \\"14400\\",
         \\"description\\": \\"PagerDuty Non-Critical\\",
@@ -277,7 +277,7 @@ exports[`renders a Pocket PagerDuty with custom auto resolve timeout 1`] = `
     },
     \\"pagerduty_service\\": {
       \\"test-pagerduty_pagerduty-critical_3EB714BD\\": {
-        \\"acknowledgement_timeout\\": \\"600\\",
+        \\"acknowledgement_timeout\\": \\"1800\\",
         \\"alert_creation\\": \\"create_incidents\\",
         \\"auto_resolve_timeout\\": \\"4\\",
         \\"description\\": \\"PagerDuty Critical\\",
@@ -289,7 +289,7 @@ exports[`renders a Pocket PagerDuty with custom auto resolve timeout 1`] = `
         \\"name\\": \\"Test-Env-PagerDuty-Critical\\"
       },
       \\"test-pagerduty_pagerduty-non-critical_BBC21A2B\\": {
-        \\"acknowledgement_timeout\\": \\"600\\",
+        \\"acknowledgement_timeout\\": \\"1800\\",
         \\"alert_creation\\": \\"create_incidents\\",
         \\"auto_resolve_timeout\\": \\"4\\",
         \\"description\\": \\"PagerDuty Non-Critical\\",
@@ -390,7 +390,7 @@ exports[`renders a Pocket PagerDuty with custom sns topic subscription confirmat
     },
     \\"pagerduty_service\\": {
       \\"test-pagerduty_pagerduty-critical_3EB714BD\\": {
-        \\"acknowledgement_timeout\\": \\"600\\",
+        \\"acknowledgement_timeout\\": \\"1800\\",
         \\"alert_creation\\": \\"create_incidents\\",
         \\"auto_resolve_timeout\\": \\"14400\\",
         \\"description\\": \\"PagerDuty Critical\\",
@@ -402,7 +402,7 @@ exports[`renders a Pocket PagerDuty with custom sns topic subscription confirmat
         \\"name\\": \\"Test-Env-PagerDuty-Critical\\"
       },
       \\"test-pagerduty_pagerduty-non-critical_BBC21A2B\\": {
-        \\"acknowledgement_timeout\\": \\"600\\",
+        \\"acknowledgement_timeout\\": \\"1800\\",
         \\"alert_creation\\": \\"create_incidents\\",
         \\"auto_resolve_timeout\\": \\"14400\\",
         \\"description\\": \\"PagerDuty Non-Critical\\",
@@ -505,7 +505,7 @@ exports[`renders a Pocket PagerDuty with sns topic tags 1`] = `
     },
     \\"pagerduty_service\\": {
       \\"test-pagerduty_pagerduty-critical_3EB714BD\\": {
-        \\"acknowledgement_timeout\\": \\"600\\",
+        \\"acknowledgement_timeout\\": \\"1800\\",
         \\"alert_creation\\": \\"create_incidents\\",
         \\"auto_resolve_timeout\\": \\"14400\\",
         \\"description\\": \\"PagerDuty Critical\\",
@@ -517,7 +517,7 @@ exports[`renders a Pocket PagerDuty with sns topic tags 1`] = `
         \\"name\\": \\"Test-Env-PagerDuty-Critical\\"
       },
       \\"test-pagerduty_pagerduty-non-critical_BBC21A2B\\": {
-        \\"acknowledgement_timeout\\": \\"600\\",
+        \\"acknowledgement_timeout\\": \\"1800\\",
         \\"alert_creation\\": \\"create_incidents\\",
         \\"auto_resolve_timeout\\": \\"14400\\",
         \\"description\\": \\"PagerDuty Non-Critical\\",
