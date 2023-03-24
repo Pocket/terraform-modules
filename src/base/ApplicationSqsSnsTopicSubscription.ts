@@ -94,7 +94,7 @@ export class ApplicationSqsSnsTopicSubscription extends Construct {
               resources: [queue.resource.arn],
               principals: [
                 {
-                  identifiers: ['amazonaws.com'],
+                  identifiers: ['sns.amazonaws.com'],
                   type: 'Service',
                 },
               ],
