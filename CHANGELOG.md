@@ -1,3 +1,10 @@
+## [4.13.1](https://github.com/Pocket/terraform-modules/compare/v4.13.0...v4.13.1) (2023-03-24)
+
+
+### Bug Fixes
+
+* **policy principals:** more policies need more specific principle ([#1044](https://github.com/Pocket/terraform-modules/issues/1044)) ([3d845fb](https://github.com/Pocket/terraform-modules/commit/3d845fb0939e8731703e3cd7d5ae863943a978ae))
+
 ## [4.13.0](https://github.com/Pocket/terraform-modules/compare/v4.12.0...v4.13.0) (2023-03-23)
 
 
