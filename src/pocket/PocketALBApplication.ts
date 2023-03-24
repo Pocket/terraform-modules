@@ -8,6 +8,8 @@ import {
 import { EfsFileSystem } from '@cdktf/provider-aws/lib/efs-file-system';
 import { AwsProvider } from '@cdktf/provider-aws/lib/provider';
 import { Route53Record } from '@cdktf/provider-aws/lib/route53-record';
+import { Wafv2WebAcl } from '@cdktf/provider-aws/lib/wafv2-web-acl';
+import { Wafv2WebAclAssociation } from '@cdktf/provider-aws/lib/wafv2-web-acl-association';
 import { TerraformMetaArguments } from 'cdktf';
 import { Construct } from 'constructs';
 import {
@@ -188,6 +190,9 @@ export interface PocketALBApplicationProps extends TerraformMetaArguments {
     throughputMode?: string;
     volumeName: string;
   };
+  wafConfig?: {
+    acl: Wafv2WebAcl;
+  };
 }
 
 interface CreateALBReturn {
@@ -245,6 +250,15 @@ export class PocketALBApplication extends Construct {
 
     if (config.cdn) {
       this.createCDN(albRecord);
+    }
+
+    if (config.wafConfig) {
+      if (config.cdn) {
+        throw new Error(
+          'Implementation of waf association with CDN is not currently supported'
+        );
+      }
+      this.createWAF(alb, config.wafConfig.acl);
     }
 
     if (config.efsConfig) {
@@ -366,6 +380,13 @@ export class PocketALBApplication extends Construct {
     }
 
     return config;
+  }
+
+  private createWAF(alb: ApplicationLoadBalancer, webAcl: Wafv2WebAcl) {
+    new Wafv2WebAclAssociation(this, 'application_waf_association', {
+      webAclArn: webAcl.arn,
+      resourceArn: alb.alb.arn,
+    });
   }
 
   /**
