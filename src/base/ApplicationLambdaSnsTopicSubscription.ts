@@ -102,7 +102,7 @@ export class ApplicationLambdaSnsTopicSubscription extends Construct {
    */
   private createLambdaPolicy(): void {
     new LambdaPermission(this, `${this.name}-lambda-permission`, {
-      principal: 'amazonaws.com',
+      principal: 'sns.amazonaws.com',
       action: 'lambda:InvokeFunction',
       functionName: this.config.lambda.functionName,
       sourceArn: this.config.snsTopicArn,
@@ -128,7 +128,7 @@ export class ApplicationLambdaSnsTopicSubscription extends Construct {
             resources: [queue.resource.arn],
             principals: [
               {
-                identifiers: ['amazonaws.com'],
+                identifiers: ['sns.amazonaws.com'],
                 type: 'Service',
               },
             ],
