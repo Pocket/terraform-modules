@@ -31,7 +31,7 @@ export enum PAGERDUTY_SERVICE_URGENCY {
 
 export class PocketPagerDuty extends Construct {
   static readonly SERVICE_AUTO_RESOLVE_TIMEOUT = '14400';
-  static readonly SERVICE_ACKNOWLEDGEMENT_TIMEOUT = '600';
+  static readonly SERVICE_ACKNOWLEDGEMENT_TIMEOUT = '1800'; // 30 minutes
   static readonly SNS_SUBSCRIPTION_CONFIRMATION_TIMEOUT_IN_MINUTES = 2;
   public readonly snsCriticalAlarmTopic: SnsTopic;
   public readonly snsNonCriticalAlarmTopic: SnsTopic;

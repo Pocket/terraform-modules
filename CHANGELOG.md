@@ -1,3 +1,10 @@
+## [4.13.0](https://github.com/Pocket/terraform-modules/compare/v4.12.0...v4.13.0) (2023-03-23)
+
+
+### Features
+
+* **pagerduty:** extend pagerduty svc ack timeout period ([#1043](https://github.com/Pocket/terraform-modules/issues/1043)) ([3f974e0](https://github.com/Pocket/terraform-modules/commit/3f974e0ec7baa7b92b28bdf2665ca9b02ecb9b5c))
+
 ## [4.12.0](https://github.com/Pocket/terraform-modules/compare/v4.11.0...v4.12.0) (2023-03-15)
 
 
