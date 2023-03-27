@@ -99,7 +99,7 @@
   "devDependencies": {
     "@pocket-tools/eslint-config": "2.0.0",
     "@pocket-tools/tsconfig": "2.0.1",
-    "@semantic-release/changelog": "6.0.2",
+    "@semantic-release/changelog": "6.0.3",
     "@semantic-release/commit-analyzer": "9.0.2",
     "@semantic-release/exec": "6.0.3",
     "@semantic-release/git": "10.0.1",
