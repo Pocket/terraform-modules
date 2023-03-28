@@ -131,7 +131,7 @@ class Example extends TerraformStack {
         volumeName: 'data',
       },
       wafConfig: {
-        acl: wafAcl,
+        aclArn: wafAcl.arn,
       },
     });
   }

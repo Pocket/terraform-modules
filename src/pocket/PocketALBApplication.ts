@@ -8,7 +8,6 @@ import {
 import { EfsFileSystem } from '@cdktf/provider-aws/lib/efs-file-system';
 import { AwsProvider } from '@cdktf/provider-aws/lib/provider';
 import { Route53Record } from '@cdktf/provider-aws/lib/route53-record';
-import { Wafv2WebAcl } from '@cdktf/provider-aws/lib/wafv2-web-acl';
 import { Wafv2WebAclAssociation } from '@cdktf/provider-aws/lib/wafv2-web-acl-association';
 import { TerraformMetaArguments } from 'cdktf';
 import { Construct } from 'constructs';
@@ -191,7 +190,7 @@ export interface PocketALBApplicationProps extends TerraformMetaArguments {
     volumeName: string;
   };
   wafConfig?: {
-    acl: Wafv2WebAcl;
+    aclArn: string;
   };
 }
 
@@ -258,7 +257,7 @@ export class PocketALBApplication extends Construct {
           'Implementation of waf association with CDN is not currently supported'
         );
       }
-      this.createWAF(alb, config.wafConfig.acl);
+      this.createWAF(alb, config.wafConfig.aclArn);
     }
 
     if (config.efsConfig) {
@@ -382,9 +381,9 @@ export class PocketALBApplication extends Construct {
     return config;
   }
 
-  private createWAF(alb: ApplicationLoadBalancer, webAcl: Wafv2WebAcl) {
+  private createWAF(alb: ApplicationLoadBalancer, webAclArn: string) {
     new Wafv2WebAclAssociation(this, 'application_waf_association', {
-      webAclArn: webAcl.arn,
+      webAclArn: webAclArn,
       resourceArn: alb.alb.arn,
     });
   }
