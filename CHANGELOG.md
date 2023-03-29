@@ -1,3 +1,10 @@
+## [4.14.0](https://github.com/Pocket/terraform-modules/compare/v4.13.1...v4.14.0) (2023-03-29)
+
+
+### Features
+
+* Allow passing in wafv2webacl and associate it with alb ([#1045](https://github.com/Pocket/terraform-modules/issues/1045)) ([4923c29](https://github.com/Pocket/terraform-modules/commit/4923c29a870dfd291ae23da98c3a1cbab2a231bc))
+
 ## [4.13.1](https://github.com/Pocket/terraform-modules/compare/v4.13.0...v4.13.1) (2023-03-24)
 
 
