@@ -6,6 +6,7 @@ import { ApplicationECSContainerDefinitionProps } from './base/ApplicationECSCon
 import { LocalProvider } from '@cdktf/provider-local/lib/provider';
 import { NullProvider } from '@cdktf/provider-null/lib/provider';
 import { TimeProvider } from '@cdktf/provider-time/lib/provider';
+import { Wafv2WebAcl } from '@cdktf/provider-aws/lib/wafv2-web-acl';
 
 class Example extends TerraformStack {
   constructor(scope: Construct, name: string) {
@@ -53,6 +54,40 @@ class Example extends TerraformStack {
       ],
     };
 
+    const wafAcl = new Wafv2WebAcl(this, 'example_waf_acl', {
+      description: 'Example Pocket Waf ACL',
+      name: 'pocket-example-waf',
+      scope: 'REGIONAL',
+      defaultAction: {
+        allow: {},
+      },
+      visibilityConfig: {
+        cloudwatchMetricsEnabled: true,
+        metricName: 'pocket-example-waf-default-rule',
+        sampledRequestsEnabled: true,
+      },
+      rule: [
+        {
+          name: 'ExampleRateBasedPolicy',
+          priority: 1,
+          action: {
+            block: {},
+          },
+          statement: {
+            rateBasedStatement: {
+              limit: 10000,
+              aggregateKeyType: 'IP',
+            },
+          },
+          visibilityConfig: {
+            cloudwatchMetricsEnabled: true,
+            metricName: 'pocket-example-waf-rate-limit',
+            sampledRequestsEnabled: true,
+          },
+        },
+      ],
+    });
+
     new PocketALBApplication(this, 'example', {
       exposedContainer: {
         name: 'blueContainer',
@@ -94,6 +129,9 @@ class Example extends TerraformStack {
       efsConfig: {
         creationToken: 'ACME-Dev',
         volumeName: 'data',
+      },
+      wafConfig: {
+        aclArn: wafAcl.arn,
       },
     });
   }
