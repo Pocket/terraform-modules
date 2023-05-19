@@ -42,7 +42,7 @@ While snapshot testing is great for things like regressions, it doesn't actually
 You can use the existing `example.ts` file to test the modules in this repo.
 
 1. Install [tfenv](https://github.com/tfutils/tfenv)
-2. Run `tfenv use` to ensure you are on the latest terraform version this repo is built for.
+2. Run `tfenv use` to ensure you are on the same terraform version this repo is built for (defined in `.terraform-version`).
 3. Run `npm install`
 4. Run `npm run build:dev`
 5. `cd` into the generated `cdktf.out/stacks/acme-example` directory

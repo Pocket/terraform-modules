@@ -410,7 +410,7 @@ export class ApplicationECSService extends Construct {
         ecrRepos.push(ecr.repo);
       }
 
-      // if a log group was given, it must already exist so we don't need to create it
+      // create log group if one not given
       if (!def.logGroup) {
         const cloudwatchLogGroup = new CloudwatchLogGroup(
           this,
@@ -422,6 +422,7 @@ export class ApplicationECSService extends Construct {
             provider: this.config.provider,
           }
         );
+
         def.logGroup = cloudwatchLogGroup.name;
         def.logGroupRegion = this.config.region;
       }

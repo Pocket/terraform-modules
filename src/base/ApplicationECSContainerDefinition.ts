@@ -41,10 +41,11 @@ interface Ulimit {
 
 export interface ApplicationECSContainerDefinitionProps {
   containerImage?: string;
+  logDatetimeFormat?: string;
   logGroup?: string;
   logGroupRegion?: string;
   logMultilinePattern?: string;
-  logDatetimeFormat?: string;
+  logStreamPrefix?: string;
   portMappings?: PortMapping[];
   envVars?: EnvironmentVariable[];
   secretEnvVars?: SecretEnvironmentVariable[];
@@ -78,7 +79,7 @@ export function buildDefinitionJSON(
       options: {
         'awslogs-group': config.logGroup,
         'awslogs-region': config.logGroupRegion ?? 'us-east-1',
-        'awslogs-stream-prefix': 'ecs',
+        'awslogs-stream-prefix': config.logStreamPrefix ?? 'ecs',
         // datetime takes precedence if datetime and multiline defined
         ...(config.logDatetimeFormat && {
           'awslogs-datetime-format': config.logDatetimeFormat,
