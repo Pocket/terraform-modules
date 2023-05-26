@@ -45,6 +45,8 @@ class Example extends TerraformStack {
       ],
       logMultilinePattern: '^\\S.+',
       logDatetimeFormat: '[%b %d, %Y %H:%M:%S]',
+      // logGroup: '/platform/blueContainer/ecs', use logGroup OR logDatetimeFormat
+      logStreamPrefix: 'blueContainer',
       ulimits: [
         {
           hardLimit: 65535,
