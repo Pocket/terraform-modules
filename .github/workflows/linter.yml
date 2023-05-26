@@ -45,10 +45,10 @@ jobs:
       # Github Super Linter needs
       # the latest definitions installed
       ##########################
-      - name: Use Node.js 16.x
+      - name: Use Node.js 16.20
         uses: actions/setup-node@17f8bd926464a1afa4c6a11669539e9c1ba77048 # tag=v3.2.0
         with:
-          node-version: 16.x
+          node-version: 16.20
       # Install our eslint packages.
       # We may have custom tsconfigs, eslints that are brought in via a package.
       - run: npm install
