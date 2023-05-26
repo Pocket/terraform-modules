@@ -39,14 +39,14 @@ jobs:
       # Checkout the code base #
       ##########################
       - name: Checkout Code
-        uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b # tag=v3
+        uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab # v3
 
       ##########################
       # Github Super Linter needs
       # the latest definitions installed
       ##########################
       - name: Use Node.js 16.20
-        uses: actions/setup-node@17f8bd926464a1afa4c6a11669539e9c1ba77048 # tag=v3.2.0
+        uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c # v3.6.0
         with:
           node-version: 16.20
       # Install our eslint packages.
