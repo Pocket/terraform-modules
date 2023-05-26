@@ -1,3 +1,10 @@
+## [4.15.0](https://github.com/Pocket/terraform-modules/compare/v4.14.0...v4.15.0) (2023-05-26)
+
+
+### Features
+
+* **logstream:** have ECS log stream prefix be configurable ([#1051](https://github.com/Pocket/terraform-modules/issues/1051)) ([353edd7](https://github.com/Pocket/terraform-modules/commit/353edd70f120d59fab6d09be6c60d2050b852c74))
+
 ## [4.14.0](https://github.com/Pocket/terraform-modules/compare/v4.13.1...v4.14.0) (2023-03-29)
 
 
