@@ -1,3 +1,10 @@
+## [4.16.0](https://github.com/Pocket/terraform-modules/compare/v4.15.0...v4.16.0) (2023-05-30)
+
+
+### Features
+
+* **aws synchecks:** add aws synthetics for inside vpc checks w/defaults ([227874c](https://github.com/Pocket/terraform-modules/commit/227874cfa58174242f00ea17f04f7079ba2a74e2))
+
 ## [4.15.0](https://github.com/Pocket/terraform-modules/compare/v4.14.0...v4.15.0) (2023-05-26)
 
 
