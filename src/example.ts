@@ -7,6 +7,8 @@ import { LocalProvider } from '@cdktf/provider-local/lib/provider';
 import { NullProvider } from '@cdktf/provider-null/lib/provider';
 import { TimeProvider } from '@cdktf/provider-time/lib/provider';
 import { Wafv2WebAcl } from '@cdktf/provider-aws/lib/wafv2-web-acl';
+import { PocketAwsSyntheticChecks } from './pocket/PocketCloudwatchSynthetics';
+import { PocketVPC } from './pocket/PocketVPC';
 
 class Example extends TerraformStack {
   constructor(scope: Construct, name: string) {
@@ -15,10 +17,11 @@ class Example extends TerraformStack {
     new AwsProvider(this, 'aws', {
       region: 'us-east-1',
     });
-
     new LocalProvider(this, 'local', {});
     new NullProvider(this, 'null', {});
     new TimeProvider(this, 'timeProvider', {});
+
+    const pocketVpc = new PocketVPC(this, 'pocket-vpc');
 
     const containerConfigBlue: ApplicationECSContainerDefinitionProps = {
       name: 'blueContainer',
@@ -91,23 +94,16 @@ class Example extends TerraformStack {
     });
 
     new PocketALBApplication(this, 'example', {
-      exposedContainer: {
-        name: 'blueContainer',
-        port: 3000,
-        healthCheckPath: '/',
-      },
-      codeDeploy: {
-        useCodeDeploy: true,
-      },
       accessLogs: {
         bucket: 'pocket-dev-blah',
       },
-      cdn: false, // maybe make this false if you're testing an actual terraform apply - cdn's take a loooong time to spin up
       alb6CharacterPrefix: 'ACMECO',
-      internal: false,
-      domain: 'acme.getpocket.dev',
-      prefix: 'ACME-Dev', // Prefix is a combo of the `Name-Environment`
+      cdn: false, // maybe make this false if you're testing an actual terraform apply - cdn's take a loooong time to spin up
+      codeDeploy: {
+        useCodeDeploy: true,
+      },
       containerConfigs: [containerConfigBlue],
+      domain: 'acme.getpocket.dev',
       ecsIamConfig: {
         prefix: 'ACME-Dev',
         taskExecutionRolePolicyStatements: [
@@ -132,9 +128,39 @@ class Example extends TerraformStack {
         creationToken: 'ACME-Dev',
         volumeName: 'data',
       },
+      exposedContainer: {
+        name: 'blueContainer',
+        port: 3000,
+        healthCheckPath: '/',
+      },
+      internal: false,
+      prefix: 'ACME-Dev', // Prefix is a combo of the `Name-Environment`
       wafConfig: {
         aclArn: wafAcl.arn,
       },
+    });
+
+    new PocketAwsSyntheticChecks(this, 'synthetics', {
+      environment: 'Dev',
+      prefix: 'ACME-Dev',
+      query: [
+        {
+          endpoint: 'acme.getpocket.dev',
+          data: '{"query": "query { someGraphQlQuery(arg1: \\"1\\", arg2: \\"1\\") {returnedAttr} }"}',
+          jmespath: 'errors[0].message', // errors checks can confirm GraphQL is working as desired, though preferably these are positive checks
+          response:
+            'Error - Not Found: A resource by that arg1 could not be found',
+        },
+      ],
+      securityGroupIds: pocketVpc.defaultSecurityGroups.ids,
+      shortName: 'ACME',
+      subnetIds: pocketVpc.privateSubnetIds,
+      uptime: [
+        {
+          response: 'ok',
+          url: `acme.getpocket.dev/.well-known/apollo/server-health`,
+        },
+      ],
     });
   }
 }

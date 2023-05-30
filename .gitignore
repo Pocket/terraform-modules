@@ -12,3 +12,4 @@ dist
 tsconfig.tsbuildinfo
 .idea
 .vscode*
+*.tfstate*
