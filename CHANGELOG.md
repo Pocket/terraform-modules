@@ -1,3 +1,10 @@
+## [4.16.1](https://github.com/Pocket/terraform-modules/compare/v4.16.0...v4.16.1) (2023-05-30)
+
+
+### Bug Fixes
+
+* **export:** forgot to expore aws synthetics work ([#1063](https://github.com/Pocket/terraform-modules/issues/1063)) ([ca668ae](https://github.com/Pocket/terraform-modules/commit/ca668aea36180bdd4e1db229947942bd443aed30))
+
 ## [4.16.0](https://github.com/Pocket/terraform-modules/compare/v4.15.0...v4.16.0) (2023-05-30)
 
 
