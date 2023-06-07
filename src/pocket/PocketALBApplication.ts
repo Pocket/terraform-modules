@@ -248,16 +248,13 @@ export class PocketALBApplication extends Construct {
     this.alb = alb;
 
     if (config.cdn) {
-      this.createCDN(albRecord);
+      this.createCDN(albRecord, config);
     }
 
     if (config.wafConfig) {
-      if (config.cdn) {
-        throw new Error(
-          'Implementation of waf association with CDN is not currently supported'
-        );
+      if (!config.cdn) {
+        this.createWAF(alb, config.wafConfig.aclArn);
       }
-      this.createWAF(alb, config.wafConfig.aclArn);
     }
 
     if (config.efsConfig) {
@@ -458,7 +455,10 @@ export class PocketALBApplication extends Construct {
    * @param albRecord
    * @private
    */
-  private createCDN(albRecord: Route53Record): void {
+  private createCDN(
+    albRecord: Route53Record,
+    config: PocketALBApplicationProps
+  ): void {
     //Create the certificate for the CDN
     const cdnCertificate = new ApplicationCertificate(this, `cdn_certificate`, {
       zoneId: this.baseDNS.zoneId,
@@ -467,6 +467,12 @@ export class PocketALBApplication extends Construct {
       provider: this.config.provider,
     });
 
+    let webAclArn: string;
+
+    if (config.wafConfig) {
+      webAclArn = config.wafConfig.aclArn;
+    }
+
     //Create the CDN
     const cdn = new CloudfrontDistribution(this, `cloudfront_distribution`, {
       comment: `CDN for direct.${this.config.domain}`,
@@ -474,6 +480,7 @@ export class PocketALBApplication extends Construct {
       aliases: [this.config.domain],
       priceClass: 'PriceClass_200',
       tags: this.config.tags,
+      webAclId: webAclArn,
       origin: [
         {
           domainName: albRecord.fqdn,
