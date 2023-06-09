@@ -45,8 +45,8 @@ interface PocketAwsSyntheticUptimeConfig {
  *
  */
 export interface PocketAwsSyntheticCheckProps {
-  alarmTopicArn?: string;
-  environment: 'Dev' | 'Prod'; // reusable code setup doesn't exist in other environments / AWS Accounts.
+  alarmTopicArn?: string | null;
+  environment: string; // reusable code setup only exists in AWS Dev & Prod Accounts currently.
   prefix: string;
   query: PocketAwsSyntheticQueryConfig[];
   securityGroupIds?: string[];
@@ -253,12 +253,12 @@ export class PocketAwsSyntheticChecks extends Construct {
           alarmActions:
             config.alarmTopicArn !== undefined
               ? [this.config.alarmTopicArn]
-              : [],
+              : null,
           insufficientDataActions: [],
           okActions:
             config.alarmTopicArn !== undefined
               ? [this.config.alarmTopicArn]
-              : [],
+              : null,
         }
       );
     }

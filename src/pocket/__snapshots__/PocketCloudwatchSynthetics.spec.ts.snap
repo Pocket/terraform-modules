@@ -362,8 +362,7 @@ exports[`Pocket Cloudwatch Synthetics renders desired AWS Synthetic Checks 1`] =
         \\"treat_missing_data\\": \\"breaching\\"
       },
       \\"test-synthetics_test-synthetics_synthetic_check_alarm_uptime_0_47F383EB\\": {
-        \\"alarm_actions\\": [
-        ],
+        \\"alarm_actions\\": null,
         \\"alarm_description\\": \\"Alert when \${aws_synthetics_canary.test-synthetics_test-synthetics_synthetic_check_uptime_0_2398A479.name} canary success percentage has decreased below 66% in the last 15 minutes\\",
         \\"alarm_name\\": \\"\${aws_synthetics_canary.test-synthetics_test-synthetics_synthetic_check_uptime_0_2398A479.name}\\",
         \\"comparison_operator\\": \\"LessThanThreshold\\",
@@ -375,8 +374,7 @@ exports[`Pocket Cloudwatch Synthetics renders desired AWS Synthetic Checks 1`] =
         ],
         \\"metric_name\\": \\"SuccessPercent\\",
         \\"namespace\\": \\"CloudWatchSynthetics\\",
-        \\"ok_actions\\": [
-        ],
+        \\"ok_actions\\": null,
         \\"period\\": 300,
         \\"statistic\\": \\"Average\\",
         \\"threshold\\": 66,
