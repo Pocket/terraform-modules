@@ -271,7 +271,7 @@ export class PocketECSApplication extends Construct {
     ecsServiceName: string,
     ecsServiceClusterName: string
   ): CloudwatchDashboard {
-    // don't love having this big ol' JSON object here, but it is the simplest way to achieve the result
+    // set some defaults, then ignore all future changes / manual edits & additions.
     const dashboardJSON = {
       widgets: [
         {
@@ -343,8 +343,11 @@ export class PocketECSApplication extends Construct {
     };
 
     return new CloudwatchDashboard(this, 'cloudwatch-dashboard', {
-      dashboardName: `${this.config.prefix}-ALBDashboard`,
+      dashboardName: `${this.config.prefix}`,
       dashboardBody: JSON.stringify(dashboardJSON),
+      lifecycle: {
+        ignoreChanges: 'all',
+      },
       provider: this.config.provider,
     });
   }
