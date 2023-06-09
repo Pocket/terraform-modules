@@ -2,9 +2,6 @@ import { TerraformMetaArguments } from 'cdktf';
 import { AppautoscalingPolicy } from '@cdktf/provider-aws/lib/appautoscaling-policy';
 import { AppautoscalingTarget } from '@cdktf/provider-aws/lib/appautoscaling-target';
 import { CloudwatchMetricAlarm } from '@cdktf/provider-aws/lib/cloudwatch-metric-alarm';
-import { IamRole } from '@cdktf/provider-aws/lib/iam-role';
-import { IamRolePolicy } from '@cdktf/provider-aws/lib/iam-role-policy';
-import { DataAwsIamPolicyDocument } from '@cdktf/provider-aws/lib/data-aws-iam-policy-document';
 import { Construct } from 'constructs';
 
 export interface ApplicationAutoscalingProps extends TerraformMetaArguments {
@@ -33,15 +30,10 @@ export class ApplicationAutoscaling extends Construct {
   ) {
     super(scope, name);
 
-    // set up IAM role & policy
-    const iamRole = ApplicationAutoscaling.generateIamRole(this, config);
-    ApplicationAutoscaling.generateIamRolePolicy(this, config, iamRole);
-
     // set up autoscaling target & in/out policies
     const autoScalingTarget = ApplicationAutoscaling.generateAutoScalingTarget(
       this,
-      config,
-      iamRole
+      config
     );
 
     const applicationScaleOut =
@@ -84,95 +76,19 @@ export class ApplicationAutoscaling extends Construct {
   }
 
   /**
-   * Creates an IAM Role
-   * @param resource
-   * @param config
-   * @returns IamRole
-   */
-  static generateIamRole(
-    scope: Construct,
-    config: ApplicationAutoscalingProps
-  ): IamRole {
-    return new IamRole(scope, `autoscaling_role`, {
-      name: `${config.prefix}-AutoScalingRole`,
-      assumeRolePolicy: new DataAwsIamPolicyDocument(
-        scope,
-        `autoscaling_assume`,
-        {
-          statement: [
-            {
-              effect: 'Allow',
-              actions: ['sts:AssumeRole'],
-              principals: [
-                {
-                  identifiers: ['ecs.application-autoscaling.amazonaws.com'],
-                  type: 'Service',
-                },
-              ],
-            },
-          ],
-        }
-      ).json,
-      provider: config.provider,
-    });
-  }
-
-  /**
-   * Creates an IAM Role Policy
-   *
-   * @param resource
-   * @param config
-   * @param iamRole
-   */
-  static generateIamRolePolicy(
-    scope: Construct,
-    config: ApplicationAutoscalingProps,
-    iamRole: IamRole
-  ): void {
-    new IamRolePolicy(scope, `autoscaling_role_policy`, {
-      name: `${config.prefix}-AutoScalingPolicy`,
-      role: iamRole.id,
-      policy: new DataAwsIamPolicyDocument(scope, `role_policy`, {
-        statement: [
-          {
-            effect: 'Allow',
-            actions: [
-              'cloudwatch:PutMetricAlarm',
-              'cloudwatch:DescribeAlarms',
-              'cloudwatch:DeleteAlarms',
-            ],
-            resources: [
-              `arn:aws:cloudwatch:*:*:alarm:/${config.ecsServiceName}*`,
-            ],
-          },
-          {
-            effect: 'Allow',
-            actions: ['ecs:DescribeServices', 'ecs:UpdateService'],
-            resources: [`arn:aws:ecs:*:*:service/${config.ecsServiceName}*`],
-          },
-        ],
-      }).json,
-      provider: config.provider,
-    });
-  }
-
-  /**
    * Creates an Auto Scaling Target
    * @param resource
    * @param config
-   * @param iamRole
    * @returns AppautoscalingTarget
    */
   static generateAutoScalingTarget(
     scope: Construct,
-    config: ApplicationAutoscalingProps,
-    iamRole: IamRole
+    config: ApplicationAutoscalingProps
   ): AppautoscalingTarget {
     return new AppautoscalingTarget(scope, `autoscaling_target`, {
       maxCapacity: config.targetMaxCapacity,
       minCapacity: config.targetMinCapacity,
       resourceId: `service/${config.ecsClusterName}/${config.ecsServiceName}`,
-      roleArn: iamRole.arn,
       scalableDimension: 'ecs:service:DesiredCount',
       serviceNamespace: 'ecs',
       provider: config.provider,

@@ -2,53 +2,6 @@
 
 exports[`ApplicationAutoscaling constructor renders autoscaling without tags 1`] = `
 "{
-  \\"data\\": {
-    \\"aws_iam_policy_document\\": {
-      \\"testAutoscaling_autoscaling_assume_C6A98B8F\\": {
-        \\"statement\\": [
-          {
-            \\"actions\\": [
-              \\"sts:AssumeRole\\"
-            ],
-            \\"effect\\": \\"Allow\\",
-            \\"principals\\": [
-              {
-                \\"identifiers\\": [
-                  \\"ecs.application-autoscaling.amazonaws.com\\"
-                ],
-                \\"type\\": \\"Service\\"
-              }
-            ]
-          }
-        ]
-      },
-      \\"testAutoscaling_role_policy_1080311F\\": {
-        \\"statement\\": [
-          {
-            \\"actions\\": [
-              \\"cloudwatch:PutMetricAlarm\\",
-              \\"cloudwatch:DescribeAlarms\\",
-              \\"cloudwatch:DeleteAlarms\\"
-            ],
-            \\"effect\\": \\"Allow\\",
-            \\"resources\\": [
-              \\"arn:aws:cloudwatch:*:*:alarm:/ecs-service-test*\\"
-            ]
-          },
-          {
-            \\"actions\\": [
-              \\"ecs:DescribeServices\\",
-              \\"ecs:UpdateService\\"
-            ],
-            \\"effect\\": \\"Allow\\",
-            \\"resources\\": [
-              \\"arn:aws:ecs:*:*:service/ecs-service-test*\\"
-            ]
-          }
-        ]
-      }
-    }
-  },
   \\"resource\\": {
     \\"aws_appautoscaling_policy\\": {
       \\"testAutoscaling_scale_in_policy_8085C07C\\": {
@@ -101,7 +54,6 @@ exports[`ApplicationAutoscaling constructor renders autoscaling without tags 1`]
         \\"max_capacity\\": 5,
         \\"min_capacity\\": 1,
         \\"resource_id\\": \\"service/ecs-cluster-test/ecs-service-test\\",
-        \\"role_arn\\": \\"\${aws_iam_role.testAutoscaling_autoscaling_role_B028EC31.arn}\\",
         \\"scalable_dimension\\": \\"ecs:service:DesiredCount\\",
         \\"service_namespace\\": \\"ecs\\"
       }
@@ -145,19 +97,6 @@ exports[`ApplicationAutoscaling constructor renders autoscaling without tags 1`]
         \\"threshold\\": 45,
         \\"treat_missing_data\\": \\"notBreaching\\"
       }
-    },
-    \\"aws_iam_role\\": {
-      \\"testAutoscaling_autoscaling_role_B028EC31\\": {
-        \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.testAutoscaling_autoscaling_assume_C6A98B8F.json}\\",
-        \\"name\\": \\"test--AutoScalingRole\\"
-      }
-    },
-    \\"aws_iam_role_policy\\": {
-      \\"testAutoscaling_autoscaling_role_policy_96217706\\": {
-        \\"name\\": \\"test--AutoScalingPolicy\\",
-        \\"policy\\": \\"\${data.aws_iam_policy_document.testAutoscaling_role_policy_1080311F.json}\\",
-        \\"role\\": \\"\${aws_iam_role.testAutoscaling_autoscaling_role_B028EC31.id}\\"
-      }
     }
   }
 }"
@@ -165,28 +104,6 @@ exports[`ApplicationAutoscaling constructor renders autoscaling without tags 1`]
 
 exports[`ApplicationAutoscaling generateAutoScalingPolicy renders a scale-in AutoscalingPolicy 1`] = `
 "{
-  \\"data\\": {
-    \\"aws_iam_policy_document\\": {
-      \\"test-resource_autoscaling_assume_94B7604F\\": {
-        \\"statement\\": [
-          {
-            \\"actions\\": [
-              \\"sts:AssumeRole\\"
-            ],
-            \\"effect\\": \\"Allow\\",
-            \\"principals\\": [
-              {
-                \\"identifiers\\": [
-                  \\"ecs.application-autoscaling.amazonaws.com\\"
-                ],
-                \\"type\\": \\"Service\\"
-              }
-            ]
-          }
-        ]
-      }
-    }
-  },
   \\"resource\\": {
     \\"aws_appautoscaling_policy\\": {
       \\"test-resource_scale_in_policy_FC19C991\\": {
@@ -217,15 +134,8 @@ exports[`ApplicationAutoscaling generateAutoScalingPolicy renders a scale-in Aut
         \\"max_capacity\\": 5,
         \\"min_capacity\\": 1,
         \\"resource_id\\": \\"service/ecs-cluster-test/ecs-service-test\\",
-        \\"role_arn\\": \\"\${aws_iam_role.test-resource_autoscaling_role_5C86EA80.arn}\\",
         \\"scalable_dimension\\": \\"ecs:service:DesiredCount\\",
         \\"service_namespace\\": \\"ecs\\"
-      }
-    },
-    \\"aws_iam_role\\": {
-      \\"test-resource_autoscaling_role_5C86EA80\\": {
-        \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.test-resource_autoscaling_assume_94B7604F.json}\\",
-        \\"name\\": \\"test--AutoScalingRole\\"
       }
     }
   }
@@ -234,28 +144,6 @@ exports[`ApplicationAutoscaling generateAutoScalingPolicy renders a scale-in Aut
 
 exports[`ApplicationAutoscaling generateAutoScalingPolicy renders a scale-out AutoscalingPolicy 1`] = `
 "{
-  \\"data\\": {
-    \\"aws_iam_policy_document\\": {
-      \\"test-resource_autoscaling_assume_94B7604F\\": {
-        \\"statement\\": [
-          {
-            \\"actions\\": [
-              \\"sts:AssumeRole\\"
-            ],
-            \\"effect\\": \\"Allow\\",
-            \\"principals\\": [
-              {
-                \\"identifiers\\": [
-                  \\"ecs.application-autoscaling.amazonaws.com\\"
-                ],
-                \\"type\\": \\"Service\\"
-              }
-            ]
-          }
-        ]
-      }
-    }
-  },
   \\"resource\\": {
     \\"aws_appautoscaling_policy\\": {
       \\"test-resource_scale_out_policy_CE22053C\\": {
@@ -286,15 +174,8 @@ exports[`ApplicationAutoscaling generateAutoScalingPolicy renders a scale-out Au
         \\"max_capacity\\": 5,
         \\"min_capacity\\": 1,
         \\"resource_id\\": \\"service/ecs-cluster-test/ecs-service-test\\",
-        \\"role_arn\\": \\"\${aws_iam_role.test-resource_autoscaling_role_5C86EA80.arn}\\",
         \\"scalable_dimension\\": \\"ecs:service:DesiredCount\\",
         \\"service_namespace\\": \\"ecs\\"
-      }
-    },
-    \\"aws_iam_role\\": {
-      \\"test-resource_autoscaling_role_5C86EA80\\": {
-        \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.test-resource_autoscaling_assume_94B7604F.json}\\",
-        \\"name\\": \\"test--AutoScalingRole\\"
       }
     }
   }
@@ -303,43 +184,14 @@ exports[`ApplicationAutoscaling generateAutoScalingPolicy renders a scale-out Au
 
 exports[`ApplicationAutoscaling generateAutoScalingTarget renders an AutoscalingTarget 1`] = `
 "{
-  \\"data\\": {
-    \\"aws_iam_policy_document\\": {
-      \\"test-resource_autoscaling_assume_94B7604F\\": {
-        \\"statement\\": [
-          {
-            \\"actions\\": [
-              \\"sts:AssumeRole\\"
-            ],
-            \\"effect\\": \\"Allow\\",
-            \\"principals\\": [
-              {
-                \\"identifiers\\": [
-                  \\"ecs.application-autoscaling.amazonaws.com\\"
-                ],
-                \\"type\\": \\"Service\\"
-              }
-            ]
-          }
-        ]
-      }
-    }
-  },
   \\"resource\\": {
     \\"aws_appautoscaling_target\\": {
       \\"test-resource_autoscaling_target_50BC4A94\\": {
         \\"max_capacity\\": 5,
         \\"min_capacity\\": 1,
         \\"resource_id\\": \\"service/ecs-cluster-test/ecs-service-test\\",
-        \\"role_arn\\": \\"\${aws_iam_role.test-resource_autoscaling_role_5C86EA80.arn}\\",
         \\"scalable_dimension\\": \\"ecs:service:DesiredCount\\",
         \\"service_namespace\\": \\"ecs\\"
-      }
-    },
-    \\"aws_iam_role\\": {
-      \\"test-resource_autoscaling_role_5C86EA80\\": {
-        \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.test-resource_autoscaling_assume_94B7604F.json}\\",
-        \\"name\\": \\"test--AutoScalingRole\\"
       }
     }
   }
@@ -348,28 +200,6 @@ exports[`ApplicationAutoscaling generateAutoScalingTarget renders an Autoscaling
 
 exports[`ApplicationAutoscaling generateCloudwatchMetricAlarm renders a scale-in Cloudwatch Alarm 1`] = `
 "{
-  \\"data\\": {
-    \\"aws_iam_policy_document\\": {
-      \\"test-resource_autoscaling_assume_94B7604F\\": {
-        \\"statement\\": [
-          {
-            \\"actions\\": [
-              \\"sts:AssumeRole\\"
-            ],
-            \\"effect\\": \\"Allow\\",
-            \\"principals\\": [
-              {
-                \\"identifiers\\": [
-                  \\"ecs.application-autoscaling.amazonaws.com\\"
-                ],
-                \\"type\\": \\"Service\\"
-              }
-            ]
-          }
-        ]
-      }
-    }
-  },
   \\"resource\\": {
     \\"aws_appautoscaling_policy\\": {
       \\"test-resource_scale_in_policy_FC19C991\\": {
@@ -400,7 +230,6 @@ exports[`ApplicationAutoscaling generateCloudwatchMetricAlarm renders a scale-in
         \\"max_capacity\\": 5,
         \\"min_capacity\\": 1,
         \\"resource_id\\": \\"service/ecs-cluster-test/ecs-service-test\\",
-        \\"role_arn\\": \\"\${aws_iam_role.test-resource_autoscaling_role_5C86EA80.arn}\\",
         \\"scalable_dimension\\": \\"ecs:service:DesiredCount\\",
         \\"service_namespace\\": \\"ecs\\"
       }
@@ -425,12 +254,6 @@ exports[`ApplicationAutoscaling generateCloudwatchMetricAlarm renders a scale-in
         \\"threshold\\": 30,
         \\"treat_missing_data\\": \\"notBreaching\\"
       }
-    },
-    \\"aws_iam_role\\": {
-      \\"test-resource_autoscaling_role_5C86EA80\\": {
-        \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.test-resource_autoscaling_assume_94B7604F.json}\\",
-        \\"name\\": \\"test--AutoScalingRole\\"
-      }
     }
   }
 }"
@@ -438,28 +261,6 @@ exports[`ApplicationAutoscaling generateCloudwatchMetricAlarm renders a scale-in
 
 exports[`ApplicationAutoscaling generateCloudwatchMetricAlarm renders a scale-out Cloudwatch Alarm 1`] = `
 "{
-  \\"data\\": {
-    \\"aws_iam_policy_document\\": {
-      \\"test-resource_autoscaling_assume_94B7604F\\": {
-        \\"statement\\": [
-          {
-            \\"actions\\": [
-              \\"sts:AssumeRole\\"
-            ],
-            \\"effect\\": \\"Allow\\",
-            \\"principals\\": [
-              {
-                \\"identifiers\\": [
-                  \\"ecs.application-autoscaling.amazonaws.com\\"
-                ],
-                \\"type\\": \\"Service\\"
-              }
-            ]
-          }
-        ]
-      }
-    }
-  },
   \\"resource\\": {
     \\"aws_appautoscaling_policy\\": {
       \\"test-resource_scale_out_policy_CE22053C\\": {
@@ -490,7 +291,6 @@ exports[`ApplicationAutoscaling generateCloudwatchMetricAlarm renders a scale-ou
         \\"max_capacity\\": 5,
         \\"min_capacity\\": 1,
         \\"resource_id\\": \\"service/ecs-cluster-test/ecs-service-test\\",
-        \\"role_arn\\": \\"\${aws_iam_role.test-resource_autoscaling_role_5C86EA80.arn}\\",
         \\"scalable_dimension\\": \\"ecs:service:DesiredCount\\",
         \\"service_namespace\\": \\"ecs\\"
       }
@@ -514,114 +314,6 @@ exports[`ApplicationAutoscaling generateCloudwatchMetricAlarm renders a scale-ou
         \\"statistic\\": \\"Average\\",
         \\"threshold\\": 45,
         \\"treat_missing_data\\": \\"notBreaching\\"
-      }
-    },
-    \\"aws_iam_role\\": {
-      \\"test-resource_autoscaling_role_5C86EA80\\": {
-        \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.test-resource_autoscaling_assume_94B7604F.json}\\",
-        \\"name\\": \\"test--AutoScalingRole\\"
-      }
-    }
-  }
-}"
-`;
-
-exports[`ApplicationAutoscaling generateIamRole renders an IamRole 1`] = `
-"{
-  \\"data\\": {
-    \\"aws_iam_policy_document\\": {
-      \\"test-resource_autoscaling_assume_94B7604F\\": {
-        \\"statement\\": [
-          {
-            \\"actions\\": [
-              \\"sts:AssumeRole\\"
-            ],
-            \\"effect\\": \\"Allow\\",
-            \\"principals\\": [
-              {
-                \\"identifiers\\": [
-                  \\"ecs.application-autoscaling.amazonaws.com\\"
-                ],
-                \\"type\\": \\"Service\\"
-              }
-            ]
-          }
-        ]
-      }
-    }
-  },
-  \\"resource\\": {
-    \\"aws_iam_role\\": {
-      \\"test-resource_autoscaling_role_5C86EA80\\": {
-        \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.test-resource_autoscaling_assume_94B7604F.json}\\",
-        \\"name\\": \\"test--AutoScalingRole\\"
-      }
-    }
-  }
-}"
-`;
-
-exports[`ApplicationAutoscaling generateIamRolePolicy renders an IamRolePolicy 1`] = `
-"{
-  \\"data\\": {
-    \\"aws_iam_policy_document\\": {
-      \\"test-resource_autoscaling_assume_94B7604F\\": {
-        \\"statement\\": [
-          {
-            \\"actions\\": [
-              \\"sts:AssumeRole\\"
-            ],
-            \\"effect\\": \\"Allow\\",
-            \\"principals\\": [
-              {
-                \\"identifiers\\": [
-                  \\"ecs.application-autoscaling.amazonaws.com\\"
-                ],
-                \\"type\\": \\"Service\\"
-              }
-            ]
-          }
-        ]
-      },
-      \\"test-resource_role_policy_21B9F22E\\": {
-        \\"statement\\": [
-          {
-            \\"actions\\": [
-              \\"cloudwatch:PutMetricAlarm\\",
-              \\"cloudwatch:DescribeAlarms\\",
-              \\"cloudwatch:DeleteAlarms\\"
-            ],
-            \\"effect\\": \\"Allow\\",
-            \\"resources\\": [
-              \\"arn:aws:cloudwatch:*:*:alarm:/ecs-service-test*\\"
-            ]
-          },
-          {
-            \\"actions\\": [
-              \\"ecs:DescribeServices\\",
-              \\"ecs:UpdateService\\"
-            ],
-            \\"effect\\": \\"Allow\\",
-            \\"resources\\": [
-              \\"arn:aws:ecs:*:*:service/ecs-service-test*\\"
-            ]
-          }
-        ]
-      }
-    }
-  },
-  \\"resource\\": {
-    \\"aws_iam_role\\": {
-      \\"test-resource_autoscaling_role_5C86EA80\\": {
-        \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.test-resource_autoscaling_assume_94B7604F.json}\\",
-        \\"name\\": \\"test--AutoScalingRole\\"
-      }
-    },
-    \\"aws_iam_role_policy\\": {
-      \\"test-resource_autoscaling_role_policy_8E791CA3\\": {
-        \\"name\\": \\"test--AutoScalingPolicy\\",
-        \\"policy\\": \\"\${data.aws_iam_policy_document.test-resource_role_policy_21B9F22E.json}\\",
-        \\"role\\": \\"\${aws_iam_role.test-resource_autoscaling_role_5C86EA80.id}\\"
       }
     }
   }

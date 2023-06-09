@@ -19,38 +19,12 @@ describe('ApplicationAutoscaling', () => {
     scaleOutThreshold: 45,
   };
 
-  describe('generateIamRole', () => {
-    it('renders an IamRole', () => {
-      const synthed = Testing.synthScope((stack) => {
-        const construct = new TestResource(stack, 'test-resource');
-        ApplicationAutoscaling.generateIamRole(construct, props);
-      });
-      expect(synthed).toMatchSnapshot();
-    });
-  });
-
-  describe('generateIamRolePolicy', () => {
-    it('renders an IamRolePolicy', () => {
-      const synthed = Testing.synthScope((stack) => {
-        const construct = new TestResource(stack, 'test-resource');
-        const role = ApplicationAutoscaling.generateIamRole(construct, props);
-        ApplicationAutoscaling.generateIamRolePolicy(construct, props, role);
-      });
-      expect(synthed).toMatchSnapshot();
-    });
-  });
-
   describe('generateAutoScalingTarget', () => {
     it('renders an AutoscalingTarget', () => {
       const synthed = Testing.synthScope((stack) => {
         const construct = new TestResource(stack, 'test-resource');
 
-        const role = ApplicationAutoscaling.generateIamRole(construct, props);
-        ApplicationAutoscaling.generateAutoScalingTarget(
-          construct,
-          props,
-          role
-        );
+        ApplicationAutoscaling.generateAutoScalingTarget(construct, props);
       });
       expect(synthed).toMatchSnapshot();
     });
@@ -60,11 +34,9 @@ describe('ApplicationAutoscaling', () => {
     it('renders a scale-in AutoscalingPolicy', () => {
       const synthed = Testing.synthScope((stack) => {
         const construct = new TestResource(stack, 'test-resource');
-        const role = ApplicationAutoscaling.generateIamRole(construct, props);
         const target = ApplicationAutoscaling.generateAutoScalingTarget(
           construct,
-          props,
-          role
+          props
         );
         ApplicationAutoscaling.generateAutoSclaingPolicy(
           construct,
@@ -79,11 +51,9 @@ describe('ApplicationAutoscaling', () => {
     it('renders a scale-out AutoscalingPolicy', () => {
       const synthed = Testing.synthScope((stack) => {
         const construct = new TestResource(stack, 'test-resource');
-        const role = ApplicationAutoscaling.generateIamRole(construct, props);
         const target = ApplicationAutoscaling.generateAutoScalingTarget(
           construct,
-          props,
-          role
+          props
         );
         ApplicationAutoscaling.generateAutoSclaingPolicy(
           construct,
@@ -101,11 +71,9 @@ describe('ApplicationAutoscaling', () => {
       const synthed = Testing.synthScope((stack) => {
         const construct = new TestResource(stack, 'test-resource');
 
-        const role = ApplicationAutoscaling.generateIamRole(construct, props);
         const target = ApplicationAutoscaling.generateAutoScalingTarget(
           construct,
-          props,
-          role
+          props
         );
 
         const policy = ApplicationAutoscaling.generateAutoSclaingPolicy(
@@ -133,11 +101,9 @@ describe('ApplicationAutoscaling', () => {
       const synthed = Testing.synthScope((stack) => {
         const construct = new TestResource(stack, 'test-resource');
 
-        const role = ApplicationAutoscaling.generateIamRole(construct, props);
         const target = ApplicationAutoscaling.generateAutoScalingTarget(
           construct,
-          props,
-          role
+          props
         );
 
         const policy = ApplicationAutoscaling.generateAutoSclaingPolicy(

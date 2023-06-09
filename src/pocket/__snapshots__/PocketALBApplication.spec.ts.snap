@@ -8,49 +8,6 @@ exports[`PocketALBApplication renders a Pocket App with attached persistent stor
       }
     },
     \\"aws_iam_policy_document\\": {
-      \\"testPocketApp_autoscaling_autoscaling_assume_9DAB9CD7\\": {
-        \\"statement\\": [
-          {
-            \\"actions\\": [
-              \\"sts:AssumeRole\\"
-            ],
-            \\"effect\\": \\"Allow\\",
-            \\"principals\\": [
-              {
-                \\"identifiers\\": [
-                  \\"ecs.application-autoscaling.amazonaws.com\\"
-                ],
-                \\"type\\": \\"Service\\"
-              }
-            ]
-          }
-        ]
-      },
-      \\"testPocketApp_autoscaling_role_policy_4E03A5E2\\": {
-        \\"statement\\": [
-          {
-            \\"actions\\": [
-              \\"cloudwatch:PutMetricAlarm\\",
-              \\"cloudwatch:DescribeAlarms\\",
-              \\"cloudwatch:DeleteAlarms\\"
-            ],
-            \\"effect\\": \\"Allow\\",
-            \\"resources\\": [
-              \\"arn:aws:cloudwatch:*:*:alarm:/\${aws_ecs_service.testPocketApp_ecs_service_ecs-service_182DEA4C.name}*\\"
-            ]
-          },
-          {
-            \\"actions\\": [
-              \\"ecs:DescribeServices\\",
-              \\"ecs:UpdateService\\"
-            ],
-            \\"effect\\": \\"Allow\\",
-            \\"resources\\": [
-              \\"arn:aws:ecs:*:*:service/\${aws_ecs_service.testPocketApp_ecs_service_ecs-service_182DEA4C.name}*\\"
-            ]
-          }
-        ]
-      },
       \\"testPocketApp_ecs_service_ecs-iam_ecs-task-assume_ABB81680\\": {
         \\"statement\\": [
           {
@@ -326,7 +283,6 @@ exports[`PocketALBApplication renders a Pocket App with attached persistent stor
         \\"max_capacity\\": 2,
         \\"min_capacity\\": 1,
         \\"resource_id\\": \\"service/\${aws_ecs_cluster.testPocketApp_ecs_cluster_C3960066.name}/\${aws_ecs_service.testPocketApp_ecs_service_ecs-service_182DEA4C.name}\\",
-        \\"role_arn\\": \\"\${aws_iam_role.testPocketApp_autoscaling_autoscaling_role_2A822527.arn}\\",
         \\"scalable_dimension\\": \\"ecs:service:DesiredCount\\",
         \\"service_namespace\\": \\"ecs\\"
       }
@@ -504,10 +460,6 @@ exports[`PocketALBApplication renders a Pocket App with attached persistent stor
       }
     },
     \\"aws_iam_role\\": {
-      \\"testPocketApp_autoscaling_autoscaling_role_2A822527\\": {
-        \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.testPocketApp_autoscaling_autoscaling_assume_9DAB9CD7.json}\\",
-        \\"name\\": \\"testapp-AutoScalingRole\\"
-      },
       \\"testPocketApp_ecs_service_ecs-iam_ecs-execution-role_EB461A0C\\": {
         \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.testPocketApp_ecs_service_ecs-iam_ecs-task-assume_ABB81680.json}\\",
         \\"name\\": \\"testapp-TaskExecutionRole\\"
@@ -515,13 +467,6 @@ exports[`PocketALBApplication renders a Pocket App with attached persistent stor
       \\"testPocketApp_ecs_service_ecs-iam_ecs-task-role_7DB93963\\": {
         \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.testPocketApp_ecs_service_ecs-iam_ecs-task-assume_ABB81680.json}\\",
         \\"name\\": \\"testapp-TaskRole\\"
-      }
-    },
-    \\"aws_iam_role_policy\\": {
-      \\"testPocketApp_autoscaling_autoscaling_role_policy_2C958C29\\": {
-        \\"name\\": \\"testapp-AutoScalingPolicy\\",
-        \\"policy\\": \\"\${data.aws_iam_policy_document.testPocketApp_autoscaling_role_policy_4E03A5E2.json}\\",
-        \\"role\\": \\"\${aws_iam_role.testPocketApp_autoscaling_autoscaling_role_2A822527.id}\\"
       }
     },
     \\"aws_route53_record\\": {
@@ -739,49 +684,6 @@ exports[`PocketALBApplication renders a Pocket App with attached waf 1`] = `
       }
     },
     \\"aws_iam_policy_document\\": {
-      \\"testPocketApp_autoscaling_autoscaling_assume_9DAB9CD7\\": {
-        \\"statement\\": [
-          {
-            \\"actions\\": [
-              \\"sts:AssumeRole\\"
-            ],
-            \\"effect\\": \\"Allow\\",
-            \\"principals\\": [
-              {
-                \\"identifiers\\": [
-                  \\"ecs.application-autoscaling.amazonaws.com\\"
-                ],
-                \\"type\\": \\"Service\\"
-              }
-            ]
-          }
-        ]
-      },
-      \\"testPocketApp_autoscaling_role_policy_4E03A5E2\\": {
-        \\"statement\\": [
-          {
-            \\"actions\\": [
-              \\"cloudwatch:PutMetricAlarm\\",
-              \\"cloudwatch:DescribeAlarms\\",
-              \\"cloudwatch:DeleteAlarms\\"
-            ],
-            \\"effect\\": \\"Allow\\",
-            \\"resources\\": [
-              \\"arn:aws:cloudwatch:*:*:alarm:/\${aws_ecs_service.testPocketApp_ecs_service_ecs-service_182DEA4C.name}*\\"
-            ]
-          },
-          {
-            \\"actions\\": [
-              \\"ecs:DescribeServices\\",
-              \\"ecs:UpdateService\\"
-            ],
-            \\"effect\\": \\"Allow\\",
-            \\"resources\\": [
-              \\"arn:aws:ecs:*:*:service/\${aws_ecs_service.testPocketApp_ecs_service_ecs-service_182DEA4C.name}*\\"
-            ]
-          }
-        ]
-      },
       \\"testPocketApp_ecs_service_ecs-iam_ecs-task-assume_ABB81680\\": {
         \\"statement\\": [
           {
@@ -1057,7 +959,6 @@ exports[`PocketALBApplication renders a Pocket App with attached waf 1`] = `
         \\"max_capacity\\": 2,
         \\"min_capacity\\": 1,
         \\"resource_id\\": \\"service/\${aws_ecs_cluster.testPocketApp_ecs_cluster_C3960066.name}/\${aws_ecs_service.testPocketApp_ecs_service_ecs-service_182DEA4C.name}\\",
-        \\"role_arn\\": \\"\${aws_iam_role.testPocketApp_autoscaling_autoscaling_role_2A822527.arn}\\",
         \\"scalable_dimension\\": \\"ecs:service:DesiredCount\\",
         \\"service_namespace\\": \\"ecs\\"
       }
@@ -1179,10 +1080,6 @@ exports[`PocketALBApplication renders a Pocket App with attached waf 1`] = `
       }
     },
     \\"aws_iam_role\\": {
-      \\"testPocketApp_autoscaling_autoscaling_role_2A822527\\": {
-        \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.testPocketApp_autoscaling_autoscaling_assume_9DAB9CD7.json}\\",
-        \\"name\\": \\"testapp-AutoScalingRole\\"
-      },
       \\"testPocketApp_ecs_service_ecs-iam_ecs-execution-role_EB461A0C\\": {
         \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.testPocketApp_ecs_service_ecs-iam_ecs-task-assume_ABB81680.json}\\",
         \\"name\\": \\"testapp-TaskExecutionRole\\"
@@ -1190,13 +1087,6 @@ exports[`PocketALBApplication renders a Pocket App with attached waf 1`] = `
       \\"testPocketApp_ecs_service_ecs-iam_ecs-task-role_7DB93963\\": {
         \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.testPocketApp_ecs_service_ecs-iam_ecs-task-assume_ABB81680.json}\\",
         \\"name\\": \\"testapp-TaskRole\\"
-      }
-    },
-    \\"aws_iam_role_policy\\": {
-      \\"testPocketApp_autoscaling_autoscaling_role_policy_2C958C29\\": {
-        \\"name\\": \\"testapp-AutoScalingPolicy\\",
-        \\"policy\\": \\"\${data.aws_iam_policy_document.testPocketApp_autoscaling_role_policy_4E03A5E2.json}\\",
-        \\"role\\": \\"\${aws_iam_role.testPocketApp_autoscaling_autoscaling_role_2A822527.id}\\"
       }
     },
     \\"aws_route53_record\\": {
@@ -1369,49 +1259,6 @@ exports[`PocketALBApplication renders an Pocket App with code deploy 1`] = `
       }
     },
     \\"aws_iam_policy_document\\": {
-      \\"testPocketApp_autoscaling_autoscaling_assume_9DAB9CD7\\": {
-        \\"statement\\": [
-          {
-            \\"actions\\": [
-              \\"sts:AssumeRole\\"
-            ],
-            \\"effect\\": \\"Allow\\",
-            \\"principals\\": [
-              {
-                \\"identifiers\\": [
-                  \\"ecs.application-autoscaling.amazonaws.com\\"
-                ],
-                \\"type\\": \\"Service\\"
-              }
-            ]
-          }
-        ]
-      },
-      \\"testPocketApp_autoscaling_role_policy_4E03A5E2\\": {
-        \\"statement\\": [
-          {
-            \\"actions\\": [
-              \\"cloudwatch:PutMetricAlarm\\",
-              \\"cloudwatch:DescribeAlarms\\",
-              \\"cloudwatch:DeleteAlarms\\"
-            ],
-            \\"effect\\": \\"Allow\\",
-            \\"resources\\": [
-              \\"arn:aws:cloudwatch:*:*:alarm:/\${aws_ecs_service.testPocketApp_ecs_service_ecs-service_182DEA4C.name}*\\"
-            ]
-          },
-          {
-            \\"actions\\": [
-              \\"ecs:DescribeServices\\",
-              \\"ecs:UpdateService\\"
-            ],
-            \\"effect\\": \\"Allow\\",
-            \\"resources\\": [
-              \\"arn:aws:ecs:*:*:service/\${aws_ecs_service.testPocketApp_ecs_service_ecs-service_182DEA4C.name}*\\"
-            ]
-          }
-        ]
-      },
       \\"testPocketApp_ecs_service_ecs-iam_ecs-task-assume_ABB81680\\": {
         \\"statement\\": [
           {
@@ -1723,7 +1570,6 @@ exports[`PocketALBApplication renders an Pocket App with code deploy 1`] = `
         \\"max_capacity\\": 2,
         \\"min_capacity\\": 1,
         \\"resource_id\\": \\"service/\${aws_ecs_cluster.testPocketApp_ecs_cluster_C3960066.name}/\${aws_ecs_service.testPocketApp_ecs_service_ecs-service_182DEA4C.name}\\",
-        \\"role_arn\\": \\"\${aws_iam_role.testPocketApp_autoscaling_autoscaling_role_2A822527.arn}\\",
         \\"scalable_dimension\\": \\"ecs:service:DesiredCount\\",
         \\"service_namespace\\": \\"ecs\\"
       }
@@ -1903,10 +1749,6 @@ exports[`PocketALBApplication renders an Pocket App with code deploy 1`] = `
       }
     },
     \\"aws_iam_role\\": {
-      \\"testPocketApp_autoscaling_autoscaling_role_2A822527\\": {
-        \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.testPocketApp_autoscaling_autoscaling_assume_9DAB9CD7.json}\\",
-        \\"name\\": \\"testapp-AutoScalingRole\\"
-      },
       \\"testPocketApp_ecs_service_ecs-iam_ecs-execution-role_EB461A0C\\": {
         \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.testPocketApp_ecs_service_ecs-iam_ecs-task-assume_ABB81680.json}\\",
         \\"name\\": \\"testapp-TaskExecutionRole\\"
@@ -1918,13 +1760,6 @@ exports[`PocketALBApplication renders an Pocket App with code deploy 1`] = `
       \\"testPocketApp_ecs_service_ecs_codedeploy_ecs_code_deploy_role_287C837D\\": {
         \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.testPocketApp_ecs_service_ecs_codedeploy_codedeploy_assume_role_840D1ECF.json}\\",
         \\"name\\": \\"testapp-ECSCodeDeployRole\\"
-      }
-    },
-    \\"aws_iam_role_policy\\": {
-      \\"testPocketApp_autoscaling_autoscaling_role_policy_2C958C29\\": {
-        \\"name\\": \\"testapp-AutoScalingPolicy\\",
-        \\"policy\\": \\"\${data.aws_iam_policy_document.testPocketApp_autoscaling_role_policy_4E03A5E2.json}\\",
-        \\"role\\": \\"\${aws_iam_role.testPocketApp_autoscaling_autoscaling_role_2A822527.id}\\"
       }
     },
     \\"aws_iam_role_policy_attachment\\": {
@@ -2136,49 +1971,6 @@ exports[`PocketALBApplication renders an Pocket App with code deploy and creates
       }
     },
     \\"aws_iam_policy_document\\": {
-      \\"testPocketApp_autoscaling_autoscaling_assume_9DAB9CD7\\": {
-        \\"statement\\": [
-          {
-            \\"actions\\": [
-              \\"sts:AssumeRole\\"
-            ],
-            \\"effect\\": \\"Allow\\",
-            \\"principals\\": [
-              {
-                \\"identifiers\\": [
-                  \\"ecs.application-autoscaling.amazonaws.com\\"
-                ],
-                \\"type\\": \\"Service\\"
-              }
-            ]
-          }
-        ]
-      },
-      \\"testPocketApp_autoscaling_role_policy_4E03A5E2\\": {
-        \\"statement\\": [
-          {
-            \\"actions\\": [
-              \\"cloudwatch:PutMetricAlarm\\",
-              \\"cloudwatch:DescribeAlarms\\",
-              \\"cloudwatch:DeleteAlarms\\"
-            ],
-            \\"effect\\": \\"Allow\\",
-            \\"resources\\": [
-              \\"arn:aws:cloudwatch:*:*:alarm:/\${aws_ecs_service.testPocketApp_ecs_service_ecs-service_182DEA4C.name}*\\"
-            ]
-          },
-          {
-            \\"actions\\": [
-              \\"ecs:DescribeServices\\",
-              \\"ecs:UpdateService\\"
-            ],
-            \\"effect\\": \\"Allow\\",
-            \\"resources\\": [
-              \\"arn:aws:ecs:*:*:service/\${aws_ecs_service.testPocketApp_ecs_service_ecs-service_182DEA4C.name}*\\"
-            ]
-          }
-        ]
-      },
       \\"testPocketApp_ecs_service_ecs-iam_ecs-task-assume_ABB81680\\": {
         \\"statement\\": [
           {
@@ -2490,7 +2282,6 @@ exports[`PocketALBApplication renders an Pocket App with code deploy and creates
         \\"max_capacity\\": 2,
         \\"min_capacity\\": 1,
         \\"resource_id\\": \\"service/\${aws_ecs_cluster.testPocketApp_ecs_cluster_C3960066.name}/\${aws_ecs_service.testPocketApp_ecs_service_ecs-service_182DEA4C.name}\\",
-        \\"role_arn\\": \\"\${aws_iam_role.testPocketApp_autoscaling_autoscaling_role_2A822527.arn}\\",
         \\"scalable_dimension\\": \\"ecs:service:DesiredCount\\",
         \\"service_namespace\\": \\"ecs\\"
       }
@@ -2670,10 +2461,6 @@ exports[`PocketALBApplication renders an Pocket App with code deploy and creates
       }
     },
     \\"aws_iam_role\\": {
-      \\"testPocketApp_autoscaling_autoscaling_role_2A822527\\": {
-        \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.testPocketApp_autoscaling_autoscaling_assume_9DAB9CD7.json}\\",
-        \\"name\\": \\"testapp-AutoScalingRole\\"
-      },
       \\"testPocketApp_ecs_service_ecs-iam_ecs-execution-role_EB461A0C\\": {
         \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.testPocketApp_ecs_service_ecs-iam_ecs-task-assume_ABB81680.json}\\",
         \\"name\\": \\"testapp-TaskExecutionRole\\"
@@ -2685,13 +2472,6 @@ exports[`PocketALBApplication renders an Pocket App with code deploy and creates
       \\"testPocketApp_ecs_service_ecs_codedeploy_ecs_code_deploy_role_287C837D\\": {
         \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.testPocketApp_ecs_service_ecs_codedeploy_codedeploy_assume_role_840D1ECF.json}\\",
         \\"name\\": \\"testapp-ECSCodeDeployRole\\"
-      }
-    },
-    \\"aws_iam_role_policy\\": {
-      \\"testPocketApp_autoscaling_autoscaling_role_policy_2C958C29\\": {
-        \\"name\\": \\"testapp-AutoScalingPolicy\\",
-        \\"policy\\": \\"\${data.aws_iam_policy_document.testPocketApp_autoscaling_role_policy_4E03A5E2.json}\\",
-        \\"role\\": \\"\${aws_iam_role.testPocketApp_autoscaling_autoscaling_role_2A822527.id}\\"
       }
     },
     \\"aws_iam_role_policy_attachment\\": {
@@ -2888,49 +2668,6 @@ exports[`PocketALBApplication renders an Pocket App with code deploy notificatio
       }
     },
     \\"aws_iam_policy_document\\": {
-      \\"testPocketApp_autoscaling_autoscaling_assume_9DAB9CD7\\": {
-        \\"statement\\": [
-          {
-            \\"actions\\": [
-              \\"sts:AssumeRole\\"
-            ],
-            \\"effect\\": \\"Allow\\",
-            \\"principals\\": [
-              {
-                \\"identifiers\\": [
-                  \\"ecs.application-autoscaling.amazonaws.com\\"
-                ],
-                \\"type\\": \\"Service\\"
-              }
-            ]
-          }
-        ]
-      },
-      \\"testPocketApp_autoscaling_role_policy_4E03A5E2\\": {
-        \\"statement\\": [
-          {
-            \\"actions\\": [
-              \\"cloudwatch:PutMetricAlarm\\",
-              \\"cloudwatch:DescribeAlarms\\",
-              \\"cloudwatch:DeleteAlarms\\"
-            ],
-            \\"effect\\": \\"Allow\\",
-            \\"resources\\": [
-              \\"arn:aws:cloudwatch:*:*:alarm:/\${aws_ecs_service.testPocketApp_ecs_service_ecs-service_182DEA4C.name}*\\"
-            ]
-          },
-          {
-            \\"actions\\": [
-              \\"ecs:DescribeServices\\",
-              \\"ecs:UpdateService\\"
-            ],
-            \\"effect\\": \\"Allow\\",
-            \\"resources\\": [
-              \\"arn:aws:ecs:*:*:service/\${aws_ecs_service.testPocketApp_ecs_service_ecs-service_182DEA4C.name}*\\"
-            ]
-          }
-        ]
-      },
       \\"testPocketApp_ecs_service_ecs-iam_ecs-task-assume_ABB81680\\": {
         \\"statement\\": [
           {
@@ -3242,7 +2979,6 @@ exports[`PocketALBApplication renders an Pocket App with code deploy notificatio
         \\"max_capacity\\": 2,
         \\"min_capacity\\": 1,
         \\"resource_id\\": \\"service/\${aws_ecs_cluster.testPocketApp_ecs_cluster_C3960066.name}/\${aws_ecs_service.testPocketApp_ecs_service_ecs-service_182DEA4C.name}\\",
-        \\"role_arn\\": \\"\${aws_iam_role.testPocketApp_autoscaling_autoscaling_role_2A822527.arn}\\",
         \\"scalable_dimension\\": \\"ecs:service:DesiredCount\\",
         \\"service_namespace\\": \\"ecs\\"
       }
@@ -3422,10 +3158,6 @@ exports[`PocketALBApplication renders an Pocket App with code deploy notificatio
       }
     },
     \\"aws_iam_role\\": {
-      \\"testPocketApp_autoscaling_autoscaling_role_2A822527\\": {
-        \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.testPocketApp_autoscaling_autoscaling_assume_9DAB9CD7.json}\\",
-        \\"name\\": \\"testapp-AutoScalingRole\\"
-      },
       \\"testPocketApp_ecs_service_ecs-iam_ecs-execution-role_EB461A0C\\": {
         \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.testPocketApp_ecs_service_ecs-iam_ecs-task-assume_ABB81680.json}\\",
         \\"name\\": \\"testapp-TaskExecutionRole\\"
@@ -3437,13 +3169,6 @@ exports[`PocketALBApplication renders an Pocket App with code deploy notificatio
       \\"testPocketApp_ecs_service_ecs_codedeploy_ecs_code_deploy_role_287C837D\\": {
         \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.testPocketApp_ecs_service_ecs_codedeploy_codedeploy_assume_role_840D1ECF.json}\\",
         \\"name\\": \\"testapp-ECSCodeDeployRole\\"
-      }
-    },
-    \\"aws_iam_role_policy\\": {
-      \\"testPocketApp_autoscaling_autoscaling_role_policy_2C958C29\\": {
-        \\"name\\": \\"testapp-AutoScalingPolicy\\",
-        \\"policy\\": \\"\${data.aws_iam_policy_document.testPocketApp_autoscaling_role_policy_4E03A5E2.json}\\",
-        \\"role\\": \\"\${aws_iam_role.testPocketApp_autoscaling_autoscaling_role_2A822527.id}\\"
       }
     },
     \\"aws_iam_role_policy_attachment\\": {
@@ -3655,49 +3380,6 @@ exports[`PocketALBApplication renders an Pocket App with custom Alarm Descriptio
       }
     },
     \\"aws_iam_policy_document\\": {
-      \\"testPocketApp_autoscaling_autoscaling_assume_9DAB9CD7\\": {
-        \\"statement\\": [
-          {
-            \\"actions\\": [
-              \\"sts:AssumeRole\\"
-            ],
-            \\"effect\\": \\"Allow\\",
-            \\"principals\\": [
-              {
-                \\"identifiers\\": [
-                  \\"ecs.application-autoscaling.amazonaws.com\\"
-                ],
-                \\"type\\": \\"Service\\"
-              }
-            ]
-          }
-        ]
-      },
-      \\"testPocketApp_autoscaling_role_policy_4E03A5E2\\": {
-        \\"statement\\": [
-          {
-            \\"actions\\": [
-              \\"cloudwatch:PutMetricAlarm\\",
-              \\"cloudwatch:DescribeAlarms\\",
-              \\"cloudwatch:DeleteAlarms\\"
-            ],
-            \\"effect\\": \\"Allow\\",
-            \\"resources\\": [
-              \\"arn:aws:cloudwatch:*:*:alarm:/\${aws_ecs_service.testPocketApp_ecs_service_ecs-service_182DEA4C.name}*\\"
-            ]
-          },
-          {
-            \\"actions\\": [
-              \\"ecs:DescribeServices\\",
-              \\"ecs:UpdateService\\"
-            ],
-            \\"effect\\": \\"Allow\\",
-            \\"resources\\": [
-              \\"arn:aws:ecs:*:*:service/\${aws_ecs_service.testPocketApp_ecs_service_ecs-service_182DEA4C.name}*\\"
-            ]
-          }
-        ]
-      },
       \\"testPocketApp_ecs_service_ecs-iam_ecs-task-assume_ABB81680\\": {
         \\"statement\\": [
           {
@@ -3973,7 +3655,6 @@ exports[`PocketALBApplication renders an Pocket App with custom Alarm Descriptio
         \\"max_capacity\\": 2,
         \\"min_capacity\\": 1,
         \\"resource_id\\": \\"service/\${aws_ecs_cluster.testPocketApp_ecs_cluster_C3960066.name}/\${aws_ecs_service.testPocketApp_ecs_service_ecs-service_182DEA4C.name}\\",
-        \\"role_arn\\": \\"\${aws_iam_role.testPocketApp_autoscaling_autoscaling_role_2A822527.arn}\\",
         \\"scalable_dimension\\": \\"ecs:service:DesiredCount\\",
         \\"service_namespace\\": \\"ecs\\"
       }
@@ -4164,10 +3845,6 @@ exports[`PocketALBApplication renders an Pocket App with custom Alarm Descriptio
       }
     },
     \\"aws_iam_role\\": {
-      \\"testPocketApp_autoscaling_autoscaling_role_2A822527\\": {
-        \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.testPocketApp_autoscaling_autoscaling_assume_9DAB9CD7.json}\\",
-        \\"name\\": \\"testapp-AutoScalingRole\\"
-      },
       \\"testPocketApp_ecs_service_ecs-iam_ecs-execution-role_EB461A0C\\": {
         \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.testPocketApp_ecs_service_ecs-iam_ecs-task-assume_ABB81680.json}\\",
         \\"name\\": \\"testapp-TaskExecutionRole\\"
@@ -4175,13 +3852,6 @@ exports[`PocketALBApplication renders an Pocket App with custom Alarm Descriptio
       \\"testPocketApp_ecs_service_ecs-iam_ecs-task-role_7DB93963\\": {
         \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.testPocketApp_ecs_service_ecs-iam_ecs-task-assume_ABB81680.json}\\",
         \\"name\\": \\"testapp-TaskRole\\"
-      }
-    },
-    \\"aws_iam_role_policy\\": {
-      \\"testPocketApp_autoscaling_autoscaling_role_policy_2C958C29\\": {
-        \\"name\\": \\"testapp-AutoScalingPolicy\\",
-        \\"policy\\": \\"\${data.aws_iam_policy_document.testPocketApp_autoscaling_role_policy_4E03A5E2.json}\\",
-        \\"role\\": \\"\${aws_iam_role.testPocketApp_autoscaling_autoscaling_role_2A822527.id}\\"
       }
     },
     \\"aws_route53_record\\": {
@@ -4348,49 +4018,6 @@ exports[`PocketALBApplication renders an Pocket App with logs and dashboard in a
       }
     },
     \\"aws_iam_policy_document\\": {
-      \\"testPocketApp_autoscaling_autoscaling_assume_9DAB9CD7\\": {
-        \\"statement\\": [
-          {
-            \\"actions\\": [
-              \\"sts:AssumeRole\\"
-            ],
-            \\"effect\\": \\"Allow\\",
-            \\"principals\\": [
-              {
-                \\"identifiers\\": [
-                  \\"ecs.application-autoscaling.amazonaws.com\\"
-                ],
-                \\"type\\": \\"Service\\"
-              }
-            ]
-          }
-        ]
-      },
-      \\"testPocketApp_autoscaling_role_policy_4E03A5E2\\": {
-        \\"statement\\": [
-          {
-            \\"actions\\": [
-              \\"cloudwatch:PutMetricAlarm\\",
-              \\"cloudwatch:DescribeAlarms\\",
-              \\"cloudwatch:DeleteAlarms\\"
-            ],
-            \\"effect\\": \\"Allow\\",
-            \\"resources\\": [
-              \\"arn:aws:cloudwatch:*:*:alarm:/\${aws_ecs_service.testPocketApp_ecs_service_ecs-service_182DEA4C.name}*\\"
-            ]
-          },
-          {
-            \\"actions\\": [
-              \\"ecs:DescribeServices\\",
-              \\"ecs:UpdateService\\"
-            ],
-            \\"effect\\": \\"Allow\\",
-            \\"resources\\": [
-              \\"arn:aws:ecs:*:*:service/\${aws_ecs_service.testPocketApp_ecs_service_ecs-service_182DEA4C.name}*\\"
-            ]
-          }
-        ]
-      },
       \\"testPocketApp_ecs_service_ecs-iam_ecs-task-assume_ABB81680\\": {
         \\"statement\\": [
           {
@@ -4666,7 +4293,6 @@ exports[`PocketALBApplication renders an Pocket App with logs and dashboard in a
         \\"max_capacity\\": 2,
         \\"min_capacity\\": 1,
         \\"resource_id\\": \\"service/\${aws_ecs_cluster.testPocketApp_ecs_cluster_C3960066.name}/\${aws_ecs_service.testPocketApp_ecs_service_ecs-service_182DEA4C.name}\\",
-        \\"role_arn\\": \\"\${aws_iam_role.testPocketApp_autoscaling_autoscaling_role_2A822527.arn}\\",
         \\"scalable_dimension\\": \\"ecs:service:DesiredCount\\",
         \\"service_namespace\\": \\"ecs\\"
       }
@@ -4788,10 +4414,6 @@ exports[`PocketALBApplication renders an Pocket App with logs and dashboard in a
       }
     },
     \\"aws_iam_role\\": {
-      \\"testPocketApp_autoscaling_autoscaling_role_2A822527\\": {
-        \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.testPocketApp_autoscaling_autoscaling_assume_9DAB9CD7.json}\\",
-        \\"name\\": \\"testapp-AutoScalingRole\\"
-      },
       \\"testPocketApp_ecs_service_ecs-iam_ecs-execution-role_EB461A0C\\": {
         \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.testPocketApp_ecs_service_ecs-iam_ecs-task-assume_ABB81680.json}\\",
         \\"name\\": \\"testapp-TaskExecutionRole\\"
@@ -4799,13 +4421,6 @@ exports[`PocketALBApplication renders an Pocket App with logs and dashboard in a
       \\"testPocketApp_ecs_service_ecs-iam_ecs-task-role_7DB93963\\": {
         \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.testPocketApp_ecs_service_ecs-iam_ecs-task-assume_ABB81680.json}\\",
         \\"name\\": \\"testapp-TaskRole\\"
-      }
-    },
-    \\"aws_iam_role_policy\\": {
-      \\"testPocketApp_autoscaling_autoscaling_role_policy_2C958C29\\": {
-        \\"name\\": \\"testapp-AutoScalingPolicy\\",
-        \\"policy\\": \\"\${data.aws_iam_policy_document.testPocketApp_autoscaling_role_policy_4E03A5E2.json}\\",
-        \\"role\\": \\"\${aws_iam_role.testPocketApp_autoscaling_autoscaling_role_2A822527.id}\\"
       }
     },
     \\"aws_route53_record\\": {
@@ -4972,49 +4587,6 @@ exports[`PocketALBApplication renders an application alarms 1`] = `
       }
     },
     \\"aws_iam_policy_document\\": {
-      \\"testPocketApp_autoscaling_autoscaling_assume_9DAB9CD7\\": {
-        \\"statement\\": [
-          {
-            \\"actions\\": [
-              \\"sts:AssumeRole\\"
-            ],
-            \\"effect\\": \\"Allow\\",
-            \\"principals\\": [
-              {
-                \\"identifiers\\": [
-                  \\"ecs.application-autoscaling.amazonaws.com\\"
-                ],
-                \\"type\\": \\"Service\\"
-              }
-            ]
-          }
-        ]
-      },
-      \\"testPocketApp_autoscaling_role_policy_4E03A5E2\\": {
-        \\"statement\\": [
-          {
-            \\"actions\\": [
-              \\"cloudwatch:PutMetricAlarm\\",
-              \\"cloudwatch:DescribeAlarms\\",
-              \\"cloudwatch:DeleteAlarms\\"
-            ],
-            \\"effect\\": \\"Allow\\",
-            \\"resources\\": [
-              \\"arn:aws:cloudwatch:*:*:alarm:/\${aws_ecs_service.testPocketApp_ecs_service_ecs-service_182DEA4C.name}*\\"
-            ]
-          },
-          {
-            \\"actions\\": [
-              \\"ecs:DescribeServices\\",
-              \\"ecs:UpdateService\\"
-            ],
-            \\"effect\\": \\"Allow\\",
-            \\"resources\\": [
-              \\"arn:aws:ecs:*:*:service/\${aws_ecs_service.testPocketApp_ecs_service_ecs-service_182DEA4C.name}*\\"
-            ]
-          }
-        ]
-      },
       \\"testPocketApp_ecs_service_ecs-iam_ecs-task-assume_ABB81680\\": {
         \\"statement\\": [
           {
@@ -5290,7 +4862,6 @@ exports[`PocketALBApplication renders an application alarms 1`] = `
         \\"max_capacity\\": 2,
         \\"min_capacity\\": 1,
         \\"resource_id\\": \\"service/\${aws_ecs_cluster.testPocketApp_ecs_cluster_C3960066.name}/\${aws_ecs_service.testPocketApp_ecs_service_ecs-service_182DEA4C.name}\\",
-        \\"role_arn\\": \\"\${aws_iam_role.testPocketApp_autoscaling_autoscaling_role_2A822527.arn}\\",
         \\"scalable_dimension\\": \\"ecs:service:DesiredCount\\",
         \\"service_namespace\\": \\"ecs\\"
       }
@@ -5435,10 +5006,6 @@ exports[`PocketALBApplication renders an application alarms 1`] = `
       }
     },
     \\"aws_iam_role\\": {
-      \\"testPocketApp_autoscaling_autoscaling_role_2A822527\\": {
-        \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.testPocketApp_autoscaling_autoscaling_assume_9DAB9CD7.json}\\",
-        \\"name\\": \\"testapp-AutoScalingRole\\"
-      },
       \\"testPocketApp_ecs_service_ecs-iam_ecs-execution-role_EB461A0C\\": {
         \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.testPocketApp_ecs_service_ecs-iam_ecs-task-assume_ABB81680.json}\\",
         \\"name\\": \\"testapp-TaskExecutionRole\\"
@@ -5446,13 +5013,6 @@ exports[`PocketALBApplication renders an application alarms 1`] = `
       \\"testPocketApp_ecs_service_ecs-iam_ecs-task-role_7DB93963\\": {
         \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.testPocketApp_ecs_service_ecs-iam_ecs-task-assume_ABB81680.json}\\",
         \\"name\\": \\"testapp-TaskRole\\"
-      }
-    },
-    \\"aws_iam_role_policy\\": {
-      \\"testPocketApp_autoscaling_autoscaling_role_policy_2C958C29\\": {
-        \\"name\\": \\"testapp-AutoScalingPolicy\\",
-        \\"policy\\": \\"\${data.aws_iam_policy_document.testPocketApp_autoscaling_role_policy_4E03A5E2.json}\\",
-        \\"role\\": \\"\${aws_iam_role.testPocketApp_autoscaling_autoscaling_role_2A822527.id}\\"
       }
     },
     \\"aws_route53_record\\": {
@@ -5619,49 +5179,6 @@ exports[`PocketALBApplication renders an application custom default alarms 1`] =
       }
     },
     \\"aws_iam_policy_document\\": {
-      \\"testPocketApp_autoscaling_autoscaling_assume_9DAB9CD7\\": {
-        \\"statement\\": [
-          {
-            \\"actions\\": [
-              \\"sts:AssumeRole\\"
-            ],
-            \\"effect\\": \\"Allow\\",
-            \\"principals\\": [
-              {
-                \\"identifiers\\": [
-                  \\"ecs.application-autoscaling.amazonaws.com\\"
-                ],
-                \\"type\\": \\"Service\\"
-              }
-            ]
-          }
-        ]
-      },
-      \\"testPocketApp_autoscaling_role_policy_4E03A5E2\\": {
-        \\"statement\\": [
-          {
-            \\"actions\\": [
-              \\"cloudwatch:PutMetricAlarm\\",
-              \\"cloudwatch:DescribeAlarms\\",
-              \\"cloudwatch:DeleteAlarms\\"
-            ],
-            \\"effect\\": \\"Allow\\",
-            \\"resources\\": [
-              \\"arn:aws:cloudwatch:*:*:alarm:/\${aws_ecs_service.testPocketApp_ecs_service_ecs-service_182DEA4C.name}*\\"
-            ]
-          },
-          {
-            \\"actions\\": [
-              \\"ecs:DescribeServices\\",
-              \\"ecs:UpdateService\\"
-            ],
-            \\"effect\\": \\"Allow\\",
-            \\"resources\\": [
-              \\"arn:aws:ecs:*:*:service/\${aws_ecs_service.testPocketApp_ecs_service_ecs-service_182DEA4C.name}*\\"
-            ]
-          }
-        ]
-      },
       \\"testPocketApp_ecs_service_ecs-iam_ecs-task-assume_ABB81680\\": {
         \\"statement\\": [
           {
@@ -5937,7 +5454,6 @@ exports[`PocketALBApplication renders an application custom default alarms 1`] =
         \\"max_capacity\\": 2,
         \\"min_capacity\\": 1,
         \\"resource_id\\": \\"service/\${aws_ecs_cluster.testPocketApp_ecs_cluster_C3960066.name}/\${aws_ecs_service.testPocketApp_ecs_service_ecs-service_182DEA4C.name}\\",
-        \\"role_arn\\": \\"\${aws_iam_role.testPocketApp_autoscaling_autoscaling_role_2A822527.arn}\\",
         \\"scalable_dimension\\": \\"ecs:service:DesiredCount\\",
         \\"service_namespace\\": \\"ecs\\"
       }
@@ -6072,10 +5588,6 @@ exports[`PocketALBApplication renders an application custom default alarms 1`] =
       }
     },
     \\"aws_iam_role\\": {
-      \\"testPocketApp_autoscaling_autoscaling_role_2A822527\\": {
-        \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.testPocketApp_autoscaling_autoscaling_assume_9DAB9CD7.json}\\",
-        \\"name\\": \\"testapp-AutoScalingRole\\"
-      },
       \\"testPocketApp_ecs_service_ecs-iam_ecs-execution-role_EB461A0C\\": {
         \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.testPocketApp_ecs_service_ecs-iam_ecs-task-assume_ABB81680.json}\\",
         \\"name\\": \\"testapp-TaskExecutionRole\\"
@@ -6083,13 +5595,6 @@ exports[`PocketALBApplication renders an application custom default alarms 1`] =
       \\"testPocketApp_ecs_service_ecs-iam_ecs-task-role_7DB93963\\": {
         \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.testPocketApp_ecs_service_ecs-iam_ecs-task-assume_ABB81680.json}\\",
         \\"name\\": \\"testapp-TaskRole\\"
-      }
-    },
-    \\"aws_iam_role_policy\\": {
-      \\"testPocketApp_autoscaling_autoscaling_role_policy_2C958C29\\": {
-        \\"name\\": \\"testapp-AutoScalingPolicy\\",
-        \\"policy\\": \\"\${data.aws_iam_policy_document.testPocketApp_autoscaling_role_policy_4E03A5E2.json}\\",
-        \\"role\\": \\"\${aws_iam_role.testPocketApp_autoscaling_autoscaling_role_2A822527.id}\\"
       }
     },
     \\"aws_route53_record\\": {
@@ -6256,49 +5761,6 @@ exports[`PocketALBApplication renders an application with autoscaling group and 
       }
     },
     \\"aws_iam_policy_document\\": {
-      \\"testPocketApp_autoscaling_autoscaling_assume_9DAB9CD7\\": {
-        \\"statement\\": [
-          {
-            \\"actions\\": [
-              \\"sts:AssumeRole\\"
-            ],
-            \\"effect\\": \\"Allow\\",
-            \\"principals\\": [
-              {
-                \\"identifiers\\": [
-                  \\"ecs.application-autoscaling.amazonaws.com\\"
-                ],
-                \\"type\\": \\"Service\\"
-              }
-            ]
-          }
-        ]
-      },
-      \\"testPocketApp_autoscaling_role_policy_4E03A5E2\\": {
-        \\"statement\\": [
-          {
-            \\"actions\\": [
-              \\"cloudwatch:PutMetricAlarm\\",
-              \\"cloudwatch:DescribeAlarms\\",
-              \\"cloudwatch:DeleteAlarms\\"
-            ],
-            \\"effect\\": \\"Allow\\",
-            \\"resources\\": [
-              \\"arn:aws:cloudwatch:*:*:alarm:/\${aws_ecs_service.testPocketApp_ecs_service_ecs-service_182DEA4C.name}*\\"
-            ]
-          },
-          {
-            \\"actions\\": [
-              \\"ecs:DescribeServices\\",
-              \\"ecs:UpdateService\\"
-            ],
-            \\"effect\\": \\"Allow\\",
-            \\"resources\\": [
-              \\"arn:aws:ecs:*:*:service/\${aws_ecs_service.testPocketApp_ecs_service_ecs-service_182DEA4C.name}*\\"
-            ]
-          }
-        ]
-      },
       \\"testPocketApp_ecs_service_ecs-iam_ecs-task-assume_ABB81680\\": {
         \\"statement\\": [
           {
@@ -6596,7 +6058,6 @@ exports[`PocketALBApplication renders an application with autoscaling group and 
         \\"max_capacity\\": 2,
         \\"min_capacity\\": 1,
         \\"resource_id\\": \\"service/\${aws_ecs_cluster.testPocketApp_ecs_cluster_C3960066.name}/\${aws_ecs_service.testPocketApp_ecs_service_ecs-service_182DEA4C.name}\\",
-        \\"role_arn\\": \\"\${aws_iam_role.testPocketApp_autoscaling_autoscaling_role_2A822527.arn}\\",
         \\"scalable_dimension\\": \\"ecs:service:DesiredCount\\",
         \\"service_namespace\\": \\"ecs\\"
       }
@@ -6738,10 +6199,6 @@ exports[`PocketALBApplication renders an application with autoscaling group and 
       }
     },
     \\"aws_iam_role\\": {
-      \\"testPocketApp_autoscaling_autoscaling_role_2A822527\\": {
-        \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.testPocketApp_autoscaling_autoscaling_assume_9DAB9CD7.json}\\",
-        \\"name\\": \\"testapp-AutoScalingRole\\"
-      },
       \\"testPocketApp_ecs_service_ecs-iam_ecs-execution-role_EB461A0C\\": {
         \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.testPocketApp_ecs_service_ecs-iam_ecs-task-assume_ABB81680.json}\\",
         \\"name\\": \\"testapp-TaskExecutionRole\\",
@@ -6757,13 +6214,6 @@ exports[`PocketALBApplication renders an application with autoscaling group and 
           \\"hobby\\": \\"bowling\\",
           \\"name\\": \\"thedude\\"
         }
-      }
-    },
-    \\"aws_iam_role_policy\\": {
-      \\"testPocketApp_autoscaling_autoscaling_role_policy_2C958C29\\": {
-        \\"name\\": \\"testapp-AutoScalingPolicy\\",
-        \\"policy\\": \\"\${data.aws_iam_policy_document.testPocketApp_autoscaling_role_policy_4E03A5E2.json}\\",
-        \\"role\\": \\"\${aws_iam_role.testPocketApp_autoscaling_autoscaling_role_2A822527.id}\\"
       }
     },
     \\"aws_route53_record\\": {
@@ -6940,49 +6390,6 @@ exports[`PocketALBApplication renders an application with custom task sizes 1`] 
       }
     },
     \\"aws_iam_policy_document\\": {
-      \\"testPocketApp_autoscaling_autoscaling_assume_9DAB9CD7\\": {
-        \\"statement\\": [
-          {
-            \\"actions\\": [
-              \\"sts:AssumeRole\\"
-            ],
-            \\"effect\\": \\"Allow\\",
-            \\"principals\\": [
-              {
-                \\"identifiers\\": [
-                  \\"ecs.application-autoscaling.amazonaws.com\\"
-                ],
-                \\"type\\": \\"Service\\"
-              }
-            ]
-          }
-        ]
-      },
-      \\"testPocketApp_autoscaling_role_policy_4E03A5E2\\": {
-        \\"statement\\": [
-          {
-            \\"actions\\": [
-              \\"cloudwatch:PutMetricAlarm\\",
-              \\"cloudwatch:DescribeAlarms\\",
-              \\"cloudwatch:DeleteAlarms\\"
-            ],
-            \\"effect\\": \\"Allow\\",
-            \\"resources\\": [
-              \\"arn:aws:cloudwatch:*:*:alarm:/\${aws_ecs_service.testPocketApp_ecs_service_ecs-service_182DEA4C.name}*\\"
-            ]
-          },
-          {
-            \\"actions\\": [
-              \\"ecs:DescribeServices\\",
-              \\"ecs:UpdateService\\"
-            ],
-            \\"effect\\": \\"Allow\\",
-            \\"resources\\": [
-              \\"arn:aws:ecs:*:*:service/\${aws_ecs_service.testPocketApp_ecs_service_ecs-service_182DEA4C.name}*\\"
-            ]
-          }
-        ]
-      },
       \\"testPocketApp_ecs_service_ecs-iam_ecs-task-assume_ABB81680\\": {
         \\"statement\\": [
           {
@@ -7258,7 +6665,6 @@ exports[`PocketALBApplication renders an application with custom task sizes 1`] 
         \\"max_capacity\\": 2,
         \\"min_capacity\\": 1,
         \\"resource_id\\": \\"service/\${aws_ecs_cluster.testPocketApp_ecs_cluster_C3960066.name}/\${aws_ecs_service.testPocketApp_ecs_service_ecs-service_182DEA4C.name}\\",
-        \\"role_arn\\": \\"\${aws_iam_role.testPocketApp_autoscaling_autoscaling_role_2A822527.arn}\\",
         \\"scalable_dimension\\": \\"ecs:service:DesiredCount\\",
         \\"service_namespace\\": \\"ecs\\"
       }
@@ -7380,10 +6786,6 @@ exports[`PocketALBApplication renders an application with custom task sizes 1`] 
       }
     },
     \\"aws_iam_role\\": {
-      \\"testPocketApp_autoscaling_autoscaling_role_2A822527\\": {
-        \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.testPocketApp_autoscaling_autoscaling_assume_9DAB9CD7.json}\\",
-        \\"name\\": \\"testapp-AutoScalingRole\\"
-      },
       \\"testPocketApp_ecs_service_ecs-iam_ecs-execution-role_EB461A0C\\": {
         \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.testPocketApp_ecs_service_ecs-iam_ecs-task-assume_ABB81680.json}\\",
         \\"name\\": \\"testapp-TaskExecutionRole\\"
@@ -7391,13 +6793,6 @@ exports[`PocketALBApplication renders an application with custom task sizes 1`] 
       \\"testPocketApp_ecs_service_ecs-iam_ecs-task-role_7DB93963\\": {
         \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.testPocketApp_ecs_service_ecs-iam_ecs-task-assume_ABB81680.json}\\",
         \\"name\\": \\"testapp-TaskRole\\"
-      }
-    },
-    \\"aws_iam_role_policy\\": {
-      \\"testPocketApp_autoscaling_autoscaling_role_policy_2C958C29\\": {
-        \\"name\\": \\"testapp-AutoScalingPolicy\\",
-        \\"policy\\": \\"\${data.aws_iam_policy_document.testPocketApp_autoscaling_role_policy_4E03A5E2.json}\\",
-        \\"role\\": \\"\${aws_iam_role.testPocketApp_autoscaling_autoscaling_role_2A822527.id}\\"
       }
     },
     \\"aws_route53_record\\": {
@@ -7564,49 +6959,6 @@ exports[`PocketALBApplication renders an application with default autoscaling gr
       }
     },
     \\"aws_iam_policy_document\\": {
-      \\"testPocketApp_autoscaling_autoscaling_assume_9DAB9CD7\\": {
-        \\"statement\\": [
-          {
-            \\"actions\\": [
-              \\"sts:AssumeRole\\"
-            ],
-            \\"effect\\": \\"Allow\\",
-            \\"principals\\": [
-              {
-                \\"identifiers\\": [
-                  \\"ecs.application-autoscaling.amazonaws.com\\"
-                ],
-                \\"type\\": \\"Service\\"
-              }
-            ]
-          }
-        ]
-      },
-      \\"testPocketApp_autoscaling_role_policy_4E03A5E2\\": {
-        \\"statement\\": [
-          {
-            \\"actions\\": [
-              \\"cloudwatch:PutMetricAlarm\\",
-              \\"cloudwatch:DescribeAlarms\\",
-              \\"cloudwatch:DeleteAlarms\\"
-            ],
-            \\"effect\\": \\"Allow\\",
-            \\"resources\\": [
-              \\"arn:aws:cloudwatch:*:*:alarm:/\${aws_ecs_service.testPocketApp_ecs_service_ecs-service_182DEA4C.name}*\\"
-            ]
-          },
-          {
-            \\"actions\\": [
-              \\"ecs:DescribeServices\\",
-              \\"ecs:UpdateService\\"
-            ],
-            \\"effect\\": \\"Allow\\",
-            \\"resources\\": [
-              \\"arn:aws:ecs:*:*:service/\${aws_ecs_service.testPocketApp_ecs_service_ecs-service_182DEA4C.name}*\\"
-            ]
-          }
-        ]
-      },
       \\"testPocketApp_ecs_service_ecs-iam_ecs-task-assume_ABB81680\\": {
         \\"statement\\": [
           {
@@ -7904,7 +7256,6 @@ exports[`PocketALBApplication renders an application with default autoscaling gr
         \\"max_capacity\\": 2,
         \\"min_capacity\\": 1,
         \\"resource_id\\": \\"service/\${aws_ecs_cluster.testPocketApp_ecs_cluster_C3960066.name}/\${aws_ecs_service.testPocketApp_ecs_service_ecs-service_182DEA4C.name}\\",
-        \\"role_arn\\": \\"\${aws_iam_role.testPocketApp_autoscaling_autoscaling_role_2A822527.arn}\\",
         \\"scalable_dimension\\": \\"ecs:service:DesiredCount\\",
         \\"service_namespace\\": \\"ecs\\"
       }
@@ -8046,10 +7397,6 @@ exports[`PocketALBApplication renders an application with default autoscaling gr
       }
     },
     \\"aws_iam_role\\": {
-      \\"testPocketApp_autoscaling_autoscaling_role_2A822527\\": {
-        \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.testPocketApp_autoscaling_autoscaling_assume_9DAB9CD7.json}\\",
-        \\"name\\": \\"testapp-AutoScalingRole\\"
-      },
       \\"testPocketApp_ecs_service_ecs-iam_ecs-execution-role_EB461A0C\\": {
         \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.testPocketApp_ecs_service_ecs-iam_ecs-task-assume_ABB81680.json}\\",
         \\"name\\": \\"testapp-TaskExecutionRole\\",
@@ -8065,13 +7412,6 @@ exports[`PocketALBApplication renders an application with default autoscaling gr
           \\"hobby\\": \\"bowling\\",
           \\"name\\": \\"thedude\\"
         }
-      }
-    },
-    \\"aws_iam_role_policy\\": {
-      \\"testPocketApp_autoscaling_autoscaling_role_policy_2C958C29\\": {
-        \\"name\\": \\"testapp-AutoScalingPolicy\\",
-        \\"policy\\": \\"\${data.aws_iam_policy_document.testPocketApp_autoscaling_role_policy_4E03A5E2.json}\\",
-        \\"role\\": \\"\${aws_iam_role.testPocketApp_autoscaling_autoscaling_role_2A822527.id}\\"
       }
     },
     \\"aws_route53_record\\": {
@@ -8248,49 +7588,6 @@ exports[`PocketALBApplication renders an application with minimal config 1`] = `
       }
     },
     \\"aws_iam_policy_document\\": {
-      \\"testPocketApp_autoscaling_autoscaling_assume_9DAB9CD7\\": {
-        \\"statement\\": [
-          {
-            \\"actions\\": [
-              \\"sts:AssumeRole\\"
-            ],
-            \\"effect\\": \\"Allow\\",
-            \\"principals\\": [
-              {
-                \\"identifiers\\": [
-                  \\"ecs.application-autoscaling.amazonaws.com\\"
-                ],
-                \\"type\\": \\"Service\\"
-              }
-            ]
-          }
-        ]
-      },
-      \\"testPocketApp_autoscaling_role_policy_4E03A5E2\\": {
-        \\"statement\\": [
-          {
-            \\"actions\\": [
-              \\"cloudwatch:PutMetricAlarm\\",
-              \\"cloudwatch:DescribeAlarms\\",
-              \\"cloudwatch:DeleteAlarms\\"
-            ],
-            \\"effect\\": \\"Allow\\",
-            \\"resources\\": [
-              \\"arn:aws:cloudwatch:*:*:alarm:/\${aws_ecs_service.testPocketApp_ecs_service_ecs-service_182DEA4C.name}*\\"
-            ]
-          },
-          {
-            \\"actions\\": [
-              \\"ecs:DescribeServices\\",
-              \\"ecs:UpdateService\\"
-            ],
-            \\"effect\\": \\"Allow\\",
-            \\"resources\\": [
-              \\"arn:aws:ecs:*:*:service/\${aws_ecs_service.testPocketApp_ecs_service_ecs-service_182DEA4C.name}*\\"
-            ]
-          }
-        ]
-      },
       \\"testPocketApp_ecs_service_ecs-iam_ecs-task-assume_ABB81680\\": {
         \\"statement\\": [
           {
@@ -8566,7 +7863,6 @@ exports[`PocketALBApplication renders an application with minimal config 1`] = `
         \\"max_capacity\\": 2,
         \\"min_capacity\\": 1,
         \\"resource_id\\": \\"service/\${aws_ecs_cluster.testPocketApp_ecs_cluster_C3960066.name}/\${aws_ecs_service.testPocketApp_ecs_service_ecs-service_182DEA4C.name}\\",
-        \\"role_arn\\": \\"\${aws_iam_role.testPocketApp_autoscaling_autoscaling_role_2A822527.arn}\\",
         \\"scalable_dimension\\": \\"ecs:service:DesiredCount\\",
         \\"service_namespace\\": \\"ecs\\"
       }
@@ -8688,10 +7984,6 @@ exports[`PocketALBApplication renders an application with minimal config 1`] = `
       }
     },
     \\"aws_iam_role\\": {
-      \\"testPocketApp_autoscaling_autoscaling_role_2A822527\\": {
-        \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.testPocketApp_autoscaling_autoscaling_assume_9DAB9CD7.json}\\",
-        \\"name\\": \\"testapp-AutoScalingRole\\"
-      },
       \\"testPocketApp_ecs_service_ecs-iam_ecs-execution-role_EB461A0C\\": {
         \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.testPocketApp_ecs_service_ecs-iam_ecs-task-assume_ABB81680.json}\\",
         \\"name\\": \\"testapp-TaskExecutionRole\\"
@@ -8699,13 +7991,6 @@ exports[`PocketALBApplication renders an application with minimal config 1`] = `
       \\"testPocketApp_ecs_service_ecs-iam_ecs-task-role_7DB93963\\": {
         \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.testPocketApp_ecs_service_ecs-iam_ecs-task-assume_ABB81680.json}\\",
         \\"name\\": \\"testapp-TaskRole\\"
-      }
-    },
-    \\"aws_iam_role_policy\\": {
-      \\"testPocketApp_autoscaling_autoscaling_role_policy_2C958C29\\": {
-        \\"name\\": \\"testapp-AutoScalingPolicy\\",
-        \\"policy\\": \\"\${data.aws_iam_policy_document.testPocketApp_autoscaling_role_policy_4E03A5E2.json}\\",
-        \\"role\\": \\"\${aws_iam_role.testPocketApp_autoscaling_autoscaling_role_2A822527.id}\\"
       }
     },
     \\"aws_route53_record\\": {
@@ -8872,49 +8157,6 @@ exports[`PocketALBApplication renders an application with modified container def
       }
     },
     \\"aws_iam_policy_document\\": {
-      \\"testPocketApp_autoscaling_autoscaling_assume_9DAB9CD7\\": {
-        \\"statement\\": [
-          {
-            \\"actions\\": [
-              \\"sts:AssumeRole\\"
-            ],
-            \\"effect\\": \\"Allow\\",
-            \\"principals\\": [
-              {
-                \\"identifiers\\": [
-                  \\"ecs.application-autoscaling.amazonaws.com\\"
-                ],
-                \\"type\\": \\"Service\\"
-              }
-            ]
-          }
-        ]
-      },
-      \\"testPocketApp_autoscaling_role_policy_4E03A5E2\\": {
-        \\"statement\\": [
-          {
-            \\"actions\\": [
-              \\"cloudwatch:PutMetricAlarm\\",
-              \\"cloudwatch:DescribeAlarms\\",
-              \\"cloudwatch:DeleteAlarms\\"
-            ],
-            \\"effect\\": \\"Allow\\",
-            \\"resources\\": [
-              \\"arn:aws:cloudwatch:*:*:alarm:/\${aws_ecs_service.testPocketApp_ecs_service_ecs-service_182DEA4C.name}*\\"
-            ]
-          },
-          {
-            \\"actions\\": [
-              \\"ecs:DescribeServices\\",
-              \\"ecs:UpdateService\\"
-            ],
-            \\"effect\\": \\"Allow\\",
-            \\"resources\\": [
-              \\"arn:aws:ecs:*:*:service/\${aws_ecs_service.testPocketApp_ecs_service_ecs-service_182DEA4C.name}*\\"
-            ]
-          }
-        ]
-      },
       \\"testPocketApp_ecs_service_ecs-iam_ecs-task-assume_ABB81680\\": {
         \\"statement\\": [
           {
@@ -9190,7 +8432,6 @@ exports[`PocketALBApplication renders an application with modified container def
         \\"max_capacity\\": 2,
         \\"min_capacity\\": 1,
         \\"resource_id\\": \\"service/\${aws_ecs_cluster.testPocketApp_ecs_cluster_C3960066.name}/\${aws_ecs_service.testPocketApp_ecs_service_ecs-service_182DEA4C.name}\\",
-        \\"role_arn\\": \\"\${aws_iam_role.testPocketApp_autoscaling_autoscaling_role_2A822527.arn}\\",
         \\"scalable_dimension\\": \\"ecs:service:DesiredCount\\",
         \\"service_namespace\\": \\"ecs\\"
       }
@@ -9337,10 +8578,6 @@ exports[`PocketALBApplication renders an application with modified container def
       }
     },
     \\"aws_iam_role\\": {
-      \\"testPocketApp_autoscaling_autoscaling_role_2A822527\\": {
-        \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.testPocketApp_autoscaling_autoscaling_assume_9DAB9CD7.json}\\",
-        \\"name\\": \\"testapp-AutoScalingRole\\"
-      },
       \\"testPocketApp_ecs_service_ecs-iam_ecs-execution-role_EB461A0C\\": {
         \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.testPocketApp_ecs_service_ecs-iam_ecs-task-assume_ABB81680.json}\\",
         \\"name\\": \\"testapp-TaskExecutionRole\\"
@@ -9348,13 +8585,6 @@ exports[`PocketALBApplication renders an application with modified container def
       \\"testPocketApp_ecs_service_ecs-iam_ecs-task-role_7DB93963\\": {
         \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.testPocketApp_ecs_service_ecs-iam_ecs-task-assume_ABB81680.json}\\",
         \\"name\\": \\"testapp-TaskRole\\"
-      }
-    },
-    \\"aws_iam_role_policy\\": {
-      \\"testPocketApp_autoscaling_autoscaling_role_policy_2C958C29\\": {
-        \\"name\\": \\"testapp-AutoScalingPolicy\\",
-        \\"policy\\": \\"\${data.aws_iam_policy_document.testPocketApp_autoscaling_role_policy_4E03A5E2.json}\\",
-        \\"role\\": \\"\${aws_iam_role.testPocketApp_autoscaling_autoscaling_role_2A822527.id}\\"
       }
     },
     \\"aws_route53_record\\": {
@@ -9521,49 +8751,6 @@ exports[`PocketALBApplication renders an external application 1`] = `
       }
     },
     \\"aws_iam_policy_document\\": {
-      \\"testPocketApp_autoscaling_autoscaling_assume_9DAB9CD7\\": {
-        \\"statement\\": [
-          {
-            \\"actions\\": [
-              \\"sts:AssumeRole\\"
-            ],
-            \\"effect\\": \\"Allow\\",
-            \\"principals\\": [
-              {
-                \\"identifiers\\": [
-                  \\"ecs.application-autoscaling.amazonaws.com\\"
-                ],
-                \\"type\\": \\"Service\\"
-              }
-            ]
-          }
-        ]
-      },
-      \\"testPocketApp_autoscaling_role_policy_4E03A5E2\\": {
-        \\"statement\\": [
-          {
-            \\"actions\\": [
-              \\"cloudwatch:PutMetricAlarm\\",
-              \\"cloudwatch:DescribeAlarms\\",
-              \\"cloudwatch:DeleteAlarms\\"
-            ],
-            \\"effect\\": \\"Allow\\",
-            \\"resources\\": [
-              \\"arn:aws:cloudwatch:*:*:alarm:/\${aws_ecs_service.testPocketApp_ecs_service_ecs-service_182DEA4C.name}*\\"
-            ]
-          },
-          {
-            \\"actions\\": [
-              \\"ecs:DescribeServices\\",
-              \\"ecs:UpdateService\\"
-            ],
-            \\"effect\\": \\"Allow\\",
-            \\"resources\\": [
-              \\"arn:aws:ecs:*:*:service/\${aws_ecs_service.testPocketApp_ecs_service_ecs-service_182DEA4C.name}*\\"
-            ]
-          }
-        ]
-      },
       \\"testPocketApp_ecs_service_ecs-iam_ecs-task-assume_ABB81680\\": {
         \\"statement\\": [
           {
@@ -9856,7 +9043,6 @@ exports[`PocketALBApplication renders an external application 1`] = `
         \\"max_capacity\\": 2,
         \\"min_capacity\\": 1,
         \\"resource_id\\": \\"service/\${aws_ecs_cluster.testPocketApp_ecs_cluster_C3960066.name}/\${aws_ecs_service.testPocketApp_ecs_service_ecs-service_182DEA4C.name}\\",
-        \\"role_arn\\": \\"\${aws_iam_role.testPocketApp_autoscaling_autoscaling_role_2A822527.arn}\\",
         \\"scalable_dimension\\": \\"ecs:service:DesiredCount\\",
         \\"service_namespace\\": \\"ecs\\"
       }
@@ -10046,10 +9232,6 @@ exports[`PocketALBApplication renders an external application 1`] = `
       }
     },
     \\"aws_iam_role\\": {
-      \\"testPocketApp_autoscaling_autoscaling_role_2A822527\\": {
-        \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.testPocketApp_autoscaling_autoscaling_assume_9DAB9CD7.json}\\",
-        \\"name\\": \\"testapp-AutoScalingRole\\"
-      },
       \\"testPocketApp_ecs_service_ecs-iam_ecs-execution-role_EB461A0C\\": {
         \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.testPocketApp_ecs_service_ecs-iam_ecs-task-assume_ABB81680.json}\\",
         \\"name\\": \\"testapp-TaskExecutionRole\\"
@@ -10057,13 +9239,6 @@ exports[`PocketALBApplication renders an external application 1`] = `
       \\"testPocketApp_ecs_service_ecs-iam_ecs-task-role_7DB93963\\": {
         \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.testPocketApp_ecs_service_ecs-iam_ecs-task-assume_ABB81680.json}\\",
         \\"name\\": \\"testapp-TaskRole\\"
-      }
-    },
-    \\"aws_iam_role_policy\\": {
-      \\"testPocketApp_autoscaling_autoscaling_role_policy_2C958C29\\": {
-        \\"name\\": \\"testapp-AutoScalingPolicy\\",
-        \\"policy\\": \\"\${data.aws_iam_policy_document.testPocketApp_autoscaling_role_policy_4E03A5E2.json}\\",
-        \\"role\\": \\"\${aws_iam_role.testPocketApp_autoscaling_autoscaling_role_2A822527.id}\\"
       }
     },
     \\"aws_route53_record\\": {
@@ -10265,49 +9440,6 @@ exports[`PocketALBApplication renders an internal application 1`] = `
       }
     },
     \\"aws_iam_policy_document\\": {
-      \\"testPocketApp_autoscaling_autoscaling_assume_9DAB9CD7\\": {
-        \\"statement\\": [
-          {
-            \\"actions\\": [
-              \\"sts:AssumeRole\\"
-            ],
-            \\"effect\\": \\"Allow\\",
-            \\"principals\\": [
-              {
-                \\"identifiers\\": [
-                  \\"ecs.application-autoscaling.amazonaws.com\\"
-                ],
-                \\"type\\": \\"Service\\"
-              }
-            ]
-          }
-        ]
-      },
-      \\"testPocketApp_autoscaling_role_policy_4E03A5E2\\": {
-        \\"statement\\": [
-          {
-            \\"actions\\": [
-              \\"cloudwatch:PutMetricAlarm\\",
-              \\"cloudwatch:DescribeAlarms\\",
-              \\"cloudwatch:DeleteAlarms\\"
-            ],
-            \\"effect\\": \\"Allow\\",
-            \\"resources\\": [
-              \\"arn:aws:cloudwatch:*:*:alarm:/\${aws_ecs_service.testPocketApp_ecs_service_ecs-service_182DEA4C.name}*\\"
-            ]
-          },
-          {
-            \\"actions\\": [
-              \\"ecs:DescribeServices\\",
-              \\"ecs:UpdateService\\"
-            ],
-            \\"effect\\": \\"Allow\\",
-            \\"resources\\": [
-              \\"arn:aws:ecs:*:*:service/\${aws_ecs_service.testPocketApp_ecs_service_ecs-service_182DEA4C.name}*\\"
-            ]
-          }
-        ]
-      },
       \\"testPocketApp_ecs_service_ecs-iam_ecs-task-assume_ABB81680\\": {
         \\"statement\\": [
           {
@@ -10583,7 +9715,6 @@ exports[`PocketALBApplication renders an internal application 1`] = `
         \\"max_capacity\\": 2,
         \\"min_capacity\\": 1,
         \\"resource_id\\": \\"service/\${aws_ecs_cluster.testPocketApp_ecs_cluster_C3960066.name}/\${aws_ecs_service.testPocketApp_ecs_service_ecs-service_182DEA4C.name}\\",
-        \\"role_arn\\": \\"\${aws_iam_role.testPocketApp_autoscaling_autoscaling_role_2A822527.arn}\\",
         \\"scalable_dimension\\": \\"ecs:service:DesiredCount\\",
         \\"service_namespace\\": \\"ecs\\"
       }
@@ -10705,10 +9836,6 @@ exports[`PocketALBApplication renders an internal application 1`] = `
       }
     },
     \\"aws_iam_role\\": {
-      \\"testPocketApp_autoscaling_autoscaling_role_2A822527\\": {
-        \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.testPocketApp_autoscaling_autoscaling_assume_9DAB9CD7.json}\\",
-        \\"name\\": \\"testapp-AutoScalingRole\\"
-      },
       \\"testPocketApp_ecs_service_ecs-iam_ecs-execution-role_EB461A0C\\": {
         \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.testPocketApp_ecs_service_ecs-iam_ecs-task-assume_ABB81680.json}\\",
         \\"name\\": \\"testapp-TaskExecutionRole\\"
@@ -10716,13 +9843,6 @@ exports[`PocketALBApplication renders an internal application 1`] = `
       \\"testPocketApp_ecs_service_ecs-iam_ecs-task-role_7DB93963\\": {
         \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.testPocketApp_ecs_service_ecs-iam_ecs-task-assume_ABB81680.json}\\",
         \\"name\\": \\"testapp-TaskRole\\"
-      }
-    },
-    \\"aws_iam_role_policy\\": {
-      \\"testPocketApp_autoscaling_autoscaling_role_policy_2C958C29\\": {
-        \\"name\\": \\"testapp-AutoScalingPolicy\\",
-        \\"policy\\": \\"\${data.aws_iam_policy_document.testPocketApp_autoscaling_role_policy_4E03A5E2.json}\\",
-        \\"role\\": \\"\${aws_iam_role.testPocketApp_autoscaling_autoscaling_role_2A822527.id}\\"
       }
     },
     \\"aws_route53_record\\": {
@@ -10889,49 +10009,6 @@ exports[`PocketALBApplication renders an internal application with tags 1`] = `
       }
     },
     \\"aws_iam_policy_document\\": {
-      \\"testPocketApp_autoscaling_autoscaling_assume_9DAB9CD7\\": {
-        \\"statement\\": [
-          {
-            \\"actions\\": [
-              \\"sts:AssumeRole\\"
-            ],
-            \\"effect\\": \\"Allow\\",
-            \\"principals\\": [
-              {
-                \\"identifiers\\": [
-                  \\"ecs.application-autoscaling.amazonaws.com\\"
-                ],
-                \\"type\\": \\"Service\\"
-              }
-            ]
-          }
-        ]
-      },
-      \\"testPocketApp_autoscaling_role_policy_4E03A5E2\\": {
-        \\"statement\\": [
-          {
-            \\"actions\\": [
-              \\"cloudwatch:PutMetricAlarm\\",
-              \\"cloudwatch:DescribeAlarms\\",
-              \\"cloudwatch:DeleteAlarms\\"
-            ],
-            \\"effect\\": \\"Allow\\",
-            \\"resources\\": [
-              \\"arn:aws:cloudwatch:*:*:alarm:/\${aws_ecs_service.testPocketApp_ecs_service_ecs-service_182DEA4C.name}*\\"
-            ]
-          },
-          {
-            \\"actions\\": [
-              \\"ecs:DescribeServices\\",
-              \\"ecs:UpdateService\\"
-            ],
-            \\"effect\\": \\"Allow\\",
-            \\"resources\\": [
-              \\"arn:aws:ecs:*:*:service/\${aws_ecs_service.testPocketApp_ecs_service_ecs-service_182DEA4C.name}*\\"
-            ]
-          }
-        ]
-      },
       \\"testPocketApp_ecs_service_ecs-iam_ecs-task-assume_ABB81680\\": {
         \\"statement\\": [
           {
@@ -11229,7 +10306,6 @@ exports[`PocketALBApplication renders an internal application with tags 1`] = `
         \\"max_capacity\\": 2,
         \\"min_capacity\\": 1,
         \\"resource_id\\": \\"service/\${aws_ecs_cluster.testPocketApp_ecs_cluster_C3960066.name}/\${aws_ecs_service.testPocketApp_ecs_service_ecs-service_182DEA4C.name}\\",
-        \\"role_arn\\": \\"\${aws_iam_role.testPocketApp_autoscaling_autoscaling_role_2A822527.arn}\\",
         \\"scalable_dimension\\": \\"ecs:service:DesiredCount\\",
         \\"service_namespace\\": \\"ecs\\"
       }
@@ -11371,10 +10447,6 @@ exports[`PocketALBApplication renders an internal application with tags 1`] = `
       }
     },
     \\"aws_iam_role\\": {
-      \\"testPocketApp_autoscaling_autoscaling_role_2A822527\\": {
-        \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.testPocketApp_autoscaling_autoscaling_assume_9DAB9CD7.json}\\",
-        \\"name\\": \\"testapp-AutoScalingRole\\"
-      },
       \\"testPocketApp_ecs_service_ecs-iam_ecs-execution-role_EB461A0C\\": {
         \\"assume_role_policy\\": \\"\${data.aws_iam_policy_document.testPocketApp_ecs_service_ecs-iam_ecs-task-assume_ABB81680.json}\\",
         \\"name\\": \\"testapp-TaskExecutionRole\\",
@@ -11390,13 +10462,6 @@ exports[`PocketALBApplication renders an internal application with tags 1`] = `
           \\"hobby\\": \\"bowling\\",
           \\"name\\": \\"thedude\\"
         }
-      }
-    },
-    \\"aws_iam_role_policy\\": {
-      \\"testPocketApp_autoscaling_autoscaling_role_policy_2C958C29\\": {
-        \\"name\\": \\"testapp-AutoScalingPolicy\\",
-        \\"policy\\": \\"\${data.aws_iam_policy_document.testPocketApp_autoscaling_role_policy_4E03A5E2.json}\\",
-        \\"role\\": \\"\${aws_iam_role.testPocketApp_autoscaling_autoscaling_role_2A822527.id}\\"
       }
     },
     \\"aws_route53_record\\": {
