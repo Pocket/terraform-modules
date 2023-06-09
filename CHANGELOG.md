@@ -1,3 +1,10 @@
+## [4.16.2](https://github.com/Pocket/terraform-modules/compare/v4.16.1...v4.16.2) (2023-06-09)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @sinonjs/commons to v3 ([#1057](https://github.com/Pocket/terraform-modules/issues/1057)) ([10bf678](https://github.com/Pocket/terraform-modules/commit/10bf6785384f2f2d100e38f9e6a15e5ca52b3071))
+
 ## [4.16.1](https://github.com/Pocket/terraform-modules/compare/v4.16.0...v4.16.1) (2023-05-30)
 
 
