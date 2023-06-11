@@ -108,7 +108,7 @@
     "@semantic-release/release-notes-generator": "10.0.3",
     "@types/chai": "4.3.5",
     "@types/jest": "28.1.8",
-    "@types/node": "16.18.34",
+    "@types/node": "16.18.35",
     "chai": "4.3.7",
     "conventional-changelog-conventionalcommits": "6.0.0",
     "jest": "28.1.3",
