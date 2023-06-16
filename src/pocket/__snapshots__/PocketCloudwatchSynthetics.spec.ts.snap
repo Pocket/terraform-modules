@@ -31,7 +31,7 @@ exports[`Pocket Cloudwatch Synthetics adds optional Alarms & Alarm Actions to Sy
               \\"s3:GetObject\\"
             ],
             \\"resources\\": [
-              \\"arn:aws:s3:::pocket-awssynchecks-dev-code/*\\"
+              \\"arn:aws:s3:::pocket-syntheticchecks-dev/*\\"
             ]
           },
           {
@@ -204,8 +204,8 @@ exports[`Pocket Cloudwatch Synthetics adds optional Alarms & Alarm Actions to Sy
           \\"timeout_in_seconds\\": 180
         },
         \\"runtime_version\\": \\"syn-nodejs-puppeteer-4.0\\",
-        \\"s3_bucket\\": \\"pocket-awssynchecks-dev-code\\",
-        \\"s3_key\\": \\"synthetic-dev.zip\\",
+        \\"s3_bucket\\": \\"pocket-syntheticchecks-dev\\",
+        \\"s3_key\\": \\"aws-synthetic-dev.zip\\",
         \\"schedule\\": {
           \\"expression\\": \\"rate(5 minutes)\\"
         },
@@ -224,8 +224,8 @@ exports[`Pocket Cloudwatch Synthetics adds optional Alarms & Alarm Actions to Sy
           \\"timeout_in_seconds\\": 180
         },
         \\"runtime_version\\": \\"syn-nodejs-puppeteer-4.0\\",
-        \\"s3_bucket\\": \\"pocket-awssynchecks-dev-code\\",
-        \\"s3_key\\": \\"synthetic-dev.zip\\",
+        \\"s3_bucket\\": \\"pocket-syntheticchecks-dev\\",
+        \\"s3_key\\": \\"aws-synthetic-dev.zip\\",
         \\"schedule\\": {
           \\"expression\\": \\"rate(5 minutes)\\"
         },
@@ -267,7 +267,7 @@ exports[`Pocket Cloudwatch Synthetics renders desired AWS Synthetic Checks 1`] =
               \\"s3:GetObject\\"
             ],
             \\"resources\\": [
-              \\"arn:aws:s3:::pocket-awssynchecks-dev-code/*\\"
+              \\"arn:aws:s3:::pocket-syntheticchecks-dev/*\\"
             ]
           },
           {
@@ -434,8 +434,8 @@ exports[`Pocket Cloudwatch Synthetics renders desired AWS Synthetic Checks 1`] =
           \\"timeout_in_seconds\\": 180
         },
         \\"runtime_version\\": \\"syn-nodejs-puppeteer-4.0\\",
-        \\"s3_bucket\\": \\"pocket-awssynchecks-dev-code\\",
-        \\"s3_key\\": \\"synthetic-dev.zip\\",
+        \\"s3_bucket\\": \\"pocket-syntheticchecks-dev\\",
+        \\"s3_key\\": \\"aws-synthetic-dev.zip\\",
         \\"schedule\\": {
           \\"expression\\": \\"rate(5 minutes)\\"
         },
@@ -454,8 +454,8 @@ exports[`Pocket Cloudwatch Synthetics renders desired AWS Synthetic Checks 1`] =
           \\"timeout_in_seconds\\": 180
         },
         \\"runtime_version\\": \\"syn-nodejs-puppeteer-4.0\\",
-        \\"s3_bucket\\": \\"pocket-awssynchecks-dev-code\\",
-        \\"s3_key\\": \\"synthetic-dev.zip\\",
+        \\"s3_bucket\\": \\"pocket-syntheticchecks-dev\\",
+        \\"s3_key\\": \\"aws-synthetic-dev.zip\\",
         \\"schedule\\": {
           \\"expression\\": \\"rate(5 minutes)\\"
         },

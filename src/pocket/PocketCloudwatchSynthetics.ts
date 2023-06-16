@@ -148,7 +148,7 @@ export class PocketAwsSyntheticChecks extends Construct {
           {
             actions: ['s3:GetObject'],
             resources: [
-              `arn:aws:s3:::pocket-awssynchecks-${this.config.environment.toLowerCase()}-code/*`,
+              `arn:aws:s3:::pocket-syntheticchecks-${this.config.environment.toLowerCase()}/*`,
             ],
           },
           {
@@ -219,8 +219,8 @@ export class PocketAwsSyntheticChecks extends Construct {
             timeoutInSeconds: 180, // 3 minute timeout
           },
           runtimeVersion: 'syn-nodejs-puppeteer-4.0',
-          s3Bucket: `pocket-awssynchecks-${this.config.environment.toLowerCase()}-code`,
-          s3Key: `synthetic-${this.config.environment.toLowerCase()}.zip`,
+          s3Bucket: `pocket-syntheticchecks-${this.config.environment.toLowerCase()}`,
+          s3Key: `aws-synthetic-${this.config.environment.toLowerCase()}.zip`,
           schedule: {
             expression: 'rate(5 minutes)', // run every 5 minutes
           },
@@ -283,8 +283,8 @@ export class PocketAwsSyntheticChecks extends Construct {
             timeoutInSeconds: 180, // 3 minute timeout
           },
           runtimeVersion: 'syn-nodejs-puppeteer-4.0',
-          s3Bucket: `pocket-awssynchecks-${this.config.environment.toLowerCase()}-code`,
-          s3Key: `synthetic-${this.config.environment.toLowerCase()}.zip`,
+          s3Bucket: `pocket-syntheticchecks-${this.config.environment.toLowerCase()}`,
+          s3Key: `aws-synthetic-${this.config.environment.toLowerCase()}.zip`,
           schedule: {
             expression: 'rate(5 minutes)', // run every 5 minutes
           },
