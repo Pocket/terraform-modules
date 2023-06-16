@@ -1,3 +1,10 @@
+## [4.17.0](https://github.com/Pocket/terraform-modules/compare/v4.16.2...v4.17.0) (2023-06-16)
+
+
+### Features
+
+* **synchecks:** use pocket/aws-synthetic-checks-managed zip file ([#1073](https://github.com/Pocket/terraform-modules/issues/1073)) ([66c2cfe](https://github.com/Pocket/terraform-modules/commit/66c2cfe5d91205baf1ee1403de7b45550d0f4cb7))
+
 ## [4.16.2](https://github.com/Pocket/terraform-modules/compare/v4.16.1...v4.16.2) (2023-06-09)
 
 
