@@ -346,7 +346,7 @@ export class PocketECSApplication extends Construct {
       dashboardName: `${this.config.prefix}`,
       dashboardBody: JSON.stringify(dashboardJSON),
       lifecycle: {
-        ignoreChanges: 'all',
+        ignoreChanges: ['dashboard_body'],
       },
       provider: this.config.provider,
     });
