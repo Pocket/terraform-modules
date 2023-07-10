@@ -35,7 +35,7 @@ commands:
 jobs:
   publish:
     docker:
-      - image: cimg/node:16.20
+      - image: cimg/node:18.16@sha256:ffc2e6089568307e961a09485b073c440019cf920f23648ae2b8f7be1d1b0129
         auth:
           username: $DOCKERHUB_USERNAME
           password: $DOCKERHUB_PASSWORD
@@ -49,7 +49,7 @@ jobs:
   test:
     resource_class: large
     docker:
-      - image: cimg/node:16.20
+      - image: cimg/node:18.16@sha256:ffc2e6089568307e961a09485b073c440019cf920f23648ae2b8f7be1d1b0129
         auth:
           username: $DOCKERHUB_USERNAME
           password: $DOCKERHUB_PASSWORD
