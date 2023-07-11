@@ -82,24 +82,34 @@ exports[`PocketECSApplication renders an Pocket App with logs and dashboard in a
         \\"name\\": \\"/Shared/Vpc\\"
       }
     },
-    \\"aws_subnet_ids\\": {
+    \\"aws_subnets\\": {
       \\"testPocketApp_pocket_vpc_private_subnet_ids_EB1E3A65\\": {
         \\"filter\\": [
           {
             \\"name\\": \\"subnet-id\\",
             \\"values\\": \\"\${split(\\\\\\",\\\\\\", data.aws_ssm_parameter.testPocketApp_pocket_vpc_private_subnets_9D449563.value)}\\"
+          },
+          {
+            \\"name\\": \\"vpc-id\\",
+            \\"values\\": [
+              \\"\${data.aws_vpc.testPocketApp_pocket_vpc_C4E157E3.id}\\"
+            ]
           }
-        ],
-        \\"vpc_id\\": \\"\${data.aws_vpc.testPocketApp_pocket_vpc_C4E157E3.id}\\"
+        ]
       },
       \\"testPocketApp_pocket_vpc_public_subnet_ids_01F0B902\\": {
         \\"filter\\": [
           {
             \\"name\\": \\"subnet-id\\",
             \\"values\\": \\"\${split(\\\\\\",\\\\\\", data.aws_ssm_parameter.testPocketApp_pocket_vpc_public_subnets_B0B3A6AB.value)}\\"
+          },
+          {
+            \\"name\\": \\"vpc-id\\",
+            \\"values\\": [
+              \\"\${data.aws_vpc.testPocketApp_pocket_vpc_C4E157E3.id}\\"
+            ]
           }
-        ],
-        \\"vpc_id\\": \\"\${data.aws_vpc.testPocketApp_pocket_vpc_C4E157E3.id}\\"
+        ]
       }
     },
     \\"aws_vpc\\": {
@@ -258,7 +268,7 @@ exports[`PocketECSApplication renders an Pocket App with logs and dashboard in a
           \\"security_groups\\": [
             \\"\${aws_security_group.testPocketApp_ecs_service_ecs_security_group_9C016FA8.id}\\"
           ],
-          \\"subnets\\": \\"\${tolist(data.aws_subnet_ids.testPocketApp_pocket_vpc_private_subnet_ids_EB1E3A65.ids)}\\"
+          \\"subnets\\": \\"\${data.aws_subnets.testPocketApp_pocket_vpc_private_subnet_ids_EB1E3A65.ids}\\"
         },
         \\"propagate_tags\\": \\"SERVICE\\",
         \\"task_definition\\": \\"\${aws_ecs_task_definition.testPocketApp_ecs_service_ecs-task_A7E74E45.arn}\\"
@@ -408,24 +418,34 @@ exports[`PocketECSApplication renders an application with autoscaling group and 
         \\"name\\": \\"/Shared/Vpc\\"
       }
     },
-    \\"aws_subnet_ids\\": {
+    \\"aws_subnets\\": {
       \\"testPocketApp_pocket_vpc_private_subnet_ids_EB1E3A65\\": {
         \\"filter\\": [
           {
             \\"name\\": \\"subnet-id\\",
             \\"values\\": \\"\${split(\\\\\\",\\\\\\", data.aws_ssm_parameter.testPocketApp_pocket_vpc_private_subnets_9D449563.value)}\\"
+          },
+          {
+            \\"name\\": \\"vpc-id\\",
+            \\"values\\": [
+              \\"\${data.aws_vpc.testPocketApp_pocket_vpc_C4E157E3.id}\\"
+            ]
           }
-        ],
-        \\"vpc_id\\": \\"\${data.aws_vpc.testPocketApp_pocket_vpc_C4E157E3.id}\\"
+        ]
       },
       \\"testPocketApp_pocket_vpc_public_subnet_ids_01F0B902\\": {
         \\"filter\\": [
           {
             \\"name\\": \\"subnet-id\\",
             \\"values\\": \\"\${split(\\\\\\",\\\\\\", data.aws_ssm_parameter.testPocketApp_pocket_vpc_public_subnets_B0B3A6AB.value)}\\"
+          },
+          {
+            \\"name\\": \\"vpc-id\\",
+            \\"values\\": [
+              \\"\${data.aws_vpc.testPocketApp_pocket_vpc_C4E157E3.id}\\"
+            ]
           }
-        ],
-        \\"vpc_id\\": \\"\${data.aws_vpc.testPocketApp_pocket_vpc_C4E157E3.id}\\"
+        ]
       }
     },
     \\"aws_vpc\\": {
@@ -596,7 +616,7 @@ exports[`PocketECSApplication renders an application with autoscaling group and 
           \\"security_groups\\": [
             \\"\${aws_security_group.testPocketApp_ecs_service_ecs_security_group_9C016FA8.id}\\"
           ],
-          \\"subnets\\": \\"\${tolist(data.aws_subnet_ids.testPocketApp_pocket_vpc_private_subnet_ids_EB1E3A65.ids)}\\"
+          \\"subnets\\": \\"\${data.aws_subnets.testPocketApp_pocket_vpc_private_subnet_ids_EB1E3A65.ids}\\"
         },
         \\"propagate_tags\\": \\"SERVICE\\",
         \\"tags\\": {
@@ -766,24 +786,34 @@ exports[`PocketECSApplication renders an application with custom task sizes 1`] 
         \\"name\\": \\"/Shared/Vpc\\"
       }
     },
-    \\"aws_subnet_ids\\": {
+    \\"aws_subnets\\": {
       \\"testPocketApp_pocket_vpc_private_subnet_ids_EB1E3A65\\": {
         \\"filter\\": [
           {
             \\"name\\": \\"subnet-id\\",
             \\"values\\": \\"\${split(\\\\\\",\\\\\\", data.aws_ssm_parameter.testPocketApp_pocket_vpc_private_subnets_9D449563.value)}\\"
+          },
+          {
+            \\"name\\": \\"vpc-id\\",
+            \\"values\\": [
+              \\"\${data.aws_vpc.testPocketApp_pocket_vpc_C4E157E3.id}\\"
+            ]
           }
-        ],
-        \\"vpc_id\\": \\"\${data.aws_vpc.testPocketApp_pocket_vpc_C4E157E3.id}\\"
+        ]
       },
       \\"testPocketApp_pocket_vpc_public_subnet_ids_01F0B902\\": {
         \\"filter\\": [
           {
             \\"name\\": \\"subnet-id\\",
             \\"values\\": \\"\${split(\\\\\\",\\\\\\", data.aws_ssm_parameter.testPocketApp_pocket_vpc_public_subnets_B0B3A6AB.value)}\\"
+          },
+          {
+            \\"name\\": \\"vpc-id\\",
+            \\"values\\": [
+              \\"\${data.aws_vpc.testPocketApp_pocket_vpc_C4E157E3.id}\\"
+            ]
           }
-        ],
-        \\"vpc_id\\": \\"\${data.aws_vpc.testPocketApp_pocket_vpc_C4E157E3.id}\\"
+        ]
       }
     },
     \\"aws_vpc\\": {
@@ -942,7 +972,7 @@ exports[`PocketECSApplication renders an application with custom task sizes 1`] 
           \\"security_groups\\": [
             \\"\${aws_security_group.testPocketApp_ecs_service_ecs_security_group_9C016FA8.id}\\"
           ],
-          \\"subnets\\": \\"\${tolist(data.aws_subnet_ids.testPocketApp_pocket_vpc_private_subnet_ids_EB1E3A65.ids)}\\"
+          \\"subnets\\": \\"\${data.aws_subnets.testPocketApp_pocket_vpc_private_subnet_ids_EB1E3A65.ids}\\"
         },
         \\"propagate_tags\\": \\"SERVICE\\",
         \\"task_definition\\": \\"\${aws_ecs_task_definition.testPocketApp_ecs_service_ecs-task_A7E74E45.arn}\\"
@@ -1092,24 +1122,34 @@ exports[`PocketECSApplication renders an application with default autoscaling gr
         \\"name\\": \\"/Shared/Vpc\\"
       }
     },
-    \\"aws_subnet_ids\\": {
+    \\"aws_subnets\\": {
       \\"testPocketApp_pocket_vpc_private_subnet_ids_EB1E3A65\\": {
         \\"filter\\": [
           {
             \\"name\\": \\"subnet-id\\",
             \\"values\\": \\"\${split(\\\\\\",\\\\\\", data.aws_ssm_parameter.testPocketApp_pocket_vpc_private_subnets_9D449563.value)}\\"
+          },
+          {
+            \\"name\\": \\"vpc-id\\",
+            \\"values\\": [
+              \\"\${data.aws_vpc.testPocketApp_pocket_vpc_C4E157E3.id}\\"
+            ]
           }
-        ],
-        \\"vpc_id\\": \\"\${data.aws_vpc.testPocketApp_pocket_vpc_C4E157E3.id}\\"
+        ]
       },
       \\"testPocketApp_pocket_vpc_public_subnet_ids_01F0B902\\": {
         \\"filter\\": [
           {
             \\"name\\": \\"subnet-id\\",
             \\"values\\": \\"\${split(\\\\\\",\\\\\\", data.aws_ssm_parameter.testPocketApp_pocket_vpc_public_subnets_B0B3A6AB.value)}\\"
+          },
+          {
+            \\"name\\": \\"vpc-id\\",
+            \\"values\\": [
+              \\"\${data.aws_vpc.testPocketApp_pocket_vpc_C4E157E3.id}\\"
+            ]
           }
-        ],
-        \\"vpc_id\\": \\"\${data.aws_vpc.testPocketApp_pocket_vpc_C4E157E3.id}\\"
+        ]
       }
     },
     \\"aws_vpc\\": {
@@ -1280,7 +1320,7 @@ exports[`PocketECSApplication renders an application with default autoscaling gr
           \\"security_groups\\": [
             \\"\${aws_security_group.testPocketApp_ecs_service_ecs_security_group_9C016FA8.id}\\"
           ],
-          \\"subnets\\": \\"\${tolist(data.aws_subnet_ids.testPocketApp_pocket_vpc_private_subnet_ids_EB1E3A65.ids)}\\"
+          \\"subnets\\": \\"\${data.aws_subnets.testPocketApp_pocket_vpc_private_subnet_ids_EB1E3A65.ids}\\"
         },
         \\"propagate_tags\\": \\"SERVICE\\",
         \\"tags\\": {
@@ -1450,24 +1490,34 @@ exports[`PocketECSApplication renders an application with minimal config 1`] = `
         \\"name\\": \\"/Shared/Vpc\\"
       }
     },
-    \\"aws_subnet_ids\\": {
+    \\"aws_subnets\\": {
       \\"testPocketApp_pocket_vpc_private_subnet_ids_EB1E3A65\\": {
         \\"filter\\": [
           {
             \\"name\\": \\"subnet-id\\",
             \\"values\\": \\"\${split(\\\\\\",\\\\\\", data.aws_ssm_parameter.testPocketApp_pocket_vpc_private_subnets_9D449563.value)}\\"
+          },
+          {
+            \\"name\\": \\"vpc-id\\",
+            \\"values\\": [
+              \\"\${data.aws_vpc.testPocketApp_pocket_vpc_C4E157E3.id}\\"
+            ]
           }
-        ],
-        \\"vpc_id\\": \\"\${data.aws_vpc.testPocketApp_pocket_vpc_C4E157E3.id}\\"
+        ]
       },
       \\"testPocketApp_pocket_vpc_public_subnet_ids_01F0B902\\": {
         \\"filter\\": [
           {
             \\"name\\": \\"subnet-id\\",
             \\"values\\": \\"\${split(\\\\\\",\\\\\\", data.aws_ssm_parameter.testPocketApp_pocket_vpc_public_subnets_B0B3A6AB.value)}\\"
+          },
+          {
+            \\"name\\": \\"vpc-id\\",
+            \\"values\\": [
+              \\"\${data.aws_vpc.testPocketApp_pocket_vpc_C4E157E3.id}\\"
+            ]
           }
-        ],
-        \\"vpc_id\\": \\"\${data.aws_vpc.testPocketApp_pocket_vpc_C4E157E3.id}\\"
+        ]
       }
     },
     \\"aws_vpc\\": {
@@ -1626,7 +1676,7 @@ exports[`PocketECSApplication renders an application with minimal config 1`] = `
           \\"security_groups\\": [
             \\"\${aws_security_group.testPocketApp_ecs_service_ecs_security_group_9C016FA8.id}\\"
           ],
-          \\"subnets\\": \\"\${tolist(data.aws_subnet_ids.testPocketApp_pocket_vpc_private_subnet_ids_EB1E3A65.ids)}\\"
+          \\"subnets\\": \\"\${data.aws_subnets.testPocketApp_pocket_vpc_private_subnet_ids_EB1E3A65.ids}\\"
         },
         \\"propagate_tags\\": \\"SERVICE\\",
         \\"task_definition\\": \\"\${aws_ecs_task_definition.testPocketApp_ecs_service_ecs-task_A7E74E45.arn}\\"
@@ -1776,24 +1826,34 @@ exports[`PocketECSApplication renders an application with modified container def
         \\"name\\": \\"/Shared/Vpc\\"
       }
     },
-    \\"aws_subnet_ids\\": {
+    \\"aws_subnets\\": {
       \\"testPocketApp_pocket_vpc_private_subnet_ids_EB1E3A65\\": {
         \\"filter\\": [
           {
             \\"name\\": \\"subnet-id\\",
             \\"values\\": \\"\${split(\\\\\\",\\\\\\", data.aws_ssm_parameter.testPocketApp_pocket_vpc_private_subnets_9D449563.value)}\\"
+          },
+          {
+            \\"name\\": \\"vpc-id\\",
+            \\"values\\": [
+              \\"\${data.aws_vpc.testPocketApp_pocket_vpc_C4E157E3.id}\\"
+            ]
           }
-        ],
-        \\"vpc_id\\": \\"\${data.aws_vpc.testPocketApp_pocket_vpc_C4E157E3.id}\\"
+        ]
       },
       \\"testPocketApp_pocket_vpc_public_subnet_ids_01F0B902\\": {
         \\"filter\\": [
           {
             \\"name\\": \\"subnet-id\\",
             \\"values\\": \\"\${split(\\\\\\",\\\\\\", data.aws_ssm_parameter.testPocketApp_pocket_vpc_public_subnets_B0B3A6AB.value)}\\"
+          },
+          {
+            \\"name\\": \\"vpc-id\\",
+            \\"values\\": [
+              \\"\${data.aws_vpc.testPocketApp_pocket_vpc_C4E157E3.id}\\"
+            ]
           }
-        ],
-        \\"vpc_id\\": \\"\${data.aws_vpc.testPocketApp_pocket_vpc_C4E157E3.id}\\"
+        ]
       }
     },
     \\"aws_vpc\\": {
@@ -1976,7 +2036,7 @@ exports[`PocketECSApplication renders an application with modified container def
           \\"security_groups\\": [
             \\"\${aws_security_group.testPocketApp_ecs_service_ecs_security_group_9C016FA8.id}\\"
           ],
-          \\"subnets\\": \\"\${tolist(data.aws_subnet_ids.testPocketApp_pocket_vpc_private_subnet_ids_EB1E3A65.ids)}\\"
+          \\"subnets\\": \\"\${data.aws_subnets.testPocketApp_pocket_vpc_private_subnet_ids_EB1E3A65.ids}\\"
         },
         \\"propagate_tags\\": \\"SERVICE\\",
         \\"task_definition\\": \\"\${aws_ecs_task_definition.testPocketApp_ecs_service_ecs-task_A7E74E45.arn}\\"

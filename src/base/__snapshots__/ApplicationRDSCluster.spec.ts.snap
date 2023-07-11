@@ -35,6 +35,7 @@ exports[`ApplicationRDSCluster renders a RDS cluster 1`] = `
         \\"copy_tags_to_snapshot\\": true,
         \\"database_name\\": \\"walter\\",
         \\"db_subnet_group_name\\": \\"\${aws_db_subnet_group.testRDSCluster_rds_subnet_group_88022457.name}\\",
+        \\"engine\\": \\"aurora-mysql\\",
         \\"lifecycle\\": {
           \\"ignore_changes\\": [
             \\"master_username\\",
@@ -69,7 +70,7 @@ exports[`ApplicationRDSCluster renders a RDS cluster 1`] = `
           \\"aws_secretsmanager_secret.testRDSCluster_rds_secret_A2014138\\"
         ],
         \\"secret_id\\": \\"\${aws_secretsmanager_secret.testRDSCluster_rds_secret_A2014138.id}\\",
-        \\"secret_string\\": \\"{\\\\\\"host\\\\\\":\\\\\\"\${aws_rds_cluster.testRDSCluster_rds_cluster_B5FD08B5.endpoint}\\\\\\",\\\\\\"username\\\\\\":\\\\\\"\${aws_rds_cluster.testRDSCluster_rds_cluster_B5FD08B5.master_username}\\\\\\",\\\\\\"password\\\\\\":\\\\\\"\${aws_rds_cluster.testRDSCluster_rds_cluster_B5FD08B5.master_password}\\\\\\",\\\\\\"dbname\\\\\\":\\\\\\"\${aws_rds_cluster.testRDSCluster_rds_cluster_B5FD08B5.database_name}\\\\\\",\\\\\\"port\\\\\\":3306}\\"
+        \\"secret_string\\": \\"{\\\\\\"engine\\\\\\":\\\\\\"aurora-mysql\\\\\\",\\\\\\"host\\\\\\":\\\\\\"\${aws_rds_cluster.testRDSCluster_rds_cluster_B5FD08B5.endpoint}\\\\\\",\\\\\\"username\\\\\\":\\\\\\"\${aws_rds_cluster.testRDSCluster_rds_cluster_B5FD08B5.master_username}\\\\\\",\\\\\\"password\\\\\\":\\\\\\"\${aws_rds_cluster.testRDSCluster_rds_cluster_B5FD08B5.master_password}\\\\\\",\\\\\\"dbname\\\\\\":\\\\\\"\${aws_rds_cluster.testRDSCluster_rds_cluster_B5FD08B5.database_name}\\\\\\",\\\\\\"port\\\\\\":3306,\\\\\\"database_url\\\\\\":\\\\\\"mysql://\${aws_rds_cluster.testRDSCluster_rds_cluster_B5FD08B5.master_username}:\${aws_rds_cluster.testRDSCluster_rds_cluster_B5FD08B5.master_password}@\${aws_rds_cluster.testRDSCluster_rds_cluster_B5FD08B5.endpoint}:3306/\${aws_rds_cluster.testRDSCluster_rds_cluster_B5FD08B5.database_name}\\\\\\"}\\"
       }
     },
     \\"aws_security_group\\": {

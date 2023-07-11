@@ -2,8 +2,8 @@ import { AlbListener } from '@cdktf/provider-aws/lib/alb-listener';
 import { CloudfrontDistribution } from '@cdktf/provider-aws/lib/cloudfront-distribution';
 import { CloudwatchDashboard } from '@cdktf/provider-aws/lib/cloudwatch-dashboard';
 import {
-  CloudwatchMetricAlarmConfig,
   CloudwatchMetricAlarm,
+  CloudwatchMetricAlarmConfig,
 } from '@cdktf/provider-aws/lib/cloudwatch-metric-alarm';
 import { EfsFileSystem } from '@cdktf/provider-aws/lib/efs-file-system';
 import { AwsProvider } from '@cdktf/provider-aws/lib/provider';
@@ -63,7 +63,7 @@ export interface PocketALBApplicationProps extends TerraformMetaArguments {
   alb6CharacterPrefix: string;
   /**
    * Optional config to create an internal or public facing
-   * ALB. By default this is set to false.
+   * ALB. By default, this is set to false.
    */
   internal?: boolean;
   /**
@@ -72,7 +72,7 @@ export interface PocketALBApplicationProps extends TerraformMetaArguments {
    */
   domain: string;
   /**
-   * Optional config to create a CDN. By default no CDN is created.
+   * Optional config to create a CDN. By default, no CDN is created.
    */
   cdn?: boolean;
 
@@ -238,7 +238,7 @@ export class PocketALBApplication extends Construct {
 
     this.pocketVPC = this.getVpcConfig(config);
 
-    //Setup the Base DNS stack for our application which includes a hosted SubZone
+    //Set up the Base DNS stack for our application which includes a hosted SubZone
     this.baseDNS = new ApplicationBaseDNS(this, `base_dns`, {
       domain: config.domain,
       tags: config.tags,
@@ -351,14 +351,12 @@ export class PocketALBApplication extends Construct {
   }
 
   private createEfs(config: PocketALBApplicationProps): EfsFileSystem {
-    const efsFs = new EfsFileSystem(this, 'efsFs', {
+    return new EfsFileSystem(this, 'efsFs', {
       creationToken: config.efsConfig.creationToken,
       encrypted: true,
       tags: config.tags,
       provider: config.provider,
     });
-
-    return efsFs;
   }
 
   private static validateCachedALB(
@@ -418,18 +416,14 @@ export class PocketALBApplication extends Construct {
       name: albDomainName,
       type: 'A',
       zoneId: this.baseDNS.zoneId,
-      weightedRoutingPolicy: [
-        {
-          weight: 1,
-        },
-      ],
-      alias: [
-        {
-          name: alb.alb.dnsName,
-          zoneId: alb.alb.zoneId,
-          evaluateTargetHealth: true,
-        },
-      ],
+      weightedRoutingPolicy: {
+        weight: 1,
+      },
+      alias: {
+        name: alb.alb.dnsName,
+        zoneId: alb.alb.zoneId,
+        evaluateTargetHealth: true,
+      },
       lifecycle: {
         ignoreChanges: ['weighted_routing_policy[0].weight'],
       },
@@ -536,18 +530,14 @@ export class PocketALBApplication extends Construct {
       name: this.config.domain,
       type: 'A',
       zoneId: this.baseDNS.zoneId,
-      weightedRoutingPolicy: [
-        {
-          weight: 1,
-        },
-      ],
-      alias: [
-        {
-          name: cdn.domainName,
-          zoneId: cdn.hostedZoneId,
-          evaluateTargetHealth: true,
-        },
-      ],
+      weightedRoutingPolicy: {
+        weight: 1,
+      },
+      alias: {
+        name: cdn.domainName,
+        zoneId: cdn.hostedZoneId,
+        evaluateTargetHealth: true,
+      },
       lifecycle: {
         ignoreChanges: ['weighted_routing_policy[0].weight'],
       },
@@ -608,7 +598,7 @@ export class PocketALBApplication extends Construct {
       tags: this.config.tags,
     });
 
-    // We want to be able to make resource changes on the alb's listeners so we expose them
+    // We want to be able to make resource changes on the ALB's listeners, so we expose them
     this.listeners.push(httpListener, httpsListener);
 
     let ecsConfig: ApplicationECSServiceProps = {

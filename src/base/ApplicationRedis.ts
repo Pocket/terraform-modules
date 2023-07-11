@@ -68,7 +68,7 @@ export class ApplicationRedis extends ApplicationElasticacheCluster {
       'elasticache_replication_group',
       {
         replicationGroupId: `${config.prefix.toLowerCase()}`,
-        replicationGroupDescription: `${config.prefix.toLowerCase()} | Managed by terraform`,
+        description: `${config.prefix.toLowerCase()} | Managed by terraform`,
         nodeType: config.node.size,
         port: port,
         engineVersion:
@@ -87,7 +87,7 @@ export class ApplicationRedis extends ApplicationElasticacheCluster {
         tags: config.tags,
         applyImmediately: true,
         dependsOn: [subnetGroup, securityGroup],
-        numberCacheClusters: config.node.count ?? 2,
+        numCacheClusters: config.node.count ?? 2,
         multiAzEnabled: true,
         provider: config.provider,
       }

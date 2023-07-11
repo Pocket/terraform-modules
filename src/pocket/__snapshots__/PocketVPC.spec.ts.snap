@@ -61,24 +61,34 @@ exports[`renders a VPC with minimal config 1`] = `
         \\"name\\": \\"/Shared/Vpc\\"
       }
     },
-    \\"aws_subnet_ids\\": {
+    \\"aws_subnets\\": {
       \\"testPocketVPC_private_subnet_ids_61A307A3\\": {
         \\"filter\\": [
           {
             \\"name\\": \\"subnet-id\\",
             \\"values\\": \\"\${split(\\\\\\",\\\\\\", data.aws_ssm_parameter.testPocketVPC_private_subnets_3CC52CDC.value)}\\"
+          },
+          {
+            \\"name\\": \\"vpc-id\\",
+            \\"values\\": [
+              \\"\${data.aws_vpc.testPocketVPC_vpc_52CB41F5.id}\\"
+            ]
           }
-        ],
-        \\"vpc_id\\": \\"\${data.aws_vpc.testPocketVPC_vpc_52CB41F5.id}\\"
+        ]
       },
       \\"testPocketVPC_public_subnet_ids_5AC8BE89\\": {
         \\"filter\\": [
           {
             \\"name\\": \\"subnet-id\\",
             \\"values\\": \\"\${split(\\\\\\",\\\\\\", data.aws_ssm_parameter.testPocketVPC_public_subnets_21F01977.value)}\\"
+          },
+          {
+            \\"name\\": \\"vpc-id\\",
+            \\"values\\": [
+              \\"\${data.aws_vpc.testPocketVPC_vpc_52CB41F5.id}\\"
+            ]
           }
-        ],
-        \\"vpc_id\\": \\"\${data.aws_vpc.testPocketVPC_vpc_52CB41F5.id}\\"
+        ]
       }
     },
     \\"aws_vpc\\": {

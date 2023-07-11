@@ -85,7 +85,7 @@ export class PocketApiGateway extends Construct {
     // If no triggers are provided, this resource will be redeployed on every "terraform apply".
     const triggers = config.triggers ?? { deployedAt: Date.now().toString() };
 
-    // Deployment before adding permissions so we can restrict to the stage
+    // Deployment before adding permissions, so we can restrict to the stage
     this.apiGatewayDeployment = new ApiGatewayDeployment(
       scope,
       'api-gateway-deployment',
@@ -123,7 +123,7 @@ export class PocketApiGateway extends Construct {
    * @param config
    */
   private createRoute53Record(config: PocketApiGatewayProps) {
-    //Setup the Base DNS stack for our application which includes a hosted SubZone
+    //Set up the Base DNS stack for our application which includes a hosted SubZone
     const baseDNS = new ApplicationBaseDNS(this, `base-dns`, {
       domain: config.domain,
       tags: config.tags,
@@ -159,13 +159,11 @@ export class PocketApiGateway extends Construct {
       name: customDomainName.domainName,
       type: 'A',
       zoneId: baseDNS.zoneId,
-      alias: [
-        {
-          evaluateTargetHealth: true,
-          name: customDomainName.cloudfrontDomainName,
-          zoneId: customDomainName.cloudfrontZoneId,
-        },
-      ],
+      alias: {
+        evaluateTargetHealth: true,
+        name: customDomainName.cloudfrontDomainName,
+        zoneId: customDomainName.cloudfrontZoneId,
+      },
       dependsOn: [apiGatewayCertificate.certificateValidation],
       provider: config.provider,
     });

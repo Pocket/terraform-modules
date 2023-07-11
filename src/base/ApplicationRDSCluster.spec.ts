@@ -12,6 +12,7 @@ describe('ApplicationRDSCluster', () => {
           masterUsername: 'walter',
           masterPassword: 'bowling',
           databaseName: 'walter',
+          engine: 'aurora-mysql',
         },
         tags: {
           whodis: 'walter',

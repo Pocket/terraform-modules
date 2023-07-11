@@ -87,24 +87,34 @@ exports[`PocketALBApplication renders a Pocket App with attached persistent stor
         \\"name\\": \\"/Shared/Vpc\\"
       }
     },
-    \\"aws_subnet_ids\\": {
+    \\"aws_subnets\\": {
       \\"testPocketApp_pocket_vpc_private_subnet_ids_EB1E3A65\\": {
         \\"filter\\": [
           {
             \\"name\\": \\"subnet-id\\",
             \\"values\\": \\"\${split(\\\\\\",\\\\\\", data.aws_ssm_parameter.testPocketApp_pocket_vpc_private_subnets_9D449563.value)}\\"
+          },
+          {
+            \\"name\\": \\"vpc-id\\",
+            \\"values\\": [
+              \\"\${data.aws_vpc.testPocketApp_pocket_vpc_C4E157E3.id}\\"
+            ]
           }
-        ],
-        \\"vpc_id\\": \\"\${data.aws_vpc.testPocketApp_pocket_vpc_C4E157E3.id}\\"
+        ]
       },
       \\"testPocketApp_pocket_vpc_public_subnet_ids_01F0B902\\": {
         \\"filter\\": [
           {
             \\"name\\": \\"subnet-id\\",
             \\"values\\": \\"\${split(\\\\\\",\\\\\\", data.aws_ssm_parameter.testPocketApp_pocket_vpc_public_subnets_B0B3A6AB.value)}\\"
+          },
+          {
+            \\"name\\": \\"vpc-id\\",
+            \\"values\\": [
+              \\"\${data.aws_vpc.testPocketApp_pocket_vpc_C4E157E3.id}\\"
+            ]
           }
-        ],
-        \\"vpc_id\\": \\"\${data.aws_vpc.testPocketApp_pocket_vpc_C4E157E3.id}\\"
+        ]
       }
     },
     \\"aws_vpc\\": {
@@ -149,7 +159,7 @@ exports[`PocketALBApplication renders a Pocket App with attached persistent stor
         \\"security_groups\\": [
           \\"\${aws_security_group.testPocketApp_application_load_balancer_alb_security_group_91A27046.id}\\"
         ],
-        \\"subnets\\": \\"\${tolist(data.aws_subnet_ids.testPocketApp_pocket_vpc_public_subnet_ids_01F0B902.ids)}\\"
+        \\"subnets\\": \\"\${data.aws_subnets.testPocketApp_pocket_vpc_public_subnet_ids_01F0B902.ids}\\"
       }
     },
     \\"aws_alb_listener\\": {
@@ -405,7 +415,7 @@ exports[`PocketALBApplication renders a Pocket App with attached persistent stor
           \\"security_groups\\": [
             \\"\${aws_security_group.testPocketApp_ecs_service_ecs_security_group_9C016FA8.id}\\"
           ],
-          \\"subnets\\": \\"\${tolist(data.aws_subnet_ids.testPocketApp_pocket_vpc_private_subnet_ids_EB1E3A65.ids)}\\"
+          \\"subnets\\": \\"\${data.aws_subnets.testPocketApp_pocket_vpc_private_subnet_ids_EB1E3A65.ids}\\"
         },
         \\"propagate_tags\\": \\"SERVICE\\",
         \\"task_definition\\": \\"\${aws_ecs_task_definition.testPocketApp_ecs_service_ecs-task_A7E74E45.arn}\\"
@@ -454,7 +464,7 @@ exports[`PocketALBApplication renders a Pocket App with attached persistent stor
     \\"aws_efs_mount_target\\": {
       \\"testPocketApp_ecs_service_efs_mount_target_97B5C5E6\\": {
         \\"file_system_id\\": \\"\${aws_efs_file_system.testPocketApp_efsFs_92747227.id}\\",
-        \\"for_each\\": \\"\${toset(tolist(data.aws_subnet_ids.testPocketApp_pocket_vpc_private_subnet_ids_EB1E3A65.ids))}\\",
+        \\"for_each\\": \\"\${toset(data.aws_subnets.testPocketApp_pocket_vpc_private_subnet_ids_EB1E3A65.ids)}\\",
         \\"security_groups\\": [
           \\"\${aws_security_group.testPocketApp_ecs_service_efs_mount_sg_01974774.id}\\"
         ],
@@ -476,22 +486,20 @@ exports[`PocketALBApplication renders a Pocket App with attached persistent stor
         \\"depends_on\\": [
           \\"aws_acm_certificate.testPocketApp_alb_certificate_417C14FF\\"
         ],
-        \\"name\\": \\"\${tolist(aws_acm_certificate.testPocketApp_alb_certificate_417C14FF.domain_validation_options)[0][\\\\\\"resource_record_name\\\\\\"]}\\",
+        \\"name\\": \\"\${tolist(aws_acm_certificate.testPocketApp_alb_certificate_417C14FF.domain_validation_options).0.resource_record_name}\\",
         \\"records\\": [
-          \\"\${tolist(aws_acm_certificate.testPocketApp_alb_certificate_417C14FF.domain_validation_options)[0][\\\\\\"resource_record_value\\\\\\"]}\\"
+          \\"\${tolist(aws_acm_certificate.testPocketApp_alb_certificate_417C14FF.domain_validation_options).0.resource_record_value}\\"
         ],
         \\"ttl\\": 60,
-        \\"type\\": \\"\${tolist(aws_acm_certificate.testPocketApp_alb_certificate_417C14FF.domain_validation_options)[0][\\\\\\"resource_record_type\\\\\\"]}\\",
+        \\"type\\": \\"\${tolist(aws_acm_certificate.testPocketApp_alb_certificate_417C14FF.domain_validation_options).0.resource_record_type}\\",
         \\"zone_id\\": \\"\${aws_route53_zone.testPocketApp_base_dns_subhosted_zone_1E1E3243.zone_id}\\"
       },
       \\"testPocketApp_alb_record_7B56ED33\\": {
-        \\"alias\\": [
-          {
-            \\"evaluate_target_health\\": true,
-            \\"name\\": \\"\${aws_alb.testPocketApp_application_load_balancer_alb_D538DEEE.dns_name}\\",
-            \\"zone_id\\": \\"\${aws_alb.testPocketApp_application_load_balancer_alb_D538DEEE.zone_id}\\"
-          }
-        ],
+        \\"alias\\": {
+          \\"evaluate_target_health\\": true,
+          \\"name\\": \\"\${aws_alb.testPocketApp_application_load_balancer_alb_D538DEEE.dns_name}\\",
+          \\"zone_id\\": \\"\${aws_alb.testPocketApp_application_load_balancer_alb_D538DEEE.zone_id}\\"
+        },
         \\"lifecycle\\": {
           \\"ignore_changes\\": [
             \\"weighted_routing_policy[0].weight\\"
@@ -500,11 +508,9 @@ exports[`PocketALBApplication renders a Pocket App with attached persistent stor
         \\"name\\": \\"testing.bowling.gov\\",
         \\"set_identifier\\": \\"1\\",
         \\"type\\": \\"A\\",
-        \\"weighted_routing_policy\\": [
-          {
-            \\"weight\\": 1
-          }
-        ],
+        \\"weighted_routing_policy\\": {
+          \\"weight\\": 1
+        },
         \\"zone_id\\": \\"\${aws_route53_zone.testPocketApp_base_dns_subhosted_zone_1E1E3243.zone_id}\\"
       },
       \\"testPocketApp_base_dns_subhosted_zone_ns_497FFB83\\": {
@@ -765,24 +771,34 @@ exports[`PocketALBApplication renders a Pocket App with attached waf 1`] = `
         \\"name\\": \\"/Shared/Vpc\\"
       }
     },
-    \\"aws_subnet_ids\\": {
+    \\"aws_subnets\\": {
       \\"testPocketApp_pocket_vpc_private_subnet_ids_EB1E3A65\\": {
         \\"filter\\": [
           {
             \\"name\\": \\"subnet-id\\",
             \\"values\\": \\"\${split(\\\\\\",\\\\\\", data.aws_ssm_parameter.testPocketApp_pocket_vpc_private_subnets_9D449563.value)}\\"
+          },
+          {
+            \\"name\\": \\"vpc-id\\",
+            \\"values\\": [
+              \\"\${data.aws_vpc.testPocketApp_pocket_vpc_C4E157E3.id}\\"
+            ]
           }
-        ],
-        \\"vpc_id\\": \\"\${data.aws_vpc.testPocketApp_pocket_vpc_C4E157E3.id}\\"
+        ]
       },
       \\"testPocketApp_pocket_vpc_public_subnet_ids_01F0B902\\": {
         \\"filter\\": [
           {
             \\"name\\": \\"subnet-id\\",
             \\"values\\": \\"\${split(\\\\\\",\\\\\\", data.aws_ssm_parameter.testPocketApp_pocket_vpc_public_subnets_B0B3A6AB.value)}\\"
+          },
+          {
+            \\"name\\": \\"vpc-id\\",
+            \\"values\\": [
+              \\"\${data.aws_vpc.testPocketApp_pocket_vpc_C4E157E3.id}\\"
+            ]
           }
-        ],
-        \\"vpc_id\\": \\"\${data.aws_vpc.testPocketApp_pocket_vpc_C4E157E3.id}\\"
+        ]
       }
     },
     \\"aws_vpc\\": {
@@ -827,7 +843,7 @@ exports[`PocketALBApplication renders a Pocket App with attached waf 1`] = `
         \\"security_groups\\": [
           \\"\${aws_security_group.testPocketApp_application_load_balancer_alb_security_group_91A27046.id}\\"
         ],
-        \\"subnets\\": \\"\${tolist(data.aws_subnet_ids.testPocketApp_pocket_vpc_public_subnet_ids_01F0B902.ids)}\\"
+        \\"subnets\\": \\"\${data.aws_subnets.testPocketApp_pocket_vpc_public_subnet_ids_01F0B902.ids}\\"
       }
     },
     \\"aws_alb_listener\\": {
@@ -1059,7 +1075,7 @@ exports[`PocketALBApplication renders a Pocket App with attached waf 1`] = `
           \\"security_groups\\": [
             \\"\${aws_security_group.testPocketApp_ecs_service_ecs_security_group_9C016FA8.id}\\"
           ],
-          \\"subnets\\": \\"\${tolist(data.aws_subnet_ids.testPocketApp_pocket_vpc_private_subnet_ids_EB1E3A65.ids)}\\"
+          \\"subnets\\": \\"\${data.aws_subnets.testPocketApp_pocket_vpc_private_subnet_ids_EB1E3A65.ids}\\"
         },
         \\"propagate_tags\\": \\"SERVICE\\",
         \\"task_definition\\": \\"\${aws_ecs_task_definition.testPocketApp_ecs_service_ecs-task_A7E74E45.arn}\\"
@@ -1098,22 +1114,20 @@ exports[`PocketALBApplication renders a Pocket App with attached waf 1`] = `
         \\"depends_on\\": [
           \\"aws_acm_certificate.testPocketApp_alb_certificate_417C14FF\\"
         ],
-        \\"name\\": \\"\${tolist(aws_acm_certificate.testPocketApp_alb_certificate_417C14FF.domain_validation_options)[0][\\\\\\"resource_record_name\\\\\\"]}\\",
+        \\"name\\": \\"\${tolist(aws_acm_certificate.testPocketApp_alb_certificate_417C14FF.domain_validation_options).0.resource_record_name}\\",
         \\"records\\": [
-          \\"\${tolist(aws_acm_certificate.testPocketApp_alb_certificate_417C14FF.domain_validation_options)[0][\\\\\\"resource_record_value\\\\\\"]}\\"
+          \\"\${tolist(aws_acm_certificate.testPocketApp_alb_certificate_417C14FF.domain_validation_options).0.resource_record_value}\\"
         ],
         \\"ttl\\": 60,
-        \\"type\\": \\"\${tolist(aws_acm_certificate.testPocketApp_alb_certificate_417C14FF.domain_validation_options)[0][\\\\\\"resource_record_type\\\\\\"]}\\",
+        \\"type\\": \\"\${tolist(aws_acm_certificate.testPocketApp_alb_certificate_417C14FF.domain_validation_options).0.resource_record_type}\\",
         \\"zone_id\\": \\"\${aws_route53_zone.testPocketApp_base_dns_subhosted_zone_1E1E3243.zone_id}\\"
       },
       \\"testPocketApp_alb_record_7B56ED33\\": {
-        \\"alias\\": [
-          {
-            \\"evaluate_target_health\\": true,
-            \\"name\\": \\"\${aws_alb.testPocketApp_application_load_balancer_alb_D538DEEE.dns_name}\\",
-            \\"zone_id\\": \\"\${aws_alb.testPocketApp_application_load_balancer_alb_D538DEEE.zone_id}\\"
-          }
-        ],
+        \\"alias\\": {
+          \\"evaluate_target_health\\": true,
+          \\"name\\": \\"\${aws_alb.testPocketApp_application_load_balancer_alb_D538DEEE.dns_name}\\",
+          \\"zone_id\\": \\"\${aws_alb.testPocketApp_application_load_balancer_alb_D538DEEE.zone_id}\\"
+        },
         \\"lifecycle\\": {
           \\"ignore_changes\\": [
             \\"weighted_routing_policy[0].weight\\"
@@ -1122,11 +1136,9 @@ exports[`PocketALBApplication renders a Pocket App with attached waf 1`] = `
         \\"name\\": \\"testing.bowling.gov\\",
         \\"set_identifier\\": \\"1\\",
         \\"type\\": \\"A\\",
-        \\"weighted_routing_policy\\": [
-          {
-            \\"weight\\": 1
-          }
-        ],
+        \\"weighted_routing_policy\\": {
+          \\"weight\\": 1
+        },
         \\"zone_id\\": \\"\${aws_route53_zone.testPocketApp_base_dns_subhosted_zone_1E1E3243.zone_id}\\"
       },
       \\"testPocketApp_base_dns_subhosted_zone_ns_497FFB83\\": {
@@ -1360,24 +1372,34 @@ exports[`PocketALBApplication renders an Pocket App with code deploy 1`] = `
         \\"name\\": \\"/Shared/Vpc\\"
       }
     },
-    \\"aws_subnet_ids\\": {
+    \\"aws_subnets\\": {
       \\"testPocketApp_pocket_vpc_private_subnet_ids_EB1E3A65\\": {
         \\"filter\\": [
           {
             \\"name\\": \\"subnet-id\\",
             \\"values\\": \\"\${split(\\\\\\",\\\\\\", data.aws_ssm_parameter.testPocketApp_pocket_vpc_private_subnets_9D449563.value)}\\"
+          },
+          {
+            \\"name\\": \\"vpc-id\\",
+            \\"values\\": [
+              \\"\${data.aws_vpc.testPocketApp_pocket_vpc_C4E157E3.id}\\"
+            ]
           }
-        ],
-        \\"vpc_id\\": \\"\${data.aws_vpc.testPocketApp_pocket_vpc_C4E157E3.id}\\"
+        ]
       },
       \\"testPocketApp_pocket_vpc_public_subnet_ids_01F0B902\\": {
         \\"filter\\": [
           {
             \\"name\\": \\"subnet-id\\",
             \\"values\\": \\"\${split(\\\\\\",\\\\\\", data.aws_ssm_parameter.testPocketApp_pocket_vpc_public_subnets_B0B3A6AB.value)}\\"
+          },
+          {
+            \\"name\\": \\"vpc-id\\",
+            \\"values\\": [
+              \\"\${data.aws_vpc.testPocketApp_pocket_vpc_C4E157E3.id}\\"
+            ]
           }
-        ],
-        \\"vpc_id\\": \\"\${data.aws_vpc.testPocketApp_pocket_vpc_C4E157E3.id}\\"
+        ]
       }
     },
     \\"aws_vpc\\": {
@@ -1422,7 +1444,7 @@ exports[`PocketALBApplication renders an Pocket App with code deploy 1`] = `
         \\"security_groups\\": [
           \\"\${aws_security_group.testPocketApp_application_load_balancer_alb_security_group_91A27046.id}\\"
         ],
-        \\"subnets\\": \\"\${tolist(data.aws_subnet_ids.testPocketApp_pocket_vpc_public_subnet_ids_01F0B902.ids)}\\"
+        \\"subnets\\": \\"\${data.aws_subnets.testPocketApp_pocket_vpc_public_subnet_ids_01F0B902.ids}\\"
       }
     },
     \\"aws_alb_listener\\": {
@@ -1730,7 +1752,7 @@ exports[`PocketALBApplication renders an Pocket App with code deploy 1`] = `
           \\"security_groups\\": [
             \\"\${aws_security_group.testPocketApp_ecs_service_ecs_security_group_9C016FA8.id}\\"
           ],
-          \\"subnets\\": \\"\${tolist(data.aws_subnet_ids.testPocketApp_pocket_vpc_private_subnet_ids_EB1E3A65.ids)}\\"
+          \\"subnets\\": \\"\${data.aws_subnets.testPocketApp_pocket_vpc_private_subnet_ids_EB1E3A65.ids}\\"
         },
         \\"propagate_tags\\": \\"SERVICE\\",
         \\"task_definition\\": \\"\${aws_ecs_task_definition.testPocketApp_ecs_service_ecs-task_A7E74E45.arn}\\"
@@ -1782,22 +1804,20 @@ exports[`PocketALBApplication renders an Pocket App with code deploy 1`] = `
         \\"depends_on\\": [
           \\"aws_acm_certificate.testPocketApp_alb_certificate_417C14FF\\"
         ],
-        \\"name\\": \\"\${tolist(aws_acm_certificate.testPocketApp_alb_certificate_417C14FF.domain_validation_options)[0][\\\\\\"resource_record_name\\\\\\"]}\\",
+        \\"name\\": \\"\${tolist(aws_acm_certificate.testPocketApp_alb_certificate_417C14FF.domain_validation_options).0.resource_record_name}\\",
         \\"records\\": [
-          \\"\${tolist(aws_acm_certificate.testPocketApp_alb_certificate_417C14FF.domain_validation_options)[0][\\\\\\"resource_record_value\\\\\\"]}\\"
+          \\"\${tolist(aws_acm_certificate.testPocketApp_alb_certificate_417C14FF.domain_validation_options).0.resource_record_value}\\"
         ],
         \\"ttl\\": 60,
-        \\"type\\": \\"\${tolist(aws_acm_certificate.testPocketApp_alb_certificate_417C14FF.domain_validation_options)[0][\\\\\\"resource_record_type\\\\\\"]}\\",
+        \\"type\\": \\"\${tolist(aws_acm_certificate.testPocketApp_alb_certificate_417C14FF.domain_validation_options).0.resource_record_type}\\",
         \\"zone_id\\": \\"\${aws_route53_zone.testPocketApp_base_dns_subhosted_zone_1E1E3243.zone_id}\\"
       },
       \\"testPocketApp_alb_record_7B56ED33\\": {
-        \\"alias\\": [
-          {
-            \\"evaluate_target_health\\": true,
-            \\"name\\": \\"\${aws_alb.testPocketApp_application_load_balancer_alb_D538DEEE.dns_name}\\",
-            \\"zone_id\\": \\"\${aws_alb.testPocketApp_application_load_balancer_alb_D538DEEE.zone_id}\\"
-          }
-        ],
+        \\"alias\\": {
+          \\"evaluate_target_health\\": true,
+          \\"name\\": \\"\${aws_alb.testPocketApp_application_load_balancer_alb_D538DEEE.dns_name}\\",
+          \\"zone_id\\": \\"\${aws_alb.testPocketApp_application_load_balancer_alb_D538DEEE.zone_id}\\"
+        },
         \\"lifecycle\\": {
           \\"ignore_changes\\": [
             \\"weighted_routing_policy[0].weight\\"
@@ -1806,11 +1826,9 @@ exports[`PocketALBApplication renders an Pocket App with code deploy 1`] = `
         \\"name\\": \\"testing.bowling.gov\\",
         \\"set_identifier\\": \\"1\\",
         \\"type\\": \\"A\\",
-        \\"weighted_routing_policy\\": [
-          {
-            \\"weight\\": 1
-          }
-        ],
+        \\"weighted_routing_policy\\": {
+          \\"weight\\": 1
+        },
         \\"zone_id\\": \\"\${aws_route53_zone.testPocketApp_base_dns_subhosted_zone_1E1E3243.zone_id}\\"
       },
       \\"testPocketApp_base_dns_subhosted_zone_ns_497FFB83\\": {
@@ -2074,24 +2092,34 @@ exports[`PocketALBApplication renders an Pocket App with code deploy and creates
         \\"name\\": \\"/Shared/Vpc\\"
       }
     },
-    \\"aws_subnet_ids\\": {
+    \\"aws_subnets\\": {
       \\"testPocketApp_pocket_vpc_private_subnet_ids_EB1E3A65\\": {
         \\"filter\\": [
           {
             \\"name\\": \\"subnet-id\\",
             \\"values\\": \\"\${split(\\\\\\",\\\\\\", data.aws_ssm_parameter.testPocketApp_pocket_vpc_private_subnets_9D449563.value)}\\"
+          },
+          {
+            \\"name\\": \\"vpc-id\\",
+            \\"values\\": [
+              \\"\${data.aws_vpc.testPocketApp_pocket_vpc_C4E157E3.id}\\"
+            ]
           }
-        ],
-        \\"vpc_id\\": \\"\${data.aws_vpc.testPocketApp_pocket_vpc_C4E157E3.id}\\"
+        ]
       },
       \\"testPocketApp_pocket_vpc_public_subnet_ids_01F0B902\\": {
         \\"filter\\": [
           {
             \\"name\\": \\"subnet-id\\",
             \\"values\\": \\"\${split(\\\\\\",\\\\\\", data.aws_ssm_parameter.testPocketApp_pocket_vpc_public_subnets_B0B3A6AB.value)}\\"
+          },
+          {
+            \\"name\\": \\"vpc-id\\",
+            \\"values\\": [
+              \\"\${data.aws_vpc.testPocketApp_pocket_vpc_C4E157E3.id}\\"
+            ]
           }
-        ],
-        \\"vpc_id\\": \\"\${data.aws_vpc.testPocketApp_pocket_vpc_C4E157E3.id}\\"
+        ]
       }
     },
     \\"aws_vpc\\": {
@@ -2136,7 +2164,7 @@ exports[`PocketALBApplication renders an Pocket App with code deploy and creates
         \\"security_groups\\": [
           \\"\${aws_security_group.testPocketApp_application_load_balancer_alb_security_group_91A27046.id}\\"
         ],
-        \\"subnets\\": \\"\${tolist(data.aws_subnet_ids.testPocketApp_pocket_vpc_public_subnet_ids_01F0B902.ids)}\\"
+        \\"subnets\\": \\"\${data.aws_subnets.testPocketApp_pocket_vpc_public_subnet_ids_01F0B902.ids}\\"
       }
     },
     \\"aws_alb_listener\\": {
@@ -2444,7 +2472,7 @@ exports[`PocketALBApplication renders an Pocket App with code deploy and creates
           \\"security_groups\\": [
             \\"\${aws_security_group.testPocketApp_ecs_service_ecs_security_group_9C016FA8.id}\\"
           ],
-          \\"subnets\\": \\"\${tolist(data.aws_subnet_ids.testPocketApp_pocket_vpc_private_subnet_ids_EB1E3A65.ids)}\\"
+          \\"subnets\\": \\"\${data.aws_subnets.testPocketApp_pocket_vpc_private_subnet_ids_EB1E3A65.ids}\\"
         },
         \\"propagate_tags\\": \\"SERVICE\\",
         \\"task_definition\\": \\"\${aws_ecs_task_definition.testPocketApp_ecs_service_ecs-task_A7E74E45.arn}\\"
@@ -2496,22 +2524,20 @@ exports[`PocketALBApplication renders an Pocket App with code deploy and creates
         \\"depends_on\\": [
           \\"aws_acm_certificate.testPocketApp_alb_certificate_417C14FF\\"
         ],
-        \\"name\\": \\"\${tolist(aws_acm_certificate.testPocketApp_alb_certificate_417C14FF.domain_validation_options)[0][\\\\\\"resource_record_name\\\\\\"]}\\",
+        \\"name\\": \\"\${tolist(aws_acm_certificate.testPocketApp_alb_certificate_417C14FF.domain_validation_options).0.resource_record_name}\\",
         \\"records\\": [
-          \\"\${tolist(aws_acm_certificate.testPocketApp_alb_certificate_417C14FF.domain_validation_options)[0][\\\\\\"resource_record_value\\\\\\"]}\\"
+          \\"\${tolist(aws_acm_certificate.testPocketApp_alb_certificate_417C14FF.domain_validation_options).0.resource_record_value}\\"
         ],
         \\"ttl\\": 60,
-        \\"type\\": \\"\${tolist(aws_acm_certificate.testPocketApp_alb_certificate_417C14FF.domain_validation_options)[0][\\\\\\"resource_record_type\\\\\\"]}\\",
+        \\"type\\": \\"\${tolist(aws_acm_certificate.testPocketApp_alb_certificate_417C14FF.domain_validation_options).0.resource_record_type}\\",
         \\"zone_id\\": \\"\${aws_route53_zone.testPocketApp_base_dns_subhosted_zone_1E1E3243.zone_id}\\"
       },
       \\"testPocketApp_alb_record_7B56ED33\\": {
-        \\"alias\\": [
-          {
-            \\"evaluate_target_health\\": true,
-            \\"name\\": \\"\${aws_alb.testPocketApp_application_load_balancer_alb_D538DEEE.dns_name}\\",
-            \\"zone_id\\": \\"\${aws_alb.testPocketApp_application_load_balancer_alb_D538DEEE.zone_id}\\"
-          }
-        ],
+        \\"alias\\": {
+          \\"evaluate_target_health\\": true,
+          \\"name\\": \\"\${aws_alb.testPocketApp_application_load_balancer_alb_D538DEEE.dns_name}\\",
+          \\"zone_id\\": \\"\${aws_alb.testPocketApp_application_load_balancer_alb_D538DEEE.zone_id}\\"
+        },
         \\"lifecycle\\": {
           \\"ignore_changes\\": [
             \\"weighted_routing_policy[0].weight\\"
@@ -2520,11 +2546,9 @@ exports[`PocketALBApplication renders an Pocket App with code deploy and creates
         \\"name\\": \\"testing.bowling.gov\\",
         \\"set_identifier\\": \\"1\\",
         \\"type\\": \\"A\\",
-        \\"weighted_routing_policy\\": [
-          {
-            \\"weight\\": 1
-          }
-        ],
+        \\"weighted_routing_policy\\": {
+          \\"weight\\": 1
+        },
         \\"zone_id\\": \\"\${aws_route53_zone.testPocketApp_base_dns_subhosted_zone_1E1E3243.zone_id}\\"
       },
       \\"testPocketApp_base_dns_subhosted_zone_ns_497FFB83\\": {
@@ -2773,24 +2797,34 @@ exports[`PocketALBApplication renders an Pocket App with code deploy notificatio
         \\"name\\": \\"/Shared/Vpc\\"
       }
     },
-    \\"aws_subnet_ids\\": {
+    \\"aws_subnets\\": {
       \\"testPocketApp_pocket_vpc_private_subnet_ids_EB1E3A65\\": {
         \\"filter\\": [
           {
             \\"name\\": \\"subnet-id\\",
             \\"values\\": \\"\${split(\\\\\\",\\\\\\", data.aws_ssm_parameter.testPocketApp_pocket_vpc_private_subnets_9D449563.value)}\\"
+          },
+          {
+            \\"name\\": \\"vpc-id\\",
+            \\"values\\": [
+              \\"\${data.aws_vpc.testPocketApp_pocket_vpc_C4E157E3.id}\\"
+            ]
           }
-        ],
-        \\"vpc_id\\": \\"\${data.aws_vpc.testPocketApp_pocket_vpc_C4E157E3.id}\\"
+        ]
       },
       \\"testPocketApp_pocket_vpc_public_subnet_ids_01F0B902\\": {
         \\"filter\\": [
           {
             \\"name\\": \\"subnet-id\\",
             \\"values\\": \\"\${split(\\\\\\",\\\\\\", data.aws_ssm_parameter.testPocketApp_pocket_vpc_public_subnets_B0B3A6AB.value)}\\"
+          },
+          {
+            \\"name\\": \\"vpc-id\\",
+            \\"values\\": [
+              \\"\${data.aws_vpc.testPocketApp_pocket_vpc_C4E157E3.id}\\"
+            ]
           }
-        ],
-        \\"vpc_id\\": \\"\${data.aws_vpc.testPocketApp_pocket_vpc_C4E157E3.id}\\"
+        ]
       }
     },
     \\"aws_vpc\\": {
@@ -2835,7 +2869,7 @@ exports[`PocketALBApplication renders an Pocket App with code deploy notificatio
         \\"security_groups\\": [
           \\"\${aws_security_group.testPocketApp_application_load_balancer_alb_security_group_91A27046.id}\\"
         ],
-        \\"subnets\\": \\"\${tolist(data.aws_subnet_ids.testPocketApp_pocket_vpc_public_subnet_ids_01F0B902.ids)}\\"
+        \\"subnets\\": \\"\${data.aws_subnets.testPocketApp_pocket_vpc_public_subnet_ids_01F0B902.ids}\\"
       }
     },
     \\"aws_alb_listener\\": {
@@ -3143,7 +3177,7 @@ exports[`PocketALBApplication renders an Pocket App with code deploy notificatio
           \\"security_groups\\": [
             \\"\${aws_security_group.testPocketApp_ecs_service_ecs_security_group_9C016FA8.id}\\"
           ],
-          \\"subnets\\": \\"\${tolist(data.aws_subnet_ids.testPocketApp_pocket_vpc_private_subnet_ids_EB1E3A65.ids)}\\"
+          \\"subnets\\": \\"\${data.aws_subnets.testPocketApp_pocket_vpc_private_subnet_ids_EB1E3A65.ids}\\"
         },
         \\"propagate_tags\\": \\"SERVICE\\",
         \\"task_definition\\": \\"\${aws_ecs_task_definition.testPocketApp_ecs_service_ecs-task_A7E74E45.arn}\\"
@@ -3195,22 +3229,20 @@ exports[`PocketALBApplication renders an Pocket App with code deploy notificatio
         \\"depends_on\\": [
           \\"aws_acm_certificate.testPocketApp_alb_certificate_417C14FF\\"
         ],
-        \\"name\\": \\"\${tolist(aws_acm_certificate.testPocketApp_alb_certificate_417C14FF.domain_validation_options)[0][\\\\\\"resource_record_name\\\\\\"]}\\",
+        \\"name\\": \\"\${tolist(aws_acm_certificate.testPocketApp_alb_certificate_417C14FF.domain_validation_options).0.resource_record_name}\\",
         \\"records\\": [
-          \\"\${tolist(aws_acm_certificate.testPocketApp_alb_certificate_417C14FF.domain_validation_options)[0][\\\\\\"resource_record_value\\\\\\"]}\\"
+          \\"\${tolist(aws_acm_certificate.testPocketApp_alb_certificate_417C14FF.domain_validation_options).0.resource_record_value}\\"
         ],
         \\"ttl\\": 60,
-        \\"type\\": \\"\${tolist(aws_acm_certificate.testPocketApp_alb_certificate_417C14FF.domain_validation_options)[0][\\\\\\"resource_record_type\\\\\\"]}\\",
+        \\"type\\": \\"\${tolist(aws_acm_certificate.testPocketApp_alb_certificate_417C14FF.domain_validation_options).0.resource_record_type}\\",
         \\"zone_id\\": \\"\${aws_route53_zone.testPocketApp_base_dns_subhosted_zone_1E1E3243.zone_id}\\"
       },
       \\"testPocketApp_alb_record_7B56ED33\\": {
-        \\"alias\\": [
-          {
-            \\"evaluate_target_health\\": true,
-            \\"name\\": \\"\${aws_alb.testPocketApp_application_load_balancer_alb_D538DEEE.dns_name}\\",
-            \\"zone_id\\": \\"\${aws_alb.testPocketApp_application_load_balancer_alb_D538DEEE.zone_id}\\"
-          }
-        ],
+        \\"alias\\": {
+          \\"evaluate_target_health\\": true,
+          \\"name\\": \\"\${aws_alb.testPocketApp_application_load_balancer_alb_D538DEEE.dns_name}\\",
+          \\"zone_id\\": \\"\${aws_alb.testPocketApp_application_load_balancer_alb_D538DEEE.zone_id}\\"
+        },
         \\"lifecycle\\": {
           \\"ignore_changes\\": [
             \\"weighted_routing_policy[0].weight\\"
@@ -3219,11 +3251,9 @@ exports[`PocketALBApplication renders an Pocket App with code deploy notificatio
         \\"name\\": \\"testing.bowling.gov\\",
         \\"set_identifier\\": \\"1\\",
         \\"type\\": \\"A\\",
-        \\"weighted_routing_policy\\": [
-          {
-            \\"weight\\": 1
-          }
-        ],
+        \\"weighted_routing_policy\\": {
+          \\"weight\\": 1
+        },
         \\"zone_id\\": \\"\${aws_route53_zone.testPocketApp_base_dns_subhosted_zone_1E1E3243.zone_id}\\"
       },
       \\"testPocketApp_base_dns_subhosted_zone_ns_497FFB83\\": {
@@ -3469,24 +3499,34 @@ exports[`PocketALBApplication renders an Pocket App with custom Alarm Descriptio
         \\"name\\": \\"/Shared/Vpc\\"
       }
     },
-    \\"aws_subnet_ids\\": {
+    \\"aws_subnets\\": {
       \\"testPocketApp_pocket_vpc_private_subnet_ids_EB1E3A65\\": {
         \\"filter\\": [
           {
             \\"name\\": \\"subnet-id\\",
             \\"values\\": \\"\${split(\\\\\\",\\\\\\", data.aws_ssm_parameter.testPocketApp_pocket_vpc_private_subnets_9D449563.value)}\\"
+          },
+          {
+            \\"name\\": \\"vpc-id\\",
+            \\"values\\": [
+              \\"\${data.aws_vpc.testPocketApp_pocket_vpc_C4E157E3.id}\\"
+            ]
           }
-        ],
-        \\"vpc_id\\": \\"\${data.aws_vpc.testPocketApp_pocket_vpc_C4E157E3.id}\\"
+        ]
       },
       \\"testPocketApp_pocket_vpc_public_subnet_ids_01F0B902\\": {
         \\"filter\\": [
           {
             \\"name\\": \\"subnet-id\\",
             \\"values\\": \\"\${split(\\\\\\",\\\\\\", data.aws_ssm_parameter.testPocketApp_pocket_vpc_public_subnets_B0B3A6AB.value)}\\"
+          },
+          {
+            \\"name\\": \\"vpc-id\\",
+            \\"values\\": [
+              \\"\${data.aws_vpc.testPocketApp_pocket_vpc_C4E157E3.id}\\"
+            ]
           }
-        ],
-        \\"vpc_id\\": \\"\${data.aws_vpc.testPocketApp_pocket_vpc_C4E157E3.id}\\"
+        ]
       }
     },
     \\"aws_vpc\\": {
@@ -3531,7 +3571,7 @@ exports[`PocketALBApplication renders an Pocket App with custom Alarm Descriptio
         \\"security_groups\\": [
           \\"\${aws_security_group.testPocketApp_application_load_balancer_alb_security_group_91A27046.id}\\"
         ],
-        \\"subnets\\": \\"\${tolist(data.aws_subnet_ids.testPocketApp_pocket_vpc_public_subnet_ids_01F0B902.ids)}\\"
+        \\"subnets\\": \\"\${data.aws_subnets.testPocketApp_pocket_vpc_public_subnet_ids_01F0B902.ids}\\"
       }
     },
     \\"aws_alb_listener\\": {
@@ -3832,7 +3872,7 @@ exports[`PocketALBApplication renders an Pocket App with custom Alarm Descriptio
           \\"security_groups\\": [
             \\"\${aws_security_group.testPocketApp_ecs_service_ecs_security_group_9C016FA8.id}\\"
           ],
-          \\"subnets\\": \\"\${tolist(data.aws_subnet_ids.testPocketApp_pocket_vpc_private_subnet_ids_EB1E3A65.ids)}\\"
+          \\"subnets\\": \\"\${data.aws_subnets.testPocketApp_pocket_vpc_private_subnet_ids_EB1E3A65.ids}\\"
         },
         \\"propagate_tags\\": \\"SERVICE\\",
         \\"task_definition\\": \\"\${aws_ecs_task_definition.testPocketApp_ecs_service_ecs-task_A7E74E45.arn}\\"
@@ -3871,22 +3911,20 @@ exports[`PocketALBApplication renders an Pocket App with custom Alarm Descriptio
         \\"depends_on\\": [
           \\"aws_acm_certificate.testPocketApp_alb_certificate_417C14FF\\"
         ],
-        \\"name\\": \\"\${tolist(aws_acm_certificate.testPocketApp_alb_certificate_417C14FF.domain_validation_options)[0][\\\\\\"resource_record_name\\\\\\"]}\\",
+        \\"name\\": \\"\${tolist(aws_acm_certificate.testPocketApp_alb_certificate_417C14FF.domain_validation_options).0.resource_record_name}\\",
         \\"records\\": [
-          \\"\${tolist(aws_acm_certificate.testPocketApp_alb_certificate_417C14FF.domain_validation_options)[0][\\\\\\"resource_record_value\\\\\\"]}\\"
+          \\"\${tolist(aws_acm_certificate.testPocketApp_alb_certificate_417C14FF.domain_validation_options).0.resource_record_value}\\"
         ],
         \\"ttl\\": 60,
-        \\"type\\": \\"\${tolist(aws_acm_certificate.testPocketApp_alb_certificate_417C14FF.domain_validation_options)[0][\\\\\\"resource_record_type\\\\\\"]}\\",
+        \\"type\\": \\"\${tolist(aws_acm_certificate.testPocketApp_alb_certificate_417C14FF.domain_validation_options).0.resource_record_type}\\",
         \\"zone_id\\": \\"\${aws_route53_zone.testPocketApp_base_dns_subhosted_zone_1E1E3243.zone_id}\\"
       },
       \\"testPocketApp_alb_record_7B56ED33\\": {
-        \\"alias\\": [
-          {
-            \\"evaluate_target_health\\": true,
-            \\"name\\": \\"\${aws_alb.testPocketApp_application_load_balancer_alb_D538DEEE.dns_name}\\",
-            \\"zone_id\\": \\"\${aws_alb.testPocketApp_application_load_balancer_alb_D538DEEE.zone_id}\\"
-          }
-        ],
+        \\"alias\\": {
+          \\"evaluate_target_health\\": true,
+          \\"name\\": \\"\${aws_alb.testPocketApp_application_load_balancer_alb_D538DEEE.dns_name}\\",
+          \\"zone_id\\": \\"\${aws_alb.testPocketApp_application_load_balancer_alb_D538DEEE.zone_id}\\"
+        },
         \\"lifecycle\\": {
           \\"ignore_changes\\": [
             \\"weighted_routing_policy[0].weight\\"
@@ -3895,11 +3933,9 @@ exports[`PocketALBApplication renders an Pocket App with custom Alarm Descriptio
         \\"name\\": \\"testing.bowling.gov\\",
         \\"set_identifier\\": \\"1\\",
         \\"type\\": \\"A\\",
-        \\"weighted_routing_policy\\": [
-          {
-            \\"weight\\": 1
-          }
-        ],
+        \\"weighted_routing_policy\\": {
+          \\"weight\\": 1
+        },
         \\"zone_id\\": \\"\${aws_route53_zone.testPocketApp_base_dns_subhosted_zone_1E1E3243.zone_id}\\"
       },
       \\"testPocketApp_base_dns_subhosted_zone_ns_497FFB83\\": {
@@ -4109,24 +4145,34 @@ exports[`PocketALBApplication renders an Pocket App with logs and dashboard in a
         \\"name\\": \\"/Shared/Vpc\\"
       }
     },
-    \\"aws_subnet_ids\\": {
+    \\"aws_subnets\\": {
       \\"testPocketApp_pocket_vpc_private_subnet_ids_EB1E3A65\\": {
         \\"filter\\": [
           {
             \\"name\\": \\"subnet-id\\",
             \\"values\\": \\"\${split(\\\\\\",\\\\\\", data.aws_ssm_parameter.testPocketApp_pocket_vpc_private_subnets_9D449563.value)}\\"
+          },
+          {
+            \\"name\\": \\"vpc-id\\",
+            \\"values\\": [
+              \\"\${data.aws_vpc.testPocketApp_pocket_vpc_C4E157E3.id}\\"
+            ]
           }
-        ],
-        \\"vpc_id\\": \\"\${data.aws_vpc.testPocketApp_pocket_vpc_C4E157E3.id}\\"
+        ]
       },
       \\"testPocketApp_pocket_vpc_public_subnet_ids_01F0B902\\": {
         \\"filter\\": [
           {
             \\"name\\": \\"subnet-id\\",
             \\"values\\": \\"\${split(\\\\\\",\\\\\\", data.aws_ssm_parameter.testPocketApp_pocket_vpc_public_subnets_B0B3A6AB.value)}\\"
+          },
+          {
+            \\"name\\": \\"vpc-id\\",
+            \\"values\\": [
+              \\"\${data.aws_vpc.testPocketApp_pocket_vpc_C4E157E3.id}\\"
+            ]
           }
-        ],
-        \\"vpc_id\\": \\"\${data.aws_vpc.testPocketApp_pocket_vpc_C4E157E3.id}\\"
+        ]
       }
     },
     \\"aws_vpc\\": {
@@ -4171,7 +4217,7 @@ exports[`PocketALBApplication renders an Pocket App with logs and dashboard in a
         \\"security_groups\\": [
           \\"\${aws_security_group.testPocketApp_application_load_balancer_alb_security_group_91A27046.id}\\"
         ],
-        \\"subnets\\": \\"\${tolist(data.aws_subnet_ids.testPocketApp_pocket_vpc_public_subnet_ids_01F0B902.ids)}\\"
+        \\"subnets\\": \\"\${data.aws_subnets.testPocketApp_pocket_vpc_public_subnet_ids_01F0B902.ids}\\"
       }
     },
     \\"aws_alb_listener\\": {
@@ -4403,7 +4449,7 @@ exports[`PocketALBApplication renders an Pocket App with logs and dashboard in a
           \\"security_groups\\": [
             \\"\${aws_security_group.testPocketApp_ecs_service_ecs_security_group_9C016FA8.id}\\"
           ],
-          \\"subnets\\": \\"\${tolist(data.aws_subnet_ids.testPocketApp_pocket_vpc_private_subnet_ids_EB1E3A65.ids)}\\"
+          \\"subnets\\": \\"\${data.aws_subnets.testPocketApp_pocket_vpc_private_subnet_ids_EB1E3A65.ids}\\"
         },
         \\"propagate_tags\\": \\"SERVICE\\",
         \\"task_definition\\": \\"\${aws_ecs_task_definition.testPocketApp_ecs_service_ecs-task_A7E74E45.arn}\\"
@@ -4442,22 +4488,20 @@ exports[`PocketALBApplication renders an Pocket App with logs and dashboard in a
         \\"depends_on\\": [
           \\"aws_acm_certificate.testPocketApp_alb_certificate_417C14FF\\"
         ],
-        \\"name\\": \\"\${tolist(aws_acm_certificate.testPocketApp_alb_certificate_417C14FF.domain_validation_options)[0][\\\\\\"resource_record_name\\\\\\"]}\\",
+        \\"name\\": \\"\${tolist(aws_acm_certificate.testPocketApp_alb_certificate_417C14FF.domain_validation_options).0.resource_record_name}\\",
         \\"records\\": [
-          \\"\${tolist(aws_acm_certificate.testPocketApp_alb_certificate_417C14FF.domain_validation_options)[0][\\\\\\"resource_record_value\\\\\\"]}\\"
+          \\"\${tolist(aws_acm_certificate.testPocketApp_alb_certificate_417C14FF.domain_validation_options).0.resource_record_value}\\"
         ],
         \\"ttl\\": 60,
-        \\"type\\": \\"\${tolist(aws_acm_certificate.testPocketApp_alb_certificate_417C14FF.domain_validation_options)[0][\\\\\\"resource_record_type\\\\\\"]}\\",
+        \\"type\\": \\"\${tolist(aws_acm_certificate.testPocketApp_alb_certificate_417C14FF.domain_validation_options).0.resource_record_type}\\",
         \\"zone_id\\": \\"\${aws_route53_zone.testPocketApp_base_dns_subhosted_zone_1E1E3243.zone_id}\\"
       },
       \\"testPocketApp_alb_record_7B56ED33\\": {
-        \\"alias\\": [
-          {
-            \\"evaluate_target_health\\": true,
-            \\"name\\": \\"\${aws_alb.testPocketApp_application_load_balancer_alb_D538DEEE.dns_name}\\",
-            \\"zone_id\\": \\"\${aws_alb.testPocketApp_application_load_balancer_alb_D538DEEE.zone_id}\\"
-          }
-        ],
+        \\"alias\\": {
+          \\"evaluate_target_health\\": true,
+          \\"name\\": \\"\${aws_alb.testPocketApp_application_load_balancer_alb_D538DEEE.dns_name}\\",
+          \\"zone_id\\": \\"\${aws_alb.testPocketApp_application_load_balancer_alb_D538DEEE.zone_id}\\"
+        },
         \\"lifecycle\\": {
           \\"ignore_changes\\": [
             \\"weighted_routing_policy[0].weight\\"
@@ -4466,11 +4510,9 @@ exports[`PocketALBApplication renders an Pocket App with logs and dashboard in a
         \\"name\\": \\"testing.bowling.gov\\",
         \\"set_identifier\\": \\"1\\",
         \\"type\\": \\"A\\",
-        \\"weighted_routing_policy\\": [
-          {
-            \\"weight\\": 1
-          }
-        ],
+        \\"weighted_routing_policy\\": {
+          \\"weight\\": 1
+        },
         \\"zone_id\\": \\"\${aws_route53_zone.testPocketApp_base_dns_subhosted_zone_1E1E3243.zone_id}\\"
       },
       \\"testPocketApp_base_dns_subhosted_zone_ns_497FFB83\\": {
@@ -4680,24 +4722,34 @@ exports[`PocketALBApplication renders an application alarms 1`] = `
         \\"name\\": \\"/Shared/Vpc\\"
       }
     },
-    \\"aws_subnet_ids\\": {
+    \\"aws_subnets\\": {
       \\"testPocketApp_pocket_vpc_private_subnet_ids_EB1E3A65\\": {
         \\"filter\\": [
           {
             \\"name\\": \\"subnet-id\\",
             \\"values\\": \\"\${split(\\\\\\",\\\\\\", data.aws_ssm_parameter.testPocketApp_pocket_vpc_private_subnets_9D449563.value)}\\"
+          },
+          {
+            \\"name\\": \\"vpc-id\\",
+            \\"values\\": [
+              \\"\${data.aws_vpc.testPocketApp_pocket_vpc_C4E157E3.id}\\"
+            ]
           }
-        ],
-        \\"vpc_id\\": \\"\${data.aws_vpc.testPocketApp_pocket_vpc_C4E157E3.id}\\"
+        ]
       },
       \\"testPocketApp_pocket_vpc_public_subnet_ids_01F0B902\\": {
         \\"filter\\": [
           {
             \\"name\\": \\"subnet-id\\",
             \\"values\\": \\"\${split(\\\\\\",\\\\\\", data.aws_ssm_parameter.testPocketApp_pocket_vpc_public_subnets_B0B3A6AB.value)}\\"
+          },
+          {
+            \\"name\\": \\"vpc-id\\",
+            \\"values\\": [
+              \\"\${data.aws_vpc.testPocketApp_pocket_vpc_C4E157E3.id}\\"
+            ]
           }
-        ],
-        \\"vpc_id\\": \\"\${data.aws_vpc.testPocketApp_pocket_vpc_C4E157E3.id}\\"
+        ]
       }
     },
     \\"aws_vpc\\": {
@@ -4742,7 +4794,7 @@ exports[`PocketALBApplication renders an application alarms 1`] = `
         \\"security_groups\\": [
           \\"\${aws_security_group.testPocketApp_application_load_balancer_alb_security_group_91A27046.id}\\"
         ],
-        \\"subnets\\": \\"\${tolist(data.aws_subnet_ids.testPocketApp_pocket_vpc_public_subnet_ids_01F0B902.ids)}\\"
+        \\"subnets\\": \\"\${data.aws_subnets.testPocketApp_pocket_vpc_public_subnet_ids_01F0B902.ids}\\"
       }
     },
     \\"aws_alb_listener\\": {
@@ -4997,7 +5049,7 @@ exports[`PocketALBApplication renders an application alarms 1`] = `
           \\"security_groups\\": [
             \\"\${aws_security_group.testPocketApp_ecs_service_ecs_security_group_9C016FA8.id}\\"
           ],
-          \\"subnets\\": \\"\${tolist(data.aws_subnet_ids.testPocketApp_pocket_vpc_private_subnet_ids_EB1E3A65.ids)}\\"
+          \\"subnets\\": \\"\${data.aws_subnets.testPocketApp_pocket_vpc_private_subnet_ids_EB1E3A65.ids}\\"
         },
         \\"propagate_tags\\": \\"SERVICE\\",
         \\"task_definition\\": \\"\${aws_ecs_task_definition.testPocketApp_ecs_service_ecs-task_A7E74E45.arn}\\"
@@ -5036,22 +5088,20 @@ exports[`PocketALBApplication renders an application alarms 1`] = `
         \\"depends_on\\": [
           \\"aws_acm_certificate.testPocketApp_alb_certificate_417C14FF\\"
         ],
-        \\"name\\": \\"\${tolist(aws_acm_certificate.testPocketApp_alb_certificate_417C14FF.domain_validation_options)[0][\\\\\\"resource_record_name\\\\\\"]}\\",
+        \\"name\\": \\"\${tolist(aws_acm_certificate.testPocketApp_alb_certificate_417C14FF.domain_validation_options).0.resource_record_name}\\",
         \\"records\\": [
-          \\"\${tolist(aws_acm_certificate.testPocketApp_alb_certificate_417C14FF.domain_validation_options)[0][\\\\\\"resource_record_value\\\\\\"]}\\"
+          \\"\${tolist(aws_acm_certificate.testPocketApp_alb_certificate_417C14FF.domain_validation_options).0.resource_record_value}\\"
         ],
         \\"ttl\\": 60,
-        \\"type\\": \\"\${tolist(aws_acm_certificate.testPocketApp_alb_certificate_417C14FF.domain_validation_options)[0][\\\\\\"resource_record_type\\\\\\"]}\\",
+        \\"type\\": \\"\${tolist(aws_acm_certificate.testPocketApp_alb_certificate_417C14FF.domain_validation_options).0.resource_record_type}\\",
         \\"zone_id\\": \\"\${aws_route53_zone.testPocketApp_base_dns_subhosted_zone_1E1E3243.zone_id}\\"
       },
       \\"testPocketApp_alb_record_7B56ED33\\": {
-        \\"alias\\": [
-          {
-            \\"evaluate_target_health\\": true,
-            \\"name\\": \\"\${aws_alb.testPocketApp_application_load_balancer_alb_D538DEEE.dns_name}\\",
-            \\"zone_id\\": \\"\${aws_alb.testPocketApp_application_load_balancer_alb_D538DEEE.zone_id}\\"
-          }
-        ],
+        \\"alias\\": {
+          \\"evaluate_target_health\\": true,
+          \\"name\\": \\"\${aws_alb.testPocketApp_application_load_balancer_alb_D538DEEE.dns_name}\\",
+          \\"zone_id\\": \\"\${aws_alb.testPocketApp_application_load_balancer_alb_D538DEEE.zone_id}\\"
+        },
         \\"lifecycle\\": {
           \\"ignore_changes\\": [
             \\"weighted_routing_policy[0].weight\\"
@@ -5060,11 +5110,9 @@ exports[`PocketALBApplication renders an application alarms 1`] = `
         \\"name\\": \\"testing.bowling.gov\\",
         \\"set_identifier\\": \\"1\\",
         \\"type\\": \\"A\\",
-        \\"weighted_routing_policy\\": [
-          {
-            \\"weight\\": 1
-          }
-        ],
+        \\"weighted_routing_policy\\": {
+          \\"weight\\": 1
+        },
         \\"zone_id\\": \\"\${aws_route53_zone.testPocketApp_base_dns_subhosted_zone_1E1E3243.zone_id}\\"
       },
       \\"testPocketApp_base_dns_subhosted_zone_ns_497FFB83\\": {
@@ -5274,24 +5322,34 @@ exports[`PocketALBApplication renders an application custom default alarms 1`] =
         \\"name\\": \\"/Shared/Vpc\\"
       }
     },
-    \\"aws_subnet_ids\\": {
+    \\"aws_subnets\\": {
       \\"testPocketApp_pocket_vpc_private_subnet_ids_EB1E3A65\\": {
         \\"filter\\": [
           {
             \\"name\\": \\"subnet-id\\",
             \\"values\\": \\"\${split(\\\\\\",\\\\\\", data.aws_ssm_parameter.testPocketApp_pocket_vpc_private_subnets_9D449563.value)}\\"
+          },
+          {
+            \\"name\\": \\"vpc-id\\",
+            \\"values\\": [
+              \\"\${data.aws_vpc.testPocketApp_pocket_vpc_C4E157E3.id}\\"
+            ]
           }
-        ],
-        \\"vpc_id\\": \\"\${data.aws_vpc.testPocketApp_pocket_vpc_C4E157E3.id}\\"
+        ]
       },
       \\"testPocketApp_pocket_vpc_public_subnet_ids_01F0B902\\": {
         \\"filter\\": [
           {
             \\"name\\": \\"subnet-id\\",
             \\"values\\": \\"\${split(\\\\\\",\\\\\\", data.aws_ssm_parameter.testPocketApp_pocket_vpc_public_subnets_B0B3A6AB.value)}\\"
+          },
+          {
+            \\"name\\": \\"vpc-id\\",
+            \\"values\\": [
+              \\"\${data.aws_vpc.testPocketApp_pocket_vpc_C4E157E3.id}\\"
+            ]
           }
-        ],
-        \\"vpc_id\\": \\"\${data.aws_vpc.testPocketApp_pocket_vpc_C4E157E3.id}\\"
+        ]
       }
     },
     \\"aws_vpc\\": {
@@ -5336,7 +5394,7 @@ exports[`PocketALBApplication renders an application custom default alarms 1`] =
         \\"security_groups\\": [
           \\"\${aws_security_group.testPocketApp_application_load_balancer_alb_security_group_91A27046.id}\\"
         ],
-        \\"subnets\\": \\"\${tolist(data.aws_subnet_ids.testPocketApp_pocket_vpc_public_subnet_ids_01F0B902.ids)}\\"
+        \\"subnets\\": \\"\${data.aws_subnets.testPocketApp_pocket_vpc_public_subnet_ids_01F0B902.ids}\\"
       }
     },
     \\"aws_alb_listener\\": {
@@ -5581,7 +5639,7 @@ exports[`PocketALBApplication renders an application custom default alarms 1`] =
           \\"security_groups\\": [
             \\"\${aws_security_group.testPocketApp_ecs_service_ecs_security_group_9C016FA8.id}\\"
           ],
-          \\"subnets\\": \\"\${tolist(data.aws_subnet_ids.testPocketApp_pocket_vpc_private_subnet_ids_EB1E3A65.ids)}\\"
+          \\"subnets\\": \\"\${data.aws_subnets.testPocketApp_pocket_vpc_private_subnet_ids_EB1E3A65.ids}\\"
         },
         \\"propagate_tags\\": \\"SERVICE\\",
         \\"task_definition\\": \\"\${aws_ecs_task_definition.testPocketApp_ecs_service_ecs-task_A7E74E45.arn}\\"
@@ -5620,22 +5678,20 @@ exports[`PocketALBApplication renders an application custom default alarms 1`] =
         \\"depends_on\\": [
           \\"aws_acm_certificate.testPocketApp_alb_certificate_417C14FF\\"
         ],
-        \\"name\\": \\"\${tolist(aws_acm_certificate.testPocketApp_alb_certificate_417C14FF.domain_validation_options)[0][\\\\\\"resource_record_name\\\\\\"]}\\",
+        \\"name\\": \\"\${tolist(aws_acm_certificate.testPocketApp_alb_certificate_417C14FF.domain_validation_options).0.resource_record_name}\\",
         \\"records\\": [
-          \\"\${tolist(aws_acm_certificate.testPocketApp_alb_certificate_417C14FF.domain_validation_options)[0][\\\\\\"resource_record_value\\\\\\"]}\\"
+          \\"\${tolist(aws_acm_certificate.testPocketApp_alb_certificate_417C14FF.domain_validation_options).0.resource_record_value}\\"
         ],
         \\"ttl\\": 60,
-        \\"type\\": \\"\${tolist(aws_acm_certificate.testPocketApp_alb_certificate_417C14FF.domain_validation_options)[0][\\\\\\"resource_record_type\\\\\\"]}\\",
+        \\"type\\": \\"\${tolist(aws_acm_certificate.testPocketApp_alb_certificate_417C14FF.domain_validation_options).0.resource_record_type}\\",
         \\"zone_id\\": \\"\${aws_route53_zone.testPocketApp_base_dns_subhosted_zone_1E1E3243.zone_id}\\"
       },
       \\"testPocketApp_alb_record_7B56ED33\\": {
-        \\"alias\\": [
-          {
-            \\"evaluate_target_health\\": true,
-            \\"name\\": \\"\${aws_alb.testPocketApp_application_load_balancer_alb_D538DEEE.dns_name}\\",
-            \\"zone_id\\": \\"\${aws_alb.testPocketApp_application_load_balancer_alb_D538DEEE.zone_id}\\"
-          }
-        ],
+        \\"alias\\": {
+          \\"evaluate_target_health\\": true,
+          \\"name\\": \\"\${aws_alb.testPocketApp_application_load_balancer_alb_D538DEEE.dns_name}\\",
+          \\"zone_id\\": \\"\${aws_alb.testPocketApp_application_load_balancer_alb_D538DEEE.zone_id}\\"
+        },
         \\"lifecycle\\": {
           \\"ignore_changes\\": [
             \\"weighted_routing_policy[0].weight\\"
@@ -5644,11 +5700,9 @@ exports[`PocketALBApplication renders an application custom default alarms 1`] =
         \\"name\\": \\"testing.bowling.gov\\",
         \\"set_identifier\\": \\"1\\",
         \\"type\\": \\"A\\",
-        \\"weighted_routing_policy\\": [
-          {
-            \\"weight\\": 1
-          }
-        ],
+        \\"weighted_routing_policy\\": {
+          \\"weight\\": 1
+        },
         \\"zone_id\\": \\"\${aws_route53_zone.testPocketApp_base_dns_subhosted_zone_1E1E3243.zone_id}\\"
       },
       \\"testPocketApp_base_dns_subhosted_zone_ns_497FFB83\\": {
@@ -5858,24 +5912,34 @@ exports[`PocketALBApplication renders an application with autoscaling group and 
         \\"name\\": \\"/Shared/Vpc\\"
       }
     },
-    \\"aws_subnet_ids\\": {
+    \\"aws_subnets\\": {
       \\"testPocketApp_pocket_vpc_private_subnet_ids_EB1E3A65\\": {
         \\"filter\\": [
           {
             \\"name\\": \\"subnet-id\\",
             \\"values\\": \\"\${split(\\\\\\",\\\\\\", data.aws_ssm_parameter.testPocketApp_pocket_vpc_private_subnets_9D449563.value)}\\"
+          },
+          {
+            \\"name\\": \\"vpc-id\\",
+            \\"values\\": [
+              \\"\${data.aws_vpc.testPocketApp_pocket_vpc_C4E157E3.id}\\"
+            ]
           }
-        ],
-        \\"vpc_id\\": \\"\${data.aws_vpc.testPocketApp_pocket_vpc_C4E157E3.id}\\"
+        ]
       },
       \\"testPocketApp_pocket_vpc_public_subnet_ids_01F0B902\\": {
         \\"filter\\": [
           {
             \\"name\\": \\"subnet-id\\",
             \\"values\\": \\"\${split(\\\\\\",\\\\\\", data.aws_ssm_parameter.testPocketApp_pocket_vpc_public_subnets_B0B3A6AB.value)}\\"
+          },
+          {
+            \\"name\\": \\"vpc-id\\",
+            \\"values\\": [
+              \\"\${data.aws_vpc.testPocketApp_pocket_vpc_C4E157E3.id}\\"
+            ]
           }
-        ],
-        \\"vpc_id\\": \\"\${data.aws_vpc.testPocketApp_pocket_vpc_C4E157E3.id}\\"
+        ]
       }
     },
     \\"aws_vpc\\": {
@@ -5924,7 +5988,7 @@ exports[`PocketALBApplication renders an application with autoscaling group and 
         \\"security_groups\\": [
           \\"\${aws_security_group.testPocketApp_application_load_balancer_alb_security_group_91A27046.id}\\"
         ],
-        \\"subnets\\": \\"\${tolist(data.aws_subnet_ids.testPocketApp_pocket_vpc_public_subnet_ids_01F0B902.ids)}\\",
+        \\"subnets\\": \\"\${data.aws_subnets.testPocketApp_pocket_vpc_public_subnet_ids_01F0B902.ids}\\",
         \\"tags\\": {
           \\"hobby\\": \\"bowling\\",
           \\"name\\": \\"thedude\\"
@@ -6186,7 +6250,7 @@ exports[`PocketALBApplication renders an application with autoscaling group and 
           \\"security_groups\\": [
             \\"\${aws_security_group.testPocketApp_ecs_service_ecs_security_group_9C016FA8.id}\\"
           ],
-          \\"subnets\\": \\"\${tolist(data.aws_subnet_ids.testPocketApp_pocket_vpc_private_subnet_ids_EB1E3A65.ids)}\\"
+          \\"subnets\\": \\"\${data.aws_subnets.testPocketApp_pocket_vpc_private_subnet_ids_EB1E3A65.ids}\\"
         },
         \\"propagate_tags\\": \\"SERVICE\\",
         \\"tags\\": {
@@ -6241,22 +6305,20 @@ exports[`PocketALBApplication renders an application with autoscaling group and 
         \\"depends_on\\": [
           \\"aws_acm_certificate.testPocketApp_alb_certificate_417C14FF\\"
         ],
-        \\"name\\": \\"\${tolist(aws_acm_certificate.testPocketApp_alb_certificate_417C14FF.domain_validation_options)[0][\\\\\\"resource_record_name\\\\\\"]}\\",
+        \\"name\\": \\"\${tolist(aws_acm_certificate.testPocketApp_alb_certificate_417C14FF.domain_validation_options).0.resource_record_name}\\",
         \\"records\\": [
-          \\"\${tolist(aws_acm_certificate.testPocketApp_alb_certificate_417C14FF.domain_validation_options)[0][\\\\\\"resource_record_value\\\\\\"]}\\"
+          \\"\${tolist(aws_acm_certificate.testPocketApp_alb_certificate_417C14FF.domain_validation_options).0.resource_record_value}\\"
         ],
         \\"ttl\\": 60,
-        \\"type\\": \\"\${tolist(aws_acm_certificate.testPocketApp_alb_certificate_417C14FF.domain_validation_options)[0][\\\\\\"resource_record_type\\\\\\"]}\\",
+        \\"type\\": \\"\${tolist(aws_acm_certificate.testPocketApp_alb_certificate_417C14FF.domain_validation_options).0.resource_record_type}\\",
         \\"zone_id\\": \\"\${aws_route53_zone.testPocketApp_base_dns_subhosted_zone_1E1E3243.zone_id}\\"
       },
       \\"testPocketApp_alb_record_7B56ED33\\": {
-        \\"alias\\": [
-          {
-            \\"evaluate_target_health\\": true,
-            \\"name\\": \\"\${aws_alb.testPocketApp_application_load_balancer_alb_D538DEEE.dns_name}\\",
-            \\"zone_id\\": \\"\${aws_alb.testPocketApp_application_load_balancer_alb_D538DEEE.zone_id}\\"
-          }
-        ],
+        \\"alias\\": {
+          \\"evaluate_target_health\\": true,
+          \\"name\\": \\"\${aws_alb.testPocketApp_application_load_balancer_alb_D538DEEE.dns_name}\\",
+          \\"zone_id\\": \\"\${aws_alb.testPocketApp_application_load_balancer_alb_D538DEEE.zone_id}\\"
+        },
         \\"lifecycle\\": {
           \\"ignore_changes\\": [
             \\"weighted_routing_policy[0].weight\\"
@@ -6265,11 +6327,9 @@ exports[`PocketALBApplication renders an application with autoscaling group and 
         \\"name\\": \\"testing.bowling.gov\\",
         \\"set_identifier\\": \\"1\\",
         \\"type\\": \\"A\\",
-        \\"weighted_routing_policy\\": [
-          {
-            \\"weight\\": 1
-          }
-        ],
+        \\"weighted_routing_policy\\": {
+          \\"weight\\": 1
+        },
         \\"zone_id\\": \\"\${aws_route53_zone.testPocketApp_base_dns_subhosted_zone_1E1E3243.zone_id}\\"
       },
       \\"testPocketApp_base_dns_subhosted_zone_ns_497FFB83\\": {
@@ -6489,24 +6549,34 @@ exports[`PocketALBApplication renders an application with custom task sizes 1`] 
         \\"name\\": \\"/Shared/Vpc\\"
       }
     },
-    \\"aws_subnet_ids\\": {
+    \\"aws_subnets\\": {
       \\"testPocketApp_pocket_vpc_private_subnet_ids_EB1E3A65\\": {
         \\"filter\\": [
           {
             \\"name\\": \\"subnet-id\\",
             \\"values\\": \\"\${split(\\\\\\",\\\\\\", data.aws_ssm_parameter.testPocketApp_pocket_vpc_private_subnets_9D449563.value)}\\"
+          },
+          {
+            \\"name\\": \\"vpc-id\\",
+            \\"values\\": [
+              \\"\${data.aws_vpc.testPocketApp_pocket_vpc_C4E157E3.id}\\"
+            ]
           }
-        ],
-        \\"vpc_id\\": \\"\${data.aws_vpc.testPocketApp_pocket_vpc_C4E157E3.id}\\"
+        ]
       },
       \\"testPocketApp_pocket_vpc_public_subnet_ids_01F0B902\\": {
         \\"filter\\": [
           {
             \\"name\\": \\"subnet-id\\",
             \\"values\\": \\"\${split(\\\\\\",\\\\\\", data.aws_ssm_parameter.testPocketApp_pocket_vpc_public_subnets_B0B3A6AB.value)}\\"
+          },
+          {
+            \\"name\\": \\"vpc-id\\",
+            \\"values\\": [
+              \\"\${data.aws_vpc.testPocketApp_pocket_vpc_C4E157E3.id}\\"
+            ]
           }
-        ],
-        \\"vpc_id\\": \\"\${data.aws_vpc.testPocketApp_pocket_vpc_C4E157E3.id}\\"
+        ]
       }
     },
     \\"aws_vpc\\": {
@@ -6551,7 +6621,7 @@ exports[`PocketALBApplication renders an application with custom task sizes 1`] 
         \\"security_groups\\": [
           \\"\${aws_security_group.testPocketApp_application_load_balancer_alb_security_group_91A27046.id}\\"
         ],
-        \\"subnets\\": \\"\${tolist(data.aws_subnet_ids.testPocketApp_pocket_vpc_public_subnet_ids_01F0B902.ids)}\\"
+        \\"subnets\\": \\"\${data.aws_subnets.testPocketApp_pocket_vpc_public_subnet_ids_01F0B902.ids}\\"
       }
     },
     \\"aws_alb_listener\\": {
@@ -6783,7 +6853,7 @@ exports[`PocketALBApplication renders an application with custom task sizes 1`] 
           \\"security_groups\\": [
             \\"\${aws_security_group.testPocketApp_ecs_service_ecs_security_group_9C016FA8.id}\\"
           ],
-          \\"subnets\\": \\"\${tolist(data.aws_subnet_ids.testPocketApp_pocket_vpc_private_subnet_ids_EB1E3A65.ids)}\\"
+          \\"subnets\\": \\"\${data.aws_subnets.testPocketApp_pocket_vpc_private_subnet_ids_EB1E3A65.ids}\\"
         },
         \\"propagate_tags\\": \\"SERVICE\\",
         \\"task_definition\\": \\"\${aws_ecs_task_definition.testPocketApp_ecs_service_ecs-task_A7E74E45.arn}\\"
@@ -6822,22 +6892,20 @@ exports[`PocketALBApplication renders an application with custom task sizes 1`] 
         \\"depends_on\\": [
           \\"aws_acm_certificate.testPocketApp_alb_certificate_417C14FF\\"
         ],
-        \\"name\\": \\"\${tolist(aws_acm_certificate.testPocketApp_alb_certificate_417C14FF.domain_validation_options)[0][\\\\\\"resource_record_name\\\\\\"]}\\",
+        \\"name\\": \\"\${tolist(aws_acm_certificate.testPocketApp_alb_certificate_417C14FF.domain_validation_options).0.resource_record_name}\\",
         \\"records\\": [
-          \\"\${tolist(aws_acm_certificate.testPocketApp_alb_certificate_417C14FF.domain_validation_options)[0][\\\\\\"resource_record_value\\\\\\"]}\\"
+          \\"\${tolist(aws_acm_certificate.testPocketApp_alb_certificate_417C14FF.domain_validation_options).0.resource_record_value}\\"
         ],
         \\"ttl\\": 60,
-        \\"type\\": \\"\${tolist(aws_acm_certificate.testPocketApp_alb_certificate_417C14FF.domain_validation_options)[0][\\\\\\"resource_record_type\\\\\\"]}\\",
+        \\"type\\": \\"\${tolist(aws_acm_certificate.testPocketApp_alb_certificate_417C14FF.domain_validation_options).0.resource_record_type}\\",
         \\"zone_id\\": \\"\${aws_route53_zone.testPocketApp_base_dns_subhosted_zone_1E1E3243.zone_id}\\"
       },
       \\"testPocketApp_alb_record_7B56ED33\\": {
-        \\"alias\\": [
-          {
-            \\"evaluate_target_health\\": true,
-            \\"name\\": \\"\${aws_alb.testPocketApp_application_load_balancer_alb_D538DEEE.dns_name}\\",
-            \\"zone_id\\": \\"\${aws_alb.testPocketApp_application_load_balancer_alb_D538DEEE.zone_id}\\"
-          }
-        ],
+        \\"alias\\": {
+          \\"evaluate_target_health\\": true,
+          \\"name\\": \\"\${aws_alb.testPocketApp_application_load_balancer_alb_D538DEEE.dns_name}\\",
+          \\"zone_id\\": \\"\${aws_alb.testPocketApp_application_load_balancer_alb_D538DEEE.zone_id}\\"
+        },
         \\"lifecycle\\": {
           \\"ignore_changes\\": [
             \\"weighted_routing_policy[0].weight\\"
@@ -6846,11 +6914,9 @@ exports[`PocketALBApplication renders an application with custom task sizes 1`] 
         \\"name\\": \\"testing.bowling.gov\\",
         \\"set_identifier\\": \\"1\\",
         \\"type\\": \\"A\\",
-        \\"weighted_routing_policy\\": [
-          {
-            \\"weight\\": 1
-          }
-        ],
+        \\"weighted_routing_policy\\": {
+          \\"weight\\": 1
+        },
         \\"zone_id\\": \\"\${aws_route53_zone.testPocketApp_base_dns_subhosted_zone_1E1E3243.zone_id}\\"
       },
       \\"testPocketApp_base_dns_subhosted_zone_ns_497FFB83\\": {
@@ -7060,24 +7126,34 @@ exports[`PocketALBApplication renders an application with default autoscaling gr
         \\"name\\": \\"/Shared/Vpc\\"
       }
     },
-    \\"aws_subnet_ids\\": {
+    \\"aws_subnets\\": {
       \\"testPocketApp_pocket_vpc_private_subnet_ids_EB1E3A65\\": {
         \\"filter\\": [
           {
             \\"name\\": \\"subnet-id\\",
             \\"values\\": \\"\${split(\\\\\\",\\\\\\", data.aws_ssm_parameter.testPocketApp_pocket_vpc_private_subnets_9D449563.value)}\\"
+          },
+          {
+            \\"name\\": \\"vpc-id\\",
+            \\"values\\": [
+              \\"\${data.aws_vpc.testPocketApp_pocket_vpc_C4E157E3.id}\\"
+            ]
           }
-        ],
-        \\"vpc_id\\": \\"\${data.aws_vpc.testPocketApp_pocket_vpc_C4E157E3.id}\\"
+        ]
       },
       \\"testPocketApp_pocket_vpc_public_subnet_ids_01F0B902\\": {
         \\"filter\\": [
           {
             \\"name\\": \\"subnet-id\\",
             \\"values\\": \\"\${split(\\\\\\",\\\\\\", data.aws_ssm_parameter.testPocketApp_pocket_vpc_public_subnets_B0B3A6AB.value)}\\"
+          },
+          {
+            \\"name\\": \\"vpc-id\\",
+            \\"values\\": [
+              \\"\${data.aws_vpc.testPocketApp_pocket_vpc_C4E157E3.id}\\"
+            ]
           }
-        ],
-        \\"vpc_id\\": \\"\${data.aws_vpc.testPocketApp_pocket_vpc_C4E157E3.id}\\"
+        ]
       }
     },
     \\"aws_vpc\\": {
@@ -7126,7 +7202,7 @@ exports[`PocketALBApplication renders an application with default autoscaling gr
         \\"security_groups\\": [
           \\"\${aws_security_group.testPocketApp_application_load_balancer_alb_security_group_91A27046.id}\\"
         ],
-        \\"subnets\\": \\"\${tolist(data.aws_subnet_ids.testPocketApp_pocket_vpc_public_subnet_ids_01F0B902.ids)}\\",
+        \\"subnets\\": \\"\${data.aws_subnets.testPocketApp_pocket_vpc_public_subnet_ids_01F0B902.ids}\\",
         \\"tags\\": {
           \\"hobby\\": \\"bowling\\",
           \\"name\\": \\"thedude\\"
@@ -7388,7 +7464,7 @@ exports[`PocketALBApplication renders an application with default autoscaling gr
           \\"security_groups\\": [
             \\"\${aws_security_group.testPocketApp_ecs_service_ecs_security_group_9C016FA8.id}\\"
           ],
-          \\"subnets\\": \\"\${tolist(data.aws_subnet_ids.testPocketApp_pocket_vpc_private_subnet_ids_EB1E3A65.ids)}\\"
+          \\"subnets\\": \\"\${data.aws_subnets.testPocketApp_pocket_vpc_private_subnet_ids_EB1E3A65.ids}\\"
         },
         \\"propagate_tags\\": \\"SERVICE\\",
         \\"tags\\": {
@@ -7443,22 +7519,20 @@ exports[`PocketALBApplication renders an application with default autoscaling gr
         \\"depends_on\\": [
           \\"aws_acm_certificate.testPocketApp_alb_certificate_417C14FF\\"
         ],
-        \\"name\\": \\"\${tolist(aws_acm_certificate.testPocketApp_alb_certificate_417C14FF.domain_validation_options)[0][\\\\\\"resource_record_name\\\\\\"]}\\",
+        \\"name\\": \\"\${tolist(aws_acm_certificate.testPocketApp_alb_certificate_417C14FF.domain_validation_options).0.resource_record_name}\\",
         \\"records\\": [
-          \\"\${tolist(aws_acm_certificate.testPocketApp_alb_certificate_417C14FF.domain_validation_options)[0][\\\\\\"resource_record_value\\\\\\"]}\\"
+          \\"\${tolist(aws_acm_certificate.testPocketApp_alb_certificate_417C14FF.domain_validation_options).0.resource_record_value}\\"
         ],
         \\"ttl\\": 60,
-        \\"type\\": \\"\${tolist(aws_acm_certificate.testPocketApp_alb_certificate_417C14FF.domain_validation_options)[0][\\\\\\"resource_record_type\\\\\\"]}\\",
+        \\"type\\": \\"\${tolist(aws_acm_certificate.testPocketApp_alb_certificate_417C14FF.domain_validation_options).0.resource_record_type}\\",
         \\"zone_id\\": \\"\${aws_route53_zone.testPocketApp_base_dns_subhosted_zone_1E1E3243.zone_id}\\"
       },
       \\"testPocketApp_alb_record_7B56ED33\\": {
-        \\"alias\\": [
-          {
-            \\"evaluate_target_health\\": true,
-            \\"name\\": \\"\${aws_alb.testPocketApp_application_load_balancer_alb_D538DEEE.dns_name}\\",
-            \\"zone_id\\": \\"\${aws_alb.testPocketApp_application_load_balancer_alb_D538DEEE.zone_id}\\"
-          }
-        ],
+        \\"alias\\": {
+          \\"evaluate_target_health\\": true,
+          \\"name\\": \\"\${aws_alb.testPocketApp_application_load_balancer_alb_D538DEEE.dns_name}\\",
+          \\"zone_id\\": \\"\${aws_alb.testPocketApp_application_load_balancer_alb_D538DEEE.zone_id}\\"
+        },
         \\"lifecycle\\": {
           \\"ignore_changes\\": [
             \\"weighted_routing_policy[0].weight\\"
@@ -7467,11 +7541,9 @@ exports[`PocketALBApplication renders an application with default autoscaling gr
         \\"name\\": \\"testing.bowling.gov\\",
         \\"set_identifier\\": \\"1\\",
         \\"type\\": \\"A\\",
-        \\"weighted_routing_policy\\": [
-          {
-            \\"weight\\": 1
-          }
-        ],
+        \\"weighted_routing_policy\\": {
+          \\"weight\\": 1
+        },
         \\"zone_id\\": \\"\${aws_route53_zone.testPocketApp_base_dns_subhosted_zone_1E1E3243.zone_id}\\"
       },
       \\"testPocketApp_base_dns_subhosted_zone_ns_497FFB83\\": {
@@ -7691,24 +7763,34 @@ exports[`PocketALBApplication renders an application with minimal config 1`] = `
         \\"name\\": \\"/Shared/Vpc\\"
       }
     },
-    \\"aws_subnet_ids\\": {
+    \\"aws_subnets\\": {
       \\"testPocketApp_pocket_vpc_private_subnet_ids_EB1E3A65\\": {
         \\"filter\\": [
           {
             \\"name\\": \\"subnet-id\\",
             \\"values\\": \\"\${split(\\\\\\",\\\\\\", data.aws_ssm_parameter.testPocketApp_pocket_vpc_private_subnets_9D449563.value)}\\"
+          },
+          {
+            \\"name\\": \\"vpc-id\\",
+            \\"values\\": [
+              \\"\${data.aws_vpc.testPocketApp_pocket_vpc_C4E157E3.id}\\"
+            ]
           }
-        ],
-        \\"vpc_id\\": \\"\${data.aws_vpc.testPocketApp_pocket_vpc_C4E157E3.id}\\"
+        ]
       },
       \\"testPocketApp_pocket_vpc_public_subnet_ids_01F0B902\\": {
         \\"filter\\": [
           {
             \\"name\\": \\"subnet-id\\",
             \\"values\\": \\"\${split(\\\\\\",\\\\\\", data.aws_ssm_parameter.testPocketApp_pocket_vpc_public_subnets_B0B3A6AB.value)}\\"
+          },
+          {
+            \\"name\\": \\"vpc-id\\",
+            \\"values\\": [
+              \\"\${data.aws_vpc.testPocketApp_pocket_vpc_C4E157E3.id}\\"
+            ]
           }
-        ],
-        \\"vpc_id\\": \\"\${data.aws_vpc.testPocketApp_pocket_vpc_C4E157E3.id}\\"
+        ]
       }
     },
     \\"aws_vpc\\": {
@@ -7753,7 +7835,7 @@ exports[`PocketALBApplication renders an application with minimal config 1`] = `
         \\"security_groups\\": [
           \\"\${aws_security_group.testPocketApp_application_load_balancer_alb_security_group_91A27046.id}\\"
         ],
-        \\"subnets\\": \\"\${tolist(data.aws_subnet_ids.testPocketApp_pocket_vpc_public_subnet_ids_01F0B902.ids)}\\"
+        \\"subnets\\": \\"\${data.aws_subnets.testPocketApp_pocket_vpc_public_subnet_ids_01F0B902.ids}\\"
       }
     },
     \\"aws_alb_listener\\": {
@@ -7985,7 +8067,7 @@ exports[`PocketALBApplication renders an application with minimal config 1`] = `
           \\"security_groups\\": [
             \\"\${aws_security_group.testPocketApp_ecs_service_ecs_security_group_9C016FA8.id}\\"
           ],
-          \\"subnets\\": \\"\${tolist(data.aws_subnet_ids.testPocketApp_pocket_vpc_private_subnet_ids_EB1E3A65.ids)}\\"
+          \\"subnets\\": \\"\${data.aws_subnets.testPocketApp_pocket_vpc_private_subnet_ids_EB1E3A65.ids}\\"
         },
         \\"propagate_tags\\": \\"SERVICE\\",
         \\"task_definition\\": \\"\${aws_ecs_task_definition.testPocketApp_ecs_service_ecs-task_A7E74E45.arn}\\"
@@ -8024,22 +8106,20 @@ exports[`PocketALBApplication renders an application with minimal config 1`] = `
         \\"depends_on\\": [
           \\"aws_acm_certificate.testPocketApp_alb_certificate_417C14FF\\"
         ],
-        \\"name\\": \\"\${tolist(aws_acm_certificate.testPocketApp_alb_certificate_417C14FF.domain_validation_options)[0][\\\\\\"resource_record_name\\\\\\"]}\\",
+        \\"name\\": \\"\${tolist(aws_acm_certificate.testPocketApp_alb_certificate_417C14FF.domain_validation_options).0.resource_record_name}\\",
         \\"records\\": [
-          \\"\${tolist(aws_acm_certificate.testPocketApp_alb_certificate_417C14FF.domain_validation_options)[0][\\\\\\"resource_record_value\\\\\\"]}\\"
+          \\"\${tolist(aws_acm_certificate.testPocketApp_alb_certificate_417C14FF.domain_validation_options).0.resource_record_value}\\"
         ],
         \\"ttl\\": 60,
-        \\"type\\": \\"\${tolist(aws_acm_certificate.testPocketApp_alb_certificate_417C14FF.domain_validation_options)[0][\\\\\\"resource_record_type\\\\\\"]}\\",
+        \\"type\\": \\"\${tolist(aws_acm_certificate.testPocketApp_alb_certificate_417C14FF.domain_validation_options).0.resource_record_type}\\",
         \\"zone_id\\": \\"\${aws_route53_zone.testPocketApp_base_dns_subhosted_zone_1E1E3243.zone_id}\\"
       },
       \\"testPocketApp_alb_record_7B56ED33\\": {
-        \\"alias\\": [
-          {
-            \\"evaluate_target_health\\": true,
-            \\"name\\": \\"\${aws_alb.testPocketApp_application_load_balancer_alb_D538DEEE.dns_name}\\",
-            \\"zone_id\\": \\"\${aws_alb.testPocketApp_application_load_balancer_alb_D538DEEE.zone_id}\\"
-          }
-        ],
+        \\"alias\\": {
+          \\"evaluate_target_health\\": true,
+          \\"name\\": \\"\${aws_alb.testPocketApp_application_load_balancer_alb_D538DEEE.dns_name}\\",
+          \\"zone_id\\": \\"\${aws_alb.testPocketApp_application_load_balancer_alb_D538DEEE.zone_id}\\"
+        },
         \\"lifecycle\\": {
           \\"ignore_changes\\": [
             \\"weighted_routing_policy[0].weight\\"
@@ -8048,11 +8128,9 @@ exports[`PocketALBApplication renders an application with minimal config 1`] = `
         \\"name\\": \\"testing.bowling.gov\\",
         \\"set_identifier\\": \\"1\\",
         \\"type\\": \\"A\\",
-        \\"weighted_routing_policy\\": [
-          {
-            \\"weight\\": 1
-          }
-        ],
+        \\"weighted_routing_policy\\": {
+          \\"weight\\": 1
+        },
         \\"zone_id\\": \\"\${aws_route53_zone.testPocketApp_base_dns_subhosted_zone_1E1E3243.zone_id}\\"
       },
       \\"testPocketApp_base_dns_subhosted_zone_ns_497FFB83\\": {
@@ -8262,24 +8340,34 @@ exports[`PocketALBApplication renders an application with modified container def
         \\"name\\": \\"/Shared/Vpc\\"
       }
     },
-    \\"aws_subnet_ids\\": {
+    \\"aws_subnets\\": {
       \\"testPocketApp_pocket_vpc_private_subnet_ids_EB1E3A65\\": {
         \\"filter\\": [
           {
             \\"name\\": \\"subnet-id\\",
             \\"values\\": \\"\${split(\\\\\\",\\\\\\", data.aws_ssm_parameter.testPocketApp_pocket_vpc_private_subnets_9D449563.value)}\\"
+          },
+          {
+            \\"name\\": \\"vpc-id\\",
+            \\"values\\": [
+              \\"\${data.aws_vpc.testPocketApp_pocket_vpc_C4E157E3.id}\\"
+            ]
           }
-        ],
-        \\"vpc_id\\": \\"\${data.aws_vpc.testPocketApp_pocket_vpc_C4E157E3.id}\\"
+        ]
       },
       \\"testPocketApp_pocket_vpc_public_subnet_ids_01F0B902\\": {
         \\"filter\\": [
           {
             \\"name\\": \\"subnet-id\\",
             \\"values\\": \\"\${split(\\\\\\",\\\\\\", data.aws_ssm_parameter.testPocketApp_pocket_vpc_public_subnets_B0B3A6AB.value)}\\"
+          },
+          {
+            \\"name\\": \\"vpc-id\\",
+            \\"values\\": [
+              \\"\${data.aws_vpc.testPocketApp_pocket_vpc_C4E157E3.id}\\"
+            ]
           }
-        ],
-        \\"vpc_id\\": \\"\${data.aws_vpc.testPocketApp_pocket_vpc_C4E157E3.id}\\"
+        ]
       }
     },
     \\"aws_vpc\\": {
@@ -8324,7 +8412,7 @@ exports[`PocketALBApplication renders an application with modified container def
         \\"security_groups\\": [
           \\"\${aws_security_group.testPocketApp_application_load_balancer_alb_security_group_91A27046.id}\\"
         ],
-        \\"subnets\\": \\"\${tolist(data.aws_subnet_ids.testPocketApp_pocket_vpc_public_subnet_ids_01F0B902.ids)}\\"
+        \\"subnets\\": \\"\${data.aws_subnets.testPocketApp_pocket_vpc_public_subnet_ids_01F0B902.ids}\\"
       }
     },
     \\"aws_alb_listener\\": {
@@ -8580,7 +8668,7 @@ exports[`PocketALBApplication renders an application with modified container def
           \\"security_groups\\": [
             \\"\${aws_security_group.testPocketApp_ecs_service_ecs_security_group_9C016FA8.id}\\"
           ],
-          \\"subnets\\": \\"\${tolist(data.aws_subnet_ids.testPocketApp_pocket_vpc_private_subnet_ids_EB1E3A65.ids)}\\"
+          \\"subnets\\": \\"\${data.aws_subnets.testPocketApp_pocket_vpc_private_subnet_ids_EB1E3A65.ids}\\"
         },
         \\"propagate_tags\\": \\"SERVICE\\",
         \\"task_definition\\": \\"\${aws_ecs_task_definition.testPocketApp_ecs_service_ecs-task_A7E74E45.arn}\\"
@@ -8620,22 +8708,20 @@ exports[`PocketALBApplication renders an application with modified container def
         \\"depends_on\\": [
           \\"aws_acm_certificate.testPocketApp_alb_certificate_417C14FF\\"
         ],
-        \\"name\\": \\"\${tolist(aws_acm_certificate.testPocketApp_alb_certificate_417C14FF.domain_validation_options)[0][\\\\\\"resource_record_name\\\\\\"]}\\",
+        \\"name\\": \\"\${tolist(aws_acm_certificate.testPocketApp_alb_certificate_417C14FF.domain_validation_options).0.resource_record_name}\\",
         \\"records\\": [
-          \\"\${tolist(aws_acm_certificate.testPocketApp_alb_certificate_417C14FF.domain_validation_options)[0][\\\\\\"resource_record_value\\\\\\"]}\\"
+          \\"\${tolist(aws_acm_certificate.testPocketApp_alb_certificate_417C14FF.domain_validation_options).0.resource_record_value}\\"
         ],
         \\"ttl\\": 60,
-        \\"type\\": \\"\${tolist(aws_acm_certificate.testPocketApp_alb_certificate_417C14FF.domain_validation_options)[0][\\\\\\"resource_record_type\\\\\\"]}\\",
+        \\"type\\": \\"\${tolist(aws_acm_certificate.testPocketApp_alb_certificate_417C14FF.domain_validation_options).0.resource_record_type}\\",
         \\"zone_id\\": \\"\${aws_route53_zone.testPocketApp_base_dns_subhosted_zone_1E1E3243.zone_id}\\"
       },
       \\"testPocketApp_alb_record_7B56ED33\\": {
-        \\"alias\\": [
-          {
-            \\"evaluate_target_health\\": true,
-            \\"name\\": \\"\${aws_alb.testPocketApp_application_load_balancer_alb_D538DEEE.dns_name}\\",
-            \\"zone_id\\": \\"\${aws_alb.testPocketApp_application_load_balancer_alb_D538DEEE.zone_id}\\"
-          }
-        ],
+        \\"alias\\": {
+          \\"evaluate_target_health\\": true,
+          \\"name\\": \\"\${aws_alb.testPocketApp_application_load_balancer_alb_D538DEEE.dns_name}\\",
+          \\"zone_id\\": \\"\${aws_alb.testPocketApp_application_load_balancer_alb_D538DEEE.zone_id}\\"
+        },
         \\"lifecycle\\": {
           \\"ignore_changes\\": [
             \\"weighted_routing_policy[0].weight\\"
@@ -8644,11 +8730,9 @@ exports[`PocketALBApplication renders an application with modified container def
         \\"name\\": \\"testing.bowling.gov\\",
         \\"set_identifier\\": \\"1\\",
         \\"type\\": \\"A\\",
-        \\"weighted_routing_policy\\": [
-          {
-            \\"weight\\": 1
-          }
-        ],
+        \\"weighted_routing_policy\\": {
+          \\"weight\\": 1
+        },
         \\"zone_id\\": \\"\${aws_route53_zone.testPocketApp_base_dns_subhosted_zone_1E1E3243.zone_id}\\"
       },
       \\"testPocketApp_base_dns_subhosted_zone_ns_497FFB83\\": {
@@ -8858,24 +8942,34 @@ exports[`PocketALBApplication renders an external application 1`] = `
         \\"name\\": \\"/Shared/Vpc\\"
       }
     },
-    \\"aws_subnet_ids\\": {
+    \\"aws_subnets\\": {
       \\"testPocketApp_pocket_vpc_private_subnet_ids_EB1E3A65\\": {
         \\"filter\\": [
           {
             \\"name\\": \\"subnet-id\\",
             \\"values\\": \\"\${split(\\\\\\",\\\\\\", data.aws_ssm_parameter.testPocketApp_pocket_vpc_private_subnets_9D449563.value)}\\"
+          },
+          {
+            \\"name\\": \\"vpc-id\\",
+            \\"values\\": [
+              \\"\${data.aws_vpc.testPocketApp_pocket_vpc_C4E157E3.id}\\"
+            ]
           }
-        ],
-        \\"vpc_id\\": \\"\${data.aws_vpc.testPocketApp_pocket_vpc_C4E157E3.id}\\"
+        ]
       },
       \\"testPocketApp_pocket_vpc_public_subnet_ids_01F0B902\\": {
         \\"filter\\": [
           {
             \\"name\\": \\"subnet-id\\",
             \\"values\\": \\"\${split(\\\\\\",\\\\\\", data.aws_ssm_parameter.testPocketApp_pocket_vpc_public_subnets_B0B3A6AB.value)}\\"
+          },
+          {
+            \\"name\\": \\"vpc-id\\",
+            \\"values\\": [
+              \\"\${data.aws_vpc.testPocketApp_pocket_vpc_C4E157E3.id}\\"
+            ]
           }
-        ],
-        \\"vpc_id\\": \\"\${data.aws_vpc.testPocketApp_pocket_vpc_C4E157E3.id}\\"
+        ]
       }
     },
     \\"aws_vpc\\": {
@@ -8937,7 +9031,7 @@ exports[`PocketALBApplication renders an external application 1`] = `
         \\"security_groups\\": [
           \\"\${aws_security_group.testPocketApp_application_load_balancer_alb_security_group_91A27046.id}\\"
         ],
-        \\"subnets\\": \\"\${tolist(data.aws_subnet_ids.testPocketApp_pocket_vpc_public_subnet_ids_01F0B902.ids)}\\"
+        \\"subnets\\": \\"\${data.aws_subnets.testPocketApp_pocket_vpc_public_subnet_ids_01F0B902.ids}\\"
       }
     },
     \\"aws_alb_listener\\": {
@@ -9237,7 +9331,7 @@ exports[`PocketALBApplication renders an external application 1`] = `
           \\"security_groups\\": [
             \\"\${aws_security_group.testPocketApp_ecs_service_ecs_security_group_9C016FA8.id}\\"
           ],
-          \\"subnets\\": \\"\${tolist(data.aws_subnet_ids.testPocketApp_pocket_vpc_private_subnet_ids_EB1E3A65.ids)}\\"
+          \\"subnets\\": \\"\${data.aws_subnets.testPocketApp_pocket_vpc_private_subnet_ids_EB1E3A65.ids}\\"
         },
         \\"propagate_tags\\": \\"SERVICE\\",
         \\"task_definition\\": \\"\${aws_ecs_task_definition.testPocketApp_ecs_service_ecs-task_A7E74E45.arn}\\"
@@ -9276,22 +9370,20 @@ exports[`PocketALBApplication renders an external application 1`] = `
         \\"depends_on\\": [
           \\"aws_acm_certificate.testPocketApp_alb_certificate_417C14FF\\"
         ],
-        \\"name\\": \\"\${tolist(aws_acm_certificate.testPocketApp_alb_certificate_417C14FF.domain_validation_options)[0][\\\\\\"resource_record_name\\\\\\"]}\\",
+        \\"name\\": \\"\${tolist(aws_acm_certificate.testPocketApp_alb_certificate_417C14FF.domain_validation_options).0.resource_record_name}\\",
         \\"records\\": [
-          \\"\${tolist(aws_acm_certificate.testPocketApp_alb_certificate_417C14FF.domain_validation_options)[0][\\\\\\"resource_record_value\\\\\\"]}\\"
+          \\"\${tolist(aws_acm_certificate.testPocketApp_alb_certificate_417C14FF.domain_validation_options).0.resource_record_value}\\"
         ],
         \\"ttl\\": 60,
-        \\"type\\": \\"\${tolist(aws_acm_certificate.testPocketApp_alb_certificate_417C14FF.domain_validation_options)[0][\\\\\\"resource_record_type\\\\\\"]}\\",
+        \\"type\\": \\"\${tolist(aws_acm_certificate.testPocketApp_alb_certificate_417C14FF.domain_validation_options).0.resource_record_type}\\",
         \\"zone_id\\": \\"\${aws_route53_zone.testPocketApp_base_dns_subhosted_zone_1E1E3243.zone_id}\\"
       },
       \\"testPocketApp_alb_record_7B56ED33\\": {
-        \\"alias\\": [
-          {
-            \\"evaluate_target_health\\": true,
-            \\"name\\": \\"\${aws_alb.testPocketApp_application_load_balancer_alb_D538DEEE.dns_name}\\",
-            \\"zone_id\\": \\"\${aws_alb.testPocketApp_application_load_balancer_alb_D538DEEE.zone_id}\\"
-          }
-        ],
+        \\"alias\\": {
+          \\"evaluate_target_health\\": true,
+          \\"name\\": \\"\${aws_alb.testPocketApp_application_load_balancer_alb_D538DEEE.dns_name}\\",
+          \\"zone_id\\": \\"\${aws_alb.testPocketApp_application_load_balancer_alb_D538DEEE.zone_id}\\"
+        },
         \\"lifecycle\\": {
           \\"ignore_changes\\": [
             \\"weighted_routing_policy[0].weight\\"
@@ -9300,11 +9392,9 @@ exports[`PocketALBApplication renders an external application 1`] = `
         \\"name\\": \\"direct.testing.bowling.gov\\",
         \\"set_identifier\\": \\"1\\",
         \\"type\\": \\"A\\",
-        \\"weighted_routing_policy\\": [
-          {
-            \\"weight\\": 1
-          }
-        ],
+        \\"weighted_routing_policy\\": {
+          \\"weight\\": 1
+        },
         \\"zone_id\\": \\"\${aws_route53_zone.testPocketApp_base_dns_subhosted_zone_1E1E3243.zone_id}\\"
       },
       \\"testPocketApp_base_dns_subhosted_zone_ns_497FFB83\\": {
@@ -9318,22 +9408,20 @@ exports[`PocketALBApplication renders an external application 1`] = `
         \\"depends_on\\": [
           \\"aws_acm_certificate.testPocketApp_cdn_certificate_F1CBB9BB\\"
         ],
-        \\"name\\": \\"\${tolist(aws_acm_certificate.testPocketApp_cdn_certificate_F1CBB9BB.domain_validation_options)[0][\\\\\\"resource_record_name\\\\\\"]}\\",
+        \\"name\\": \\"\${tolist(aws_acm_certificate.testPocketApp_cdn_certificate_F1CBB9BB.domain_validation_options).0.resource_record_name}\\",
         \\"records\\": [
-          \\"\${tolist(aws_acm_certificate.testPocketApp_cdn_certificate_F1CBB9BB.domain_validation_options)[0][\\\\\\"resource_record_value\\\\\\"]}\\"
+          \\"\${tolist(aws_acm_certificate.testPocketApp_cdn_certificate_F1CBB9BB.domain_validation_options).0.resource_record_value}\\"
         ],
         \\"ttl\\": 60,
-        \\"type\\": \\"\${tolist(aws_acm_certificate.testPocketApp_cdn_certificate_F1CBB9BB.domain_validation_options)[0][\\\\\\"resource_record_type\\\\\\"]}\\",
+        \\"type\\": \\"\${tolist(aws_acm_certificate.testPocketApp_cdn_certificate_F1CBB9BB.domain_validation_options).0.resource_record_type}\\",
         \\"zone_id\\": \\"\${aws_route53_zone.testPocketApp_base_dns_subhosted_zone_1E1E3243.zone_id}\\"
       },
       \\"testPocketApp_cdn_record_DD10AA15\\": {
-        \\"alias\\": [
-          {
-            \\"evaluate_target_health\\": true,
-            \\"name\\": \\"\${aws_cloudfront_distribution.testPocketApp_cloudfront_distribution_FD7F01BF.domain_name}\\",
-            \\"zone_id\\": \\"\${aws_cloudfront_distribution.testPocketApp_cloudfront_distribution_FD7F01BF.hosted_zone_id}\\"
-          }
-        ],
+        \\"alias\\": {
+          \\"evaluate_target_health\\": true,
+          \\"name\\": \\"\${aws_cloudfront_distribution.testPocketApp_cloudfront_distribution_FD7F01BF.domain_name}\\",
+          \\"zone_id\\": \\"\${aws_cloudfront_distribution.testPocketApp_cloudfront_distribution_FD7F01BF.hosted_zone_id}\\"
+        },
         \\"lifecycle\\": {
           \\"ignore_changes\\": [
             \\"weighted_routing_policy[0].weight\\"
@@ -9342,11 +9430,9 @@ exports[`PocketALBApplication renders an external application 1`] = `
         \\"name\\": \\"testing.bowling.gov\\",
         \\"set_identifier\\": \\"2\\",
         \\"type\\": \\"A\\",
-        \\"weighted_routing_policy\\": [
-          {
-            \\"weight\\": 1
-          }
-        ],
+        \\"weighted_routing_policy\\": {
+          \\"weight\\": 1
+        },
         \\"zone_id\\": \\"\${aws_route53_zone.testPocketApp_base_dns_subhosted_zone_1E1E3243.zone_id}\\"
       }
     },
@@ -9549,24 +9635,34 @@ exports[`PocketALBApplication renders an internal application 1`] = `
         \\"name\\": \\"/Shared/Vpc\\"
       }
     },
-    \\"aws_subnet_ids\\": {
+    \\"aws_subnets\\": {
       \\"testPocketApp_pocket_vpc_private_subnet_ids_EB1E3A65\\": {
         \\"filter\\": [
           {
             \\"name\\": \\"subnet-id\\",
             \\"values\\": \\"\${split(\\\\\\",\\\\\\", data.aws_ssm_parameter.testPocketApp_pocket_vpc_private_subnets_9D449563.value)}\\"
+          },
+          {
+            \\"name\\": \\"vpc-id\\",
+            \\"values\\": [
+              \\"\${data.aws_vpc.testPocketApp_pocket_vpc_C4E157E3.id}\\"
+            ]
           }
-        ],
-        \\"vpc_id\\": \\"\${data.aws_vpc.testPocketApp_pocket_vpc_C4E157E3.id}\\"
+        ]
       },
       \\"testPocketApp_pocket_vpc_public_subnet_ids_01F0B902\\": {
         \\"filter\\": [
           {
             \\"name\\": \\"subnet-id\\",
             \\"values\\": \\"\${split(\\\\\\",\\\\\\", data.aws_ssm_parameter.testPocketApp_pocket_vpc_public_subnets_B0B3A6AB.value)}\\"
+          },
+          {
+            \\"name\\": \\"vpc-id\\",
+            \\"values\\": [
+              \\"\${data.aws_vpc.testPocketApp_pocket_vpc_C4E157E3.id}\\"
+            ]
           }
-        ],
-        \\"vpc_id\\": \\"\${data.aws_vpc.testPocketApp_pocket_vpc_C4E157E3.id}\\"
+        ]
       }
     },
     \\"aws_vpc\\": {
@@ -9611,7 +9707,7 @@ exports[`PocketALBApplication renders an internal application 1`] = `
         \\"security_groups\\": [
           \\"\${aws_security_group.testPocketApp_application_load_balancer_alb_security_group_91A27046.id}\\"
         ],
-        \\"subnets\\": \\"\${tolist(data.aws_subnet_ids.testPocketApp_pocket_vpc_private_subnet_ids_EB1E3A65.ids)}\\"
+        \\"subnets\\": \\"\${data.aws_subnets.testPocketApp_pocket_vpc_private_subnet_ids_EB1E3A65.ids}\\"
       }
     },
     \\"aws_alb_listener\\": {
@@ -9843,7 +9939,7 @@ exports[`PocketALBApplication renders an internal application 1`] = `
           \\"security_groups\\": [
             \\"\${aws_security_group.testPocketApp_ecs_service_ecs_security_group_9C016FA8.id}\\"
           ],
-          \\"subnets\\": \\"\${tolist(data.aws_subnet_ids.testPocketApp_pocket_vpc_private_subnet_ids_EB1E3A65.ids)}\\"
+          \\"subnets\\": \\"\${data.aws_subnets.testPocketApp_pocket_vpc_private_subnet_ids_EB1E3A65.ids}\\"
         },
         \\"propagate_tags\\": \\"SERVICE\\",
         \\"task_definition\\": \\"\${aws_ecs_task_definition.testPocketApp_ecs_service_ecs-task_A7E74E45.arn}\\"
@@ -9882,22 +9978,20 @@ exports[`PocketALBApplication renders an internal application 1`] = `
         \\"depends_on\\": [
           \\"aws_acm_certificate.testPocketApp_alb_certificate_417C14FF\\"
         ],
-        \\"name\\": \\"\${tolist(aws_acm_certificate.testPocketApp_alb_certificate_417C14FF.domain_validation_options)[0][\\\\\\"resource_record_name\\\\\\"]}\\",
+        \\"name\\": \\"\${tolist(aws_acm_certificate.testPocketApp_alb_certificate_417C14FF.domain_validation_options).0.resource_record_name}\\",
         \\"records\\": [
-          \\"\${tolist(aws_acm_certificate.testPocketApp_alb_certificate_417C14FF.domain_validation_options)[0][\\\\\\"resource_record_value\\\\\\"]}\\"
+          \\"\${tolist(aws_acm_certificate.testPocketApp_alb_certificate_417C14FF.domain_validation_options).0.resource_record_value}\\"
         ],
         \\"ttl\\": 60,
-        \\"type\\": \\"\${tolist(aws_acm_certificate.testPocketApp_alb_certificate_417C14FF.domain_validation_options)[0][\\\\\\"resource_record_type\\\\\\"]}\\",
+        \\"type\\": \\"\${tolist(aws_acm_certificate.testPocketApp_alb_certificate_417C14FF.domain_validation_options).0.resource_record_type}\\",
         \\"zone_id\\": \\"\${aws_route53_zone.testPocketApp_base_dns_subhosted_zone_1E1E3243.zone_id}\\"
       },
       \\"testPocketApp_alb_record_7B56ED33\\": {
-        \\"alias\\": [
-          {
-            \\"evaluate_target_health\\": true,
-            \\"name\\": \\"\${aws_alb.testPocketApp_application_load_balancer_alb_D538DEEE.dns_name}\\",
-            \\"zone_id\\": \\"\${aws_alb.testPocketApp_application_load_balancer_alb_D538DEEE.zone_id}\\"
-          }
-        ],
+        \\"alias\\": {
+          \\"evaluate_target_health\\": true,
+          \\"name\\": \\"\${aws_alb.testPocketApp_application_load_balancer_alb_D538DEEE.dns_name}\\",
+          \\"zone_id\\": \\"\${aws_alb.testPocketApp_application_load_balancer_alb_D538DEEE.zone_id}\\"
+        },
         \\"lifecycle\\": {
           \\"ignore_changes\\": [
             \\"weighted_routing_policy[0].weight\\"
@@ -9906,11 +10000,9 @@ exports[`PocketALBApplication renders an internal application 1`] = `
         \\"name\\": \\"testing.bowling.gov\\",
         \\"set_identifier\\": \\"1\\",
         \\"type\\": \\"A\\",
-        \\"weighted_routing_policy\\": [
-          {
-            \\"weight\\": 1
-          }
-        ],
+        \\"weighted_routing_policy\\": {
+          \\"weight\\": 1
+        },
         \\"zone_id\\": \\"\${aws_route53_zone.testPocketApp_base_dns_subhosted_zone_1E1E3243.zone_id}\\"
       },
       \\"testPocketApp_base_dns_subhosted_zone_ns_497FFB83\\": {
@@ -10120,24 +10212,34 @@ exports[`PocketALBApplication renders an internal application with tags 1`] = `
         \\"name\\": \\"/Shared/Vpc\\"
       }
     },
-    \\"aws_subnet_ids\\": {
+    \\"aws_subnets\\": {
       \\"testPocketApp_pocket_vpc_private_subnet_ids_EB1E3A65\\": {
         \\"filter\\": [
           {
             \\"name\\": \\"subnet-id\\",
             \\"values\\": \\"\${split(\\\\\\",\\\\\\", data.aws_ssm_parameter.testPocketApp_pocket_vpc_private_subnets_9D449563.value)}\\"
+          },
+          {
+            \\"name\\": \\"vpc-id\\",
+            \\"values\\": [
+              \\"\${data.aws_vpc.testPocketApp_pocket_vpc_C4E157E3.id}\\"
+            ]
           }
-        ],
-        \\"vpc_id\\": \\"\${data.aws_vpc.testPocketApp_pocket_vpc_C4E157E3.id}\\"
+        ]
       },
       \\"testPocketApp_pocket_vpc_public_subnet_ids_01F0B902\\": {
         \\"filter\\": [
           {
             \\"name\\": \\"subnet-id\\",
             \\"values\\": \\"\${split(\\\\\\",\\\\\\", data.aws_ssm_parameter.testPocketApp_pocket_vpc_public_subnets_B0B3A6AB.value)}\\"
+          },
+          {
+            \\"name\\": \\"vpc-id\\",
+            \\"values\\": [
+              \\"\${data.aws_vpc.testPocketApp_pocket_vpc_C4E157E3.id}\\"
+            ]
           }
-        ],
-        \\"vpc_id\\": \\"\${data.aws_vpc.testPocketApp_pocket_vpc_C4E157E3.id}\\"
+        ]
       }
     },
     \\"aws_vpc\\": {
@@ -10186,7 +10288,7 @@ exports[`PocketALBApplication renders an internal application with tags 1`] = `
         \\"security_groups\\": [
           \\"\${aws_security_group.testPocketApp_application_load_balancer_alb_security_group_91A27046.id}\\"
         ],
-        \\"subnets\\": \\"\${tolist(data.aws_subnet_ids.testPocketApp_pocket_vpc_private_subnet_ids_EB1E3A65.ids)}\\",
+        \\"subnets\\": \\"\${data.aws_subnets.testPocketApp_pocket_vpc_private_subnet_ids_EB1E3A65.ids}\\",
         \\"tags\\": {
           \\"hobby\\": \\"bowling\\",
           \\"name\\": \\"thedude\\"
@@ -10448,7 +10550,7 @@ exports[`PocketALBApplication renders an internal application with tags 1`] = `
           \\"security_groups\\": [
             \\"\${aws_security_group.testPocketApp_ecs_service_ecs_security_group_9C016FA8.id}\\"
           ],
-          \\"subnets\\": \\"\${tolist(data.aws_subnet_ids.testPocketApp_pocket_vpc_private_subnet_ids_EB1E3A65.ids)}\\"
+          \\"subnets\\": \\"\${data.aws_subnets.testPocketApp_pocket_vpc_private_subnet_ids_EB1E3A65.ids}\\"
         },
         \\"propagate_tags\\": \\"SERVICE\\",
         \\"tags\\": {
@@ -10503,22 +10605,20 @@ exports[`PocketALBApplication renders an internal application with tags 1`] = `
         \\"depends_on\\": [
           \\"aws_acm_certificate.testPocketApp_alb_certificate_417C14FF\\"
         ],
-        \\"name\\": \\"\${tolist(aws_acm_certificate.testPocketApp_alb_certificate_417C14FF.domain_validation_options)[0][\\\\\\"resource_record_name\\\\\\"]}\\",
+        \\"name\\": \\"\${tolist(aws_acm_certificate.testPocketApp_alb_certificate_417C14FF.domain_validation_options).0.resource_record_name}\\",
         \\"records\\": [
-          \\"\${tolist(aws_acm_certificate.testPocketApp_alb_certificate_417C14FF.domain_validation_options)[0][\\\\\\"resource_record_value\\\\\\"]}\\"
+          \\"\${tolist(aws_acm_certificate.testPocketApp_alb_certificate_417C14FF.domain_validation_options).0.resource_record_value}\\"
         ],
         \\"ttl\\": 60,
-        \\"type\\": \\"\${tolist(aws_acm_certificate.testPocketApp_alb_certificate_417C14FF.domain_validation_options)[0][\\\\\\"resource_record_type\\\\\\"]}\\",
+        \\"type\\": \\"\${tolist(aws_acm_certificate.testPocketApp_alb_certificate_417C14FF.domain_validation_options).0.resource_record_type}\\",
         \\"zone_id\\": \\"\${aws_route53_zone.testPocketApp_base_dns_subhosted_zone_1E1E3243.zone_id}\\"
       },
       \\"testPocketApp_alb_record_7B56ED33\\": {
-        \\"alias\\": [
-          {
-            \\"evaluate_target_health\\": true,
-            \\"name\\": \\"\${aws_alb.testPocketApp_application_load_balancer_alb_D538DEEE.dns_name}\\",
-            \\"zone_id\\": \\"\${aws_alb.testPocketApp_application_load_balancer_alb_D538DEEE.zone_id}\\"
-          }
-        ],
+        \\"alias\\": {
+          \\"evaluate_target_health\\": true,
+          \\"name\\": \\"\${aws_alb.testPocketApp_application_load_balancer_alb_D538DEEE.dns_name}\\",
+          \\"zone_id\\": \\"\${aws_alb.testPocketApp_application_load_balancer_alb_D538DEEE.zone_id}\\"
+        },
         \\"lifecycle\\": {
           \\"ignore_changes\\": [
             \\"weighted_routing_policy[0].weight\\"
@@ -10527,11 +10627,9 @@ exports[`PocketALBApplication renders an internal application with tags 1`] = `
         \\"name\\": \\"testing.bowling.gov\\",
         \\"set_identifier\\": \\"1\\",
         \\"type\\": \\"A\\",
-        \\"weighted_routing_policy\\": [
-          {
-            \\"weight\\": 1
-          }
-        ],
+        \\"weighted_routing_policy\\": {
+          \\"weight\\": 1
+        },
         \\"zone_id\\": \\"\${aws_route53_zone.testPocketApp_base_dns_subhosted_zone_1E1E3243.zone_id}\\"
       },
       \\"testPocketApp_base_dns_subhosted_zone_ns_497FFB83\\": {
