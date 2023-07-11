@@ -3,7 +3,7 @@ import { DataAwsKmsAlias } from '@cdktf/provider-aws/lib/data-aws-kms-alias';
 import { DataAwsRegion } from '@cdktf/provider-aws/lib/data-aws-region';
 import { DataAwsSecurityGroups } from '@cdktf/provider-aws/lib/data-aws-security-groups';
 import { DataAwsSsmParameter } from '@cdktf/provider-aws/lib/data-aws-ssm-parameter';
-import { DataAwsSubnetIds } from '@cdktf/provider-aws/lib/data-aws-subnet-ids';
+import { DataAwsSubnets } from '@cdktf/provider-aws/lib/data-aws-subnets';
 import { DataAwsVpc } from '@cdktf/provider-aws/lib/data-aws-vpc';
 import { AwsProvider } from '@cdktf/provider-aws/lib/provider';
 import { Fn } from 'cdktf';
@@ -43,14 +43,14 @@ export class PocketVPC extends Construct {
       name: '/Shared/PrivateSubnets',
     });
 
-    const privateSubnets = new DataAwsSubnetIds(this, `private_subnet_ids`, {
+    const privateSubnets = new DataAwsSubnets(this, `private_subnet_ids`, {
       provider: provider,
-      vpcId: this.vpc.id,
       filter: [
         {
           name: 'subnet-id',
           values: Fn.split(',', privateString.value),
         },
+        { name: 'vpc-id', values: [this.vpc.id] },
       ],
     });
 
@@ -61,14 +61,14 @@ export class PocketVPC extends Construct {
       name: '/Shared/PublicSubnets',
     });
 
-    const publicSubnets = new DataAwsSubnetIds(this, `public_subnet_ids`, {
+    const publicSubnets = new DataAwsSubnets(this, `public_subnet_ids`, {
       provider: provider,
-      vpcId: this.vpc.id,
       filter: [
         {
           name: 'subnet-id',
           values: Fn.split(',', publicString.value),
         },
+        { name: 'vpc-id', values: [this.vpc.id] },
       ],
     });
 
