@@ -2,12 +2,12 @@
 
 exports[`ApplicationEventBus renders an event bus with name and target 1`] = `
 "{
-  \\"resource\\": {
-    \\"aws_cloudwatch_event_bus\\": {
-      \\"test-event-bus_event-bus-test-event-bus_3B38546A\\": {
-        \\"name\\": \\"test-event-bus\\",
-        \\"tags\\": {
-          \\"service\\": \\"test-service\\"
+  "resource": {
+    "aws_cloudwatch_event_bus": {
+      "test-event-bus_event-bus-test-event-bus_3B38546A": {
+        "name": "test-event-bus",
+        "tags": {
+          "service": "test-service"
         }
       }
     }
