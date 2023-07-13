@@ -2,19 +2,19 @@
 
 exports[`ApplicationECSCluster renders an ECS cluster with tags 1`] = `
 "{
-  \\"resource\\": {
-    \\"aws_ecs_cluster\\": {
-      \\"testECSCluster_ecs_cluster_E3A9AFE5\\": {
-        \\"name\\": \\"bowling-\\",
-        \\"setting\\": [
+  "resource": {
+    "aws_ecs_cluster": {
+      "testECSCluster_ecs_cluster_E3A9AFE5": {
+        "name": "bowling-",
+        "setting": [
           {
-            \\"name\\": \\"containerInsights\\",
-            \\"value\\": \\"enabled\\"
+            "name": "containerInsights",
+            "value": "enabled"
           }
         ],
-        \\"tags\\": {
-          \\"description\\": \\"artist\\",
-          \\"name\\": \\"maude\\"
+        "tags": {
+          "description": "artist",
+          "name": "maude"
         }
       }
     }
@@ -24,14 +24,14 @@ exports[`ApplicationECSCluster renders an ECS cluster with tags 1`] = `
 
 exports[`ApplicationECSCluster renders an ECS cluster without tags 1`] = `
 "{
-  \\"resource\\": {
-    \\"aws_ecs_cluster\\": {
-      \\"testECSCluster_ecs_cluster_E3A9AFE5\\": {
-        \\"name\\": \\"bowling-\\",
-        \\"setting\\": [
+  "resource": {
+    "aws_ecs_cluster": {
+      "testECSCluster_ecs_cluster_E3A9AFE5": {
+        "name": "bowling-",
+        "setting": [
           {
-            \\"name\\": \\"containerInsights\\",
-            \\"value\\": \\"enabled\\"
+            "name": "containerInsights",
+            "value": "enabled"
           }
         ]
       }
