@@ -94,7 +94,7 @@
     "cdktf": "0.17.1",
     "cdktf-cli": "0.17.1",
     "constructs": "10.2.69",
-    "parse-domain": "7.0.1"
+    "parse-domain": "5.0.0"
   },
   "devDependencies": {
     "@pocket-tools/eslint-config": "2.0.0",
