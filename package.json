@@ -83,18 +83,18 @@
     "node": ">=16.20"
   },
   "dependencies": {
-    "@cdktf/provider-archive": "^7.0.0",
-    "@cdktf/provider-aws": "^16.0.2",
-    "@cdktf/provider-local": "^7.0.0",
-    "@cdktf/provider-newrelic": "^9.0.0",
-    "@cdktf/provider-null": "^7.0.0",
-    "@cdktf/provider-pagerduty": "^8.0.0",
-    "@cdktf/provider-time": "^7.0.0",
-    "@sinonjs/commons": "^3.0.0",
-    "cdktf": "^0.17.1",
-    "cdktf-cli": "^0.17.1",
-    "constructs": "^10.2.69",
-    "parse-domain": "^4.1.0"
+    "@cdktf/provider-archive": "7.0.0",
+    "@cdktf/provider-aws": "16.0.2",
+    "@cdktf/provider-local": "7.0.0",
+    "@cdktf/provider-newrelic": "9.0.0",
+    "@cdktf/provider-null": "7.0.0",
+    "@cdktf/provider-pagerduty": "8.0.0",
+    "@cdktf/provider-time": "7.0.0",
+    "@sinonjs/commons": "3.0.0",
+    "cdktf": "0.17.1",
+    "cdktf-cli": "0.17.1",
+    "constructs": "10.2.69",
+    "parse-domain": "7.0.1"
   },
   "devDependencies": {
     "@pocket-tools/eslint-config": "2.0.0",
