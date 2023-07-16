@@ -1,3 +1,10 @@
+## [4.17.1](https://github.com/Pocket/terraform-modules/compare/v4.17.0...v4.17.1) (2023-07-16)
+
+
+### Bug Fixes
+
+* **dependencies:** [INFRA-1356] Update 'parse-domain' package and pin dependencies ([#1084](https://github.com/Pocket/terraform-modules/issues/1084)) ([57a6b4f](https://github.com/Pocket/terraform-modules/commit/57a6b4fed1f2dd408033dc7d503f9b4e053e1eae))
+
 ## [4.17.0](https://github.com/Pocket/terraform-modules/compare/v4.16.2...v4.17.0) (2023-06-16)
 
 
