@@ -43,7 +43,7 @@ describe('ApplicationECSContainerDefinition', () => {
       expect(result).to.contain('"awslogs-group":"bowlingGroup"');
       expect(result).to.contain('"awslogs-multiline-pattern":"^\\\\S.+"');
       expect(result).to.contain(
-        '"awslogs-datetime-format":"[%b %d, %Y %H:%M:%S]"'
+        '"awslogs-datetime-format":"[%b %d, %Y %H:%M:%S]"',
       );
       expect(result).to.contain('"hostPort":3000');
       expect(result).to.contain('"containerPort":4000');
@@ -72,7 +72,7 @@ describe('ApplicationECSContainerDefinition', () => {
       const result = buildDefinitionJSON(config);
 
       expect(result).to.contain(
-        `"environment":${JSON.stringify(config.envVars)}`
+        `"environment":${JSON.stringify(config.envVars)}`,
       );
     });
 
@@ -91,7 +91,7 @@ describe('ApplicationECSContainerDefinition', () => {
       const result = buildDefinitionJSON(config);
 
       expect(result).to.contain(
-        `"secrets":${JSON.stringify(config.secretEnvVars)}`
+        `"secrets":${JSON.stringify(config.secretEnvVars)}`,
       );
     });
 
@@ -123,7 +123,7 @@ describe('ApplicationECSContainerDefinition', () => {
           `"interval":30,` +
           `"retries":2,` +
           `"startPeriod":0,` +
-          `"timeout":5}`
+          `"timeout":5}`,
       );
     });
 
@@ -150,7 +150,7 @@ describe('ApplicationECSContainerDefinition', () => {
         `"mountPoints":[{` +
           `"containerPath":"/\\"-\\".txt",` +
           `"readOnly":true,` +
-          `"sourceVolume":"/[{}].txt"}`
+          `"sourceVolume":"/[{}].txt"}`,
       );
     });
 

@@ -63,7 +63,7 @@ export class PocketApiGateway extends Construct {
   constructor(
     scope: Construct,
     name: string,
-    private readonly config: PocketApiGatewayProps
+    private readonly config: PocketApiGatewayProps,
   ) {
     super(scope, name);
     this.apiGatewayRestApi = new ApiGatewayRestApi(scope, `api-gateway-rest`, {
@@ -95,14 +95,14 @@ export class PocketApiGateway extends Construct {
           redeployment: Fn.sha1(
             Fn.jsonencode({
               resources: routeDependencies.map((d) => d.id),
-            })
+            }),
           ),
           ...triggers,
         },
         lifecycle: { createBeforeDestroy: true },
         dependsOn: routeDependencies,
         provider: config.provider,
-      }
+      },
     );
     this.apiGatewayStage = new ApiGatewayStage(scope, 'api-gateway-stage', {
       deploymentId: this.apiGatewayDeployment.id,
@@ -139,7 +139,7 @@ export class PocketApiGateway extends Construct {
         domain: config.domain,
         tags: this.config.tags,
         provider: config.provider,
-      }
+      },
     );
 
     //setup custom domain name for API gateway
@@ -152,7 +152,7 @@ export class PocketApiGateway extends Construct {
         dependsOn: [apiGatewayCertificate.certificateValidation],
         provider: config.provider,
         tags: config.tags,
-      }
+      },
     );
 
     new Route53Record(this, `apigateway-route53-domain-record`, {
@@ -195,7 +195,7 @@ export class PocketApiGateway extends Construct {
           sourceArn: `${this.apiGatewayRestApi.executionArn}/${this.apiGatewayStage.stageName}/${method.httpMethod}${resource.path}`,
           qualifier: lambda.lambda.versionedLambda.name,
           provider: this.config.provider,
-        }
+        },
       );
     });
   }
@@ -210,7 +210,7 @@ export class PocketApiGateway extends Construct {
       const lambda = new PocketVersionedLambda(
         this,
         `${route.path}-lambda`,
-        route.eventHandler
+        route.eventHandler,
       );
       const resource = new ApiGatewayResource(this, route.path, {
         parentId: this.apiGatewayRestApi.rootResourceId,
@@ -237,7 +237,7 @@ export class PocketApiGateway extends Construct {
           type: 'AWS_PROXY',
           uri: lambda.lambda.versionedLambda.invokeArn,
           provider: config.provider,
-        }
+        },
       );
       return { lambda, resource, method, integration };
     });

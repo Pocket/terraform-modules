@@ -46,7 +46,7 @@ test('validates batch config errors if no batch window', () => {
           maxReceiveCount: 3,
         },
         batchSize: 20,
-      })
+      }),
   ).toThrow(Error);
 });
 
@@ -63,7 +63,7 @@ test('validates batch config errors if batch window is less then 1', () => {
         },
         batchSize: 20,
         batchWindow: 0,
-      })
+      }),
   ).toThrow(Error);
 });
 

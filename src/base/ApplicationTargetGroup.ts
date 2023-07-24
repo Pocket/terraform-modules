@@ -15,7 +15,7 @@ export class ApplicationTargetGroup extends Construct {
   constructor(
     scope: Construct,
     name: string,
-    config: ApplicationTargetGroupProps
+    config: ApplicationTargetGroupProps,
   ) {
     super(scope, name);
 

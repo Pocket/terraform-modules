@@ -35,7 +35,7 @@ export class ApplicationBackup extends Construct {
   constructor(
     scope: Construct,
     name: string,
-    private config: ApplicationBackupProps
+    private config: ApplicationBackupProps,
   ) {
     super(scope, name);
 

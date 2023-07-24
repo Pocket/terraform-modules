@@ -104,7 +104,7 @@ export class ApplicationECSService extends Construct {
   constructor(
     scope: Construct,
     name: string,
-    config: ApplicationECSServiceProps
+    config: ApplicationECSServiceProps,
   ) {
     super(scope, name);
 
@@ -232,7 +232,7 @@ export class ApplicationECSService extends Construct {
 
         nullECSTaskUpdate.addOverride(
           'provisioner.local-exec.command',
-          `export app_spec_content_string='{"version":1,"Resources":[{"TargetService":{"Type":"AWS::ECS::Service","Properties":{"TaskDefinition":"${taskDef.arn}","LoadBalancerInfo":{"ContainerName":"${this.config.albConfig.containerName}","ContainerPort":${this.config.albConfig.containerPort}}}}}]}' && export revision="revisionType=AppSpecContent,appSpecContent={content='$app_spec_content_string'}" && aws --region ${this.config.region} deploy create-deployment  --application-name="${codeDeployApp.codeDeployApp.name}"  --deployment-group-name="${codeDeployApp.codeDeployDeploymentGroup.deploymentGroupName}" --description="Triggered from Terraform/CodeBuild due to a task definition update" --revision="$revision"`
+          `export app_spec_content_string='{"version":1,"Resources":[{"TargetService":{"Type":"AWS::ECS::Service","Properties":{"TaskDefinition":"${taskDef.arn}","LoadBalancerInfo":{"ContainerName":"${this.config.albConfig.containerName}","ContainerPort":${this.config.albConfig.containerPort}}}}}]}' && export revision="revisionType=AppSpecContent,appSpecContent={content='$app_spec_content_string'}" && aws --region ${this.config.region} deploy create-deployment  --application-name="${codeDeployApp.codeDeployApp.name}"  --deployment-group-name="${codeDeployApp.codeDeployDeploymentGroup.deploymentGroupName}" --description="Triggered from Terraform/CodeBuild due to a task definition update" --revision="$revision"`,
         );
       }
 
@@ -250,7 +250,7 @@ export class ApplicationECSService extends Construct {
 
   // set defaults on optional properties
   private static hydrateConfig(
-    config: ApplicationECSServiceProps
+    config: ApplicationECSServiceProps,
   ): ApplicationECSServiceProps {
     config.launchType = config.launchType || 'FARGATE';
     config.deploymentMinimumHealthyPercent =
@@ -288,7 +288,7 @@ export class ApplicationECSService extends Construct {
    */
   private generateAppSpecAndTaskDefFiles(
     taskDef: EcsTaskDefinition,
-    config: ApplicationECSServiceProps
+    config: ApplicationECSServiceProps,
   ) {
     const nullCreateTaskDef = new Resource(
       this,
@@ -299,7 +299,7 @@ export class ApplicationECSService extends Construct {
           alwaysRun: '${timestamp()}',
         },
         dependsOn: [taskDef],
-      }
+      },
     );
     // There is no way to pull the task def from the output of the terraform resource.
     // Instead of trying to build a task def ourselves we use a null resource to access the recent version
@@ -308,7 +308,7 @@ export class ApplicationECSService extends Construct {
     // Task definition ARN in the app spec file. But you know. Amazon is amazon and we must obey the law.
     nullCreateTaskDef.addOverride(
       'provisioner.local-exec.command',
-      `aws --region ${this.config.region} ecs describe-task-definition --task-definition ${taskDef.family} --query 'taskDefinition' >> taskdef.json`
+      `aws --region ${this.config.region} ecs describe-task-definition --task-definition ${taskDef.family} --query 'taskDefinition' >> taskdef.json`,
     );
 
     new File(this, 'appspec', {
@@ -420,7 +420,7 @@ export class ApplicationECSService extends Construct {
             retentionInDays: 30,
             tags: this.config.tags,
             provider: this.config.provider,
-          }
+          },
         );
 
         def.logGroup = cloudwatchLogGroup.name;
@@ -481,7 +481,7 @@ export class ApplicationECSService extends Construct {
       this.efsFilePolicy(
         this.config.efsConfig.efs,
         this.ecsIam.taskRoleArn,
-        this.config.prefix
+        this.config.prefix,
       );
       this.createEfsMount(this.config.efsConfig.efs);
     }
@@ -558,7 +558,7 @@ export class ApplicationECSService extends Construct {
   private efsFilePolicy(
     efsFs: EFSProps,
     roleArn: string,
-    creationToken: string
+    creationToken: string,
   ) {
     const FsPolicy = {
       Version: '2012-10-17',

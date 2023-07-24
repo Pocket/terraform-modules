@@ -126,7 +126,7 @@ describe('ApplicationLoadBalancer', () => {
         });
       });
     }).toThrow(
-      'If you are configuring access logs you need to define either an existing bucket or a new one to store the logs'
+      'If you are configuring access logs you need to define either an existing bucket or a new one to store the logs',
     );
   });
 });

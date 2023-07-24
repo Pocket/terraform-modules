@@ -47,35 +47,35 @@ export class PocketPagerDuty extends Construct {
     const cloudwatchVendor = this.getVendor('Cloudwatch');
 
     const pagerDutyCritical = this.createService(
-      PAGERDUTY_SERVICE_URGENCY.CRITICAL
+      PAGERDUTY_SERVICE_URGENCY.CRITICAL,
     );
 
     const pagerDutyNonCritical = this.createService(
-      PAGERDUTY_SERVICE_URGENCY.NON_CRITICAL
+      PAGERDUTY_SERVICE_URGENCY.NON_CRITICAL,
     );
 
     this.createServiceIntegration(
       sentryVendor,
       pagerDutyCritical,
-      PAGERDUTY_SERVICE_URGENCY.CRITICAL
+      PAGERDUTY_SERVICE_URGENCY.CRITICAL,
     );
 
     this.createServiceIntegration(
       sentryVendor,
       pagerDutyNonCritical,
-      PAGERDUTY_SERVICE_URGENCY.NON_CRITICAL
+      PAGERDUTY_SERVICE_URGENCY.NON_CRITICAL,
     );
 
     const cloudwatchCriticalIntegration = this.createServiceIntegration(
       cloudwatchVendor,
       pagerDutyCritical,
-      PAGERDUTY_SERVICE_URGENCY.CRITICAL
+      PAGERDUTY_SERVICE_URGENCY.CRITICAL,
     );
 
     const cloudwatchNonCriticalIntegration = this.createServiceIntegration(
       cloudwatchVendor,
       pagerDutyNonCritical,
-      PAGERDUTY_SERVICE_URGENCY.NON_CRITICAL
+      PAGERDUTY_SERVICE_URGENCY.NON_CRITICAL,
     );
 
     const snsCriticalAlarmTopic = (this.snsCriticalAlarmTopic =
@@ -87,20 +87,20 @@ export class PocketPagerDuty extends Construct {
     this.createSnsTopicSubscription(
       snsCriticalAlarmTopic,
       cloudwatchCriticalIntegration,
-      PAGERDUTY_SERVICE_URGENCY.CRITICAL
+      PAGERDUTY_SERVICE_URGENCY.CRITICAL,
     );
 
     this.createSnsTopicSubscription(
       snsNonCriticalAlarmTopic,
       cloudwatchNonCriticalIntegration,
-      PAGERDUTY_SERVICE_URGENCY.NON_CRITICAL
+      PAGERDUTY_SERVICE_URGENCY.NON_CRITICAL,
     );
   }
 
   private createSnsTopicSubscription(
     topic: SnsTopic,
     integration: ServiceIntegration,
-    urgency: PAGERDUTY_SERVICE_URGENCY
+    urgency: PAGERDUTY_SERVICE_URGENCY,
   ): SnsTopicSubscription {
     return new SnsTopicSubscription(
       this,
@@ -115,7 +115,7 @@ export class PocketPagerDuty extends Construct {
           PocketPagerDuty.SNS_SUBSCRIPTION_CONFIRMATION_TIMEOUT_IN_MINUTES,
         dependsOn: [topic, integration],
         provider: this.config.provider,
-      }
+      },
     );
   }
 
@@ -130,7 +130,7 @@ export class PocketPagerDuty extends Construct {
   private createServiceIntegration(
     vendor: DataPagerdutyVendor,
     service: Service,
-    urgency: PAGERDUTY_SERVICE_URGENCY
+    urgency: PAGERDUTY_SERVICE_URGENCY,
   ): ServiceIntegration {
     return new ServiceIntegration(
       this,
@@ -140,7 +140,7 @@ export class PocketPagerDuty extends Construct {
         service: service.id,
         vendor: vendor.id,
         dependsOn: [service],
-      }
+      },
     );
   }
 

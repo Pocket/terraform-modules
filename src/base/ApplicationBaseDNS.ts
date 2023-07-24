@@ -20,14 +20,14 @@ export class ApplicationBaseDNS extends Construct {
       scope,
       name,
       config.domain,
-      config.provider
+      config.provider,
     );
 
     const route53SubZone = ApplicationBaseDNS.generateRoute53Zone(
       this,
       config.domain,
       config.tags,
-      config.provider
+      config.provider,
     );
 
     this.zoneId = route53SubZone.zoneId;
@@ -37,7 +37,7 @@ export class ApplicationBaseDNS extends Construct {
       config.domain,
       route53MainZone.zoneId,
       route53SubZone.nameServers,
-      config.provider
+      config.provider,
     );
   }
 
@@ -45,7 +45,7 @@ export class ApplicationBaseDNS extends Construct {
     scope: Construct,
     name: string,
     domain: string,
-    provider?: TerraformProvider
+    provider?: TerraformProvider,
   ): DataAwsRoute53Zone {
     return new DataAwsRoute53Zone(scope, `${name}_main_hosted_zone`, {
       name: getRootDomain(domain),
@@ -57,7 +57,7 @@ export class ApplicationBaseDNS extends Construct {
     scope: Construct,
     domain: string,
     tags?: { [key: string]: string },
-    provider?: TerraformProvider
+    provider?: TerraformProvider,
   ): Route53Zone {
     return new Route53Zone(scope, `subhosted_zone`, {
       name: domain,
@@ -71,7 +71,7 @@ export class ApplicationBaseDNS extends Construct {
     name: string,
     zoneId: string,
     records: string[],
-    provider?: TerraformProvider
+    provider?: TerraformProvider,
   ): void {
     new Route53Record(scope, `subhosted_zone_ns`, {
       name,

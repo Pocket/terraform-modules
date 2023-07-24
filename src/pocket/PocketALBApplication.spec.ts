@@ -222,7 +222,7 @@ describe('PocketALBApplication', () => {
     };
 
     expect(
-      () => new PocketALBApplication(stack, 'testPocketApp', alarmConfig)
+      () => new PocketALBApplication(stack, 'testPocketApp', alarmConfig),
     ).toThrow(Error);
   });
 
@@ -240,7 +240,7 @@ describe('PocketALBApplication', () => {
     };
 
     expect(
-      () => new PocketALBApplication(stack, 'testPocketApp', alarmConfig)
+      () => new PocketALBApplication(stack, 'testPocketApp', alarmConfig),
     ).toThrow(Error);
   });
 
@@ -269,7 +269,7 @@ describe('PocketALBApplication', () => {
     };
 
     expect(
-      () => new PocketALBApplication(stack, 'testPocketApp', alarmConfig)
+      () => new PocketALBApplication(stack, 'testPocketApp', alarmConfig),
     ).toThrow(Error);
   });
 
@@ -280,7 +280,7 @@ describe('PocketALBApplication', () => {
     const pocketApp = new PocketALBApplication(
       stack,
       'testPocketApp',
-      BASE_CONFIG
+      BASE_CONFIG,
     );
 
     expect(pocketApp.listeners.length).toEqual(2);
@@ -301,7 +301,7 @@ describe('PocketALBApplication', () => {
     const pocketApp = new PocketALBApplication(
       stack,
       'testPocketApp',
-      BASE_CONFIG
+      BASE_CONFIG,
     );
 
     expect(pocketApp.ecsService.mainTargetGroup).not.toBeNull();
@@ -411,7 +411,7 @@ describe('PocketALBApplication', () => {
         cdn: true,
       });
     }).toThrow(
-      'Implementation of waf association with CDN is not currently supported'
+      'Implementation of waf association with CDN is not currently supported',
     );
   });
 

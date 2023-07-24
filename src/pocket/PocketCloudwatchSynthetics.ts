@@ -65,7 +65,7 @@ export class PocketAwsSyntheticChecks extends Construct {
   constructor(
     scope: Construct,
     private name: string,
-    private config: PocketAwsSyntheticCheckProps
+    private config: PocketAwsSyntheticCheckProps,
   ) {
     super(scope, name);
 
@@ -75,7 +75,7 @@ export class PocketAwsSyntheticChecks extends Construct {
       `${this.name}_synthetic_check_artifacts`,
       {
         bucket: `pocket-${this.config.prefix.toLowerCase()}-synthetic-checks`,
-      }
+      },
     );
 
     new S3BucketLifecycleConfiguration(
@@ -92,7 +92,7 @@ export class PocketAwsSyntheticChecks extends Construct {
             status: 'Enabled',
           },
         ],
-      }
+      },
     );
 
     // behind the scenes, Cloudwatch Synthetics are AWS-managed Lambdas
@@ -114,7 +114,7 @@ export class PocketAwsSyntheticChecks extends Construct {
             ],
           },
         ],
-      }
+      },
     );
 
     const syntheticRole = new IamRole(this, 'synthetic_check_role', {
@@ -180,7 +180,7 @@ export class PocketAwsSyntheticChecks extends Construct {
             resources: ['*'],
           },
         ],
-      }
+      },
     );
 
     const syntheticAccessPolicy = new IamPolicy(
@@ -189,7 +189,7 @@ export class PocketAwsSyntheticChecks extends Construct {
       {
         name: `pocket-${this.config.prefix.toLowerCase()}-synthetic-check-access`,
         policy: dataSyntheticAccess.json,
-      }
+      },
     );
 
     new IamRolePolicyAttachment(
@@ -198,7 +198,7 @@ export class PocketAwsSyntheticChecks extends Construct {
       {
         role: syntheticRole.id,
         policyArn: syntheticAccessPolicy.arn,
-      }
+      },
     );
 
     for (const uptimeConfig of this.config.uptime) {
@@ -229,7 +229,7 @@ export class PocketAwsSyntheticChecks extends Construct {
             subnetIds: this.config.subnetIds,
             securityGroupIds: this.config.securityGroupIds,
           },
-        }
+        },
       );
 
       new CloudwatchMetricAlarm(
@@ -259,7 +259,7 @@ export class PocketAwsSyntheticChecks extends Construct {
             config.alarmTopicArn !== undefined
               ? [this.config.alarmTopicArn]
               : null,
-        }
+        },
       );
     }
 
@@ -293,7 +293,7 @@ export class PocketAwsSyntheticChecks extends Construct {
             subnetIds: this.config.subnetIds,
             securityGroupIds: this.config.securityGroupIds,
           },
-        }
+        },
       );
 
       new CloudwatchMetricAlarm(
@@ -324,7 +324,7 @@ export class PocketAwsSyntheticChecks extends Construct {
             config.alarmTopicArn !== undefined
               ? [this.config.alarmTopicArn]
               : [],
-        }
+        },
       );
     }
   }

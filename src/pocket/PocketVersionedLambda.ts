@@ -68,7 +68,7 @@ export class PocketVersionedLambda extends Construct {
   constructor(
     scope: Construct,
     name: string,
-    protected readonly config: PocketVersionedLambdaProps
+    protected readonly config: PocketVersionedLambdaProps,
   ) {
     super(scope, name);
 
@@ -137,7 +137,7 @@ export class PocketVersionedLambda extends Construct {
     config: {
       metricName: string;
       props: PocketVersionedLambdaDefaultAlarmProps;
-    }
+    },
   ): void {
     const props = config.props;
     const defaultEvaluationPeriods = 1;

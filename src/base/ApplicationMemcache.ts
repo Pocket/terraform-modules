@@ -20,7 +20,7 @@ export class ApplicationMemcache extends ApplicationElasticacheCluster {
   constructor(
     scope: Construct,
     name: string,
-    config: ApplicationElasticacheClusterProps
+    config: ApplicationElasticacheClusterProps,
   ) {
     super(scope, name);
 
@@ -35,7 +35,7 @@ export class ApplicationMemcache extends ApplicationElasticacheCluster {
     this.elasticacheCluster = ApplicationMemcache.createElasticacheCluster(
       this,
       appVpc,
-      config
+      config,
     );
   }
 
@@ -49,7 +49,7 @@ export class ApplicationMemcache extends ApplicationElasticacheCluster {
   private static createElasticacheCluster(
     scope: Construct,
     appVpc: DataAwsVpc,
-    config: ApplicationElasticacheClusterProps
+    config: ApplicationElasticacheClusterProps,
   ): ElasticacheCluster {
     const engine = ApplicationElasticacheEngine.MEMCACHED;
     const port = ApplicationElasticacheCluster.getPortForEngine(engine);
@@ -58,7 +58,7 @@ export class ApplicationMemcache extends ApplicationElasticacheCluster {
       scope,
       config,
       appVpc,
-      port
+      port,
     );
 
     return new ElasticacheCluster(scope, `elasticache_cluster`, {

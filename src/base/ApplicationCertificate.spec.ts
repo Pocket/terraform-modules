@@ -13,7 +13,7 @@ describe('ApplicationCertificate', () => {
       const synthed = Testing.synthScope((stack) => {
         ApplicationCertificate.generateAcmCertificate(
           new TestResource(stack, 'test-resource'),
-          'dev.gobowling.info'
+          'dev.gobowling.info',
         );
       });
       expect(synthed).toMatchSnapshot();
@@ -24,7 +24,7 @@ describe('ApplicationCertificate', () => {
         ApplicationCertificate.generateAcmCertificate(
           new TestResource(stack, 'test-resource'),
           'dev.gobowling.info',
-          tags
+          tags,
         );
       });
       expect(synthed).toMatchSnapshot();
@@ -38,13 +38,13 @@ describe('ApplicationCertificate', () => {
 
         const cert = ApplicationCertificate.generateAcmCertificate(
           construct,
-          'dev.gobowling.info'
+          'dev.gobowling.info',
         );
 
         ApplicationCertificate.generateRoute53Record(
           construct,
           'dev.gobowling.info',
-          cert
+          cert,
         );
       });
       expect(synthed).toMatchSnapshot();
@@ -58,19 +58,19 @@ describe('ApplicationCertificate', () => {
 
         const cert = ApplicationCertificate.generateAcmCertificate(
           construct,
-          'dev.gobowling.info'
+          'dev.gobowling.info',
         );
 
         const record = ApplicationCertificate.generateRoute53Record(
           construct,
           'dev.gobowling.info',
-          cert
+          cert,
         );
 
         ApplicationCertificate.generateAcmCertificateValidation(
           construct,
           cert,
-          record
+          record,
         );
       });
       expect(synthed).toMatchSnapshot();

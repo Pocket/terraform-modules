@@ -1,5 +1,4 @@
 import { Construct } from 'constructs';
-
 import {
   PocketVersionedLambda,
   PocketVersionedLambdaProps,
@@ -54,7 +53,7 @@ export class PocketSQSWithLambdaTarget extends PocketVersionedLambda {
   constructor(
     scope: Construct,
     name: string,
-    protected readonly config: PocketSQSWithLambdaTargetProps
+    protected readonly config: PocketSQSWithLambdaTargetProps,
   ) {
     super(scope, name, config);
     PocketSQSWithLambdaTarget.validateEventSourceMappingConfig(config);
@@ -76,7 +75,7 @@ export class PocketSQSWithLambdaTarget extends PocketVersionedLambda {
 
     this.createSQSExecutionPolicyOnLambda(
       this.lambda.lambdaExecutionRole,
-      this.sqsQueueResource
+      this.sqsQueueResource,
     );
 
     this.createEventSourceMapping(this.lambda, this.sqsQueueResource, config);
@@ -87,7 +86,7 @@ export class PocketSQSWithLambdaTarget extends PocketVersionedLambda {
    * @private
    */
   private createSqsQueue(
-    sqsQueueConfig: ApplicationSQSQueueProps
+    sqsQueueConfig: ApplicationSQSQueueProps,
   ): ApplicationSQSQueue {
     return new ApplicationSQSQueue(this, 'lambda_sqs_queue', sqsQueueConfig);
   }
@@ -97,7 +96,7 @@ export class PocketSQSWithLambdaTarget extends PocketVersionedLambda {
    * @private
    */
   private getExistingSqsQueue(
-    sqsQueueConfig: DataAwsSqsQueueConfig
+    sqsQueueConfig: DataAwsSqsQueueConfig,
   ): DataAwsSqsQueue {
     return new DataAwsSqsQueue(this, 'lambda_sqs_queue', sqsQueueConfig);
   }
@@ -109,7 +108,7 @@ export class PocketSQSWithLambdaTarget extends PocketVersionedLambda {
    * @private
    */
   private static validateEventSourceMappingConfig(
-    config: PocketSQSWithLambdaTargetProps
+    config: PocketSQSWithLambdaTargetProps,
   ) {
     if (
       config.batchSize &&
@@ -117,13 +116,13 @@ export class PocketSQSWithLambdaTarget extends PocketVersionedLambda {
       (!config.batchWindow || config.batchWindow < 1)
     ) {
       throw new Error(
-        'Maximum batch window in seconds must be greater than 0 if maximum batch size is greater than 10'
+        'Maximum batch window in seconds must be greater than 0 if maximum batch size is greater than 10',
       );
     }
 
     if (config.configFromPreexistingSqsQueue && config.sqsQueue) {
       throw new Error(
-        'configFromPreexistingSqsQueue and sqsQueue cannot be used simultaneously.'
+        'configFromPreexistingSqsQueue and sqsQueue cannot be used simultaneously.',
       );
     }
   }
@@ -138,7 +137,7 @@ export class PocketSQSWithLambdaTarget extends PocketVersionedLambda {
   private createEventSourceMapping(
     lambda: ApplicationVersionedLambda,
     sqsQueue: SqsQueue | DataAwsSqsQueue,
-    config: PocketSQSWithLambdaTargetProps
+    config: PocketSQSWithLambdaTargetProps,
   ) {
     return new LambdaEventSourceMapping(this, `lambda_event_source_mapping`, {
       eventSourceArn: sqsQueue.arn,
@@ -158,7 +157,7 @@ export class PocketSQSWithLambdaTarget extends PocketVersionedLambda {
    */
   private createSQSExecutionPolicyOnLambda(
     executionRole: IamRole,
-    sqsQueue: SqsQueue | DataAwsSqsQueue
+    sqsQueue: SqsQueue | DataAwsSqsQueue,
   ): IamRolePolicyAttachment {
     const lambdaSqsPolicy = new IamPolicy(this, 'sqs-policy', {
       name: `${this.config.name}-LambdaSQSPolicy`,
@@ -190,7 +189,7 @@ export class PocketSQSWithLambdaTarget extends PocketVersionedLambda {
         policyArn: lambdaSqsPolicy.arn,
         dependsOn: [executionRole, lambdaSqsPolicy],
         provider: this.config.provider,
-      }
+      },
     );
   }
 }

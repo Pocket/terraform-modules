@@ -13,7 +13,7 @@ export class ApplicationEventBus extends Construct {
   constructor(
     scope: Construct,
     name: string,
-    private config: ApplicationEventBusProps
+    private config: ApplicationEventBusProps,
   ) {
     super(scope, name);
 

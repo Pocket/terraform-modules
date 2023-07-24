@@ -13,7 +13,7 @@ describe('utilities', () => {
 
     it('gets root domain when root has multiple subdomains', () => {
       expect(getRootDomain('test.feature.getpocket.com')).to.equal(
-        'getpocket.com'
+        'getpocket.com',
       );
     });
 

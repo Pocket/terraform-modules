@@ -288,12 +288,12 @@ describe('ApplicationECSService', () => {
       const applicationECSService = new ApplicationECSService(
         stack,
         'testECSService',
-        BASE_CONFIG
+        BASE_CONFIG,
       );
 
       expect(applicationECSService.ecrRepos.length).toEqual(1);
       expect(
-        applicationECSService.taskDefinition.terraformResourceType
+        applicationECSService.taskDefinition.terraformResourceType,
       ).toEqual('aws_ecs_task_definition');
     });
   });

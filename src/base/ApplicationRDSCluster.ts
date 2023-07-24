@@ -50,7 +50,7 @@ export class ApplicationRDSCluster extends Construct {
   constructor(
     scope: Construct,
     name: string,
-    config: ApplicationRDSClusterProps
+    config: ApplicationRDSClusterProps,
   ) {
     super(scope, name);
 
@@ -135,7 +135,7 @@ export class ApplicationRDSCluster extends Construct {
       config.prefix,
       config.tags,
       config.rdsConfig.engine,
-      config.provider
+      config.provider,
     );
 
     this.secretARN = secretARN;
@@ -159,7 +159,7 @@ export class ApplicationRDSCluster extends Construct {
     prefix: string,
     tags?: { [key: string]: string },
     engine?: ApplicationRDSClusterConfig['engine'],
-    provider?: TerraformProvider
+    provider?: TerraformProvider,
   ): { secretARN: string } {
     //Create the secret
     const secret = new SecretsmanagerSecret(scope, `rds_secret`, {

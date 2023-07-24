@@ -35,7 +35,7 @@ export class PocketSyntheticCheck extends Construct {
   constructor(
     scope: Construct,
     private name: string,
-    private config: PocketSyntheticProps
+    private config: PocketSyntheticProps,
   ) {
     super(scope, name);
 
@@ -58,7 +58,7 @@ export class PocketSyntheticCheck extends Construct {
         locationsPublic: globalCheckLocations,
         uri: this.config.uri,
         verifySsl: this.config.verifySsl,
-      }
+      },
     );
 
     const defaultNrqlConfig = {

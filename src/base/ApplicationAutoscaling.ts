@@ -26,14 +26,14 @@ export class ApplicationAutoscaling extends Construct {
   constructor(
     scope: Construct,
     name: string,
-    config: ApplicationAutoscalingProps
+    config: ApplicationAutoscalingProps,
   ) {
     super(scope, name);
 
     // set up autoscaling target & in/out policies
     const autoScalingTarget = ApplicationAutoscaling.generateAutoScalingTarget(
       this,
-      config
+      config,
     );
 
     const applicationScaleOut =
@@ -41,14 +41,14 @@ export class ApplicationAutoscaling extends Construct {
         this,
         config,
         autoScalingTarget,
-        'Out'
+        'Out',
       );
 
     const applicationScaleIn = ApplicationAutoscaling.generateAutoSclaingPolicy(
       this,
       config,
       autoScalingTarget,
-      'In'
+      'In',
     );
 
     // set up cloudwatch alarms
@@ -60,7 +60,7 @@ export class ApplicationAutoscaling extends Construct {
       'Alarm to add capacity if container CPU is high',
       'GreaterThanThreshold',
       config.scaleOutThreshold,
-      applicationScaleOut.arn
+      applicationScaleOut.arn,
     );
 
     ApplicationAutoscaling.generateCloudwatchMetricAlarm(
@@ -71,7 +71,7 @@ export class ApplicationAutoscaling extends Construct {
       'Alarm to reduce capacity if container CPU is low',
       'LessThanThreshold',
       config.scaleInThreshold,
-      applicationScaleIn.arn
+      applicationScaleIn.arn,
     );
   }
 
@@ -83,7 +83,7 @@ export class ApplicationAutoscaling extends Construct {
    */
   static generateAutoScalingTarget(
     scope: Construct,
-    config: ApplicationAutoscalingProps
+    config: ApplicationAutoscalingProps,
   ): AppautoscalingTarget {
     return new AppautoscalingTarget(scope, `autoscaling_target`, {
       maxCapacity: config.targetMaxCapacity,
@@ -107,7 +107,7 @@ export class ApplicationAutoscaling extends Construct {
     scope: Construct,
     config: ApplicationAutoscalingProps,
     target: AppautoscalingTarget,
-    type: 'In' | 'Out'
+    type: 'In' | 'Out',
   ): AppautoscalingPolicy {
     let stepAdjustment;
 
@@ -145,14 +145,14 @@ export class ApplicationAutoscaling extends Construct {
         },
         dependsOn: [target],
         provider: config.provider,
-      }
+      },
     );
 
     // Terraform CDK 0.8.1 started outputing this as a {} in syntiesized output and
     // terraform does not like this being an empty object, but it is ok with a null
     appAutoscaling.addOverride(
       'target_tracking_scaling_policy_configuration',
-      null
+      null,
     );
 
     return appAutoscaling;
@@ -177,7 +177,7 @@ export class ApplicationAutoscaling extends Construct {
     desc: string,
     operator: string,
     threshold: number,
-    arn: string
+    arn: string,
   ): void {
     new CloudwatchMetricAlarm(scope, id, {
       alarmName: name,

@@ -14,7 +14,7 @@ describe('ApplicationBaseDNS', () => {
         ApplicationBaseDNS.retrieveAwsRoute53Zone(
           new TestResource(stack, 'test-resource'),
           'some-zone',
-          'dev.gobowling.info'
+          'dev.gobowling.info',
         );
       });
       expect(synthed).toMatchSnapshot();
@@ -26,7 +26,7 @@ describe('ApplicationBaseDNS', () => {
       const synthed = Testing.synthScope((stack) => {
         ApplicationBaseDNS.generateRoute53Zone(
           new TestResource(stack, 'test-resource'),
-          'dev.gobowling.info'
+          'dev.gobowling.info',
         );
       });
       expect(synthed).toMatchSnapshot();
@@ -37,7 +37,7 @@ describe('ApplicationBaseDNS', () => {
         ApplicationBaseDNS.generateRoute53Zone(
           new TestResource(stack, 'test-resource'),
           'dev.gobowling.info',
-          tags
+          tags,
         );
       });
       expect(synthed).toMatchSnapshot();
@@ -51,7 +51,7 @@ describe('ApplicationBaseDNS', () => {
           new TestResource(stack, 'test-resource'),
           'dev.gobowling.info',
           'some-zone-id',
-          ['some', 'records']
+          ['some', 'records'],
         );
       });
       expect(synthed).toMatchSnapshot();

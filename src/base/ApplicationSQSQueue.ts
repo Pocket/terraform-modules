@@ -77,7 +77,7 @@ export class ApplicationSQSQueue extends Construct {
   constructor(
     scope: Construct,
     name: string,
-    config: ApplicationSQSQueueProps
+    config: ApplicationSQSQueueProps,
   ) {
     super(scope, name);
     ApplicationSQSQueue.validateConfig(config);
@@ -100,7 +100,7 @@ export class ApplicationSQSQueue extends Construct {
       const { min, max } = validations[key];
       if (valueToValidate < min || valueToValidate > max) {
         throw new Error(
-          `${key} can not be greater then ${max} or less then ${min}`
+          `${key} can not be greater then ${max} or less then ${min}`,
         );
       }
     }

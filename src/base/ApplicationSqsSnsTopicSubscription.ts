@@ -28,7 +28,7 @@ export class ApplicationSqsSnsTopicSubscription extends Construct {
   constructor(
     scope: Construct,
     name: string,
-    private config: ApplicationSqsSnsTopicSubscriptionProps
+    private config: ApplicationSqsSnsTopicSubscriptionProps,
   ) {
     super(scope, name);
 
@@ -55,7 +55,7 @@ export class ApplicationSqsSnsTopicSubscription extends Construct {
    * @private
    */
   private createSnsTopicSubscription(
-    snsTopicDlq: SqsQueue
+    snsTopicDlq: SqsQueue,
   ): SnsTopicSubscription {
     return new SnsTopicSubscription(this, 'sns-subscription', {
       topicArn: this.config.snsTopicArn,
@@ -109,7 +109,7 @@ export class ApplicationSqsSnsTopicSubscription extends Construct {
           ],
           dependsOn: [queue.resource] as TerraformResource[],
           provider: this.config.provider,
-        }
+        },
       ).json;
 
       new SqsQueuePolicy(this, `${queue.name}-policy`, {

@@ -48,8 +48,8 @@ describe('ApplicationSQSQueue', () => {
         new ApplicationSQSQueue(
           new TerraformStack(Testing.app(), 'test'),
           'test-sqs',
-          sqsConfig
-        )
+          sqsConfig,
+        ),
     ).toThrow(Error);
   };
 

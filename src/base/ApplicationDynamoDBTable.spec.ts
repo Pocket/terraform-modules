@@ -172,11 +172,11 @@ describe('ApplicationDynamoDBTable', () => {
       const applicationDynamoDBTable = new ApplicationDynamoDBTable(
         stack,
         'testDynamoDBTable',
-        BASE_CONFIG
+        BASE_CONFIG,
       );
 
       expect(
-        applicationDynamoDBTable.dynamodb.lifecycle.preventDestroy
+        applicationDynamoDBTable.dynamodb.lifecycle.preventDestroy,
       ).toEqual(false);
     });
     expect(synthed).toMatchSnapshot();

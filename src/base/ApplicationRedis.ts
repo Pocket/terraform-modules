@@ -20,7 +20,7 @@ export class ApplicationRedis extends ApplicationElasticacheCluster {
   constructor(
     scope: Construct,
     name: string,
-    config: ApplicationElasticacheClusterProps
+    config: ApplicationElasticacheClusterProps,
   ) {
     super(scope, name);
 
@@ -36,7 +36,7 @@ export class ApplicationRedis extends ApplicationElasticacheCluster {
       ApplicationRedis.createElasticacheReplicationCluster(
         this,
         appVpc,
-        config
+        config,
       );
   }
 
@@ -50,7 +50,7 @@ export class ApplicationRedis extends ApplicationElasticacheCluster {
   private static createElasticacheReplicationCluster(
     scope: Construct,
     appVpc: DataAwsVpc,
-    config: ApplicationElasticacheClusterProps
+    config: ApplicationElasticacheClusterProps,
   ): ElasticacheReplicationGroup {
     const engine = ApplicationElasticacheEngine.REDIS;
     const port = ApplicationElasticacheCluster.getPortForEngine(engine);
@@ -60,7 +60,7 @@ export class ApplicationRedis extends ApplicationElasticacheCluster {
         scope,
         config,
         appVpc,
-        port
+        port,
       );
 
     return new ElasticacheReplicationGroup(
@@ -90,7 +90,7 @@ export class ApplicationRedis extends ApplicationElasticacheCluster {
         numCacheClusters: config.node.count ?? 2,
         multiAzEnabled: true,
         provider: config.provider,
-      }
+      },
     );
   }
 }

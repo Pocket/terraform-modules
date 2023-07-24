@@ -270,7 +270,7 @@ const testAlarmValidation = (alarmType: string) => {
 
   expect(
     () =>
-      new PocketVersionedLambda(stack, 'test-lambda', eventBridgeLambdaConfig)
+      new PocketVersionedLambda(stack, 'test-lambda', eventBridgeLambdaConfig),
   ).toThrow(Error);
 };
 
