@@ -1,3 +1,10 @@
+## [5.0.1](https://github.com/Pocket/terraform-modules/compare/v5.0.0...v5.0.1) (2023-07-24)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @cdktf/provider-pagerduty to v9 ([#1086](https://github.com/Pocket/terraform-modules/issues/1086)) ([1c56273](https://github.com/Pocket/terraform-modules/commit/1c562731e851e9e0d0adb44708edd11a80021fc1))
+
 ## [4.17.1](https://github.com/Pocket/terraform-modules/compare/v4.17.0...v4.17.1) (2023-07-16)
 
 
