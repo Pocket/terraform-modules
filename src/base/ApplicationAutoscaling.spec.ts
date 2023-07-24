@@ -36,13 +36,13 @@ describe('ApplicationAutoscaling', () => {
         const construct = new TestResource(stack, 'test-resource');
         const target = ApplicationAutoscaling.generateAutoScalingTarget(
           construct,
-          props
+          props,
         );
         ApplicationAutoscaling.generateAutoSclaingPolicy(
           construct,
           props,
           target,
-          'In'
+          'In',
         );
       });
       expect(synthed).toMatchSnapshot();
@@ -53,13 +53,13 @@ describe('ApplicationAutoscaling', () => {
         const construct = new TestResource(stack, 'test-resource');
         const target = ApplicationAutoscaling.generateAutoScalingTarget(
           construct,
-          props
+          props,
         );
         ApplicationAutoscaling.generateAutoSclaingPolicy(
           construct,
           props,
           target,
-          'Out'
+          'Out',
         );
       });
       expect(synthed).toMatchSnapshot();
@@ -73,14 +73,14 @@ describe('ApplicationAutoscaling', () => {
 
         const target = ApplicationAutoscaling.generateAutoScalingTarget(
           construct,
-          props
+          props,
         );
 
         const policy = ApplicationAutoscaling.generateAutoSclaingPolicy(
           construct,
           props,
           target,
-          'In'
+          'In',
         );
 
         ApplicationAutoscaling.generateCloudwatchMetricAlarm(
@@ -91,7 +91,7 @@ describe('ApplicationAutoscaling', () => {
           'Alarm to reduce capacity if container CPU is low',
           'LessThanThreshold',
           props.scaleInThreshold,
-          policy.arn
+          policy.arn,
         );
       });
       expect(synthed).toMatchSnapshot();
@@ -103,14 +103,14 @@ describe('ApplicationAutoscaling', () => {
 
         const target = ApplicationAutoscaling.generateAutoScalingTarget(
           construct,
-          props
+          props,
         );
 
         const policy = ApplicationAutoscaling.generateAutoSclaingPolicy(
           construct,
           props,
           target,
-          'Out'
+          'Out',
         );
 
         ApplicationAutoscaling.generateCloudwatchMetricAlarm(
@@ -121,7 +121,7 @@ describe('ApplicationAutoscaling', () => {
           'Alarm to add capacity if container CPU is high',
           'GreaterThanThreshold',
           props.scaleOutThreshold,
-          policy.arn
+          policy.arn,
         );
       });
       expect(synthed).toMatchSnapshot();

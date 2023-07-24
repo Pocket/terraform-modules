@@ -27,7 +27,7 @@ export class ApplicationCertificate extends Construct {
   constructor(
     scope: Construct,
     name: string,
-    config: ApplicationCertificateProps
+    config: ApplicationCertificateProps,
   ) {
     super(scope, name);
 
@@ -45,21 +45,21 @@ export class ApplicationCertificate extends Construct {
       this,
       config.domain,
       config.tags,
-      config.provider
+      config.provider,
     );
 
     const certificateRecord = ApplicationCertificate.generateRoute53Record(
       this,
       config.zoneId,
       certificate,
-      config.provider
+      config.provider,
     );
 
     const validation = ApplicationCertificate.generateAcmCertificateValidation(
       this,
       certificate,
       certificateRecord,
-      config.provider
+      config.provider,
     );
 
     this.arn = certificate.arn;
@@ -70,7 +70,7 @@ export class ApplicationCertificate extends Construct {
     scope: Construct,
     domain: string,
     tags?: { [key: string]: string },
-    provider?: TerraformProvider
+    provider?: TerraformProvider,
   ): AcmCertificate {
     return new AcmCertificate(scope, `certificate`, {
       domainName: domain,
@@ -87,7 +87,7 @@ export class ApplicationCertificate extends Construct {
     scope: Construct,
     zoneId: string,
     cert: AcmCertificate,
-    provider?: TerraformProvider
+    provider?: TerraformProvider,
   ): Route53Record {
     const record = new Route53Record(scope, `certificate_record`, {
       name: cert.domainValidationOptions.get(0).resourceRecordName,
@@ -106,7 +106,7 @@ export class ApplicationCertificate extends Construct {
     scope: Construct,
     cert: AcmCertificate,
     record: Route53Record,
-    provider?: TerraformProvider
+    provider?: TerraformProvider,
   ): AcmCertificateValidation {
     return new AcmCertificateValidation(scope, `certificate_validation`, {
       certificateArn: cert.arn,

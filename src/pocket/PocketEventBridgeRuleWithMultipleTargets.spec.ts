@@ -23,7 +23,7 @@ describe('PocketEventBridgeRuleWithMultipleTargets', () => {
       const testLambda = new PocketVersionedLambda(
         stack,
         'test-lambda',
-        lambdaConfig
+        lambdaConfig,
       );
 
       const testSqs = new SqsQueue(stack, 'test-queue', {
@@ -61,7 +61,7 @@ describe('PocketEventBridgeRuleWithMultipleTargets', () => {
             ...testConfig.eventRule,
             description: 'Test description',
           },
-        }
+        },
       );
     });
     expect(synthed).toMatchSnapshot();
@@ -98,7 +98,7 @@ describe('PocketEventBridgeRuleWithMultipleTargets', () => {
             ...testConfig.eventRule,
             description: 'Test description',
           },
-        }
+        },
       );
     });
     expect(synthed).toMatchSnapshot();
@@ -136,7 +136,7 @@ describe('PocketEventBridgeRuleWithMultipleTargets', () => {
             ...testConfig.eventRule,
             description: 'Test description',
           },
-        }
+        },
       );
     });
     expect(synthed).toMatchSnapshot();

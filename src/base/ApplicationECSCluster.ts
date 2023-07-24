@@ -16,7 +16,7 @@ export class ApplicationECSCluster extends Construct {
   constructor(
     scope: Construct,
     name: string,
-    config: ApplicationECSClusterProps
+    config: ApplicationECSClusterProps,
   ) {
     super(scope, name);
 

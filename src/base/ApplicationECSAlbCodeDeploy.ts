@@ -44,7 +44,7 @@ export class ApplicationECSAlbCodeDeploy extends Construct {
   constructor(
     scope: Construct,
     name: string,
-    config: ApplicationECSAlbCodeDeployProps
+    config: ApplicationECSAlbCodeDeployProps,
   ) {
     super(scope, name);
 
@@ -94,7 +94,7 @@ export class ApplicationECSAlbCodeDeploy extends Construct {
         },
         tags: this.config.tags,
         provider: this.config.provider,
-      }
+      },
     );
   }
 
@@ -109,7 +109,7 @@ export class ApplicationECSAlbCodeDeploy extends Construct {
   private getEventTypeIds(
     notifyOnStarted = true,
     notifyOnSucceeded = true,
-    notifyOnFailed = true
+    notifyOnFailed = true,
   ): string[] {
     const eventTypeIds: string[] = [];
 
@@ -151,7 +151,7 @@ export class ApplicationECSAlbCodeDeploy extends Construct {
               ],
             },
           ],
-        }
+        },
       ).json,
       tags: this.config.tags,
       provider: this.config.provider,
@@ -186,7 +186,7 @@ export class ApplicationECSAlbCodeDeploy extends Construct {
           eventTypeIds: this.getEventTypeIds(
             this.config.notifications?.notifyOnStarted,
             this.config.notifications?.notifyOnSucceeded,
-            this.config.notifications?.notifyOnFailed
+            this.config.notifications?.notifyOnFailed,
           ),
           name: codeDeployApp.name,
           resource: `arn:aws:codedeploy:${region.name}:${account.accountId}:application:${codeDeployApp.name}`,
@@ -197,7 +197,7 @@ export class ApplicationECSAlbCodeDeploy extends Construct {
           ],
           tags: this.config.tags,
           provider: this.config.provider,
-        }
+        },
       );
     }
 

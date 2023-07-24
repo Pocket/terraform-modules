@@ -23,14 +23,14 @@ export class PocketEventBridgeWithLambdaTarget extends PocketVersionedLambda {
   constructor(
     scope: Construct,
     name: string,
-    protected readonly config: PocketEventBridgeWithLambdaTargetProps
+    protected readonly config: PocketEventBridgeWithLambdaTargetProps,
   ) {
     super(scope, name, config);
 
     const eventBridgeRule = this.createEventBridgeRule([this.lambda]);
     this.createLambdaEventRuleResourcePermission(
       [this.lambda],
-      eventBridgeRule
+      eventBridgeRule,
     );
   }
 
@@ -42,7 +42,7 @@ export class PocketEventBridgeWithLambdaTarget extends PocketVersionedLambda {
    */
   private createLambdaEventRuleResourcePermission(
     targetLambdas: ApplicationVersionedLambda[],
-    eventBridgeRule: ApplicationEventBridgeRule
+    eventBridgeRule: ApplicationEventBridgeRule,
   ): void {
     targetLambdas.forEach((lambda) => {
       new LambdaPermission(this, 'lambda-permission', {
@@ -63,7 +63,7 @@ export class PocketEventBridgeWithLambdaTarget extends PocketVersionedLambda {
    * @private
    */
   private createEventBridgeRule(
-    targetLambdas: ApplicationVersionedLambda[]
+    targetLambdas: ApplicationVersionedLambda[],
   ): ApplicationEventBridgeRule {
     const eventRuleConfig = this.config.eventRule;
     const targets: Target[] = [];
@@ -72,7 +72,7 @@ export class PocketEventBridgeWithLambdaTarget extends PocketVersionedLambda {
         targetId: 'lambda',
         arn: t.versionedLambda.arn,
         dependsOn: t.versionedLambda,
-      })
+      }),
     );
 
     return new ApplicationEventBridgeRule(this, 'event-bridge-rule', {

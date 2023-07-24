@@ -27,7 +27,7 @@ describe('ApplicationSqsSnsTopicSubscription', () => {
       new ApplicationSqsSnsTopicSubscription(
         stack,
         'sqs-sns-subscription',
-        getConfig(stack)
+        getConfig(stack),
       );
     });
     expect(synthed).toMatchSnapshot();

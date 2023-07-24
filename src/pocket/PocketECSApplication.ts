@@ -102,7 +102,7 @@ export class PocketECSApplication extends Construct {
   constructor(
     scope: Construct,
     name: string,
-    config: PocketECSApplicationProps
+    config: PocketECSApplicationProps,
   ) {
     super(scope, name);
 
@@ -121,7 +121,7 @@ export class PocketECSApplication extends Construct {
 
     this.createCloudwatchDashboard(
       ecsService.ecs.service.name,
-      ecsService.cluster.cluster.name
+      ecsService.cluster.cluster.name,
     );
 
     this.createCloudwatchAlarms();
@@ -134,7 +134,7 @@ export class PocketECSApplication extends Construct {
    * @private
    */
   private getVpcConfig(
-    config: PocketECSApplicationProps
+    config: PocketECSApplicationProps,
   ): PocketECSApplicationProps['vpcConfig'] {
     if (config.vpcConfig !== undefined) {
       return {
@@ -146,7 +146,7 @@ export class PocketECSApplication extends Construct {
       const pocketVpc = new PocketVPC(
         this,
         `pocket_vpc`,
-        config.provider as AwsProvider
+        config.provider as AwsProvider,
       );
       return {
         vpcId: pocketVpc.vpc.id,
@@ -163,7 +163,7 @@ export class PocketECSApplication extends Construct {
    * @private
    */
   private static validateConfig(
-    config: PocketECSApplicationProps
+    config: PocketECSApplicationProps,
   ): PocketECSApplicationProps {
     PocketECSApplication.validateAlarmsConfig(config.alarms);
 
@@ -171,7 +171,7 @@ export class PocketECSApplication extends Construct {
   }
 
   private static validateAlarmsConfig(
-    config: PocketECSApplicationProps['alarms']
+    config: PocketECSApplicationProps['alarms'],
   ): void {
     if (!config) return;
 
@@ -235,7 +235,7 @@ export class PocketECSApplication extends Construct {
     const ecsService = new ApplicationECSService(
       this,
       'ecs_service',
-      ecsConfig
+      ecsConfig,
     );
 
     new ApplicationAutoscaling(this, 'autoscaling', {
@@ -269,7 +269,7 @@ export class PocketECSApplication extends Construct {
    */
   private createCloudwatchDashboard(
     ecsServiceName: string,
-    ecsServiceClusterName: string
+    ecsServiceClusterName: string,
   ): CloudwatchDashboard {
     // set some defaults, then ignore all future changes / manual edits & additions.
     const dashboardJSON = {

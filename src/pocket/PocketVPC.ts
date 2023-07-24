@@ -90,7 +90,7 @@ export class PocketVPC extends Construct {
       {
         provider: provider,
         name: 'alias/aws/secretsmanager',
-      }
+      },
     );
 
     this.defaultSecurityGroups = new DataAwsSecurityGroups(
@@ -108,7 +108,7 @@ export class PocketVPC extends Construct {
             values: [this.vpc.id],
           },
         ],
-      }
+      },
     );
 
     this.internalSecurityGroups = new DataAwsSecurityGroups(
@@ -126,7 +126,7 @@ export class PocketVPC extends Construct {
             values: [this.vpc.id],
           },
         ],
-      }
+      },
     );
   }
 }

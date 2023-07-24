@@ -16,7 +16,7 @@ describe('ApplicationSqsSnsTopicSubscription', () => {
       new ApplicationLambdaSnsTopicSubscription(
         stack,
         'lambda-sns-subscription',
-        getConfig(stack)
+        getConfig(stack),
       );
     });
     expect(synthed).toMatchSnapshot();
@@ -30,7 +30,7 @@ describe('ApplicationSqsSnsTopicSubscription', () => {
         {
           ...getConfig(stack),
           tags: { hello: 'there' },
-        }
+        },
       );
     });
     expect(synthed).toMatchSnapshot();

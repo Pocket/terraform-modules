@@ -57,7 +57,7 @@ export class PocketECSCodePipeline extends Construct {
   constructor(
     scope: Construct,
     name: string,
-    private config: PocketECSCodePipelineProps
+    private config: PocketECSCodePipelineProps,
   ) {
     super(scope, name);
 
@@ -172,7 +172,7 @@ export class PocketECSCodePipeline extends Construct {
             },
           ],
           provider: this.config.provider,
-        }
+        },
       ).json,
     });
 
@@ -253,7 +253,7 @@ export class PocketECSCodePipeline extends Construct {
             },
           ],
           provider: this.config.provider,
-        }
+        },
       ).json,
     });
 

@@ -47,7 +47,7 @@ export abstract class ApplicationElasticacheCluster extends Construct {
    */
   protected static getVpc(
     scope: Construct,
-    config: ApplicationElasticacheClusterProps
+    config: ApplicationElasticacheClusterProps,
   ): DataAwsVpc {
     return new DataAwsVpc(scope, `vpc`, {
       filter: [
@@ -66,7 +66,7 @@ export abstract class ApplicationElasticacheCluster extends Construct {
    * @private
    */
   protected static getPortForEngine(
-    engine: ApplicationElasticacheEngine
+    engine: ApplicationElasticacheEngine,
   ): number {
     switch (engine) {
       case ApplicationElasticacheEngine.MEMCACHED:
@@ -82,7 +82,7 @@ export abstract class ApplicationElasticacheCluster extends Construct {
    * @private
    */
   protected static getParameterGroupForEngine(
-    engine: ApplicationElasticacheEngine
+    engine: ApplicationElasticacheEngine,
   ): string {
     switch (engine) {
       case ApplicationElasticacheEngine.MEMCACHED:
@@ -98,7 +98,7 @@ export abstract class ApplicationElasticacheCluster extends Construct {
    * @private
    */
   protected static getEngineVersionForEngine(
-    engine: ApplicationElasticacheEngine
+    engine: ApplicationElasticacheEngine,
   ): string {
     switch (engine) {
       case ApplicationElasticacheEngine.MEMCACHED:
@@ -120,7 +120,7 @@ export abstract class ApplicationElasticacheCluster extends Construct {
     scope: Construct,
     config: ApplicationElasticacheClusterProps,
     appVpc: DataAwsVpc,
-    port: number
+    port: number,
   ): {
     securityGroup: SecurityGroup;
     subnetGroup: ElasticacheSubnetGroup;
@@ -157,7 +157,7 @@ export abstract class ApplicationElasticacheCluster extends Construct {
         ],
         tags: config.tags,
         provider: config.provider,
-      }
+      },
     );
     const subnetGroup = new ElasticacheSubnetGroup(
       scope,
@@ -167,7 +167,7 @@ export abstract class ApplicationElasticacheCluster extends Construct {
         subnetIds: config.subnetIds,
         provider: config.provider,
         tags: config.tags,
-      }
+      },
     );
     return { securityGroup, subnetGroup };
   }

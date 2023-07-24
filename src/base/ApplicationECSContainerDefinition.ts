@@ -63,7 +63,7 @@ export interface ApplicationECSContainerDefinitionProps {
 }
 
 export function buildDefinitionJSON(
-  config: ApplicationECSContainerDefinitionProps
+  config: ApplicationECSContainerDefinitionProps,
 ): string {
   // logGroup is optional in PocketALBApplicationProps, and provides a default log group if unset.
   if (!config.logGroup) {

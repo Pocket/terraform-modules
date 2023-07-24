@@ -37,7 +37,7 @@ export class ApplicationLambdaCodeDeploy extends Construct {
   constructor(
     scope: Construct,
     name: string,
-    private config: ApplicationVersionedLambdaCodeDeployProps
+    private config: ApplicationVersionedLambdaCodeDeployProps,
   ) {
     super(scope, name);
 
@@ -118,7 +118,7 @@ export class ApplicationLambdaCodeDeploy extends Construct {
           },
         ],
         provider: this.config.provider,
-      }
+      },
     ).json;
   }
 

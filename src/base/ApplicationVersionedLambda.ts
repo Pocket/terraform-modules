@@ -60,7 +60,7 @@ export class ApplicationVersionedLambda extends Construct {
   constructor(
     scope: Construct,
     name: string,
-    private config: ApplicationVersionedLambdaProps
+    private config: ApplicationVersionedLambdaProps,
   ) {
     super(scope, name);
 
@@ -206,7 +206,7 @@ export class ApplicationVersionedLambda extends Construct {
     return new DataAwsIamPolicyDocument(
       this,
       'execution-policy-document',
-      document
+      document,
     ).json;
   }
 

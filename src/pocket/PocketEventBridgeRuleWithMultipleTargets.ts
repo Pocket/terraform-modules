@@ -31,7 +31,7 @@ export class PocketEventBridgeRuleWithMultipleTargets extends Construct {
   constructor(
     scope: Construct,
     name: string,
-    protected readonly config: PocketEventBridgeProps
+    protected readonly config: PocketEventBridgeProps,
   ) {
     super(scope, name);
     this.eventBridgeRule = this.createEventBridgeRule(config.targets);
@@ -47,7 +47,7 @@ export class PocketEventBridgeRuleWithMultipleTargets extends Construct {
    * @private
    */
   private createEventBridgeRule(
-    eventRuleTargets?: any
+    eventRuleTargets?: any,
   ): ApplicationEventBridgeRule {
     const eventRuleConfig = this.config.eventRule;
     const targets: Target[] = [];

@@ -47,7 +47,7 @@ export class ApplicationLoadBalancer extends Construct {
   constructor(
     scope: Construct,
     name: string,
-    config: ApplicationLoadBalancerProps
+    config: ApplicationLoadBalancerProps,
   ) {
     super(scope, name);
 
@@ -146,7 +146,7 @@ export class ApplicationLoadBalancer extends Construct {
   }): string {
     if (config.existingBucket === undefined && config.bucket === undefined) {
       throw new Error(
-        'If you are configuring access logs you need to define either an existing bucket or a new one to store the logs'
+        'If you are configuring access logs you need to define either an existing bucket or a new one to store the logs',
       );
     }
 
@@ -166,7 +166,7 @@ export class ApplicationLoadBalancer extends Construct {
     const albAccountId = new DataAwsElbServiceAccount(
       this,
       'elb-service-account',
-      { provider: config.provider }
+      { provider: config.provider },
     ).id;
 
     const s3IAMDocument = new DataAwsIamPolicyDocument(
@@ -187,7 +187,7 @@ export class ApplicationLoadBalancer extends Construct {
           },
         ],
         provider: config.provider,
-      }
+      },
     );
 
     new S3BucketPolicy(this, 'log-bucket-policy', {

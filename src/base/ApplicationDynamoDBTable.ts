@@ -68,14 +68,14 @@ export class ApplicationDynamoDBTable extends Construct {
   constructor(
     scope: Construct,
     name: string,
-    config: ApplicationDynamoDBProps
+    config: ApplicationDynamoDBProps,
   ) {
     super(scope, name);
 
     // validate stream config (if enabled)
     ApplicationDynamoDBTable.validateStreamConfig(
       config.tableConfig,
-      ApplicationDynamoDBTableStreamViewType
+      ApplicationDynamoDBTableStreamViewType,
     );
 
     const billingMode: string = (
@@ -104,7 +104,7 @@ export class ApplicationDynamoDBTable extends Construct {
         ApplicationDynamoDBTableCapacityType.Read,
         config.tableConfig.globalSecondaryIndex,
         config.tags,
-        config.provider
+        config.provider,
       );
     }
 
@@ -117,7 +117,7 @@ export class ApplicationDynamoDBTable extends Construct {
         ApplicationDynamoDBTableCapacityType.Write,
         config.tableConfig.globalSecondaryIndex,
         config.tags,
-        config.provider
+        config.provider,
       );
     }
   }
@@ -141,7 +141,7 @@ export class ApplicationDynamoDBTable extends Construct {
     capacityType: ApplicationDynamoDBTableCapacityType,
     globalSecondaryIndexes: DynamodbTableGlobalSecondaryIndex[] | IResolvable,
     tags?: { [key: string]: string },
-    provider?: TerraformProvider
+    provider?: TerraformProvider,
   ): void {
     const roleArn = ApplicationDynamoDBTable.createAutoScalingRole(
       scope,
@@ -149,7 +149,7 @@ export class ApplicationDynamoDBTable extends Construct {
       prefix,
       dynamoDB.arn,
       tags,
-      provider
+      provider,
     );
 
     // create an auto scaling policy for the table
@@ -163,7 +163,7 @@ export class ApplicationDynamoDBTable extends Construct {
       config.tracking,
       dynamoDB,
       undefined,
-      provider
+      provider,
     );
 
     //cdktf 0.9 updated the types of Globalsecondary indexes to be IResolvable | DynamodbGlobalSecondaryIndexes[]
@@ -193,7 +193,7 @@ export class ApplicationDynamoDBTable extends Construct {
           config.tracking,
           dynamoDB,
           gsIndex.name,
-          provider
+          provider,
         );
       });
     }
@@ -222,7 +222,7 @@ export class ApplicationDynamoDBTable extends Construct {
     tracking: number,
     dynamoDB: DynamodbTable,
     indexName?: string,
-    provider?: TerraformProvider
+    provider?: TerraformProvider,
   ): void {
     let resourceId = `table/${dynamoDB.name}`;
 
@@ -232,7 +232,7 @@ export class ApplicationDynamoDBTable extends Construct {
         resourceId += `/index/${indexName}`;
       } else {
         throw new Error(
-          'you must specify an indexName when creating an index auto scaling policy'
+          'you must specify an indexName when creating an index auto scaling policy',
         );
       }
     }
@@ -253,7 +253,7 @@ export class ApplicationDynamoDBTable extends Construct {
         serviceNamespace: 'dynamodb',
         dependsOn: [dynamoDB],
         provider,
-      }
+      },
     );
 
     new AppautoscalingPolicy(scope, `${constructPrefix}_policy`, {
@@ -288,7 +288,7 @@ export class ApplicationDynamoDBTable extends Construct {
     prefix: string,
     dynamoDBARN: string,
     tags?: { [key: string]: string },
-    provider?: TerraformProvider
+    provider?: TerraformProvider,
   ): string {
     const policy = new IamPolicy(scope, `${capacityType}_autoscaling_policy`, {
       name: `${prefix}-${capacityType}-AutoScalingPolicy`,
@@ -312,7 +312,7 @@ export class ApplicationDynamoDBTable extends Construct {
               resources: [dynamoDBARN, `${dynamoDBARN}*`], // 🏚
             },
           ],
-        }
+        },
       ).json,
       provider,
     });
@@ -347,7 +347,7 @@ export class ApplicationDynamoDBTable extends Construct {
               ],
             },
           ],
-        }
+        },
       ).json,
       provider,
     });
@@ -370,18 +370,18 @@ export class ApplicationDynamoDBTable extends Construct {
    */
   private static validateStreamConfig(
     tableConfig: ApplicationDynamoDBTableConfig,
-    streamViewTypeValues: typeof ApplicationDynamoDBTableStreamViewType
+    streamViewTypeValues: typeof ApplicationDynamoDBTableStreamViewType,
   ): void {
     if (tableConfig.streamEnabled) {
       if (!tableConfig.streamViewType) {
         throw new Error(
-          'you must specify a stream view type if streams are enabled'
+          'you must specify a stream view type if streams are enabled',
         );
       }
 
       if (
         !Object.values<string>(streamViewTypeValues).includes(
-          tableConfig.streamViewType
+          tableConfig.streamViewType,
         )
       ) {
         throw new Error('you must specify a valid stream view type');

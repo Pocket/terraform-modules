@@ -119,7 +119,7 @@ describe('PocketECSApplication', () => {
     };
 
     expect(
-      () => new PocketECSApplication(stack, 'testPocketApp', alarmConfig)
+      () => new PocketECSApplication(stack, 'testPocketApp', alarmConfig),
     ).toThrow(Error);
   });
 

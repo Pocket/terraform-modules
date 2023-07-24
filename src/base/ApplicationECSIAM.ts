@@ -43,7 +43,7 @@ export class ApplicationECSIAM extends Construct {
           },
         ],
         provider: config.provider,
-      }
+      },
     );
 
     const ecsTaskExecutionRole = new IamRole(this, 'ecs-execution-role', {
@@ -61,7 +61,7 @@ export class ApplicationECSIAM extends Construct {
           policyArn: config.taskExecutionDefaultAttachmentArn,
           role: ecsTaskExecutionRole.id,
           provider: config.provider,
-        }
+        },
       );
     }
 
@@ -73,7 +73,7 @@ export class ApplicationECSIAM extends Construct {
           version: '2012-10-17',
           statement: config.taskExecutionRolePolicyStatements,
           provider: config.provider,
-        }
+        },
       );
 
       const ecsTaskExecutionRolePolicy = new IamPolicy(
@@ -84,7 +84,7 @@ export class ApplicationECSIAM extends Construct {
           policy: dataEcsTaskExecutionRolePolicy.json,
           provider: config.provider,
           tags: config.tags,
-        }
+        },
       );
 
       new IamRolePolicyAttachment(
@@ -94,7 +94,7 @@ export class ApplicationECSIAM extends Construct {
           policyArn: ecsTaskExecutionRolePolicy.arn,
           role: ecsTaskExecutionRole.id,
           provider: config.provider,
-        }
+        },
       );
     }
 
@@ -113,7 +113,7 @@ export class ApplicationECSIAM extends Construct {
           version: '2012-10-17',
           statement: config.taskRolePolicyStatements,
           provider: config.provider,
-        }
+        },
       );
 
       const ecsTaskRolePolicy = new IamPolicy(this, 'ecs-task-role-policy', {

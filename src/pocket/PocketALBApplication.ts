@@ -222,7 +222,7 @@ export class PocketALBApplication extends Construct {
   constructor(
     scope: Construct,
     name: string,
-    config: PocketALBApplicationProps
+    config: PocketALBApplicationProps,
   ) {
     super(scope, name);
 
@@ -254,7 +254,7 @@ export class PocketALBApplication extends Construct {
     if (config.wafConfig) {
       if (config.cdn) {
         throw new Error(
-          'Implementation of waf association with CDN is not currently supported'
+          'Implementation of waf association with CDN is not currently supported',
         );
       }
       this.createWAF(alb, config.wafConfig.aclArn);
@@ -270,7 +270,7 @@ export class PocketALBApplication extends Construct {
     this.createCloudwatchDashboard(
       alb.alb.arnSuffix,
       ecsService.ecs.service.name,
-      ecsService.cluster.cluster.name
+      ecsService.cluster.cluster.name,
     );
 
     this.createCloudwatchAlarms();
@@ -283,7 +283,7 @@ export class PocketALBApplication extends Construct {
    * @private
    */
   private getVpcConfig(
-    config: PocketALBApplicationProps
+    config: PocketALBApplicationProps,
   ): PocketALBApplicationProps['vpcConfig'] {
     if (config.vpcConfig !== undefined) {
       return {
@@ -295,7 +295,7 @@ export class PocketALBApplication extends Construct {
       const pocketVpc = new PocketVPC(
         this,
         `pocket_vpc`,
-        config.provider as AwsProvider
+        config.provider as AwsProvider,
       );
       return {
         vpcId: pocketVpc.vpc.id,
@@ -312,7 +312,7 @@ export class PocketALBApplication extends Construct {
    * @private
    */
   private static validateConfig(
-    config: PocketALBApplicationProps
+    config: PocketALBApplicationProps,
   ): PocketALBApplicationProps {
     config = PocketALBApplication.validateCachedALB(config);
 
@@ -322,7 +322,7 @@ export class PocketALBApplication extends Construct {
   }
 
   private static validateAlarmsConfig(
-    config: PocketALBApplicationProps['alarms']
+    config: PocketALBApplicationProps['alarms'],
   ): void {
     if (!config) return;
 
@@ -360,7 +360,7 @@ export class PocketALBApplication extends Construct {
   }
 
   private static validateCachedALB(
-    config: PocketALBApplicationProps
+    config: PocketALBApplicationProps,
   ): PocketALBApplicationProps {
     if (config.cdn === undefined) {
       //Set a default of cached to false
@@ -554,7 +554,7 @@ export class PocketALBApplication extends Construct {
    */
   private createECSService(
     alb: ApplicationLoadBalancer,
-    albCertificate: ApplicationCertificate
+    albCertificate: ApplicationCertificate,
   ): { ecs: ApplicationECSService; cluster: ApplicationECSCluster } {
     const ecsCluster = new ApplicationECSCluster(this, 'ecs_cluster', {
       prefix: this.config.prefix,
@@ -646,7 +646,7 @@ export class PocketALBApplication extends Construct {
     const ecsService = new ApplicationECSService(
       this,
       'ecs_service',
-      ecsConfig
+      ecsConfig,
     );
 
     new ApplicationAutoscaling(this, 'autoscaling', {
@@ -682,7 +682,7 @@ export class PocketALBApplication extends Construct {
   private createCloudwatchDashboard(
     albArnSuffix: string,
     ecsServiceName: string,
-    ecsServiceClusterName: string
+    ecsServiceClusterName: string,
   ): CloudwatchDashboard {
     // set some defaults, then ignore all future changes / manual edits & additions.
     const dashboardJSON = {

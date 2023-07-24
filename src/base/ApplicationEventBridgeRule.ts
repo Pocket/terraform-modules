@@ -41,7 +41,7 @@ export class ApplicationEventBridgeRule extends Construct {
   constructor(
     scope: Construct,
     name: string,
-    private config: ApplicationEventBridgeRuleProps
+    private config: ApplicationEventBridgeRuleProps,
   ) {
     super(scope, name);
 
@@ -93,7 +93,7 @@ export class ApplicationEventBridgeRule extends Construct {
           this,
           `event-bridge-target-${t.targetId}`,
           // yuck!
-          eventTargetConfig as CloudwatchEventTargetConfig
+          eventTargetConfig as CloudwatchEventTargetConfig,
         );
       });
     }
