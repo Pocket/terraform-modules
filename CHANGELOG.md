@@ -1,3 +1,10 @@
+## [5.0.3](https://github.com/Pocket/terraform-modules/compare/v5.0.2...v5.0.3) (2023-07-28)
+
+
+### Reverts
+
+* Revert "SOCIALPLAT-386: adding userId to PocketCloudWatchSynthetics" (#1090) ([4f9056d](https://github.com/Pocket/terraform-modules/commit/4f9056df1bb5f076d99e099d10f896f6f7247e64)), closes [#1090](https://github.com/Pocket/terraform-modules/issues/1090) [#1089](https://github.com/Pocket/terraform-modules/issues/1089)
+
 ## [5.0.2](https://github.com/Pocket/terraform-modules/compare/v5.0.1...v5.0.2) (2023-07-24)
 
 
