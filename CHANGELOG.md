@@ -1,3 +1,10 @@
+## [5.1.0](https://github.com/Pocket/terraform-modules/compare/v5.0.3...v5.1.0) (2023-07-28)
+
+
+### Features
+
+* **synchecks:** adding userId to CloudWatchSynthetics ([#1092](https://github.com/Pocket/terraform-modules/issues/1092)) ([e0bf64e](https://github.com/Pocket/terraform-modules/commit/e0bf64e93a731d4806147bd4907aa0a04cc9c63f))
+
 ## [5.0.3](https://github.com/Pocket/terraform-modules/compare/v5.0.2...v5.0.3) (2023-07-28)
 
 
