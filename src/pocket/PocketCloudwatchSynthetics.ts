@@ -19,7 +19,6 @@ import { Construct } from 'constructs';
  */
 interface PocketAwsSyntheticQueryConfig {
   data?: string;
-  userId?: string;
   endpoint?: string;
   jmespath?: string;
   response?: string;
@@ -277,7 +276,6 @@ export class PocketAwsSyntheticChecks extends Construct {
           runConfig: {
             environmentVariables: {
               GRAPHQL_ENDPOINT: queryConfig.endpoint,
-              GRAPHQL_USERID: queryConfig.userId,
               GRAPHQL_JMESPATH: queryConfig.jmespath,
               GRAPHQL_QUERY: queryConfig.data,
               GRAPHQL_RESPONSE: queryConfig.response,

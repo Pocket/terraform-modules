@@ -10,7 +10,6 @@ const testConfig: PocketAwsSyntheticCheckProps = {
   query: [
     {
       endpoint: 'acme.getpocket.dev',
-      userId: '1',
       data: '{"query": "query { someGraphQlQuery(arg1: \\"1\\", arg2: \\"1\\") {returnedAttr} }"}',
       jmespath: 'errors[0].message',
       response: 'Error - Not Found: A resource by that arg1 could not be found',
