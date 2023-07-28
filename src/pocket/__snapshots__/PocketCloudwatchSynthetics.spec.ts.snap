@@ -199,8 +199,7 @@ exports[`Pocket Cloudwatch Synthetics adds optional Alarms & Alarm Actions to Sy
             "GRAPHQL_ENDPOINT": "acme.getpocket.dev",
             "GRAPHQL_JMESPATH": "errors[0].message",
             "GRAPHQL_QUERY": "{\\"query\\": \\"query { someGraphQlQuery(arg1: \\\\\\"1\\\\\\", arg2: \\\\\\"1\\\\\\") {returnedAttr} }\\"}",
-            "GRAPHQL_RESPONSE": "Error - Not Found: A resource by that arg1 could not be found",
-            "GRAPHQL_USERID": "1"
+            "GRAPHQL_RESPONSE": "Error - Not Found: A resource by that arg1 could not be found"
           },
           "timeout_in_seconds": 180
         },
@@ -430,8 +429,7 @@ exports[`Pocket Cloudwatch Synthetics renders desired AWS Synthetic Checks 1`] =
             "GRAPHQL_ENDPOINT": "acme.getpocket.dev",
             "GRAPHQL_JMESPATH": "errors[0].message",
             "GRAPHQL_QUERY": "{\\"query\\": \\"query { someGraphQlQuery(arg1: \\\\\\"1\\\\\\", arg2: \\\\\\"1\\\\\\") {returnedAttr} }\\"}",
-            "GRAPHQL_RESPONSE": "Error - Not Found: A resource by that arg1 could not be found",
-            "GRAPHQL_USERID": "1"
+            "GRAPHQL_RESPONSE": "Error - Not Found: A resource by that arg1 could not be found"
           },
           "timeout_in_seconds": 180
         },
