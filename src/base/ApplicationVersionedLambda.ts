@@ -23,9 +23,13 @@ import { Construct } from 'constructs';
 
 export enum LAMBDA_RUNTIMES {
   PYTHON38 = 'python3.8',
-  NODEJS12 = 'nodejs12.x',
+  PYTHON39 = 'python3.9',
+  PYTHON310 = 'python3.10',
+  PYTHON311 = 'python3.11',
   NODEJS14 = 'nodejs14.x',
   NODEJS16 = 'nodejs16.x',
+  NODEJS18 = 'nodejs18.x',
+  NODEJS20 = 'nodejs20.x',
 }
 
 export interface ApplicationVersionedLambdaProps
