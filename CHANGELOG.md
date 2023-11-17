@@ -1,3 +1,10 @@
+## [5.2.0](https://github.com/Pocket/terraform-modules/compare/v5.1.0...v5.2.0) (2023-11-17)
+
+
+### Features
+
+* trigger release ([9bd66c8](https://github.com/Pocket/terraform-modules/commit/9bd66c8b915bfa4fe526205748f8ef5dccbd96ef))
+
 ## [5.1.0](https://github.com/Pocket/terraform-modules/compare/v5.0.3...v5.1.0) (2023-07-28)
 
 
