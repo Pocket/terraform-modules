@@ -1,3 +1,10 @@
+## [5.2.1](https://github.com/Pocket/terraform-modules/compare/v5.2.0...v5.2.1) (2023-11-28)
+
+
+### Bug Fixes
+
+* **rds:** allowing a no name rds ([#1094](https://github.com/Pocket/terraform-modules/issues/1094)) ([8892837](https://github.com/Pocket/terraform-modules/commit/88928377bf1341866aea902a113edf72a8a67b04))
+
 ## [5.2.0](https://github.com/Pocket/terraform-modules/compare/v5.1.0...v5.2.0) (2023-11-17)
 
 
