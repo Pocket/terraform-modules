@@ -31,9 +31,14 @@ export interface ApplicationRDSClusterProps extends TerraformMetaArguments {
   prefix: string;
   vpcId: string;
   subnetIds: string[];
+  useName?: boolean; // When importing resources we need to tell terraform to not try and change the name of the resource.
   rdsConfig: ApplicationRDSClusterConfig;
   tags?: { [key: string]: string };
 }
+
+const defaults = {
+  useName: true,
+};
 
 /**
  * Generates an RDS cluster
@@ -53,6 +58,9 @@ export class ApplicationRDSCluster extends Construct {
     config: ApplicationRDSClusterProps,
   ) {
     super(scope, name);
+
+    // Apply defaults
+    config = { ...defaults, ...config };
 
     const appVpc = new DataAwsVpc(this, `vpc`, {
       filter: [
@@ -104,7 +112,7 @@ export class ApplicationRDSCluster extends Construct {
     });
 
     const subnetGroup = new DbSubnetGroup(this, 'rds_subnet_group', {
-      namePrefix: config.prefix.toLowerCase(),
+      namePrefix: config.useName ? config.prefix.toLowerCase() : undefined,
       subnetIds: config.subnetIds,
       provider: config.provider,
       tags: config.tags,
@@ -112,7 +120,9 @@ export class ApplicationRDSCluster extends Construct {
 
     this.rds = new RdsCluster(this, 'rds_cluster', {
       ...config.rdsConfig,
-      clusterIdentifierPrefix: config.prefix.toLowerCase(),
+      clusterIdentifierPrefix: config.useName
+        ? config.prefix.toLowerCase()
+        : undefined,
       tags: config.tags,
       copyTagsToSnapshot: true, //Why would we ever want this to false??
       masterPassword:
