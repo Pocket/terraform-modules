@@ -1,3 +1,10 @@
+## [5.2.2](https://github.com/Pocket/terraform-modules/compare/v5.2.1...v5.2.2) (2024-01-16)
+
+
+### Bug Fixes
+
+* **deps:** update cdktf ([#1095](https://github.com/Pocket/terraform-modules/issues/1095)) ([f831bfa](https://github.com/Pocket/terraform-modules/commit/f831bfae16403937c2ccf1f7a6679f17756021b4))
+
 ## [5.2.1](https://github.com/Pocket/terraform-modules/compare/v5.2.0...v5.2.1) (2023-11-28)
 
 
