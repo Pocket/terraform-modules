@@ -1,3 +1,10 @@
+## [5.2.3](https://github.com/Pocket/terraform-modules/compare/v5.2.2...v5.2.3) (2024-01-24)
+
+
+### Bug Fixes
+
+* **stopTimeout:** adding in stop timeout options ([#1097](https://github.com/Pocket/terraform-modules/issues/1097)) ([2641cfe](https://github.com/Pocket/terraform-modules/commit/2641cfe0fe7971fa38e12925bc80c486c5183bec))
+
 ## [5.2.2](https://github.com/Pocket/terraform-modules/compare/v5.2.1...v5.2.2) (2024-01-16)
 
 
