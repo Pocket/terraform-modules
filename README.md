@@ -1,5 +1,8 @@
 # terraform-modules
 
+> [!IMPORTANT]  
+> This repo has been moved to [Pocket's Monorepo](https://github.com/Pocket/pocket-monorepo/tree/main/packages/terraform-modules)
+
 This is a collection of terraform typescript cdk modules
 that @Pocket uses in various services.
 
